@@ -1,45 +1,63 @@
 var express = require('express')
+  , mongoose = require('mongoose')
   , passport = require('passport')
-  , localStrategy = require('passport-local').Strategy
-  , passportLocalMongoose = require('passport-local-mongoose')
+  , LocalStrategy = require('passport-local').Strategy
   ;
 
-//set environment
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
-
-//init express
 var app = express();
+var config = require('./server/config')[env];
 
-//configuration
-var config = require('./server/config/config')[env]
-  , db = require('./server/config/db')(config)
-  ;
+//initialize database
+require('./server/db')(config);
 
-//express configuration
-app.set('views', config.rootPath + '/server/views');
-app.set('view engine', 'jade');
-//note: no longer included by default in Connect 3.0
-//https://github.com/senchalabs/connect#middleware
-var cookieParser    = require('cookie-parser')
-  , bodyParser      = require('body-parser')
-  , expressSession  = require('express-session')
-  , serveStatic     = require('serve-static')
-  ;
-app.use(cookieParser('coyote is neatness'));
-app.use(bodyParser.urlencoded({extended: false}));
-// app.use(expressSession({secret: 'fugitive labs is neat'}));
-app.use(serveStatic(config.rootPath + '/public'));
+//init User model
+var User = require('./server/models/User').User;
 
-//passport setup
-app.use(passport.initialize());
-app.use(passport.session());
-//TODO: social logins, too
-// passport.use(new localStrategy(User.authenticate()));
-// passport.serializeUser(User.serializeUser());
-// passport.deserializeUser(User.deserializeUser());
+//configure express
+app.configure(function() {
+  app.set('views', config.rootPath + '/server/views');
+  app.set('view engine', 'jade');
+  app.use(express.logger('dev'));
+  app.use(express.cookieParser());
+  app.use(express.bodyParser());
+  app.use(express.session({secret: 'multi vision unicorns'}));
+  app.use(passport.initialize());
+  app.use(passport.session());
+  app.use(express.static(config.rootPath + '/public'));
+});
 
-require('./server/config/routes')(app);
+//initialize passport
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+    User.findOne({username:username}).exec(function(err, user) {
+      if(user && user.authenticate(password)) {
+        return done(null, user);
+      } else {
+        return done(null, false);
+      }
+    })
+  }
+));
 
+passport.serializeUser(function(user, done) {
+  if(user) {
+    done(null, user._id);
+  }
+});
+
+passport.deserializeUser(function(id, done) {
+  User.findOne({_id:id}).exec(function(err, user) {
+    if(user) {
+      return done(null, user);
+    } else {
+      return done(null, false);
+    }
+  })
+})
+
+//configure server routes
+require('./server/routes')(app);
 
 app.listen(config.port);
-console.log('Coyote is listening at ' + config.port + '...');
+console.log('Coyote is listening on port ' + config.port + '...');
