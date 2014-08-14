@@ -8,5 +8,5 @@ Find Your Road.
 To run:
 (in separate terminal window) 'mongod'
 'npm install'
-'nodemon coyote.js'
+'nodemon'
 (app listens on port 3030)
