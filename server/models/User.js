@@ -2,18 +2,18 @@ var mongoose = require('mongoose')
   , crypto = require('crypto')
   ;
 
-//define schema
+//define user schema
 var userSchema = mongoose.Schema({
-  firstName: {type:String, required:'{PATH} is required!'}
-  , lastName: {type:String, required:'{PATH} is required!'}
-  , username: {
+  firstName:        { type: String, required: '{PATH} is required!' }
+  , lastName:       { type: String, required: '{PATH} is required!' }
+  , username:       {
     type: String
     , required: '{PATH} is required!'
     , unique:true
   }
-  , password_salt: {type:String, required:'{PATH} is required!'}
-  , password_hash: {type:String, required:'{PATH} is required!'}
-  , roles: [String]
+  , password_salt:  { type: String, required: '{PATH} is required!' }
+  , password_hash:  { type: String, required: '{PATH} is required!' }
+  , roles:          [String]
 });
 
 //user instance methods
@@ -39,10 +39,10 @@ userSchema.statics = {
 
 var User = mongoose.model('User', userSchema);
 
-// //user model methods
-function createDefaultUsers() {
-  User.find({}).exec(function(err, collection) {
-    if(collection.length === 0) {
+//user model methods
+function createDefaults() {
+  User.find({}).exec(function(err, users) {
+    if(users.length === 0) {
       var password_salt, password_hash;
       password_salt = User.createPasswordSalt();
       password_hash = User.hashPassword(password_salt, 'admin');
@@ -52,4 +52,4 @@ function createDefaultUsers() {
   });
 };
 
-exports.createDefaultUsers = createDefaultUsers;
+exports.createDefaults = createDefaults;

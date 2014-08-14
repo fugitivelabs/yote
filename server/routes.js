@@ -1,7 +1,8 @@
 var mongoose = require('mongoose')
   , users = require('./controllers/users')
-  // , UserSchema = require('./models/User')
   , User = mongoose.model('User')
+  , products = require('./controllers/products')
+  , Product = mongoose.model('Product')
   ;
 
 //helper functions
@@ -11,7 +12,6 @@ function requireLogin() {
     res.end();
   } else {  next(); }
 }
-
 function requireRole(role) {
   return function(req, res, next) {
     if(!req.isAuthenticated() || req.user.roles.indexOf(role) === -1) {
@@ -23,10 +23,13 @@ function requireRole(role) {
 
 //define routes
 module.exports = function(app) {
-
-  app.get('/api/users'    , requireRole('admin'), users.list);
-  app.post('/api/users'   , users.create);
-  app.put('/api/users'    , users.update);
+  //users
+  app.get('/api/users'          , requireRole('admin'), users.list);
+  app.post('/api/users'         , users.create);
+  app.put('/api/users'          , users.update);
+  //products
+  app.get('/api/products'       , products.list);
+  app.get('/api/products/:id'   , products.getById);
 
   //catch all other api calls
   app.all('/api/*', function(req, res) {
@@ -47,27 +50,21 @@ module.exports = function(app) {
       req.logIn(user, function(err) {
         if(err) {return next(err);}
         res.send({success:true, user: user});
-      })
-    })
+      });
+    });
     auth(req, res, next);
   });
-
   //logout
   app.post('/logout', function(req, res) {
     req.logout();
     res.end();
   });
 
-  //default index
+  //index
   app.get('*', function(req, res) {
     res.render('index', {
       currentUser: req.user
     });
   });
-
+  
 }
-
-
-
-
-
