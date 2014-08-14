@@ -1,8 +1,8 @@
 var mongoose = require('mongoose')
   , users = require('./controllers/users')
   , User = mongoose.model('User')
-  , products = require('./controllers/products')
-  , Product = mongoose.model('Product')
+  , posts = require('./controllers/posts')
+  , Post = mongoose.model('Post')
   ;
 
 //helper functions
@@ -27,9 +27,9 @@ module.exports = function(app) {
   app.get('/api/users'          , requireRole('admin'), users.list);
   app.post('/api/users'         , users.create);
   app.put('/api/users'          , users.update);
-  //products
-  app.get('/api/products'       , products.list);
-  app.get('/api/products/:id'   , products.getById);
+  //posts
+  app.get('/api/posts'          , posts.list);
+  app.get('/api/posts/:id'      , posts.getById);
 
   //catch all other api calls
   app.all('/api/*', function(req, res) {
@@ -66,5 +66,5 @@ module.exports = function(app) {
       currentUser: req.user
     });
   });
-  
+
 }

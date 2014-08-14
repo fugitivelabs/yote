@@ -1,6 +1,6 @@
 var mongoose = require('mongoose')
   , User = require('./models/User')
-  , Product = require('./models/Product')
+  , Post = require('./models/Post')
   ;
 
 module.exports = function(config) {
@@ -13,6 +13,6 @@ module.exports = function(config) {
 
   //any other initial model calls
   User.createDefaults();
-  Product.createDefaults();
+  Post.createDefaults();
 };
 
