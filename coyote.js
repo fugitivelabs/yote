@@ -2,6 +2,7 @@ var express = require('express')
   , mongoose = require('mongoose')
   , passport = require('passport')
   , LocalStrategy = require('passport-local').Strategy
+  , sass = require('node-sass')
   ;
 
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
