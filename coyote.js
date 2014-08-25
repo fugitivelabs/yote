@@ -25,7 +25,7 @@ app.configure(function() {
   app.use(express.session({secret: 'fugitive labs is neat-o daddy-o'}));
   app.use(passport.initialize());
   app.use(passport.session());
-  app.use(express.static(config.rootPath + '/public'));
+  app.use(express.static(__dirname + '/public'));
 });
 
 //initialize passport

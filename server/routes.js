@@ -36,9 +36,11 @@ module.exports = function(app) {
     res.send(404);
   });
 
-  //render jade partials as html
-  app.get('/partials/*', function(res, res) {
-    res.render('../../public/app' + req.params);
+  //render angularized jade views as html
+  app.get('/views/*', function(req, res) {
+    console.log("debug 1");
+    console.log(req.params);
+    res.render('../../public/app/views/' + req.params);
   });
 
   //login
@@ -62,6 +64,8 @@ module.exports = function(app) {
 
   //index
   app.get('*', function(req, res) {
+    console.log("debug 2");
+    // console.log(req);
     res.render('index', {
       currentUser: req.user
     });

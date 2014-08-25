@@ -1,13 +1,17 @@
 doctype
-html
+html(lang="en", ng-app="Yote")
   head
     title Coyote
     link(href="/favicon.ico", rel="shortcut icon", type="image/x-icon")
     //- styles
     link(rel="stylesheet", href="/css/coyote.css")
     //- javascripts
+    script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js")
+    script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.js")
+    script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular-route.js")
+    script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular-touch.js")
+    script(src="/lib/angular-ui-router.min.js")
 
-
-  body
+  body(ng-controller="MainCtrl")
     block main-content
-    //- include scripts
+    include scripts
