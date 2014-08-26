@@ -1,0 +1,5 @@
+h2 All posts:
+ul
+  li(ng-repeat="post in posts.list")
+    a(ui-sref="showPost({ postId: post._id })")
+      {{post.title}} with id: {{post._id}}

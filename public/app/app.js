@@ -26,4 +26,18 @@ var Yote = angular.module('Yote', [
       , templateUrl: '/views/landing/index'
       , controller: 'LandingCtrl'
     })
+    .state('post', {
+      url: '/post'
+      , templateUrl: '/views/post/index'
+    })
+    .state('post.list', {
+      url: '/all'
+      , templateUrl: '/views/post/list'
+      , controller: 'PostIndexCtrl'
+    })
+    .state('post.show', {
+      url: '/show/:postId'
+      , templateUrl: '/views/post/show'
+      , controller: 'PostShowCtrl'
+    })
 });
