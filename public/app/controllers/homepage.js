@@ -8,7 +8,7 @@ var YoteControllers = angular.module('YoteControllers', []);
 
 
 Yote.controller('HomeCtrl', ['$scope', '$http', function($scope, $http){
-  $scope.bigBoss = "Samsonite";
+  $scope.bigBoss = "homepage bigboss";
   console.log($scope.bigBoss);
 
 }]);

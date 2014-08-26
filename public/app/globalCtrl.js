@@ -1,6 +1,6 @@
 'use strict';
 
-// console.log("angular controllers loaded");
+console.log("angular controllers loaded");
 
 /* GLOBAL CONTROLLER
   
@@ -15,6 +15,6 @@ var YoteControllers = angular.module('YoteControllers', []);
 
 
 Yote.controller('GlobalCtrl', ['$scope', '$http', function($scope, $http){
-  $scope.boss = "Boz";
+  $scope.boss = "global ctrl boss";
   console.log("boss: " + $scope.boss);
 }])

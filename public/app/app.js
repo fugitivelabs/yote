@@ -29,11 +29,12 @@ var Yote = angular.module('Yote', [
     .state('post', {
       url: '/post'
       , templateUrl: '/views/post/index'
+      , controller: 'PostIndexCtrl'
     })
     .state('post.list', {
-      url: '/all'
+      url: '/list'
       , templateUrl: '/views/post/list'
-      , controller: 'PostIndexCtrl'
+      , controller: 'PostListCtrl'
     })
     .state('post.show', {
       url: '/show/:postId'

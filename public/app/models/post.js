@@ -9,8 +9,8 @@ Yote.factory('PostResource', function($http, $q){
   return {
     list:[]
 
-    , fetch: function() {
-      console.log("fetch Posts called");
+    , all: function() {
+      console.log("fetch all Posts called");
       var that = this;
       return $http.get("/api/posts")
         .success(function(data){
