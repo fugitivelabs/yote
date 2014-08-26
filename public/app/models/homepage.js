@@ -2,7 +2,7 @@
 
 // console.log("angular controllers loaded");
 
-/* CONTROLLERS */
+/* MODEL */
 
 //init
 var YoteModels = angular.module('YoteModels', []);
