@@ -12,6 +12,10 @@ html(lang="en", ng-app="Yote")
     script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular-touch.js")
     script(src="/lib/angular-ui-router.min.js")
 
+    //- instantiate main angular app
+    script(src="/app/app.js")
+
   body(ng-controller="MainCtrl")
     block main-content
-    include scripts
+    include model-scripts
+    include controller-scripts
