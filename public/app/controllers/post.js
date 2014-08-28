@@ -19,9 +19,17 @@ Yote.controller('PostListCtrl', ['$scope', '$stateParams', '$state', 'PostResour
 
 Yote.controller('PostShowCtrl', ['$scope', '$stateParams', '$state', 'PostResource', function($scope, $stateParams, $state, PostResource){
   console.log("post show ctrl");
-  PostResource.show($stateParams.postId);
-  $scope.post = PostResource;
-  // $scope.post = $scope.resource.post;
-  console.log($scope.post);
+
+  //next call breaks second time it is called, regardless. why?
+  var params = $stateParams.postId;
+  console.log(params);
   
+  PostResource.show(params);
+
+  $scope.post = PostResource;
+  
+  // $scope.post = $scope.resource.post;
+  console.log("debug 2");
+  console.log($scope.post);
+
 }]);
