@@ -6,7 +6,7 @@ console.log('angular application loaded');
 var Yote = angular.module('Yote', [
   'ngRoute'
   , 'ui.router'
-  , 'YoteModels'
+  , 'YoteServices'
   , 'YoteControllers'
 ]).config(function($routeProvider, $locationProvider, $stateProvider, $urlRouterProvider){
   console.log('configure ui router');

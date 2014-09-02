@@ -3,14 +3,14 @@
 /* POST MODEL */
 
 //init
-var YoteModels = angular.module('YoteModels', []);
+var YoteModels = angular.module('YoteServices', []);
 
 Yote.factory('PostResource', ['$http', function($http) {
 
   var urlBase = "/api/posts";
   var PostResource = {};
 
-  PostResource.all = function {
+  PostResource.all = function() {
     return $http.get(urlBase);
   };
 
