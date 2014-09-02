@@ -1,15 +1,18 @@
 'use strict';
 
-var YoteControllers = angular.module('YoteControllers', []);
+// var YoteControllers = angular.module('YoteControllers', []);
 
 console.log("post controller file loaded");
 
-Yote.controller('PostIndexCtrl', ['$scope', '$stateParams', '$state', 'PostResource', function($scope, $stateParams, $state, PostResource){
+
+//Post Index Controller
+angular.module('Yote').controller('PostIndexCtrl', ['$scope', '$stateParams', '$state', 'PostResource', function($scope, $stateParams, $state, PostResource){
   console.log('post index ctrl');
 }]);
 
 
-Yote.controller('PostListCtrl', ['$scope', '$stateParams', '$state', 'PostResource', function($scope, $stateParams, $state, PostResource){
+//Post List Controller
+angular.module('Yote').controller('PostListCtrl', ['$scope', '$stateParams', '$state', 'PostResource', function($scope, $stateParams, $state, PostResource){
   console.log('post list ctrl');
   PostResource.all();
   $scope.posts = PostResource;
@@ -17,7 +20,8 @@ Yote.controller('PostListCtrl', ['$scope', '$stateParams', '$state', 'PostResour
 }]);
 
 
-Yote.controller('PostShowCtrl', ['$scope', '$stateParams', '$state', 'PostResource', function($scope, $stateParams, $state, PostResource){
+//Post Show Controller
+angular.module('Yote').controller('PostShowCtrl', ['$scope', '$stateParams', '$state', 'PostResource', function($scope, $stateParams, $state, PostResource){
   console.log("post show ctrl");
 
   //next call breaks second time it is called, regardless. why?

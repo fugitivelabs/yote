@@ -2,21 +2,18 @@
 
 /* POST MODEL */
 
-//init
-var YoteModels = angular.module('YoteServices', []);
-
-Yote.factory('PostResource', ['$http', function($http) {
+angular.module('Yote').factory('PostResource', ['$http', function($http) {
 
   var urlBase = "/api/posts";
   var PostResource = {};
 
-  PostResource.all = function() {
-    return $http.get(urlBase);
-  };
+  // PostResource.all = function() {
+  //   return $http.get(urlBase);
+  // };
 
-  PostResource.show = function(postId) {
-    return $http.get(urlBase + "/" + postId);
-  };
+  // PostResource.show = function(postId) {
+  //   return $http.get(urlBase + "/" + postId);
+  // };
 
 
 }]);
