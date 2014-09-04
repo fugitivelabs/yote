@@ -6,8 +6,9 @@ console.log('angular application loaded');
 var Yote = angular.module('Yote', [
   'ngRoute'
   , 'ui.router'
-  , 'YoteModels'
-  , 'YoteControllers'
+  // , 'YoteServices'
+  // , 'YoteControllers'
+  //unnecessary to do it this way. controllers and services can be registered automatically. see respective files for changes.
 ]).config(function($routeProvider, $locationProvider, $stateProvider, $urlRouterProvider){
   console.log('configure ui router');
   

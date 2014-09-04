@@ -2,21 +2,20 @@
 
 /* POST MODEL */
 
-//init
-var YoteModels = angular.module('YoteModels', []);
+//TODO: http://www.bennadel.com/blog/2612-using-the-http-service-in-angularjs-to-make-ajax-requests.htm
 
-Yote.factory('PostResource', ['$http', function($http) {
+angular.module('Yote').factory('PostResource', ['$http', function($http) {
 
   var urlBase = "/api/posts";
   var PostResource = {};
 
-  PostResource.all = function {
-    return $http.get(urlBase);
-  };
+  // PostResource.all = function() {
+  //   return $http.get(urlBase);
+  // };
 
-  PostResource.show = function(postId) {
-    return $http.get(urlBase + "/" + postId);
-  };
+  // PostResource.show = function(postId) {
+  //   return $http.get(urlBase + "/" + postId);
+  // };
 
 
 }]);
