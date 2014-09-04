@@ -2,6 +2,8 @@
 
 /* POST MODEL */
 
+//TODO: http://www.bennadel.com/blog/2612-using-the-http-service-in-angularjs-to-make-ajax-requests.htm
+
 angular.module('Yote').factory('PostResource', ['$http', function($http) {
 
   var urlBase = "/api/posts";
