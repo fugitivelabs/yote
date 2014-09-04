@@ -38,8 +38,6 @@ module.exports = function(app) {
 
   //render angularized jade views as html
   app.get('/views/*', function(req, res) {
-    console.log("debug 1");
-    console.log(req.params);
     res.render('../../public/app/views/' + req.params);
   });
 
@@ -64,8 +62,6 @@ module.exports = function(app) {
 
   //index
   app.get('*', function(req, res) {
-    console.log("debug 2");
-    // console.log(req);
     res.render('index', {
       currentUser: req.user
     });

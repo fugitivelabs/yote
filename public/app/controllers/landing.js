@@ -1,8 +1,6 @@
 'use strict';
 
-// console.log("angular controllers loaded");
-
-/* CONTROLLERS */
+/* LANDING CONTROLLER */
 
 //init
 var YoteControllers = angular.module('YoteControllers', []);

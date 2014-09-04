@@ -1,7 +1,12 @@
 include layout
 
 block main-content
-  h1 FLAB Coyote {{boss}}
 
+  nav
+    ul.nav.navbar-nav
+      li
+        a(ui-sref="home") Home
+      li
+        a(ui-sref="post") Blog
   section.content
-    div(ui-view)
+    ui-view
