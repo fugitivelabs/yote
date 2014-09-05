@@ -17,11 +17,6 @@ $col-width: ($max-width - $total-gutter-width) / $col-count;
   margin-left: ($col-width + $gutter-width) * $num-cols;
 }
 
-%container {
-  max-width: $max-width;
-  margin: 0 auto;
-  padding: 0 $gutter-width;
-}
 
 // Effects
 // ••••••••••••••••••••••••••••••••••••••••••••••••••

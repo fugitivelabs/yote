@@ -1,12 +1,5 @@
 
-// Type Treatment
-// ••••••••••••••••••••••••••••••••••••••••••••••••••
-.caps {
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-// Button Types
+// Buttons
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 .btn {
   display: block;
@@ -24,8 +17,23 @@
   }
 }
 
-// Content Types
+// Layout
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+%container {
+  max-width: $max-width;
+  margin: 0 auto;
+  padding: 0 $gutter-width;
+}
+
+.content {
+  @include border-box;
+  @include clearfix;
+  margin: 0 auto;
+  position: relative;
+  width: 100%;
+}
+
 .hero {
   @extend %container;
   padding: $gutter_width;

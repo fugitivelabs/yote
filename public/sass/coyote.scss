@@ -34,14 +34,6 @@ a {
   &:active { color: $color-text; }
 }
 
-.content {
-  @include border-box;
-  @include clearfix;
-  margin: 0 auto;
-  position: relative;
-  width: 100%;
-}
-
 // Base Styles: Tablets
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
