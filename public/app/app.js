@@ -43,3 +43,22 @@ var Yote = angular.module('Yote', [
       , controller: 'PostShowCtrl'
     })
 });
+
+/*
+  DIRECTIVES CAN GO HERE -
+
+  Though if you have more than a few, they can be
+  abstracted into their own directives.js file that 
+  should live in /public/app/
+*/
+
+
+// this is a sample directive
+Yote.directive("enter", function() {
+    return function(scope, element, attrs) {
+        element.bind("mouseenter", function() {
+          // scope.$apply(attrs.enter);
+          alert("this is working!");
+        });
+    }
+});
