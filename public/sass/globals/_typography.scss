@@ -81,10 +81,6 @@ $font-serif: Georgia, Times, serif;
 
 // Type Treatment
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
-.caps {
-  @include letterSpacing-loose;
-  text-transform: uppercase;
-}
 
 @mixin font-smoothing($attr) {
   -webkit-font-smoothing: $attr;

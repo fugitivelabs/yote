@@ -1,14 +1,48 @@
 
+// Utility Classes
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+%u-clearfix {
+  @include clearfix;
+}
+
+%u-pullLeft {
+  float: left;
+}
+
+%u-underline {
+  text-decoration: underline;
+}
+
+%u-caps {
+  @include letterSpacing-loose;
+  text-transform: uppercase;
+}
+
+.u-caps {
+  @extend %u-caps;
+}
+
+.u-clearfix {
+  @extend %-u-clearfix;
+}
+
+.u-pullLeft {
+  @extend %u-pullLeft;
+}
+
+.u-underline {
+  @extend %u-underline;
+}
+
 // Buttons
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
-.btn {
-  display: block;
-  width: 150px;
-  text-align: center;
+%button {
+  border: none;
   background-color: $color-btn;
   color: $color-btn-text;
   margin: 0px;
-  padding: 1rem;
+  padding: 1em 2em;
+  @include type-base;
 
   &:hover {
     &:visited { color: $color-link-visited; }
@@ -16,6 +50,37 @@
     &:active { color: $color-text; }
   }
 }
+
+%button--large {
+  @include type-large;
+}
+
+%button--green {
+  background: #3efa95;
+}
+
+.button {
+  @extend %button;
+
+  &.-large {
+    @include type-large;
+  }
+
+  &.-green {
+    @extend %button--green;
+  }
+
+  &.-rounded {
+    @include border-radius(5px);
+  }
+}
+
+.button--large {
+  @extend .button;
+  @extend %button--large;
+}
+
+
 
 // Layout
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
