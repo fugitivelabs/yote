@@ -25,6 +25,13 @@ app.configure(function() {
   app.use(express.session({secret: 'fugitive labs is neat-o daddy-o'}));
   app.use(passport.initialize());
   app.use(passport.session());
+  app.use(sass.middleware({
+    src: __dirname + '/public/sass',
+    dest: __dirname + '/public/css',
+    prefix: '/css',
+    debug: true,
+    outputStyle: 'compressed'
+  }));
   app.use(express.static(__dirname + '/public'));
 });
 

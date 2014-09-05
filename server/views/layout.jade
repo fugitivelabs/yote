@@ -15,9 +15,17 @@ html(lang="en", ng-app="Yote")
     //- instantiate main angular app
     script(src="/app/app.js")
 
+  header.content
+    h1 Coyote
+    nav
+      ul
+        li
+          a(ui-sref="home") Home
+        li
+          a(ui-sref="post") Blog
+
   body(ng-controller="GlobalCtrl")
-    block main-content
-    
+    ui-view
     //- reference the custom angular dependencies
     include ng-models
     include ng-controllers
