@@ -1,24 +1,27 @@
-// Typography
+
+// Grid
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
-$font-sans: Helvetica, "Lucida Grand", Arial, sans-serif;
-$font-serif: Georgia, Times, serif;
+$max-width: 960px;
+$gutter-width: 20px;
+$col-count: 12;
+$gutter-count: $col-count - 1;
+$total-gutter-width: $gutter-count * $gutter-width;
+$col-width: ($max-width - $total-gutter-width) / $col-count;
 
-@mixin font-smoothing($attr) {
-  -webkit-font-smoothing: $attr;
-          font-smoothing: $attr;
+@mixin columnify($num-cols) {
+  max-width: $col-width * $num-cols + $gutter-width * ($num-cols - 1);
 }
 
-// Colors
-// ••••••••••••••••••••••••••••••••••••••••••••••••••
+@mixin offset($num-cols) {
+  margin-left: ($col-width + $gutter-width) * $num-cols;
+}
 
-$color-background: #FFF;
-$color-link: #02779E;
-$color-link-hover: #63D3FF;
-$color-link-visited: #02779E;
-$color-text: #333;
-$color-spot: #FF548F;
-
+%container {
+  max-width: $max-width;
+  margin: 0 auto;
+  padding: 0 $gutter-width;
+}
 
 // Effects
 // ••••••••••••••••••••••••••••••••••••••••••••••••••

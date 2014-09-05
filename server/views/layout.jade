@@ -15,14 +15,6 @@ html(lang="en", ng-app="Yote")
     //- instantiate main angular app
     script(src="/app/app.js")
 
-  header.content
-    h1 Coyote
-    nav
-      ul
-        li
-          a(ui-sref="home") Home
-        li
-          a(ui-sref="post") Blog
 
   body(ng-controller="GlobalCtrl")
     ui-view

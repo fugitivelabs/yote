@@ -1,0 +1,17 @@
+
+
+
+
+// Home Styles: Tablets
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+@include responsive-break-point(640px) {
+
+}
+
+// Home Styles: Desktop
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+@include responsive-break-point(800px) {
+  .content { max-width: 960px; }
+}

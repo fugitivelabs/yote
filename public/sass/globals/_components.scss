@@ -1,0 +1,45 @@
+
+// Type Treatment
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+.caps {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+// Button Types
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+.btn {
+  display: block;
+  width: 150px;
+  text-align: center;
+  background-color: $color-btn;
+  color: $color-btn-text;
+  margin: 0px;
+  padding: 1rem;
+
+  &:hover {
+    &:visited { color: $color-link-visited; }
+    &:hover { color: $color-btn-text-hover; background-color: $color-btn-hover; text-decoration: none; }
+    &:active { color: $color-text; }
+  }
+}
+
+// Content Types
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+.hero {
+  @extend %container;
+  padding: $gutter_width;
+
+  h1,h2,h3,h4,h5,h6 {
+    @include type-jumbo;
+    margin-bottom: $gutter_width;
+  }
+
+  p {
+    @include type-large;
+    @include lineHeight-looser;
+    margin-bottom: 2rem;
+  }
+
+}
+

@@ -3,8 +3,11 @@
 @charset "UTF-8";
 
 @import
+  'globals/reset',
+  'globals/colors',
+  'globals/typography',
   'globals/mixins',
-  'globals/reset';
+  'globals/components';
 
 // Base Styles
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
@@ -12,10 +15,10 @@
 body {
   @include border-box;
   @include font-smoothing(antialiased);
+  @include type-base;
   background-color: $color-background;
   color: $color-text;
-  font-family: $font-serif;
-  font-size: 1rem;
+  font-family: $font-sans;
   line-height: 1.5rem;
   position: relative;
 }
@@ -75,6 +78,5 @@ a {
 // Pages
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
-// @import
-//   'pages/about',
-//   'pages/home';
+@import
+  'pages/home';
