@@ -5,8 +5,8 @@
   @include clearfix;
 }
 
-%u-pullLeft {
-  float: left;
+%u-pullRight {
+  float: right;
 }
 
 %u-underline {
@@ -26,8 +26,8 @@
   @extend %-u-clearfix;
 }
 
-.u-pullLeft {
-  @extend %u-pullLeft;
+.u-pullRight {
+  @extend %u-pullRight;
 }
 
 .u-underline {
@@ -63,7 +63,7 @@
   @extend %button;
 
   &.-large {
-    @include type-large;
+    @extend %button--large;
   }
 
   &.-green {
@@ -86,17 +86,16 @@
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
 %container {
+  @include border-box;
+  @include clearfix;
+  position: relative;
   max-width: $max-width;
   margin: 0 auto;
   padding: 0 $gutter-width;
 }
 
 .content {
-  @include border-box;
-  @include clearfix;
-  margin: 0 auto;
-  position: relative;
-  width: 100%;
+  @extend %container;
 }
 
 .hero {
@@ -115,4 +114,67 @@
   }
 
 }
+
+%nav--dark {
+  background-color: #1c1e21;
+}
+
+%nav--light {
+  background-color: #f5f5f5;
+}
+
+%horiz {
+  display: inline-block;
+}
+
+%vert {
+  display: block;
+}
+
+.navBar {
+  width: 100%;
+  padding: 1rem 0px;
+
+  &.-dark {
+    @extend %nav--dark;
+  }
+
+  &.-light {
+    @extend %nav--light;
+  }
+
+  .navLogo {
+    display: inline-block;
+    @include type-large;
+  }
+
+  .navList {
+
+    &.-horiz {
+      li {
+        @extend %horiz;
+        a {
+          margin: 0px 1em;
+        }
+      }
+    }
+    &.-vert {
+      li {
+        @extend %vert;
+        a {
+          margin: 1em 0px;
+        }
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
 
