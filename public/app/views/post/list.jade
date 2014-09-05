@@ -1,5 +1,5 @@
 h3 All posts:
 ul
-  li(ng-repeat="post in posts.list")
+  li(ng-repeat="post in posts")
     a(ui-sref="post.show({ postId: post._id })")
       {{post.title}}

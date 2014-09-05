@@ -15,8 +15,9 @@ html(lang="en", ng-app="Yote")
     //- instantiate main angular app
     script(src="/app/app.js")
 
-  body(ng-controller="GlobalCtrl")
-    block main-content
+  body
+    ui-view
+    
     
     //- reference the custom angular dependencies
     include ng-services
