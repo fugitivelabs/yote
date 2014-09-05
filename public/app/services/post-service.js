@@ -9,13 +9,17 @@ angular.module('Yote').factory('PostResource', ['$http', function($http) {
   var urlBase = "/api/posts";
   var PostResource = {};
 
-  // PostResource.all = function() {
-  //   return $http.get(urlBase);
-  // };
-
-  // PostResource.show = function(postId) {
-  //   return $http.get(urlBase + "/" + postId);
-  // };
+  return {
+    all: function() {
+      console.log("fetch all Posts called");
+      return $http.get(urlBase)
+        .success(function(data){
+          this = data;
+        }).error(function(data){
+          console.log("error retrieving all posts.");
+        });
+    }
+  }
 
 
 }]);

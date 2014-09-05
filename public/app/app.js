@@ -29,7 +29,7 @@ var Yote = angular.module('Yote', [
     })
     .state('post', {
       url: '/post'
-      , templateUrl: '/views/post/index'
+      , templateUrl: '/views/layouts/default'
       , controller: 'PostIndexCtrl'
     })
     .state('post.list', {
