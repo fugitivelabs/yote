@@ -11,14 +11,12 @@ html(lang="en", ng-app="Yote")
     script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular-route.js")
     script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular-touch.js")
     script(src="/lib/angular-ui-router.min.js")
-
     //- instantiate main angular app
     script(src="/app/app.js")
 
   body
     ui-view
-    
-    
+
     //- reference the custom angular dependencies
     include ng-services
     include ng-controllers

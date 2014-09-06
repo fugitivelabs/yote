@@ -1,0 +1,89 @@
+// Typography
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+$font-sans: Helvetica, "Lucida Grand", Arial, sans-serif;
+$font-serif: Georgia, Times, serif;
+
+// Font Sizing
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+@mixin type-micro {
+  font-size: .1rem;
+}
+@mixin type-smallest {
+  font-size: .3rem;
+}
+@mixin type-smaller {
+  font-size: .5rem;
+}
+@mixin type-small {
+  font-size: .7rem;
+}
+@mixin type-base {
+  font-size: 1rem;
+}
+@mixin type-large {
+  font-size: 1.3rem;
+}
+@mixin type-larger {
+  font-size: 1.5rem;
+}
+@mixin type-largest {
+  font-size: 1.7rem;
+}
+@mixin type-jumbo {
+  font-size: 2rem;
+}
+
+// Line Heights
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+@mixin lineHeight-tightest {
+  line-height: .5;
+}
+@mixin lineHeight-tighter {
+  line-height: .7;
+}
+@mixin lineHeight-tight {
+  line-height: .8;
+}
+@mixin lineHeight-baseSans {
+  line-height: 1;
+}
+@mixin lineHeight-base {
+  line-height: 1;
+}
+@mixin lineHeight-loose {
+  line-height: 1.2;
+}
+@mixin lineHeight-looser {
+  line-height: 1.5
+}
+
+// Letter Spacing
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+@mixin letterSpacing-tightest {
+  letter-spacing: -3px;
+}
+@mixin letterSpacing-tighter {
+  letter-spacing: -2px;
+}
+@mixin letterSpacing-tight {
+  letter-spacing: -1px;
+}
+@mixin letterSpacing-normal {
+  letter-spacing: 0px;
+}
+@mixin letterSpacing-loose {
+  letter-spacing: 1px;
+}
+@mixin letterSpacing-looser {
+  letter-spacing: 2px;
+}
+
+// Type Treatment
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+@mixin font-smoothing($attr) {
+  -webkit-font-smoothing: $attr;
+          font-smoothing: $attr;
+}
+

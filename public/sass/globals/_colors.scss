@@ -1,0 +1,17 @@
+
+// Colors
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+$white: #fff;
+
+$color-background: rgb(239, 233, 225);
+$color-text: rgb(86, 66, 39);
+
+$color-link: rgb(170, 170, 170);
+$color-link-hover: lighten($color-link, 10);
+$color-link-visited: darken($color-link, 10);
+
+$color-btn: rgb(140, 118, 88);
+$color-btn-hover: lighten($color-btn, 10);
+$color-btn-text: rgb(255, 255, 255);
+$color-btn-text-hover: lighten($color-btn-text, 10);
