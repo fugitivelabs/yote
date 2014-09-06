@@ -1,9 +1,14 @@
-nav
-  ul.nav.navbar-nav
-    li
-      a(ui-sref="root.home") Home
-    li
-      a(ui-sref="post.list") Blog
+
+
+nav.navBar.-dark
+  .content
+    a.navLogo(href="#") Coyote
+    ul.navList.-horiz.u-pullRight
+      li
+        a(ui-sref="root.home") Home
+      li
+        a(ui-sref="post.list") Blog
+
+
 section.content
-  h1 Welcome to Coyote
   ui-view
