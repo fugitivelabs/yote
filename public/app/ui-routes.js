@@ -1,4 +1,6 @@
-angular.module('Yote').config(function($routeProvider, $locationProvider, $stateProvider, $urlRouterProvider){
+angular.module('Yote')
+
+.config(function($routeProvider, $locationProvider, $stateProvider, $urlRouterProvider){
   console.log('configure ui router');
   
   $locationProvider.html5Mode(true);
@@ -16,7 +18,7 @@ angular.module('Yote').config(function($routeProvider, $locationProvider, $state
     .state('root', {
       abstract: true
       , url: '/'
-      , templateUrl: '/views/layouts/default'
+      , templateUrl: '/views/layouts/homepage-layout'
     })
 
     // first child of root. is the hompage. Empty url: '' signifies '/' + ''
@@ -24,6 +26,23 @@ angular.module('Yote').config(function($routeProvider, $locationProvider, $state
       url: ''
       , templateUrl: '/views/homepage/index'
       , controller: 'HomeCtrl'
+    })
+
+    .state('static', {
+      abstract: true
+      , url: '/static'
+      , templateUrl: '/views/layouts/default'
+      , controller: 'StaticCtrl'
+    })
+
+    .state('static.about', {
+      url: '^/about'
+      , templateUrl: '/views/static/about'
+    })
+
+    .state('static.faq', {
+      url: '^/frequently-asked-questions'
+      , templateUrl: '/views/static/faq'
     })
 
     /********************** 
