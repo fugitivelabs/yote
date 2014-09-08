@@ -32,6 +32,7 @@ app.configure(function() {
     debug: true,
     outputStyle: 'compressed'
   }));
+  //allow the angular ui-views to be written in Jade
   app.use(express.static(__dirname + '/public'));
 });
 
