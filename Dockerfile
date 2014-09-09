@@ -15,10 +15,10 @@ RUN mkdir -p /data/db
 RUN mkdir -p /var/log/supervisor
 
 #add app source code
-ADD / ./coyote
-RUN cd /coyote && npm install
+ADD / ./yote
+RUN cd /yote && npm install
 
-# is better to install in /var/www/? /coyote/ is way cooler.
+# is better to install in /var/www/? /yote/ is way cooler.
 
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord-nodejs.conf
 
