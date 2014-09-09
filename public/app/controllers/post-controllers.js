@@ -25,7 +25,6 @@ angular.module('Yote')
     console.log($scope.posts);
   }])
 
-
   .controller('PostShowCtrl', ['$scope', '$stateParams', '$state', 'PostFactory', function($scope, $stateParams, $state, PostFactory){
     console.log("post show ctrl");
 

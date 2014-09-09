@@ -3,7 +3,7 @@ var rootPath = path.normalize(__dirname + '/../../');
 
 module.exports = {
   development: {
-    db: 'mongodb://localhost/coyote',
+    db: 'mongodb://localhost/yote',
     rootPath: rootPath,
     port: process.env.PORT || 3030
   },
