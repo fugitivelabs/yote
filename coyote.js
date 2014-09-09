@@ -36,6 +36,16 @@ app.configure(function() {
   app.use(express.static(__dirname + '/public'));
 });
 
+//handle mongo errors
+app.use(function(req, res, next) {
+  //no connection
+  if(mongoose.connection.readyState !== 1) {
+    mongoose.connect(config.db);
+    res.send("mongoose error, hold your horses...");
+  }
+  next();
+});
+
 //initialize passport
 passport.use(new LocalStrategy(
   function(username, password, done) {
