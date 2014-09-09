@@ -69,4 +69,4 @@ passport.deserializeUser(function(id, done) {
 require('./server/routes')(app);
 
 app.listen(config.port);
-console.log('Coyote is listening on port ' + config.port + '...');
+console.log('Yote is listening on port ' + config.port + '...');
