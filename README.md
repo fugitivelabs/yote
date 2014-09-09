@@ -1,4 +1,4 @@
-Coyote
+Yote
 ======
 
 Find Your Road.
