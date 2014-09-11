@@ -1,4 +1,5 @@
 var mongoose = require('mongoose')
+  , passport = require('passport')
   , users = require('./controllers/users')
   , User = mongoose.model('User')
   , posts = require('./controllers/posts')
@@ -16,7 +17,7 @@ function requireRole(role) {
   return function(req, res, next) {
     if(!req.isAuthenticated() || req.user.roles.indexOf(role) === -1) {
       res.status(403);
-      res.end();
+      res.send("UNAUTHORIZED");
     } else {  next(); }
   }
 }
@@ -25,26 +26,34 @@ function requireRole(role) {
 module.exports = function(app) {
 
   //login, logout
-  app.post('api/users/login', function(req, res) {
+  app.post('/api/users/login', function(req, res, next) {
+    console.log("DEBUG 1");
     req.body.username = req.body.username.toLowerCase();
-    var auth = passport.authenticate('local', function(err, user) {
-      if(err) {return next(err);}
-      if(!user) { res.send({success:false})}
+    // console.log(req.body.username);
+    // console.log(req.body.password);
+    //
+    passport.authenticate('local', function(err, user) {
+      console.log("DEBUG 4");
+      if(err) {
+        return next(err);
+      }
+      if(!user) {
+        res.send({success:false, message: err});
+      }
       req.logIn(user, function(err) {
         if(err) {return next(err);}
         res.send({success:true, user: user});
       });
-    });
-    auth(req, res, next);
+    })(req, res, next);
   });
-  app.post('api/users/logout', function(req, res) {
+  app.post('/api/users/logout', function(req, res) {
     req.logout();
     res.end();
   });
 
   //API CALLS
   //users
-  app.get('/api/users'          , users.list); //, requireRole('admin')
+  app.get('/api/users'          , requireRole('admin'), users.list);
   app.post('/api/users'         , users.create);
   app.put('/api/users'          , users.update);
   //posts

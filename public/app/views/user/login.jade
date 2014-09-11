@@ -1,5 +1,15 @@
 h1 LOGIN IF YOU DARE MOTHER FUCKER
 
-input(type="text", name="username", placeholder="username")
+input(type="text", name="username", placeholder="username", ng-model="username")
 
-input(type="password", name="password", placeholder="password")
+input(type="password", name="password", placeholder="password", ng-model="password")
+
+button(type="button", ng-click="loginAction(username, password)") Login
+
+
+
+br
+br
+br
+br
+a(href="/api/users") USERS ADMIN PROTECTED

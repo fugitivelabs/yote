@@ -13,7 +13,8 @@ var config = require('./server/config')[env];
 require('./server/db')(config);
 
 //init User model
-var User = require('./server/models/User').User;
+var UserSchema = require('./server/models/User').User
+  , User = mongoose.model('User')
 
 //configure express
 app.configure(function() {
@@ -52,8 +53,11 @@ app.use(function(req, res, next) {
 //initialize passport
 passport.use(new LocalStrategy(
   function(username, password, done) {
+    console.log("DEBUG 2");
     User.findOne({username:username}).exec(function(err, user) {
+      console.log("DEBUG 3");
       if(user && user.authenticate(password)) {
+        console.log("authenticated!");
         return done(null, user);
       } else {
         return done(null, false);

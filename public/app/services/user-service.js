@@ -17,14 +17,32 @@ angular.module('Yote')
 * place to put them.
 *******************************************************************************************/
 
-
 .factory('UserFactory', ['$http', '$q', function($http, $q) {
 
+  console.log("user factory initiated");
   var urlBase = "/api/users";
   var UserFactory = [];
   var _user;
 
-  
+  UserFactory.login = function(username, password) {
+    console.log("user login action called");
+    var deferred = $q.defer();
+
+    $http.post(urlBase + "/login", { 'username': username, 'password': password, 'next': '/' })
+      .success(function(user) {
+        console.log('LOGIN SUCCESSFUL');
+        console.log(user);
+        deferred.resolve(user);
+      })
+      .error(function(err, user) {
+        console.log('LOGIN FAILURE');
+        console.log(err);
+        deferred.resolve(err);
+      });
+      return deferred.promise;
+  }
+
+  return UserFactory;
 
 
 
