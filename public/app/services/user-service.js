@@ -30,14 +30,44 @@ angular.module('Yote')
 
     $http.post(urlBase + "/login", { 'username': username, 'password': password, 'next': '/' })
       .success(function(user) {
-        console.log('LOGIN SUCCESSFUL');
-        console.log(user);
-        deferred.resolve(user);
+        if(user.success) {
+          console.log('LOGIN SUCCESSFUL');
+          // console.log(user);
+          deferred.resolve(user);
+        } else {
+          console.log('LOGIN FAILURE');
+          // console.log(user);
+          deferred.resolve(user);
+        }
       })
       .error(function(err, user) {
-        console.log('LOGIN FAILURE');
-        console.log(err);
+        console.log('LOGIN FAILURE - error');
+        // console.log(err);
         deferred.resolve(err);
+      });
+      return deferred.promise;
+  }
+
+  UserFactory.logout = function() {
+    console.log("user logout option called");
+    var deferred = $q.defer();
+
+    $http.post(urlBase + "/logout")
+      .success(function(err) {
+        if(!err) {
+          console.log('LOGOUT SUCCESSFUL');
+          // console.log(user);
+          deferred.resolve({"success": true});
+        } else {
+          console.log('LOGIN FAILURE');
+          // console.log(user);
+          deferred.resolve({"success": false, "error": err});
+        }
+      })
+      .error(function(err, user) {
+        console.log('LOGIN FAILURE - error');
+        // console.log(err);
+        deferred.resolve({"success": false, "error": err});
       });
       return deferred.promise;
   }

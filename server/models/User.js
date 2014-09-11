@@ -20,12 +20,6 @@ var userSchema = mongoose.Schema({
 userSchema.methods = {
   authenticate: function(passwordToMatch) {
     console.log("trying to authenticate username '" + this.username + "'");
-    // console.log(this);
-    // console.log(User.hashPassword(this.password_salt, passwordToMatch) === this.password_hash);
-    // var inputHash = User.hashPassword(this.password_salt, passwordToMatch);
-    // var storedHash = this.password_hash;
-    // console.log(inputHash);
-    // console.log(storedHash);
     return User.hashPassword(this.password_salt, passwordToMatch) === this.password_hash;
   }
   , hasRole: function(role) {

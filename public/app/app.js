@@ -9,6 +9,10 @@ angular.module('Yote', [
   , 'ngTouch'
   , 'ui.router'
 ])
+.run(function($rootScope) {
+  $rootScope.currentUser = window.currentUser;
+  console.log($rootScope.currentUser);
+})
 
 // end of file
 ;
