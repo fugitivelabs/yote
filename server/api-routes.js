@@ -1,0 +1,71 @@
+var mongoose = require('mongoose')
+  , users = require('./controllers/users')
+  , User = mongoose.model('User')
+  , posts = require('./controllers/posts')
+  , Post = mongoose.model('Post')
+  ;
+
+//helper functions
+function requireLogin() {
+  if(!req.isAuthenticated()) {
+    res.status(403);
+    res.end();
+  } else {  next(); }
+}
+function requireRole(role) {
+  return function(req, res, next) {
+    if(!req.isAuthenticated() || req.user.roles.indexOf(role) === -1) {
+      res.status(403);
+      res.end();
+    } else {  next(); }
+  }
+}
+
+//define routes
+module.exports = function(app) {
+
+  //login, logout
+  app.post('api/users/login', function(req, res) {
+    req.body.username = req.body.username.toLowerCase();
+    var auth = passport.authenticate('local', function(err, user) {
+      if(err) {return next(err);}
+      if(!user) { res.send({success:false})}
+      req.logIn(user, function(err) {
+        if(err) {return next(err);}
+        res.send({success:true, user: user});
+      });
+    });
+    auth(req, res, next);
+  });
+  app.post('api/users/logout', function(req, res) {
+    req.logout();
+    res.end();
+  });
+
+  //API CALLS
+  //users
+  app.get('/api/users'          , users.list); //, requireRole('admin')
+  app.post('/api/users'         , users.create);
+  app.put('/api/users'          , users.update);
+  //posts
+  app.get('/api/posts'          , posts.list);
+  app.get('/api/posts/:id'      , posts.getById);
+
+  //catch all others
+  app.all('/api/*', function(req, res) {
+    res.send(404);
+  });
+
+  //render jade views as html
+  app.get('/views/*', function(req, res) {
+    res.render('../../public/app/views/' + req.params);
+  });
+
+  //index
+  app.get('*', function(req, res) {
+    res.render('layout', {
+      currentUser: req.user
+    });
+  });
+
+}

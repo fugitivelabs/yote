@@ -46,6 +46,25 @@ angular.module('Yote')
     })
 
     /********************** 
+    *  User Routes
+    ***********************/
+
+    //parent state of users
+    .state('user', {
+      abstract: true
+      , url: '/user'
+      , templateUrl: '/views/layouts/default'
+      , controller: 'UserCtrl'
+    })
+    //login view
+    .state('user.login', {
+      url: '/login'
+      , templateUrl: '/views/user/login'
+      , controller: 'UserLoginCtrl'
+    })
+
+
+    /********************** 
     *  Post Routes
     ***********************/
     

@@ -38,6 +38,9 @@ app.configure(function() {
 
 //handle mongo errors
 app.use(function(req, res, next) {
+  //use this to test users and then remove:
+  console.log("YOTE USER: " + (req.user ? req.user.username : "none"));
+
   //no connection
   if(mongoose.connection.readyState !== 1) {
     mongoose.connect(config.db);
@@ -76,7 +79,7 @@ passport.deserializeUser(function(id, done) {
 })
 
 //configure server routes
-require('./server/routes')(app);
+require('./server/api-routes')(app);
 
 app.listen(config.port);
 console.log('Yote is listening on port ' + config.port + '...');
