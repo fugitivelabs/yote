@@ -1,0 +1,12 @@
+h1 REGISTER PAGE
+input(type="text", name="username", placeholder="username", ng-model="userData.username")
+br
+input(type="password", name="password", placeholder="password", ng-model="userData.password")
+br
+input(type="password", name="password2", placeholder="confirm password", ng-model="userData.password2")
+br
+input(type="text", name="firstName", placeholder="first name", ng-model="userData.firstName")
+br
+input(type="text", name="lastName", placeholder="last name", ng-model="userData.lastName")
+br
+button(type="button", ng-click="registerAction(userData)") Register

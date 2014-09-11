@@ -55,7 +55,7 @@ module.exports = function(app) {
   //users
   app.get('/api/users'          , requireRole('admin'), users.list);
   app.post('/api/users'         , users.create);
-  app.put('/api/users'          , users.update);
+  // app.put('/api/users'          , users.update);
   //posts
   app.get('/api/posts'          , posts.list);
   app.get('/api/posts/:id'      , posts.getById);

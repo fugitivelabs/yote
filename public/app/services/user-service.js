@@ -30,7 +30,7 @@ angular.module('Yote')
 
     $http.post(urlBase + "/login", { 'username': username, 'password': password, 'next': '/' })
       .success(function(user) {
-        if(user.success) {
+        if(user.success) { //intermediate if statement is unnecessary after dev is done
           console.log('LOGIN SUCCESSFUL');
           // console.log(user);
           deferred.resolve(user);
@@ -72,9 +72,33 @@ angular.module('Yote')
       return deferred.promise;
   }
 
+  UserFactory.register = function(userData) {
+    console.log("user register option called");
+    var deferred = $q.defer();
+
+    $http.post(urlBase, userData)
+      .success(function(user) {
+        console.log(user);
+        if(user.success) {
+          console.log('REGISTER SUCCESS');
+          deferred.resolve(user);
+        } else {
+          console.log('REGISTER FAILURE');
+          // console.log(user);
+          deferred.resolve(user);
+        }
+      })
+      .error(function(err, user) {
+        console.log('REGISTER FAILURE - err');
+        deferred.resolve(err);
+      });
+      return deferred.promise;
+
+  }
+
+
+
   return UserFactory;
-
-
 
 }])
 ;

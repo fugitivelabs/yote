@@ -66,6 +66,11 @@ angular.module('Yote')
       url: '/logout'
       , controller: 'UserLogoutCtrl'
     })
+    .state('user.register', {
+      url: '/register'
+      , templateUrl: '/views/user/register'
+      , controller: 'UserRegisterCtrl'
+    })
 
 
     /********************** 
