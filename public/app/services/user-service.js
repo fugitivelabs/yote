@@ -21,7 +21,7 @@ angular.module('Yote')
 
   console.log("user factory initiated");
   var urlBase = "/api/users";
-  var UserFactory = [];
+  var UserFactory = {};
   var _user;
 
   UserFactory.login = function(username, password) {

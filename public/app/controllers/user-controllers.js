@@ -42,7 +42,6 @@ angular.module('Yote')
       });
   }])
 
-  //////
   .controller('UserRegisterCtrl', ['$scope', '$stateParams', '$state', '$rootScope', 'UserFactory', function($scope, $stateParams, $state, $rootScope, UserFactory) {
     console.log('UserRegisterCtrl loaded');
     $scope.registerAction = function(userData) {
