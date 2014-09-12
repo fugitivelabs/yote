@@ -58,7 +58,8 @@ module.exports = function(app) {
   // app.put('/api/users'          , users.update);
   //posts
   app.get('/api/posts'          , posts.list);
-  app.get('/api/posts/:id'      , posts.getById);
+  app.get('/api/posts/byId:id'  , posts.getById); //no longer defaults to "by Id", instead by slug
+  app.get('/api/posts/:slug'    , posts.getBySlug);
 
   //catch all others
   app.all('/api/*', function(req, res) {

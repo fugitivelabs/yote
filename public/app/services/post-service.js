@@ -39,12 +39,12 @@ angular.module('Yote')
     return deferred.promise;
   }
 
-  PostFactory.show = function(id) {
-    console.log("show this post: " + id);
+  PostFactory.show = function(slug) {
+    console.log("show this post: " + slug);
+    console.log(urlBase + '/' + slug);
     var deferred = $q.defer();
-    $http.get(urlBase + '/' + id)
+    $http.get(urlBase + '/' + slug)
       .success(function(data){
-        console.log("it worked again!!!");
         console.log(data);
         deferred.resolve(data);
       }).error(function(){

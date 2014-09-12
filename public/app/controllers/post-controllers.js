@@ -29,10 +29,10 @@ angular.module('Yote')
     console.log("post show ctrl");
 
     //next call breaks second time it is called, regardless. why?
-    var postId = $stateParams.postId;
-    console.log(postId);
+    var slug = $stateParams.slug;
+    console.log(slug);
 
-    PostFactory.show(postId)
+    PostFactory.show(slug)
       .then(function(data){
         $scope.post = data;
       }, function(data){

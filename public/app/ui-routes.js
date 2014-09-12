@@ -91,7 +91,7 @@ angular.module('Yote')
       , controller: 'PostListCtrl'
     })
     .state('post.show', {
-      url: '/show/:postId'
+      url: '/show/:slug'
       , templateUrl: '/views/post/show'
       , controller: 'PostShowCtrl'
     })
