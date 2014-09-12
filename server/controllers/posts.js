@@ -3,7 +3,7 @@ var Post = require('mongoose').model('Post')
 
 exports.list = function(req, res) {
   console.log('list posts');
-  Post.find({}).exec(function(err, posts) {
+  Post.find({}).populate('author').exec(function(err, posts) {
     res.send(posts);
   });
 }
