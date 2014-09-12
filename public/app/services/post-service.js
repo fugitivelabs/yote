@@ -32,7 +32,7 @@ angular.module('Yote')
         console.log("it worked!");
         console.log(data);
         deferred.resolve(data);
-      }).error(function(){
+      }).error(function() {
         console.log("Error retrieving all posts.");
         deferred.reject("Error retrieving all posts.")
       });
@@ -41,17 +41,30 @@ angular.module('Yote')
 
   PostFactory.show = function(slug) {
     console.log("show this post: " + slug);
-    console.log(urlBase + '/' + slug);
     var deferred = $q.defer();
     $http.get(urlBase + '/' + slug)
       .success(function(data){
         console.log(data);
         deferred.resolve(data);
-      }).error(function(){
+      }).error(function() {
         console.log("error showing this post");
         deferred.reject("error showing this post");
       });
     return deferred.promise;
+  }
+
+  PostFactory.create = function(postData) {
+    console.log("creating post in factory");
+    var deferred = $q.defer();
+    $http.post(urlBase, postData)
+      .success(function(data) {
+        console.log(data);
+        deferred.resolve(data);
+      }).error(function() {
+        console.log("error creating new post");
+        deferred.reject("Error creating new post");
+      });
+      return deferred.promise;
   }
 
   return PostFactory;

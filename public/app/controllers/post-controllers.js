@@ -38,9 +38,32 @@ angular.module('Yote')
       }, function(data){
         alert(data);
       });
-
-
   }])
+
+
+  .controller('PostCreateCtrl', ['$scope', '$stateParams', '$state', '$rootScope', 'PostFactory', function($scope, $stateParams, $state, $rootScope, PostFactory) {
+    console.log('PostCreateCtrl loaded');
+    $scope.createAction = function(postData) {
+      postData.author = $scope.currentUser._id;
+      console.log(postData);
+      console.log("create action initiated");
+      PostFactory.create(postData)
+        .then(function(data) {
+          // console.log(data);
+          if(data.success) {
+            // console.log(data);
+            console.log(data.post.slug);
+            //go to post page
+            $state.go('post.show', { slug: data.post.slug });
+          } else {
+            alert(data.message + " Please try again.");
+          }
+        });
+    }
+  }])
+
+
+
 
 // end of file
 ;

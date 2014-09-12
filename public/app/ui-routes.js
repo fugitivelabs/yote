@@ -95,7 +95,14 @@ angular.module('Yote')
       , templateUrl: '/views/post/show'
       , controller: 'PostShowCtrl'
     })
+    .state('post.new', {
+      url: '/new'
+      , templateUrl: '/views/post/create'
+      , controller: 'PostCreateCtrl'
+    })
 })
+
+
 
 // end of file
 ;

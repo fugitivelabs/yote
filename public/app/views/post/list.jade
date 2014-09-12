@@ -1,6 +1,12 @@
 h3 All posts:
 ul
   li(ng-repeat="post in posts")
-    {{post.slug}}
     a(ui-sref="post.show({ slug: post.slug })")
       {{post.title}}
+
+br
+ul
+  li(ng-show="!currentUser.username")
+    a(ui-sref="user.login") Login to create a new post!
+  li(ng-show="currentUser.username")
+    a(ui-sref="post.new") Create New Post

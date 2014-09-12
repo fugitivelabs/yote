@@ -22,8 +22,18 @@ exports.getBySlug = function(req, res) {
   })
 }
 
-// exports.create = function(req, res) {
-//   var Post = new Post({
-
-//   });
-// }
+exports.create = function(req, res) {
+  var post = new Post({
+    title: req.param('title')
+    , author: req.param('author')
+    , content: req.param('content')
+    , tags: req.param('tags')
+  }).save(function(err, post) {
+    if(err) {
+      res.send({success: false, message: err});
+    } else {
+      console.log("created new post");
+      res.send({success: true, post: post});
+    }
+  })
+}

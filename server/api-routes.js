@@ -8,16 +8,18 @@ var mongoose = require('mongoose')
 
 //helper functions
 function requireLogin() {
-  if(!req.isAuthenticated()) {
-    res.status(403);
-    res.end();
-  } else {  next(); }
+  return function(req, res, next) {
+    if(!req.isAuthenticated()) {
+      res.status(403);
+      res.send("UNAUTHORIZED - NOT LOGGED IN");
+    } else {  next(); }
+  }
 }
 function requireRole(role) {
   return function(req, res, next) {
     if(!req.isAuthenticated() || req.user.roles.indexOf(role) === -1) {
       res.status(403);
-      res.send("UNAUTHORIZED");
+      res.send("UNAUTHORIZED - ADMIN PRIVILEDGEDS REQUIRED");
     } else {  next(); }
   }
 }
@@ -60,6 +62,8 @@ module.exports = function(app) {
   app.get('/api/posts'          , posts.list);
   app.get('/api/posts/byId:id'  , posts.getById); //no longer defaults to "by Id", instead by slug
   app.get('/api/posts/:slug'    , posts.getBySlug);
+
+  app.post('/api/posts'         , requireLogin(), posts.create);
 
   //catch all others
   app.all('/api/*', function(req, res) {
