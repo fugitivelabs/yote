@@ -29,18 +29,71 @@ angular.module('Yote')
     console.log("post show ctrl");
 
     //next call breaks second time it is called, regardless. why?
-    var postId = $stateParams.postId;
-    console.log(postId);
+    var slug = $stateParams.slug;
+    console.log(slug);
 
-    PostFactory.show(postId)
+    PostFactory.show(slug)
+      .then(function(data){
+        $scope.post = data;
+      }, function(data){
+        alert(data);
+      });
+  }])
+
+  .controller('PostCreateCtrl', ['$scope', '$stateParams', '$state', '$rootScope', 'PostFactory', function($scope, $stateParams, $state, $rootScope, PostFactory) {
+    console.log('PostCreateCtrl loaded');
+    $scope.createAction = function(postData) {
+      postData.author = $scope.currentUser._id;
+      console.log(postData);
+      console.log("create action initiated");
+      PostFactory.create(postData)
+        .then(function(data) {
+          // console.log(data);
+          if(data.success) {
+            // console.log(data);
+            console.log(data.post.slug);
+            //go to post page
+            $state.go('post.show', { slug: data.post.slug });
+          } else {
+            alert(data.message + " Please try again.");
+          }
+        });
+    }
+  }])
+
+  .controller('PostUpdateCtrl', ['$scope', '$stateParams', '$state', '$rootScope', 'PostFactory', function($scope, $stateParams, $state, $rootScope, PostFactory) {
+    console.log('PostUpdateCtrl loaded');
+
+    var slug = $stateParams.slug;
+    console.log(slug);
+
+    PostFactory.show(slug)
       .then(function(data){
         $scope.post = data;
       }, function(data){
         alert(data);
       });
 
-
+    $scope.updateAction = function(postData) {
+      console.log(postData);
+      console.log("udpate action initiated");
+      PostFactory.update(postData)
+        .then(function(data) {
+          // console.log(data);
+          if(data.success) {
+            // console.log(data);
+            console.log(data.post.slug);
+            //go to post page
+            $state.go('post.show', { slug: data.post.slug });
+          } else {
+            alert(data.message + " Please try again.");
+          }
+        });
+    }
   }])
+
+
+
 
 // end of file
 ;

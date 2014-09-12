@@ -32,26 +32,53 @@ angular.module('Yote')
         console.log("it worked!");
         console.log(data);
         deferred.resolve(data);
-      }).error(function(){
+      }).error(function() {
         console.log("Error retrieving all posts.");
         deferred.reject("Error retrieving all posts.")
       });
     return deferred.promise;
   }
 
-  PostFactory.show = function(id) {
-    console.log("show this post: " + id);
+  PostFactory.show = function(slug) {
+    console.log("show this post: " + slug);
     var deferred = $q.defer();
-    $http.get(urlBase + '/' + id)
+    $http.get(urlBase + '/' + slug)
       .success(function(data){
-        console.log("it worked again!!!");
         console.log(data);
         deferred.resolve(data);
-      }).error(function(){
+      }).error(function() {
         console.log("error showing this post");
         deferred.reject("error showing this post");
       });
     return deferred.promise;
+  }
+
+  PostFactory.create = function(postData) {
+    console.log("creating post in factory");
+    var deferred = $q.defer();
+    $http.post(urlBase, postData)
+      .success(function(data) {
+        console.log(data);
+        deferred.resolve(data);
+      }).error(function() {
+        console.log("error creating new post");
+        deferred.reject("Error creating new post");
+      });
+      return deferred.promise;
+  }
+
+  PostFactory.update = function(postData) {
+    console.log("updating a post in factory");
+    var deferred = $q.defer();
+    $http.put(urlBase + "/" + postData.slug, postData)
+      .success(function(data) {
+        console.log(data);
+        deferred.resolve(data);
+      }).error(function() {
+        console.log("error updating post");
+        deferred.reject("Error updating post");
+      });
+      return deferred.promise;
   }
 
   return PostFactory;

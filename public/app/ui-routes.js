@@ -91,11 +91,23 @@ angular.module('Yote')
       , controller: 'PostListCtrl'
     })
     .state('post.show', {
-      url: '/show/:postId'
+      url: '/show/:slug'
       , templateUrl: '/views/post/show'
       , controller: 'PostShowCtrl'
     })
+    .state('post.new', {
+      url: '/new'
+      , templateUrl: '/views/post/create'
+      , controller: 'PostCreateCtrl'
+    })
+    .state('post.edit', {
+      url: '/edit/:slug'
+      , templateUrl: '/views/post/edit'
+      , controller: 'PostUpdateCtrl'
+    })
 })
+
+
 
 // end of file
 ;

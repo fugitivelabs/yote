@@ -1,0 +1,10 @@
+h1 EDIT POST PAGE
+p Title
+input(type="text", name="title", placeholder="title", ng-model="post.title")
+br
+p Content
+textarea(type="text", name="content", ng-model="post.content")
+br
+//- other stuff to edit, do later
+br
+button(type="button", ng-click="updateAction(post)") UPDATE
