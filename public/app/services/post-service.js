@@ -67,6 +67,20 @@ angular.module('Yote')
       return deferred.promise;
   }
 
+  PostFactory.update = function(postData) {
+    console.log("updating a post in factory");
+    var deferred = $q.defer();
+    $http.put(urlBase + "/" + postData.slug, postData)
+      .success(function(data) {
+        console.log(data);
+        deferred.resolve(data);
+      }).error(function() {
+        console.log("error updating post");
+        deferred.reject("Error updating post");
+      });
+      return deferred.promise;
+  }
+
   return PostFactory;
 
 }])

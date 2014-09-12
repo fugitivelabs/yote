@@ -40,7 +40,6 @@ angular.module('Yote')
       });
   }])
 
-
   .controller('PostCreateCtrl', ['$scope', '$stateParams', '$state', '$rootScope', 'PostFactory', function($scope, $stateParams, $state, $rootScope, PostFactory) {
     console.log('PostCreateCtrl loaded');
     $scope.createAction = function(postData) {
@@ -48,6 +47,37 @@ angular.module('Yote')
       console.log(postData);
       console.log("create action initiated");
       PostFactory.create(postData)
+        .then(function(data) {
+          // console.log(data);
+          if(data.success) {
+            // console.log(data);
+            console.log(data.post.slug);
+            //go to post page
+            $state.go('post.show', { slug: data.post.slug });
+          } else {
+            alert(data.message + " Please try again.");
+          }
+        });
+    }
+  }])
+
+  .controller('PostUpdateCtrl', ['$scope', '$stateParams', '$state', '$rootScope', 'PostFactory', function($scope, $stateParams, $state, $rootScope, PostFactory) {
+    console.log('PostUpdateCtrl loaded');
+
+    var slug = $stateParams.slug;
+    console.log(slug);
+
+    PostFactory.show(slug)
+      .then(function(data){
+        $scope.post = data;
+      }, function(data){
+        alert(data);
+      });
+
+    $scope.updateAction = function(postData) {
+      console.log(postData);
+      console.log("udpate action initiated");
+      PostFactory.update(postData)
         .then(function(data) {
           // console.log(data);
           if(data.success) {

@@ -64,6 +64,8 @@ module.exports = function(app) {
   app.get('/api/posts/:slug'    , posts.getBySlug);
 
   app.post('/api/posts'         , requireLogin(), posts.create);
+  app.put('/api/posts/:slug'    , requireLogin(), posts.update);
+  app.del('/api/posts/:slug'    , requireRole('admin'), posts.delete);
 
   //catch all others
   app.all('/api/*', function(req, res) {

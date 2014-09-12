@@ -100,6 +100,11 @@ angular.module('Yote')
       , templateUrl: '/views/post/create'
       , controller: 'PostCreateCtrl'
     })
+    .state('post.edit', {
+      url: '/edit/:slug'
+      , templateUrl: '/views/post/edit'
+      , controller: 'PostUpdateCtrl'
+    })
 })
 
 

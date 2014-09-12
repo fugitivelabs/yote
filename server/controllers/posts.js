@@ -17,9 +17,9 @@ exports.getById = function(req, res) {
 
 exports.getBySlug = function(req, res) {
   console.log('get post by slug');
-  Post.findOne({slug: req.param('slug')}).exec(function(err, post) {
+  Post.findOne({ slug: req.param('slug') }).exec(function(err, post) {
     res.send(post);
-  })
+  });
 }
 
 exports.create = function(req, res) {
@@ -37,3 +37,33 @@ exports.create = function(req, res) {
     }
   })
 }
+
+exports.update = function(req, res) {
+  console.log("update post called");
+  Post.findOne({ slug: req.param('slug') }).exec(function(err, post) {
+    if(!err) {
+      post.title = req.param('title');
+      post.content = req.param('content');
+      // post.status = req.param('status');
+      // post.tags = req.params('tags');
+      // post.featured = req.params('featured');
+      post.save(function(err, post) {
+        if(!err) {
+          res.send({success: true, post: post});
+        } else {
+          console.log("ERROR UPDATING: " + err);
+          res.send({success: false, error: err});
+        }
+      });
+
+    } else {
+      console.log("post not found");
+      res.send({success: false, message: "Post Not Found; Edit Failed."});
+    }
+  });
+}
+
+exports.delete = function(req, res) {
+  res.send("DELETE ACTION NOT IMPLEMENTED YET");
+}
+
