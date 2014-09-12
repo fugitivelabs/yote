@@ -69,7 +69,7 @@ angular.module('Yote')
         // console.log(err);
         deferred.resolve({"success": false, "error": err});
       });
-      return deferred.promise;
+    return deferred.promise;
   }
 
   UserFactory.register = function(userData) {
@@ -92,11 +92,20 @@ angular.module('Yote')
         console.log('REGISTER FAILURE - err');
         deferred.resolve(err);
       });
-      return deferred.promise;
-
+    return deferred.promise;
   }
 
+  UserFactory.list = function() {
+    var deferred = $q.defer();
 
+    $http.get(urlBase)
+      .success(function(data){
+        deferred.resolve(data);
+      }).error(function() {
+        deferred.reject("Error. Please try logging in as an admin");
+      });
+    return deferred.promise;
+  }
 
   return UserFactory;
 

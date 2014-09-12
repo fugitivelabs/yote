@@ -28,6 +28,26 @@ angular.module('Yote')
       , controller: 'HomeCtrl'
     })
 
+    /********************** 
+    *  Admin Routes
+    ***********************/
+
+    .state('admin', {
+      abstract: true
+      , url: '/admin'
+      , templateUrl: '/views/layouts/admin'
+      , controller: 'AdminCtrl'
+    })
+
+    .state('admin.dashboard', {
+      url: ''
+      , templateUrl: '/views/admin/dashboard'
+    })
+
+    /********************** 
+    *  Static Routes
+    ***********************/
+
     .state('static', {
       abstract: true
       , url: '/static'
