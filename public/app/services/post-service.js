@@ -64,7 +64,7 @@ angular.module('Yote')
         console.log("error creating new post");
         deferred.reject("Error creating new post");
       });
-      return deferred.promise;
+    return deferred.promise;
   }
 
   PostFactory.update = function(postData) {
@@ -78,7 +78,7 @@ angular.module('Yote')
         console.log("error updating post");
         deferred.reject("Error updating post");
       });
-      return deferred.promise;
+    return deferred.promise;
   }
 
   return PostFactory;
