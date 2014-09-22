@@ -1,6 +1,6 @@
-'user strict'
+'use strict';
 
-/* USER FACTORY SERVICE */
+/* USER FACTORY */
 
 angular.module('Yote')
 
@@ -110,4 +110,6 @@ angular.module('Yote')
   return UserFactory;
 
 }])
+
+// end of file
 ;
