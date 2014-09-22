@@ -1,10 +1,9 @@
 var mongoose = require('mongoose')
   , passport = require('passport')
-  , users = require('./controllers/users')
-  , User = mongoose.model('User')
-  , posts = require('./controllers/posts')
-  , Post = mongoose.model('Post')
+  , api = require('./route-config')
   ;
+
+console.log(api.users);
 
 //helper functions
 function requireLogin() {
@@ -24,16 +23,17 @@ function requireRole(role) {
   }
 }
 
-//define routes
+
+  /**************************** 
+  /*  DEFAULT USER API ROUTES 
+  /****************************/
+
 module.exports = function(app) {
 
-  //login, logout
+  // user login
   app.post('/api/users/login', function(req, res, next) {
     console.log("DEBUG 1");
     req.body.username = req.body.username.toLowerCase();
-    // console.log(req.body.username);
-    // console.log(req.body.password);
-    //
     passport.authenticate('local', function(err, user) {
       console.log("DEBUG 4");
       if(err) {
@@ -48,40 +48,51 @@ module.exports = function(app) {
       });
     })(req, res, next);
   });
+
+  // user logout
   app.post('/api/users/logout', function(req, res) {
     req.logout();
     res.end();
   });
 
-  //API CALLS
-  //users
-  app.get('/api/users'          , requireRole('admin'), users.list);
-  app.post('/api/users'         , users.create);
-  // app.put('/api/users'          , users.update);
-  //posts
-  app.get('/api/posts'          , posts.list);
-  app.get('/api/posts/byId:id'  , posts.getById); //no longer defaults to "by Id", instead by slug
-  app.get('/api/posts/:slug'    , posts.getBySlug);
+  // ==> users CRUD api
+  // - Create
+  app.post('/api/users'         , api.users.create);
+  // - Read
+  app.get('/api/users'          , requireRole('admin'), api.users.list); // must be an 'admin' to see the list of users
+  // - Update
+  // app.put('/api/users'          , api.users.update);
+  // - Delete
+  // app.del('/api/users'          , requireRole('admin'), api.users.delete);
 
-  app.post('/api/posts'         , requireLogin(), posts.create);
-  app.put('/api/posts/:slug'    , requireLogin(), posts.update);
-  app.del('/api/posts/:slug'    , requireRole('admin'), posts.delete);
+
+
+  /**************************** 
+  /*  CUSTOM API ROUTES 
+  /****************************/
+
+
+  // ==> posts CRUD api
+  // - Create
+  app.post('/api/posts'         , requireLogin(), api.posts.create);
+  // - Read
+  app.get('/api/posts'          , api.posts.list);
+  app.get('/api/posts/byId:id'  , api.posts.getById); 
+  app.get('/api/posts/:slug'    , api.posts.getBySlug);
+  // - Update
+  app.put('/api/posts/:slug'    , requireLogin(), api.posts.update); // must login as post owner to update the post
+  // - Delete
+  app.del('/api/posts/:slug'    , requireRole('admin'), api.posts.delete); // must be an 'admin' to delete
+
+
+
+  // ==> END CUSTOM API ROUTES
+
+
 
   //catch all others
   app.all('/api/*', function(req, res) {
     res.send(404);
-  });
-
-  //render jade views as html
-  app.get('/views/*', function(req, res) {
-    res.render('../../public/app/views/' + req.params);
-  });
-
-  //index
-  app.get('*', function(req, res) {
-    res.render('layout', {
-      currentUser: req.user
-    });
   });
 
 }

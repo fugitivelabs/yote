@@ -83,7 +83,8 @@ passport.deserializeUser(function(id, done) {
 })
 
 //configure server routes
-require('./server/api-routes')(app);
+require('./server/routes/api-routes')(app);
+require('./server/routes/server-routes')(app);
 
 app.listen(config.port);
 console.log('Yote is listening on port ' + config.port + '...');

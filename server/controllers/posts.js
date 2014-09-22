@@ -35,7 +35,7 @@ exports.create = function(req, res) {
       console.log("created new post");
       res.send({success: true, post: post});
     }
-  })
+  });
 }
 
 exports.update = function(req, res) {
