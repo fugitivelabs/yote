@@ -125,9 +125,10 @@ angular.module('Yote')
       , templateUrl: '/views/post/edit'
       , controller: 'PostUpdateCtrl'
     })
+
+
+// ==> end state config
 })
 
-
-
-// end of file
+// end file
 ;
