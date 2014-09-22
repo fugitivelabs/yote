@@ -24,11 +24,11 @@ function requireRole(role) {
 }
 
 
+module.exports = function(app) {
+
   /**************************** 
   /*  DEFAULT USER API ROUTES 
   /****************************/
-
-module.exports = function(app) {
 
   // user login
   app.post('/api/users/login', function(req, res, next) {
@@ -90,9 +90,10 @@ module.exports = function(app) {
 
 
 
-  //catch all others
+  // catch all other requests and send 404 
   app.all('/api/*', function(req, res) {
     res.send(404);
   });
 
+// end file
 }
