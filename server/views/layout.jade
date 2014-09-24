@@ -13,7 +13,6 @@ html(lang="en", ng-app="Yote")
     script(src="/lib/angular-ui-router.min.js")
     //- root angular dependencies
     script(src="/app/app.js")
-    script(src="/app/ui-routes.js")
     script(src="/app/directives.js")
     script(src="/app/filters.js")
 
@@ -27,6 +26,8 @@ html(lang="en", ng-app="Yote")
     else
       script.
         window.currentUser = {}
+    
     //- reference the custom angular dependencies
     include ng-services
     include ng-controllers
+    include ng-routes
