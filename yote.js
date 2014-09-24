@@ -3,6 +3,7 @@ var express = require('express')
   , passport = require('passport')
   , LocalStrategy = require('passport-local').Strategy
   , sass = require('node-sass')
+  , path = require('path')
   ;
 
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
@@ -24,6 +25,7 @@ app.configure(function() {
   app.use(express.cookieParser());
   app.use(express.bodyParser());
   app.use(express.session({secret: 'fugitive labs is neat-o daddy-o'}));
+  app.use(express.favicon(path.join(__dirname, 'public','img','favicon.ico'))); 
   app.use(passport.initialize());
   app.use(passport.session());
   app.use(sass.middleware({
@@ -83,7 +85,8 @@ passport.deserializeUser(function(id, done) {
 })
 
 //configure server routes
-require('./server/api-routes')(app);
+require('./server/routes/api-routes')(app);
+require('./server/routes/server-routes')(app);
 
 app.listen(config.port);
 console.log('Yote is listening on port ' + config.port + '...');

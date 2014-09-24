@@ -14,5 +14,5 @@ angular.module('Yote', [
   console.log($rootScope.currentUser);
 })
 
-// end of file
+// end file
 ;

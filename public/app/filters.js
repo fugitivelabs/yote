@@ -19,5 +19,5 @@ angular.module('Yote')
     }
   })
 
-// end of the file
+// end file
 ;

@@ -4,7 +4,6 @@
 
 angular.module('Yote')
 
-
 /*******************************************************************************************
 * By default, Yote uses Angular factories as the services model. 
 * 
