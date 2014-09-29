@@ -3,14 +3,28 @@
 @charset "UTF-8";
 
 @import
-  'globals/reset',
-  'globals/colors',
-  'globals/typography',
-  'globals/mixins',
-  'globals/components';
+    'globals/normalize'
+  , 'globals/colors'
+  , 'globals/typography'
+  , 'globals/zindex'
+  , 'globals/mixins'
+  , 'globals/layout'
+  , 'globals/components'
+  ;
 
 // Base Styles
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+*, *:after, *:before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
 
 body {
   @include border-box;
@@ -29,9 +43,21 @@ a {
   padding: .2rem;
   text-decoration: none;
 
-  &:visited { color: $color-link-visited; }
-  &:hover { color: $color-link-hover; text-decoration: underline; }
-  &:active { color: $color-text; }
+  &:visited { 
+    color: $color-link-visited; 
+  }
+  &:hover { 
+    color: $color-link-hover; 
+    text-decoration: none;
+    cursor: pointer;
+  }
+  &:active { 
+    color: $color-text; 
+  }
+}
+
+h1 {
+  @include type-largest;
 }
 
 // Base Styles: Tablets
@@ -59,16 +85,16 @@ a {
   }
 }
 
-// Components
+// Includes
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
 // @import
-//   'components/navigation',
-//   'components/footer';
+//   'includes/navigation'
+//   , 'includes/footer'
+//   ;
 
 
 // Pages
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
-@import
-  'pages/home';
+@import 'pages/home';

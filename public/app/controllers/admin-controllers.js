@@ -15,6 +15,12 @@ angular.module('Yote')
       });
   }])
 
+  .controller('DocsCtrl', ['$scope', '$stateParams', '$state', 'UserFactory', 'PostFactory', function($scope, $stateParams, $state, UserFactory, PostFactory){
+    console.log("DocsCtrl loaded...");
+
+  }])
+
+
   /********************** 
   *  Custom Controllers 
   ***********************/
