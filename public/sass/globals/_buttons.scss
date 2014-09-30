@@ -76,6 +76,14 @@
   width: 100%;
 }
 
+// Buttons with Primary, Accent and Alert colors
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+[yt-btn~="primary"] {
+  background-color: $primary;
+}
+
+
 // Buttons with semantic colors
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
@@ -140,5 +148,17 @@
 }
 
 
+// link buttons
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
 
+[yt-btn~="link"] {
+  background-color: transparent;;
+  border: none !important;
+  color: $accent;
+  &:hover {
+    &:visited { color: $secondary-text; }
+    &:hover { color: $accent-hover; background-color: $primary-ultra-light; }
+    &:active { color: $accent-hover; }
+  }
+}
 

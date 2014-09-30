@@ -1,12 +1,15 @@
 section(yt-tallBoy)
   nav.navBar.-dark
-    .content
+    div(yt-container)
       a.navLogo Yote
       ul.navList.-horiz.u-pullRight
         li
-          a(ui-sref="docs.dashboard") Docs
-        li
           a(ui-sref="user.logout") Logout
+
+  nav.side-nav.-left
+    ul
+      li
+        a(ui-sref="admin.style") Style guide
 
   section(yt-container="tallBoy")
     ui-view
@@ -16,8 +19,3 @@ section(yt-tallBoy)
     nav.navBar.-dark
       .content
         a.navLogo Yote
-        ul.navList.-horiz.u-pullRight
-          li
-            a(ui-sref="docs.dashboard") Docs
-          li
-            a(ui-sref="user.logout") Logout

@@ -67,7 +67,6 @@ $gutter: $gutter-width * 0.5;
 
 [yt-row] {
   @include display-flex;
-  padding: $gutter;
   width: 100%;
 }
 
@@ -76,7 +75,6 @@ $gutter: $gutter-width * 0.5;
 }
 
 [yt-row] + [yt-row] {
-  margin-top: $gutter * -1;
   padding-top: 0;
 }
 

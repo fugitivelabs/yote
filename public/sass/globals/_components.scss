@@ -74,8 +74,15 @@
 
 }
 
+// Cards
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
 
-
+.card {
+  padding: $gutter;
+  border: 1px solid $divider;
+  border-radius: 2px;
+  background-color: #fff;
+}
 
 
 

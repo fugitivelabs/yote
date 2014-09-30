@@ -23,20 +23,7 @@ angular.module('Yote')
       , templateUrl: '/views/admin/dashboard'
     })
 
-    // move this to a child of admin later
-    .state('docs', {
-      abstract: true
-      , url: '/docs'
-      , templateUrl: '/views/layouts/admin'
-      , controller: 'DocsCtrl'
-    })
-
-    .state('docs.dashboard', {
-      url: ''
-      , templateUrl: '/views/admin/docs/dashboard'
-    })
-
-    .state('docs.dashboard.style', {
+    .state('admin.style', {
       url: '/style-guide'
       , templateUrl: '/views/admin/docs/style-guide'
     })

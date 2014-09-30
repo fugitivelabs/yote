@@ -17,7 +17,7 @@ body {
   @include font-smoothing(antialiased);
   @include type-base;
   background-color: $bg-color;
-  color: $text-color;
+  color: $primary-text;
   font-family: $font-sans;
   line-height: 1.5rem;
   position: relative;
@@ -25,21 +25,21 @@ body {
 
 
 a {
-  color: $link-color;
+  color: $accent;
   margin: -.2rem;
   padding: .2rem;
   text-decoration: none;
 
   &:visited { 
-    color: $link-visited; 
+    color: $secondary-text; 
   }
   &:hover { 
-    color: $link-hover; 
+    color: $accent-hover; 
     text-decoration: none;
     cursor: pointer;
   }
   &:active { 
-    color: $link-hover; 
+    color: $accent-hover; 
   }
 }
 
@@ -73,7 +73,7 @@ h1, h2, h3, h4, h5, h6 {
 
 small {
   @include type-smaller;
-  // color: $subdued;
+  color: $secondary-text;
 }
 
 em {
@@ -84,7 +84,17 @@ p {
   @include type-base;
 }
 
+u {
+  text-decoration: underline;
+}
 
+strong {
+  font-weight: 700;
+}
+
+hr {
+  border-color: $divider;
+}
 
 // Base Styles: Tablets
 // ••••••••••••••••••••••••••••••••••••••••••••••••••

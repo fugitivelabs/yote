@@ -4,6 +4,7 @@
 
 @import
     'globals/normalize'
+  , 'globals/material-palettes'
   , 'globals/colors'
   , 'globals/mixins'
   , 'globals/zindex'
@@ -32,3 +33,4 @@
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
 @import 'pages/home';
+@import 'pages/style-guide';
