@@ -1,8 +1,10 @@
 // Offset
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 //
-// Using flexbox for the grid, inspired by Philip Walton:
-// http://philipwalton.github.io/solved-by-flexbox/demos/grids/
+// use css attribute selector syntax for the grid.  
+// 
+// markup would look like <div yt-col="2/4" yt-offset="1/4">
+
 
 
 [yt-offset~="1/2"],

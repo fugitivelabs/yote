@@ -1,17 +1,43 @@
 
-// Colors
+// Main Colors
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
-$white: #fff;
+// default bg-color
+$bg-color: #fbfcfc;
 
-$color-background: rgb(239, 233, 225);
-$color-text: rgb(86, 66, 39);
+// default text-color
+$text-color: #2F3538;
 
-$color-link: rgb(170, 170, 170);
-$color-link-hover: lighten($color-link, 10);
-$color-link-visited: darken($color-link, 10);
+// default a-link-color
+$link-color: #5B747F;
+$link-hover: lighten($link-color, 10);
+$link-visited: darken($link-color, 10);
 
-$color-btn: rgb(140, 118, 88);
-$color-btn-hover: lighten($color-btn, 10);
-$color-btn-text: rgb(255, 255, 255);
-$color-btn-text-hover: lighten($color-btn-text, 10);
+
+// Semantic Colors 
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+$light: #ECF0F1;
+$light-hover: darken($light, 10);
+$light-disabled: lighten($light, 10);
+$light-brilliant: lighten($light, 90);
+
+$dark: #2F3538;
+$dark-hover: darken($dark, 10);
+$dark-disabled: lighten($dark, 50);
+
+$calm: #3498db;
+$calm-hover: darken($calm, 10);
+$calm-disabled: lighten($calm, 20);
+
+$success: #2ecc71;
+$success-hover: darken($success, 10);
+$success-disabled: lighten($success, 20);
+
+$warning: #e67e22;
+$warning-hover: darken($warning, 10);
+$warning-disabled: lighten($warning, 20);
+
+$danger: #e74c3c;
+$danger-hover: darken($danger, 10);
+$danger-disabled: lighten($danger, 50);

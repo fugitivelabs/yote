@@ -1,0 +1,47 @@
+/* Forms
+  ••••••••••••••••••••••••••••••••••••••••••••••••••
+ 
+
+*/
+
+
+// input addons
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+.input-add-on {
+  @include display-flex;
+  margin-bottom: 1em;
+
+  .field {
+    @include flex(1);
+
+    &:not(:first-child) {
+      border-left: 0;
+    }
+    
+    &:not(:last-child) {
+      border-right: 0;
+    }
+  }
+
+  .item {
+    background-color: $light;
+    color: $dark;
+    font: inherit;
+    font-weight: normal;
+  }
+
+  .field, 
+  .item {
+    border: 1px solid $light-hover;
+    padding: 0.5em 0.75em;
+    &:first-child {
+      border-radius: 2px 0 0 2px;
+    }
+    &:last-child {
+      border-radius: 0 2px 2px 0;
+    }
+  }
+
+}
+

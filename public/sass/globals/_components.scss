@@ -1,56 +1,9 @@
 
-// Buttons
-// ••••••••••••••••••••••••••••••••••••••••••••••••••
-
-%button {
-  border: none;
-  background-color: $color-btn;
-  color: $color-btn-text;
-  margin: 0px;
-  padding: 1em 2em;
-  @include type-base;
-
-  &:hover {
-    &:visited { color: $color-link-visited; }
-    &:hover { color: $color-btn-text-hover; background-color: $color-btn-hover; text-decoration: none; }
-    &:active { color: $color-text; }
-  }
-}
-
-%button--large {
-  @include type-large;
-}
-
-%button--green {
-  background: #3efa95;
-}
-
-.button {
-  @extend %button;
-
-  &.-large {
-    @extend %button--large;
-  }
-
-  &.-green {
-    @extend %button--green;
-  }
-
-  &.-rounded {
-    @include border-radius(5px);
-  }
-}
-
-.button--large {
-  @extend .button;
-  @extend %button--large;
-}
-
 // Navigation
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
 %nav--dark {
-  background-color: #1c1e21;
+  background-color: #B6E8FF;
 }
 
 %nav--light {
@@ -104,6 +57,22 @@
 }
 
 
+// Media Elements
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+.media {
+  @include display-flex;
+  @include align-items(flex-start);
+
+  .figure {
+    margin-right: 1em;
+  }
+
+  .copy {
+    @include flex(1);
+  }
+
+}
 
 
 

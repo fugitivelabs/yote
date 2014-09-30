@@ -178,11 +178,17 @@
 
 @mixin flex($fg: 1, $fs: null, $fb: null) {
   -webkit-box-flex: $fg;
-  -webkit-flex: $fg $fs $fb;
-  -moz-box-flex: $fg;
-  -moz-flex: $fg $fs $fb;
-  -ms-flex: $fg $fs $fb;
-  flex: $fg $fs $fb;
+  @if $fs == null and $fb == null {
+    -webkit-flex: $fg;
+    -moz-flex: $fg;
+    -ms-flex: $fg;
+    flex: $fg;
+  } else {
+    -webkit-flex: $fg $fs $fb;
+    -moz-flex: $fg $fs $fb;
+    -ms-flex: $fg $fs $fb;
+    flex: $fg $fs $fb;
+  }
 }
 
 @mixin flex-flow($values: (row nowrap)) {

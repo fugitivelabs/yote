@@ -21,47 +21,52 @@ $gutter: $gutter-width * 0.5;
 // Layout
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
-%container {
+
+[yt-container] {
   @include border-box;
   @include clearfix;
-  position: relative;
+  // position: relative;
   max-width: $container-width;
   margin: 0 auto;
   padding: 0 $gutter-width;
 }
 
-
-%container--tall {
-  min-height: 100%;
-  height: auto;
-  // these should be set to height of footer
-  // margin-bottom: -121px; // $footer-height;
-  // padding-bottom: 121px; // $footer-height;
-}
-
-%container--fluid {
+[yt-container~="fluid"] {
   max-width: 100%;
 }
 
-.content {
-  @extend %container;
-  
-  &.-tall {
-    @extend %container--tall;
-  }
+/*
+  To achieve the "Sticky Footer" effect on short content,
+  wrap the content's parent with a yt-tallBoy element.
+  then, include the value "tallBoy" on the yt-container
 
-  &.-fluid {
-    @extend %container--fluid;
+  markup then looks like: 
+    
+    <section yt-tallBoy>
+      <div yt-container="tallBoy">
+        ...
+      </div>
+    </section>
+*/
+
+[yt-tallBoy] {
+  @include display-flex;
+  min-height: 100vh;
+  @include flex-direction(column);
+  
+  [yt-container~="tallBoy"] {
+    @include flex(1);
   }
 
 }
+
 
 
 // Rows
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
 [yt-row] {
-  @include display-flex();
+  @include display-flex;
   padding: $gutter;
   width: 100%;
 }

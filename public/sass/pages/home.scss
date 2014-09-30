@@ -21,20 +21,3 @@
 }
 
 
-
-.hero {
-  @extend %container;
-  padding: $gutter_width;
-
-  h1,h2,h3,h4,h5,h6 {
-    @include type-jumbo;
-    margin-bottom: $gutter_width;
-  }
-
-  p {
-    @include type-large;
-    @include lineHeight-looser;
-    margin-bottom: 2rem;
-  }
-
-}
