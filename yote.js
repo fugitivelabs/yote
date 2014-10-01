@@ -1,9 +1,16 @@
-var express = require('express')
-  , mongoose = require('mongoose')
-  , passport = require('passport')
-  , LocalStrategy = require('passport-local').Strategy
-  , sass = require('node-sass')
-  , path = require('path')
+var express         = require('express')
+  , bodyParser      = require('body-parser')
+  , cookieParser    = require('cookie-parser')
+  , serveStatic     = require('serve-static')
+  , logger          = require('morgan')
+  , session         = require('express-session')
+  , favicon         = require('serve-favicon')
+  , errorHandler    = require('errorhandler')
+  , mongoose        = require('mongoose')
+  , passport        = require('passport')
+  , LocalStrategy   = require('passport-local').Strategy
+  , sass            = require('node-sass')
+  , path            = require('path')
   ;
 
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
@@ -21,11 +28,12 @@ var UserSchema = require('./server/models/User').User
 app.configure(function() {
   app.set('views', __dirname + '/server/views');
   app.set('view engine', 'jade');
-  app.use(express.logger('dev'));
-  app.use(express.cookieParser());
-  app.use(express.bodyParser());
-  app.use(express.session({secret: 'fugitive labs is neat-o daddy-o'}));
-  app.use(express.favicon(path.join(__dirname, 'public','img','favicon.ico'))); 
+  app.use(logger('dev'));
+  app.use(cookieParser());
+  app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(session({secret: 'fugitive labs is neat-o daddy-o'}));
+  app.use(favicon(path.join(__dirname, 'public','favicon.ico'))); 
   app.use(passport.initialize());
   app.use(passport.session());
   app.use(sass.middleware({
@@ -36,7 +44,7 @@ app.configure(function() {
     outputStyle: 'compressed'
   }));
   //allow the angular ui-views to be written in Jade
-  app.use(express.static(__dirname + '/public'));
+  app.use(serveStatic(__dirname + '/public'));
 });
 
 //handle mongo errors
@@ -83,6 +91,11 @@ passport.deserializeUser(function(id, done) {
     }
   })
 })
+
+// development only
+// if ('development' == app.get('env')) {
+//   app.use(errorHandler());
+// }
 
 //configure server routes
 require('./server/routes/api-routes')(app);
