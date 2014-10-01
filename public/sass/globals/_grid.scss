@@ -26,6 +26,7 @@ $gutter: $gutter-width * 0.5;
   @include border-box;
   @include clearfix;
   // position: relative;
+  width: 100%;
   max-width: $container-width;
   margin: 0 auto;
   padding: 0 $gutter-width;
