@@ -23,6 +23,11 @@ angular.module('Yote')
       , templateUrl: '/views/admin/dashboard'
     })
 
+    .state('admin.style', {
+      url: '/style-guide'
+      , templateUrl: '/views/admin/docs/style-guide'
+    })
+
 // ==> end state config
 })
 

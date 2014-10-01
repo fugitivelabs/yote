@@ -1,0 +1,164 @@
+/* Buttons
+  ••••••••••••••••••••••••••••••••••••••••••••••••••
+ 
+    use css attribute selector syntax for the buttons.  
+
+    markup looks like <button yt-btn="calm lg block"> ... </button>
+*/
+
+
+
+
+// default button styling 
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+[yt-btn] {
+  border: none;
+  background-color: $light;
+  border-radius: 2px;
+  border: 1px solid $light-hover;
+  color: $dark;
+  margin: 0px;
+  padding: 1em 2em;
+  @include type-base;
+
+  &:hover {
+    &:visited { color: $light-hover; }
+    &:hover { color: $dark-hover; background-color: $light-hover; text-decoration: none; }
+    &:active { color: $dark-hover; }
+  }
+  // disabled buttons 
+  // markup can include 
+  //    <button yt-button disabled>...</button>
+  //    <button yt-button class="disabled">...</button>
+  //    <button yt-button ng-disabled>...</button>
+  //    <button yt-button ng-class="disabled">...</button>
+  &.disabled,
+  &[disabled] {
+    pointer-events: none;
+    cursor: not-allowed;
+    opacity: 0.65;
+    filter: alpha(opacity=65);
+    -webkit-box-shadow: none;
+            box-shadow: none;    
+  }
+
+} 
+
+// various button sizes 
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+[yt-btn~="x-large"] {
+  padding: 1.5em 2.5em;
+  @include type-larger;
+}
+
+[yt-btn~="large"] {
+  padding: 1.3em 2.3em;
+  @include type-large;
+}
+
+[yt-btn~="small"] {
+  padding: .7em 1.7em;
+  @include type-small;
+}
+
+[yt-btn~="x-small"] {
+  padding: .5em 1.5em;
+  @include type-smaller;
+}
+
+// Buttons that fill container as block element 
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+[yt-btn~="block"] {
+  display: block;
+  width: 100%;
+}
+
+// Buttons with Primary, Accent and Alert colors
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+[yt-btn~="primary"] {
+  background-color: $primary;
+}
+
+
+// Buttons with semantic colors
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+// calm
+[yt-btn~="calm"] {
+  background-color: $calm;
+  border-color: $calm-hover;
+  color: $light;
+  &:hover {
+    &:visited { color: $light-brilliant; }
+    &:hover { color: $light-brilliant; background-color: $calm-hover; }
+    &:active { color: $light-brilliant; }
+  }
+}
+
+// dark
+[yt-btn~="dark"] {
+  background-color: $dark;
+  border-color: $dark-hover;
+  color: $light;
+  &:hover {
+    &:visited { color: $light-brilliant; }
+    &:hover { color: $light-brilliant; background-color: $dark-hover; }
+    &:active { color: $light-brilliant; }
+  }
+}
+
+// success
+[yt-btn~="success"] {
+  background-color: $success;
+  border-color: $success-hover;
+  color: $light;
+  &:hover {
+    &:visited { color: $light-brilliant; }
+    &:hover { color: $light-brilliant; background-color: $success-hover; }
+    &:active { color: $light-brilliant; }
+  }
+}
+
+// warning
+[yt-btn~="warning"] {
+  background-color: $warning;
+  border-color: $warning-hover;
+  color: $light;
+  &:hover {
+    &:visited { color: $light-brilliant; }
+    &:hover { color: $light-brilliant; background-color: $warning-hover; }
+    &:active { color: $light-brilliant; }
+  }
+}
+
+// danger
+[yt-btn~="danger"] {
+  background-color: $danger;
+  border-color: $danger-hover;
+  color: $light;
+  &:hover {
+    &:visited { color: $light-brilliant; }
+    &:hover { color: $light-brilliant; background-color: $danger-hover; }
+    &:active { color: $light-brilliant; }
+  }
+}
+
+
+// link buttons
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+[yt-btn~="link"] {
+  background-color: transparent;;
+  border: none !important;
+  color: $accent;
+  &:hover {
+    &:visited { color: $secondary-text; }
+    &:hover { color: $accent-hover; background-color: $primary-ultra-light; }
+    &:active { color: $accent-hover; }
+  }
+}
+

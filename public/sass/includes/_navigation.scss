@@ -1,0 +1,79 @@
+// Navigation ———————————————————————————————— •
+// ——————————————————————————————————————————— •
+
+nav {
+  @include border-box;
+}
+
+%nav--dark {
+  background-color: #1c1e21;
+}
+
+%nav--light {
+  background-color: #f5f5f5;
+}
+
+%nav--fixed {
+  position: fixed;
+}
+
+%horiz {
+  display: inline-block;
+}
+
+%vert {
+  display: block;
+}
+
+.navBar {
+  width: 100%;
+  padding: 1rem 0px;
+
+  &.-dark {
+    @extend %nav--dark;
+  }
+
+  &.-light {
+    @extend %nav--light;
+  }
+
+  &.-fixed {
+    @extend %nav--fixed;
+  }
+
+  .navLogo {
+    display: inline-block;
+    @include type-large;
+  }
+
+  .navList {
+
+    &.-horiz {
+      li {
+        @extend %horiz;
+        a {
+          margin: 0px 1em;
+        }
+      }
+    }
+    &.-vert {
+      li {
+        @extend %vert;
+        a {
+          margin: 1em 0px;
+        }
+      }
+    }
+  }
+}
+
+
+
+// Navigation: Desktop ——————————————————————— •
+// ——————————————————————————————————————————— •
+
+@include responsive-break-point(768px) {
+  // .navigation {
+  //   max-width: 960px;
+  // }
+}

@@ -1,17 +1,60 @@
 
-// Colors
+// Main Colors
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
-$white: #fff;
+// default bg-color
+$bg-color:                    $material-grey-50;
 
-$color-background: rgb(239, 233, 225);
-$color-text: rgb(86, 66, 39);
+// default text-color
+$primary-text:                $material-primary-text;
+$secondary-text:              $material-secondary-text;
+$hint-text:                   $material-hint-text;
+$divider:                     $material-divider;
+$text-light:                  $material-grey-0;
 
-$color-link: rgb(170, 170, 170);
-$color-link-hover: lighten($color-link, 10);
-$color-link-visited: darken($color-link, 10);
+// primary colors (navbar, etc)
+$primary:                     $material-blue-grey-500;
+$primary-hover:               darken($primary, 10);
 
-$color-btn: rgb(140, 118, 88);
-$color-btn-hover: lighten($color-btn, 10);
-$color-btn-text: rgb(255, 255, 255);
-$color-btn-text-hover: lighten($color-btn-text, 10);
+$primary-light:               $material-blue-grey-200;
+$primary-light-hover:         darken($primary-light, 10);
+
+$primary-dark:                $material-blue-grey-700;
+$primary-dark-hover:          darken($primary-dark, 10);
+
+$primary-ultra-light:         $material-blue-grey-50;
+$primary-ultra-light-hover:   darken($primary-ultra-light, 10);
+
+// secondary colors (calls to action, links, etc.)
+$accent:                      $material-pink-A200;
+$accent-hover:                darken($accent, 10);
+
+
+// tertiary colors (alerts and whatnot)
+$alert:                       $material-yellow-A200;
+$alert-hover:                 darken($alert, 10);
+
+
+
+// Semantic Colors 
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+$light: #ECF0F1;
+$light-hover: darken($light, 10);
+$light-brilliant: lighten($light, 90);
+
+$dark: #2F3538;
+$dark-hover: darken($dark, 10);
+
+$calm: #3498db;
+$calm-hover: darken($calm, 10);
+
+$success: #2ecc71;
+$success-hover: darken($success, 10);
+
+$warning: #e67e22;
+$warning-hover: darken($warning, 10);
+
+$danger: #e74c3c;
+$danger-hover: darken($danger, 10);
+

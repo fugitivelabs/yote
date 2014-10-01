@@ -1,4 +1,8 @@
+/*// ••••••••••••••••••••••••••••••••••••••••••••••••••
+ 
+ Any page specific styles should go here
 
+*/// ••••••••••••••••••••••••••••••••••••••••••••••••••
 
 
 
@@ -15,3 +19,5 @@
 @include responsive-break-point(800px) {
   .content { max-width: 960px; }
 }
+
+

@@ -1,13 +1,18 @@
-nav.navBar
-  .content
-    a.navLogo(href="#") Yote Admin
-    ul.navList.-horiz.u-pullRight
-      li(ng-show="!currentUser.username")
-        a(ui-sref="user.login") Login
-      li(ng-show="!currentUser.username")
-        a(ui-sref="user.register") Register
-      li(ng-show="currentUser.username")
-        a(ui-sref="user.logout") Logout
+section(yt-tallBoy)
+  nav.navBar.-dark
+    div(yt-container)
+      a.navLogo Yote
+      ul.navList.-horiz.u-pullRight
+        li
+          a(ui-sref="user.logout") Logout
 
-section.content
-  ui-view
+
+
+  section(yt-container="tallBoy")
+    ui-view
+
+
+  footer
+    nav.navBar.-dark
+      .content
+        a.navLogo Yote

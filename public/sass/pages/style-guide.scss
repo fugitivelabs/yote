@@ -1,0 +1,31 @@
+/*// ••••••••••••••••••••••••••••••••••••••••••••••••••
+ 
+ Any style-guide specific styles should go here
+
+*/// ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+.example-content {
+  background-color: rgba(0,0,0,.05);
+  padding: 20px 0;
+  border-top: 1px solid rgba(0,0,0,.15);
+  border-bottom: 1px solid rgba(0,0,0,.15);
+
+  .grid-sample {
+    background-color: rgba(250,0,0,.05);
+    border-right: 1px solid rgba(250,0,0,.15);
+    border-left: 1px solid rgba(250,0,0,.15);
+
+    .card {
+      background-color: rgba(0,0,250,.05);
+    }
+  }
+  .row-sample {
+    background-color: rgba(0,250,0,.05);
+    border-top: 1px solid rgba(0,250,0,.15);
+    border-bottom: 1px solid rgba(0,250,0,.15);
+    margin-bottom: 20px;
+  }
+
+
+
+}

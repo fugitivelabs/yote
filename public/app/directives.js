@@ -6,7 +6,7 @@
 
 angular.module('Yote')
   
-  /* this is a sample filter
+  /* this is a sample directive
   *  to use, simply add enter to any html element
   *  i.e. 
   *     - Jade 
@@ -21,6 +21,14 @@ angular.module('Yote')
           alert("this is working!");
         });
     }
+  })
+
+  .directive("ytRow", function(){
+    return {
+      restrict: 'E'
+      , transclude: true
+      , template: '<div yt-row ng-transclude> </div>'
+    };
   })
 
 // end of the file
