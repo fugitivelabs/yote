@@ -1,6 +1,6 @@
 /* Forms
   ••••••••••••••••••••••••••••••••••••••••••••••••••
- 
+
 
 */
 
@@ -18,7 +18,7 @@
     &:not(:first-child) {
       border-left: 0;
     }
-    
+
     &:not(:last-child) {
       border-right: 0;
     }
@@ -31,7 +31,7 @@
     font-weight: normal;
   }
 
-  .field, 
+  .field,
   .item {
     border: 1px solid $light-hover;
     padding: 0.5em 0.75em;
@@ -42,6 +42,5 @@
       border-radius: 0 2px 2px 0;
     }
   }
-
 }
 
