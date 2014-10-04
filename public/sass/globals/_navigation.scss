@@ -1,0 +1,118 @@
+// Navigation
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+
+$sidenav-width:            220px;
+$sidenav-bg-color:         $primary-dark;
+$sidenav-color:            $text-light;
+$sidenav-link:             $text-light;
+$sidenav-link-hover:       #fff;
+
+// Side Navigation 
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+[yt-nav] {
+
+}
+
+[yt-sidenav~="menu"] {
+  top: 0;
+  bottom: 0;
+  overflow: auto;
+  @include mobile-scroll;
+  position: absolute;
+  min-height: 100vh;
+  width: $sidenav-width;
+  min-width: $sidenav-width;
+  background-color: $sidenav-bg-color;
+  color: $sidenav-color;
+  @include box-shadow(0 0 8px rgba(0,0,0,0.3));
+  ul {
+    padding: 0;
+    
+    li {
+      list-style: none;
+      padding: $gutter;
+      &:hover { background-color: darken($sidenav-bg-color, 10);  }
+      &.active { background-color: darken($sidenav-bg-color, 10); }
+
+      a {
+        color: $sidenav-link;
+        &:visited { color: $sidenav-link !important;}
+        &:hover {
+          &:visited { color: $sidenav-link-hover !important; }
+          &:hover { color: $sidenav-link-hover; text-decoration: none; }
+          &:active { color: $sidenav-link-hover; }
+          &.active { color: $sidenav-link-hover; }
+        }
+      }
+    }
+  }
+}
+
+[yt-sidenav~="content"] {
+  margin-left: $sidenav-width;
+  min-height: 100vh;
+  width: 100%;
+  padding-top: $gutter-width;
+}
+
+[yt-sidenav~="fixed"] {
+  position: fixed;
+}
+
+
+%nav--dark {
+  background-color: #B6E8FF;
+}
+
+%nav--light {
+  background-color: #fff;
+  border-bottom: 1px solid $divider;
+}
+
+%horiz {
+  display: inline-block;
+}
+
+%vert {
+  display: block;
+}
+
+.navBar {
+  width: 100%;
+  padding: 1rem 0px;
+
+  &.-dark {
+    @extend %nav--dark;
+  }
+
+  &.-light {
+    @extend %nav--light;
+  }
+
+  .navLogo {
+    display: inline-block;
+    @include type-large;
+  }
+
+  .navList {
+
+    &.-horiz {
+      li {
+        @extend %horiz;
+        a {
+          margin: 0px 1em;
+        }
+      }
+    }
+    &.-vert {
+      li {
+        @extend %vert;
+        a {
+          margin: 1em 0px;
+        }
+      }
+    }
+  }
+}

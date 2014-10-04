@@ -1,0 +1,34 @@
+// Toolbar (i.e. different from top nav)
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+
+// variables: 
+
+$toolbar-height:            50px;
+$toolbar-tall-height:       100px;
+$toolbar-bg-color:          #fff;
+$toolbar-color:             $primary-text;
+
+
+[yt-toolbar] {
+  @include display-flex;
+  @include flex-direction(column);
+  position: relative;
+  width: 100%;
+  min-height: $toolbar-height;
+  border-bottom: 1px solid $divider;
+}
+
+
+[yt-tools] {
+  @include display-inline-flex;
+  @include align-items(center);
+  @include flex-direction(row);
+  width: 100%;
+  height: $toolbar-height;
+  padding: 0 10px;
+  > * {
+    font-size: inherit;
+    margin: 0 $gutter;
+  }
+}
