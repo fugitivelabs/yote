@@ -25,6 +25,7 @@ angular.module('Yote')
       , { name:'largest', value:'1.7rem'}
       , { name:'jumbo', value:'3rem'}
     ];
+    $scope.theFontSize = $scope.fontSizes[4];
 
     $scope.lineHeights = [
         { name:'tightest', value:'.5'}
@@ -34,6 +35,7 @@ angular.module('Yote')
       , { name:'loose', value:'1.2'}
       , { name:'looser', value:'1.5'}
     ];
+    $scope.theLineHeight = $scope.lineHeights[3];
 
     $scope.letterSpacings = [
         { name:'tightest', value:'-3px'}
@@ -43,6 +45,7 @@ angular.module('Yote')
       , { name:'loose', value:'1px'}
       , { name:'looser', value:'2px'}
     ];
+    $scope.theLetterSpacing = $scope.letterSpacings[3];
 
   }])
 
