@@ -45,13 +45,13 @@ section.typography
   .typeTogglers(yt-row)
     .toggler(yt-col)
       label Font Size
-        select(ng-model="theFontSize" ng-options="fontSize.name for fontSize in fontSizes")
+      select(ng-model="theFontSize" ng-options="fontSize.name for fontSize in fontSizes")
     .toggler(yt-col)
       label Line Height
-        select(ng-model="theLineHeight" ng-options="lineHeight.name for lineHeight in lineHeights")
+      select(ng-model="theLineHeight" ng-options="lineHeight.name for lineHeight in lineHeights")
     .toggler(yt-col)
       label Letter Spacing
-        select(ng-model="theLetterSpacing" ng-options="letterSpacing.name for letterSpacing in letterSpacings")
+      select(ng-model="theLetterSpacing" ng-options="letterSpacing.name for letterSpacing in letterSpacings")
 
   h4 Browser Output:
   p.demoText(ng-style="fontSize={'font-size':theFontSize.value, 'line-height':theLineHeight.value, 'letter-spacing':theLetterSpacing.value}") My money's in that office, right? If she start giving me some bullshit about it ain't there, and we got to go someplace else and get it, I'm gonna shoot you in the head then and there. Then I'm gonna shoot that bitch in the kneecaps, find out where my goddamn money is. She gonna tell me too. Hey, look at me when I'm talking to you, motherfucker. You listen: we go in there, and that nigga Winston or anybody else is in there, you the first motherfucker to get shot. You understand?
