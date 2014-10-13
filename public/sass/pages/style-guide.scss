@@ -28,13 +28,20 @@
 
 }
 
+.typography{
 
-.typeTogglers {
-  background-color: #e7e7e7;
-  .toggler {
-    text-align: center;
-    label {
-      display: block;
+  .typeTogglers {
+    .toggler {
+      text-align: center;
+      label {
+        display: block;
+        @include type-small;
+      }
+
+      select {
+        width: 100%;
+      }
     }
   }
+
 }
