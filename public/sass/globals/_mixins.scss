@@ -260,6 +260,13 @@
   justify-content: $value;
 }
 
+@mixin column-size($size) {
+  @include flex(0, 0, $size);
+  max-width: $size;
+  min-width: $size;
+  width: $size;
+}
+
 
 // Custom
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
