@@ -27,7 +27,25 @@ section.typography
     | 4 $font-sans: Helvetica, "Lucida Grand", Arial, sans-serif;
     br
     | 5 $font-serif: Georgia, Times, serif;
+    br
+    | 6
+  p With these variables set, you can now call them on selectors or classes in your page specific Sass files. For example:
+  code.block
+    | 1 p { font-family: $font-serif };
+    br
+    | 2
 
+  h3 Type Treatment
+  p Yote comes with predefined Sass mixins for font sizing, line height, and letter spacing.
+  select(ng-model="theFontSize" ng-options="fontSize.name for fontSize in fontSizes")
+  select(ng-model="theLineHeight" ng-options="lineHeight.name for lineHeight in lineHeights")
+  select(ng-model="theLetterSpacing" ng-options="letterSpacing.name for letterSpacing in letterSpacings")
+
+  p(ng-style="fontSize={'font-size':theFontSize.value, 'line-height':theLineHeight.value, 'letter-spacing':theLetterSpacing.value}") My money's in that office, right? If she start giving me some bullshit about it ain't there, and we got to go someplace else and get it, I'm gonna shoot you in the head then and there. Then I'm gonna shoot that bitch in the kneecaps, find out where my goddamn money is. She gonna tell me too. Hey, look at me when I'm talking to you, motherfucker. You listen: we go in there, and that nigga Winston or anybody else is in there, you the first motherfucker to get shot. You understand?
+
+
+  h3 Defaults
+  p This is what the default selectors look like in Yote. You can change them in blah blah blah files if you want to.
   h1 This is what an h1 tag looks like
   h2 This is what an h2 tag looks like
   h3 This is what an h3 tag looks like
