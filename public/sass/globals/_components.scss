@@ -93,9 +93,10 @@ code {
   &.block {
     display: block;
     width: 100%;
-    background-color: #eee;
     color: #333;
     padding: 20px;
-
+    background: url("https://s3.amazonaws.com/yote-docs/snip-bg.png") bottom repeat-x;
+    background-color: #E0E0D8;
+    padding-bottom: 60px;
   }
 }
