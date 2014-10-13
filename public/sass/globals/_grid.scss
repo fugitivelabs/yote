@@ -12,7 +12,7 @@ $large-screen: 1120px;
 
 $container-width: 960px;
 
-$gutter-width: 30px;
+$gutter-width: 40px;
 
 $gutter: $gutter-width * 0.5;
 
@@ -41,8 +41,8 @@ $gutter: $gutter-width * 0.5;
   wrap the content's parent with a yt-tallBoy element.
   then, include the value "tallBoy" on the yt-container
 
-  markup then looks like: 
-    
+  markup then looks like:
+
     <section yt-tallBoy>
       <div yt-container="tallBoy">
         ...
@@ -54,7 +54,7 @@ $gutter: $gutter-width * 0.5;
   @include display-flex;
   min-height: 100vh;
   @include flex-direction(column);
-  
+
   [yt-container~="tallBoy"] {
     @include flex(1);
   }
@@ -112,7 +112,7 @@ $gutter: $gutter-width * 0.5;
   width: 100%;
 }
 
-// Vertically align individual columns 
+// Vertically align individual columns
 
 [yt-col~="top"] {
   @include align-self(flex-start);
