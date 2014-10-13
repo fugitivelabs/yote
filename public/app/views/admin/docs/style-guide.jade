@@ -36,15 +36,28 @@ section.typography
     | 2
 
   h3 Type Treatment
+
   p Yote comes with predefined Sass mixins for font sizing, line height, and letter spacing.
+
   label Font Sizing
-  select(ng-model="theFontSize" ng-options="fontSize.name for fontSize in fontSizes")
+    select(ng-model="theFontSize" ng-options="fontSize.name for fontSize in fontSizes")
   label Line Height
-  select(ng-model="theLineHeight" ng-options="lineHeight.name for lineHeight in lineHeights")
+    select(ng-model="theLineHeight" ng-options="lineHeight.name for lineHeight in lineHeights")
   label Letter Spacing
-  select(ng-model="theLetterSpacing" ng-options="letterSpacing.name for letterSpacing in letterSpacings")
+    select(ng-model="theLetterSpacing" ng-options="letterSpacing.name for letterSpacing in letterSpacings")
 
   p.demoText(ng-style="fontSize={'font-size':theFontSize.value, 'line-height':theLineHeight.value, 'letter-spacing':theLetterSpacing.value}") My money's in that office, right? If she start giving me some bullshit about it ain't there, and we got to go someplace else and get it, I'm gonna shoot you in the head then and there. Then I'm gonna shoot that bitch in the kneecaps, find out where my goddamn money is. She gonna tell me too. Hey, look at me when I'm talking to you, motherfucker. You listen: we go in there, and that nigga Winston or anybody else is in there, you the first motherfucker to get shot. You understand?
+
+  code.block
+    | 1 .yourText {
+    br
+    | 2 @include type-{{theFontSize.name}}
+    br
+    | 3 @include lineHeight-{{theLineHeight.name}}
+    br
+    | 4 @include letterSpacing-{{theLetterSpacing.name}}
+    br
+    | 5 }
 
 
   h3 Defaults
