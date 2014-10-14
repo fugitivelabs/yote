@@ -1,117 +1,198 @@
 
-h1 Style Guide
+h1 Documentation
+p Yote uses Jade and Sass, respectively, for markup and styling. The examples you see in this documentation will use syntax from these compiling languages. If you are unfamiliar with Jade or Sass, but know HTML and CSS, we think you'll like learning about them. Check out their documentation here and here.
 
-hr 
+hr
+section.typography
+  h2 Typography
+  p Yote uses mixins and sass variables to dictate type face, font size, line height, and letter spacing. Using these mixins throughout your custom styles makes it easier to maintain consistent type treatment for simlar content types. Additionally, making application wide changes to your type treatment becomes really simple.
 
-h2 Grid Samples 
+  h3 Typeface
+  p You can set your typeface(s) as Sass variables in the
+    code  _typography.scss
+    |  file. By default there are two variables already in place:
+    code  $font-sans
+    |  and
+    code  $font-serif
+    | . For example, the
+    code  _typography.scss
+    |  file for this documentation is shown below, with Helvetica being the preferred default sans-serif font, and Georgia the serif:
 
-.example-content
-  p yt-row
-  .row-sample(yt-row)
-    .grid-sample(yt-col)
-      p yt-col
-      .card
-        p card
+  code.block
+    | 1 // Typography
+    br
+    | 2 // ••••••••••••••••••••••••••••••••••••••••••••••••••
+    br
+    | 3
+    br
+    | 4 $font-sans: Helvetica, "Lucida Grand", Arial, sans-serif;
+    br
+    | 5 $font-serif: Georgia, Times, serif;
+    br
+    | 6
 
-    .grid-sample(yt-col)
-      p yt-col
-      .card
-        p card
+  p With these variables set, you can now call them on selectors or classes in your page specific Sass files. For example:
 
-    .grid-sample(yt-col)
-      p yt-col
-      .card
-        p card
-  p yt-row
-  .row-sample(yt-row)
-    .grid-sample(yt-col)
-      p yt-col
-      .card
-        p card
+  code.block
+    | 1 p { font-family: $font-serif };
+    br
+    | 2
 
-    .grid-sample(yt-col)
-      p yt-col
+  h3 Type Treatment
 
-      p yt-row
-      .row-sample(yt-row)
-        .grid-sample(yt-col)
-          p yt-col
-          .card
-            p card
+  p Yote comes with predefined Sass mixins for font sizing, line height, and letter spacing.
 
-        .grid-sample(yt-col)
-          p yt-col
-          .card
-            p card
+  .typeTogglers(yt-row)
+    .toggler(yt-col)
+      label Font Size
+      select(ng-model="theFontSize" ng-options="fontSize.name for fontSize in fontSizes")
+    .toggler(yt-col)
+      label Line Height
+      select(ng-model="theLineHeight" ng-options="lineHeight.name for lineHeight in lineHeights")
+    .toggler(yt-col)
+      label Letter Spacing
+      select(ng-model="theLetterSpacing" ng-options="letterSpacing.name for letterSpacing in letterSpacings")
 
-  //- .row-sample(yt-row)
-  //-   .grid-sample(yt-col="1/6 1/6m ")
-  //-     .card
-  //-       p yt-col="1/3 5/6m 1/12l"
+  h4 Browser Output:
+  p.demoText(ng-style="fontSize={'font-size':theFontSize.value, 'line-height':theLineHeight.value, 'letter-spacing':theLetterSpacing.value}") My money's in that office, right? If she start giving me some bullshit about it ain't there, and we got to go someplace else and get it, I'm gonna shoot you in the head then and there. Then I'm gonna shoot that bitch in the kneecaps, find out where my goddamn money is. She gonna tell me too. Hey, look at me when I'm talking to you, motherfucker. You listen: we go in there, and that nigga Winston or anybody else is in there, you the first motherfucker to get shot. You understand?
 
-  //-   .grid-sample(yt-col="1/3 1/6m ")
-  //-     .card
-  //-       p yt-col="2/23 5/6m 1/12l"
+  h4 Sass Input:
+  code.block
+    | 1 .yourText {
+    br
+    | 2 @include type-{{theFontSize.name}}
+    br
+    | 3 @include lineHeight-{{theLineHeight.name}}
+    br
+    | 4 @include letterSpacing-{{theLetterSpacing.name}}
+    br
+    | 5 }
 
-  //-   .grid-sample(yt-col="1/13 1/6m ")
-  //-     .card
-  //-       p yt-col="7/13 5/6m 1/12l"
 
-  //-   .grid-sample(yt-col="1/24 2/10m")
-  //-     .card
-  //-       p yt-col="1/24 5/6m 1/12l"
+  h3 Defaults
+  p This is what the default selectors look like in Yote. You can change them in blah blah blah files if you want to.
+  h1 This is what an h1 tag looks like
+  h2 This is what an h2 tag looks like
+  h3 This is what an h3 tag looks like
+  h4 This is what an h4 tag looks like
+  p This is paragraph text
 
-  //-   .grid-sample(yt-col="1/4 2/10m ", yt-offset="1/20")
-  //-     .card
-  //-       p yt-col="4/11 5/6m 1/12l"
+hr
+section.grid
+  h2 Grid Samples
+
+  .example-content
+    p yt-row
+    .row-sample(yt-row)
+      .grid-sample(yt-col)
+        p yt-col
+        .card
+          p card
+
+      .grid-sample(yt-col)
+        p yt-col
+        .card
+          p card
+
+      .grid-sample(yt-col)
+        p yt-col
+        .card
+          p card
+    p yt-row
+    .row-sample(yt-row)
+      .grid-sample(yt-col)
+        p yt-col
+        .card
+          p card
+
+      .grid-sample(yt-col)
+        p yt-col
+
+        p yt-row
+        .row-sample(yt-row)
+          .grid-sample(yt-col)
+            p yt-col
+            .card
+              p card
+
+          .grid-sample(yt-col)
+            p yt-col
+            .card
+              p card
+
+    //- .row-sample(yt-row)
+    //-   .grid-sample(yt-col="1/6 1/6m ")
+    //-     .card
+    //-       p yt-col="1/3 5/6m 1/12l"
+
+    //-   .grid-sample(yt-col="1/3 1/6m ")
+    //-     .card
+    //-       p yt-col="2/23 5/6m 1/12l"
+
+    //-   .grid-sample(yt-col="1/13 1/6m ")
+    //-     .card
+    //-       p yt-col="7/13 5/6m 1/12l"
+
+    //-   .grid-sample(yt-col="1/24 2/10m")
+    //-     .card
+    //-       p yt-col="1/24 5/6m 1/12l"
+
+    //-   .grid-sample(yt-col="1/4 2/10m ", yt-offset="1/20")
+    //-     .card
+    //-       p yt-col="4/11 5/6m 1/12l"
 
 
 
 div(yt-row)
   div(yt-col)
-    button(yt-btn) yt-btn
+    p yt-btn
+    button(yt-btn) Click Me
 
 div(yt-row)
   div(yt-col)
-    button(yt-btn="calm x-large") yt-btn="calm x-large"  
+    p yt-btn="calm x-large"
+    button(yt-btn="calm x-large") Click Me
 div(yt-row)
   div(yt-col)
-    button(yt-btn="success large") yt-btn="success large"
+    p yt-btn="success large"
+    button(yt-btn="success large") Click Me
 div(yt-row)
   div(yt-col)
-    button(yt-btn="danger", disabled) yt-btn="danger [default] disabled"
+    p yt-btn="danger [default] disabled"
+    button(yt-btn="danger", disabled) Click Me
 div(yt-row)
   div(yt-col)
-    button(yt-btn="danger") yt-btn="danger [default]"
+    p yt-btn="danger [default]"
+    button(yt-btn="danger") Click Me
 div(yt-row)
   div(yt-col)
-    button(yt-btn="link") yt-btn="link"
+    p yt-btn="warning small"
+    button(yt-btn="warning small") Click Me
 div(yt-row)
   div(yt-col)
-    button(yt-btn="warning small") yt-btn="warning small"
-div(yt-row)
-  div(yt-col)
-    button(yt-btn="dark x-small") yt-btn="dark x-small"
-
+    p yt-btn="dark x-small"
+    button(yt-btn="dark x-small") Click Me
 div(yt-row)
   div(yt-col="1/2")
     button(yt-btn="block") yt-btn="[default] block"
 
 div(yt-row)
   div(yt-col="1/2")
-    button(yt-btn="calm x-large block") yt-btn="calm x-large block"  
+    p yt-btn="calm x-large block"
+    button(yt-btn="calm x-large block") Click Me
 div(yt-row)
   div(yt-col="1/2")
-    button(yt-btn="success large block") yt-btn="success large block"
+    p yt-btn="success large block"
+    button(yt-btn="success large block") Click Me
 div(yt-row)
   div(yt-col="1/2")
-    button(yt-btn="danger block") yt-btn="danger block"
+    p yt-btn="danger block"
+    button(yt-btn="danger block") Click Me
 div(yt-row)
   div(yt-col="1/2")
-    button(yt-btn="warning small block") yt-btn="warning small block"
+    p yt-btn="warning small block"
+    button(yt-btn="warning small block") Click Me
 div(yt-row)
   div(yt-col="1/2")
-    button(yt-btn="dark x-small block") yt-btn="dark x-small block"
-div(yt-row)
-  div(yt-col="1/2")
-    button(yt-btn="link block") yt-btn="danger block
+    p yt-btn="dark x-small block"
+    button(yt-btn="dark x-small block") Click Me

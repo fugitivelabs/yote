@@ -1,5 +1,5 @@
 /*// ••••••••••••••••••••••••••••••••••••••••••••••••••
- 
+
  Any style-guide specific styles should go here
 
 */// ••••••••••••••••••••••••••••••••••••••••••••••••••
@@ -26,6 +26,22 @@
     margin-bottom: 20px;
   }
 
+}
 
+.typography{
+
+  .typeTogglers {
+    .toggler {
+      text-align: center;
+      label {
+        display: block;
+        @include type-small;
+      }
+
+      select {
+        width: 100%;
+      }
+    }
+  }
 
 }

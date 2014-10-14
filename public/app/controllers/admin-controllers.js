@@ -13,6 +13,40 @@ angular.module('Yote')
       }, function(data){
         alert(data);
       });
+
+    $scope.fontSizes = [
+        { name:'micro', value:'.1rem'}
+      , { name:'smallest', value:'.3rem'}
+      , { name:'smaller', value:'.5rem'}
+      , { name:'small', value:'.7rem'}
+      , { name:'base', value:'1rem'}
+      , { name:'large', value:'1.3rem'}
+      , { name:'larger', value:'1.5rem'}
+      , { name:'largest', value:'1.7rem'}
+      , { name:'jumbo', value:'3rem'}
+    ];
+    $scope.theFontSize = $scope.fontSizes[4];
+
+    $scope.lineHeights = [
+        { name:'tightest', value:'.5'}
+      , { name:'tighter', value:'.7'}
+      , { name:'tight', value:'.8'}
+      , { name:'base', value:'1'}
+      , { name:'loose', value:'1.2'}
+      , { name:'looser', value:'1.5'}
+    ];
+    $scope.theLineHeight = $scope.lineHeights[3];
+
+    $scope.letterSpacings = [
+        { name:'tightest', value:'-3px'}
+      , { name:'tighter', value:'-2px'}
+      , { name:'tight', value:'-1px'}
+      , { name:'base', value:'0px'}
+      , { name:'loose', value:'1px'}
+      , { name:'looser', value:'2px'}
+    ];
+    $scope.theLetterSpacing = $scope.letterSpacings[3];
+
   }])
 
   .controller('DocsCtrl', ['$scope', '$stateParams', '$state', 'UserFactory', 'PostFactory', function($scope, $stateParams, $state, UserFactory, PostFactory){
@@ -21,8 +55,8 @@ angular.module('Yote')
   }])
 
 
-  /********************** 
-  *  Custom Controllers 
+  /**********************
+  *  Custom Controllers
   ***********************/
 
 // end of file

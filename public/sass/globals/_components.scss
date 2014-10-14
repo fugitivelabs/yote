@@ -86,3 +86,25 @@
 
 
 
+// Code
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+code {
+  &.block {
+    display: block;
+    position: relative;
+    width: 100%;
+    background: url("https://s3.amazonaws.com/yote-docs/snip-bg.png") bottom repeat-x;
+    background-color: #E0E0D8;
+    color: #333;
+    padding: 20px;
+    padding-bottom: 60px;
+    overflow: hidden;
+  }
+}
+
+
+
+
+
+
