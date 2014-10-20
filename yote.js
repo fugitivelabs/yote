@@ -11,6 +11,7 @@ var express         = require('express')
   , LocalStrategy   = require('passport-local').Strategy
   , sass            = require('node-sass')
   , path            = require('path')
+  , RedisStore      = require('connect-redis')(session)
   ;
 
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
@@ -32,7 +33,16 @@ app.configure(function() {
   app.use(cookieParser());
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
-  app.use(session({secret: 'fugitive labs is neat-o daddy-o'}));
+
+  app.use(session({
+    store: new RedisStore({
+      host: config.redis.host
+      , port: config.redis.port
+    })
+    , secret: 'fugitive all up in your labs'
+  }));
+
+
   app.use(favicon(path.join(__dirname, 'public','favicon.ico'))); 
   app.use(passport.initialize());
   app.use(passport.session());
