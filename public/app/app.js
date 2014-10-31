@@ -15,14 +15,13 @@ angular.module('Yote', [
 })
 .run(function($rootScope, $state) {
   $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams) {
-    console.log(toState);
     if(toState.data) {
       if((toState.data.role == "login" || toState.data.role == "admin") && !($rootScope.currentUser.username)) {
-        console.log("!!!NOT LOGGED IN");
+        console.log("NOT LOGGED IN");
         $state.transitionTo("user.login", {next: toState.name});
         event.preventDefault();
       } else if((toState.data.role == "admin") && ($rootScope.currentUser.roles.indexOf("admin") == -1)) {
-        console.log("!!!NOT LOGGED IN AS ADMIN");
+        console.log("NOT LOGGED IN AS ADMIN");
         $state.transitionTo("user.login", {next: toState.name});
         event.preventDefault();
       }
