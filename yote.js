@@ -12,7 +12,6 @@ var express         = require('express')
   , sass            = require('node-sass')
   , path            = require('path')
   , RedisStore      = require('connect-redis')(session)
-  , subdomain       = require('express-subdomain')
   ;
 
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
