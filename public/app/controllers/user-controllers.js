@@ -17,7 +17,11 @@ angular.module('Yote')
             //change state programmatically
             //set root scope to user
             $rootScope.currentUser = data.user;
-            $state.go('root.home');
+            if($stateParams.next) {
+              $state.go($stateParams.next);
+            } else {
+              $state.go('root.home');
+            }
           } else {
             alert(data.message + " Please try again.");
           }
@@ -53,7 +57,11 @@ angular.module('Yote')
           if(data.success) {
             //NOW LOGIN
             $rootScope.currentUser = data.user;
-            $state.go('root.home');
+            if($stateParams.next) {
+              $state.go($stateParams.next);
+            } else {
+              $state.go('root.home');
+            }
           } else {
             alert(data.message + " Please try again.");
           }
