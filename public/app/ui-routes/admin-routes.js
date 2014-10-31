@@ -16,6 +16,9 @@ angular.module('Yote')
       , url: '/admin'
       , templateUrl: '/views/layouts/admin'
       , controller: 'AdminCtrl'
+      , data: {
+        role: "admin"
+      }
     })
 
     .state('admin.dashboard', {

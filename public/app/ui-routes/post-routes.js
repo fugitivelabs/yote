@@ -33,11 +33,17 @@ angular.module('Yote')
       url: '/new'
       , templateUrl: '/views/post/create'
       , controller: 'PostCreateCtrl'
+      , data: {
+        role: "login"
+      }
     })
     .state('post.edit', {
       url: '/edit/:slug'
       , templateUrl: '/views/post/edit'
       , controller: 'PostUpdateCtrl'
+      , data: {
+        role: "login"
+      }
     })
 
 // ==> end state config

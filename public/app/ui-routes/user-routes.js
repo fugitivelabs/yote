@@ -20,7 +20,7 @@ angular.module('Yote')
     })
     //login view
     .state('user.login', {
-      url: '/login'
+      url: '/login/:next'
       , templateUrl: '/views/user/login'
       , controller: 'UserLoginCtrl'
     })
