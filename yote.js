@@ -26,36 +26,34 @@ var UserSchema = require('./server/models/User').User
   , User = mongoose.model('User')
 
 //configure express
-app.configure(function() {
-  app.set('views', __dirname + '/server/views');
-  app.set('view engine', 'jade');
-  app.use(logger('dev'));
-  app.use(cookieParser());
-  app.use(bodyParser.json());
-  app.use(bodyParser.urlencoded({ extended: true }));
+app.set('views', __dirname + '/server/views');
+app.set('view engine', 'jade');
+app.use(logger('dev'));
+app.use(cookieParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-  app.use(session({
-    store: new RedisStore({
-      host: config.redis.host
-      , port: config.redis.port
-    })
-    , secret: 'fugitive all up in your labs'
-  }));
+app.use(session({
+  store: new RedisStore({
+    host: config.redis.host
+    , port: config.redis.port
+  })
+  , secret: 'fugitive all up in your labs'
+}));
 
 
-  app.use(favicon(path.join(__dirname, 'public','favicon.ico'))); 
-  app.use(passport.initialize());
-  app.use(passport.session());
-  app.use(sass.middleware({
-    src: __dirname + '/public/sass',
-    dest: __dirname + '/public/css',
-    prefix: '/css',
-    debug: true,
-    outputStyle: 'compressed'
-  }));
-  //allow the angular ui-views to be written in Jade
-  app.use(serveStatic(__dirname + '/public'));
-});
+app.use(favicon(path.join(__dirname, 'public','favicon.ico'))); 
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(sass.middleware({
+  src: __dirname + '/public/sass',
+  dest: __dirname + '/public/css',
+  prefix: '/css',
+  debug: true,
+  outputStyle: 'compressed'
+}));
+//allow the angular ui-views to be written in Jade
+app.use(serveStatic(__dirname + '/public'));
 
 //handle mongo errors
 app.use(function(req, res, next) {
@@ -108,8 +106,12 @@ passport.deserializeUser(function(id, done) {
 // }
 
 //configure server routes
-require('./server/routes/api-routes')(app);
-require('./server/routes/server-routes')(app);
-
+var router = express.Router();
+require('./server/routes/api-routes')(router);
+require('./server/routes/server-routes')(router);
+//some notes on router: http://scotch.io/tutorials/javascript/learn-to-use-the-new-router-in-expressjs-4
+app.use('/', router);
 app.listen(config.port);
 console.log('Yote is listening on port ' + config.port + '...');
+
+

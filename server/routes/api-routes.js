@@ -24,14 +24,14 @@ function requireRole(role) {
 }
 
 
-module.exports = function(app) {
+module.exports = function(router) {
 
   /**************************** 
   /*  DEFAULT USER API ROUTES 
   /****************************/
 
   // user login
-  app.post('/api/users/login', function(req, res, next) {
+  router.post('/api/users/login', function(req, res, next) {
     console.log("DEBUG 1");
     req.body.username = req.body.username.toLowerCase();
     passport.authenticate('local', function(err, user) {
@@ -50,16 +50,16 @@ module.exports = function(app) {
   });
 
   // user logout
-  app.post('/api/users/logout', function(req, res) {
+  router.post('/api/users/logout', function(req, res) {
     req.logout();
     res.end();
   });
 
   // ==> users CRUD api
   // - Create
-  app.post('/api/users'         , api.users.create);
+  router.post('/api/users'         , api.users.create);
   // - Read
-  app.get('/api/users'          , requireRole('admin'), api.users.list); // must be an 'admin' to see the list of users
+  router.get('/api/users'          , requireRole('admin'), api.users.list); // must be an 'admin' to see the list of users
   // - Update
   // app.put('/api/users'          , api.users.update);
   // - Delete
@@ -74,15 +74,15 @@ module.exports = function(app) {
 
   // ==> posts CRUD api
   // - Create
-  app.post('/api/posts'         , requireLogin(), api.posts.create);
+  router.post('/api/posts'         , requireLogin(), api.posts.create);
   // - Read
-  app.get('/api/posts'          , api.posts.list);
-  app.get('/api/posts/byId:id'  , api.posts.getById); 
-  app.get('/api/posts/:slug'    , api.posts.getBySlug);
+  router.get('/api/posts'          , api.posts.list);
+  router.get('/api/posts/byId:id'  , api.posts.getById); 
+  router.get('/api/posts/:slug'    , api.posts.getBySlug);
   // - Update
-  app.put('/api/posts/:slug'    , requireLogin(), api.posts.update); // must login as post owner to update the post
+  router.put('/api/posts/:slug'    , requireLogin(), api.posts.update); // must login as post owner to update the post
   // - Delete
-  app.del('/api/posts/:slug'    , requireRole('admin'), api.posts.delete); // must be an 'admin' to delete
+  router.delete('/api/posts/:slug'    , requireRole('admin'), api.posts.delete); // must be an 'admin' to delete
 
 
 
@@ -91,7 +91,7 @@ module.exports = function(app) {
 
 
   // catch all other requests and send 404 
-  app.all('/api/*', function(req, res) {
+  router.all('/api/*', function(req, res) {
     res.send(404);
   });
 
