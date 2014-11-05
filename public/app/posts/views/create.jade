@@ -1,0 +1,8 @@
+h1 CREATE POST
+input(type="text", name="title", placeholder="title", ng-model="postData.title")
+br
+textarea(type="text", name="content", placeholder="content", ng-model="postData.content")
+br
+p Author: {{currentUser.firstName}} {{currentUser.lastName}}
+br
+button(type="button", ng-click="createAction(postData)") Submit
