@@ -39,13 +39,13 @@ exports.create = function(req, res, next) {
   }
 }
 
-
 exports.update = function(req, res) {
   //update user object EXCEPT for password related fields
   User.findOne({_id: req.param('userId')}).exec(function(err, user) {
     if(err || !user) {
       res.send({success: false, message: "Could not find user"});
     } else {
+      user.username = req.param('username');
       user.firstName = req.param('firstName');
       user.lastName = req.param('lastName');
       user.updated = new Date();
