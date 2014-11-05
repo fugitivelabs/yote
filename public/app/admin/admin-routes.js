@@ -14,7 +14,7 @@ angular.module('Yote')
     .state('admin', {
       abstract: true
       , url: '/admin'
-      , templateUrl: '/html/static/admin-layout'
+      , templateUrl: '/html/static/views/admin-layout'
       , controller: 'AdminCtrl'
       , data: {
         role: "admin"
