@@ -15,23 +15,23 @@ angular.module('Yote')
     .state('post', {
       abstract: true
       , url: '/post'
-      , templateUrl: '/views/layouts/default'
+      , templateUrl: '/html/static/views/default-layout'
       , controller: 'PostCtrl'
     })
     // first child of post. Empty url: '' signifies "/post" + " "
     .state('post.list', {
       url: ''
-      , templateUrl: '/views/post/list'
+      , templateUrl: '/html/posts/views/list'
       , controller: 'PostListCtrl'
     })
     .state('post.show', {
       url: '/show/:slug'
-      , templateUrl: '/views/post/show'
+      , templateUrl: '/html/posts/views/show'
       , controller: 'PostShowCtrl'
     })
     .state('post.new', {
       url: '/new'
-      , templateUrl: '/views/post/create'
+      , templateUrl: '/html/posts/views/create'
       , controller: 'PostCreateCtrl'
       , data: {
         role: "login"
@@ -39,7 +39,7 @@ angular.module('Yote')
     })
     .state('post.edit', {
       url: '/edit/:slug'
-      , templateUrl: '/views/post/edit'
+      , templateUrl: '/html/posts/views/edit'
       , controller: 'PostUpdateCtrl'
       , data: {
         role: "login"

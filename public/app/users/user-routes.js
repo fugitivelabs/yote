@@ -15,13 +15,13 @@ angular.module('Yote')
     .state('user', {
       abstract: true
       , url: '/user'
-      , templateUrl: '/views/layouts/default'
+      , templateUrl: '/html/static/views/default-layout'
       , controller: 'UserCtrl'
     })
     //login view
     .state('user.login', {
       url: '/login/:next'
-      , templateUrl: '/views/user/login'
+      , templateUrl: '/html/users/views/login'
       , controller: 'UserLoginCtrl'
     })
     .state('user.logout', {
@@ -30,7 +30,7 @@ angular.module('Yote')
     })
     .state('user.register', {
       url: '/register'
-      , templateUrl: '/views/user/register'
+      , templateUrl: '/html/users/views/register'
       , controller: 'UserRegisterCtrl'
     })
 

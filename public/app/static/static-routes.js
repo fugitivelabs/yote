@@ -14,18 +14,18 @@ angular.module('Yote')
     .state('static', {
       abstract: true
       , url: '/static'
-      , templateUrl: '/static/views/default-layout'
+      , templateUrl: '/html/static/views/default-layout'
       , controller: 'StaticCtrl'
     })
 
     .state('static.about', {
       url: '^/about'
-      , templateUrl: 'static/views/about'
+      , templateUrl: '/html/static/views/about'
     })
 
     .state('static.faq', {
       url: '^/frequently-asked-questions'
-      , templateUrl: '/static/views/faq'
+      , templateUrl: '/html/static/views/faq'
     })
 
 // ==> end state config

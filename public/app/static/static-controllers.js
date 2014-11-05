@@ -10,8 +10,6 @@ angular.module('Yote')
 
   .controller('StaticCtrl', ['$scope', '$stateParams', '$state', function($scope, $stateParams, $state){
     console.log("StaticCtrl loaded...");
-    $scope.data = {};
-    $scope.data.message = "Try me out!";
   }])
 
   .controller('HomeCtrl', ['$scope', '$stateParams', '$state', function($scope, $stateParams, $state){
