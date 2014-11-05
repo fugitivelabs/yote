@@ -1,4 +1,6 @@
 var User = require('mongoose').model('User')
+  , mandrill = require('mandrill-api/mandrill')
+  , mandrill_client = new mandrill.Mandrill("FTszk9Xf9K7rTkapf_R2tQ") //grant's key
   ;
 
 exports.list = function(req, res) {
@@ -6,6 +8,13 @@ exports.list = function(req, res) {
     res.send(users);
   });
 }
+
+exports.changePassword = function(req, res) {
+  User.findOne({_id: req.user._id}).exec(function(err, user) {
+    res.send(user);
+  });
+}
+
 
 exports.create = function(req, res, next) {
   var userData = req.body;
@@ -30,6 +39,159 @@ exports.create = function(req, res, next) {
   }
 }
 
+
 exports.update = function(req, res) {
-  res.send("update user called");
+  //update user object EXCEPT for password related fields
+  User.findOne({_id: req.param('userId')}).exec(function(err, user) {
+    if(err || !user) {
+      res.send({success: false, message: "Could not find user"});
+    } else {
+      user.firstName = req.param('firstName');
+      user.lastName = req.param('lastName');
+      user.updated = new Date();
+      user.save(function(err, user) {
+        if(err) {
+          res.send({success: false, message: "Error saving user profile"});
+        } else {
+          res.send({success: true, user: user});
+        }
+      });
+    }
+  });
+}
+
+exports.changePassword = function(req, res) {
+  console.log("change password");
+  //additional error checking
+  if(req.param('newPass') !== req.param('newPassConfirm')) {
+    res.send({success: false, message: "New passwords do not match"});
+  }
+  //do additional validation here (must contain special character, etc)
+  if(req.param('newPass') == "") { 
+    res.send({success: false, message: "Invalid New Password"});
+  }
+  User.findOne({_id: req.user._id}).exec(function(err, user) {
+    if(err || !user) {
+      res.send({success: false, message: "Could not find user in db"});
+    } else {
+      if(req.param('oldPass') == "") {
+        res.send({success: false, message: "Old Password Incorrect"});
+      }
+      console.log("checking old password...");
+      //is old password correct?
+      if(User.hashPassword(user.password_salt, req.param('oldPass')) == user.password_hash) {
+        console.log("password matches.");
+
+        var newSalt = User.createPasswordSalt();
+        var newHash = User.hashPassword(newSalt, req.param('newPass'));
+        user.password_salt = newSalt;
+        user.password_hash = newHash;
+        user.save(function(err, user) {
+          if(err) {
+            res.send({success: false, message: "Error updating user password"});
+          } else {
+            res.send({success: true, user: user});
+          }
+        });
+
+      } else {
+        res.send({success: false, message: "Old Password Incorrect"});
+      }
+    }
+  })
+}
+
+exports.requestPasswordReset = function(req, res) {
+  console.log("user requested password reset");
+  if(req.param('email') == "") {
+    res.send({success: false, message: "Email needed to reset password."});
+  }
+  User.findOne({username: req.param('email')}).exec(function(err, user) {
+    if(err || !user) {
+      res.send({success: false, message: "No user with that email found. Please register."});
+    } else {
+      //found user who requested a password reset
+      user.resetPasswordTime = new Date();
+      user.resetPasswordHex = Math.floor(Math.random()*16777215).toString(16) + Math.floor(Math.random()*16777215).toString(16);
+      user.save(function(err, user) {
+        if(err) {
+          res.send({success: false, message: "Error processing request. Please try again."});
+        } else {
+          //send user an email with their reset link.
+          console.log("creating password reset email");
+          var resetUrl = "http://localhost:3030/user/resetpassword/" + user.resetPasswordHex;
+          var message = {};
+          message.html = "";
+          message.html += "<h1> You have requested a password reset for Fugitive Labs YOTE.</h1>";
+          message.html += "<p> You reset link will be active for 24 hours. ";
+          message.html += "If you believe you received this email by mistake, please call (919) 414-4801 and ask for Zabajone.</p>";
+          message.html += "<br><p>" + resetUrl + " Reset YOTE Password</p>";
+
+          message.from_email = "accounts@fugitivelabs.com";
+          message.from_name = "fugitivelabs.com";
+
+          message.to = [{
+            "email": user.username
+            , "name": user.firstName + " " + user.lastName
+            , "type": "to"
+          }];
+          message.auto_text = true;
+          var async = false;
+          mandrill_client.messages.send({"message": message, "async":async}, function (result) {
+            console.log(result);
+            res.send({success: true, result: result});
+          }, function(e){
+            res.send({success: false, error: e});
+            console.log("A mandrill error occured: " + e.name + ' - ' + e.message);
+          });
+        }
+      });
+    }
+  });
+}
+
+exports.checkResetRequest = function(req, res, next) {
+  //must be a valid hex and no older than 24 hours
+  var nowDate = new Date();
+  User.findOne({resetPasswordHex: req.param('resetHex')}).exec(function(err, user) {
+    if(err || !user) {
+      res.send({success: false, message: "Invalid or Expired Reset Token"});
+    } else {
+
+      var nowDate = new Date();
+      var cutoffDate = new Date(user.resetPasswordTime);
+      console.log(cutoffDate);
+      var validHours = 24;
+      cutoffDate.setHours((cutoffDate.getHours() + validHours));
+      console.log(cutoffDate);
+      if(nowDate < cutoffDate) {
+        console.log("TRUE");
+        res.send({success: true, userId: user._id});
+      } else {
+        console.log("FALSE");
+        res.send({success: false, message: "Invalid or Expired Reset Token"});
+      }
+
+    }
+  });
+}
+
+exports.resetPassword = function(req, res) {
+    User.findOne({_id: req.param('userId')}).exec(function(err, user) {
+      if(err || !user) {
+        res.send({success: false, message: "Could not find user in db"});
+      } else {
+        var newSalt = User.createPasswordSalt();
+        var newHash = User.hashPassword(newSalt, req.param('newPass'));
+        user.password_salt = newSalt;
+        user.password_hash = newHash;
+        user.save(function(err, user) {
+          if(err) {
+            res.send({success: false, message: "Error updating user password"});
+          } else {
+            res.send({success: true, user: user});
+          }
+        });
+      }
+    });
 }

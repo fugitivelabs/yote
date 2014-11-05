@@ -95,16 +95,89 @@ angular.module('Yote')
     return deferred.promise;
   }
 
+
   UserFactory.list = function() {
+    console.log("user list called in factory");
     var deferred = $q.defer();
 
     $http.get(urlBase)
       .success(function(data){
+        // console.log(data);
         deferred.resolve(data);
       }).error(function() {
         deferred.reject("Error. Please try logging in as an admin");
       });
     return deferred.promise;
+  }
+
+  UserFactory.update = function(userData) {
+    console.log("user update called in factory");
+    var deferred = $q.defer();
+    $http.put(urlBase + "/" + userData._id, userData)
+      .success(function(data) {
+        deferred.resolve(data);
+      })
+      .error(function() {
+        deferred.reject("Error. Please try again.");
+      });
+      return deferred.promise;
+  }
+
+  UserFactory.changePassword = function(password) {
+    console.log("change password called in factory");
+    var deferred = $q.defer();
+    $http.post(urlBase + "/password", password)
+      .success(function(data) {
+        console.log(data);
+        deferred.resolve(data);
+      })
+      .error(function() {
+        deferred.reject("Error. Please try again.");
+      });
+      return deferred.promise;
+  }
+
+  UserFactory.requestPasswordReset = function(email) {
+    console.log("request password reset called in factory");
+    var deferred = $q.defer();
+    $http.post(urlBase + "/requestpasswordreset", { email: email })
+      .success(function(data) {
+        console.log(data);
+        deferred.resolve(data);
+      })
+      .error(function() {
+        deferred.reject("Error. Please try again.");
+      });
+      return deferred.promise;
+  }
+
+  UserFactory.checkResetRequest = function(resetHex) {
+    console.log("checking for validity of reset request in factory");
+    console.log(resetHex);
+    var deferred = $q.defer();
+    $http.get(urlBase + "/checkresetrequest/" + resetHex)
+      .success(function(data) {
+        console.log(data);
+        deferred.resolve(data);
+      })
+      .error(function() {
+        deferred.reject("Error. Please try again.");
+      });
+      return deferred.promise;
+  }
+
+  UserFactory.resetPassword = function(passwordReset) {
+    console.log("password reset called in factory");
+    var deferred = $q.defer();
+    $http.post(urlBase + "/resetpassword", passwordReset)
+      .success(function(data) {
+        console.log(data);
+        deferred.resolve(data);
+      })
+      .error(function() {
+        deferred.reject("Error. Please try again.");
+      });
+      return deferred.promise;
   }
 
   return UserFactory;

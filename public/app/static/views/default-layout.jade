@@ -1,9 +1,9 @@
 nav.navBar.-dark
   .content
-    a.navLogo(href="#") Yote
+    a.navLogo(href="/") Yote
     ul.navList.-horiz.u-pullRight
       li
-        a(ui-sref="root.home") Home
+        a(href="/") Home
       li
         a(ui-sref="post.list") Blog 
       li
@@ -14,6 +14,8 @@ nav.navBar.-dark
         a(ui-sref="user.login") Login
       li(ng-show="!currentUser.username")
         a(ui-sref="user.register") Register
+      li(ng-show="currentUser.username")
+        a(ui-sref="user.profile") Profile
       li(ng-show="currentUser.username")
         a(ui-sref="user.logout") Logout
 
