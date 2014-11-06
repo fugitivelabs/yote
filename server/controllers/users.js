@@ -15,13 +15,24 @@ exports.changePassword = function(req, res) {
   });
 }
 
-
 exports.create = function(req, res, next) {
   var userData = req.body;
   if(userData.password !== userData.password2) {
     res.send({success: false, message: "Passwords do not match"});
   } else {
     userData.username = userData.username.toLowerCase();
+    //very simple email format validation
+    if (!( /(.+)@(.+){2,}\.(.+){2,}/.test(userData.username) )) {
+      console.log("invalid email");
+      res.send({success: false, message: "Invalid email address."});
+      return;
+    }
+    //check password for length
+    if(userData.password.length <= 6) {
+      console.log("password too short");
+      res.send({success: false, message: "Password not long enough. Min 6 characters."});
+      return;
+    }
     userData.password_salt = User.createPasswordSalt();
     userData.password_hash = User.hashPassword(userData.password_salt, userData.password);
     User.create(userData, function(err, user) {
