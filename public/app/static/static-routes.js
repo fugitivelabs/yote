@@ -1,7 +1,7 @@
 angular.module('Yote')
 
 .config(function($routeProvider, $locationProvider, $stateProvider, $urlRouterProvider){
-  console.log('configure ui router');
+  console.log('configure ui router - static');
   
   $locationProvider.html5Mode(true);
 
@@ -14,18 +14,18 @@ angular.module('Yote')
     .state('static', {
       abstract: true
       , url: '/static'
-      , templateUrl: '/views/layouts/default'
+      , templateUrl: '/html/static/views/default-layout'
       , controller: 'StaticCtrl'
     })
 
     .state('static.about', {
       url: '^/about'
-      , templateUrl: '/views/static/about'
+      , templateUrl: '/html/static/views/about'
     })
 
     .state('static.faq', {
       url: '^/frequently-asked-questions'
-      , templateUrl: '/views/static/faq'
+      , templateUrl: '/html/static/views/faq'
     })
 
 // ==> end state config

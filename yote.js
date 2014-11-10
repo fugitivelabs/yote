@@ -46,7 +46,7 @@ app.use(favicon(path.join(__dirname, 'public','favicon.ico')));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(sass.middleware({
-  src: __dirname + '/public/sass',
+  src: __dirname + '/public',
   dest: __dirname + '/public/css',
   prefix: '/css',
   debug: true,

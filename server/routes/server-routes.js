@@ -10,9 +10,9 @@ module.exports = function(router) {
 
 
   //render jade views as html
-  router.get('/views/*', function(req, res) {
+  router.get('/html/*', function(req, res) {
     // console.log(req.param("0"));
-    res.render('../../public/app/views/' + req.param("0")); //why?
+    res.render('../../public/app/' + req.param("0")); //why?
   });
 
   //render layout
