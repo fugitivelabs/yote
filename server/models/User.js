@@ -4,7 +4,9 @@ var mongoose = require('mongoose')
 
 //define user schema
 var userSchema = mongoose.Schema({
-  firstName:        { type: String, required: '{PATH} is required!' }
+  created:          { type: Date, default: Date.now }
+  , updated:        { type: Date, default: Date.now }
+  , firstName:        { type: String, required: '{PATH} is required!' }
   , lastName:       { type: String, required: '{PATH} is required!' }
   , username:       {
     type: String
@@ -14,6 +16,9 @@ var userSchema = mongoose.Schema({
   , password_salt:  { type: String, required: '{PATH} is required!' }
   , password_hash:  { type: String, required: '{PATH} is required!' }
   , roles:          [String]
+    //reset password fields
+  , resetPasswordTime:    { type: Date, default: Date.now }
+  , resetPasswordHex:     { type: String, default: Math.floor(Math.random()*16777215).toString(16) + Math.floor(Math.random()*16777215).toString(16) }
 });
 
 //user instance methods

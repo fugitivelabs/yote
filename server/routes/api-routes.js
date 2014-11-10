@@ -61,7 +61,12 @@ module.exports = function(router) {
   // - Read
   router.get('/api/users'          , requireRole('admin'), api.users.list); // must be an 'admin' to see the list of users
   // - Update
-  // app.put('/api/users'          , api.users.update);
+  // - Update
+  router.put('/api/users/:userId'      , requireLogin(), api.users.update);
+  router.post('/api/users/password'    , requireLogin(), api.users.changePassword);
+  router.post('/api/users/requestpasswordreset'          , api.users.requestPasswordReset);
+  router.get('/api/users/checkresetrequest/:resetHex'    , api.users.checkResetRequest);
+  router.post('/api/users/resetpassword'                 , api.users.resetPassword);
   // - Delete
   // app.del('/api/users'          , requireRole('admin'), api.users.delete);
 
