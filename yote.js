@@ -32,7 +32,7 @@ app.use(logger('dev'));
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
+//redis for persistent session storage
 app.use(session({
   store: new RedisStore({
     host: config.redis.host
@@ -40,8 +40,6 @@ app.use(session({
   })
   , secret: 'fugitive all up in your labs'
 }));
-
-
 app.use(favicon(path.join(__dirname, 'public','favicon.ico'))); 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -52,15 +50,15 @@ app.use(sass.middleware({
   debug: true,
   outputStyle: 'compressed'
 }));
+
 //allow the angular ui-views to be written in Jade
 app.use(serveStatic(__dirname + '/public'));
 
-//handle mongo errors
+//request checks
 app.use(function(req, res, next) {
-  //use this to test users and then remove:
+  //test user:
   console.log("YOTE USER: " + (req.user ? req.user.username : "none"));
-
-  //no connection
+  //no mongo connection
   if(mongoose.connection.readyState !== 1) {
     mongoose.connect(config.db);
     res.send("mongoose error, hold your horses...");
@@ -71,9 +69,7 @@ app.use(function(req, res, next) {
 //initialize passport
 passport.use(new LocalStrategy(
   function(username, password, done) {
-    console.log("DEBUG 2");
     User.findOne({username:username}).exec(function(err, user) {
-      console.log("DEBUG 3");
       if(user && user.authenticate(password)) {
         console.log("authenticated!");
         return done(null, user);
@@ -101,14 +97,17 @@ passport.deserializeUser(function(id, done) {
 })
 
 // development only
-// if ('development' == app.get('env')) {
-//   app.use(errorHandler());
-// }
+if (app.get('env') == 'development') {
+  console.log("DEVELOPMENT");
+  // app.use(errorHandler());
+} else if(app.get('env') == 'production') {
+  console.log("PRODUCTION");
+}
 
 //configure server routes
 var router = express.Router();
 require('./server/routes/api-routes')(router);
-require('./server/routes/server-routes')(router);
+require('./server/routes/server-routes')(router, app);
 //some notes on router: http://scotch.io/tutorials/javascript/learn-to-use-the-new-router-in-expressjs-4
 app.use('/', router);
 app.listen(config.port);

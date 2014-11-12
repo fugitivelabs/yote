@@ -1,6 +1,5 @@
 'use strict';
 
-
 //Post Index Controller
 angular.module('Yote')
 
@@ -26,13 +25,9 @@ angular.module('Yote')
   }])
 
   .controller('PostShowCtrl', ['$scope', '$stateParams', '$state', 'PostFactory', function($scope, $stateParams, $state, PostFactory){
-    console.log("post show ctrl");
-
-    //next call breaks second time it is called, regardless. why?
-    var slug = $stateParams.slug;
-    console.log(slug);
-
-    PostFactory.show(slug)
+    console.log('PostShowCtrl loaded');
+    //load post from state params
+    PostFactory.show($stateParams.slug)
       .then(function(data){
         $scope.post = data.post;
       }, function(data){
@@ -42,16 +37,14 @@ angular.module('Yote')
 
   .controller('PostCreateCtrl', ['$scope', '$stateParams', '$state', '$rootScope', 'PostFactory', function($scope, $stateParams, $state, $rootScope, PostFactory) {
     console.log('PostCreateCtrl loaded');
+    //create action
     $scope.createAction = function(postData) {
+      //set author to current user
       postData.author = $scope.currentUser._id;
-      console.log(postData);
       console.log("create action initiated");
       PostFactory.create(postData)
         .then(function(data) {
-          // console.log(data);
           if(data.success) {
-            // console.log(data);
-            console.log(data.post.slug);
             //go to post page
             $state.go('post.show', { slug: data.post.slug });
           } else {
@@ -63,26 +56,18 @@ angular.module('Yote')
 
   .controller('PostUpdateCtrl', ['$scope', '$stateParams', '$state', '$rootScope', 'PostFactory', function($scope, $stateParams, $state, $rootScope, PostFactory) {
     console.log('PostUpdateCtrl loaded');
-
-    var slug = $stateParams.slug;
-    console.log(slug);
-
-    PostFactory.show(slug)
+    //load post from state params
+    PostFactory.show($stateParams.slug)
       .then(function(data){
         $scope.post = data.post;
       }, function(data){
         alert(data);
       });
-
     $scope.updateAction = function(postData) {
-      console.log(postData);
       console.log("udpate action initiated");
       PostFactory.update(postData)
         .then(function(data) {
-          // console.log(data);
           if(data.success) {
-            // console.log(data);
-            console.log(data.post.slug);
             //go to post page
             $state.go('post.show', { slug: data.post.slug });
           } else {
@@ -91,9 +76,6 @@ angular.module('Yote')
         });
     }
   }])
-
-
-
 
 // end of file
 ;

@@ -1,7 +1,9 @@
 'use strict'
 
+//disable console.log function if older IE or production environment
+if(!window.console || !window.development) console = {log: function() {}};
 
-console.log('angular application loaded');
+console.log('root angular application loaded');
 
 angular.module('Yote', [
   // add in custom dependencies here

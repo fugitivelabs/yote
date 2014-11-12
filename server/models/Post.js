@@ -23,8 +23,6 @@ function createDefaults() {
   Post.find({}).exec(function(err, posts) {
     if(posts.length == 0) {
       Post.create({title: "Fugitive Labs Introduces Yote!", content: "A neat-o new product that helps you build apps on the MEAN stack!", featured: true});
-      Post.create({title: "Fugitive Labs Launches Sprtrfrdrio!", content: "A neat-o new product that helps you migrate from Rdio to Spotify!", featured: true});
-      Post.create({title: "Fugitive Labs Launches Rdrdify!", content: "A neat-o new product that helps you migrate from Spotify to Rdio!", featured: true});
       console.log("created initial post defaults");
     }
   });

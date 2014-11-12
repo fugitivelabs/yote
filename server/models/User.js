@@ -52,7 +52,7 @@ function createDefaults() {
       var password_salt, password_hash;
       password_salt = User.createPasswordSalt();
       password_hash = User.hashPassword(password_salt, 'admin');
-      User.create({firstName:'Admin', lastName:'Admin', username:'admin', password_salt: password_salt, password_hash: password_hash, roles: ['admin']});
+      User.create({firstName:'Admin', lastName:'Admin', username:'admin@admin.com', password_salt: password_salt, password_hash: password_hash, roles: ['admin']});
       console.log("created initial default user w/ username 'admin' and password 'admin'");
     }
   });

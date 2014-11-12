@@ -5,13 +5,10 @@ var api = require('./route-config');
 
 
 //define routes
-module.exports = function(router) {
-
-
+module.exports = function(router, app) {
 
   //render jade views as html
   router.get('/html/*', function(req, res) {
-    // console.log(req.param("0"));
     res.render('../../public/app/' + req.param("0")); //why?
   });
 
@@ -19,6 +16,7 @@ module.exports = function(router) {
   router.get('*', function(req, res) {
     res.render('layout', {
       currentUser: req.user
+      , development: app.get('env') == 'development' ? true : false
     });
   });
 

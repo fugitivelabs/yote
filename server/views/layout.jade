@@ -5,14 +5,26 @@ html(lang="en", ng-app="Yote")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     meta(charset="utf-8")
     link(href="/favicon.ico", rel="shortcut icon", type="image/x-icon")
-    //- styles
+    //- compiled styles
     link(rel="stylesheet", href="/css/yote.css")
-    //- javascripts
+    //- javascript libraries
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js")
     script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.js")
     script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular-route.js")
     script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular-touch.js")
     script(src="/lib/angular-ui-router.min.js")
+    
+    //- set current user if it exists. else set to null.
+    if !!currentUser
+      script.
+        window.currentUser = !{JSON.stringify(currentUser)}
+    else
+      script.
+        window.currentUser = {}
+    //- this freaks the sublime jade highlighter out but it is valid
+    script.
+      window.development = !{JSON.stringify(development)}
+
     //- root angular dependencies
     script(src="/app/app.js")
     script(src="/app/directives.js")
@@ -21,14 +33,6 @@ html(lang="en", ng-app="Yote")
   body
     ui-view
 
-    //- set current user if it exists. else set to null.
-    if !!currentUser
-      script.
-        window.currentUser = !{JSON.stringify(currentUser)}
-    else
-      script.
-        window.currentUser = {}
-    
     //- reference the custom angular dependencies
     include ng-services
     include ng-controllers
