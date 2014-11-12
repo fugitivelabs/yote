@@ -4,6 +4,8 @@ Yote
 Find Your Road.
 
 
+todo: improve readme
+
 
 To run:
 (in separate terminal window) 'mongod'
@@ -12,8 +14,10 @@ To run:
 
 'nodemon'
 
-(app listens on port 3030)
 
+DEVELOPMENT vs PRODUCTION
+development is the default environment. it listens on port 3030 and console.log logs to the console. it can be run with the command "nodemon" from the top level directory.
+production environment can be enabled by running "NODE_ENV=production PORT=xxxx node yote.js", where xxxx is your desired port (like 80 on a production server). Running production will disable all console.log calls on the front end, which is really f-ing cool.
 
 
 Docker stuff:

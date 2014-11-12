@@ -19,16 +19,16 @@ angular.module('Yote')
 
 .factory('PostFactory', ['$http', '$q', function($http, $q) {
 
+  //define base url
   var urlBase = "/api/posts";
+  //PostFactory object
   var PostFactory = {};
-  var _post;
 
   PostFactory.all = function() {
-    console.log("get all Posts called");
+    console.log("get all posts called in factory");
     var deferred = $q.defer();
     $http.get(urlBase)
       .success(function(data){
-        console.log("it worked!");
         console.log(data);
         deferred.resolve(data);
       }).error(function() {
@@ -39,7 +39,7 @@ angular.module('Yote')
   }
 
   PostFactory.show = function(slug) {
-    console.log("show this post: " + slug);
+    console.log("show post " + slug + " in factory");
     var deferred = $q.defer();
     $http.get(urlBase + '/' + slug)
       .success(function(data){
