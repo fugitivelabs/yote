@@ -11,54 +11,62 @@ exports.list = function(req, res) {
 exports.getById = function(req, res) {
   console.log('get post by id');
   Post.findOne({_id:req.params.id}).exec(function(err, post) {
-    res.send(post);
+    if(err || !post) {
+      res.send({success: false, message: err});
+    } else {
+      res.send({success: true, post: post});
+    }
   });
 }
 
 exports.getBySlug = function(req, res) {
   console.log('get post by slug');
   Post.findOne({ slug: req.param('slug') }).exec(function(err, post) {
-    res.send(post);
-  });
-}
-
-exports.create = function(req, res) {
-  var post = new Post({
-    title: req.param('title')
-    , author: req.param('author')
-    , content: req.param('content')
-    , tags: req.param('tags')
-  }).save(function(err, post) {
-    if(err) {
+    if(err || !post) {
       res.send({success: false, message: err});
     } else {
-      console.log("created new post");
       res.send({success: true, post: post});
     }
   });
 }
 
+exports.create = function(req, res) {
+  var post = new Post({});
+  for(var k in req.body) {
+    if(req.body.hasOwnProperty(k)) {
+      post[k] = req.body[k];
+    }
+  }
+  post.save(function(err, post) {
+    if(err || !post) {
+      res.send({success: false, message: err});
+    } else {
+      console.log("created new post");
+      res.send({success: true, post: post});
+    }
+  })
+}
+
 exports.update = function(req, res) {
   console.log("update post called");
   Post.findOne({ slug: req.param('slug') }).exec(function(err, post) {
-    if(!err) {
-      post.title = req.param('title');
-      post.content = req.param('content');
-      // post.status = req.param('status');
-      // post.tags = req.params('tags');
-      // post.featured = req.params('featured');
-      post.save(function(err, post) {
-        if(!err) {
-          res.send({success: true, post: post});
-        } else {
-          console.log("ERROR UPDATING: " + err);
-          res.send({success: false, error: err});
-        }
-      });
-
-    } else {
+    if(err || !post)  {
       console.log("post not found");
       res.send({success: false, message: "Post Not Found; Edit Failed."});
+    } else {
+      for(var k in req.body) {
+        if(req.body.hasOwnProperty(k)) {
+          post[k] = req.body[k];
+        }
+      }
+      post.save(function(err, post) {
+        if(err || !post) {
+          console.log("ERROR UPDATING: " + err);
+          res.send({success: false, error: err});
+        } else {
+          res.send({success: true, post: post});
+        }
+      });
     }
   });
 }
