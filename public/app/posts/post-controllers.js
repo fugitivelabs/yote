@@ -34,7 +34,7 @@ angular.module('Yote')
 
     PostFactory.show(slug)
       .then(function(data){
-        $scope.post = data;
+        $scope.post = data.post;
       }, function(data){
         alert(data);
       });
@@ -69,7 +69,7 @@ angular.module('Yote')
 
     PostFactory.show(slug)
       .then(function(data){
-        $scope.post = data;
+        $scope.post = data.post;
       }, function(data){
         alert(data);
       });
