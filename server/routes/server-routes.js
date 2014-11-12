@@ -1,11 +1,16 @@
 var mongoose = require('mongoose');
 var passport = require('passport');
-var api = require('./route-config');
-
-
 
 //define routes
 module.exports = function(router, app) {
+
+  //require api routes list
+  require('./api-routes')(router);
+
+  // catch all other api requests and send 404 
+  router.all('/api/*', function(req, res) {
+    res.send(404);
+  });
 
   //render jade views as html
   router.get('/html/*', function(req, res) {

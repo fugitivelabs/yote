@@ -106,7 +106,7 @@ if (app.get('env') == 'development') {
 
 //configure server routes
 var router = express.Router();
-require('./server/routes/api-routes')(router);
+// require('./server/routes/api-routes')(router);
 require('./server/routes/server-routes')(router, app);
 //some notes on router: http://scotch.io/tutorials/javascript/learn-to-use-the-new-router-in-expressjs-4
 app.use('/', router);
