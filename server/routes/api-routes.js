@@ -3,7 +3,6 @@ var mongoose = require('mongoose')
   , api = require('./route-config')
   ;
 
-console.log(api.users);
 
 //helper functions
 function requireLogin() {
@@ -32,10 +31,8 @@ module.exports = function(router) {
 
   // user login
   router.post('/api/users/login', function(req, res, next) {
-    console.log("DEBUG 1");
     req.body.username = req.body.username.toLowerCase();
     passport.authenticate('local', function(err, user) {
-      console.log("DEBUG 4");
       if(err) {
         res.send({success:false, message: "Error authenticating user."});
       }

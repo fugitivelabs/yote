@@ -12,7 +12,6 @@ angular.module('Yote')
       console.log("login action initiated");
       UserFactory.login(username, password)
         .then(function(data) {
-          console.log(data);
           if(data.success) {
             //change state programmatically
             //set root scope to user
@@ -34,7 +33,6 @@ angular.module('Yote')
     console.log('UserLogoutCtrl loaded');
     UserFactory.logout()
       .then(function(data) {
-        console.log(data);
         if(data.success) {
           //change state programmatically
           //set root scope to user
@@ -50,11 +48,9 @@ angular.module('Yote')
   .controller('UserRegisterCtrl', ['$scope', '$stateParams', '$state', '$rootScope', 'UserFactory', function($scope, $stateParams, $state, $rootScope, UserFactory) {
     console.log('UserRegisterCtrl loaded');
     $scope.registerAction = function(userData) {
-      console.log(userData);
       console.log("register action initiated");
       UserFactory.register(userData)
         .then(function(data) {
-          console.log(data);
           if(data.success) {
             //NOW LOGIN
             $rootScope.currentUser = data.user;
@@ -84,7 +80,7 @@ angular.module('Yote')
           if(data.success) {
             console.log("User profile was updated in db");
           } else {
-            console.log("stupid thing.");
+            console.log("failed to update user profile");
           }
         });
     }
@@ -96,14 +92,11 @@ angular.module('Yote')
     console.log('UserPasswordCtrl loaded');
     //get user profile
     $scope.user = $rootScope.currentUser;
-    console.log($scope.user);
     $scope.changePassword = function(passwordData) {
       UserFactory.changePassword(passwordData)
         .then(function(data) {
-          console.log("success");
             UserFactory.logout()
             .then(function(data) {
-              console.log(data);
               if(data.success) {
                 $rootScope.currentUser = {};
                 console.log("Logged out");
@@ -120,7 +113,6 @@ angular.module('Yote')
   .controller('UserForgotPasswordCtrl', ['$scope', '$stateParams', '$state', '$rootScope', 'UserFactory', function($scope, $stateParams, $state, $rootScope, UserFactory) {
     console.log('UserForgotPasswordCtrl loaded');
     $scope.requestReset = function(email) {
-      console.log("debug 1");
       UserFactory.requestPasswordReset(email)
         .then(function(data) {
           //do things

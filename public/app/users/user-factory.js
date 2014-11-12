@@ -18,11 +18,9 @@ angular.module('Yote')
 *******************************************************************************************/
 
 .factory('UserFactory', ['$http', '$q', function($http, $q) {
-
   console.log("user factory initiated");
   var urlBase = "/api/users";
   var UserFactory = {};
-  var _user;
 
   UserFactory.login = function(username, password) {
     console.log("user login action called");
@@ -32,17 +30,14 @@ angular.module('Yote')
       .success(function(user) {
         if(user.success) { //intermediate if statement is unnecessary after dev is done
           console.log('LOGIN SUCCESSFUL');
-          // console.log(user);
           deferred.resolve(user);
         } else {
           console.log('LOGIN FAILURE');
-          // console.log(user);
           deferred.resolve(user);
         }
       })
       .error(function(err, user) {
         console.log('LOGIN FAILURE - error');
-        // console.log(err);
         deferred.resolve(err);
       });
       return deferred.promise;
@@ -56,17 +51,14 @@ angular.module('Yote')
       .success(function(err) {
         if(!err) {
           console.log('LOGOUT SUCCESSFUL');
-          // console.log(user);
           deferred.resolve({"success": true});
         } else {
-          console.log('LOGIN FAILURE');
-          // console.log(user);
+          console.log('LOGOUT FAILURE');
           deferred.resolve({"success": false, "error": err});
         }
       })
       .error(function(err, user) {
-        console.log('LOGIN FAILURE - error');
-        // console.log(err);
+        console.log('LOGOUT FAILURE - error');
         deferred.resolve({"success": false, "error": err});
       });
     return deferred.promise;
@@ -78,7 +70,6 @@ angular.module('Yote')
 
     $http.post(urlBase, userData)
       .success(function(user) {
-        console.log(user);
         if(user.success) {
           console.log('REGISTER SUCCESS');
           deferred.resolve(user);
@@ -102,7 +93,6 @@ angular.module('Yote')
 
     $http.get(urlBase)
       .success(function(data){
-        // console.log(data);
         deferred.resolve(data);
       }).error(function() {
         deferred.reject("Error. Please try logging in as an admin");
@@ -128,7 +118,6 @@ angular.module('Yote')
     var deferred = $q.defer();
     $http.post(urlBase + "/password", password)
       .success(function(data) {
-        console.log(data);
         deferred.resolve(data);
       })
       .error(function() {
@@ -142,7 +131,6 @@ angular.module('Yote')
     var deferred = $q.defer();
     $http.post(urlBase + "/requestpasswordreset", { email: email })
       .success(function(data) {
-        console.log(data);
         deferred.resolve(data);
       })
       .error(function() {
@@ -153,11 +141,9 @@ angular.module('Yote')
 
   UserFactory.checkResetRequest = function(resetHex) {
     console.log("checking for validity of reset request in factory");
-    console.log(resetHex);
     var deferred = $q.defer();
     $http.get(urlBase + "/checkresetrequest/" + resetHex)
       .success(function(data) {
-        console.log(data);
         deferred.resolve(data);
       })
       .error(function() {
@@ -171,7 +157,6 @@ angular.module('Yote')
     var deferred = $q.defer();
     $http.post(urlBase + "/resetpassword", passwordReset)
       .success(function(data) {
-        console.log(data);
         deferred.resolve(data);
       })
       .error(function() {

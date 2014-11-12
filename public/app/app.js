@@ -2,7 +2,6 @@
 
 //disable console.log function if older IE or production environment
 if(!window.console || !window.development) console = {log: function() {}};
-console.log("development: " + window.development);
 
 console.log('root angular application loaded');
 
