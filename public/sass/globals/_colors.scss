@@ -3,40 +3,40 @@
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
 // default bg-color
-$bg-color:                    $material-grey-50;
+$bg-color:                    #ddd;
 
 // default text-color
-$primary-text:                $material-primary-text;
-$secondary-text:              $material-secondary-text;
-$hint-text:                   $material-hint-text;
-$divider:                     $material-divider;
-$text-light:                  $material-grey-0;
+$primary-text:                #aaa;
+$secondary-text:              #bbb;
+$hint-text:                   #888;
+$divider:                     #999;
+$text-light:                  #ccc;
 
 // primary colors (navbar, etc)
-$primary:                     $material-blue-grey-500;
+$primary:                     black;
 $primary-hover:               darken($primary, 10);
 
-$primary-light:               $material-blue-grey-200;
+$primary-light:               blue;
 $primary-light-hover:         darken($primary-light, 10);
 
-$primary-dark:                $material-blue-grey-700;
+$primary-dark:                green;
 $primary-dark-hover:          darken($primary-dark, 10);
 
-$primary-ultra-light:         $material-blue-grey-50;
+$primary-ultra-light:         lightblue;
 $primary-ultra-light-hover:   darken($primary-ultra-light, 10);
 
 // secondary colors (calls to action, links, etc.)
-$accent:                      $material-pink-A200;
+$accent:                      pink;
 $accent-hover:                darken($accent, 10);
 
 
 // tertiary colors (alerts and whatnot)
-$alert:                       $material-yellow-A200;
+$alert:                       yellow;
 $alert-hover:                 darken($alert, 10);
 
 
 
-// Semantic Colors 
+// Semantic Colors
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
 $light: #ECF0F1;
