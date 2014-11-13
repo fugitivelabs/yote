@@ -3,9 +3,9 @@
 // Brand Palette
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
-$brand-primary:               red;
-$brand-secondary:             yellow;
-$brand-accent:                blue;
+$brand-primary:               #77A59B;
+$brand-secondary:             #F9FADD;
+$brand-accent:                #9D1409;
 
 // UI Palette
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
@@ -16,11 +16,11 @@ $white:                       $white-2;
 $text-color:                  $black-5;
 $accent-color:                $brand-accent;
 
-$link-color:                  #527ef4;
-$link-visited-color:          #6c167b;
+$link-color:                  #FFCD61;
+$link-visited-color:          $link-color;
 $link-hover-color:            lighten($link-color, 20);
 
-$divider-color:               $grey-8;
+$divider-color:               $grey-4;
 
 
 

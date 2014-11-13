@@ -28,6 +28,7 @@ nav {
 .navBar {
   width: 100%;
   padding: 1rem 0px;
+  background-color: $brand-primary;
 
   &.-dark {
     @extend %nav--dark;
@@ -43,7 +44,10 @@ nav {
 
   .navLogo {
     display: inline-block;
-    @include type-large;
+    @include type-jumbo;
+    color: $white;
+    font-weight: 700;
+    text-shadow: 3px 2px 0px $brand-primary, 7px 6px 0px rgba(0, 0, 0, 0.15);
   }
 
   .navList {

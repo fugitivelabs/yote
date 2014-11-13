@@ -80,6 +80,7 @@ $sidenav-color:            $text-color;
 .navBar {
   width: 100%;
   padding: 1rem 0px;
+  background-color: $brand-primary;
 
   &.-dark {
     @extend %nav--dark;

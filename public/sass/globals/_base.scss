@@ -45,6 +45,11 @@ a {
   }
 }
 
+ul {
+  margin: 0px;
+  padding: 0px;
+}
+
 h1 {
   @include type-largest;
 }
@@ -94,10 +99,15 @@ strong {
 }
 
 hr {
+  border-bottom: none;
+  border-style: dotted;
   border-color: $divider-color;
-  margin: $gutter*2;
+  margin: $gutter*3;
 }
 
+.content {
+  margin: 0 auto;
+}
 // Base Styles: Tablets
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
