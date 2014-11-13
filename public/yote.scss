@@ -29,12 +29,7 @@
 
 // Pages
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
-
-//@import 'pages/home';
-//@import 'pages/style-guide';
-
-// Pages
-// ••••••••••••••••••••••••••••••••••••••••••••••••••
+@import 'sass/pages/style-guide.scss';
 @import 'app/admin/admin-styles';
 @import 'app/posts/post-styles';
 @import 'app/static/static-styles';

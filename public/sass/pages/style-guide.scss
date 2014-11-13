@@ -28,8 +28,23 @@
 
 }
 
-.typography{
+.colors {
+  .whites {
+    background-color: $black-1;
+    h2 {
+      &.one   {color: $white-1};
+      &.two   {color: $white-2};
+      &.three {color: $white-3};
+      &.four  {color: $white-4};
+      &.five  {color: $white-5};
+      &.six   {color: $white-6};
+    }
+  }
+}
 
+
+
+.typography{
   .typeTogglers {
     .toggler {
       text-align: center;
@@ -43,5 +58,4 @@
       }
     }
   }
-
 }
