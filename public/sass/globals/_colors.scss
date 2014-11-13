@@ -3,14 +3,14 @@
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
 // default bg-color
-$bg-color:                    #ddd;
+$bg-color:                    #FEFEFE;
 
 // default text-color
-$primary-text:                #aaa;
-$secondary-text:              #bbb;
-$hint-text:                   #888;
-$divider:                     #999;
-$text-light:                  #ccc;
+$text-color:                  #333;
+$secondary-text:              #bb0011;
+$hint-text:                   #bfc3cf;
+$divider:                     #ddd;
+$text-light:                  #999;
 
 // primary colors (navbar, etc)
 $primary:                     black;
@@ -22,11 +22,11 @@ $primary-light-hover:         darken($primary-light, 10);
 $primary-dark:                green;
 $primary-dark-hover:          darken($primary-dark, 10);
 
-$primary-ultra-light:         lightblue;
+$primary-ultra-light:         red;
 $primary-ultra-light-hover:   darken($primary-ultra-light, 10);
 
 // secondary colors (calls to action, links, etc.)
-$accent:                      pink;
+$accent:                      #832600;
 $accent-hover:                darken($accent, 10);
 
 

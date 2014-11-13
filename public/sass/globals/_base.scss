@@ -17,7 +17,7 @@ body {
   @include font-smoothing(antialiased);
   @include type-base;
   background-color: $bg-color;
-  color: $primary-text;
+  color: $text-color;
   font-family: $font-sans;
   line-height: 1.5rem;
   position: relative;
@@ -31,16 +31,16 @@ a {
   padding: .2rem;
   text-decoration: none;
 
-  &:visited { 
-    color: $secondary-text; 
+  &:visited {
+    color: $secondary-text;
   }
-  &:hover { 
-    color: $accent-hover; 
+  &:hover {
+    color: $accent-hover;
     text-decoration: none;
     cursor: pointer;
   }
-  &:active { 
-    color: $accent-hover; 
+  &:active {
+    color: $accent-hover;
   }
 }
 
@@ -95,6 +95,7 @@ strong {
 
 hr {
   border-color: $divider;
+  margin: $gutter*2;
 }
 
 // Base Styles: Tablets
