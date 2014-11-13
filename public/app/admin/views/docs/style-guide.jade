@@ -4,10 +4,31 @@ p Yote uses Jade and Sass, respectively, for markup and styling. The examples yo
 
 hr
 
-
-
 section.colors
-  h2 Colors
+  h2 Color
+
+  h3 Brand Palette
+  .brand(yt-row)
+    .primary(yt-col) $brand-primary
+    .secondary(yt-col) $brand-secondary
+    .accent(yt-col) $brand-accent
+
+  h3 UI Palette
+  .text-color
+    h4 $text-color | Grumpy wizards make toxic brew for the evil Queen and Jack.
+    h4.accent $accent-color | Grumpy wizards make toxic brew for the evil Queen and Jack.
+  .link-color(yt-row)
+    p(yt-col) $link-color
+    p.hover(yt-col) $link-hover-color
+    p.visited(yt-col) $link-visited-color
+
+  h3 Semantic Palette
+  .semantic(yt-row)
+    .success(yt-col) $success
+    .warning(yt-col) $warning
+    .danger(yt-col) $danger
+
+  h3 Scales
   .whites(yt-row)
    .one(yt-col) $white-1
    .two(yt-col) $white-2

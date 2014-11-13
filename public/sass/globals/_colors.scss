@@ -1,13 +1,13 @@
 @import 'sass/globals/colorPalettes';
 
-// Brand Colors
+// Brand Palette
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
-$brand-primary:               #adadad;
-$brand-secondary:             #dadada;
-$brand-accent:                #a8a8a8;
+$brand-primary:               red;
+$brand-secondary:             yellow;
+$brand-accent:                blue;
 
-// UI Colors
+// UI Palette
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 $bg-color:                    $white-2;
 $grey:                        $grey-5;
@@ -20,7 +20,7 @@ $link-color:                  #527ef4;
 $link-visited-color:          #6c167b;
 $link-hover-color:            lighten($link-color, 20);
 
-$divider-color:               $grey-2;
+$divider-color:               $grey-8;
 
 
 
