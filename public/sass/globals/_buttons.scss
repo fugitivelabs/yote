@@ -3,7 +3,6 @@
 
     use css attribute selector syntax for the buttons.
 
-    markup looks like <button yt-btn="calm lg block"> ... </button>
 */
 
 
@@ -14,19 +13,19 @@
 
 [yt-btn] {
   border: none;
-  background-color: $light;
+  background-color: $grey;
   border-radius: 2px;
-  border: 1px solid $light-hover;
-  color: $dark;
+  border: 1px solid $grey;
+  color: $link-color;
   margin: 0px;
   padding: 1em 2em;
   @include type-base;
   outline: none;;
 
   &:hover {
-    &:visited { color: $light-hover; }
-    &:hover { color: $dark-hover; background-color: $light-hover; text-decoration: none; }
-    &:active { color: $dark-hover; }
+    &:visited { color: $link-visited-color; }
+    &:hover { color: $link-hover-color; background-color: $grey; text-decoration: none; }
+    &:active { color: $link-hover-color; }
   }
   // disabled buttons
   // markup can include
@@ -88,27 +87,15 @@
 // Buttons with semantic colors
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
-// calm
-[yt-btn~="calm"] {
-  background-color: $calm;
-  border-color: $calm-hover;
-  color: $light;
-  &:hover {
-    &:visited { color: $light-brilliant; }
-    &:hover { color: $light-brilliant; background-color: $calm-hover; }
-    &:active { color: $light-brilliant; }
-  }
-}
-
 // dark
 [yt-btn~="dark"] {
-  background-color: $dark;
-  border-color: $dark-hover;
-  color: $light;
+  background-color: $grey;
+  border-color: $grey;
+  color: $link-color;
   &:hover {
-    &:visited { color: $light-brilliant; }
-    &:hover { color: $light-brilliant; background-color: $dark-hover; }
-    &:active { color: $light-brilliant; }
+    &:visited { color: $link-visited-color; }
+    &:hover { color: $link-hover-color; background-color: $grey; }
+    &:active { color: $link-hover-color; }
   }
 }
 
@@ -116,11 +103,11 @@
 [yt-btn~="success"] {
   background-color: $success;
   border-color: $success-hover;
-  color: $light;
+  color: $white;
   &:hover {
-    &:visited { color: $light-brilliant; }
-    &:hover { color: $light-brilliant; background-color: $success-hover; }
-    &:active { color: $light-brilliant; }
+    &:visited { color: $link-visited-color; }
+    &:hover { color: $link-hover-color; background-color: $success-hover; }
+    &:active { color: $link-hover-color; }
   }
 }
 
@@ -128,11 +115,11 @@
 [yt-btn~="warning"] {
   background-color: $warning;
   border-color: $warning-hover;
-  color: $light;
+  color: $white;
   &:hover {
-    &:visited { color: $light-brilliant; }
-    &:hover { color: $light-brilliant; background-color: $warning-hover; }
-    &:active { color: $light-brilliant; }
+    &:visited { color: $link-visited-color; }
+    &:hover { color: $link-hover-color; background-color: $warning-hover; }
+    &:active { color: $link-hover-color; }
   }
 }
 
@@ -140,11 +127,11 @@
 [yt-btn~="danger"] {
   background-color: $danger;
   border-color: $danger-hover;
-  color: $light;
+  color: $white;
   &:hover {
-    &:visited { color: $light-brilliant; }
-    &:hover { color: $light-brilliant; background-color: $danger-hover; }
-    &:active { color: $light-brilliant; }
+    &:visited { color: $link-visited-color; }
+    &:hover { color: $link-hover-color; background-color: $danger-hover; }
+    &:active { color: $link-hover-color; }
   }
 }
 
@@ -153,9 +140,9 @@
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
 [yt-btn~="link"] {
-  background-color: transparent;;
-  border: none !important;
-  color: $accent-color;
+  background-color: transparent;
+  border: none;
+  color: $link-color;
   &:hover {
     &:visited { color: $link-visited-color; }
     &:hover { color: $link-hover-color; background-color: $brand-primary; }
