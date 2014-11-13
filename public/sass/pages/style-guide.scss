@@ -32,9 +32,12 @@
     margin: 2px;
     text-align: center;
     @include type-small;
+    @include transition(all .25s ease);
+
 
     &.whites {
       div {
+        &:hover {@include box-shadow(0px 1px 3px $grey);}
         &.one   {background-color: $white-1;}
         &.two   {background-color: $white-2;}
         &.three {background-color: $white-3;}
@@ -46,6 +49,7 @@
 
     &.greys {
       div {
+        &:hover {@include box-shadow(0px 1px 3px $grey);}
         &.one   {background-color: $grey-1;}
         &.two   {background-color: $grey-2;}
         &.three {background-color: $grey-3;}
@@ -61,6 +65,7 @@
     &.blacks {
       color: $white;
       div {
+        &:hover {@include box-shadow(0px 1px 3px $grey);}
         &.one   {background-color: $black-1;}
         &.two   {background-color: $black-2;}
         &.three {background-color: $black-3;}
