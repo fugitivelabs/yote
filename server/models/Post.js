@@ -1,6 +1,6 @@
 var mongoose = require('mongoose')
   , ObjectId = mongoose.SchemaTypes.ObjectId
-  , slug = require('mongoose-slug')
+  , slug = require('mongoose-url-slugs')
   ;
 
 //define post schema
@@ -14,7 +14,7 @@ var postSchema = mongoose.Schema({
   , tags:                 [String]
 });
 
-postSchema.plugin(slug(['title'], { required: true }));
+postSchema.plugin(slug(['title'], { update: true }));
 
 Post = mongoose.model('Post', postSchema);
 
