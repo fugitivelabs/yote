@@ -17,7 +17,7 @@ function requireRole(role) {
   return function(req, res, next) {
     if(!req.isAuthenticated() || req.user.roles.indexOf(role) === -1) {
       res.status(403);
-      res.send("UNAUTHORIZED - ADMIN PRIVILEDGEDS REQUIRED");
+      res.send("UNAUTHORIZED - ADMIN PRIVILEDGES REQUIRED");
     } else {  next(); }
   }
 }
@@ -27,7 +27,6 @@ module.exports = function(router) {
   require('./user-api-routes')(router, requireLogin, requireRole);
   //posts
   require('./post-api-routes')(router, requireLogin, requireRole);
-  //new routes here
 
 // end file
 }
