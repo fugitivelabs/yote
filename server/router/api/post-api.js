@@ -1,4 +1,4 @@
-var posts = require('../controllers/posts');
+var posts = require('../../controllers/posts');
 
 module.exports = function(router, requireLogin, requireRole) {
     // - Create

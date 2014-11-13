@@ -18,13 +18,13 @@ angular.module('Yote')
     .state('root', {
       abstract: true
       , url: '/'
-      , templateUrl: '/html/static/views/default-layout'
+      , templateUrl: '/html/static/templates/default-layout'
     })
 
     // first child of root. is the hompage. Empty url: '' signifies '/' + ''
     .state('root.home', {
       url: ''
-      , templateUrl: '/html/static/views/index'
+      , templateUrl: '/html/static/templates/index'
       , controller: 'HomeCtrl'
     })
 
