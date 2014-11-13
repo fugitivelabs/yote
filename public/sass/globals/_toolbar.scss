@@ -2,12 +2,12 @@
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
 
-// variables: 
+// variables:
 
 $toolbar-height:            50px;
 $toolbar-tall-height:       100px;
 $toolbar-bg-color:          #fff;
-$toolbar-color:             $primary-text;
+$toolbar-color:             blue;
 
 
 [yt-toolbar] {
@@ -16,7 +16,7 @@ $toolbar-color:             $primary-text;
   position: relative;
   width: 100%;
   min-height: $toolbar-height;
-  border-bottom: 1px solid $divider;
+  border-bottom: 1px solid $divider-color;
 }
 
 

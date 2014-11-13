@@ -3,12 +3,10 @@
 
 
 $sidenav-width:            220px;
-$sidenav-bg-color:         $primary-dark;
-$sidenav-color:            $text-light;
-$sidenav-link:             $text-light;
-$sidenav-link-hover:       #fff;
+$sidenav-bg-color:         $bg-color;
+$sidenav-color:            $text-color;
 
-// Side Navigation 
+// Side Navigation
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
 [yt-nav] {
@@ -29,7 +27,7 @@ $sidenav-link-hover:       #fff;
   @include box-shadow(0 0 8px rgba(0,0,0,0.3));
   ul {
     padding: 0;
-    
+
     li {
       list-style: none;
       padding: $gutter;
@@ -68,7 +66,7 @@ $sidenav-link-hover:       #fff;
 
 %nav--light {
   background-color: #fff;
-  border-bottom: 1px solid $divider;
+  border-bottom: 1px solid $divider-color;
 }
 
 %horiz {
@@ -82,6 +80,7 @@ $sidenav-link-hover:       #fff;
 .navBar {
   width: 100%;
   padding: 1rem 0px;
+  background-color: $brand-primary;
 
   &.-dark {
     @extend %nav--dark;
