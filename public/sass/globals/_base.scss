@@ -5,6 +5,7 @@
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  outline: none;
 }
 
 html,
@@ -17,7 +18,7 @@ body {
   @include font-smoothing(antialiased);
   @include type-base;
   background-color: $bg-color;
-  color: $primary-text;
+  color: $text-color;
   font-family: $font-sans;
   line-height: 1.5rem;
   position: relative;
@@ -26,22 +27,27 @@ body {
 
 
 a {
-  color: $accent;
+  color: $link-color;
   margin: -.2rem;
   padding: .2rem;
   text-decoration: none;
 
-  &:visited { 
-    color: $secondary-text; 
+  &:visited {
+    color: $link-visited-color;
   }
-  &:hover { 
-    color: $accent-hover; 
+  &:hover {
+    color: $link-hover-color;
     text-decoration: none;
     cursor: pointer;
   }
-  &:active { 
-    color: $accent-hover; 
+  &:active {
+    color: $link-hover-color;
   }
+}
+
+ul {
+  margin: 0px;
+  padding: 0px;
 }
 
 h1 {
@@ -74,7 +80,6 @@ h1, h2, h3, h4, h5, h6 {
 
 small {
   @include type-smaller;
-  color: $secondary-text;
 }
 
 em {
@@ -94,9 +99,15 @@ strong {
 }
 
 hr {
-  border-color: $divider;
+  border-bottom: none;
+  border-style: dotted;
+  border-color: $divider-color;
+  margin: $gutter*3;
 }
 
+.content {
+  margin: 0 auto;
+}
 // Base Styles: Tablets
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 

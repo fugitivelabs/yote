@@ -25,15 +25,14 @@
   }
 
   .item {
-    background-color: $light;
-    color: $dark;
+    background-color: $grey;
     font: inherit;
     font-weight: normal;
   }
 
   .field,
   .item {
-    border: 1px solid $light-hover;
+    border: 1px solid $grey;
     padding: 0.5em 0.75em;
     &:first-child {
       border-radius: 2px 0 0 2px;

@@ -3,6 +3,73 @@ h1 Documentation
 p Yote uses Jade and Sass, respectively, for markup and styling. The examples you see in this documentation will use syntax from these compiling languages. If you are unfamiliar with Jade or Sass, but know HTML and CSS, we think you'll like learning about them. Check out their documentation here and here.
 
 hr
+
+section.colors
+  h2 Color
+  p A default set of color variables and palettes come out of the box with Yote. You can manipulate these colors and their variable names in the
+    code  _colors.scss
+    |  file in the
+    code  sass/globals
+    |  directory. The white, black, and grey scales can be found in the
+    code  _colorPalettes.scss
+    |  file in the same directory. These are meant to be there for your convenience. In the UI Palette you'll find that variables already exist for an application level
+    code  $grey
+    |  and
+    code  $white
+    |  color.
+
+  h3 Brand Palette
+  .brand(yt-row)
+    .primary(yt-col) $brand-primary
+    .secondary(yt-col) $brand-secondary
+    .accent(yt-col) $brand-accent
+
+  h3 UI Palette
+  .text-color
+    h4 $text-color | Grumpy wizards make toxic brew for the evil Queen and Jack.
+    h4.accent $accent-color | Grumpy wizards make toxic brew for the evil Queen and Jack.
+  .link-color(yt-row)
+    p(yt-col) $link-color
+    p.hover(yt-col) $link-hover-color
+    p.visited(yt-col) $link-visited-color
+
+  h3 Semantic Palette
+  .semantic(yt-row)
+    .success(yt-col) $success
+    .warning(yt-col) $warning
+    .danger(yt-col) $danger
+
+  h3 Scales
+  .whites(yt-row)
+   .one(yt-col) $white-1
+   .two(yt-col) $white-2
+   .three(yt-col) $white-3
+   .four(yt-col) $white-4
+   .five(yt-col) $white-5
+   .six(yt-col) $white-6
+
+  .greys(yt-row)
+   .one(yt-col) $grey-1
+   .two(yt-col) $grey-2
+   .three(yt-col) $grey-3
+   .four(yt-col) $grey-4
+   .five(yt-col) $grey-5
+   .six(yt-col) $grey-6
+   .seven(yt-col) $grey-7
+   .eight(yt-col) $grey-8
+   .nine(yt-col) $grey-9
+
+  .blacks(yt-row)
+   .one(yt-col) $black-1
+   .two(yt-col) $black-2
+   .three(yt-col) $black-3
+   .four(yt-col) $black-4
+   .five(yt-col) $black-5
+   .six(yt-col) $black-6
+
+
+hr
+
 section.typography
   h2 Typography
   p Yote uses mixins and sass variables to dictate type face, font size, line height, and letter spacing. Using these mixins throughout your custom styles makes it easier to maintain consistent type treatment for simlar content types. Additionally, making application wide changes to your type treatment becomes really simple.
@@ -78,6 +145,7 @@ section.typography
   p This is paragraph text
 
 hr
+
 section.grid
   h2 Grid Samples
 
@@ -150,10 +218,6 @@ div(yt-row)
 
 div(yt-row)
   div(yt-col)
-    p yt-btn="calm x-large"
-    button(yt-btn="calm x-large") Click Me
-div(yt-row)
-  div(yt-col)
     p yt-btn="success large"
     button(yt-btn="success large") Click Me
 div(yt-row)
@@ -176,10 +240,6 @@ div(yt-row)
   div(yt-col="1/2")
     button(yt-btn="block") yt-btn="[default] block"
 
-div(yt-row)
-  div(yt-col="1/2")
-    p yt-btn="calm x-large block"
-    button(yt-btn="calm x-large block") Click Me
 div(yt-row)
   div(yt-col="1/2")
     p yt-btn="success large block"

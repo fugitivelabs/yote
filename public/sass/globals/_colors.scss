@@ -1,53 +1,31 @@
+@import 'sass/globals/colorPalettes';
 
-// Main Colors
+// Brand Palette
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
-// default bg-color
-$bg-color:                    $material-grey-50;
+$brand-primary:               #77A59B;
+$brand-secondary:             #F9FADD;
+$brand-accent:                #9D1409;
 
-// default text-color
-$primary-text:                $material-primary-text;
-$secondary-text:              $material-secondary-text;
-$hint-text:                   $material-hint-text;
-$divider:                     $material-divider;
-$text-light:                  $material-grey-0;
-
-// primary colors (navbar, etc)
-$primary:                     $material-blue-grey-500;
-$primary-hover:               darken($primary, 10);
-
-$primary-light:               $material-blue-grey-200;
-$primary-light-hover:         darken($primary-light, 10);
-
-$primary-dark:                $material-blue-grey-700;
-$primary-dark-hover:          darken($primary-dark, 10);
-
-$primary-ultra-light:         $material-blue-grey-50;
-$primary-ultra-light-hover:   darken($primary-ultra-light, 10);
-
-// secondary colors (calls to action, links, etc.)
-$accent:                      $material-pink-A200;
-$accent-hover:                darken($accent, 10);
-
-
-// tertiary colors (alerts and whatnot)
-$alert:                       $material-yellow-A200;
-$alert-hover:                 darken($alert, 10);
-
-
-
-// Semantic Colors 
+// UI Palette
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
+$bg-color:                    $white-2;
+$grey:                        $grey-5;
+$white:                       $white-2;
 
-$light: #ECF0F1;
-$light-hover: darken($light, 10);
-$light-brilliant: lighten($light, 90);
+$text-color:                  $black-5;
+$accent-color:                $brand-accent;
 
-$dark: #2F3538;
-$dark-hover: darken($dark, 10);
+$link-color:                  #FFCD61;
+$link-visited-color:          $link-color;
+$link-hover-color:            lighten($link-color, 20);
 
-$calm: #3498db;
-$calm-hover: darken($calm, 10);
+$divider-color:               $grey-4;
+
+
+
+// Semantic Colors
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
 
 $success: #2ecc71;
 $success-hover: darken($success, 10);
