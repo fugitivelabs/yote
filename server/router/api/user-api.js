@@ -28,9 +28,10 @@ module.exports = function(router, requireLogin, requireRole) {
   // ==> users CRUD api
   // - Create
   router.post('/api/users'         , users.create);
+
   // - Read
   router.get('/api/users'          , requireRole('admin'), users.list); // must be an 'admin' to see the list of users
-  // - Update
+
   // - Update
   router.put('/api/users/:userId'      , requireLogin(), users.update);
   router.post('/api/users/password'    , requireLogin(), users.changePassword);
@@ -38,7 +39,7 @@ module.exports = function(router, requireLogin, requireRole) {
   router.get('/api/users/checkresetrequest/:resetHex'    , users.checkResetRequest);
   router.post('/api/users/resetpassword'                 , users.resetPassword);
   // - Delete
-  // app.del('/api/users'          , requireRole('admin'), users.delete);
+  // router.del('/api/users'          , requireRole('admin'), users.delete);
 
 
 }
