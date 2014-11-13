@@ -1,5 +1,5 @@
 var passport = require('passport');
-var users = require('../controllers/users');
+var users = require('../../controllers/users');
 
 module.exports = function(router, requireLogin, requireRole) {
     // user login

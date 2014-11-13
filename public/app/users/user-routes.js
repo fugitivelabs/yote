@@ -15,13 +15,13 @@ angular.module('Yote')
     .state('user', {
       abstract: true
       , url: '/user'
-      , templateUrl: '/html/static/views/default-layout'
+      , templateUrl: '/html/static/templates/default-layout'
       , controller: 'UserCtrl'
     })
     //login view
     .state('user.login', {
       url: '/login/:next'
-      , templateUrl: '/html/users/views/login'
+      , templateUrl: '/html/users/templates/login'
       , controller: 'UserLoginCtrl'
     })
     .state('user.logout', {
@@ -30,31 +30,30 @@ angular.module('Yote')
     })
     .state('user.register', {
       url: '/register'
-      , templateUrl: '/html/users/views/register'
+      , templateUrl: '/html/users/templates/register'
       , controller: 'UserRegisterCtrl'
     })
     .state('user.profile', {
       url: '/profile'
-      , templateUrl: '/html/users/views/profile'
+      , templateUrl: '/html/users/templates/profile'
       , controller: 'UserProfileCtrl'
     })
     .state('user.password', {
       url: '/password'
-      , templateUrl: '/html/users/views/password'
+      , templateUrl: '/html/users/templates/password'
       , controller: 'UserPasswordCtrl'
     })
     .state('user.forgotpassword', {
       url: '/forgotpassword'
-      , templateUrl: '/html/users/views/forgotpassword'
+      , templateUrl: '/html/users/templates/forgotpassword'
       , controller: 'UserForgotPasswordCtrl'
     })
     .state('user.resetpassword', {
       url: '/resetpassword/:resetHex'
-      , templateUrl: '/html/users/views/resetpassword'
+      , templateUrl: '/html/users/templates/resetpassword'
       , controller: 'UserResetPasswordCtrl'
     })
 
-// ==> end state config
 })
 
 // end file

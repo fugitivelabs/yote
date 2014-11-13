@@ -17,17 +17,16 @@ function requireRole(role) {
   return function(req, res, next) {
     if(!req.isAuthenticated() || req.user.roles.indexOf(role) === -1) {
       res.status(403);
-      res.send("UNAUTHORIZED - ADMIN PRIVILEDGEDS REQUIRED");
+      res.send("UNAUTHORIZED - " + role.toUppercase() + " PRIVILEDGES REQUIRED");
     } else {  next(); }
   }
 }
 
 module.exports = function(router) {
   //users
-  require('./user-api-routes')(router, requireLogin, requireRole);
+  require('./api/user-api')(router, requireLogin, requireRole);
   //posts
-  require('./post-api-routes')(router, requireLogin, requireRole);
-  //new routes here
+  require('./api/post-api')(router, requireLogin, requireRole);
 
 // end file
 }

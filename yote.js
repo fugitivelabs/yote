@@ -1,3 +1,14 @@
+/*  
+••••••••••••••••••••••••••••••••••••••••••••••••••
+
+Welcome to Yote.  We hope you like it. 
+
+  - Fugitive Labs
+
+••••••••••••••••••••••••••••••••••••••••••••••••••
+*/
+
+
 var express         = require('express')
   , bodyParser      = require('body-parser')
   , cookieParser    = require('cookie-parser')
@@ -110,7 +121,7 @@ if (app.get('env') == 'development') {
 //configure server routes
 var router = express.Router();
 // require('./server/routes/api-routes')(router);
-require('./server/routes/server-routes')(router, app);
+require('./server/router/server-router')(router, app);
 //some notes on router: http://scotch.io/tutorials/javascript/learn-to-use-the-new-router-in-expressjs-4
 app.use('/', router);
 app.listen(config.port);
