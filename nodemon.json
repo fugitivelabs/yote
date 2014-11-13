@@ -1,4 +1,4 @@
 {
   "verbose": false
   , "ext": "js jade json scss"
-} //watch scss files, too, so that changes will render automatically
+}
