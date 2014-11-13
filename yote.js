@@ -9,7 +9,7 @@ var express         = require('express')
   , mongoose        = require('mongoose')
   , passport        = require('passport')
   , LocalStrategy   = require('passport-local').Strategy
-  , sass            = require('node-sass')
+  , sass            = require('node-sass-middleware')
   , path            = require('path')
   , RedisStore      = require('connect-redis')(session)
   ;
@@ -43,12 +43,15 @@ app.use(session({
 app.use(favicon(path.join(__dirname, 'public','favicon.ico'))); 
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(sass.middleware({
-  src: __dirname + '/public',
-  dest: __dirname + '/public/css',
-  prefix: '/css',
-  debug: true,
-  outputStyle: 'compressed'
+
+//sass middleware
+app.use(sass({
+  src: __dirname + '/public'
+  , dest: __dirname + '/public/css'
+  , prefix: '/css'
+  , debug: true
+  , outputStyle: 'compressed'
+  , includePaths: ['public/app/', 'public/sass/globals/', 'globals/sass/includes/']
 }));
 
 //allow the angular ui-views to be written in Jade
@@ -106,7 +109,7 @@ if (app.get('env') == 'development') {
 
 //configure server routes
 var router = express.Router();
-require('./server/routes/api-routes')(router);
+// require('./server/routes/api-routes')(router);
 require('./server/routes/server-routes')(router, app);
 //some notes on router: http://scotch.io/tutorials/javascript/learn-to-use-the-new-router-in-expressjs-4
 app.use('/', router);
