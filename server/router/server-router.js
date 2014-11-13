@@ -5,7 +5,7 @@ var passport = require('passport');
 module.exports = function(router, app) {
 
   //require api routes list
-  require('./api-routes')(router);
+  require('./api-router')(router);
 
   // catch all other api requests and send 404 
   router.all('/api/*', function(req, res) {

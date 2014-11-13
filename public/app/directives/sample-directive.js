@@ -1,7 +1,16 @@
-/*
-  DIRECTIVES GO HERE 
-*/
+/***************************************************************
 
+This is an example of a Yote-module level directive that does not
+need to referenced in app.js
+
+To use external directives, include the file here, and reference 
+in the Yote module definition within app.js.
+
+
+NOTE: make sure you also reference the directive in
+/server/views/includes/ng-directives.jade 
+
+***************************************************************/
 
 
 angular.module('Yote')
@@ -23,13 +32,6 @@ angular.module('Yote')
     }
   })
 
-  .directive("ytRow", function(){
-    return {
-      restrict: 'E'
-      , transclude: true
-      , template: '<div yt-row ng-transclude> </div>'
-    };
-  })
 
 // end of the file
 ;

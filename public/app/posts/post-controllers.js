@@ -13,19 +13,20 @@ angular.module('Yote')
   ***********************/
 
   .controller('PostListCtrl', ['$scope', '$stateParams', '$state', 'PostFactory', function($scope, $stateParams, $state, PostFactory){
-    console.log('post list ctrl');
-    // $scope.data = {};
+    console.log('PostListCtrl loaded....');
+
     PostFactory.all()
       .then(function(data) {
         $scope.posts = data;
+        console.log(data);
       }, function(data){
         alert(data);
       });
-    console.log($scope.posts);
   }])
 
   .controller('PostShowCtrl', ['$scope', '$stateParams', '$state', 'PostFactory', function($scope, $stateParams, $state, PostFactory){
-    console.log('PostShowCtrl loaded');
+    console.log('PostShowCtrl loaded...');
+
     //load post from state params
     PostFactory.show($stateParams.slug)
       .then(function(data){
@@ -33,6 +34,7 @@ angular.module('Yote')
       }, function(data){
         alert(data);
       });
+
   }])
 
   .controller('PostCreateCtrl', ['$scope', '$stateParams', '$state', '$rootScope', 'PostFactory', function($scope, $stateParams, $state, $rootScope, PostFactory) {
@@ -56,6 +58,7 @@ angular.module('Yote')
 
   .controller('PostUpdateCtrl', ['$scope', '$stateParams', '$state', '$rootScope', 'PostFactory', function($scope, $stateParams, $state, $rootScope, PostFactory) {
     console.log('PostUpdateCtrl loaded');
+    
     //load post from state params
     PostFactory.show($stateParams.slug)
       .then(function(data){
@@ -63,6 +66,7 @@ angular.module('Yote')
       }, function(data){
         alert(data);
       });
+    
     $scope.updateAction = function(postData) {
       console.log("udpate action initiated");
       PostFactory.update(postData)
