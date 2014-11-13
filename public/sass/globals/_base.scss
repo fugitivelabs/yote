@@ -26,21 +26,21 @@ body {
 
 
 a {
-  color: $accent;
+  color: $link-color;
   margin: -.2rem;
   padding: .2rem;
   text-decoration: none;
 
   &:visited {
-    color: $secondary-text;
+    color: $link-visited-color;
   }
   &:hover {
-    color: $accent-hover;
+    color: $link-hover-color;
     text-decoration: none;
     cursor: pointer;
   }
   &:active {
-    color: $accent-hover;
+    color: $link-hover-color;
   }
 }
 
@@ -74,7 +74,6 @@ h1, h2, h3, h4, h5, h6 {
 
 small {
   @include type-smaller;
-  color: $secondary-text;
 }
 
 em {

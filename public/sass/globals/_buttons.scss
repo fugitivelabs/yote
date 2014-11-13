@@ -81,7 +81,7 @@
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
 [yt-btn~="primary"] {
-  background-color: $primary;
+  background-color: $link-color;
 }
 
 
@@ -155,11 +155,11 @@
 [yt-btn~="link"] {
   background-color: transparent;;
   border: none !important;
-  color: $accent;
+  color: $accent-color;
   &:hover {
-    &:visited { color: $secondary-text; }
-    &:hover { color: $accent-hover; background-color: $primary-ultra-light; }
-    &:active { color: $accent-hover; }
+    &:visited { color: $link-visited-color; }
+    &:hover { color: $link-hover-color; background-color: $brand-primary; }
+    &:active { color: $link-hover-color; }
   }
 }
 

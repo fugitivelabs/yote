@@ -2,42 +2,37 @@
 // Main Colors
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
-// default bg-color
-$bg-color:                    #FEFEFE;
+$brand-primary:               #adadad;
+$brand-secondary:             #dadada;
+$brand-accent:                #a8a8a8;
 
-// default text-color
+$bg-color:                    #FEFEFE;
 $text-color:                  #333;
-$secondary-text:              #bb0011;
+$link-color:                  #527ef4;
+$link-visited-color:          #6c167b;
 $hint-text:                   #bfc3cf;
 $divider:                     #ddd;
-$text-light:                  #999;
 
-// primary colors (navbar, etc)
-$primary:                     black;
-$primary-hover:               darken($primary, 10);
-
-$primary-light:               blue;
-$primary-light-hover:         darken($primary-light, 10);
-
-$primary-dark:                green;
-$primary-dark-hover:          darken($primary-dark, 10);
-
-$primary-ultra-light:         red;
-$primary-ultra-light-hover:   darken($primary-ultra-light, 10);
-
-// secondary colors (calls to action, links, etc.)
-$accent:                      #832600;
-$accent-hover:                darken($accent, 10);
-
-
-// tertiary colors (alerts and whatnot)
-$alert:                       yellow;
-$alert-hover:                 darken($alert, 10);
-
+$accent-color:                $brand-accent;
+$link-hover-color:            lighten($link-color, 20);
 
 
 // Semantic Colors
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+$success: #2ecc71;
+$success-hover: darken($success, 10);
+
+$warning: #e67e22;
+$warning-hover: darken($warning, 10);
+
+$danger: #e74c3c;
+$danger-hover: darken($danger, 10);
+
+
+
+// get rid of this
+
 
 $light: #ECF0F1;
 $light-hover: darken($light, 10);
@@ -48,13 +43,4 @@ $dark-hover: darken($dark, 10);
 
 $calm: #3498db;
 $calm-hover: darken($calm, 10);
-
-$success: #2ecc71;
-$success-hover: darken($success, 10);
-
-$warning: #e67e22;
-$warning-hover: darken($warning, 10);
-
-$danger: #e74c3c;
-$danger-hover: darken($danger, 10);
 
