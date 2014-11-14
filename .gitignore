@@ -27,4 +27,7 @@ node_modules
 # .DS_Store
 *.DS_Store
 
+# Compiled Yote CSS
+public/css/yote.css
+
 # end of file
