@@ -1,6 +1,7 @@
 var mongoose = require('mongoose')
   , User = require('./models/User')
   , Post = require('./models/Post')
+  // __insert new resources here
   ;
 
 module.exports = function(config) {

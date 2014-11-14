@@ -7,7 +7,7 @@ module.exports = function(router, requireLogin, requireRole) {
   
   // - Read
   router.get('/api/posts'          , posts.list);
-  router.get('/api/posts/byId:id'  , posts.getById); 
+  router.get('/api/posts/byId/:id' , posts.getById); 
   router.get('/api/posts/:slug'    , posts.getBySlug);
   
   // - Update

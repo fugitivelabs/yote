@@ -4,7 +4,11 @@ var Post = require('mongoose').model('Post')
 exports.list = function(req, res) {
   console.log('list posts');
   Post.find({}).populate('author').exec(function(err, posts) {
-    res.send(posts);
+    if(err || !posts) {
+      res.send({success: false, message: err });
+    } else {
+      res.send({success: true, posts: posts });
+    }
   });
 }
 
