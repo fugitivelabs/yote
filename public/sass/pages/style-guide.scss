@@ -25,11 +25,92 @@
     border-bottom: 1px solid rgba(0,250,0,.15);
     margin-bottom: 20px;
   }
-
 }
 
-.typography{
+.colors {
+  div {
+    margin: 2px;
+    text-align: center;
+    @include type-small;
+    @include transition(all .25s ease);
 
+    &.brand {
+      div {
+        &:hover {@include box-shadow(0px 1px 3px $grey);}
+        &.primary   {background-color: $brand-primary;}
+        &.secondary {background-color: $brand-secondary;}
+        &.accent    {background-color: $brand-accent;}
+      }
+    }
+
+    &.text-color {
+      .accent {
+        color: $accent-color;
+      }
+    }
+
+    &.link-color {
+      p {
+        color: $link-color;
+        &.hover   {color: $link-hover-color;}
+        &.visited {color: $link-visited-color;}
+      }
+    }
+
+    &.semantic {
+      div {
+        &:hover {@include box-shadow(0px 1px 3px $grey);}
+        &.success {background-color: $success;}
+        &.warning {background-color: $warning;}
+        &.danger  {background-color: $danger;}
+      }
+    }
+
+    &.whites {
+      div {
+        &:hover {@include box-shadow(0px 1px 3px $grey);}
+        &.one   {background-color: $white-1;}
+        &.two   {background-color: $white-2;}
+        &.three {background-color: $white-3;}
+        &.four  {background-color: $white-4;}
+        &.five  {background-color: $white-5;}
+        &.six   {background-color: $white-6;}
+      }
+    }
+
+    &.greys {
+      div {
+        &:hover {@include box-shadow(0px 1px 3px $grey);}
+        &.one   {background-color: $grey-1;}
+        &.two   {background-color: $grey-2;}
+        &.three {background-color: $grey-3;}
+        &.four  {background-color: $grey-4;}
+        &.five  {background-color: $grey-5;}
+        &.six   {background-color: $grey-6;}
+        &.seven {background-color: $grey-7;}
+        &.eight {background-color: $grey-8;}
+        &.nine  {background-color: $grey-9;}
+      }
+    }
+
+    &.blacks {
+      color: $white;
+      div {
+        &:hover {@include box-shadow(0px 1px 3px $grey);}
+        &.one   {background-color: $black-1;}
+        &.two   {background-color: $black-2;}
+        &.three {background-color: $black-3;}
+        &.four  {background-color: $black-4;}
+        &.five  {background-color: $black-5;}
+        &.six   {background-color: $black-6;}
+      }
+    }
+  }
+}
+
+
+
+.typography{
   .typeTogglers {
     .toggler {
       text-align: center;
@@ -43,5 +124,4 @@
       }
     }
   }
-
 }

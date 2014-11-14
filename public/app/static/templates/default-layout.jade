@@ -1,21 +1,19 @@
-nav.navBar.-dark
+nav.navBar
   .content
-    a.navLogo(href="/") Yote
+    a.navLogo(href="/") yote
     ul.navList.-horiz.u-pullRight
       li
-        a(href="/") Home
+        a(ui-sref="static.about") About
       li
-        a(ui-sref="post.list") Blog 
+        a(ui-sref="post.list") Blog
       li
-        a(ui-sref="static.faq") FAQ 
-      li 
-        a(ui-sref="static.about") About 
-      li(ng-show="!currentUser.username")
-        a(ui-sref="user.login") Login
-      li(ng-show="!currentUser.username")
-        a(ui-sref="user.register") Register
+        a(ui-sref="static.faq") FAQ
       li(ng-show="currentUser.username")
         a(ui-sref="user.profile") Profile
+      li(ng-show="!currentUser.username")
+        a(ui-sref="user.register") Register
+      li(ng-show="!currentUser.username")
+        a(ui-sref="user.login") Login
       li(ng-show="currentUser.username")
         a(ui-sref="user.logout") Logout
 

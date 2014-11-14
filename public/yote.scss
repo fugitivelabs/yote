@@ -4,7 +4,6 @@
 
 @import
     'sass/globals/normalize'
-  , 'sass/globals/material-palettes'
   , 'sass/globals/colors'
   , 'sass/globals/mixins'
   , 'sass/globals/zindex'
@@ -23,20 +22,14 @@
 // Includes
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
-// @import
-//   'includes/navigation'
-//   , 'includes/footer'
-//   ;
+@import
+    'sass/includes/navigation'
+  ;
 
 
 // Pages
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
-
-//@import 'pages/home';
-//@import 'pages/style-guide';
-
-// Pages
-// ••••••••••••••••••••••••••••••••••••••••••••••••••
+@import 'sass/pages/style-guide.scss';
 @import 'app/admin/admin-styles';
 @import 'app/posts/post-styles';
 @import 'app/static/static-styles';
