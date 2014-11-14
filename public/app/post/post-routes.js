@@ -14,13 +14,13 @@ angular.module('Yote')
     // parent state of post.  
     .state('post', {
       abstract: true
-      , url: '/post'
+      , url: '/posts'
       , templateUrl: '/html/static/templates/default-layout'
       , controller: 'PostCtrl'
     })
     // list of all posts.  url: 's' signifies /posts
     .state('post.list', {
-      url: 's'
+      url: ''
       , templateUrl: '/html/post/templates/list'
       , controller: 'PostListCtrl'
     })
