@@ -1,9 +1,9 @@
-p post view
+section(yt-container)
 
-h1 {{ post.title  }}
-h2 reverse me {{ post.title | reverse }}
+  h1 {{ post.title  }}
 
-h3 This is the post content 
-p {{post.content }}
+  h3 This is the post content 
+  p {{post.content }}
 
+  button(yt-btn ui-sref="post.edit({ postId: post.id })") Edit Post
 

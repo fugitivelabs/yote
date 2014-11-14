@@ -1,8 +1,13 @@
-h1 CREATE POST
-input(type="text", name="title", placeholder="title", ng-model="postData.title")
-br
-textarea(type="text", name="content", placeholder="content", ng-model="postData.content")
-br
-p Author: {{currentUser.firstName}} {{currentUser.lastName}}
-br
-button(type="button", ng-click="createAction(postData)") Submit
+section(yt-container)
+  form(name="newPostForm" ng-submit="createAction(postData)")
+    h2 Create Post
+    .input-group
+      label Title
+      input(type="text" name="title" ng-model="postData.title" placeholder="__Proper__ Title" required)
+    .input-group
+      label Content 
+      textarea(type="text" name="content" ng-model="postData.content" placeholder="Post content...")
+      small by: {{currentUser.firstName}} {{currentUser.lastName}}
+    .input-group
+      button(yt-btn type="submit" ng-disabled="!newPostForm.$valid") Submit
+

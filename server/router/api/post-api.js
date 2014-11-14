@@ -1,3 +1,9 @@
+/***********************************************************
+
+API for __Proper__.  
+
+***********************************************************/
+
 var posts = require('../../controllers/posts');
 
 module.exports = function(router, requireLogin, requireRole) {
