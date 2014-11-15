@@ -15,16 +15,6 @@ on the client
 var Post = require('mongoose').model('Post')
   ;
 
-exports.getModel = function(req, res) {
-  console.log('get post schema');
-
-  // Post.schema.eachPath(function(value){
-  //   console.log(value);
-  // });
-  console.log(Post.schema.paths);
-  res.send({success: true});
-}
-
 exports.list = function(req, res) {
   console.log('list posts');
   Post.find({}).populate('author').exec(function(err, posts) {
