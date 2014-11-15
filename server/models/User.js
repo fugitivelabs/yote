@@ -41,7 +41,7 @@ userSchema.statics = {
     var hmac = crypto.createHmac('sha1', salt);
     return hmac.update(password).digest('hex');
   }
-}
+};
 
 var User = mongoose.model('User', userSchema);
 
