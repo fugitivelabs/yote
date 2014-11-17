@@ -262,11 +262,36 @@ hr
 section.forms
   h2 Forms
 
-  .formContainer(yt-col="1/2")
-    form
-      .input-group
-        label username
-        input
+  .formExample(yt-row)
+    .codeExample(yt-col="1/2")
+      code.block
+        | .formContainer(yt-col="1/2")
+        |   form
+        |     .input-group
+        |       label username
+        |       input(type="text")
+        |
+        |     .input-group
+        |       label password
+        |       input(type="password")
+        |
+        |     .input-group
+        |       label description
+        |       textarea
+    .formContainer(yt-col="1/2")
+      form
+        h2 Form Title
+        .input-group
+          label username
+          input(type="text")
+
+        .input-group
+          label password
+          input(type="password")
+
+        .input-group
+          label description
+          textarea
 
 hr
 

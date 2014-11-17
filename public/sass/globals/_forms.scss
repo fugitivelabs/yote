@@ -2,7 +2,7 @@
 //   ••••••••••••••••••••••••••••••••••••••••••••••••••
 
 $formContainerColor: $bg-color;
-$formAccentColor: $brand-primary;
+$formAccentColor: $brand-accent;
 $formTextColor: $text-color;
 
 .formContainer {
@@ -32,7 +32,7 @@ form {
     label {
       display: block;
       @include type-small;
-      color: #888;
+      color: $formAccentColor;
     }
 
     a {
@@ -49,14 +49,15 @@ form {
       width: 100%;
       padding: 8px 6px;
       outline: none;
-      border: 2px solid darken($formContainerColor, 2);
+      border: 2px solid $grey;
+      background-color: $formContainerColor;
       border-radius: 4px;
       transition: all 0.5s ease;
-      background-color: darken($formContainerColor, 2);
 
       &:focus {
         border: 2px solid $formAccentColor;
       }
+
       &.color-input {
         padding: 0;
         width: 50px;
@@ -74,6 +75,7 @@ form {
       border-radius: 4px;
       resize: vertical;
       transition: all 0.5s ease;
+      border: 2px solid $grey;
 
       &:focus {
         border: 2px solid $formAccentColor;
