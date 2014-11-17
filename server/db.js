@@ -12,7 +12,7 @@ module.exports = function(config) {
 
   //any other initial model calls
   User.createDefaults();
-  // Post.createDefaults();
+  Post.createDefaults();
 };
 
 // new Mongoose models are defined below
