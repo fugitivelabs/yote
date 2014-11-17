@@ -209,50 +209,49 @@ section.grid
     //-     .card
     //-       p yt-col="4/11 5/6m 1/12l"
 
+hr
 
+section.buttons
+  h2 Buttons
 
-div(yt-row)
-  div(yt-col)
-    p yt-btn
-    button(yt-btn) Click Me
+  .normal(yt-row)
+    div(yt-col)
+      button(yt-btn="x-small") Click Me
+      p yt-btn="x-small"
+    div(yt-col)
+      button(yt-btn="small") Click Me
+      p yt-btn="small"
+    div(yt-col)
+      button(yt-btn) Click Me
+      p yt-btn
+    div(yt-col)
+      button(yt-btn="large") Click Me
+      p yt-btn="large"
+    div(yt-col)
+      button(yt-btn="x-large") Click Me
+      p yt-btn="x-large"
 
-div(yt-row)
-  div(yt-col)
-    p yt-btn="success large"
-    button(yt-btn="success large") Click Me
-div(yt-row)
-  div(yt-col)
-    p yt-btn="danger [default] disabled"
-    button(yt-btn="danger", disabled) Click Me
-div(yt-row)
-  div(yt-col)
-    p yt-btn="danger [default]"
-    button(yt-btn="danger") Click Me
-div(yt-row)
-  div(yt-col)
-    p yt-btn="warning small"
-    button(yt-btn="warning small") Click Me
-div(yt-row)
-  div(yt-col)
-    p yt-btn="dark x-small"
-    button(yt-btn="dark x-small") Click Me
-div(yt-row)
-  div(yt-col="1/2")
-    button(yt-btn="block") yt-btn="[default] block"
+  .semantic(yt-row)
+    div(yt-col)
+      button(yt-btn, disabled) Click Me
+      p yt-btn, disabled
 
-div(yt-row)
-  div(yt-col="1/2")
-    p yt-btn="success large block"
-    button(yt-btn="success large block") Click Me
-div(yt-row)
-  div(yt-col="1/2")
-    p yt-btn="danger block"
-    button(yt-btn="danger block") Click Me
-div(yt-row)
-  div(yt-col="1/2")
-    p yt-btn="warning small block"
-    button(yt-btn="warning small block") Click Me
-div(yt-row)
-  div(yt-col="1/2")
-    p yt-btn="dark x-small block"
-    button(yt-btn="dark x-small block") Click Me
+    div(yt-col)
+      button(yt-btn="success") Click Me
+      p yt-btn="success"
+
+    div(yt-col)
+      button(yt-btn="warning") Click Me
+      p yt-btn="warning"
+
+    div(yt-col)
+      button(yt-btn="danger") Click Me
+      p yt-btn="danger"
+
+    div(yt-col)
+      button(yt-btn="dark") Click Me
+      p yt-btn="dark"
+
+  div
+    button(yt-btn="block") Click Me
+    p yt-btn="block"
