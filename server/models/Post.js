@@ -33,14 +33,10 @@ var postSchema = mongoose.Schema({
 postSchema.plugin(slug(['title'], { update: true }));
 
 // post instance methods go here
-postSchema.methods = {
-
-};
+// postSchema.methods.methodName = function() {};
 
 // post model static functions go here
-postSchema.statics = {
-
-};
+// postSchema.statics.staticFunctionName = function() {};
 
 Post = mongoose.model('Post', postSchema);
 
