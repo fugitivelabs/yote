@@ -1,4 +1,4 @@
-FROM debian:sid
+FROM ubuntu
 MAINTAINER grant@fugitivelabs.com
 
 
