@@ -314,8 +314,10 @@ section.forms
 
           .input-group
             label One or the other
-            input(type="radio", name="options", value="option1") Option One
-            input(type="radio", name="options", value="option2") Option Two
+            input(type="radio", name="options", value="option1", id="option1")
+            label(for="option1") First Option
+            input(type="radio", name="options", value="option2", id="option2")
+            label(for="option2") Second Option
 
           .input-group
             label form label

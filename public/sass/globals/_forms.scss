@@ -59,6 +59,17 @@ form {
         border: 2px solid $formAccentColor;
       }
 
+      &[type="radio"] {
+        display: inline-block;
+        width: 20px;
+        margin-right: 3px;
+      }
+
+      &[type="radio"]+label {
+        margin-right: 20px;
+        display: inline-block;
+      }
+
     }
 
     select {
@@ -69,14 +80,11 @@ form {
       border: 2px solid $grey;
       @include lineHeight-looser;
 
-      option {
-        color:
-      }
-
       &:focus {
         border: 2px solid $formAccentColor;
       }
     }
+
 
 
     textarea {
