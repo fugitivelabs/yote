@@ -108,8 +108,6 @@
   }
 }
 
-
-
 .typography{
   .typeTogglers {
     .toggler {
@@ -125,3 +123,15 @@
     }
   }
 }
+
+.buttons {
+
+  div {
+    text-align: center;
+
+    p {
+      @include type-small;
+    }
+  }
+}
+

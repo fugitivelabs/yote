@@ -1,31 +1,21 @@
-/* Buttons
-  ••••••••••••••••••••••••••••••••••••••••••••••••••
-
-    use css attribute selector syntax for the buttons.
-
-*/
-
-
-
-
-// default button styling
+// Default Button Styling
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
 [yt-btn] {
-  border: none;
-  background-color: $grey;
-  border-radius: 2px;
-  border: 1px solid $grey;
-  color: $link-color;
-  margin: 0px;
-  padding: 1em 2em;
   @include type-base;
-  outline: none;;
+  background-color: $link-color;
+  border: 1px solid $link-color;
+  color: $white;
+  border: none;
+  border-radius: 2px;
+  margin: 0px;
+  padding: .5em 1em;
+  outline: none;
 
   &:hover {
-    &:visited { color: $link-visited-color; }
-    &:hover { color: $link-hover-color; background-color: $grey; text-decoration: none; }
-    &:active { color: $link-hover-color; }
+    &:visited { color: $white; }
+    &:hover { background-color: darken($link-color, 10); text-decoration: none; border-color: darken($link-color, 10); }
+    &:active { color: $white; }
   }
   // disabled buttons
   // markup can include
@@ -42,29 +32,24 @@
     -webkit-box-shadow: none;
             box-shadow: none;
   }
-
 }
 
 // various button sizes
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
 [yt-btn~="x-large"] {
-  padding: 1em 2em;
   @include type-larger;
 }
 
 [yt-btn~="large"] {
-  padding: .8em .8em;
   @include type-large;
 }
 
 [yt-btn~="small"] {
-  padding: .5em .7em;
   @include type-small;
 }
 
 [yt-btn~="x-small"] {
-  padding: .4em .4em;
   @include type-smaller;
 }
 
@@ -91,11 +76,11 @@
 [yt-btn~="dark"] {
   background-color: $grey;
   border-color: $grey;
-  color: $link-color;
+  color: $white;
   &:hover {
-    &:visited { color: $link-visited-color; }
-    &:hover { color: $link-hover-color; background-color: $grey; }
-    &:active { color: $link-hover-color; }
+    &:visited { color: $white; }
+    &:hover { color: $white; background-color: darken($grey, 10); }
+    &:active { color: $white; }
   }
 }
 
@@ -105,9 +90,9 @@
   border-color: $success-hover;
   color: $white;
   &:hover {
-    &:visited { color: $link-visited-color; }
-    &:hover { color: $link-hover-color; background-color: $success-hover; }
-    &:active { color: $link-hover-color; }
+    &:visited { color: $white; }
+    &:hover { color: $white; background-color: $success-hover; }
+    &:active { color: $white; }
   }
 }
 
@@ -117,9 +102,9 @@
   border-color: $warning-hover;
   color: $white;
   &:hover {
-    &:visited { color: $link-visited-color; }
-    &:hover { color: $link-hover-color; background-color: $warning-hover; }
-    &:active { color: $link-hover-color; }
+    &:visited { color: $white; }
+    &:hover { color: $white; background-color: $warning-hover; }
+    &:active { color: $white; }
   }
 }
 
@@ -129,9 +114,9 @@
   border-color: $danger-hover;
   color: $white;
   &:hover {
-    &:visited { color: $link-visited-color; }
-    &:hover { color: $link-hover-color; background-color: $danger-hover; }
-    &:active { color: $link-hover-color; }
+    &:visited { color: $white; }
+    &:hover { color: $white; background-color: $danger-hover; }
+    &:active { color: $white; }
   }
 }
 
@@ -149,4 +134,12 @@
     &:active { color: $link-hover-color; }
   }
 }
+
+
+/* Custom Button Styling
+  ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+  use css attribute selector syntax for the buttons.
+
+*/
 

@@ -1,44 +1,115 @@
-/* Forms
-  ••••••••••••••••••••••••••••••••••••••••••••••••••
+// Forms
+//   ••••••••••••••••••••••••••••••••••••••••••••••••••
 
+$formContainerColor: #fff;
+$formAccentColor: $brand-accent;
+$formTextColor: $text-color;
 
-*/
+.formContainer {
+  @include box-shadow(2px 1px 2px 2px #ccc);
+  border-radius: 4px;
+  background-color: $formContainerColor;
+  padding: 40px 20px;
 
-
-// input addons
-// ••••••••••••••••••••••••••••••••••••••••••••••••••
-
-.input-add-on {
-  @include display-flex;
-  margin-bottom: 1em;
-
-  .field {
-    @include flex(1);
-
-    &:not(:first-child) {
-      border-left: 0;
-    }
-
-    &:not(:last-child) {
-      border-right: 0;
-    }
+  h2 {
+    text-align: center;
   }
 
-  .item {
-    background-color: $grey;
-    font: inherit;
-    font-weight: normal;
+  img {
+    display: block;
+    margin: 0 auto;
+  }
+}
+
+form {
+
+  .input-group {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    width: 100%;
+
+    label {
+      display: block;
+      @include type-small;
+    }
+
+    a {
+      &.forgot {
+        position: absolute;
+        @include type-small;
+        top: 0px;
+        right: 0px;
+      }
+    }
+
+    input {
+      margin-bottom: 1em;
+      width: 100%;
+      padding: 8px 6px;
+      outline: none;
+      border: 2px solid $grey;
+      background-color: darken($formContainerColor, 3);
+      border-radius: 4px;
+      transition: all 0.5s ease;
+
+      &:focus {
+        border: 2px solid $formAccentColor;
+      }
+
+      &.color-input {
+        padding: 0;
+        width: 50px;
+        height: 50px;
+        margin-top: 5px;
+      }
+    }
+
+    textarea {
+      background-color: darken($formContainerColor, 3);
+      width: 100%;
+      margin-bottom: 1em;
+      padding: 8px 6px;
+      outline: none;
+      border: 2px solid transparent;
+      border-radius: 4px;
+      resize: vertical;
+      border: 2px solid $grey;
+
+      &:focus {
+        border: 2px solid $formAccentColor;
+      }
+    }
+
+    select {
+      padding: 8px 6px;
+      background-color: white;
+      border: 2px solid transparent;
+      width: 100%;
+      height: 38px;
+    }
+
   }
 
-  .field,
-  .item {
-    border: 1px solid $grey;
-    padding: 0.5em 0.75em;
-    &:first-child {
-      border-radius: 2px 0 0 2px;
+  button {
+    background-color: $link-color;
+    color: $white;
+    margin: 0 auto;
+    border: none;
+    border-radius: 2px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    @include type-small;
+    outline: none;
+
+    &:hover {
+      &:visited { color: $white; }
+      &:hover { background-color: darken($link-color, 10); text-decoration: none; border-color: darken($link-color, 10); }
+      &:active { color: $white; }
     }
-    &:last-child {
-      border-radius: 0 2px 2px 0;
+
+    &:active {
+      outline: none;
     }
   }
 }

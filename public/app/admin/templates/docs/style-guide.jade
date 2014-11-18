@@ -209,50 +209,100 @@ section.grid
     //-     .card
     //-       p yt-col="4/11 5/6m 1/12l"
 
+hr
+
+section.buttons
+  h2 Buttons
+  p You can use attribute selector syntax to access Yote's default button styles. For example,
+    code  button(yt-btn)
+    |  will give you the default Yote button styling. The text that appears under each example below is what should be passed to the button as attributes to acheive that style. The default button color is set as the
+    code  $link-color
+    |  defined in the
+    code  sass/globals/_colors.scss
+    |  file.
+  .normal(yt-row)
+    div(yt-col)
+      button(yt-btn="x-small") Click Me
+      p yt-btn="x-small"
+    div(yt-col)
+      button(yt-btn="small") Click Me
+      p yt-btn="small"
+    div(yt-col)
+      button(yt-btn) Click Me
+      p yt-btn
+    div(yt-col)
+      button(yt-btn="large") Click Me
+      p yt-btn="large"
+    div(yt-col)
+      button(yt-btn="x-large") Click Me
+      p yt-btn="x-large"
+
+  .semantic(yt-row)
+    div(yt-col)
+      button(yt-btn, disabled) Click Me
+      p yt-btn, disabled
+
+    div(yt-col)
+      button(yt-btn="success") Click Me
+      p yt-btn="success"
+
+    div(yt-col)
+      button(yt-btn="warning") Click Me
+      p yt-btn="warning"
+
+    div(yt-col)
+      button(yt-btn="danger") Click Me
+      p yt-btn="danger"
+
+    div(yt-col)
+      button(yt-btn="dark") Click Me
+      p yt-btn="dark"
+
+  div
+    button(yt-btn="block") Click Me
+    p yt-btn="block"
 
 
-div(yt-row)
-  div(yt-col)
-    p yt-btn
-    button(yt-btn) Click Me
+hr
 
-div(yt-row)
-  div(yt-col)
-    p yt-btn="success large"
-    button(yt-btn="success large") Click Me
-div(yt-row)
-  div(yt-col)
-    p yt-btn="danger [default] disabled"
-    button(yt-btn="danger", disabled) Click Me
-div(yt-row)
-  div(yt-col)
-    p yt-btn="danger [default]"
-    button(yt-btn="danger") Click Me
-div(yt-row)
-  div(yt-col)
-    p yt-btn="warning small"
-    button(yt-btn="warning small") Click Me
-div(yt-row)
-  div(yt-col)
-    p yt-btn="dark x-small"
-    button(yt-btn="dark x-small") Click Me
-div(yt-row)
-  div(yt-col="1/2")
-    button(yt-btn="block") yt-btn="[default] block"
+section.forms
+  h2 Forms
 
-div(yt-row)
-  div(yt-col="1/2")
-    p yt-btn="success large block"
-    button(yt-btn="success large block") Click Me
-div(yt-row)
-  div(yt-col="1/2")
-    p yt-btn="danger block"
-    button(yt-btn="danger block") Click Me
-div(yt-row)
-  div(yt-col="1/2")
-    p yt-btn="warning small block"
-    button(yt-btn="warning small block") Click Me
-div(yt-row)
-  div(yt-col="1/2")
-    p yt-btn="dark x-small block"
-    button(yt-btn="dark x-small block") Click Me
+  .formExample(yt-row)
+    .codeExample(yt-col="1/2")
+      code.block
+        | .formContainer(yt-col="1/2")
+        br
+        |   form
+        br
+        |     .input-group
+        |       label username
+        |       input(type="text")
+        |
+        |     .input-group
+        |       label password
+        |       input(type="password")
+        |
+        |     .input-group
+        |       label description
+        |       textarea
+    .formContainer(yt-col="1/2")
+      form
+        h2 Form Title
+        .input-group
+          label username
+          input(type="text")
+
+        .input-group
+          label password
+          input(type="password")
+
+        .input-group
+          label description
+          textarea
+
+        button(yt-col="1/3") Submit
+hr
+
+
+
