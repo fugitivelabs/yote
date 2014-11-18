@@ -269,6 +269,8 @@ section.forms
   h2 Forms
 
   .formExample(yt-row)
+
+
     .codeExample(yt-col="1/2")
       code.block
         | .formContainer(yt-col="1/2")
@@ -286,22 +288,29 @@ section.forms
         |     .input-group
         |       label description
         |       textarea
+
+
     .formContainer(yt-col="1/2")
       form
         h2 Form Title
         .input-group
-          label username
-          input(type="text")
+          label form label
+          input(type="text", placeholder="text input")
 
         .input-group
-          label password
-          input(type="password")
+          label form label
+          input(type="password", placeholder="password input")
 
         .input-group
-          label description
-          textarea
+          label form label
+          textarea(placeholder="this is a textarea...")
 
         button(yt-col="1/3") Submit
+
+
+
+
+
 hr
 
 
