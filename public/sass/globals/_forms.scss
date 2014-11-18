@@ -1,7 +1,7 @@
 // Forms
 //   ••••••••••••••••••••••••••••••••••••••••••••••••••
 
-$formContainerColor: $bg-color;
+$formContainerColor: #fff;
 $formAccentColor: $brand-accent;
 $formTextColor: $text-color;
 
@@ -32,7 +32,6 @@ form {
     label {
       display: block;
       @include type-small;
-      color: $formAccentColor;
     }
 
     a {
@@ -50,7 +49,7 @@ form {
       padding: 8px 6px;
       outline: none;
       border: 2px solid $grey;
-      background-color: $formContainerColor;
+      background-color: darken($formContainerColor, 3);
       border-radius: 4px;
       transition: all 0.5s ease;
 
@@ -67,6 +66,7 @@ form {
     }
 
     textarea {
+      background-color: darken($formContainerColor, 3);
       width: 100%;
       margin-bottom: 1em;
       padding: 8px 6px;
@@ -93,8 +93,8 @@ form {
   }
 
   button {
-    background-color: $formAccentColor;
-    color: #fff;
+    background-color: $link-color;
+    color: $white;
     margin: 0 auto;
     border: none;
     border-radius: 2px;
@@ -104,7 +104,9 @@ form {
     outline: none;
 
     &:hover {
-      background-color: lighten($formAccentColor, 5);
+      &:visited { color: $white; }
+      &:hover { background-color: darken($link-color, 10); text-decoration: none; border-color: darken($link-color, 10); }
+      &:active { color: $white; }
     }
 
     &:active {
