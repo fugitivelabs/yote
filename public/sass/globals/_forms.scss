@@ -69,10 +69,15 @@ form {
       border: 2px solid $grey;
       @include lineHeight-looser;
 
+      option {
+        color:
+      }
+
       &:focus {
         border: 2px solid $formAccentColor;
       }
     }
+
 
     textarea {
       background-color: darken($formContainerColor, 3);

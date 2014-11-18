@@ -272,6 +272,7 @@ section.forms
 
 
     .codeExample(yt-col="1/2")
+      h4 Jade Input
       code.block
         | .formContainer(yt-col="1/2")
         br
@@ -290,32 +291,32 @@ section.forms
         |       textarea
 
 
-    .formContainer(yt-col="1/2")
-      form
-        h2 Form Title
-        .input-group
-          label form label
-          input(type="text", placeholder="text input").color-input
+    .rendered(yt-col="1/2")
+      h4 Rendered HTML
+      .formContainer
+        form
+          h2 Form Title
+          .input-group
+            label form label
+            input(type="text", placeholder="text input").color-input
 
-        .input-group
-          label form label
-          input(type="password", placeholder="password input")
+          .input-group
+            label form label
+            input(type="password", placeholder="password input")
 
-        .input-group
-          label Select One...
-          select
-            option One
-            option Two
-            option Three
-            option Four
+          .input-group
+            label Select One...
+            select
+              option One
+              option Two
+              option Three
+              option Four
 
-        .input-group
-          label form label
-          textarea(placeholder="this is a textarea...")
+          .input-group
+            label form label
+            textarea(placeholder="this is a textarea...")
 
-
-
-        button(yt-col="1/3") Submit
+          button(yt-col="1/3") Submit
 
 
 
