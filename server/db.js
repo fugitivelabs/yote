@@ -1,6 +1,5 @@
 var mongoose = require('mongoose')
   , User = require('./models/User')
-  , Post = require('./models/Post')
   ;
 
 module.exports = function(config) {
@@ -16,3 +15,5 @@ module.exports = function(config) {
   Post.createDefaults();
 };
 
+// new Mongoose models are defined below
+var Post = require('./models/Post');

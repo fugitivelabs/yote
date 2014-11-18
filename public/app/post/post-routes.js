@@ -14,24 +14,24 @@ angular.module('Yote')
     // parent state of post.  
     .state('post', {
       abstract: true
-      , url: '/post'
+      , url: '/posts'
       , templateUrl: '/html/static/templates/default-layout'
       , controller: 'PostCtrl'
     })
-    // first child of post. Empty url: '' signifies "/post" + " "
+    // list of all posts.  url: 's' signifies /posts
     .state('post.list', {
       url: ''
-      , templateUrl: '/html/posts/templates/list'
+      , templateUrl: '/html/post/templates/list'
       , controller: 'PostListCtrl'
     })
     .state('post.show', {
       url: '/show/:slug'
-      , templateUrl: '/html/posts/templates/show'
+      , templateUrl: '/html/post/templates/show'
       , controller: 'PostShowCtrl'
     })
     .state('post.new', {
       url: '/new'
-      , templateUrl: '/html/posts/templates/create'
+      , templateUrl: '/html/post/templates/create'
       , controller: 'PostCreateCtrl'
       , data: {
         role: "login"
@@ -39,7 +39,7 @@ angular.module('Yote')
     })
     .state('post.edit', {
       url: '/edit/:slug'
-      , templateUrl: '/html/posts/templates/edit'
+      , templateUrl: '/html/post/templates/edit'
       , controller: 'PostUpdateCtrl'
       , data: {
         role: "login"

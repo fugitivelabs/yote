@@ -22,11 +22,15 @@ function requireRole(role) {
   }
 }
 
+//slightly convoluted, but works well with the CLI
+var routeFilenames = [];
 module.exports = function(router) {
-  //users
-  require('./api/user-api')(router, requireLogin, requireRole);
-  //posts
-  require('./api/post-api')(router, requireLogin, requireRole);
-
-// end file
+  routeFilenames.forEach(function(filename) {
+    console.log("filename: " + filename);
+    require('./api/' + filename)(router, requireLogin, requireRole);
+  });
 }
+
+//route names for use with CLI
+routeFilenames.push('user-api');
+routeFilenames.push('post-api');

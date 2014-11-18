@@ -1,0 +1,17 @@
+section(yt-container)
+  h3 All posts:
+  ul
+    li(ng-repeat="post in posts")
+      a(ui-sref="post.show({ slug: post.slug })")
+        {{post.title}}
+      br
+      p(ng-show="post.author.username == currentUser.username")
+        | by: me (note, for now, default posts have no author, so if not logged in, they will show up as "me")
+        a(ui-sref="post.edit({ slug: post.slug })")  Edit
+      p(ng-show="post.author.username !== currentUser.username")
+        | by: {{post.author.firstName}} {{post.author.lastName}}
+      br
+
+  br
+  button(yt-btn ng-show="!currentUser.username" ui-sref="user.login") Login to create a new post 
+  button(yt-btn ng-show="currentUser.username" ui-sref="post.new") Create New Post 

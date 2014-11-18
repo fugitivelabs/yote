@@ -24,7 +24,7 @@ angular.module('Yote')
   //PostFactory object
   var PostFactory = {};
 
-  PostFactory.all = function() {
+  PostFactory.list = function() {
     console.log("get all posts called in factory");
     var deferred = $q.defer();
     $http.get(urlBase)
