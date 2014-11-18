@@ -213,7 +213,13 @@ hr
 
 section.buttons
   h2 Buttons
-  p You can use attribute selector syntax to access Yote's default button styles.
+  p You can use attribute selector syntax to access Yote's default button styles. For example,
+    code  button(yt-btn)
+    |  will give you the default Yote button styling. The text that appears under each example below is what should be passed to the button as attributes to acheive that style. The default button color is set as the
+    code  $link-color
+    |  defined in the
+    code  sass/globals/_colors.scss
+    |  file.
   .normal(yt-row)
     div(yt-col)
       button(yt-btn="x-small") Click Me
