@@ -69,6 +69,16 @@ form {
         margin-right: 20px;
         display: inline-block;
       }
+      &[type="checkbox"] {
+        display: inline-block;
+        width: 20px;
+        margin-right: 3px;
+      }
+
+      &[type="checkbox"]+label {
+        margin-right: 20px;
+        display: inline-block;
+      }
 
     }
 
