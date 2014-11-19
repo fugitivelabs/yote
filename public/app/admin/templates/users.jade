@@ -21,6 +21,7 @@ section(yt-container="fluid")
         thead
           tr
             th
+            th
               a(ng-click="predicate = 'username'" ng-class="{active: predicate=='-username'}" ng-hide="predicate == 'username'")
                 | Email
                 span(ng-show="predicate == '-username'") &darr;
@@ -51,8 +52,11 @@ section(yt-container="fluid")
 
         tbody
           tr(ng-repeat="user in users | filter: search | orderBy: predicate")
+            td 
+              input(type="checkbox")
             td {{user.username}}
             td {{user.firstName}}
             td {{user.lastName}}
-            td(ng-if="user.roles.indexOf('admin') >= 0") ADMIN
-            td(ng-if="user.roles.indexOf('admin') == -1 ") NOT ADMIN
+            td 
+              span(ng-repeat="role in user.roles") 
+                |  {{role}}  
