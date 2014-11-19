@@ -113,25 +113,8 @@ form {
   }
 
   button {
-    background-color: $link-color;
-    color: $white;
+    display: block;
     margin: 0 auto;
-    border: none;
-    border-radius: 2px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    @include type-small;
-    outline: none;
-
-    &:hover {
-      &:visited { color: $white; }
-      &:hover { background-color: darken($link-color, 10); text-decoration: none; border-color: darken($link-color, 10); }
-      &:active { color: $white; }
-    }
-
-    &:active {
-      outline: none;
-    }
   }
 }
 
