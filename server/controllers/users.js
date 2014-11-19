@@ -10,9 +10,17 @@ exports.list = function(req, res) {
 }
 
 exports.changePassword = function(req, res) {
-  User.findOne({_id: req.user._id}).exec(function(err, user) {
-    res.send(user);
-  });
+  if(!req.user || !req.user.id) {
+    res.send({success: false, message: "Invalid User Id"});
+  } else {
+    User.findOne({_id: req.user._id}).exec(function(err, user) {
+      if(err || !user) {
+        res.send({success: false, message: "Invalid User Id"});
+      } else {
+        res.send(user);
+      }
+    });
+  }
 }
 
 exports.create = function(req, res, next) {
@@ -36,16 +44,17 @@ exports.create = function(req, res, next) {
     userData.password_salt = User.createPasswordSalt();
     userData.password_hash = User.hashPassword(userData.password_salt, userData.password);
     User.create(userData, function(err, user) {
-      if(err) {
+      if(err || !user) {
         if(err.toString().indexOf('E11000') > -1) {
           err = new Error('Duplicate Username');
         }
         res.send({success: false, message: "Username is already in use."});
+      } else {
+        req.logIn(user, function(err) {
+          if(err) {return next(err);}
+          res.send({success: true, user: user});
+        });
       }
-      req.logIn(user, function(err) {
-        if(err) {return next(err);}
-        res.send({success: true, user: user});
-      });
     });
   }
 }
@@ -61,7 +70,7 @@ exports.update = function(req, res) {
       user.lastName = req.param('lastName');
       user.updated = new Date();
       user.save(function(err, user) {
-        if(err) {
+        if(err || !user) {
           res.send({success: false, message: "Error saving user profile"});
         } else {
           res.send({success: true, user: user});
@@ -78,7 +87,7 @@ exports.changePassword = function(req, res) {
     res.send({success: false, message: "New passwords do not match"});
   }
   //do additional validation here (must contain special character, etc)
-  if(req.param('newPass') == "") { 
+  else if(req.param('newPass') == "") { 
     res.send({success: false, message: "Invalid New Password"});
   }
   User.findOne({_id: req.user._id}).exec(function(err, user) {
@@ -197,7 +206,7 @@ exports.resetPassword = function(req, res) {
         user.password_salt = newSalt;
         user.password_hash = newHash;
         user.save(function(err, user) {
-          if(err) {
+          if(err || !user) {
             res.send({success: false, message: "Error updating user password"});
           } else {
             res.send({success: true, user: user});

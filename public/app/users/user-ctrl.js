@@ -116,6 +116,7 @@ angular.module('Yote')
       UserFactory.requestPasswordReset(email)
         .then(function(data) {
           //do things
+          alert("A password reset request has been sent to your email.");
         });
     }
 
