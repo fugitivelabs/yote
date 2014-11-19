@@ -3,37 +3,56 @@ section(yt-container="fluid")
 
   .user-widgets(yt-row)
     .widget(yt-col="full 3/4s")
-      .card
-        .toolbar(yt-toolbar)
-          .tools(yt-tools="space-between")
-            .filters 
-              a(ng-click="search.role = '' ") All {{ users.length }}
-            .search.input-add-on
-              span.item 
-                small search 
-              input.field(type="text" ng-model="search.$")
-        table.user-table.striped
-          caption Users Table 
-          thead
-            tr
-              th(ng-click="predicate = 'username'" ng-class="{active: predicate=='username'}")
+
+      .toolbar(yt-toolbar)
+        .tools(yt-tools="space-between")
+          .filters.input-add-on
+            span.item
+              small filter
+            select.field(ng-model="search" ng-options="role for role in userRoles")
+              option(value="") -- role -- 
+
+          .search.input-add-on
+            span.item 
+              small search 
+            input.field(type="text" ng-model="search.$")
+      table.user-table.striped
+        caption Users Table
+        thead
+          tr
+            th
+              a(ng-click="predicate = 'username'" ng-class="{active: predicate=='-username'}" ng-hide="predicate == 'username'")
                 | Email
-              th(ng-click="predicate = 'firstName'" ng-class="{active: predicate=='firstName'}")
+                span(ng-show="predicate == '-username'") &darr;
+              a(ng-click="predicate = '-username'" ng-class="{active: predicate=='username'}" ng-show="predicate == 'username'")
+                | Email
+                span(ng-show="predicate == 'username'") &uarr;
+            th
+              a(ng-click="predicate = 'firstName'" ng-class="{active: predicate=='-firstName'}" ng-hide="predicate == 'firstName'")
                 | First Name
-              th(ng-click="predicate = 'lastName'" ng-class="{active: predicate=='lastName'}")
+                span(ng-show="predicate == '-firstName'") &darr;
+              a(ng-click="predicate = '-firstName'" ng-class="{active: predicate=='firstName'}" ng-show="predicate == 'firstName'")
+                | First Name
+                span(ng-show="predicate == 'firstName'") &darr;
+            th
+              a(ng-click="predicate = 'lastName'" ng-class="{active: predicate=='-lastName'}" ng-hide="predicate == 'lastName'")
                 | Last Name
-              th(ng-click="predicate = 'roles'" ng-class="{active: predicate=='roles'}")
+                span(ng-show="predicate == '-lastName'") &darr;
+              a(ng-click="predicate = '-lastName'" ng-class="{active: predicate=='lastName'}" ng-show="predicate == 'lastName'")
+                | Last Name
+                span(ng-show="predicate == 'lastName'") &darr;
+            th
+              a(ng-click="predicate = 'roles'" ng-class="{active: predicate=='-roles'}" ng-hide="predicate == 'roles'")
                 | Roles
-              th
-                | Action
-          tbody
-            tr(ng-repeat="user in users | filter: search | orderBy: predicate")
-              td {{user.username}}
-              td {{user.firstName}}
-              td {{user.lastName}}
-              td(ng-if="user.roles.indexOf('admin') >= 0") ADMIN
-              td(ng-if="user.roles.indexOf('admin') == -1 ") NOT ADMIN
-              td(ng-if="user.roles.indexOf('admin') >= 0")
-                button(yt-btn="x-small" type="button" ng-click="removeAdminRole(user)") Remove Admin
-              td(ng-if="user.roles.indexOf('admin') == -1 ")
-                button(yt-btn="x-small" type="button" ng-click="addAdminRole(user)") Add Admin
+                span(ng-show="predicate == '-roles'") &darr;
+              a(ng-click="predicate = '-roles'" ng-class="{active: predicate=='roles'}" ng-show="predicate == 'roles'")
+                | Roles
+                span(ng-show="predicate == 'roles'") &darr;
+
+        tbody
+          tr(ng-repeat="user in users | filter: search | orderBy: predicate")
+            td {{user.username}}
+            td {{user.firstName}}
+            td {{user.lastName}}
+            td(ng-if="user.roles.indexOf('admin') >= 0") ADMIN
+            td(ng-if="user.roles.indexOf('admin') == -1 ") NOT ADMIN

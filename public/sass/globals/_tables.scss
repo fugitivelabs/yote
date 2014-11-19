@@ -4,7 +4,7 @@ table {
   border-top: 1px solid #aaa;
   border-bottom: 1px solid #aaa;
   background-color: #fff;
-
+  min-width: 100%;
   caption {
     text-align: left;
     font-weight: 700;
@@ -35,6 +35,11 @@ table {
     th {
       padding: 5px;
       text-align: left;
+      a {
+        &.active {
+          text-decoration: underline;
+        }
+      }
     }
   }
 

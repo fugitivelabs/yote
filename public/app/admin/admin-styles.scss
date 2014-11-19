@@ -46,11 +46,11 @@
 
 }
 
-.dash-widgets {
-  .widget {
-    .card {
-      background-color: $brand-secondary;
-      overflow-x: scroll;
+.filters {
+  a {
+    &.active {
+      color: $grey-4;
+      text-decoration: underline;
     }
   }
 }
