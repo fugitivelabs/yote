@@ -161,9 +161,28 @@
 }
 
 
+[yt-btn~="flat"] {
+  position: static;
+  @include box-shadow(0px 0px 0px transparent);
+  &:hover {
+    &:hover { @include box-shadow(0px 0px 0px transparent); }
+    &:active { @include box-shadow(0px 0px 0px transparent); }
+  }
+}
+
 // link buttons
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
+[yt-btn~="link"] {
+  background-color: transparent;
+  border: none;
+  color: $link-color;
+  &:hover {
+    &:visited { color: $link-visited-color; }
+    &:hover { color: $link-hover-color; background-color: $brand-primary; }
+    &:active { color: $link-hover-color; }
+  }
+}
 [yt-btn~="link"] {
   background-color: transparent;
   border: none;
