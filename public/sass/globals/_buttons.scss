@@ -5,18 +5,28 @@
   @include type-base;
   background-color: $link-color;
   border: 1px solid $link-color;
+  @include box-shadow(0px 4px 0px darken($link-color, 30));
   color: $white;
   border: none;
   border-radius: 2px;
-  margin: 0px;
   padding: .5em 1em;
-  outline: none;
+  position: relative;
+  transition: background-color .15s ease;
+
+  &:visited { color: $white; }
 
   &:hover {
-    &:visited { color: $white; }
-    &:hover { background-color: darken($link-color, 10); text-decoration: none; border-color: darken($link-color, 10); }
-    &:active { color: $white; }
+    background-color: darken($link-color, 10); text-decoration: none; border-color: darken($link-color, 10);
+    @include box-shadow(0px 2px 0px darken($link-color, 30));
+    top: 2px;
   }
+
+  &:active {
+    @include box-shadow(0px 0px 0px darken($link-color, 30));
+    top: 4px;
+    color: $white;
+  }
+
   // disabled buttons
   // markup can include
   //    <button yt-button disabled>...</button>
@@ -77,11 +87,19 @@
   background-color: $grey;
   border-color: $grey;
   color: $white;
+  @include box-shadow(0px 4px 0px darken($grey, 30));
+
+  &:visited { color: $white; }
   &:hover {
-    &:visited { color: $white; }
-    &:hover { color: $white; background-color: darken($grey, 10); }
-    &:active { color: $white; }
+    @include box-shadow(0px 2px 0px darken($grey, 30));
+    background-color: darken($grey, 10);
+    color: $white;
   }
+  &:active {
+    @include box-shadow(0px 0px 0px darken($grey, 30));
+    color: $white;
+  }
+
 }
 
 // success
@@ -89,10 +107,17 @@
   background-color: $success;
   border-color: $success-hover;
   color: $white;
+  @include box-shadow(0px 4px 0px darken($success, 30));
+
+  &:visited { color: $white; }
   &:hover {
-    &:visited { color: $white; }
-    &:hover { color: $white; background-color: $success-hover; }
-    &:active { color: $white; }
+    @include box-shadow(0px 2px 0px darken($success, 30));
+    background-color: darken($success, 10);
+    color: $white;
+  }
+  &:active {
+    @include box-shadow(0px 0px 0px darken($success, 30));
+    color: $white;
   }
 }
 
@@ -101,10 +126,17 @@
   background-color: $warning;
   border-color: $warning-hover;
   color: $white;
+  @include box-shadow(0px 4px 0px darken($warning, 30));
+
+  &:visited { color: $white; }
   &:hover {
-    &:visited { color: $white; }
-    &:hover { color: $white; background-color: $warning-hover; }
-    &:active { color: $white; }
+    @include box-shadow(0px 2px 0px darken($warning, 30));
+    background-color: darken($warning, 10);
+    color: $white;
+  }
+  &:active {
+    @include box-shadow(0px 0px 0px darken($warning, 30));
+    color: $white;
   }
 }
 
@@ -113,17 +145,44 @@
   background-color: $danger;
   border-color: $danger-hover;
   color: $white;
+  @include box-shadow(0px 4px 0px darken($danger, 30));
+
+  &:visited { color: $white; }
   &:hover {
-    &:visited { color: $white; }
-    &:hover { color: $white; background-color: $danger-hover; }
-    &:active { color: $white; }
+    @include box-shadow(0px 2px 0px darken($danger, 30));
+    background-color: darken($danger, 10);
+    color: $white;
   }
+  &:active {
+    @include box-shadow(0px 0px 0px darken($danger, 30));
+    color: $white;
+  }
+
 }
 
+
+[yt-btn~="flat"] {
+  position: static;
+  @include box-shadow(0px 0px 0px transparent);
+  &:hover {
+    &:hover { @include box-shadow(0px 0px 0px transparent); }
+    &:active { @include box-shadow(0px 0px 0px transparent); }
+  }
+}
 
 // link buttons
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
+[yt-btn~="link"] {
+  background-color: transparent;
+  border: none;
+  color: $link-color;
+  &:hover {
+    &:visited { color: $link-visited-color; }
+    &:hover { color: $link-hover-color; background-color: $brand-primary; }
+    &:active { color: $link-hover-color; }
+  }
+}
 [yt-btn~="link"] {
   background-color: transparent;
   border: none;
