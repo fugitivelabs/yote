@@ -6,7 +6,7 @@ $formAccentColor: $brand-accent;
 $formTextColor: $text-color;
 
 .formContainer {
-  @include box-shadow(2px 1px 2px 2px #ccc);
+  @include box-shadow(0px 5px 6px #ccc);
   border-radius: 4px;
   background-color: $formContainerColor;
   padding: 40px 20px;
@@ -28,10 +28,12 @@ form {
     display: inline-block;
     vertical-align: top;
     width: 100%;
+    @include type-base;
 
     label {
       display: block;
       @include type-small;
+      overflow-wrap: break-word;
     }
 
     a {
@@ -57,21 +59,49 @@ form {
         border: 2px solid $formAccentColor;
       }
 
-      &.color-input {
-        padding: 0;
-        width: 50px;
-        height: 50px;
-        margin-top: 5px;
+      &[type="radio"] {
+        display: inline-block;
+        width: 20px;
+        margin-right: 3px;
+      }
+
+      &[type="radio"]+label {
+        margin-right: 20px;
+        display: inline-block;
+      }
+      &[type="checkbox"] {
+        display: inline-block;
+        width: 20px;
+        margin-right: 3px;
+      }
+
+      &[type="checkbox"]+label {
+        margin-right: 20px;
+        display: inline-block;
+      }
+
+    }
+
+    select {
+      background-color: darken($formContainerColor, 3);
+      width: 100%;
+      margin-bottom: 1em;
+      padding: 8px 6px;
+      border: 2px solid $grey;
+      @include lineHeight-looser;
+
+      &:focus {
+        border: 2px solid $formAccentColor;
       }
     }
+
+
 
     textarea {
       background-color: darken($formContainerColor, 3);
       width: 100%;
       margin-bottom: 1em;
       padding: 8px 6px;
-      outline: none;
-      border: 2px solid transparent;
       border-radius: 4px;
       resize: vertical;
       border: 2px solid $grey;
@@ -80,37 +110,11 @@ form {
         border: 2px solid $formAccentColor;
       }
     }
-
-    select {
-      padding: 8px 6px;
-      background-color: white;
-      border: 2px solid transparent;
-      width: 100%;
-      height: 38px;
-    }
-
   }
 
   button {
-    background-color: $link-color;
-    color: $white;
+    display: block;
     margin: 0 auto;
-    border: none;
-    border-radius: 2px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    @include type-small;
-    outline: none;
-
-    &:hover {
-      &:visited { color: $white; }
-      &:hover { background-color: darken($link-color, 10); text-decoration: none; border-color: darken($link-color, 10); }
-      &:active { color: $white; }
-    }
-
-    &:active {
-      outline: none;
-    }
   }
 }
 
