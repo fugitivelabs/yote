@@ -274,21 +274,40 @@ section.forms
     .codeExample(yt-col="1/2")
       h4 Jade Input
       code.block
-        | .formContainer(yt-col="1/2")
-        br
-        |   form
-        br
-        |     .input-group
-        |       label username
-        |       input(type="text")
-        |
-        |     .input-group
-        |       label password
-        |       input(type="password")
-        |
-        |     .input-group
-        |       label description
-        |       textarea
+        |.formContainer
+        |        form
+        |          h2 Form Title
+        |          .input-group
+        |            label form label
+        |            input(type="text", placeholder="text input").color-input
+        |          .input-group
+        |            label form label
+        |            input(type="password", placeholder="password input")
+        |          .input-group
+        |            label Select One...
+        |            select
+        |              option One
+        |              option Two
+        |              option Three
+        |              option Four
+        |          .input-group
+        |            label form label
+        |            textarea(placeholder="this is a textarea...")
+        |          .input-group
+        |            label One or the other
+        |            input(type="radio", name="options", value="option1", id="option1")
+        |            label(for="option1") First Option
+        |            input(type="radio", name="options", value="option2", id="option2")
+        |            label(for="option2") Second Option
+        |          .input-group
+        |            label Choose two
+        |            input(type="checkbox", name="choices", value="choice1", id="choice1")
+        |            label(for="choice1") First Choice
+        |            input(type="checkbox", name="choices", value="choice2", id="choice2")
+        |            label(for="choice2") Second Choice
+        |            input(type="checkbox", name="choices", value="choice3", id="choice3")
+        |            label(for="choice3") Third Choice
+        |          button(yt-btn) Submit
 
 
     .rendered(yt-col="1/2")
