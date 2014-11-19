@@ -1,0 +1,39 @@
+section(yt-container="fluid")
+  h1 Users Dashboard
+
+  .user-widgets(yt-row)
+    .widget(yt-col="full 3/4s")
+      .card
+        .toolbar(yt-toolbar)
+          .tools(yt-tools="space-between")
+            .filters 
+              a(ng-click="search.role = '' ") All {{ users.length }}
+            .search.input-add-on
+              span.item 
+                small search 
+              input.field(type="text" ng-model="search.$")
+        table.user-table.striped
+          caption Users Table 
+          thead
+            tr
+              th(ng-click="predicate = 'username'" ng-class="{active: predicate=='username'}")
+                | Email
+              th(ng-click="predicate = 'firstName'" ng-class="{active: predicate=='firstName'}")
+                | First Name
+              th(ng-click="predicate = 'lastName'" ng-class="{active: predicate=='lastName'}")
+                | Last Name
+              th(ng-click="predicate = 'roles'" ng-class="{active: predicate=='roles'}")
+                | Roles
+              th
+                | Action
+          tbody
+            tr(ng-repeat="user in users | filter: search | orderBy: predicate")
+              td {{user.username}}
+              td {{user.firstName}}
+              td {{user.lastName}}
+              td(ng-if="user.roles.indexOf('admin') >= 0") ADMIN
+              td(ng-if="user.roles.indexOf('admin') == -1 ") NOT ADMIN
+              td(ng-if="user.roles.indexOf('admin') >= 0")
+                button(yt-btn="x-small" type="button" ng-click="removeAdminRole(user)") Remove Admin
+              td(ng-if="user.roles.indexOf('admin') == -1 ")
+                button(yt-btn="x-small" type="button" ng-click="addAdminRole(user)") Add Admin

@@ -14,6 +14,8 @@ angular.module('Yote')
         alert(data);
       });
 
+    $scope.userRoles = ["admin"]
+
     $scope.fontSizes = [
         { name:'micro', value:'.1rem'}
       , { name:'smallest', value:'.3rem'}
@@ -51,6 +53,10 @@ angular.module('Yote')
 
   .controller('DocsCtrl', ['$scope', '$stateParams', '$state', 'UserFactory', 'PostFactory', function($scope, $stateParams, $state, UserFactory, PostFactory){
     console.log("DocsCtrl loaded...");
+
+
+
+
 
   }])
 

@@ -31,6 +31,11 @@ angular.module('Yote')
       , templateUrl: '/html/admin/templates/docs/style-guide'
     })
 
+    .state('admin.users', {
+      url: '/users'
+      , templateUrl: '/html/admin/templates/users'
+    })
+
 // ==> end state config
 })
 

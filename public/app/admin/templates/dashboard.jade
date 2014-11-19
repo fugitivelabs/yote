@@ -1,5 +1,16 @@
-h1 Dashboard
+ui-view
 
-section(yt-container)
-  ui-view
+  section(yt-container)
+    h2 Admin Dashboard
+    h4 For things you need at a glance
+    hr 
+    .dash-widgets(yt-row)
+      .widget(yt-col="full 2/3s")
+        .card 
+          h4 Recently registered users 
+
+      .widget(yt-col="full 1/3s")
+        .card 
+          h4 Sample widget 
+
 

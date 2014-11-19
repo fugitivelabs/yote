@@ -45,3 +45,12 @@
   }
 
 }
+
+.dash-widgets {
+  .widget {
+    .card {
+      background-color: $brand-secondary;
+      overflow-x: scroll;
+    }
+  }
+}
