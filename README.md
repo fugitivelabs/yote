@@ -30,7 +30,7 @@ to run the image and link it. more details later.
 2) start redis
 "docker run -d --name redis dockerfile/redis"
 3) start mongod with flags for smallfiles and local storage
-"docker run -d -v ~/data:/data/db --name mongodb dockerfile/mongodb mongod --smallfiles"
+"docker run -d -v ~/mongo/data:/data/db --name mongodb dockerfile/mongodb mongod --smallfiles"
 4) start yote and link with other containers
 "docker run -p 80:3030 -t -i --link redis:redis --link mongodb:mongodb --name yote --rm fugitivelabs/yote"
 
