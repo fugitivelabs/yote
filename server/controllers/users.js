@@ -69,6 +69,7 @@ exports.update = function(req, res) {
       user.firstName = req.param('firstName');
       user.lastName = req.param('lastName');
       user.updated = new Date();
+      user.roles = req.param('roles');
       user.save(function(err, user) {
         if(err || !user) {
           res.send({success: false, message: "Error saving user profile"});

@@ -133,10 +133,12 @@ form {
 
     &:not(:first-child) {
       border-left: 0;
+      border-radius: 0;
     }
 
     &:not(:last-child) {
       border-right: 0;
+      border-radius: 0;
     }
   }
 
@@ -145,8 +147,14 @@ form {
     color: $grey-7;
     font: inherit;
     font-weight: normal;
-  }
 
+  }
+  button {
+    &.item {
+      background-color: $link-color;
+      color: #fff;
+    }
+  }
   .field,
   .item {
     border: 1px solid $grey-9;

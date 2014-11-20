@@ -45,6 +45,29 @@ userSchema.statics = {
 
 var User = mongoose.model('User', userSchema);
 
+User.schema.path('roles').validate(function(roles){
+  console.log("checking roles");
+  if(roles.length == 0) {
+    roles.push('user');
+  }
+  console.log(roles);
+  var refs = ['user','admin'];
+  roles.forEach(function(role){
+    console.log("role: " + role);
+    refs.forEach(function(ref){
+      if(ref==role) {
+        valid = true;
+        return;
+      }
+    });
+    if(!valid) {
+      return false;
+    }
+  });
+  return roles.length > 0;
+}, 'roles not valid');
+
+
 //user model methods
 function createDefaults() {
   User.find({}).exec(function(err, users) {

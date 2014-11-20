@@ -14,7 +14,40 @@ angular.module('Yote')
         alert(data);
       });
 
+    $scope.actions = {};
+
     $scope.userRoles = ["admin"]
+
+    $scope.removeRole = function(user, role) {
+      var roleIndex = user.roles.indexOf(role);
+      user.roles.splice(roleIndex, 1);
+      UserFactory.update(user)
+        .then(function(data){
+          console.log(data);
+        }, function(err){
+          console.log(err);
+        });
+
+    }
+
+    $scope.addRole = function(users, role) {
+      console.log(role);
+      angular.forEach(users, function(user) {
+        console.log(user.roles.indexOf(role));
+        if(user.doAction) {
+          if(user.roles.indexOf(role) < 0) {
+            user.roles.push(role);
+            UserFactory.update(user)
+              .then(function(data){
+                console.log(data);
+              }, function(err){
+                console.log(err);
+              });
+          }
+        }
+      });
+      console.log(users);
+    }
 
     $scope.fontSizes = [
         { name:'micro', value:'.1rem'}
