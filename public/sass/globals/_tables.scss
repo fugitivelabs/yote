@@ -1,0 +1,54 @@
+
+table {
+  // border-radius: 4px;
+  border-top: 1px solid #aaa;
+  border-bottom: 1px solid #aaa;
+  background-color: #fff;
+  min-width: 100%;
+  caption {
+    text-align: left;
+    font-weight: 700;
+    font-size: .8em;
+    color: $grey-6;
+  }
+
+  &.striped {
+    tbody {
+      tr {
+        &:nth-child(odd) {
+          background-color: #f9f9f9;
+        }
+      }
+    }
+  }
+
+  &.bordered {
+    border-right: 1px solid #aaa;
+    td,
+    th {
+      border-left: 1px solid #aaa;
+    }
+  }
+
+  thead {
+    border-bottom: 1px solid #ddd;
+    th {
+      padding: 5px;
+      text-align: left;
+      a {
+        &.active {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      border-bottom: 1px solid #ddd;
+      td {
+        padding: 3px;
+      }
+    }
+  }
+}

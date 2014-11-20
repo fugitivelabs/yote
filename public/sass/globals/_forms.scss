@@ -118,3 +118,54 @@ form {
   }
 }
 
+
+// input addons (for icon in a search box for example)
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+
+// see /admin/users for an example of how to use 
+.input-add-on {
+  @include display-flex;
+  margin-bottom: 1em;
+
+  .field {
+    @include flex(1);
+
+    &:not(:first-child) {
+      border-left: 0;
+      border-radius: 0;
+    }
+
+    &:not(:last-child) {
+      border-right: 0;
+      border-radius: 0;
+    }
+  }
+
+  .item {
+    background-color: #fff;
+    color: $grey-7;
+    font: inherit;
+    font-weight: normal;
+
+  }
+  button {
+    &.item {
+      background-color: $link-color;
+      color: #fff;
+    }
+  }
+  .field,
+  .item {
+    border: 1px solid $grey-9;
+    padding: 0.5em 0.75em;
+    &:first-child {
+      border-radius: 2px 0 0 2px;
+    }
+    &:last-child {
+      border-radius: 0 2px 2px 0;
+    }
+  }
+
+}
+
