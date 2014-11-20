@@ -160,6 +160,25 @@
 
 }
 
+// for Grant
+[yt-btn~="fowler"] {
+  background-color: #2555e9;
+  border-color: #2555e9;
+  color: $white;
+  @include box-shadow(0px 4px 0px darken(#2555e9, 30));
+
+  &:hover {
+    @include box-shadow(0px 2px 0px darken(#2555e9, 30));
+    background-color: darken(#2555e9, 10);
+    color: $white;
+  }
+  &:active {
+    @include box-shadow(0px 0px 0px darken(#2555e9, 30));
+    color: $white;
+  }
+
+}
+
 
 [yt-btn~="flat"] {
   position: static;

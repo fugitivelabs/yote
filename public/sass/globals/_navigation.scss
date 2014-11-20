@@ -22,6 +22,7 @@ $sidenav-color:            $text-color;
   width: 100%;
   padding: 1rem 0px;
   background-color: $brand-primary;
+  @include box-shadow(0px 4px 8px #888);
 
   &.-fixed {
     @extend %nav--fixed;
