@@ -2,7 +2,7 @@
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
 
-$sidenav-width:            220px;
+$sidenav-width:            200px;
 $sidenav-bg-color:         $bg-color;
 $sidenav-color:            $text-color;
 
@@ -18,11 +18,20 @@ $sidenav-color:            $text-color;
   display: block;
 }
 
-.navBar {
+.navLogo {
+  display: inline-block;
+  @include type-jumbo;
+  color: $white;
+  font-weight: 700;
+  text-shadow: 3px 2px 0px $brand-primary, 7px 6px 0px rgba(0, 0, 0, 0.15);
+}
+
+.topBar {
   width: 100%;
   padding: 1rem 0px;
   background-color: $brand-primary;
   @include box-shadow(0px 4px 8px #888);
+
 
   &.-fixed {
     @extend %nav--fixed;
@@ -57,6 +66,17 @@ $sidenav-color:            $text-color;
   }
 }
 
+.leftBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  background-color: $brand-primary;
+  width: $sidenav-width;
+  @include box-shadow(0px 6px 8px #888);
+  padding: $gutter;
+  // margin-right: $sidenav-width;
+}
 
 // Side Navigation
 // ••••••••••••••••••••••••••••••••••••••••••••••••••

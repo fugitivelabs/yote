@@ -1,15 +1,18 @@
 
-.navBar
-  div(yt-container)
-    a.navLogo yote
-    ul.navList.-horiz.u-pullRight
-      li
-        a(ui-sref="user.logout") Logout
+//- .topBar
+//-   .content
+//-     a.navLogo yote
+//-     ul.navList.-horiz.u-pullRight
+//-       li
+//-         a(ui-sref="user.logout") Logout
+
+.leftBar
+  a.navLogo yote
 
 section(yt-container)
   ui-view
 
 footer
-  nav.navBar.-dark
+  .navBar
     .content
       a.navLogo yote
