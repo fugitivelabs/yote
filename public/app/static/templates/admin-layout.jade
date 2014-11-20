@@ -1,15 +1,15 @@
-section(yt-tallBoy)
-  nav.navBar
-    div(yt-container)
+
+.navBar
+  div(yt-container)
+    a.navLogo yote
+    ul.navList.-horiz.u-pullRight
+      li
+        a(ui-sref="user.logout") Logout
+
+section(yt-container)
+  ui-view
+
+footer
+  nav.navBar.-dark
+    .content
       a.navLogo yote
-      ul.navList.-horiz.u-pullRight
-        li
-          a(ui-sref="user.logout") Logout
-
-  section(yt-container="tallBoy")
-    ui-view
-
-  footer
-    nav.navBar.-dark
-      .content
-        a.navLogo yote
