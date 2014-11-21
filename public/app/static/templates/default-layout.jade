@@ -1,7 +1,7 @@
-.topBar.-fixed
+.bottomBar
   .content(yt-row="space-between center-vert")
     a.navLogo(href="/") yote
-    a.burger
+    a.burger(ng-class="{active: openMenu}", ng-click="active=true")
       span
     ul.navList.-horiz
       li
