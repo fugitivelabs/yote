@@ -2,70 +2,74 @@
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
 
-$sidenav-width:            200px;
-$sidenav-bg-color:         $bg-color;
-$sidenav-color:            $text-color;
+$sidenav-width:         200px;
+$sidenav-bg-color:      $bg-color;
+$sidenav-color:         $text-color;
 
-%nav--fixed {
-  position: fixed;
-}
+%nav--fixed             { position: fixed; top: 0; }
+%horiz                  { display: inline-block; }
+%vert                   { display: block; }
 
-%horiz {
-  display: inline-block;
-}
+.burger {
+  span {
+    cursor: pointer;
+    height: 4px;
+    border-radius: 3px;
+    width: 30px;
+    background: white;
+    position: absolute;
+    right: 1rem;
+    display: block;
+    content: '';
+    transition: all 500ms ease-in-out;
 
-%vert {
-  display: block;
-}
+    &:before,&:after {
+      cursor: pointer;
+      height: 4px;
+      border-radius: 3px;
+      width: 30px;
+      background: white;
+      position: absolute;
+      display: block;
+      content: '';
+      transition: all 500ms ease-in-out;
+    }
+    &:before { top: -10px; }
+    &:after { bottom: -10px; }
+  }
 
-.navLogo {
-  display: inline-block;
-  @include type-jumbo;
-  color: $white;
-  font-weight: 700;
-  text-shadow: 3px 2px 0px $brand-primary, 7px 6px 0px rgba(0, 0, 0, 0.15);
+  &.active {
+    span {
+      background-color: transparent;
+
+      &:before, &:after {  top: 0; }
+      &:before { transform: rotate(45deg); }
+      &:after { transform: rotate(-45deg); }
+    }
+  }
 }
 
 .topBar {
   width: 100%;
-  height: 200px;
-  padding: 1rem 0px;
+  padding: 1rem;
   background-color: $brand-primary;
   @include box-shadow(0px 4px 8px #888);
+
+  .content {
+    height: 100%;
+  }
 
   &.-fixed {
     @extend %nav--fixed;
   }
 
   .navLogo {
-    align-self: center;
     display: inline-block;
+    padding: 1rem 0;
     @include type-jumbo;
     color: $white;
     font-weight: 700;
     text-shadow: 3px 2px 0px $brand-primary, 7px 6px 0px rgba(0, 0, 0, 0.15);
-  }
-
-  .navList {
-    // align-self: center;
-    display: inline-block;
-
-    &.-horiz {
-      li {
-        @extend %horiz;
-        a {
-          margin: 0px 1em;
-        }
-      }
-    }
-    &.-vert {
-      li {
-        @extend %vert;
-        a {
-          margin: 1em 0px;
-        }
-      }
-    }
   }
 }
 
@@ -80,10 +84,9 @@ $sidenav-color:            $text-color;
   padding: $gutter;
 }
 
-[yt-spaceBetween] {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+
+.navList {
+  display: none;
 }
 
 // Side Navigation
@@ -140,7 +143,29 @@ $sidenav-color:            $text-color;
 // ——————————————————————————————————————————— •
 
 @include responsive-break-point(768px) {
-  // .navigation {
-  //   max-width: 960px;
-  // }
+
+  .burger {
+    display: none;
+  }
+
+  .navList {
+    display: inline-block;
+
+    &.-horiz {
+      li {
+        @extend %horiz;
+        a {
+          margin: 0px 1em;
+        }
+      }
+    }
+    &.-vert {
+      li {
+        @extend %vert;
+        a {
+          margin: 1em 0px;
+        }
+      }
+    }
+  }
 }

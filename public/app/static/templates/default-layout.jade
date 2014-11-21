@@ -1,7 +1,9 @@
-nav.navBar
-  .content
+.topBar.-fixed
+  .content(yt-row="space-between center-vert")
     a.navLogo(href="/") yote
-    ul.navList.-horiz.u-pullRight
+    a.burger
+      span
+    ul.navList.-horiz
       li
         a(ui-sref="static.about") About
       li

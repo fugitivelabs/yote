@@ -14,10 +14,15 @@ angular.module('Yote')
 
   .controller('HomeCtrl', ['$scope', '$stateParams', '$state', function($scope, $stateParams, $state){
     console.log("HomeCtrl loaded...");
+
+    $('.burger').click(function() {
+      $(this).toggleClass('active');
+    });
+
   }])
 
-  /********************** 
-  *  Custom Controllers 
+  /**********************
+  *  Custom Controllers
   ***********************/
 
 // end of file
