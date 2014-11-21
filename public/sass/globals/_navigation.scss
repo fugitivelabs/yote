@@ -102,9 +102,11 @@ $sidenav-color:         $text-color;
 
 .leftBar {
   position: fixed;
+  @include zIndex-8;
   top: 0;
   left: 0;
   height: 100vh;
+  display: inline-block;
   background-color: $brand-primary;
   width: $sidenav-width;
   @include box-shadow(0px 6px 8px #888);
@@ -156,54 +158,10 @@ $sidenav-color:         $text-color;
   display: none;
 }
 
-// Side Navigation
-// ••••••••••••••••••••••••••••••••••••••••••••••••••
 
-[yt-nav] {
+[yt-layout~="leftBar"] {
 
 }
-
-[yt-sidenav~="menu"] {
-  top: 0;
-  bottom: 0;
-  overflow: auto;
-  @include mobile-scroll;
-  position: absolute;
-  min-height: 100vh;
-  width: $sidenav-width;
-  min-width: $sidenav-width;
-  background-color: $sidenav-bg-color;
-  color: $sidenav-color;
-  @include box-shadow(0 0 8px rgba(0,0,0,0.3));
-  ul {
-    padding: 0;
-
-    li {
-      list-style: none;
-      padding: $gutter;
-    }
-  }
-}
-
-[yt-sidenav~="content"] {
-  margin-left: $sidenav-width;
-  min-height: 100vh;
-  width: 100%;
-  padding-top: $gutter-width;
-}
-
-[yt-sidenav~="fixed"] {
-  position: fixed;
-}
-
-%horiz {
-  display: inline-block;
-}
-
-%vert {
-  display: block;
-}
-
 
 
 // Navigation: Desktop ——————————————————————— •
