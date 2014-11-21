@@ -80,6 +80,7 @@ $gutter: $gutter-width * 0.5;
 
 [yt-row] {
   @include display-flex;
+  @include flex-wrap(wrap);
   width: 100%;
 }
 
@@ -87,11 +88,16 @@ $gutter: $gutter-width * 0.5;
   @include flex-wrap(wrap);
 }
 
+[yt-row~="no-wrap"] {
+  @include flex-wrap(nowrap);
+}
+
 [yt-row] + [yt-row] {
   padding-top: 0;
 }
 
 // Vertically align columns in a row
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
 
 [yt-row~="top"] {
   @include align-items(flex-start);
@@ -101,7 +107,7 @@ $gutter: $gutter-width * 0.5;
   @include align-items(flex-end);
 }
 
-[yt-row~="center"] {
+[yt-row~="center-vert"] {
   @include align-items(center);
 }
 
@@ -113,6 +119,38 @@ $gutter: $gutter-width * 0.5;
   @include align-items(baseline);
 }
 
+// Horizontally justify columns in a row
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+// aligns all items to the left edge of the row (also is the default)
+[yt-row~="left"] {
+  @include justify-content(flex-end);
+}
+
+// aligns all items to the right edge of the row
+[yt-row~="right"] {
+  @include justify-content(flex-end);
+}
+
+// align all items to the center of the row
+[yt-row~="center-horiz"] {
+  @include justify-content(center);
+}
+
+// starting with columns justifed to the left and right edges of the row,
+// put an even amount of space between each
+// -- (give this a better name?)
+[yt-row~="space-between"] {
+  @include justify-content(space-between);
+}
+
+// starting with columns justifed to the center, put an even amount of space
+// between each column AND the left and right edges of the row
+// -- (give this a better name?)
+[yt-row~="space-around"] {
+  @include justify-content(space-around);
+}
+
 
 // Root Flex-based Columns
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
@@ -122,6 +160,10 @@ $gutter: $gutter-width * 0.5;
   display: block;
   padding: $gutter;
   width: 100%;
+}
+
+[yt-col~="full"] {
+  @include column-size(100%);
 }
 
 // Vertically align individual columns
