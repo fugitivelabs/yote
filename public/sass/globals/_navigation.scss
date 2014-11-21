@@ -28,16 +28,17 @@ $sidenav-color:            $text-color;
 
 .topBar {
   width: 100%;
+  height: 200px;
   padding: 1rem 0px;
   background-color: $brand-primary;
   @include box-shadow(0px 4px 8px #888);
-
 
   &.-fixed {
     @extend %nav--fixed;
   }
 
   .navLogo {
+    align-self: center;
     display: inline-block;
     @include type-jumbo;
     color: $white;
@@ -46,6 +47,8 @@ $sidenav-color:            $text-color;
   }
 
   .navList {
+    // align-self: center;
+    display: inline-block;
 
     &.-horiz {
       li {
@@ -75,7 +78,12 @@ $sidenav-color:            $text-color;
   width: $sidenav-width;
   @include box-shadow(0px 6px 8px #888);
   padding: $gutter;
-  // margin-right: $sidenav-width;
+}
+
+[yt-spaceBetween] {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 // Side Navigation
