@@ -6,7 +6,7 @@ $sidenav-width:         200px;
 $sidenav-bg-color:      $bg-color;
 $sidenav-color:         $text-color;
 
-%nav--fixed             { position: fixed; top: 0; }
+%nav--fixed             { position: fixed; top: 0; @include zIndex-8; }
 %horiz                  { display: inline-block; }
 %vert                   { display: block; }
 
