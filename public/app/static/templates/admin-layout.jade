@@ -1,15 +1,15 @@
-section(yt-tallBoy)
-  nav.navBar
-    div(yt-container)
-      a.navLogo yote
-      ul.navList.-horiz.u-pullRight
-        li
-          a(ui-sref="user.logout") Logout
+.topBar
+  .content(yt-row="space-between center-vert")
+    a.navLogo(href="/") yote
+    a.burger(ng-class="{active: openMenu}", ng-click="active=true")
+      span
+    ul.navList.-horiz
+      li
+        a(ui-sref="user.logout") Logout
 
-  section(yt-container="tallBoy")
-    ui-view
+section(yt-container)
+  ui-view
 
-  footer
-    nav.navBar.-dark
-      .content
-        a.navLogo yote
+footer
+  .content
+    a.navLogo yote

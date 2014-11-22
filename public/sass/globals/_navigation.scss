@@ -2,100 +2,179 @@
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
 
-$sidenav-width:            220px;
-$sidenav-bg-color:         $bg-color;
-$sidenav-color:            $text-color;
+$sidenav-width:         200px;
+$sidenav-bg-color:      $bg-color;
+$sidenav-color:         $text-color;
 
-// Side Navigation
-// ••••••••••••••••••••••••••••••••••••••••••••••••••
+%nav--fixed             { position: fixed; top: 0; @include zIndex-8; }
+%horiz                  { display: inline-block; }
+%vert                   { display: block; }
 
-[yt-nav] {
+.burger {
+  span {
+    cursor: pointer;
+    height: 4px;
+    border-radius: 3px;
+    width: 30px;
+    background: white;
+    position: absolute;
+    right: 1rem;
+    display: block;
+    content: '';
+    transition: all 500ms ease-in-out;
 
-}
+    &:before,&:after {
+      cursor: pointer;
+      height: 4px;
+      border-radius: 3px;
+      width: 30px;
+      background: white;
+      position: absolute;
+      display: block;
+      content: '';
+      transition: all 500ms ease-in-out;
+    }
+    &:before { top: -10px; }
+    &:after { bottom: -10px; }
+  }
 
-[yt-sidenav~="menu"] {
-  top: 0;
-  bottom: 0;
-  overflow: auto;
-  @include mobile-scroll;
-  position: absolute;
-  min-height: 100vh;
-  width: $sidenav-width;
-  min-width: $sidenav-width;
-  background-color: $sidenav-bg-color;
-  color: $sidenav-color;
-  @include box-shadow(0 0 8px rgba(0,0,0,0.3));
-  ul {
-    padding: 0;
+  &.active {
+    span {
+      background-color: transparent;
 
-    li {
-      list-style: none;
-      padding: $gutter;
-      &:hover { background-color: darken($sidenav-bg-color, 10);  }
-      &.active { background-color: darken($sidenav-bg-color, 10); }
-
-      a {
-        color: $sidenav-link;
-        &:visited { color: $sidenav-link !important;}
-        &:hover {
-          &:visited { color: $sidenav-link-hover !important; }
-          &:hover { color: $sidenav-link-hover; text-decoration: none; }
-          &:active { color: $sidenav-link-hover; }
-          &.active { color: $sidenav-link-hover; }
-        }
-      }
+      &:before, &:after {  top: 0; }
+      &:before { transform: rotate(45deg); }
+      &:after { transform: rotate(-45deg); }
     }
   }
 }
 
-[yt-sidenav~="content"] {
-  margin-left: $sidenav-width;
-  min-height: 100vh;
+.topBar {
   width: 100%;
-  padding-top: $gutter-width;
-}
-
-[yt-sidenav~="fixed"] {
-  position: fixed;
-}
-
-
-%nav--dark {
-  background-color: #B6E8FF;
-}
-
-%nav--light {
-  background-color: #fff;
-  border-bottom: 1px solid $divider-color;
-}
-
-%horiz {
-  display: inline-block;
-}
-
-%vert {
-  display: block;
-}
-
-.navBar {
-  width: 100%;
-  padding: 1rem 0px;
+  padding: 1rem;
   background-color: $brand-primary;
+  @include box-shadow(0px 4px 8px #888);
 
-  &.-dark {
-    @extend %nav--dark;
+  .content {
+    height: 100%;
   }
 
-  &.-light {
-    @extend %nav--light;
+  &.-fixed {
+    @extend %nav--fixed;
   }
 
   .navLogo {
     display: inline-block;
-    @include type-large;
+    padding: 1rem 0;
+    @include type-jumbo;
+    color: $white;
+    font-weight: 700;
+    text-shadow: 3px 2px 0px $brand-primary, 7px 6px 0px rgba(0, 0, 0, 0.15);
+  }
+}
+.bottomBar {
+  position: fixed;
+  @include zIndex-8;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 1rem;
+  background-color: $brand-primary;
+  @include box-shadow(inset 0px 4px 8px #888);
+
+  .content {
+    height: 100%;
+  }
+
+  &.-fixed {
+    @extend %nav--fixed;
+  }
+
+  .navLogo {
+    display: inline-block;
+    padding: 1rem 0;
+    @include type-jumbo;
+    color: $white;
+    font-weight: 700;
+    text-shadow: 3px 2px 0px $brand-primary, 7px 6px 0px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.leftBar {
+  position: fixed;
+  @include zIndex-8;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  display: inline-block;
+  background-color: $brand-primary;
+  width: $sidenav-width;
+  @include box-shadow(0px 6px 8px #888);
+  padding: $gutter;
+
+  .navLogo {
+    @include type-jumbo;
+    padding: 1rem 0;
+    font-weight: 700;
+    color: $white;
+    display: block;
+    margin-bottom: $gutter;
+    text-shadow: 3px 2px 0px $brand-primary, 7px 6px 0px rgba(0, 0, 0, 0.15);
+  }
+
+  .navlist {
+    display: block;
+  }
+}
+
+.rightBar {
+  position: fixed;
+  text-align: right;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  background-color: $brand-primary;
+  width: $sidenav-width;
+  @include box-shadow(0px 6px 8px #888);
+  padding: $gutter;
+
+  .navLogo {
+    @include type-jumbo;
+    padding: 1rem 0;
+    font-weight: 700;
+    color: $white;
+    display: block;
+    margin-bottom: $gutter;
+    text-shadow: 3px 2px 0px $brand-primary, 7px 6px 0px rgba(0, 0, 0, 0.15);
+  }
+
+  .navlist {
+    display: block;
+  }
+}
+
+
+.navList {
+  display: none;
+}
+
+
+[yt-layout~="leftBar"] {
+
+}
+
+
+// Navigation: Desktop ——————————————————————— •
+// ——————————————————————————————————————————— •
+
+@include responsive-break-point(768px) {
+
+  .burger {
+    display: none;
   }
 
   .navList {
+    display: inline-block;
 
     &.-horiz {
       li {
