@@ -4,9 +4,32 @@ var User = require('mongoose').model('User')
   ;
 
 exports.list = function(req, res) {
-  User.find({}).exec(function(err, users) {
-    res.send(users);
-  });
+  if(req.query.page) {
+    console.log("listing users with pagination");
+    var page = req.query.page || 1;
+    var per = req.query.per || 20;
+    User.find({}).skip((page-1)*per).limit(per).exec(function(err, users) {
+      if(err || !users) {
+        res.send({success: false, message: err});
+      } else {
+        res.send({success: true, users: users
+          , pagination: {
+            page: page
+            , per: per
+          }
+        });
+      }
+    });
+  } else {
+    console.log("listing users");
+    User.find({}).exec(function(err, users) {
+      if(err || !users) {
+        res.send({success: false, message: err});
+      } else {
+        res.send({success: true, users: users});
+      }
+    });
+  }
 }
 
 exports.changePassword = function(req, res) {
