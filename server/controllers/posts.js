@@ -31,9 +31,22 @@ exports.list = function(req, res) {
 exports.search = function(req, res) {
   //search by query parameters
   // up to front end to make sure the params exist on the model
-  console.log("search for posts");
-  console.log(req.query);
-  res.send("TEST");
+  console.log("searching for posts with params.");
+  var mongoQuery = {};
+  for(key in req.query) {
+    if(req.query.hasOwnProperty(key)) {
+      console.log("found query param: " + key);
+      mongoQuery[key] = req.query[key];
+    }
+  }
+  console.log(mongoQuery);
+  Post.find(mongoQuery).exec(function(err, posts) {
+    if(err) {
+      res.send({success: false, message: err});
+    } else {
+      res.send({success: true, posts: posts});
+    }
+  });
 }
 
 exports.getById = function(req, res) {
