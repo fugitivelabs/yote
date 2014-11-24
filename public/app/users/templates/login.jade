@@ -7,8 +7,8 @@ form(yt-col="1 1/2m")
     input(type="text", name="username", placeholder="username", ng-model="username")
   .input-group
     label password
-    a.forgot(ui-sref="user.forgotpassword") I forgot
     input(type="password", name="password", placeholder="password", ng-model="password")
+    a.forgot(ui-sref="user.forgotpassword") I forgot
   .input-group
     button(yt-btn, ng-click="loginAction(username, password)") Login
 

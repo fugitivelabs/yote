@@ -184,7 +184,7 @@ $sidenav-color:         $text-color;
 @include responsive-break-point(768px) {
 
   .mobileNav {
-    display: none;
+    display: none !important;
   }
 
   .burger {
