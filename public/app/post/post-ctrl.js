@@ -15,9 +15,9 @@ angular.module('Yote')
   .controller('PostListCtrl', ['$scope', '$stateParams', '$state', 'PostFactory', function($scope, $stateParams, $state, PostFactory){
     console.log('PostListCtrl loaded....');
 
-    PostFactory.all()
+    PostFactory.list()
       .then(function(data) {
-        $scope.posts = data;
+        $scope.posts = data.posts;
         console.log(data);
       }, function(data){
         alert(data);

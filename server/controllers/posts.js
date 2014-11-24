@@ -28,6 +28,14 @@ exports.list = function(req, res) {
   });
 }
 
+exports.search = function(req, res) {
+  //search by query parameters
+  // up to front end to make sure the params exist on the model
+  console.log("search for posts");
+  console.log(req.query);
+  res.send("TEST");
+}
+
 exports.getById = function(req, res) {
   console.log('get post by id');
   Post.findOne({_id:req.params.id}).exec(function(err, post) {
