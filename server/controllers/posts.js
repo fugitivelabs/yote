@@ -16,14 +16,35 @@ var Post = require('mongoose').model('Post')
   ;
 
 exports.list = function(req, res) {
-  console.log('list posts');
-  Post.find({}).populate('author').exec(function(err, posts) {
-    if(err || !posts) {
-      res.send({ success: false, message: err });
-    } else {
-      res.send({ success: true, posts: posts });
-    }
-  });
+  if(req.query.page) {
+    console.log('list posts with pagination');
+    var page = req.query.page || 1;
+    var per = req.query.per || 20;
+    Post.find({}).skip((page-1)*per).limit(per).exec(function(err, posts) {
+      if(err || !posts) {
+        res.send({success: false, message: err});
+      } else {
+        res.send({
+          success: true
+          , posts: posts
+          , pagination: {
+            per: per
+            , page: page
+          }
+        });
+      }
+    });
+
+  } else {
+    console.log('list posts');
+    Post.find({}).populate('author').exec(function(err, posts) {
+      if(err || !posts) {
+        res.send({ success: false, message: err });
+      } else {
+        res.send({ success: true, posts: posts });
+      }
+    });
+  }
 }
 
 exports.search = function(req, res) {
@@ -31,20 +52,48 @@ exports.search = function(req, res) {
   // up to front end to make sure the params exist on the model
   console.log("searching for posts with params.");
   var mongoQuery = {};
+  var page, per;
   for(key in req.query) {
     if(req.query.hasOwnProperty(key)) {
-      console.log("found query param: " + key);
-      mongoQuery[key] = req.query[key];
+      if(key == "page") {
+        page = req.query.page;
+      } else if(key == "per") {
+        per = req.query.per;
+      } else {
+        console.log("found search query param: " + key);
+        mongoQuery[key] = req.query[key];
+      }
     }
   }
-  console.log(mongoQuery);
-  Post.find(mongoQuery).exec(function(err, posts) {
-    if(err || !posts) {
-      res.send({ success: false, message: err });
-    } else {
-      res.send({ success: true, posts: posts });
-    }
-  });
+  if(page || per) {
+    console.log("searching for posts with pagination");
+    console.log(mongoQuery);
+    page = page || 1;
+    per = per || 20;
+    Post.find(mongoQuery).skip((page-1)*per).limit(per).exec(function(err, posts) {
+      if(err || !posts) {
+        res.send({ success: false, message: err });
+      } else {
+        res.send({ 
+          success: true
+          , posts: posts
+          , pagination: {
+            per: per
+            , page: page
+          }
+        });
+      }
+    });
+  } else {
+    console.log(mongoQuery);
+    Post.find(mongoQuery).exec(function(err, posts) {
+      if(err || !posts) {
+        res.send({ success: false, message: err });
+      } else {
+        res.send({ success: true, posts: posts });
+      }
+    });
+  }
 }
 
 exports.getById = function(req, res) {
