@@ -154,8 +154,11 @@ $sidenav-color:         $text-color;
   }
 }
 
+.normalNav {
+  display: none;
+}
 
-.navList {
+.mobileNav {
   display: block;
   width: 100%;
   @include animateCss(250ms, 0s, 1);
@@ -179,6 +182,10 @@ $sidenav-color:         $text-color;
 // ——————————————————————————————————————————— •
 
 @include responsive-break-point(768px) {
+
+  .mobileNav {
+    display: none;
+  }
 
   .burger {
     display: none;

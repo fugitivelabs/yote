@@ -6,8 +6,7 @@ angular.module('Yote')
 
   .controller('NavCtrl', ['$scope', '$stateParams', '$state', 'UserFactory', 'PostFactory', function($scope, $stateParams, $state, UserFactory, PostFactory){
     console.log("NavCtrl loaded...");
-    $scope.openMenu = true;
-
+    $scope.openMenu = false;
 
   }])
 

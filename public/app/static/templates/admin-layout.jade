@@ -1,9 +1,12 @@
-.topBar
+.topBar(ng-controller="NavCtrl")
   .content(yt-row="space-between center-vert")
     a.navLogo(href="/") yote
-    a.burger(ng-class="{active: openMenu}", ng-click="active=true")
+    a.burger(ng-class="{active: openMenu}", ng-click="openMenu = !openMenu")
       span
-    ul.navList.-horiz
+    ul.navList.mobileNav.-vert(ng-show="openMenu" ng-class="{animated: openMenu, bounceInDown: openMenu}")
+      li
+        a(ui-sref="user.logout") Logout
+    ul.navList.normalNav.-horiz
       li
         a(ui-sref="user.logout") Logout
 
