@@ -3,7 +3,7 @@
     a.navLogo(href="/") yote
     a.burger(ng-class="{active: openMenu}", ng-click="openMenu = !openMenu")
       span
-    ul(ng-show="openMenu").navList.-horiz
+    ul(ng-show="openMenu" ng-class="{animated: openMenu, bounceInDown: openMenu}").navList.-horiz
       li
         a(ui-sref="static.about") About
       li

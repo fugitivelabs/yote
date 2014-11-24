@@ -1,25 +1,26 @@
 doctype
 html(lang="en", ng-app="Yote")
   head
-    title Yote 
+    title Yote
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     meta(charset="utf-8")
     link(href="/favicon.ico", rel="shortcut icon", type="image/x-icon")
-    
+    link(rel="stylesheet", href="/css/animate.min.css")
+
     //- compiled SASS styles
     link(rel="stylesheet", href="/css/yote.css")
-    
-    //- regular non-SASS styles 
+
+    //- regular non-SASS styles
     //- uncomment line below to use
     //- link(rel="stylesheet", href="/css/style.css")
-    
+
     //- javascript libraries
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js")
     script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.js")
     script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular-route.js")
     script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular-touch.js")
     script(src="/lib/angular-ui-router.min.js")
-    
+
     //- set current user if it exists. else set to null.
     if !!currentUser
       script.
