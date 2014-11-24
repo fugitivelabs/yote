@@ -1,11 +1,15 @@
-h1 LOGIN
-input(type="text", name="username", placeholder="username", ng-model="username")
-br
-input(type="password", name="password", placeholder="password", ng-model="password")
-br
-button(type="button", ng-click="loginAction(username, password)") Login
-br
-br
-a(ui-sref="user.forgotpassword") Forgot Password?
-br
-a(ui-sref="user.register") or Register
+
+form(yt-col="1 1/2m")
+  h2 Sign In
+  a(ui-sref="user.register") Don't have an account? Register here.
+  .input-group
+    label username
+    input(type="text", name="username", placeholder="username", ng-model="username")
+  .input-group
+    label password
+    input(type="password", name="password", placeholder="password", ng-model="password")
+    a.forgot(ui-sref="user.forgotpassword") I forgot
+  .input-group
+    button(yt-btn, ng-click="loginAction(username, password)") Login
+
+

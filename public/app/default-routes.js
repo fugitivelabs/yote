@@ -2,7 +2,7 @@ angular.module('Yote')
 
 .config(function($routeProvider, $locationProvider, $stateProvider, $urlRouterProvider){
   console.log('configure ui router - defaults');
-  
+
   $locationProvider.html5Mode(true);
 
   // add a route to 404 page here
@@ -10,7 +10,7 @@ angular.module('Yote')
 
   $stateProvider
 
-    /********************** 
+    /**********************
     *  Default Routes
     ***********************/
 

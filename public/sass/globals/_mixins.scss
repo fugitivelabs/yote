@@ -72,6 +72,24 @@
           transform-origin: $args;
 }
 
+@mixin animateCss($duration: 3s, $delay: 2s, $iteration: 1) {
+  -webkit-animation-duration: $duration;
+  -webkit-animation-delay: $delay;
+  -webkit-animation-iteration-count: $iteration;
+  -moz-animation-duration: $duration;
+  -moz-animation-delay: $delay;
+  -moz-animation-iteration-count: $iteration;
+  -ms-animation-duration: $duration;
+  -ms-animation-delay: $delay;
+  -ms-animation-iteration-count: $iteration;
+  -o-animation-duration: $duration;
+  -o-animation-delay: $delay;
+  -o-animation-iteration-count: $iteration;
+  animation-duration: $duration;
+  animation-delay: $delay;
+  animation-iteration-count: $iteration;
+}
+
 @mixin mobile-scroll {
   -webkit-overflow-scrolling: touch;
                   overflow-y: scroll;

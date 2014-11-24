@@ -54,6 +54,7 @@ $sidenav-color:         $text-color;
   padding: 1rem;
   background-color: $brand-primary;
   @include box-shadow(0px 4px 8px #888);
+  transition: all 500ms ease-in-out;
 
   .content {
     height: 100%;
@@ -153,9 +154,22 @@ $sidenav-color:         $text-color;
   }
 }
 
-
-.navList {
+.normalNav {
   display: none;
+}
+
+.mobileNav {
+  display: block;
+  width: 100%;
+  @include animateCss(250ms, 0s, 1);
+
+  li {
+    display: block;
+    text-align: center;
+    width: 100%;
+    padding: 20px;
+    @include type-large;
+  }
 }
 
 
@@ -168,6 +182,10 @@ $sidenav-color:         $text-color;
 // ——————————————————————————————————————————— •
 
 @include responsive-break-point(768px) {
+
+  .mobileNav {
+    display: none !important;
+  }
 
   .burger {
     display: none;
