@@ -87,13 +87,18 @@ angular.module('Yote')
   }
 
 
-  UserFactory.list = function() {
+  UserFactory.list = function(pagination) {
     console.log("user list called in factory");
+    var pageQuery = "";
+    if(pagination) {
+      pageQuery += "?page=" + pagination.page;
+      pageQuery += "&per=" + pagination.per;
+    }
     var deferred = $q.defer();
 
-    $http.get(urlBase)
+    $http.get(urlBase + pageQuery)
       .success(function(data){
-        deferred.resolve(data);
+        deferred.resolve(data.users);
       }).error(function() {
         deferred.reject("Error. Please try logging in as an admin");
       });
