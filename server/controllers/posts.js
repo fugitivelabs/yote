@@ -42,9 +42,11 @@ exports.search = function(req, res) {
   console.log(mongoQuery);
   Post.find(mongoQuery).exec(function(err, posts) {
     if(err) {
-      res.send({success: false, message: err});
+      res.send({ success: false, message: err });
+    } else if(!posts) {
+      res.send({ success: false, message: "no posts found with params" });
     } else {
-      res.send({success: true, posts: posts});
+      res.send({ success: true, posts: posts });
     }
   });
 }
