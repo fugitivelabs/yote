@@ -158,7 +158,7 @@ $sidenav-color:         $text-color;
 .navList {
   display: block;
   width: 100%;
-  @include animateCss(500ms, 0s, 1);
+  @include animateCss(250ms, 0s, 1);
 
   li {
     display: block;

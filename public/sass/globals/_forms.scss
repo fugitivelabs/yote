@@ -22,6 +22,7 @@ $formTextColor: $text-color;
 }
 
 form {
+  margin: 0 auto;
 
   .input-group {
     position: relative;
@@ -123,7 +124,7 @@ form {
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
 
-// see /admin/users for an example of how to use 
+// see /admin/users for an example of how to use
 .input-add-on {
   @include display-flex;
   margin-bottom: 1em;
