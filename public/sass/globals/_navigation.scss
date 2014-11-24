@@ -155,7 +155,16 @@ $sidenav-color:         $text-color;
 
 
 .navList {
-  display: none;
+  display: block;
+  width: 100%;
+
+  li {
+    display: block;
+    text-align: center;
+    width: 100%;
+    padding: 20px;
+    @include type-large;
+  }
 }
 
 
