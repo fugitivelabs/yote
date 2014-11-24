@@ -18,10 +18,8 @@ var Post = require('mongoose').model('Post')
 exports.list = function(req, res) {
   console.log('list posts');
   Post.find({}).populate('author').exec(function(err, posts) {
-    if(err) {
+    if(err || !posts) {
       res.send({ success: false, message: err });
-    } else if(!posts) {
-      res.send({ success: false, message: "no posts found :(" });
     } else {
       res.send({ success: true, posts: posts });
     }
@@ -41,10 +39,8 @@ exports.search = function(req, res) {
   }
   console.log(mongoQuery);
   Post.find(mongoQuery).exec(function(err, posts) {
-    if(err) {
+    if(err || !posts) {
       res.send({ success: false, message: err });
-    } else if(!posts) {
-      res.send({ success: false, message: "no posts found with params" });
     } else {
       res.send({ success: true, posts: posts });
     }
