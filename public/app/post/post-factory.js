@@ -38,6 +38,34 @@ angular.module('Yote')
     return deferred.promise;
   }
 
+  PostFactory.search = function(query) {
+    console.log("search posts in factory");
+    console.log(query);
+    var queryString;
+    //build query string from query object
+    for(var key in query) {
+      if(query.hasOwnProperty(key)) {
+        if(!queryString) 
+          queryString = "?" + key + "=" + query[key];
+        else
+          queryString += "&" + key + "=" + query[key];
+      }
+    }
+    console.log(queryString);
+    var deferred = $q.defer();
+    $http.get(urlBase + "/search" + queryString)
+      .success(function(data){
+        console.log("SEARCH RESULTS:");
+        console.log(data);
+        deferred.resolve(data);
+      }).error(function() {
+        console.log("Error searching posts.");
+        deferred.reject("Error searching posts.")
+      });
+    return deferred.promise;
+
+  }
+
   PostFactory.show = function(slug) {
     console.log("show post " + slug + " in factory");
     var deferred = $q.defer();
