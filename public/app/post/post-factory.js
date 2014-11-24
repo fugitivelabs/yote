@@ -24,10 +24,15 @@ angular.module('Yote')
   //PostFactory object
   var PostFactory = {};
 
-  PostFactory.list = function() {
+  PostFactory.list = function(pagination) {
+    var pageQuery = "";
+    if(pagination) {
+      pageQuery += "?page=" + pagination.page;
+      pageQuery += "&per=" + pagination.per;
+    }
     console.log("get all posts called in factory");
     var deferred = $q.defer();
-    $http.get(urlBase)
+    $http.get(urlBase + pageQuery)
       .success(function(data){
         console.log(data);
         deferred.resolve(data);
@@ -38,7 +43,7 @@ angular.module('Yote')
     return deferred.promise;
   }
 
-  PostFactory.search = function(query) {
+  PostFactory.search = function(query, pagination) {
     console.log("search posts in factory");
     console.log(query);
     var queryString;
@@ -51,9 +56,14 @@ angular.module('Yote')
           queryString += "&" + key + "=" + query[key];
       }
     }
+    var pageQuery = "";
+    if(pagination) {
+      pageQuery += "&page=" + pagination.page;
+      pageQuery += "&per=" + pagination.per;
+    }
     console.log(queryString);
     var deferred = $q.defer();
-    $http.get(urlBase + "/search" + queryString)
+    $http.get(urlBase + "/search" + queryString + pageQuery)
       .success(function(data){
         console.log("SEARCH RESULTS:");
         console.log(data);

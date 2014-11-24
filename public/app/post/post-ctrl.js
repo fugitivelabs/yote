@@ -23,8 +23,12 @@ angular.module('Yote')
         alert(data);
       });
 
-    //searching example. 
-    PostFactory.search({'featured': true}).then(function(data) { console.log(data); });
+    //list example with pagintion:
+    // PostFactory.list({'page': 2, 'per': 2}).then(function(data) { console.log(data); });
+    //searching example:
+    // PostFactory.search({'featured': true}).then(function(data) { console.log(data); });
+    //searching example with pagination:
+    PostFactory.search({'featured': false}, {page: 2, per: 3}).then(function(data) { console.log(data); });
   }])
 
   .controller('PostShowCtrl', ['$scope', '$stateParams', '$state', 'PostFactory', function($scope, $stateParams, $state, PostFactory){
