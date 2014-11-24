@@ -22,6 +22,9 @@ angular.module('Yote')
       }, function(data){
         alert(data);
       });
+
+    //searching example. 
+    PostFactory.search({'featured': true}).then(function(data) { console.log(data); });
   }])
 
   .controller('PostShowCtrl', ['$scope', '$stateParams', '$state', 'PostFactory', function($scope, $stateParams, $state, PostFactory){
