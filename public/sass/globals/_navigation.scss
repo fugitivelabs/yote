@@ -50,7 +50,10 @@ $sidenav-color:         $text-color;
 }
 
 .topBar {
-  width: 100%;
+  @include flex-direction(row);
+
+  @include column-size(100%);
+  @include zIndex-8;
   padding: 1rem;
   background-color: $brand-primary;
   @include box-shadow(0px 4px 8px #888);
@@ -102,55 +105,64 @@ $sidenav-color:         $text-color;
 }
 
 .leftBar {
-  position: fixed;
+  @include flex-direction(column);
+  @include column-size($sidenav-width);
   @include zIndex-8;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  display: inline-block;
+  min-height: 100vh;
   background-color: $brand-primary;
-  width: $sidenav-width;
   @include box-shadow(0px 6px 8px #888);
-  padding: $gutter;
+  // padding: $gutter; // leave this up to the content
+  .content {
+    &.fixed {
+      position: fixed;
+      max-height: 100vh;
+      @include mobile-scroll;
+    }
+    width: $sidenav-width;
+    .navLogo {
+      @include type-jumbo;
+      padding: 1rem 0;
+      font-weight: 700;
+      color: $white;
+      display: block;
+      margin-bottom: $gutter;
+      text-shadow: 3px 2px 0px $brand-primary, 7px 6px 0px rgba(0, 0, 0, 0.15);
+    }
 
-  .navLogo {
-    @include type-jumbo;
-    padding: 1rem 0;
-    font-weight: 700;
-    color: $white;
-    display: block;
-    margin-bottom: $gutter;
-    text-shadow: 3px 2px 0px $brand-primary, 7px 6px 0px rgba(0, 0, 0, 0.15);
-  }
-
-  .navlist {
-    display: block;
+    .navlist {
+      display: block;
+    }
   }
 }
 
 .rightBar {
-  position: fixed;
-  text-align: right;
-  top: 0;
-  right: 0;
-  height: 100vh;
+  @include flex-direction(column);
+  @include column-size($sidenav-width);
+  @include zIndex-8;
+  min-height: 100vh;
   background-color: $brand-primary;
-  width: $sidenav-width;
   @include box-shadow(0px 6px 8px #888);
-  padding: $gutter;
+  // padding: $gutter; // leave this up to the content
+  .content {
+    &.fixed {
+      position: fixed;
+      max-height: 100vh;
+      @include mobile-scroll;
+    }
+    width: $sidenav-width;
+    .navLogo {
+      @include type-jumbo;
+      padding: 1rem 0;
+      font-weight: 700;
+      color: $white;
+      display: block;
+      margin-bottom: $gutter;
+      text-shadow: 3px 2px 0px $brand-primary, 7px 6px 0px rgba(0, 0, 0, 0.15);
+    }
 
-  .navLogo {
-    @include type-jumbo;
-    padding: 1rem 0;
-    font-weight: 700;
-    color: $white;
-    display: block;
-    margin-bottom: $gutter;
-    text-shadow: 3px 2px 0px $brand-primary, 7px 6px 0px rgba(0, 0, 0, 0.15);
-  }
-
-  .navlist {
-    display: block;
+    .navlist {
+      display: block;
+    }
   }
 }
 
