@@ -1,18 +1,21 @@
-.topBar(ng-controller="NavCtrl")
-  .content(yt-row="space-between center-vert")
-    a.navLogo(href="/") yote
-    a.burger(ng-class="{active: openMenu}", ng-click="openMenu = !openMenu")
-      span
-    ul.navList.mobileNav.-vert(ng-show="openMenu" ng-class="{animated: openMenu, bounceInDown: openMenu}")
-      li
-        a(ui-sref="user.logout") Logout
-    ul.navList.normalNav.-horiz
-      li
+//- try me 
+//- .rightBar(ng-controller="NavCtrl") 
+.leftBar(ng-controller="NavCtrl")
+  .content.fixed.admin-menu(yt-row="space-between center-vert")
+    a.navLogo(href="/") Yote
+    h4 Site Resources 
+    ul.navList.-vert
+
+      li(ui-sref-active="active")  
+        a(ui-sref="admin.style") Style Guide
+      li(ui-sref-active="active")  
+        a(ui-sref="admin.users") Users 
+
+    ul.navList.-vert  
+      li(ui-sref-active="active") 
         a(ui-sref="user.logout") Logout
 
-section(yt-container)
+//- try me 
+//- section.main.with-rightbar(yt-container)
+section.main.with-leftbar(yt-container)
   ui-view
-
-footer
-  .content
-    a.navLogo yote
