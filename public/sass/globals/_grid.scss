@@ -21,6 +21,31 @@ $gutter: $gutter-width * 0.5;
 // Layout
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
+.flex {
+  @include display-flex;
+  @include flex-direction(row);
+  @include flex-wrap(wrap);
+}
+
+.main {
+  @include flex-direction(column);
+  
+  &.with-leftbar {
+    @include flex(1);
+  }
+  &.with-topbar {
+    @include column-size(100%);
+  }
+  &.with-rightbar {
+    @include flex(1);
+    order: -1;
+  }
+  &.with-bottombar {
+    @include column-size(100%);
+  }
+}
+
+
 [yt-layout],
 [yt-layout~="vertical"],
 [yt-layout~="topnav"]  {
