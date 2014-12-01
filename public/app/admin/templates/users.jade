@@ -64,6 +64,6 @@ section(yt-container="fluid")
             td 
               span(ng-repeat="role in user.roles track by $index") 
                 |  {{role}}  
-                sup
+                sup(ng-hide="!role")
                   a(ng-click="removeRole(user, role)") x
 

@@ -48,10 +48,10 @@ var User = mongoose.model('User', userSchema);
 User.schema.path('roles').validate(function(roles){
   console.log("checking roles");
   if(roles.length == 0) {
-    roles.push('user');
+    roles.push(null);
   }
   console.log(roles);
-  var refs = ['user','admin'];
+  var refs = [null,'admin'];
   roles.forEach(function(role){
     console.log("role: " + role);
     refs.forEach(function(ref){
