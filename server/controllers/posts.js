@@ -151,12 +151,14 @@ exports.update = function(req, res) {
     } else if(!post) {
       res.send({ success: false, message: "Post Not Found. Edit Failed." });
     } else {
-      post.updated = new Date();
+      // run through and update all fields on the model
       for(var k in req.body) {
         if(req.body.hasOwnProperty(k)) {
           post[k] = req.body[k];
         }
       }
+      // now edit the updated date
+      post.updated = new Date();
       post.save(function(err, post) {
         if(err) {
           res.send({ success: false, message: err });
