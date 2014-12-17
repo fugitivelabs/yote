@@ -37,7 +37,7 @@ exports.list = function(req, res) {
 
   } else {
     console.log('list posts');
-    Post.find({}).populate('author').exec(function(err, posts) {
+    Post.find({}).populate('author', {'firstName': 1, 'lastName': 1, 'username': 1}).exec(function(err, posts) {
       if(err || !posts) {
         res.send({ success: false, message: err });
       } else {
