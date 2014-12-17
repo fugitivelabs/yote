@@ -18,7 +18,7 @@ angular.module('Yote')
             $rootScope.currentUser = data.user;
 
             if($stateParams.next) {
-              $state.go($stateParams.next);
+              $state.go($stateParams.next, $rootScope.next.toParams);
             } else {
               $state.go('root.home');
             }
@@ -55,7 +55,7 @@ angular.module('Yote')
             //NOW LOGIN
             $rootScope.currentUser = data.user;
             if($stateParams.next) {
-              $state.go($stateParams.next);
+              $state.go($stateParams.next, $rootScope.next.toParams);
             } else {
               $state.go('root.home');
             }

@@ -25,7 +25,7 @@ angular.module('Yote')
       , controller: 'PostListCtrl'
     })
     .state('post.show', {
-      url: '/show/:slug'
+      url: '/:slug/show'
       , templateUrl: '/html/post/templates/show'
       , controller: 'PostShowCtrl'
     })
@@ -38,7 +38,7 @@ angular.module('Yote')
       }
     })
     .state('post.edit', {
-      url: '/edit/:slug'
+      url: '/:slug/edit'
       , templateUrl: '/html/post/templates/edit'
       , controller: 'PostUpdateCtrl'
       , data: {

@@ -70,6 +70,11 @@ app.use(serveStatic(__dirname + '/public'));
 
 //request checks
 app.use(function(req, res, next) {
+
+  //to allow CORS access to the node APIs, uncomment the following 2 lines
+  // res.header("Access-Control-Allow-Origin", "*");
+  // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+
   //test user:
   console.log("YOTE USER: " + (req.user ? req.user.username : "none"));
   //no mongo connection
