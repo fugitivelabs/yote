@@ -13,12 +13,13 @@ var userSchema = mongoose.Schema({
     , required: '{PATH} is required!'
     , unique:true
   }
-  , password_salt:  { type: String, required: '{PATH} is required!' }
-  , password_hash:  { type: String, required: '{PATH} is required!' }
+  //by default, password and reset fields are hidden from db queries. to return them, you must EXPLICITLY request them in the User.find call.
+  , password_salt:  { type: String, required: '{PATH} is required!', select: false }
+  , password_hash:  { type: String, required: '{PATH} is required!', select: false }
   , roles:          [String]
     //reset password fields
-  , resetPasswordTime:    { type: Date, default: Date.now }
-  , resetPasswordHex:     { type: String, default: Math.floor(Math.random()*16777215).toString(16) + Math.floor(Math.random()*16777215).toString(16) }
+  , resetPasswordTime:    { type: Date, default: Date.now, select: false }
+  , resetPasswordHex:     { type: String, default: Math.floor(Math.random()*16777215).toString(16) + Math.floor(Math.random()*16777215).toString(16), select: false }
 });
 
 //user instance methods
@@ -38,8 +39,12 @@ userSchema.statics = {
     return crypto.randomBytes(256).toString('base64');
   }
   , hashPassword: function(salt, password) {
-    var hmac = crypto.createHmac('sha1', salt);
-    return hmac.update(password).digest('hex');
+    if(salt && password) {
+      var hmac = crypto.createHmac('sha1', salt);
+      return hmac.update(password).digest('hex');
+    } else {
+      return false;
+    }
   }
 };
 

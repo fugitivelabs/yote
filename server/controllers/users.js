@@ -88,6 +88,7 @@ exports.update = function(req, res) {
     if(err || !user) {
       res.send({success: false, message: "Could not find user"});
     } else {
+      //not standard yote with the loop; can't allow update of protected fields.
       user.username = req.param('username');
       user.firstName = req.param('firstName');
       user.lastName = req.param('lastName');
@@ -114,7 +115,10 @@ exports.changePassword = function(req, res) {
   else if(req.param('newPass') == "") { 
     res.send({success: false, message: "Invalid New Password"});
   }
-  User.findOne({_id: req.user._id}).exec(function(err, user) {
+  var projection = {
+    updated: 1, firstName: 1, lastName: 1, username: 1, password_salt: 1, password_hash: 1, roles: 1
+  }
+  User.findOne({_id: req.user._id}, projection).exec(function(err, user) {
     if(err || !user) {
       res.send({success: false, message: "Could not find user in db"});
     } else {
@@ -150,7 +154,10 @@ exports.requestPasswordReset = function(req, res) {
   if(req.param('email') == "") {
     res.send({success: false, message: "Email needed to reset password."});
   }
-  User.findOne({username: req.param('email')}).exec(function(err, user) {
+  var projection = {
+    firstName: 1, lastName: 1, username: 1, roles: 1, resetPasswordTime: 1, resetPasswordHex: 1
+  }
+  User.findOne({username: req.param('email')}, projection).exec(function(err, user) {
     if(err || !user) {
       res.send({success: false, message: "No user with that email found. Please register."});
     } else {
@@ -197,7 +204,10 @@ exports.requestPasswordReset = function(req, res) {
 exports.checkResetRequest = function(req, res, next) {
   //must be a valid hex and no older than 24 hours
   var nowDate = new Date();
-  User.findOne({resetPasswordHex: req.param('resetHex')}).exec(function(err, user) {
+  var projection = {
+    firstName: 1, lastName: 1, username: 1, roles: 1, resetPasswordTime: 1, resetPasswordHex: 1
+  }
+  User.findOne({resetPasswordHex: req.param('resetHex')}, projection).exec(function(err, user) {
     if(err || !user) {
       res.send({success: false, message: "Invalid or Expired Reset Token"});
     } else {
@@ -221,7 +231,10 @@ exports.checkResetRequest = function(req, res, next) {
 }
 
 exports.resetPassword = function(req, res) {
-    User.findOne({_id: req.param('userId')}).exec(function(err, user) {
+    var projection = {
+      firstName: 1, lastName: 1, username: 1, password_salt: 1, password_hash: 1, roles: 1
+    }
+    User.findOne({_id: req.param('userId')}, projection).exec(function(err, user) {
       if(err || !user) {
         res.send({success: false, message: "Could not find user in db"});
       } else {
