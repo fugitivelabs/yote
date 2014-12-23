@@ -138,7 +138,7 @@ exports.changePassword = function(req, res) {
           if(err) {
             res.send({success: false, message: "Error updating user password"});
           } else {
-            res.send({success: true, user: user});
+            res.send({success: true, message: "Success! Please login with your new password."});
           }
         });
 
@@ -150,7 +150,7 @@ exports.changePassword = function(req, res) {
 }
 
 exports.requestPasswordReset = function(req, res) {
-  console.log("user requested password reset");
+  console.log("user requested password reset for " + req.param('email'));
   if(req.param('email') == "") {
     res.send({success: false, message: "Email needed to reset password."});
   }
@@ -159,6 +159,7 @@ exports.requestPasswordReset = function(req, res) {
   }
   User.findOne({username: req.param('email')}, projection).exec(function(err, user) {
     if(err || !user) {
+      console.log("fail: no user with that email found");
       res.send({success: false, message: "No user with that email found. Please register."});
     } else {
       //found user who requested a password reset
@@ -166,6 +167,7 @@ exports.requestPasswordReset = function(req, res) {
       user.resetPasswordHex = Math.floor(Math.random()*16777215).toString(16) + Math.floor(Math.random()*16777215).toString(16);
       user.save(function(err, user) {
         if(err) {
+          console.log("fail: error saving user reset options");
           res.send({success: false, message: "Error processing request. Please try again."});
         } else {
           //send user an email with their reset link.
@@ -190,6 +192,7 @@ exports.requestPasswordReset = function(req, res) {
           var async = false;
           mandrill_client.messages.send({"message": message, "async":async}, function (result) {
             console.log(result);
+            console.log("success: send user email");
             res.send({success: true, result: result});
           }, function(e){
             res.send({success: false, error: e});
@@ -246,7 +249,7 @@ exports.resetPassword = function(req, res) {
           if(err || !user) {
             res.send({success: false, message: "Error updating user password"});
           } else {
-            res.send({success: true, user: user});
+            res.send({success: true, message: "Updated password! Please login."});
           }
         });
       }
