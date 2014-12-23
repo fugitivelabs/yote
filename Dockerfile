@@ -7,7 +7,10 @@ RUN apt-get update && apt-get install -y nodejs nodejs-legacy npm git
 
 #add app source code
 ADD / ./yote
-RUN rm -rf /yote/node_modules
+# only ONE npm module (node-sass) compiles differently on mac vs linux.
+#RUN rm -rf /yote/node_modules
+# instead of removing all, lets just remove that one
+RUN rm -rf /yote/node_modules/node-sass-middleware
 RUN cd /yote && npm install
 
 EXPOSE 80

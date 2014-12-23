@@ -115,7 +115,7 @@ angular.module('Yote')
     $scope.requestReset = function(email) {
       UserFactory.requestPasswordReset(email)
         .then(function(data) {
-          //do things
+          //does not actually check if the call was successful or not. 
           alert("A password reset request has been sent to your email.");
         });
     }

@@ -88,7 +88,10 @@ app.use(function(req, res, next) {
 //initialize passport
 passport.use(new LocalStrategy(
   function(username, password, done) {
-    User.findOne({username:username}).exec(function(err, user) {
+    var projection = {
+      firstName: 1, lastName: 1, username: 1, password_salt: 1, password_hash: 1, roles: 1
+    }
+    User.findOne({username:username}, projection).exec(function(err, user) {
       if(user && user.authenticate(password)) {
         console.log("authenticated!");
         return done(null, user);
@@ -106,6 +109,7 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(id, done) {
+  //does not need projection
   User.findOne({_id:id}).exec(function(err, user) {
     if(user) {
       return done(null, user);

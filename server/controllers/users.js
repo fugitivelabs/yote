@@ -88,6 +88,7 @@ exports.update = function(req, res) {
     if(err || !user) {
       res.send({success: false, message: "Could not find user"});
     } else {
+      //not standard yote with the loop; can't allow update of protected fields.
       user.username = req.param('username');
       user.firstName = req.param('firstName');
       user.lastName = req.param('lastName');
@@ -114,7 +115,10 @@ exports.changePassword = function(req, res) {
   else if(req.param('newPass') == "") { 
     res.send({success: false, message: "Invalid New Password"});
   }
-  User.findOne({_id: req.user._id}).exec(function(err, user) {
+  var projection = {
+    updated: 1, firstName: 1, lastName: 1, username: 1, password_salt: 1, password_hash: 1, roles: 1
+  }
+  User.findOne({_id: req.user._id}, projection).exec(function(err, user) {
     if(err || !user) {
       res.send({success: false, message: "Could not find user in db"});
     } else {
@@ -134,7 +138,7 @@ exports.changePassword = function(req, res) {
           if(err) {
             res.send({success: false, message: "Error updating user password"});
           } else {
-            res.send({success: true, user: user});
+            res.send({success: true, message: "Success! Please login with your new password."});
           }
         });
 
@@ -146,12 +150,16 @@ exports.changePassword = function(req, res) {
 }
 
 exports.requestPasswordReset = function(req, res) {
-  console.log("user requested password reset");
+  console.log("user requested password reset for " + req.param('email'));
   if(req.param('email') == "") {
     res.send({success: false, message: "Email needed to reset password."});
   }
-  User.findOne({username: req.param('email')}).exec(function(err, user) {
+  var projection = {
+    firstName: 1, lastName: 1, username: 1, roles: 1, resetPasswordTime: 1, resetPasswordHex: 1
+  }
+  User.findOne({username: req.param('email')}, projection).exec(function(err, user) {
     if(err || !user) {
+      console.log("fail: no user with that email found");
       res.send({success: false, message: "No user with that email found. Please register."});
     } else {
       //found user who requested a password reset
@@ -159,6 +167,7 @@ exports.requestPasswordReset = function(req, res) {
       user.resetPasswordHex = Math.floor(Math.random()*16777215).toString(16) + Math.floor(Math.random()*16777215).toString(16);
       user.save(function(err, user) {
         if(err) {
+          console.log("fail: error saving user reset options");
           res.send({success: false, message: "Error processing request. Please try again."});
         } else {
           //send user an email with their reset link.
@@ -183,6 +192,7 @@ exports.requestPasswordReset = function(req, res) {
           var async = false;
           mandrill_client.messages.send({"message": message, "async":async}, function (result) {
             console.log(result);
+            console.log("success: send user email");
             res.send({success: true, result: result});
           }, function(e){
             res.send({success: false, error: e});
@@ -197,7 +207,10 @@ exports.requestPasswordReset = function(req, res) {
 exports.checkResetRequest = function(req, res, next) {
   //must be a valid hex and no older than 24 hours
   var nowDate = new Date();
-  User.findOne({resetPasswordHex: req.param('resetHex')}).exec(function(err, user) {
+  var projection = {
+    firstName: 1, lastName: 1, username: 1, roles: 1, resetPasswordTime: 1, resetPasswordHex: 1
+  }
+  User.findOne({resetPasswordHex: req.param('resetHex')}, projection).exec(function(err, user) {
     if(err || !user) {
       res.send({success: false, message: "Invalid or Expired Reset Token"});
     } else {
@@ -221,7 +234,10 @@ exports.checkResetRequest = function(req, res, next) {
 }
 
 exports.resetPassword = function(req, res) {
-    User.findOne({_id: req.param('userId')}).exec(function(err, user) {
+    var projection = {
+      firstName: 1, lastName: 1, username: 1, password_salt: 1, password_hash: 1, roles: 1
+    }
+    User.findOne({_id: req.param('userId')}, projection).exec(function(err, user) {
       if(err || !user) {
         res.send({success: false, message: "Could not find user in db"});
       } else {
@@ -233,7 +249,7 @@ exports.resetPassword = function(req, res) {
           if(err || !user) {
             res.send({success: false, message: "Error updating user password"});
           } else {
-            res.send({success: true, user: user});
+            res.send({success: true, message: "Updated password! Please login."});
           }
         });
       }
