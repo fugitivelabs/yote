@@ -14,7 +14,17 @@ module.exports = function(router, requireLogin, requireRole) {
       }
       req.logIn(user, function(err) {
         if(err) {return next(err);}
-        res.send({success:true, user: user});
+        // by necessity, this user object has all of the password fields.
+        // we still want to remove hidden values, though, so lets try javascript rather than do another db query.
+        var returnUser = {
+          _id: user._id
+          , firstName: user.firstName
+          , lastName: user.lastName
+          , username: user.username
+          , roles: user.roles
+        }
+        console.log(returnUser);
+        res.send({success:true, user: returnUser});
       });
     })(req, res, next);
   });
