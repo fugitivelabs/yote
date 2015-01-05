@@ -73,9 +73,11 @@ app.use(function(req, res, next) {
 
   //to allow CORS access to the node APIs, follow these steps:
   // 1. know what you are doing.
-  // 2. uncommente the following 2 lines.
-  // res.header("Access-Control-Allow-Origin", "*");
-  // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  // 2. uncommente the following 3 lines.
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, token");
+  // ref https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS
 
   //test user:
   console.log("YOTE USER: " + (req.user ? req.user.username : "none"));
@@ -84,11 +86,16 @@ app.use(function(req, res, next) {
     mongoose.connect(config.db);
     res.send("mongoose error, hold your horses...");
   }
-  next();
+  //check for OPTIONS method
+  if(req.method == 'OPTIONS') {
+    res.send(200);
+  } else {
+    next();
+  }
 });
 
 //initialize passport
-passport.use(new LocalStrategy(
+passport.use('local', new LocalStrategy(
   function(username, password, done) {
     var projection = {
       firstName: 1, lastName: 1, username: 1, password_salt: 1, password_hash: 1, roles: 1
@@ -98,6 +105,7 @@ passport.use(new LocalStrategy(
         console.log("authenticated!");
         return done(null, user);
       } else {
+        console.log("NOT authenticated");
         return done(null, false);
       }
     })
