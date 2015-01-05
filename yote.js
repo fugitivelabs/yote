@@ -49,7 +49,7 @@ app.use(session({
     host: config.redis.host
     , port: config.redis.port
   })
-  , secret: 'fugitive all up in your labs'
+  , secret: 'fugitive all up in your labs' //don't actually use this in a production application
 }));
 app.use(favicon(path.join(__dirname, 'public','favicon.ico'))); 
 app.use(passport.initialize());
@@ -71,7 +71,9 @@ app.use(serveStatic(__dirname + '/public'));
 //request checks
 app.use(function(req, res, next) {
 
-  //to allow CORS access to the node APIs, uncomment the following 2 lines
+  //to allow CORS access to the node APIs, follow these steps:
+  // 1. know what you are doing.
+  // 2. uncommente the following 2 lines.
   // res.header("Access-Control-Allow-Origin", "*");
   // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 
