@@ -2,8 +2,8 @@
 
 module.exports = {
   //randomly generated
-  sessionSecret:    "xxxxxxxxxx"
-  , tokenSecret:    "yyyyyyyyyy"
+  sessionSecret:    "xxxxxxxxxx" //used for cookie session management
+  , tokenSecret:    "yyyyyyyyyy" //used for token session management
   //api keys
   , mandrill:       "zzzzzzzzzz"
 }
