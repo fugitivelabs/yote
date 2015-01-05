@@ -29,10 +29,56 @@ module.exports = function(router, requireLogin, requireRole) {
     })(req, res, next);
   });
 
+  router.post('/api/users/token', function(req, res, next) {
+    req.body.username = req.body.username.toLowerCase();
+    passport.authenticate('local', { session: false }, function(err, user) {
+      if(err) {
+        res.send({success:false, message: "Error authenticating user."});
+      }
+      if(!user) {
+        res.send({success:false, message: "Matching user not found."});
+      }
+      console.log("TOKEN TIME");
+      user.createToken(function(err, token) {
+        if(err || !token) {
+          res.send({success: false, message: "Unable to generate user API token"});
+        } else {
+          console.log("TOKEN");
+          console.log(token);
+          res.send({success: true, user: user});
+        }
+      });
+    })(req, res, next);
+  });
+
   // user logout
   router.post('/api/users/logout', function(req, res) {
-    req.logout();
-    res.end();
+    //logout with token will not affect session status, and vice-versa
+    console.log("logout");
+    if(req.headers.token) {
+      console.log("logout with token");
+      //remove token object
+      User.findOne({apiToken: req.headers.token}).exec(function(err, user) {
+        if(err || !user) {
+          console.log("could not find user object to log out with");
+          res.end();
+        } else {
+          user.removeToken(function(err) {
+            if(err) {
+              console.log(err);
+              res.send({success: false, message: "could not remove user token"});
+            } else {
+              console.log("removed token");
+              res.end();
+            }
+          });
+        }
+      });
+    } else {
+      //remove session object
+      req.logout();
+      res.end();
+    }
   });
 
   // ==> users CRUD api

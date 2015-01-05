@@ -1,5 +1,9 @@
 var mongoose = require('mongoose')
   , crypto = require('crypto')
+  //get secrets
+  , secrets = require('../config')[process.env.NODE_ENV].secrets
+  , jwt = require('jwt-simple')
+  , tokenSecret = secrets.tokenSecret //generate your own randomized token here.
   ;
 
 //define user schema
@@ -20,6 +24,10 @@ var userSchema = mongoose.Schema({
     //reset password fields
   , resetPasswordTime:    { type: Date, default: Date.now, select: false }
   , resetPasswordHex:     { type: String, default: Math.floor(Math.random()*16777215).toString(16) + Math.floor(Math.random()*16777215).toString(16), select: false }
+
+  //api token fields
+  , apiToken:             { type: String, select: false }
+  , tokenCreated:         { type: Date, default: Date.now, select: false }
 });
 
 //user instance methods
@@ -30,6 +38,36 @@ userSchema.methods = {
   }
   , hasRole: function(role) {
     return this.roles.indexOf(role) > -1;
+  }
+  , createToken: function(callback) {
+    console.log("creating a user token");
+    var token = User.encode({username: this.username});
+    console.log("TOKEN: " + token);
+    this.apiToken = token;
+    this.tokenCreated = new Date();
+    this.save(function(err, user) {
+      if(err) {
+        console.log(err);
+        callback(err, null);
+      } else {
+        console.log("user token created.");
+        // console.log(user);
+        callback(false, user.apiToken);
+      }
+    });
+  }
+  , removeToken: function(callback) {
+    //akin to 'logout' for api tokens
+    console.log("REMOVE TOKEN CALLED");
+    this.apiToken = null;
+    this.save(function(err, user) {
+      if(err) {
+        callback(err, null);
+      } else {
+        console.log("user token removed.");
+        callback((false, 'removed'));
+      }
+    });
   }
 };
 
@@ -45,6 +83,18 @@ userSchema.statics = {
     } else {
       return false;
     }
+  }
+  , encode: function(data) {
+    return jwt.encode(data, tokenSecret);
+  }
+  , decode: function(data) {
+    return jwt.decode(data, tokenSecret);
+  }
+  , tokenExpired: function(created) {
+    var now = new Date();
+    var diff = (now.getTime() - created);
+    return diff > 86400000; //API token active for 24 hours. 
+    // return false; //if you want your API tokens to NEVER expire, use this line instead.
   }
 };
 

@@ -30,6 +30,7 @@
     "express": "^4.0.0",
     "express-session": "^1.8.2",
     "jade": "~0.35.0",
+    "jwt-simple": "^0.2.0",
     "mandrill-api": "^1.0.41",
     "mongoose": "~3.8.0",
     "mongoose-url-slugs": "0.0.10",

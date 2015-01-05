@@ -1,6 +1,9 @@
+//get secrets
+var secrets = require('../config')[process.env.NODE_ENV].secrets;
+
 var User = require('mongoose').model('User')
   , mandrill = require('mandrill-api/mandrill')
-  , mandrill_client = new mandrill.Mandrill("FTszk9Xf9K7rTkapf_R2tQ") //grant's key
+  , mandrill_client = new mandrill.Mandrill(secrets.mandrill) //grant's key
   ;
 
 exports.list = function(req, res) {
