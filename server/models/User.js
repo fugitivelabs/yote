@@ -1,7 +1,9 @@
 var mongoose = require('mongoose')
   , crypto = require('crypto')
+  //get secrets
+  , secrets = require('../config')[process.env.NODE_ENV].secrets
   , jwt = require('jwt-simple')
-  , tokenSecret = "OGTEqmCKruCW3i5upqMD" //generate your own randomized token here.
+  , tokenSecret = secrets.tokenSecret //generate your own randomized token here.
   ;
 
 //define user schema

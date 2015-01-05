@@ -49,7 +49,7 @@ app.use(session({
     host: config.redis.host
     , port: config.redis.port
   })
-  , secret: 'fugitive all up in your labs' //don't actually use this in a production application
+  , secret: config.secrets.sessionSecret //don't actually use this in a production application
 }));
 app.use(favicon(path.join(__dirname, 'public','favicon.ico'))); 
 app.use(passport.initialize());
