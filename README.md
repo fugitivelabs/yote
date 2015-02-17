@@ -38,3 +38,13 @@ to run the image and link it. more details later.
 extras:
 run mongo console on mongo image
 "docker run -it --rm --link mongodb:mongodb dockerfile/mongodb bash -c 'mongo --host mongodb'"
+
+
+
+
++
++more new notes (add these to yote at some point):
++view free space on instance
++"df -h"
++remove all unused images from docker (cleared ~3 gigs of disk space, related to problem with daves)
++"sudo docker rmi $(sudo docker images -q -f dangling=true)"
