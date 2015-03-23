@@ -112,8 +112,7 @@ code {
 
 
 .hero {
-
-  @include display-flex;
+  @extend %container;
 
   h1 {
     @include type-jumbo;
