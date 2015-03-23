@@ -167,9 +167,7 @@ if(app.get('env') == 'production' || useHttps) {
   //need to catch for all http requests and redirect to httpS
   var http = require('http');
   if(httpsOptional) {
-    // require('http').createServer(app).listen(3030);
-    }, app).listen(80);
-
+    require('http').createServer(app).listen(80);
   } else {
     require('http').createServer(function(req, res) {
       console.log("REDIRECTING TO HTTPS");
