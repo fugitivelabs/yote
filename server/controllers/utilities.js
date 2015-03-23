@@ -16,9 +16,9 @@ exports.sendEmail = function(targets, subject, content, callback) {
     , auto_html: true
     , preserve_recipients: true
     , view_content_link: true
-    , signing_domain: "rostrs.com"
-    , from_email: "spots@rostrs.com"
-    , from_name: "Rostr"
+    , signing_domain: "fugitivelabs.com"
+    , from_email: "accounts@fugitivelabs.com"
+    , from_name: "Fugitive Labs"
     , to: []
     , subject: subject
     , html: content
