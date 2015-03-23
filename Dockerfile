@@ -5,6 +5,8 @@ MAINTAINER grant@fugitivelabs.com
 #update and install dependencies
 RUN apt-get update && apt-get install -y nodejs nodejs-legacy npm git
 
+#TODO: in the (future) yote cli "build" command, set the folder named "yote" to the actual project name.
+
 #add app source code
 ADD / ./yote
 # only ONE npm module (node-sass) compiles differently on mac vs linux.

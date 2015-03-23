@@ -2,8 +2,7 @@
 var secrets = require('../config')[process.env.NODE_ENV].secrets;
 
 var User = require('mongoose').model('User')
-  , mandrill = require('mandrill-api/mandrill')
-  , mandrill_client = new mandrill.Mandrill(secrets.mandrill) //grant's key
+  , utilitiesCtrl = require('./utilities')
   ;
 
 exports.list = function(req, res) {
@@ -175,31 +174,15 @@ exports.requestPasswordReset = function(req, res) {
         } else {
           //send user an email with their reset link.
           console.log("creating password reset email");
+          var targets = [user.username];
           var resetUrl = "http://localhost:3030/user/resetpassword/" + user.resetPasswordHex;
-          var message = {};
-          message.html = "";
-          message.html += "<h1> You have requested a password reset for Fugitive Labs YOTE.</h1>";
-          message.html += "<p> You reset link will be active for 24 hours. ";
-          message.html += "If you believe you received this email by mistake, please call (919) 414-4801 and ask for Zabajone.</p>";
-          message.html += "<br><p>" + resetUrl + " Reset YOTE Password</p>";
+          var html = "<h1> You have requested a password reset for your Fugitive Labs YOTE account.</h1>";
+          html += "<p> You reset link will be active for 24 hours. ";
+          html += "If you believe you received this email by mistake, please call (919) 414-4801 and ask for Zabajone.</p>";
+          html += "<br><p>" + resetUrl + " Reset Rostr Password</p>";
 
-          message.from_email = "accounts@fugitivelabs.com";
-          message.from_name = "fugitivelabs.com";
-
-          message.to = [{
-            "email": user.username
-            , "name": user.firstName + " " + user.lastName
-            , "type": "to"
-          }];
-          message.auto_text = true;
-          var async = false;
-          mandrill_client.messages.send({"message": message, "async":async}, function (result) {
-            console.log(result);
-            console.log("success: send user email");
-            res.send({success: true, result: result});
-          }, function(e){
-            res.send({success: false, error: e});
-            console.log("A mandrill error occured: " + e.name + ' - ' + e.message);
+          utilitiesCtrl.sendEmail(targets, "Your Password for YOTE", html, function(data) {
+            res.send({success: true, message: data.message});
           });
         }
       });

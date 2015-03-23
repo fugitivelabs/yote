@@ -40,7 +40,21 @@ run mongo console on mongo image
 "docker run -it --rm --link mongodb:mongodb dockerfile/mongodb bash -c 'mongo --host mongodb'"
 
 
+USING HTTPS WITH YOTE
+Yote comes out of the box with support for SSL. To use, do the following:
+1) generate the necessary files on your local machine. there are plenty of guides online on how to do this. you will need three files, a .key and 2 .crt.
+2) create a "ssl" folder in your yote directory and copy these files there.
+3) in yote.js, change the 3 lines "key: fs.readFileSync('../projectName/ssl/yourSsl.key')" near the bottom so that "projectName" matches your project folder name and "yourSsl" is the name of your key files. 
+4) change te "useHttps" variable to true.
+Now, once you run Yote in production mode, it will allow users to connect with https. If you want to force users to ONLY connect with https, change the "httpsOptional" variable to false. (todo: put these vars in the config file)
+(important note: update your docker file when you create a new project that uses https. you will need to change the folder from "/yote/*" to your project name)
 
+TO RUN WITH HTTPS IN PRODUCTION INSTANCE
+docker run -p 80:80 -p 443:443 -t -i --link redis:redis --link mongodb:mongodb --name NAME -e NODE_ENV=production fugitive
+bs/NAME
+
+EMAIL
+to send emails, use the "utilities" controller. an example of its use is users controller "requestPasswordReset" method. if you do not have a mandrill api key, the call will still return but will not send an email.
 
 +
 +more new notes (add these to yote at some point):
