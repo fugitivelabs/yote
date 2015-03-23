@@ -1,21 +1,17 @@
-//- try me 
-//- .rightBar(ng-controller="NavCtrl") 
+//- try me
+//- .rightBar(ng-controller="NavCtrl")
 .leftBar(ng-controller="NavCtrl")
-  .content.fixed.admin-menu(yt-row="space-between center-vert")
+  .content
     a.navLogo(href="/") Yote
-    h4 Site Resources 
-    ul.navList.-vert
-
-      li(ui-sref-active="active")  
+    ul
+      li(ui-sref-active="active")
         a(ui-sref="admin.style") Style Guide
-      li(ui-sref-active="active")  
-        a(ui-sref="admin.users") Users 
-
-    ul.navList.-vert  
-      li(ui-sref-active="active") 
+      li(ui-sref-active="active")
+        a(ui-sref="admin.users") Users
+      li(ui-sref-active="active")
         a(ui-sref="user.logout") Logout
 
-//- try me 
+//- try me
 //- section.main.with-rightbar(yt-container)
 section.main.with-leftbar(yt-container)
   ui-view

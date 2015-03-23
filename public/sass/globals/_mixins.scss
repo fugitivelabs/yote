@@ -50,6 +50,22 @@
           transform: $attrs;
 }
 
+@mixin rotate ($deg) {
+  @include transform(rotate(#{$deg}deg));
+}
+
+@mixin scale($scale) {
+   @include transform(scale($scale));
+}
+
+@mixin translate ($x, $y) {
+   @include transform(translate($x, $y));
+}
+
+@mixin skew ($x, $y) {
+   @include transform(skew(#{$x}deg, #{$y}deg));
+}
+
 @mixin transition($attrs) {
   -webkit-transition: $attrs;
      -moz-transition: $attrs;
