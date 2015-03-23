@@ -1,7 +1,6 @@
 // Navigation
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
-
 $sidenav-width:         200px;
 $sidenav-bg-color:      $bg-color;
 $sidenav-color:         $text-color;
@@ -176,12 +175,6 @@ $sidenav-color:         $text-color;
     @include type-large;
   }
 }
-
-
-[yt-layout~="leftBar"] {
-
-}
-
 
 // Navigation: Desktop ——————————————————————— •
 // ——————————————————————————————————————————— •
