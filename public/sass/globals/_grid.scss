@@ -6,9 +6,10 @@
 // http://philipwalton.github.io/solved-by-flexbox/demos/grids/
 
 
-$small-screen:          680px;
-$medium-screen:         920px;
-$large-screen:          1120px;
+$small-screen:          640px;
+$medium-screen:         768px;
+$large-screen:          960px;
+
 $sidenav-width:         200px;
 $container-width:       960px;
 
@@ -33,7 +34,13 @@ $gutter: $gutter-width * 0.5;
   &.with-leftbar {
     @include flex(1);
     padding: 10px;
-    padding-left: $sidenav-width+10px;
+    padding-top: 60px;
+
+    @include MQ(S) {
+      padding-top: 10px;
+      padding-left: $sidenav-width+10px;
+
+    }
   }
   &.with-topbar {
     @include column-size(100%);

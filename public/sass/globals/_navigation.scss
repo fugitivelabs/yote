@@ -9,44 +9,150 @@ $sidenav-color:         $text-color;
 %horiz                  { display: inline-block; }
 %vert                   { display: block; }
 
-.burger {
-  span {
-    cursor: pointer;
-    height: 4px;
-    border-radius: 3px;
-    width: 30px;
-    background: white;
-    position: absolute;
-    right: 1rem;
-    display: block;
-    content: '';
-    transition: all 500ms ease-in-out;
 
-    &:before,&:after {
-      cursor: pointer;
-      height: 4px;
-      border-radius: 3px;
-      width: 30px;
-      background: white;
-      position: absolute;
-      display: block;
+
+.navTrigger {
+  position: fixed;
+  left: 10px;
+  top: 10px;
+  height: 54px;
+  width: 54px;
+  background-color: #3A3042;
+  border-radius: 50%;
+  @include zIndex-9;
+  overflow: hidden;
+  text-indent: 100%;
+  white-space: nowrap;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s 0.6s, visibility 0s 0.9s;
+  @include transition(transform 0.7s - 0.2s);
+
+  .navBurger {
+    position: absolute;
+    @include center;
+    width: 26px;
+    height: 2px;
+    background-color: #F3F9D2;
+
+    &::before, &:after {
       content: '';
-      transition: all 500ms ease-in-out;
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      background-color: inherit;
+
+      /* Force Hardware Acceleration in WebKit */
+      @include transform(translateZ(0));
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+
+      // @include transition(transform 0.7s, width 0.7s, top .3s);
     }
-    &:before { top: -10px; }
-    &:after { bottom: -10px; }
+
+    &::before {
+      @include transform-origin(right top);
+      @include transform(translateY(-8px));
+    }
+
+    &::after {
+      @include transform-origin(right bottom);
+      @include transform(translateY(8px));
+    }
   }
 
-  &.active {
-    span {
-      background-color: transparent;
+  .no-touch &:hover .navBurger::after {
+    top: 2px;
+  }
 
-      &:before, &:after {  top: 0; }
-      &:before { transform: rotate(45deg); }
-      &:after { transform: rotate(-45deg); }
+  .no-touch &:hover .navBurger::before {
+    top: -2px;
+  }
+
+  svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  circle {
+    @include transition(stroke-dashoffset 0.4s 0s);
+  }
+
+  .openLeftBar & {
+    @include transform(rotate(180deg));
+
+    .navBurger::after,
+    .navBurger::before {
+      width: 50%;
+      // @include transition(transform 0.5s, width 0.7s 0.5s);
     }
+
+    .navBurger::before {
+      @include transform(rotate(45deg));
+    }
+
+    .navBurger::after {
+      @include transform(rotate(-45deg));
+    }
+
+    .no-touch &:hover .navBurger::after,
+    .no-touch &:hover .navBurger::before {
+      top: 0;
+    }
+
+    circle {
+      stroke-dashoffset: 0;
+      // @include transition(stroke-dashoffset 0.4s 0.3s);
+    }
+  }
+
+  @include MQ(S) {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.1s 0s, visibility 0s 0s;
   }
 }
+// .burger {
+//   span {
+//     cursor: pointer;
+//     height: 4px;
+//     border-radius: 3px;
+//     width: 30px;
+//     background: white;
+//     position: absolute;
+//     right: 1rem;
+//     display: block;
+//     content: '';
+//     transition: all 500ms ease-in-out;
+
+//     &:before,&:after {
+//       cursor: pointer;
+//       height: 4px;
+//       border-radius: 3px;
+//       width: 30px;
+//       background: white;
+//       position: absolute;
+//       display: block;
+//       content: '';
+//       transition: all 500ms ease-in-out;
+//     }
+//     &:before { top: -10px; }
+//     &:after { bottom: -10px; }
+//   }
+
+//   &.active {
+//     span {
+//       background-color: transparent;
+
+//       &:before, &:after {  top: 0; }
+//       &:before { transform: rotate(45deg); }
+//       &:after { transform: rotate(-45deg); }
+//     }
+//   }
+// }
 
 .topBar {
   @include flex-direction(row);
