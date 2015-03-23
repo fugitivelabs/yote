@@ -1,5 +1,3 @@
-//- try me
-//- .rightBar(ng-controller="NavCtrl")
 .leftBar(ng-controller="NavCtrl", ng-class="{open: openLeftBar}")
   .content
     a.navLogo(href="/") Yote
@@ -16,7 +14,6 @@ a.navTrigger(ng-click="openLeftBar=!openLeftBar")
   svg(x="0px" y="0px" width="54px" height="54px" viewBox="0 0 54 54")
     circle(fill="transparent" stroke="#656e79" stroke-width="1" cx="27" cy="27" r="25" stroke-dasharray="157 157" stroke-dashoffset="157")
 
-//- try me
-//- section.main.with-rightbar(yt-container)
+
 section.main.with-leftbar
   ui-view
