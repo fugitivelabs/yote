@@ -81,7 +81,7 @@ $sidenav-color:         $text-color;
     @include transition(stroke-dashoffset 0.4s 0s);
   }
 
-  .openLeftBar & {
+  &.openLeftBar {
     @include transform(rotate(180deg));
 
     .navBurger::after,
@@ -105,7 +105,7 @@ $sidenav-color:         $text-color;
 
     circle {
       stroke-dashoffset: 0;
-      // @include transition(stroke-dashoffset 0.4s 0.3s);
+      @include transition(stroke-dashoffset 0.4s 0.3s);
     }
   }
 

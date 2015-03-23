@@ -9,7 +9,7 @@
       li(ui-sref-active="active")
         a(ui-sref="user.logout") Logout
 
-a.navTrigger(ng-click="openLeftBar=!openLeftBar")
+a.navTrigger(ng-click="openLeftBar=!openLeftBar", ng-class="{openLeftBar: openLeftBar}")
   span.navBurger
   svg(x="0px" y="0px" width="54px" height="54px" viewBox="0 0 54 54")
     circle(fill="transparent" stroke="#656e79" stroke-width="1" cx="27" cy="27" r="25" stroke-dasharray="157 157" stroke-dashoffset="157")
