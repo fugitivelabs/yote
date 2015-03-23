@@ -84,7 +84,7 @@
   background-color: #fff;
 }
 
-// Tiles 
+// Tiles
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
 .tile {
@@ -110,6 +110,16 @@ code {
   }
 }
 
+
+.hero {
+
+  @include display-flex;
+
+  h1 {
+    @include type-jumbo;
+  }
+
+}
 
 
 
