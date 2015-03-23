@@ -17,7 +17,7 @@ $sidenav-color:         $text-color;
   top: 10px;
   height: 54px;
   width: 54px;
-  background-color: #3A3042;
+  background-color: $brand-primary;
   border-radius: 50%;
   @include zIndex-9;
   overflow: hidden;
@@ -33,7 +33,7 @@ $sidenav-color:         $text-color;
     @include center;
     width: 26px;
     height: 2px;
-    background-color: #F3F9D2;
+    background-color: $link-color;
 
     &::before, &:after {
       content: '';
@@ -221,15 +221,25 @@ $sidenav-color:         $text-color;
   position: fixed;
   top: 0px;
   left: 0px;
+  transition: all 500ms ease-in-out;
   @include translate(-($sidenav-width), 0px);
-
-
 
   .content {
     width: 100%;
     position: fixed;
     max-height: 100vh;
     @include mobile-scroll;
+    padding-top: 60px;
+  }
+
+  &.open {
+    @include translate(0px, 0px);
+  }
+
+  @include MQ(S) {
+    .content {
+      padding-top: 0px;
+    }
   }
 }
 
