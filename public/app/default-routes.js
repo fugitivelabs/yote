@@ -24,7 +24,7 @@ angular.module('Yote')
     // first child of root. is the hompage. Empty url: '' signifies '/' + ''
     .state('root.home', {
       url: ''
-      , templateUrl: '/html/static/templates/index'
+      , templateUrl: '/html/static/templates/home'
       , controller: 'HomeCtrl'
     })
 
