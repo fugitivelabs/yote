@@ -152,7 +152,7 @@ app.use('/', router);
 //SSL
 //Yote comes out of the box with https support! Check the readme for instructions on how to use.
 var useHttps = false;
-var httpsOptional = true;
+var httpsOptional = false;
 
 if(app.get('env') == 'production' || useHttps) {
   console.log("starting prod dev server");
@@ -167,8 +167,7 @@ if(app.get('env') == 'production' || useHttps) {
   //need to catch for all http requests and redirect to httpS
   var http = require('http');
   if(httpsOptional) {
-    require('http').createServer(function(req, res) {
-      console.log("USING NORMAL HTTP");
+    // require('http').createServer(app).listen(3030);
     }, app).listen(80);
 
   } else {
