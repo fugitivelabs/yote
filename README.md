@@ -53,6 +53,9 @@ TO RUN WITH HTTPS IN PRODUCTION INSTANCE
 docker run -p 80:80 -p 443:443 -t -i --link redis:redis --link mongodb:mongodb --name NAME -e NODE_ENV=production fugitive
 bs/NAME
 
+EMAIL
+to send emails, use the "utilities" controller. an example of its use is users controller "requestPasswordReset" method. if you do not have a mandrill api key, the call will still return but will not send an email.
+
 +
 +more new notes (add these to yote at some point):
 +view free space on instance
