@@ -151,35 +151,42 @@ app.use('/', router);
 
 //SSL
 //Yote comes out of the box with https support! Check the readme for instructions on how to use.
-var useHttps = false; 
+var useHttps = false;
+var httpsOptional = true;
 
 if(app.get('env') == 'production' || useHttps) {
   console.log("starting prod dev server");
 
   require('https').createServer({
-      key: fs.readFileSync('../ppd-gsk-registry/ssl/ssl.key') //so it works on server and local
-      , cert: fs.readFileSync('../ppd-gsk-registry/ssl/853edcf2f749c712.crt')
-      , ca: [fs.readFileSync('../ppd-gsk-registry/ssl/gd_bundle-g2-g1.crt')] // godaddy splits certs into two
+      key: fs.readFileSync('../projectName/ssl/yourSsl.key') //so it works on server and local
+      , cert: fs.readFileSync('../projectName/ssl/yourCertFile.crt')
+      , ca: [fs.readFileSync('../projectName/ssl/yourCaFile.crt')] // godaddy splits certs into two
   // }, app).listen(9191);
   }, app).listen(443);
 
-
   //need to catch for all http requests and redirect to httpS
   var http = require('http');
-  require('http').createServer(function(req, res) {
-    console.log("TRYING TO REDIRECT TO HTTPS");
-    res.writeHead(302, {
-      'Location': 'https://bprgskportal.com:443' + req.url
-      // 'Location': 'https://localhost:9191' + req.url
-    });
-    res.end();
-  // }).listen(3030);
-  }).listen(80);
+  if(httpsOptional) {
+    require('http').createServer(function(req, res) {
+      console.log("USING NORMAL HTTP");
+    }, app).listen(80);
 
-  console.log('Yote is listening on port ' + 80 + 'and ' + 443 + '...');
+  } else {
+    require('http').createServer(function(req, res) {
+      console.log("REDIRECTING TO HTTPS");
+      res.writeHead(302, {
+        'Location': 'https://YOUR-URL.com:443' + req.url
+        // 'Location': 'https://localhost:9191' + req.url
+      });
+      res.end();
+    // }).listen(3030);
+    }).listen(80);
+  }
+
+  console.log('Yote is listening on port ' + 80 + ' and ' + 443 + '...');
 
 } else {
-  console.log("starting dev gsk-registry server");
+  console.log("starting yote dev server");
   require('http').createServer(app).listen(config.port);
   console.log('Yote is listening on port ' + config.port + '...');
 }
