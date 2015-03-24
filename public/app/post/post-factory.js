@@ -92,7 +92,7 @@ angular.module('Yote')
   PostFactory.getAndPopulate = function(id) {
     console.log("show post " + id + " in factory");
     var deferred = $q.defer();
-    $http.get(urlBase + '/populate/' + id)
+    $http.get(urlBase + '/' + id + '/populate')
       .success(function(data){
         console.log(data);
         deferred.resolve(data);

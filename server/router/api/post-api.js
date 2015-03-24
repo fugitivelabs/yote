@@ -15,7 +15,7 @@ module.exports = function(router, requireLogin, requireRole) {
   router.get('/api/posts'               , posts.list);
   router.get('/api/posts/search'        , posts.search);
   router.get('/api/posts/bySlug/:slug'  , posts.getBySlug);
-  router.get('/api/posts/populate/:id'  , posts.getAndPopulate);
+  router.get('/api/posts/:id/populate'  , posts.getAndPopulate);
   router.get('/api/posts/:id'           , posts.getById); 
 
   // - Update
