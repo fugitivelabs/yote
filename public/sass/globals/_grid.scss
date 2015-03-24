@@ -22,6 +22,12 @@ $gutter: $gutter-width * 0.5;
 // Layout
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
+%container {
+  max-width: $container-width;
+  margin: 0 auto;
+
+}
+
 .flex {
   @include display-flex;
   @include flex-direction(row);

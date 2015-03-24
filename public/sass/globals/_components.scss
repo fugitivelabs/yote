@@ -112,10 +112,15 @@ code {
 
 
 .hero {
-  @extend %container;
+  background-color: $grey-9;
+  padding: 100px 0px;
 
   h1 {
     @include type-jumbo;
+  }
+
+  .content {
+    @extend %container;
   }
 
 }
