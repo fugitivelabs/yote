@@ -35,7 +35,7 @@ angular.module('Yote')
     console.log('PostShowCtrl loaded...');
 
     //load post from state params
-    PostFactory.show($stateParams.slug)
+    PostFactory.getAndPopulate($stateParams.postId)
       .then(function(data){
         $scope.post = data.post;
       }, function(data){
@@ -67,7 +67,7 @@ angular.module('Yote')
     console.log('PostUpdateCtrl loaded');
     
     //load post from state params
-    PostFactory.show($stateParams.slug)
+    PostFactory.getAndPopulate($stateParams.postId)
       .then(function(data){
         $scope.post = data.post;
       }, function(data){

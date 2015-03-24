@@ -5,6 +5,9 @@ angular.module('Yote')
   
   $locationProvider.html5Mode(true);
 
+  // add a route to 404 page here
+  $urlRouterProvider.otherwise('/');
+
   $stateProvider
 
     /********************** 
@@ -13,18 +16,24 @@ angular.module('Yote')
 
     .state('static', {
       abstract: true
-      , url: '/static'
+      , url: '/'
       , templateUrl: '/html/static/templates/default-layout'
       , controller: 'StaticCtrl'
     })
 
+    .state('static.home', {
+      url: ''
+      , templateUrl: '/html/static/templates/index'
+      , controller: 'HomeCtrl'
+    })
+
     .state('static.about', {
-      url: '^/about'
+      url: '/about'
       , templateUrl: '/html/static/templates/about'
     })
 
     .state('static.faq', {
-      url: '^/frequently-asked-questions'
+      url: '/faq'
       , templateUrl: '/html/static/templates/faq'
     })
 

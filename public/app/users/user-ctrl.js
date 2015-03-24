@@ -20,7 +20,7 @@ angular.module('Yote')
             if($stateParams.next) {
               $state.go($stateParams.next, $rootScope.next.toParams);
             } else {
-              $state.go('root.home');
+              $state.go('static.home');
             }
           } else {
             alert(data.message + " Please try again.");
@@ -38,7 +38,7 @@ angular.module('Yote')
           //set root scope to user
           $rootScope.currentUser = {};
           console.log("Logged out");
-          $state.go('root.home');
+          $state.go('static.home');
         } else {
           alert(data.message + " Please try again.");
         }
@@ -57,7 +57,7 @@ angular.module('Yote')
             if($stateParams.next) {
               $state.go($stateParams.next, $rootScope.next.toParams);
             } else {
-              $state.go('root.home');
+              $state.go('static.home');
             }
           } else {
             alert(data.message + " Please try again.");
