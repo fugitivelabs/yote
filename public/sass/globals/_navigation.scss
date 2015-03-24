@@ -274,24 +274,6 @@ $sidenav-color:         $text-color;
   }
 }
 
-.normalNav {
-  display: none;
-}
-
-.mobileNav {
-  display: block;
-  width: 100%;
-  @include animateCss(250ms, 0s, 1);
-
-  li {
-    display: block;
-    text-align: center;
-    width: 100%;
-    padding: 20px;
-    @include type-large;
-  }
-}
-
 // Navigation: Desktop ——————————————————————— •
 // ——————————————————————————————————————————— •
 

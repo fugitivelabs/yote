@@ -3,7 +3,7 @@
     a.navLogo(href="/") yote
     a.burger(ng-class="{active: openMenu}", ng-click="openMenu = !openMenu")
       span
-    ul.navList.mobileNav.-vert(ng-show="openMenu" ng-class="{animated: openMenu, bounceInDown: openMenu}")
+    ul(ng-show="openMenu" ng-class="{animated: openMenu, bounceInDown: openMenu}")
       li
         a(ui-sref="static.about") About
       li
@@ -19,7 +19,7 @@
       li(ng-show="currentUser.username")
         a(ui-sref="user.logout") Logout
 
-    ul.navList.normalNav.-horiz
+    ul
       li
         a(ui-sref="static.about") About
       li
