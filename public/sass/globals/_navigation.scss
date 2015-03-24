@@ -245,31 +245,33 @@ $sidenav-color:         $text-color;
 
 .rightBar {
   @include flex-direction(column);
-  @include column-size($sidenav-width);
+  width: $sidenav-width;
   @include zIndex-8;
   min-height: 100vh;
   background-color: $brand-primary;
-  @include box-shadow(0px 6px 8px #888);
-  // padding: $gutter; // leave this up to the content
-  .content {
-    &.fixed {
-      position: fixed;
-      max-height: 100vh;
-      @include mobile-scroll;
-    }
-    width: $sidenav-width;
-    .navLogo {
-      @include type-jumbo;
-      padding: 1rem 0;
-      font-weight: 700;
-      color: $white;
-      display: block;
-      margin-bottom: $gutter;
-      text-shadow: 3px 2px 0px $brand-primary, 7px 6px 0px rgba(0, 0, 0, 0.15);
-    }
+  @include box-shadow(0px 6px 8px rgba(0,0,0,0.25));
+  padding: 10px;
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  transition: all 500ms ease-in-out;
+  @include translate($sidenav-width, 0px);
 
-    .navlist {
-      display: block;
+  .content {
+    width: 100%;
+    position: fixed;
+    max-height: 100vh;
+    @include mobile-scroll;
+    padding-top: 60px;
+  }
+
+  &.open {
+    @include translate(0px, 0px);
+  }
+
+  @include MQ(S) {
+    .content {
+      padding-top: 0px;
     }
   }
 }
@@ -279,6 +281,10 @@ $sidenav-color:         $text-color;
 
 @include responsive-break-point(640px) {
   .leftBar {
+    @include column-size($sidenav-width);
+    @include translate(0px, 0px);
+  }
+  .rightBar {
     @include column-size($sidenav-width);
     @include translate(0px, 0px);
   }
