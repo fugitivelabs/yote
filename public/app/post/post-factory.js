@@ -18,7 +18,6 @@ angular.module('Yote')
 *******************************************************************************************/
 
 .factory('PostFactory', ['$http', '$q', function($http, $q) {
-
   //define base url
   var urlBase = "/api/posts";
   //PostFactory object
@@ -76,10 +75,24 @@ angular.module('Yote')
 
   }
 
-  PostFactory.show = function(slug) {
-    console.log("show post " + slug + " in factory");
+  PostFactory.getById = function(id) {
+    console.log("show post " + id + " in factory");
     var deferred = $q.defer();
-    $http.get(urlBase + '/' + slug)
+    $http.get(urlBase + '/' + id)
+      .success(function(data){
+        console.log(data);
+        deferred.resolve(data);
+      }).error(function() {
+        console.log("error showing this post");
+        deferred.reject("error showing this post");
+      });
+    return deferred.promise;
+  }
+
+  PostFactory.getAndPopulate = function(id) {
+    console.log("show post " + id + " in factory");
+    var deferred = $q.defer();
+    $http.get(urlBase + '/' + id + '/populate')
       .success(function(data){
         console.log(data);
         deferred.resolve(data);
@@ -107,7 +120,7 @@ angular.module('Yote')
   PostFactory.update = function(postData) {
     console.log("updating a post in factory");
     var deferred = $q.defer();
-    $http.put(urlBase + "/" + postData.slug, postData)
+    $http.put(urlBase + "/" + postData._id, postData)
       .success(function(data) {
         console.log(data);
         deferred.resolve(data);

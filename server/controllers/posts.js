@@ -98,7 +98,20 @@ exports.search = function(req, res) {
 
 exports.getById = function(req, res) {
   console.log('get post by id');
-  Post.findOne({_id:req.params.id}).exec(function(err, post) {
+  Post.findById(req.params.id).exec(function(err, post) {
+    if(err) {
+      res.send({ success: false, message: err });
+    } else if(!post) {
+      res.send({ success: false, message: "no post found :(" });
+    } else {
+      res.send({ success: true, post: post });
+    }
+  });
+}
+
+exports.getAndPopulate = function(req, res) {
+  console.log('get post by id');
+  Post.findById(req.params.id).populate('author').exec(function(err, post) {
     if(err) {
       res.send({ success: false, message: err });
     } else if(!post) {
@@ -145,7 +158,7 @@ exports.create = function(req, res) {
 
 exports.update = function(req, res) {
   console.log("update post called");
-  Post.findOne({ slug: req.param('slug') }).exec(function(err, post) {
+  Post.findById(req.params.id).exec(function(err, post) {
     if(err) {
       res.send({ success: false, message: err });
     } else if(!post) {
@@ -174,7 +187,7 @@ exports.update = function(req, res) {
 
 exports.delete = function(req, res) {
   console.log("deleting post");
-  Post.findOne({ _id: req.param('id') }).remove(function(err) {
+  Post.findById(req.params.id).remove(function(err) {
     if(err) {
       res.send({ success: false, message: err });
     } else {
