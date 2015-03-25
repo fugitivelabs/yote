@@ -172,19 +172,22 @@ $sidenav-color:         $text-color;
   }
 
   .navLogo {
+
     display: inline-block;
-    padding: 1rem 0;
-    @include type-jumbo;
+    @include type-largest;
     color: $brand-primary;
     font-weight: 700;
-    text-shadow: 3px 2px 0px lighten($brand-primary, 20), 7px 6px 0px rgba(0, 0, 0, 0.15);
+    text-shadow: 2px 1px 0px lighten($brand-primary, 20), 4px 3px 0px rgba(0, 0, 0, 0.15);
+    &:before {
+      content: url("http://www.toicon.com/assets/fandom/vector/fandom_howl-a8d70801f1db115b758ed89d8e87d92b.svg");
+    }
   }
 
   li {
     display: inline-block;
     list-style: none;
-    margin: 5px;
-    padding: 5px;
+    margin: 0px 5px;
+    padding: 0px 5px;
     font-size: 20px;
   }
 }
