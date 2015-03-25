@@ -156,11 +156,10 @@ $sidenav-color:         $text-color;
 
 .topBar {
   @include flex-direction(row);
-
   @include column-size(100%);
   @include zIndex-8;
   padding: 1rem;
-  background-color: $brand-primary;
+  background-color: $white;
   @include box-shadow(0px 4px 8px #888);
   transition: all 500ms ease-in-out;
 
@@ -176,9 +175,17 @@ $sidenav-color:         $text-color;
     display: inline-block;
     padding: 1rem 0;
     @include type-jumbo;
-    color: $white;
+    color: $brand-primary;
     font-weight: 700;
-    text-shadow: 3px 2px 0px $brand-primary, 7px 6px 0px rgba(0, 0, 0, 0.15);
+    text-shadow: 3px 2px 0px lighten($brand-primary, 20), 7px 6px 0px rgba(0, 0, 0, 0.15);
+  }
+
+  li {
+    display: inline-block;
+    list-style: none;
+    margin: 5px;
+    padding: 5px;
+    font-size: 20px;
   }
 }
 
