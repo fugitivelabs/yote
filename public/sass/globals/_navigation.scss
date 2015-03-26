@@ -10,6 +10,15 @@ $sidenav-color:         $text-color;
 %vert                   { display: block; }
 
 
+.navBar {
+  width: 100%;
+  padding: 1rem 0px;
+
+  .navLogo {
+    display: inline-block;
+    @include type-large;
+  }
+}
 
 .navTrigger {
   position: fixed;
