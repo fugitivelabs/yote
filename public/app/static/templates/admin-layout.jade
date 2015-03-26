@@ -1,21 +1,19 @@
-//- try me 
-//- .rightBar(ng-controller="NavCtrl") 
-.leftBar(ng-controller="NavCtrl")
-  .content.fixed.admin-menu(yt-row="space-between center-vert")
-    a.navLogo(href="/") Yote
-    h4 Site Resources 
-    ul.navList.-vert
-
-      li(ui-sref-active="active")  
-        a(ui-sref="admin.style") Style Guide
-      li(ui-sref-active="active")  
-        a(ui-sref="admin.users") Users 
-
-    ul.navList.-vert  
-      li(ui-sref-active="active") 
+.leftBar(ng-controller="NavCtrl", ng-class="{open: openLeftBar}")
+  .content
+    a.navLogo(href="/") yote
+    ul
+      li
+        a(ui-sref="admin.style", ui-sref-active="active") Style Guide
+      li
+        a(ui-sref="admin.users", ui-sref-active="active") Users
+      li
         a(ui-sref="user.logout") Logout
 
-//- try me 
-//- section.main.with-rightbar(yt-container)
-section.main.with-leftbar(yt-container)
+a.navTrigger(ng-click="openLeftBar=!openLeftBar", ng-class="{openLeftBar: openLeftBar}")
+  span.navBurger
+  svg(x="0px" y="0px" width="54px" height="54px" viewBox="0 0 54 54")
+    circle(fill="transparent" stroke="#656e79" stroke-width="1" cx="27" cy="27" r="25" stroke-dasharray="157 157" stroke-dashoffset="157")
+
+
+section.main.with-leftbar
   ui-view

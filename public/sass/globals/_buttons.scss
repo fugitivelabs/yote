@@ -9,7 +9,7 @@
   color: $white;
   border: none;
   border-radius: 2px;
-  padding: .5em 1em;
+  padding: .3em 1em;
   position: relative;
   transition: background-color .15s ease;
 
@@ -27,12 +27,6 @@
     color: $white;
   }
 
-  // disabled buttons
-  // markup can include
-  //    <button yt-button disabled>...</button>
-  //    <button yt-button class="disabled">...</button>
-  //    <button yt-button ng-disabled>...</button>
-  //    <button yt-button ng-class="disabled">...</button>
   &.disabled,
   &[disabled] {
     pointer-events: none;
@@ -213,11 +207,4 @@
   }
 }
 
-
-/* Custom Button Styling
-  ••••••••••••••••••••••••••••••••••••••••••••••••••
-
-  use css attribute selector syntax for the buttons.
-
-*/
 

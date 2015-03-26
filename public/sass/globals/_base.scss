@@ -75,7 +75,7 @@ h6 {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  margin-bottom: .7em;
+  margin-bottom: .4em;
 }
 
 small {
@@ -88,6 +88,8 @@ em {
 
 p {
   @include type-base;
+  margin: 0px;
+  margin-bottom: .3em;
 }
 
 u {

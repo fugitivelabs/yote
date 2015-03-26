@@ -108,21 +108,19 @@
   }
 }
 
-.typography{
-  .typeTogglers {
-    .toggler {
-      text-align: center;
-      label {
-        display: block;
-        @include type-small;
-      }
 
-      select {
-        width: 100%;
-      }
-    }
+.toggler {
+  text-align: center;
+  label {
+    display: block;
+    @include type-small;
+  }
+
+  select {
+    width: 100%;
   }
 }
+
 
 .buttons {
 

@@ -2,7 +2,7 @@ angular.module('Yote')
 
 .config(function($routeProvider, $locationProvider, $stateProvider, $urlRouterProvider){
   console.log('configure ui router - static');
-  
+
   $locationProvider.html5Mode(true);
 
   // add a route to 404 page here
@@ -10,7 +10,7 @@ angular.module('Yote')
 
   $stateProvider
 
-    /********************** 
+    /**********************
     *  Static Routes
     ***********************/
 
@@ -23,7 +23,7 @@ angular.module('Yote')
 
     .state('static.home', {
       url: ''
-      , templateUrl: '/html/static/templates/index'
+      , templateUrl: '/html/static/templates/home'
       , controller: 'HomeCtrl'
     })
 

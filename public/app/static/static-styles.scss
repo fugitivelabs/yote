@@ -1,3 +1,6 @@
-//nav.navBar .navLogo {
-//  color: orange;
-//}
+.about {
+  @extend %container;
+}
+.faq {
+  @extend %container;
+}

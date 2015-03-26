@@ -6,13 +6,14 @@
 // http://philipwalton.github.io/solved-by-flexbox/demos/grids/
 
 
-$small-screen: 680px;
-$medium-screen: 920px;
-$large-screen: 1120px;
+$small-screen:          640px;
+$medium-screen:         768px;
+$large-screen:          960px;
 
-$container-width: 960px;
+$sidenav-width:         200px;
+$container-width:       960px;
 
-$gutter-width: 40px;
+$gutter-width:          40px;
 
 $gutter: $gutter-width * 0.5;
 
@@ -20,6 +21,16 @@ $gutter: $gutter-width * 0.5;
 
 // Layout
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+%container {
+  max-width: $container-width;
+  margin: 0 auto;
+  padding: 0px $gutter;
+
+  @include MQ(L) {
+    padding: 0px;
+  }
+}
 
 .flex {
   @include display-flex;
@@ -29,9 +40,17 @@ $gutter: $gutter-width * 0.5;
 
 .main {
   @include flex-direction(column);
-  
+
   &.with-leftbar {
     @include flex(1);
+    padding: 10px;
+    padding-top: 60px;
+
+    @include MQ(S) {
+      padding-top: 10px;
+      padding-left: $sidenav-width+10px;
+
+    }
   }
   &.with-topbar {
     @include column-size(100%);
