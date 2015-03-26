@@ -4,36 +4,6 @@
 $font-sans: "Trebuchet MS", Helvetica, sans-serif;
 $font-serif: Georgia, Times, serif;
 
-// Font Sizing
-// ••••••••••••••••••••••••••••••••••••••••••••••••••
-@mixin type-micro {
-  font-size: .1rem;
-}
-@mixin type-smallest {
-  font-size: .3rem;
-}
-@mixin type-smaller {
-  font-size: .5rem;
-}
-@mixin type-small {
-  font-size: .7rem;
-}
-@mixin type-base {
-  font-size: 1rem;
-}
-@mixin type-large {
-  font-size: 1.3rem;
-}
-@mixin type-larger {
-  font-size: 1.5rem;
-}
-@mixin type-largest {
-  font-size: 1.7rem;
-}
-@mixin type-jumbo {
-  font-size: 3rem;
-}
-
 // Line Heights
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 @mixin lineHeight-tightest {
@@ -78,6 +48,39 @@ $font-serif: Georgia, Times, serif;
 @mixin letterSpacing-looser {
   letter-spacing: 2px;
 }
+
+// Font Sizing
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+@mixin type-micro {
+  font-size: .1rem;
+}
+@mixin type-smallest {
+  font-size: .3rem;
+}
+@mixin type-smaller {
+  font-size: .5rem;
+}
+@mixin type-small {
+  font-size: .7rem;
+}
+@mixin type-base {
+  font-size: 1rem;
+}
+@mixin type-large {
+  font-size: 1.3rem;
+}
+@mixin type-larger {
+  font-size: 1.5rem;
+}
+@mixin type-largest {
+  font-size: 1.7rem;
+  @include lineHeight-loose;
+}
+@mixin type-jumbo {
+  font-size: 3rem;
+  @include lineHeight-looser;
+}
+
 
 // Type Treatment
 // ••••••••••••••••••••••••••••••••••••••••••••••••••

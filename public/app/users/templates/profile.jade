@@ -1,18 +1,16 @@
-h1 My Profile
 
-p Email Address
-input(type="email" ng-model="user.username")
-p First Name
-input(type="text" ng-model="user.firstName")
-p Last Name
-input(type="text" ng-model="user.lastName")
-p MORE FIELDS HERE IF WE DECIDE WE WANT MORE IN THE USER MODEL
-p TODO: validation
-br
-br
-button(yt-btn type="button" ng-click="updateProfile(user)") Update My Profile
+.userProfile
+  h1 My Profile
 
-br
-br
-br
-a(yt-btn ui-sref="user.password") Change My Password
+  p Email Address
+  input(type="email" ng-model="user.username")
+  p First Name
+  input(type="text" ng-model="user.firstName")
+  p Last Name
+  input(type="text" ng-model="user.lastName")
+
+  p TODO: validation
+
+  button(yt-btn type="button" ng-click="updateProfile(user)") Update My Profile
+
+  a(ui-sref="user.password") Change My Password

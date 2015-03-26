@@ -1,12 +1,12 @@
 .leftBar(ng-controller="NavCtrl", ng-class="{open: openLeftBar}")
   .content
-    a.navLogo(href="/") Yote
+    a.navLogo(href="/") yote
     ul
-      li(ui-sref-active="active")
-        a(ui-sref="admin.style") Style Guide
-      li(ui-sref-active="active")
-        a(ui-sref="admin.users") Users
-      li(ui-sref-active="active")
+      li
+        a(ui-sref="admin.style", ui-sref-active="active") Style Guide
+      li
+        a(ui-sref="admin.users", ui-sref-active="active") Users
+      li
         a(ui-sref="user.logout") Logout
 
 a.navTrigger(ng-click="openLeftBar=!openLeftBar", ng-class="{openLeftBar: openLeftBar}")

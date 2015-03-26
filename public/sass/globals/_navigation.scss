@@ -159,6 +159,20 @@ $sidenav-color:         $text-color;
   }
 }
 
+.navLogo {
+  display: inline-block;
+  @include type-largest;
+  color: $brand-primary;
+  font-weight: 700;
+  text-shadow: 2px 1px 0px lighten($brand-primary, 20), 4px 3px 0px rgba(0, 0, 0, 0.15);
+  &:before {
+    content: url("http://www.toicon.com/assets/fandom/vector/fandom_howl-a8d70801f1db115b758ed89d8e87d92b.svg");
+  }
+  &:visited {
+    color: $brand-primary;
+  }
+}
+
 .topBar {
   @include flex-direction(row);
   @include column-size(100%);
@@ -174,17 +188,6 @@ $sidenav-color:         $text-color;
 
   &.-fixed {
     @extend %nav--fixed;
-  }
-
-  .navLogo {
-    display: inline-block;
-    @include type-largest;
-    color: $brand-primary;
-    font-weight: 700;
-    text-shadow: 2px 1px 0px lighten($brand-primary, 20), 4px 3px 0px rgba(0, 0, 0, 0.15);
-    &:before {
-      content: url("http://www.toicon.com/assets/fandom/vector/fandom_howl-a8d70801f1db115b758ed89d8e87d92b.svg");
-    }
   }
 
   ul {
@@ -250,14 +253,21 @@ $sidenav-color:         $text-color;
   width: $sidenav-width;
   @include zIndex-8;
   min-height: 100vh;
-  background-color: $brand-primary;
+  background-color: $brand-secondary;
   @include box-shadow(0px 6px 8px rgba(0,0,0,0.25));
-  padding: 10px;
   position: fixed;
   top: 0px;
   left: 0px;
   transition: all 500ms ease-in-out;
   @include translate(-($sidenav-width), 0px);
+
+  .navLogo {
+    @include type-large;
+    display: block;
+    text-align: center;
+    color: transparent;
+    text-shadow: none;
+  }
 
   .content {
     width: 100%;
@@ -265,6 +275,23 @@ $sidenav-color:         $text-color;
     max-height: 100vh;
     @include mobile-scroll;
     padding-top: 60px;
+  }
+
+  ul {
+    padding: 10px;
+
+    a {
+      color: $brand-primary;
+      @include type-large;
+      font-weight: bold;
+      margin-bottom: 10px;
+      display: block;
+
+      &.active {
+        background-color: $brand-primary;
+        color: $brand-secondary;
+      }
+    }
   }
 
   &.open {

@@ -25,7 +25,11 @@ $gutter: $gutter-width * 0.5;
 %container {
   max-width: $container-width;
   margin: 0 auto;
+  padding: 0px $gutter;
 
+  @include MQ(L) {
+    padding: 0px;
+  }
 }
 
 .flex {
