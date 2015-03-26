@@ -9,17 +9,6 @@ $sidenav-color:         $text-color;
 %horiz                  { display: inline-block; }
 %vert                   { display: block; }
 
-
-.navBar {
-  width: 100%;
-  padding: 1rem 0px;
-
-  .navLogo {
-    display: inline-block;
-    @include type-large;
-  }
-}
-
 .navTrigger {
   position: fixed;
   left: 10px;
@@ -124,44 +113,51 @@ $sidenav-color:         $text-color;
     transition: opacity 0.1s 0s, visibility 0s 0s;
   }
 }
-// .burger {
-//   span {
-//     cursor: pointer;
-//     height: 4px;
-//     border-radius: 3px;
-//     width: 30px;
-//     background: white;
-//     position: absolute;
-//     right: 1rem;
-//     display: block;
-//     content: '';
-//     transition: all 500ms ease-in-out;
 
-//     &:before,&:after {
-//       cursor: pointer;
-//       height: 4px;
-//       border-radius: 3px;
-//       width: 30px;
-//       background: white;
-//       position: absolute;
-//       display: block;
-//       content: '';
-//       transition: all 500ms ease-in-out;
-//     }
-//     &:before { top: -10px; }
-//     &:after { bottom: -10px; }
-//   }
+.burger {
+  display: inline-block;
 
-//   &.active {
-//     span {
-//       background-color: transparent;
+  @include MQ(M) {
+    display: none;
+  }
 
-//       &:before, &:after {  top: 0; }
-//       &:before { transform: rotate(45deg); }
-//       &:after { transform: rotate(-45deg); }
-//     }
-//   }
-// }
+  span {
+    cursor: pointer;
+    height: 4px;
+    border-radius: 3px;
+    width: 30px;
+    background: $brand-primary;
+    position: absolute;
+    right: 1rem;
+    display: block;
+    content: '';
+    transition: all 500ms ease-in-out;
+
+    &:before,&:after {
+      cursor: pointer;
+      height: 4px;
+      border-radius: 3px;
+      width: 30px;
+      background: $brand-primary;
+      position: absolute;
+      display: block;
+      content: '';
+      transition: all 500ms ease-in-out;
+    }
+    &:before { top: -10px; }
+    &:after { bottom: -10px; }
+  }
+
+  &.active {
+    span {
+      background-color: transparent;
+
+      &:before, &:after {  top: 0; }
+      &:before { transform: rotate(45deg); }
+      &:after { transform: rotate(-45deg); }
+    }
+  }
+}
 
 .topBar {
   @include flex-direction(row);
@@ -181,7 +177,6 @@ $sidenav-color:         $text-color;
   }
 
   .navLogo {
-
     display: inline-block;
     @include type-largest;
     color: $brand-primary;
@@ -192,12 +187,33 @@ $sidenav-color:         $text-color;
     }
   }
 
+  ul {
+    display: none;
+    width: 100%;
+    text-align: center;
+    margin: 10px 0px;
+
+    &.openMenu {
+      display: block;
+    }
+
+    @include MQ(M) {
+      width: auto;
+      text-align: right;
+      display: inline-block;
+    }
+  }
+
   li {
-    display: inline-block;
+    display: block;
     list-style: none;
-    margin: 0px 5px;
-    padding: 0px 5px;
+    margin: 15px 5px;
+    padding: 0px 10px;
     font-size: 20px;
+
+    @include MQ(M) {
+      display: inline-block;
+    }
   }
 }
 

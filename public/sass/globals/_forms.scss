@@ -24,98 +24,96 @@ $formTextColor: $text-color;
 form {
   margin: 0 auto;
 
-  .input-group {
-    position: relative;
-    display: inline-block;
-    vertical-align: top;
-    width: 100%;
-    @include type-base;
-
-    label {
-      display: block;
-      @include type-small;
-      overflow-wrap: break-word;
-    }
-
-    a {
-      &.forgot {
-        position: absolute;
-        @include type-small;
-        top: 0px;
-        right: 0px;
-      }
-    }
-
-    input {
-      margin-bottom: 1em;
-      width: 100%;
-      padding: 8px 6px;
-      outline: none;
-      border: 2px solid $grey;
-      background-color: darken($formContainerColor, 3);
-      border-radius: 4px;
-      transition: all 0.5s ease;
-
-      &:focus {
-        border: 2px solid $formAccentColor;
-      }
-
-      &[type="radio"] {
-        display: inline-block;
-        width: 20px;
-        margin-right: 3px;
-      }
-
-      &[type="radio"]+label {
-        margin-right: 20px;
-        display: inline-block;
-      }
-      &[type="checkbox"] {
-        display: inline-block;
-        width: 20px;
-        margin-right: 3px;
-      }
-
-      &[type="checkbox"]+label {
-        margin-right: 20px;
-        display: inline-block;
-      }
-
-    }
-
-    select {
-      background-color: darken($formContainerColor, 3);
-      width: 100%;
-      margin-bottom: 1em;
-      padding: 8px 6px;
-      border: 2px solid $grey;
-      @include lineHeight-looser;
-
-      &:focus {
-        border: 2px solid $formAccentColor;
-      }
-    }
-
-
-
-    textarea {
-      background-color: darken($formContainerColor, 3);
-      width: 100%;
-      margin-bottom: 1em;
-      padding: 8px 6px;
-      border-radius: 4px;
-      resize: vertical;
-      border: 2px solid $grey;
-
-      &:focus {
-        border: 2px solid $formAccentColor;
-      }
-    }
-  }
-
   button {
     display: block;
     margin: 0 auto;
+  }
+}
+
+.input-group {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  width: 100%;
+  @include type-base;
+
+  label {
+    display: block;
+    @include type-small;
+    overflow-wrap: break-word;
+  }
+
+  a {
+    &.forgot {
+      position: absolute;
+      @include type-small;
+      top: 0px;
+      right: 0px;
+    }
+  }
+
+  input {
+    margin-bottom: 1em;
+    width: 100%;
+    padding: 8px 6px;
+    outline: none;
+    border: 2px solid $grey;
+    background-color: darken($formContainerColor, 3);
+    border-radius: 4px;
+    transition: all 0.5s ease;
+
+    &:focus {
+      border: 2px solid $formAccentColor;
+    }
+
+    &[type="radio"] {
+      display: inline-block;
+      width: 20px;
+      margin-right: 3px;
+    }
+
+    &[type="radio"]+label {
+      margin-right: 20px;
+      display: inline-block;
+    }
+    &[type="checkbox"] {
+      display: inline-block;
+      width: 20px;
+      margin-right: 3px;
+    }
+
+    &[type="checkbox"]+label {
+      margin-right: 20px;
+      display: inline-block;
+    }
+
+  }
+
+  select {
+    background-color: darken($formContainerColor, 3);
+    width: 100%;
+    margin-bottom: 1em;
+    padding: 8px 6px;
+    border: 2px solid $grey;
+    @include lineHeight-looser;
+
+    &:focus {
+      border: 2px solid $formAccentColor;
+    }
+  }
+
+  textarea {
+    background-color: darken($formContainerColor, 3);
+    width: 100%;
+    margin-bottom: 1em;
+    padding: 8px 6px;
+    border-radius: 4px;
+    resize: vertical;
+    border: 2px solid $grey;
+
+    &:focus {
+      border: 2px solid $formAccentColor;
+    }
   }
 }
 

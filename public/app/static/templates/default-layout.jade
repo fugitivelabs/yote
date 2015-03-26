@@ -3,23 +3,8 @@
     a.navLogo(href="/") yote
     a.burger(ng-class="{active: openMenu}", ng-click="openMenu = !openMenu")
       span
-    ul(ng-show="openMenu" ng-class="{animated: openMenu, bounceInDown: openMenu}")
-      li
-        a(ui-sref="static.about") About
-      li
-        a(ui-sref="post.list") Blog
-      li
-        a(ui-sref="static.faq") FAQ
-      li(ng-show="currentUser.username")
-        a(ui-sref="user.profile") Profile
-      li(ng-show="!currentUser.username")
-        a(ui-sref="user.register") Register
-      li(ng-show="!currentUser.username")
-        a(ui-sref="user.login") Login
-      li(ng-show="currentUser.username")
-        a(ui-sref="user.logout") Logout
 
-    ul
+    ul(ng-class="{animated: openMenu, bounceInDown: openMenu, openMenu: openMenu}")
       li
         a(ui-sref="static.about") About
       li
