@@ -1,8 +1,8 @@
-section(yt-container="fluid")
+section
   h1 Users Dashboard
 
   .user-widgets(yt-row)
-    .widget(yt-col="full 3/4s")
+    .widget(yt-col="full")
       table.user-table.striped
         caption Users Table
           .toolbar(yt-toolbar)
@@ -11,19 +11,19 @@ section(yt-container="fluid")
                 span.item
                   small filter
                 select.field(ng-model="search" ng-options="role for role in userRoles")
-                  option(value="") -- role -- 
+                  option(value="") -- role --
 
               .search.input-add-on
-                span.item 
-                  small search 
+                span.item
+                  small search
                 input.field(type="text" ng-model="search.$")
               .bulk-actions.input-add-on
                 select.field(ng-model="actions.role" ng-options="role for role in userRoles")
-                  option(value="") -- role -- 
-                button.item(ng-click="addRole(users, actions.role)") Add role 
+                  option(value="") -- role --
+                button.item(ng-click="addRole(users, actions.role)") Add role
         thead
           tr
-            th 
+            th
               //- input(type="checkbox" ng-model="selectAll")
             th
               a(ng-click="predicate = 'username'" ng-class="{active: predicate=='-username'}" ng-hide="predicate == 'username'")
@@ -56,14 +56,14 @@ section(yt-container="fluid")
 
         tbody
           tr(ng-repeat="user in users | filter: search | orderBy: predicate")
-            td 
+            td
               input(type="checkbox" ng-checked="selectAll" ng-model="user.doAction")
             td {{user.username}}
             td {{user.firstName}}
             td {{user.lastName}}
-            td 
-              span(ng-repeat="role in user.roles track by $index") 
-                |  {{role}}  
+            td
+              span(ng-repeat="role in user.roles track by $index")
+                |  {{role}}
                 sup(ng-hide="!role")
                   a(ng-click="removeRole(user, role)") x
 
