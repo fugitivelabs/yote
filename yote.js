@@ -67,7 +67,7 @@ app.use(passport.session());
 app.use(multipart({}));
 
 //sass middleware
-//only enable for development env
+//only enable for development env - npm module can be buggy
 if (app.get('env') == 'development') {
   app.use(sass({
     src: __dirname + '/public'

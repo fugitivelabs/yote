@@ -7,10 +7,10 @@ form(yt-col="1 1/2m")
     input(type="email", name="username", placeholder="email", ng-model="userData.username")
   .input-group
     label password
-    input(type="password", name="password", placeholder="password", ng-model="userData.password")
+    input(type="password", name="password", placeholder="password", ng-model="userData.password", autocomplete="off")
   .input-group
     label confirm password
-    input(type="password", name="password2", placeholder="confirm password", ng-model="userData.password2")
+    input(type="password", name="password2", placeholder="confirm password", ng-model="userData.password2", autocomplete="off")
   .input-group
     label first name
     input(type="text", name="firstName", placeholder="first name", ng-model="userData.firstName")
