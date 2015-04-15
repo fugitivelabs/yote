@@ -16,6 +16,7 @@ var express         = require('express')
   , logger          = require('morgan')
   , session         = require('express-session')
   , favicon         = require('serve-favicon')
+  , timeout         = require('connect-timeout')
   , errorHandler    = require('errorhandler')
   , mongoose        = require('mongoose')
   , passport        = require('passport')
@@ -41,6 +42,7 @@ var UserSchema = require('./server/models/User').User
 //configure express
 app.set('views', __dirname + '/server/views');
 app.set('view engine', 'jade');
+app.use(timeout(30000)); //upper bound on server connections, in ms.
 app.use(logger('dev'));
 app.use(cookieParser());
 app.use(bodyParser.json());
@@ -52,6 +54,10 @@ app.use(session({
     , port: config.redis.port
   })
   , secret: config.secrets.sessionSecret
+  // //enable for secure cookies when using https
+  // , cookie: {
+  //   secure: ((app.get('env') == 'production') ? true : false)
+  // }
 }));
 app.use(favicon(path.join(__dirname, 'public','favicon.ico'))); 
 app.use(passport.initialize());
@@ -61,14 +67,17 @@ app.use(passport.session());
 app.use(multipart({}));
 
 //sass middleware
-app.use(sass({
-  src: __dirname + '/public'
-  , dest: __dirname + '/public/css'
-  , prefix: '/css'
-  , debug: true
-  , outputStyle: 'compressed'
-  , includePaths: ['public/app/', 'public/sass/globals/', 'globals/sass/includes/']
-}));
+//only enable for development env
+if (app.get('env') == 'development') {
+  app.use(sass({
+    src: __dirname + '/public'
+    , dest: __dirname + '/public/css'
+    , prefix: '/css'
+    , debug: true
+    , outputStyle: 'compressed'
+    , includePaths: ['public/app/', 'public/sass/globals/', 'globals/sass/includes/']
+  }));
+}
 
 //allow the angular ui-views to be written in Jade
 app.use(serveStatic(__dirname + '/public'));
@@ -149,6 +158,13 @@ require('./server/router/server-router')(router, app);
 //some notes on router: http://scotch.io/tutorials/javascript/learn-to-use-the-new-router-in-expressjs-4
 app.use('/', router);
 
+//check for the server timeout. must be last in the middleware stack
+app.use(haltOnTimedout);
+function haltOnTimedout(req, res, next){
+  //http://stackoverflow.com/questions/21708208/express-js-response-timeout
+  if (!req.timedout) next();
+}
+
 //SSL
 //Yote comes out of the box with https support! Check the readme for instructions on how to use.
 var useHttps = false;
@@ -161,6 +177,12 @@ if(app.get('env') == 'production' || useHttps) {
       key: fs.readFileSync('../projectName/ssl/yourSsl.key') //so it works on server and local
       , cert: fs.readFileSync('../projectName/ssl/yourCertFile.crt')
       , ca: [fs.readFileSync('../projectName/ssl/yourCaFile.crt')] // godaddy splits certs into two
+      //disallow ciphers that have security flaws
+      , honorCipherOrder: true
+      , ciphers: 'ECDHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA256:AES128-GCM-SHA256:!RC4:HIGH:!MD5:!aNULL'
+      //https://nodejs.org/docs/latest/api/tls.html#tls_tls_createserver_options_secureconnectionlistener
+      //https://www.openssl.org/docs/apps/ciphers.html#CIPHER_LIST_FORMAT
+      //https://sites.google.com/site/jimmyxu101/testing/openssl
   // }, app).listen(9191);
   }, app).listen(443);
 
