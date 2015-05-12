@@ -5,6 +5,9 @@ var isIE11 = !!navigator.userAgent.match(/Trident.*rv[ :]*11\./) || false;  //ht
 if(!window.console || (!window.development && !isIE11)) {
   console = {log: function() {}};
 }
+if(!window.development && isIE11) {
+  console.log = function() {};
+}
 
 console.log('root angular application loaded');
 
