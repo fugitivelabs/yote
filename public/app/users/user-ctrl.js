@@ -2,7 +2,7 @@
 
 angular.module('Yote')
 
-  .controller('UserCtrl', ['$scope', '$stateParams', '$state', 'UserFactory', '$rootScope', function($scope, $stateParams, $state, $rootScope, UserFactory) {
+  .controller('UserCtrl', ['$scope', '$stateParams', '$state', '$rootScope', 'UserFactory', function($scope, $stateParams, $state, $rootScope, UserFactory) {
     console.log('UserCtrl loaded');
   }])
 
