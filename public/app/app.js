@@ -1,7 +1,10 @@
-'use strict'
+//disable console.log function if older IE, where it is undefined, or in production environment
+//additionally, IE 11 seems to have a strange implementation of console log. replacing it breaks the page javascript.
+var isIE11 = !!navigator.userAgent.match(/Trident.*rv[ :]*11\./) || false;  //http://stackoverflow.com/questions/17447373/how-can-i-target-only-internet-explorer-11-with-javascript
 
-//disable console.log function if older IE or production environment
-if(!window.console || !window.development) console = {log: function() {}};
+if(!window.console || (!window.development && !isIE11)) {
+  console = {log: function() {}};
+}
 
 console.log('root angular application loaded');
 
