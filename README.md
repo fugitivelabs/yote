@@ -53,7 +53,7 @@ In your terminal simply run ``` $ mongo ``` to use the built in mongo console.
 #### Remote access 
 On the remote instance, you can access the database by running a new mongo container and connecting to the already running database container. In the current deployment, this command would be: 
 ```
-$ (sudo) docker run -it --rm --link mongodb:mongodb dockerfile/mongodb bash -c 'mongo --host mongodb'
+$ (sudo) docker run -it --rm --link mongodb:mongodb library/mongo bash -c 'mongo --host mongodb'
 
 ```
 
@@ -99,14 +99,14 @@ Then, we need to initialize our remote instance.
 
 #### Initialize Remote Instance 
 
-On the remote server, run the following images and link them.
+On the remote server, run the following images and link them. Note that in older deployments of yote, the docker images are named "dockerfile/mongodb" and "dockerfile/redis" instead of the newer library notation.
 
 1. Pull the Mongo and Redis repositories from Docker itself: 
-  * ``` $ (sudo) docker pull dockerfile/mongo and dockerfild/redis ```
+  * ``` $ (sudo) docker pull library/mongo and library/redis ```
 2. Start Redis
-  * ``` $ (sudo) docker run -d --name redis dockerfile/redis ```
+  * ``` $ (sudo) docker run -d --name redis library/redis ```
 3. Start mongod with flags for smallfiles and local storage
-  * ``` $ (sudo) docker run -d -v ~/data:/data/db --name mongodb dockerfile/mongodb mongod --smallfiles ```
+  * ``` $ (sudo) docker run -d -v ~/data:/data/db --name mongodb library/mongo mongod --smallfiles ```
 4. Start yote and link with other containers
   * ``` $ (sudo) docker run -p 80:3030 -t -i --link redis:redis --link mongodb:mongodb --name PROJECT_NAME --rm ORG_NAME/PROJECT_NAME ```
 
@@ -183,18 +183,18 @@ to run the image and link it. more details later.
 
 
 
-1) pull dockerfile/mongodb and dockerfile/redis
+1) pull library/mongo and library/redis
 2) start redis
-"docker run -d --name redis dockerfile/redis"
+"docker run -d --name redis library/redis"
 3) start mongod with flags for smallfiles and local storage
-"docker run -d -v ~/data:/data/db --name mongodb dockerfile/mongodb mongod --smallfiles"
+"docker run -d -v ~/data:/data/db --name mongodb library/mongo mongod --smallfiles"
 //in future, change "~/data" to "~/mongo/data". for time being, changing this will cause loss of old data.
 4) start yote and link with other containers
 "docker run -p 80:3030 -t -i --link redis:redis --link mongodb:mongodb --name yote --rm fugitivelabs/yote"
 
 extras:
 run mongo console on mongo image
-"docker run -it --rm --link mongodb:mongodb dockerfile/mongodb bash -c 'mongo --host mongodb'"
+"docker run -it --rm --link mongodb:mongodb library/mongo bash -c 'mongo --host mongodb'"
 
 
 USING HTTPS WITH YOTE
@@ -219,4 +219,27 @@ to send emails, use the "utilities" controller. an example of its use is users c
 +"df -h"
 +remove all unused images from docker (cleared ~3 gigs of disk space, related to problem with daves)
 +"sudo docker rmi $(sudo docker images -q -f dangling=true)"
+
+
+
+BACKING UP THE DATABASE
+(notes for later, from Grant to Grant)
+
+1. CREATE AND SAVE BACKUP FILES
+a. on remote, create backup files
+docker run -v ~/backup/:/backup/ -it --rm --link mongodb:mongodb library/mongo bash -c 'mongodump -d propatient -o /backup/ --host mongodb'
+
+b. on local, retrieve backup files from instance
+gcloud compute copy-files grantfowler@propatient:/home/grant_fugitivelabs_com/backup/propatient ./ --zone us-central1-a
+
+2. RESTORE BACKUP FILES TO REMOTE INSTANCE
+a. on remote, make sure target folder has correct permissions
+b. on local, copy backup files to remote instance
+gcloud compute copy-files ~/Desktop/backup/propatient grantfowler@propatient:/home/grant_fugitivelabs_com/backup/ --zone us-central1-a
+
+c. on remote, drop database
+d. on remote, restore db from backup files
+docker run -v ~/backup:/backup/ -it --rm --link mongodb:mongodb library/mongo bash -c 'mongorestore -d propatient /backup/propatient/ --host mongodb'
+
+
 
