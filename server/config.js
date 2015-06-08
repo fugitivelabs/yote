@@ -24,7 +24,7 @@ module.exports = {
       , port: process.env.REDIS_PORT ? process.env.REDIS_PORT.replace("tcp://", "").split(":")[1] : "6379"
     }
     , rootPath: rootPath
-    , port: process.env.PORT || 80
+    , port: process.env.PORT || 3030
     , secrets: secrets || {}
   }
 }

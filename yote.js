@@ -13,7 +13,6 @@ var express         = require('express')
   , bodyParser      = require('body-parser')
   , cookieParser    = require('cookie-parser')
   , serveStatic     = require('serve-static')
-  // , logger          = require('morgan')
   , winston         = require('winston')
   , session         = require('express-session')
   , favicon         = require('serve-favicon')
@@ -36,17 +35,8 @@ var config = require('./server/config')[env];
 //initialize database
 require('./server/db')(config);
 
-//log stuff
-var logger = new winston.Logger({
-  transports: [
-    new winston.transports.Console({
-      level: 'debug'
-      , handleExceptions: true
-      , json: false
-      , colorize: true
-    })
-  ]
-});
+var logger = require('./logger');
+
 logger.debug("DEBUG LOG");
 logger.info("INFO LOG");
 logger.error("ERROR LOG");
@@ -165,6 +155,8 @@ if (app.get('env') == 'development') {
   // app.use(errorHandler());
 } else if(app.get('env') == 'production') {
   logger.debug("PRODUCTION");
+  //log express http requests in production. way to much in dev.
+  app.use(require('morgan')({"stream":logger.stream}));
 }
 
 //configure server routes
@@ -186,8 +178,8 @@ function haltOnTimedout(req, res, next){
 var useHttps = false;
 var httpsOptional = false;
 
-if(app.get('env') == 'production' || useHttps) {
-  logger.info("starting prod dev server");
+if(app.get('env') == 'production' && useHttps) {
+  logger.info("starting production server WITH ssl");
 
   require('https').createServer({
       key: fs.readFileSync('../projectName/ssl/yourSsl.key') //so it works on server and local
@@ -220,6 +212,10 @@ if(app.get('env') == 'production' || useHttps) {
 
   logger.info('Yote is listening on port ' + 80 + ' and ' + 443 + '...');
 
+} else if(app.get('env') == 'production') {
+  logger.info("starting yote production server WITHOUT ssl");
+  require('http').createServer(app).listen(config.port);
+  logger.info('Yote is listening on port ' + config.port + '...');
 } else {
   logger.info("starting yote dev server");
   require('http').createServer(app).listen(config.port);
