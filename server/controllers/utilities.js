@@ -6,7 +6,7 @@ var async = require('async')
   ;
 
 exports.sendEmail = function(targets, subject, content, callback) {
-  console.log("trying to send email");
+  logger.debug("trying to send email");
   //message fields
   var msg = {
     important: true
@@ -31,11 +31,11 @@ exports.sendEmail = function(targets, subject, content, callback) {
   }
 
   mandrill_client.messages.send({ "message": msg, "async": false }, function(result) {
-    console.log(result);
+    logger.debug(result);
     callback({success: true, message: "email(s) sent", result: result});
   }, function(e) {
     // Mandrill returns the error as an object with name and message keys
-    console.log('A mandrill error occurred: ' + e.name + ' - ' + e.message);
+    logger.error('A mandrill error occurred: ' + e.name + ' - ' + e.message);
     callback({success: false, message: "Failed to send email.", error: e});
   });
 }

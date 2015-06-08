@@ -43,6 +43,7 @@
     "passport": "~0.1.17",
     "passport-local": "~0.1.6",
     "serve-favicon": "^2.1.5",
-    "serve-static": "^1.6.3"
+    "serve-static": "^1.6.3",
+    "winston": "^1.0.0"
   }
 }
