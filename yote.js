@@ -13,7 +13,8 @@ var express         = require('express')
   , bodyParser      = require('body-parser')
   , cookieParser    = require('cookie-parser')
   , serveStatic     = require('serve-static')
-  , logger          = require('morgan')
+  // , logger          = require('morgan')
+  , winston         = require('winston')
   , session         = require('express-session')
   , favicon         = require('serve-favicon')
   , timeout         = require('connect-timeout')
@@ -35,6 +36,21 @@ var config = require('./server/config')[env];
 //initialize database
 require('./server/db')(config);
 
+//log stuff
+var logger = new winston.Logger({
+  transports: [
+    new winston.transports.Console({
+      level: 'debug'
+      , handleExceptions: true
+      , json: false
+      , colorize: true
+    })
+  ]
+});
+logger.debug("DEBUG LOG");
+logger.info("INFO LOG");
+logger.error("ERROR LOG");
+
 //init User model
 var UserSchema = require('./server/models/User').User
   , User = mongoose.model('User')
@@ -43,7 +59,7 @@ var UserSchema = require('./server/models/User').User
 app.set('views', __dirname + '/server/views');
 app.set('view engine', 'jade');
 app.use(timeout(30000)); //upper bound on server connections, in ms.
-app.use(logger('dev'));
+// app.use(logger('dev'));
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -94,7 +110,7 @@ app.use(function(req, res, next) {
   // ref https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS
 
   //test user:
-  console.log("YOTE USER: " + (req.user ? req.user.username : "none"));
+  logger.info("YOTE USER: " + (req.user ? req.user.username : "none"));
   //no mongo connection
   if(mongoose.connection.readyState !== 1) {
     mongoose.connect(config.db);
@@ -116,10 +132,10 @@ passport.use('local', new LocalStrategy(
     }
     User.findOne({username:username}, projection).exec(function(err, user) {
       if(user && user.authenticate(password)) {
-        console.log("authenticated!");
+        logger.debug("authenticated!");
         return done(null, user);
       } else {
-        console.log("NOT authenticated");
+        logger.debug("NOT authenticated");
         return done(null, false);
       }
     })
@@ -145,10 +161,10 @@ passport.deserializeUser(function(id, done) {
 
 // development only
 if (app.get('env') == 'development') {
-  console.log("DEVELOPMENT");
+  logger.debug("DEVELOPMENT");
   // app.use(errorHandler());
 } else if(app.get('env') == 'production') {
-  console.log("PRODUCTION");
+  logger.debug("PRODUCTION");
 }
 
 //configure server routes
@@ -171,7 +187,7 @@ var useHttps = false;
 var httpsOptional = false;
 
 if(app.get('env') == 'production' || useHttps) {
-  console.log("starting prod dev server");
+  logger.info("starting prod dev server");
 
   require('https').createServer({
       key: fs.readFileSync('../projectName/ssl/yourSsl.key') //so it works on server and local
@@ -192,7 +208,7 @@ if(app.get('env') == 'production' || useHttps) {
     require('http').createServer(app).listen(80);
   } else {
     require('http').createServer(function(req, res) {
-      console.log("REDIRECTING TO HTTPS");
+      logger.info("REDIRECTING TO HTTPS");
       res.writeHead(302, {
         'Location': 'https://YOUR-URL.com:443' + req.url
         // 'Location': 'https://localhost:9191' + req.url
@@ -202,12 +218,12 @@ if(app.get('env') == 'production' || useHttps) {
     }).listen(80);
   }
 
-  console.log('Yote is listening on port ' + 80 + ' and ' + 443 + '...');
+  logger.info('Yote is listening on port ' + 80 + ' and ' + 443 + '...');
 
 } else {
-  console.log("starting yote dev server");
+  logger.info("starting yote dev server");
   require('http').createServer(app).listen(config.port);
-  console.log('Yote is listening on port ' + config.port + '...');
+  logger.info('Yote is listening on port ' + config.port + '...');
 }
 
 
