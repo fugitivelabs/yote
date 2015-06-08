@@ -8,7 +8,7 @@ if(env == 'production') {
   var logger = new winston.Logger({
     transports: [
       new winston.transports.File({
-        level: 'debug'
+        level: 'info'
         , filename: './logs/all-logs.log'
         , handleExceptions: true
         , json: true

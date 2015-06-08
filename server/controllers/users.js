@@ -7,7 +7,7 @@ var User = require('mongoose').model('User')
 
 exports.list = function(req, res) {
   if(req.query.page) {
-    console.log("listing users with pagination");
+    logger.debug("listing users with pagination");
     var page = req.query.page || 1;
     var per = req.query.per || 20;
     User.find({}).skip((page-1)*per).limit(per).exec(function(err, users) {
@@ -23,7 +23,7 @@ exports.list = function(req, res) {
       }
     });
   } else {
-    console.log("listing users");
+    logger.debug("listing users");
     User.find({}).exec(function(err, users) {
       if(err || !users) {
         res.send({success: false, message: err});
@@ -54,13 +54,13 @@ exports.create = function(req, res, next) {
   userData.username = userData.username.toLowerCase();
   //very simple email format validation
   if (!( /(.+)@(.+){2,}\.(.+){2,}/.test(userData.username) )) {
-    console.log("invalid email");
+    logger.debug("invalid email");
     res.send({success: false, message: "Invalid email address."});
     return;
   }
   //check password for length
   if(userData.password.length <= 6) {
-    console.log("password too short");
+    logger.debug("password too short");
     res.send({success: false, message: "Password not long enough. Min 6 characters."});
     return;
   }
@@ -106,7 +106,7 @@ exports.update = function(req, res) {
 }
 
 exports.changePassword = function(req, res) {
-  console.log("change password");
+  logger.debug("change password");
   //additional error checking
   if(req.param('newPass') !== req.param('newPassConfirm')) {
     res.send({success: false, message: "New passwords do not match"});
@@ -125,10 +125,10 @@ exports.changePassword = function(req, res) {
       if(req.param('oldPass') == "") {
         res.send({success: false, message: "Old Password Incorrect"});
       }
-      console.log("checking old password...");
+      logger.debug("checking old password...");
       //is old password correct?
       if(User.hashPassword(user.password_salt, req.param('oldPass')) == user.password_hash) {
-        console.log("password matches.");
+        logger.debug("password matches.");
 
         var newSalt = User.createPasswordSalt();
         var newHash = User.hashPassword(newSalt, req.param('newPass'));
@@ -150,7 +150,7 @@ exports.changePassword = function(req, res) {
 }
 
 exports.requestPasswordReset = function(req, res) {
-  console.log("user requested password reset for " + req.param('email'));
+  logger.debug("user requested password reset for " + req.param('email'));
   if(req.param('email') == "") {
     res.send({success: false, message: "Email needed to reset password."});
   }
@@ -159,7 +159,7 @@ exports.requestPasswordReset = function(req, res) {
   }
   User.findOne({username: req.param('email')}, projection).exec(function(err, user) {
     if(err || !user) {
-      console.log("fail: no user with that email found");
+      logger.debug("fail: no user with that email found");
       res.send({success: false, message: "No user with that email found. Please register."});
     } else {
       //found user who requested a password reset
@@ -167,11 +167,11 @@ exports.requestPasswordReset = function(req, res) {
       user.resetPasswordHex = Math.floor(Math.random()*16777215).toString(16) + Math.floor(Math.random()*16777215).toString(16);
       user.save(function(err, user) {
         if(err) {
-          console.log("fail: error saving user reset options");
+          logger.error("fail: error saving user reset options");
           res.send({success: false, message: "Error processing request. Please try again."});
         } else {
           //send user an email with their reset link.
-          console.log("creating password reset email");
+          logger.debug("creating password reset email");
           var targets = [user.username];
           var resetUrl = "http://localhost:3030/user/resetpassword/" + user.resetPasswordHex;
           var html = "<h1> You have requested a password reset for your Fugitive Labs YOTE account.</h1>";
@@ -201,15 +201,15 @@ exports.checkResetRequest = function(req, res, next) {
 
       var nowDate = new Date();
       var cutoffDate = new Date(user.resetPasswordTime);
-      console.log(cutoffDate);
+      logger.debug(cutoffDate);
       var validHours = 24;
       cutoffDate.setHours((cutoffDate.getHours() + validHours));
-      console.log(cutoffDate);
+      logger.debug(cutoffDate);
       if(nowDate < cutoffDate) {
-        console.log("TRUE");
+        logger.debug("TRUE");
         res.send({success: true, userId: user._id});
       } else {
-        console.log("FALSE");
+        logger.debug("FALSE");
         res.send({success: false, message: "Invalid or Expired Reset Token"});
       }
 

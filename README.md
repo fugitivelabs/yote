@@ -242,4 +242,15 @@ d. on remote, restore db from backup files
 docker run -v ~/backup:/backup/ -it --rm --link mongodb:mongodb library/mongo bash -c 'mongorestore -d propatient /backup/propatient/ --host mongodb'
 
 
+USING THE LOGGER
+the basic "console.log" functionality has been mostly replaced with winston. the new functionality is:
+```
+logger.debug("debug message");
+logger.info("info message");
+logger.error("error message");
+```
+
+each will log to the console normally on dev. when env="production", though, any messages labeled "info" or "error" will also log to the file stored in "/logs/all-logs.log". you may need to create this folder yourself, as with the /ssl folder. in addition, info about each http request the express receives will log into this file. 
+
+using the regular "console.log" is perfectly fine for debugging stuff. anything that we might want to keep track of use "logger.info".
 

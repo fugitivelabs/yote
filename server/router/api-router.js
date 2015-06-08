@@ -1,4 +1,4 @@
-console.log("api routes file");
+logger.debug("api routes file");
 
 var mongoose = require('mongoose')
   , passport = require('passport')
@@ -8,26 +8,26 @@ var mongoose = require('mongoose')
 //helper functions
 function requireLogin() {
   return function(req, res, next) {
-    console.log("LOGIN CHECK HIT");
+    logger.debug("LOGIN CHECK HIT");
     if(req.headers.token) {
       //check by token
-      console.log(req.headers.token);
+      logger.debug(req.headers.token);
       User.findOne({apiToken: req.headers.token}).exec(function(err, user) {
         if(err || !user) {
-          console.log(err);
+          logger.error(err);
           res.status(403);
           res.send("UNAUTHORIZED - INVALID TOKEN");
         } else {
-          console.log("found user by header");
+          logger.debug("found user by header");
           //check token time period
           if(User.tokenExpired(user.tokenCreated)) {
-            console.log("token is expired");
+            logger.debug("token is expired");
             res.status(403);
             res.send("UNAUTHORIZED - TOKEN HAS EXPIRED");
           } else {
             req.user = user;
-            console.log("REQ.USER 1");
-            console.log(req.user);
+            logger.debug("REQ.USER 1");
+            logger.debug(req.user);
             next();
           }
         }
@@ -46,13 +46,13 @@ function requireRole(role) {
   return function(req, res, next) {
     var rl = requireLogin();
     rl(req, res, function() {
-      console.log("trying to require role");
-      console.log(req.user);
+      logger.debug("trying to require role");
+      logger.debug(req.user);
       if(req.user.roles.indexOf(role) === -1) {
         res.status(403);
         res.send("UNAUTHORIZED - " + role + " PRIVILEDGES REQUIRED");
       } else {
-        console.log("authorized.");
+        logger.debug("authorized.");
         next();
       }
     });
@@ -63,7 +63,7 @@ function requireRole(role) {
 var routeFilenames = [];
 module.exports = function(router) {
   routeFilenames.forEach(function(filename) {
-    console.log("filename: " + filename);
+    logger.debug("filename: " + filename);
     require('./api/' + filename)(router, requireLogin, requireRole);
   });
 }

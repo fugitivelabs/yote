@@ -23,7 +23,7 @@ module.exports = function(router, requireLogin, requireRole) {
           , username: user.username
           , roles: user.roles
         }
-        console.log(returnUser);
+        logger.debug(returnUser);
         res.send({success:true, user: returnUser});
       });
     })(req, res, next);
@@ -38,13 +38,13 @@ module.exports = function(router, requireLogin, requireRole) {
       if(!user) {
         res.send({success:false, message: "Matching user not found."});
       }
-      console.log("TOKEN TIME");
+      logger.debug("TOKEN TIME");
       user.createToken(function(err, token) {
         if(err || !token) {
           res.send({success: false, message: "Unable to generate user API token"});
         } else {
-          console.log("TOKEN");
-          console.log(token);
+          logger.debug("TOKEN");
+          logger.debug(token);
           res.send({success: true, user: user});
         }
       });
@@ -54,21 +54,21 @@ module.exports = function(router, requireLogin, requireRole) {
   // user logout
   router.post('/api/users/logout', function(req, res) {
     //logout with token will not affect session status, and vice-versa
-    console.log("logout");
+    logger.debug("logout");
     if(req.headers.token) {
-      console.log("logout with token");
+      logger.debug("logout with token");
       //remove token object
       User.findOne({apiToken: req.headers.token}).exec(function(err, user) {
         if(err || !user) {
-          console.log("could not find user object to log out with");
+          logger.error("could not find user object to log out with");
           res.end();
         } else {
           user.removeToken(function(err) {
             if(err) {
-              console.log(err);
+              logger.error(err);
               res.send({success: false, message: "could not remove user token"});
             } else {
-              console.log("removed token");
+              logger.debug("removed token");
               res.end();
             }
           });
