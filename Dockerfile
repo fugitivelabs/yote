@@ -13,8 +13,12 @@ ADD / ./yote
 #RUN rm -rf /yote/node_modules
 # instead of removing all, lets just remove that one
 RUN rm -rf /yote/node_modules/node-sass-middleware
+# so does the winston mongodb module, apparently
+RUN rm -rf /yote/node_modules/winston-mongodb
 RUN cd /yote && npm install
 
 EXPOSE 80
 
-CMD node /yote/yote.js
+# install forever and use it to restart node if it crashes
+RUN npm install -g forever
+CMD forever /yote/yote.js
