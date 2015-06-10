@@ -247,10 +247,16 @@ the basic "console.log" functionality has been mostly replaced with winston. the
 ```
 logger.debug("debug message");
 logger.info("info message");
+logger.warn("warn message");
 logger.error("error message");
 ```
 
+<!-- 
 each will log to the console normally on dev. when env="production", though, any messages labeled "info" or "error" will also log to the file stored in "/logs/all-logs.log". you may need to create this folder yourself, as with the /ssl folder. in addition, info about each http request express receives will log into this file. 
+ -->
+
+
+ logging to a file doesn't like working on the docker instances. in theory, we should be able to link the ~/logs volume from the host and write our logs there. in practice, i can't get this to work. so, for the time being, in production mode, any messages labeled "info" or "error" will also be saved into the mongo database with the collection name "logs". we can browse through these on the server using the standard mongo command line, or copy them all using the database backup method. while not quite as useful as a big text file, it will still work for our purposed.
 
 using the regular "console.log" is perfectly fine for debugging stuff. for anything that we might want to keep track of, use "logger.info".
 
