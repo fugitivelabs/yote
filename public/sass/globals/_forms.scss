@@ -118,6 +118,12 @@ form {
 }
 
 
+
+// override ng-invalid-required box shadow in firefox 
+.ng-pristine.ng-invalid-required {
+  box-shadow: none;
+}
+
 // input addons (for icon in a search box for example)
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 

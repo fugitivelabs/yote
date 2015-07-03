@@ -254,7 +254,7 @@ $L:     960px;
     -moz-flex: $fg;
     -ms-flex: $fg;
     flex: $fg;
-  } else {
+  } @else {
     -webkit-flex: $fg $fs $fb;
     -moz-flex: $fg $fs $fb;
     -ms-flex: $fg $fs $fb;
@@ -333,9 +333,7 @@ $L:     960px;
 
 @mixin column-size($size) {
   @include flex(0, 0, $size);
-  max-width: $size;
-  min-width: $size;
-  width: $size;
+  width: $size !important;
 }
 
 
