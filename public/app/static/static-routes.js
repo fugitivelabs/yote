@@ -28,12 +28,12 @@ angular.module('Yote')
     })
 
     .state('static.about', {
-      url: '/about'
+      url: '^/about'
       , templateUrl: '/html/static/templates/about'
     })
 
     .state('static.faq', {
-      url: '/faq'
+      url: '^/faq'
       , templateUrl: '/html/static/templates/faq'
     })
 
