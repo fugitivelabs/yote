@@ -74,8 +74,22 @@ exports.create = function(req, res, next) {
       res.send({success: false, message: "Username is already in use."});
     } else {
       req.logIn(user, function(err) {
-        if(err) {return next(err);}
-        res.send({success: true, user: user});
+        if(err) {
+          return next(err);
+        } else {
+          if(req.param("withToken")) {
+            logger.info("create api token for mobile user");
+            user.createToken(function(err, token) {
+              if(err || !token) {
+                res.send({ success: false, message: "unable to generate user API token" });
+              } else {
+                res.send({success: true, user: user});
+              }
+            });
+          } else {
+            res.send({success: true, user: user});
+          }
+        }
       });
     }
   });
