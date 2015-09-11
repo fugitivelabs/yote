@@ -188,12 +188,13 @@ if(app.get('env') == 'production' && useHttps) {
       key: fs.readFileSync('../projectName/ssl/yourSsl.key') //so it works on server and local
       , cert: fs.readFileSync('../projectName/ssl/yourCertFile.crt')
       , ca: [fs.readFileSync('../projectName/ssl/yourCaFile.crt')] // godaddy splits certs into two
-      //disallow ciphers that have security flaws
-      , honorCipherOrder: true
-      , ciphers: 'ECDHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA256:AES128-GCM-SHA256:!RC4:HIGH:!MD5:!aNULL'
-      //https://nodejs.org/docs/latest/api/tls.html#tls_tls_createserver_options_secureconnectionlistener
-      //https://www.openssl.org/docs/apps/ciphers.html#CIPHER_LIST_FORMAT
-      //https://sites.google.com/site/jimmyxu101/testing/openssl
+      // this should all be taken care of by default in Node v4.
+      // //disallow ciphers that have security flaws
+      // , honorCipherOrder: true
+      // , ciphers: 'ECDHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA256:AES128-GCM-SHA256:!RC4:HIGH:!MD5:!aNULL'
+      // //https://nodejs.org/docs/latest/api/tls.html#tls_tls_createserver_options_secureconnectionlistener
+      // //https://www.openssl.org/docs/apps/ciphers.html#CIPHER_LIST_FORMAT
+      // //https://sites.google.com/site/jimmyxu101/testing/openssl
   // }, app).listen(9191);
   }, app).listen(443);
 
