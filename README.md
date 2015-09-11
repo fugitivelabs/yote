@@ -7,13 +7,27 @@ Find Your Road.
 
 _NOTE: Grant needs to review and bring in some other things regarding https_
 
-Yote
+======
+
+RECENT UPDATES (9/10)
+Going forward, we will design Yote to work with Node v4. Up until now we haven't really standardized on a node version. 
+1. Install nvm (node version manager)
+```curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.26.1/install.sh | bash```
+2. Active it
+```. ~/.nvm/nvm.sh```
+3. Install node packages.
+```nvm install 4.0.0```
+
+If this works, 'node -v' should return v4.0.0. To get yote to run, I had to manually npm re-install "node-sass-middleware", but just a npm install should work. 
+
+The .nvmrc file specifies which version of node the project wants to run. 
+
 ======
 
 A simple client agnostic API framework for NodeJS. 
 
 ## Dependencies 
-- [NodeJS version >= 0.10.33](https://nodejs.org/)
+- [NodeJS version >= 4.0.0](https://nodejs.org/)
 - [NPM](https://www.npmjs.com/)
 - [Redis](http://redis.io/)  -- (session storage)
 - [MongoDB](http://www.mongodb.org/)
