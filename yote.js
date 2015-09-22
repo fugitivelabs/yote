@@ -36,10 +36,10 @@ var config = require('./server/config')[env];
 // generally global is not considered "best practices", but this will allow access to the logger object in the entire app
 global.logger = require('./logger');
 // LOG EXAMPLES:
-logger.debug("..DEBUG LOG..");
-logger.info("..INFO LOG..");
-logger.warn("..WARN LOG..");
-logger.error("..ERROR LOG..");
+logger.debug("DEBUG LOG");
+logger.info("INFO LOG");
+logger.warn("WARN LOG");
+logger.error("ERROR LOG");
 
 //initialize database
 require('./server/db')(config);
