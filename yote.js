@@ -79,17 +79,17 @@ app.use(multipart({}));
 //only enable for development env - npm module can be buggy
 if (app.get('env') == 'development') {
   app.use(sass({
-    src: __dirname + '/public'
-    , dest: __dirname + '/public/css'
+    src: __dirname + '/client/public'
+    , dest: __dirname + '/client/public/css'
     , prefix: '/css'
     , debug: true
     , outputStyle: 'compressed'
-    , includePaths: ['public/app/', 'public/sass/globals/', 'globals/sass/includes/']
+    , includePaths: ['/client/public/app/', '/client/public/sass/globals/', 'globals/sass/includes/']
   }));
 }
 
 //allow the angular ui-views to be written in Jade
-app.use(serveStatic(__dirname + '/public'));
+app.use(serveStatic(__dirname + '/client/public'));
 
 //request checks
 app.use(function(req, res, next) {
