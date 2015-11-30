@@ -5,6 +5,8 @@ html(lang="en", ng-app="Yote")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     meta(charset="utf-8")
     link(href="/favicon.ico", rel="shortcut icon", type="image/x-icon")
+    link(href='https://fonts.googleapis.com/css?family=Roboto:400,300,400italic,300italic,700,700italic' rel='stylesheet' type='text/css')
+    link(href='https://fonts.googleapis.com/css?family=Source+Code+Pro:400,300,700,200,600,500,900' rel='stylesheet' type='text/css')
     link(rel="stylesheet", href="/css/animate.min.css")
 
     //- compiled SASS styles
@@ -14,34 +16,53 @@ html(lang="en", ng-app="Yote")
     //- uncomment line below to use
     //- link(rel="stylesheet", href="/css/style.css")
 
-    //- javascript libraries
-    script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js")
-    script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.js")
-    script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular-route.js")
-    script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular-touch.js")
-    script(src="/lib/angular-ui-router.min.js")
-
-    //- set current user if it exists. else set to null.
-    if !!currentUser
-      script.
-        window.currentUser = !{JSON.stringify(currentUser)}
-    else
-      script.
-        window.currentUser = {}
-    //- this freaks the sublime jade highlighter out but it is valid
-    script.
-      window.development = !{JSON.stringify(development)}
-
-    //- root angular dependencies
-    script(src="/app/app.js")
-
+    //- //- this freaks the sublime jade highlighter out but it is valid
+    //- script.
+    //-   window.development = !{JSON.stringify(development)}
 
   body
-    ui-view.flex
+    //- load the react container and run the react script
+    #react
+    script(src='/js/react-bundle.js')
 
-    //- reference the custom angular dependencies
-    include includes/ng-directives
-    include includes/ng-filters
-    include includes/ng-services
-    include includes/ng-controllers
-    include includes/ng-routes
+
+  //-   link(rel="stylesheet", href="/css/animate.min.css")
+
+  //-   //- compiled SASS styles
+  //-   link(rel="stylesheet", href="/css/yote.css")
+
+  //-   //- regular non-SASS styles
+  //-   //- uncomment line below to use
+  //-   //- link(rel="stylesheet", href="/css/style.css")
+
+  //-   //- javascript libraries
+  //-   script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js")
+  //-   script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.js")
+  //-   script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular-route.js")
+  //-   script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular-touch.js")
+  //-   script(src="/lib/angular-ui-router.min.js")
+
+  //-   //- set current user if it exists. else set to null.
+  //-   if !!currentUser
+  //-     script.
+  //-       window.currentUser = !{JSON.stringify(currentUser)}
+  //-   else
+  //-     script.
+  //-       window.currentUser = {}
+  //-   //- this freaks the sublime jade highlighter out but it is valid
+  //-   script.
+  //-     window.development = !{JSON.stringify(development)}
+
+  //-   //- root angular dependencies
+  //-   script(src="/app/app.js")
+
+
+  //- body
+  //-   ui-view.flex
+
+  //-   //- reference the custom angular dependencies
+  //-   include includes/ng-directives
+  //-   include includes/ng-filters
+  //-   include includes/ng-services
+  //-   include includes/ng-controllers
+  //-   include includes/ng-routes

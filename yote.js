@@ -68,7 +68,7 @@ app.use(session({
   //   secure: ((app.get('env') == 'production') ? true : false)
   // }
 }));
-app.use(favicon(path.join(__dirname, 'public','favicon.ico'))); 
+// app.use(favicon(path.join(__dirname, 'public','favicon.ico'))); 
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -89,7 +89,7 @@ if (app.get('env') == 'development') {
 }
 
 //allow the angular ui-views to be written in Jade
-app.use(serveStatic(__dirname + '/client/public'));
+app.use(serveStatic(__dirname + '/public'));
 
 //request checks
 app.use(function(req, res, next) {
