@@ -80,6 +80,7 @@
 	  _react2.default.createElement(
 	    _reactRouter.Route,
 	    { path: '/', component: _LayoutJs2.default },
+	    _react2.default.createElement(_reactRouter.Router, { path: '/posts', component: _ListJs2.default }),
 	    _react2.default.createElement(_reactRouter.Router, { path: '/posts/:postId', component: _ViewJs2.default })
 	  )
 	), document.getElementById('react'));
@@ -27115,17 +27116,30 @@
 			value: function render() {
 				return _react2.default.createElement(
 					'div',
-					{ className: 'test' },
+					{ className: 'post-list' },
 					_react2.default.createElement(
 						'h1',
 						null,
-						'LIST POSTS'
+						'LIST POSTS: ',
+						this.state.posts.length,
+						' found'
 					),
-					_react2.default.createElement(
-						'h2',
-						null,
-						this.state.posts.length
-					)
+					this.state.posts.map(function (post) {
+						return _react2.default.createElement(
+							'div',
+							{ key: post._id },
+							_react2.default.createElement(
+								'p',
+								null,
+								_react2.default.createElement(
+									_reactRouter.Link,
+									{ to: '/posts/' + post._id },
+									' ',
+									post.title
+								)
+							)
+						);
+					})
 				);
 			}
 		}]);
@@ -27201,7 +27215,7 @@
 		_createClass(List, [{
 			key: 'componentWillMount',
 			value: function componentWillMount() {
-				//once component is up, request post from server
+				//request post from server
 				_PostActions2.default.requestSinglePost(this.props.params.postId);
 			}
 		}, {
@@ -27229,6 +27243,16 @@
 						'h1',
 						null,
 						'VIEW POST'
+					),
+					_react2.default.createElement(
+						'p',
+						null,
+						this.state.post.title
+					),
+					_react2.default.createElement(
+						'p',
+						null,
+						this.state.post.content
 					)
 				);
 			}

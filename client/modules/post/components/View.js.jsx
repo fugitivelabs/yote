@@ -23,7 +23,7 @@ class List extends React.Component{
 	}
 
 	componentWillMount () {
-		//once component is up, request post from server
+		//request post from server
 		PostActions.requestSinglePost(this.props.params.postId);
 	}
 
@@ -43,6 +43,8 @@ class List extends React.Component{
 		return(
 			<div className="test">
 				<h1>VIEW POST</h1>
+				<p>{this.state.post.title}</p>
+				<p>{this.state.post.content}</p>
 			</div>
 		)
 	}

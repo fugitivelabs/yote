@@ -14,6 +14,7 @@ render(
   (
     <Router history={history} >
       <Route path="/" component={Layout}>
+        <Router path="/posts" component={PostList} />
         <Router path="/posts/:postId" component={PostView} />
       </Route>
     </Router>

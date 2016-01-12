@@ -39,9 +39,15 @@ class List extends React.Component{
 
 	render() {
 		return(
-			<div className="test">
-				<h1>LIST POSTS</h1>
-				<h2>{this.state.posts.length}</h2>
+			<div className="post-list">
+				<h1>LIST POSTS: {this.state.posts.length} found</h1>
+				{ this.state.posts.map(post => 
+					<div key={post._id}>
+						<p>
+							<Link to={`/posts/${post._id}`}> {post.title}</Link>
+						</p>
+					</div>
+				)}
 			</div>
 		)
 	}
