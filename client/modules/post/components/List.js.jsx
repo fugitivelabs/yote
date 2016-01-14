@@ -1,19 +1,18 @@
 import React from 'react';
 import { Router, Link } from 'react-router';
 
-import PostAPI from "../PostAPI";
-import PostActions from "../PostActions";
-import PostStore from "../PostStore";
-import PostConstants from "../PostConstants";
+import Post from "../PostHandler";
 
-//initialize stores
-PostActions.requestPostsList();
+//CAN'T HAVE THIS HERE. it will initiate the call every time the module is imported.
+// better to have it in componentWillMount()
+// //initialize stores
+// Post.Actions.requestPostsList();
 
 //get/set initial state
 let getPostsListState = () => {
 	console.log("get app state called in posts list");
 	return {
-		posts: PostStore.list()
+		posts: Post.Store.list()
 	}
 }
 
@@ -25,12 +24,17 @@ class List extends React.Component{
 		this._onChange = this._onChange.bind(this); //lolwut
 	}
 
+	componentWillMount() {
+		//initialize stores
+		Post.Actions.requestPostsList();
+	}
+
 	componentDidMount() {
-	   PostStore.addChangeListener(this._onChange);
+	   Post.Store.addChangeListener(this._onChange);
 	}
 
 	componentWillUnmount() {
-	  PostStore.removeChangeListener(this._onChange);
+	  Post.Store.removeChangeListener(this._onChange);
 	}
 
 	_onChange() {
@@ -41,6 +45,7 @@ class List extends React.Component{
 		return(
 			<div className="post-list">
 				<h1>LIST POSTS: {this.state.posts.length} found</h1>
+				<Link to={'/posts/new'}> NEW POST </Link>
 				{ this.state.posts.map(post => 
 					<div key={post._id}>
 						<p>

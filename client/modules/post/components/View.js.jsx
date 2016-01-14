@@ -1,16 +1,13 @@
 import React from 'react';
 import { Router, Link } from 'react-router';
 
-import PostAPI from "../PostAPI";
-import PostActions from "../PostActions";
-import PostStore from "../PostStore";
-import PostConstants from "../PostConstants";
+import Post from "../PostHandler";
 
 //get/set initial state
 let getPostViewState = () => {
 	console.log("get app state called in post view");
 	return {
-		post: PostStore.get()
+		post: Post.Store.get()
 	}
 }
 
@@ -24,15 +21,15 @@ class List extends React.Component{
 
 	componentWillMount () {
 		//request post from server
-		PostActions.requestSinglePost(this.props.params.postId);
+		Post.Actions.requestSinglePost(this.props.params.postId);
 	}
 
 	componentDidMount() {
-		PostStore.addChangeListener(this._onChange);
+		Post.Store.addChangeListener(this._onChange);
 	}
 
 	componentWillUnmount() {
-	  PostStore.removeChangeListener(this._onChange);
+	  Post.Store.removeChangeListener(this._onChange);
 	}
 
 	_onChange() {
@@ -41,7 +38,7 @@ class List extends React.Component{
 
 	render() {
 		return(
-			<div className="test">
+			<div className="post-view">
 				<h1>VIEW POST</h1>
 				<p>{this.state.post.title}</p>
 				<p>{this.state.post.content}</p>
