@@ -17,7 +17,7 @@ render(
   (
     <Router history={history} >
       <Route path="/" component={Layout} >
-      	<IndexRoute component={Landing} />
+        <IndexRoute component={Landing} />
         <Route path="/posts" component={PostList} />
         <Route path="/posts/new" component={PostCreate} />
         <Route path="/posts/:postId" component={PostView} />

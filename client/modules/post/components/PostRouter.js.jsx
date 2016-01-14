@@ -11,21 +11,21 @@ import Post from "../PostHandler";
 //LEAVING FOR LATER USE
 
 class PostRouter extends React.Component{
-	constructor(props, context) {
-		console.log("POST ROUTER LOADED");
-		super(props);
-	}
+  constructor(props, context) {
+    console.log("POST ROUTER LOADED");
+    super(props);
+  }
 
-	render() {
-		console.log("POST ROUTER RENDER");
-		return(
-			<Router path="/">
-		        <Route path="/posts" component={PostList} />
-		        <Route path="/posts/new" component={PostCreate} />
-		        <Route path="/posts/:postId" component={PostView} />
-	        </Router> 
-		)
-	}
+  render() {
+    console.log("POST ROUTER RENDER");
+    return(
+      <Router path="/">
+        <Route path="/posts" component={PostList} />
+        <Route path="/posts/new" component={PostCreate} />
+        <Route path="/posts/:postId" component={PostView} />
+      </Router> 
+    )
+  }
 }
 
 export default PostRouter;
