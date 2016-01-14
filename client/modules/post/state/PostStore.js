@@ -37,6 +37,11 @@ AppDispatcher.register(action => {
 			_post = action.post;
 			PostStore.emitChange();
 			break;
+		case PostConstants.UPDATED_POST:
+			console.log("store received update post success");
+			_post = action.post;
+			PostStore.emitChange();
+			break;
 		default:
 			break;
 	}

@@ -47,6 +47,7 @@ export default {
 		PostAPI.updatePost(postData);
 	}
 	, receivedUpdatePost(post) {
+		console.log("debug 1");
 		AppDispatcher.dispatch({
 			actionType: PostConstants.UPDATED_POST
 			, post: post

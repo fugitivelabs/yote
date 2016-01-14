@@ -12,7 +12,7 @@ let getPostCreateState = () => {
 	}
 }
 
-class List extends React.Component{
+export default class Create extends React.Component{
 
 	constructor(props, context) {
 		super(props);
@@ -84,5 +84,3 @@ class List extends React.Component{
 		)
 	}
 }
-
-export default List;

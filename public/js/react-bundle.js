@@ -26539,6 +26539,7 @@
 			_PostAPI2.default.updatePost(postData);
 		},
 		receivedUpdatePost: function receivedUpdatePost(post) {
+			console.log("debug 1");
 			_dispatcher2.default.dispatch({
 				actionType: _PostConstants2.default.UPDATED_POST,
 				post: post
@@ -26977,6 +26978,11 @@
 				_post = action.post;
 				PostStore.emitChange();
 				break;
+			case _PostConstants2.default.UPDATED_POST:
+				console.log("store received update post success");
+				_post = action.post;
+				PostStore.emitChange();
+				break;
 			default:
 				break;
 		}
@@ -27350,20 +27356,20 @@
 		};
 	};
 
-	var List = (function (_React$Component) {
-		_inherits(List, _React$Component);
+	var View = (function (_React$Component) {
+		_inherits(View, _React$Component);
 
-		function List(props, context) {
-			_classCallCheck(this, List);
+		function View(props, context) {
+			_classCallCheck(this, View);
 
-			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(List).call(this, props));
+			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(View).call(this, props));
 
 			_this.state = getPostViewState();
 			_this._onChange = _this._onChange.bind(_this);
 			return _this;
 		}
 
-		_createClass(List, [{
+		_createClass(View, [{
 			key: 'componentWillMount',
 			value: function componentWillMount() {
 				//request post from server
@@ -27420,10 +27426,10 @@
 			}
 		}]);
 
-		return List;
+		return View;
 	})(_react2.default.Component);
 
-	exports.default = List;
+	exports.default = View;
 
 /***/ },
 /* 243 */
@@ -27464,13 +27470,13 @@
 		};
 	};
 
-	var List = (function (_React$Component) {
-		_inherits(List, _React$Component);
+	var Create = (function (_React$Component) {
+		_inherits(Create, _React$Component);
 
-		function List(props, context) {
-			_classCallCheck(this, List);
+		function Create(props, context) {
+			_classCallCheck(this, Create);
 
-			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(List).call(this, props));
+			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Create).call(this, props));
 
 			_this.state = getPostCreateState();
 			_this._handleFormChange = _this._handleFormChange.bind(_this);
@@ -27479,7 +27485,7 @@
 			return _this;
 		}
 
-		_createClass(List, [{
+		_createClass(Create, [{
 			key: 'componentDidMount',
 			value: function componentDidMount() {
 				_PostHandler2.default.Store.addChangeListener(this._onChange);
@@ -27562,10 +27568,10 @@
 			}
 		}]);
 
-		return List;
+		return Create;
 	})(_react2.default.Component);
 
-	exports.default = List;
+	exports.default = Create;
 
 /***/ },
 /* 244 */
@@ -27604,13 +27610,13 @@
 		};
 	};
 
-	var List = (function (_React$Component) {
-		_inherits(List, _React$Component);
+	var Update = (function (_React$Component) {
+		_inherits(Update, _React$Component);
 
-		function List(props, context) {
-			_classCallCheck(this, List);
+		function Update(props, context) {
+			_classCallCheck(this, Update);
 
-			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(List).call(this, props));
+			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Update).call(this, props));
 
 			_this.state = getPostUpdateState();
 			_this._handleFormChange = _this._handleFormChange.bind(_this);
@@ -27619,7 +27625,7 @@
 			return _this;
 		}
 
-		_createClass(List, [{
+		_createClass(Update, [{
 			key: 'componentWillMount',
 			value: function componentWillMount() {
 				_PostHandler2.default.Actions.requestSinglePost(this.props.params.postId);
@@ -27703,10 +27709,10 @@
 			}
 		}]);
 
-		return List;
+		return Update;
 	})(_react2.default.Component);
 
-	exports.default = List;
+	exports.default = Update;
 
 /***/ }
 /******/ ]);

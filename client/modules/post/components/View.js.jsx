@@ -11,7 +11,7 @@ let getPostViewState = () => {
 	}
 }
 
-class List extends React.Component{
+export default class View extends React.Component{
 
 	constructor(props, context) {
 		super(props);
@@ -49,5 +49,3 @@ class List extends React.Component{
 		)
 	}
 }
-
-export default List;

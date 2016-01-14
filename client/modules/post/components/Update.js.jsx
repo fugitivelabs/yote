@@ -10,7 +10,7 @@ let getPostUpdateState = () => {
 	}
 }
 
-class List extends React.Component{
+export default class Update extends React.Component{
 
 	constructor(props, context) {
 		super(props);
@@ -81,5 +81,3 @@ class List extends React.Component{
 		)
 	}
 }
-
-export default List;
