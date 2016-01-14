@@ -29,8 +29,10 @@ secrets.js
 # .DS_Store
 *.DS_Store
 
-# Compiled Yote CSS
+# Compiled stuff
 public/css/yote.css
+public/js/react-bundle.js
+
 
 # SSL Stuff
 ssl/*

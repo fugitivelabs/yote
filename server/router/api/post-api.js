@@ -9,7 +9,7 @@ var posts = require('../../controllers/posts');
 module.exports = function(router, requireLogin, requireRole) {
   
   // - Create
-  router.post('/api/posts'              , requireLogin(), posts.create);
+  router.post('/api/posts'              , posts.create);
   
   // - Read
   router.get('/api/posts'               , posts.list);
@@ -19,7 +19,7 @@ module.exports = function(router, requireLogin, requireRole) {
   router.get('/api/posts/:id'           , posts.getById); 
 
   // - Update
-  router.put('/api/posts/:id'           , requireLogin(), posts.update); // must login as post owner to update the post
+  router.put('/api/posts/:id'           , posts.update); // must login as post owner to update the post
   
   // - Delete
   router.delete('/api/posts/:id'        , requireRole('admin'), posts.delete); // must be an 'admin' to delete

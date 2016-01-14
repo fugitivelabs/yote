@@ -68,7 +68,7 @@ app.use(session({
   //   secure: ((app.get('env') == 'production') ? true : false)
   // }
 }));
-app.use(favicon(path.join(__dirname, 'public','favicon.ico'))); 
+// app.use(favicon(path.join(__dirname, 'public','favicon.ico'))); 
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -78,13 +78,14 @@ app.use(multipart({}));
 //sass middleware
 //only enable for development env - npm module can be buggy
 if (app.get('env') == 'development') {
+  console.log("using sass");
   app.use(sass({
-    src: __dirname + '/public'
+    src: __dirname + '/client/'
     , dest: __dirname + '/public/css'
     , prefix: '/css'
     , debug: true
     , outputStyle: 'compressed'
-    , includePaths: ['public/app/', 'public/sass/globals/', 'globals/sass/includes/']
+    , includePaths: ['/client/global/', '/client/modules/']
   }));
 }
 
