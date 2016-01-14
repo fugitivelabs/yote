@@ -41,4 +41,15 @@ export default {
 			, post: post
 		});
 	}
+
+	//update
+	, requestUpdatePost(postData) {
+		PostAPI.updatePost(postData);
+	}
+	, receivedUpdatePost(post) {
+		AppDispatcher.dispatch({
+			actionType: PostConstants.UPDATED_POST
+			, post: post
+		});
+	}
 }

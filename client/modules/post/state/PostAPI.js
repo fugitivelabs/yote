@@ -38,13 +38,29 @@ var PostAPI = {
 		return axios.post(urlBase, postData).then((res) => {
 			if(res.data.success == true) {
 				console.log("created post in API");
-				// PostActions.receiv
+				PostActions.receivedCreatePost(res.data.post);
 			} else {
 				console.log("ERROR failed to create post");
 				console.log(res.data);
 			}
 		}).catch((err) => {
 			console.log("ERROR creating post");
+			console.log(err);
+		});
+	}
+
+	, updatePost(postData) {
+		console.log("update post called in API");
+		return axios.put(urlBase + "/" + postData._id, postData).then((res) => {
+			if(res.data.success == true) {
+				console.log("updated post in API");
+				PostActions.receivedUpdatePost(res.data.post);
+			} else {
+				console.log("ERROR failed to update post");
+				console.log(res.data);
+			}
+		}).catch((err) => {
+			console.log("ERROR updating post");
 			console.log(err);
 		});
 	}

@@ -5,7 +5,7 @@ import Post from "../PostHandler";
 
 //get/set initial state
 let getPostViewState = () => {
-	console.log("get app state called in post view");
+	// console.log("get app state called in post view");
 	return {
 		post: Post.Store.get()
 	}
@@ -16,7 +16,7 @@ class List extends React.Component{
 	constructor(props, context) {
 		super(props);
 		this.state = getPostViewState();
-		this._onChange = this._onChange.bind(this); //lolwut
+		this._onChange = this._onChange.bind(this);
 	}
 
 	componentWillMount () {
@@ -39,6 +39,9 @@ class List extends React.Component{
 	render() {
 		return(
 			<div className="post-view">
+				<Link to={'/posts'}> Back to list</Link>
+				<br />
+				<Link to={`/posts/${this.state.post._id}/update`}> edit post</Link>
 				<h1>VIEW POST</h1>
 				<p>{this.state.post.title}</p>
 				<p>{this.state.post.content}</p>

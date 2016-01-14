@@ -3,12 +3,10 @@ import { Router, Link } from 'react-router';
 
 import Post from "../PostHandler";
 
-let getPostCreateState = () => {
+let getPostUpdateState = () => {
+	console.log("get app state called in post update");
 	return {
-		post: {
-			title: ''
-			, content: ''
-		}
+		post: Post.Store.get()
 	}
 }
 
@@ -16,10 +14,14 @@ class List extends React.Component{
 
 	constructor(props, context) {
 		super(props);
-		this.state = getPostCreateState();
+		this.state = getPostUpdateState();
 		this._handleFormChange = this._handleFormChange.bind(this);
 		this._handleFormSubmit = this._handleFormSubmit.bind(this);
 		this._onChange = this._onChange.bind(this); 
+	}
+
+	componentWillMount() {
+		Post.Actions.requestSinglePost(this.props.params.postId);
 	}
 
 	componentDidMount() {
@@ -31,40 +33,35 @@ class List extends React.Component{
 	}
 
 	_onChange() {
-		//on change from the store, we know the post was created successfully
-		console.log("CREATE SUCCESSFUL. NAVIGATE AWAY NOW.");
-
+		this.setState(getPostUpdateState());
 	}
 
 	_handleFormChange(e) {
-		//this works WAY better than having a separate onChange for every input box
-		// just make sure input name attr == state name
 		var newPostState = this.state.post;
 		newPostState[e.target.name] = e.target.value;
 		this.setState(newPostState);
+		// console.log(this.state);
 	}
 
 	_handleFormSubmit(e) {
 		e.preventDefault();
-		var postData = {
-			title: this.state.title.trim()
-			, content: this.state.content.trim()
-		}
+		console.log(this.state.post);
+		var postData = this.state.post;
 		if(!postData.title || !postData.content) {
 			console.log("FORM NOT FILLED OUT");
 			return;
 		} else {
 			console.log("submitting");
-			Post.Actions.requestCreatePost(postData);
+			Post.Actions.requestUpdatePost(postData);
 		}
 	}
 
 	render() {
 		return(
 			<div className="post-create">
-				<Link to={'/posts'}> Back to list</Link>
-				<h1>CREATE NEW POST</h1>
-				<form className="post-create-form" onSubmit={this._handleFormSubmit}>
+				<Link to={`/posts/${this.state.post._id}`}> Back to view</Link>
+				<h1>UPDATE POST</h1>
+				<form className="post-update-form" onSubmit={this._handleFormSubmit}>
 					<input 
 						type="text" 
 						name="title" 
@@ -78,7 +75,7 @@ class List extends React.Component{
 						placeholder="Post Content" 
 						value={this.state.post.content} 
 						onChange={this._handleFormChange} />
-					<button type="submit"> Create </button>
+					<button type="submit"> SAVE </button>
 				</form>
 			</div>
 		)

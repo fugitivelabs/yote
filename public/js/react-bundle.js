@@ -76,11 +76,15 @@
 
 	var _CreateJs2 = _interopRequireDefault(_CreateJs);
 
+	var _UpdateJs = __webpack_require__(244);
+
+	var _UpdateJs2 = _interopRequireDefault(_UpdateJs);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var history = (0, _history.createHistory)();
-
 	//import custom components
+
+	var history = (0, _history.createHistory)();
 
 	(0, _reactDom.render)(_react2.default.createElement(
 	  _reactRouter.Router,
@@ -91,7 +95,8 @@
 	    _react2.default.createElement(_reactRouter.IndexRoute, { component: _LandingJs2.default }),
 	    _react2.default.createElement(_reactRouter.Route, { path: '/posts', component: _ListJs2.default }),
 	    _react2.default.createElement(_reactRouter.Route, { path: '/posts/new', component: _CreateJs2.default }),
-	    _react2.default.createElement(_reactRouter.Route, { path: '/posts/:postId', component: _ViewJs2.default })
+	    _react2.default.createElement(_reactRouter.Route, { path: '/posts/:postId', component: _ViewJs2.default }),
+	    _react2.default.createElement(_reactRouter.Route, { path: '/posts/:postId/update', component: _UpdateJs2.default })
 	  )
 	), document.getElementById('react'));
 
@@ -25548,13 +25553,28 @@
 			return _axios2.default.post(urlBase, postData).then(function (res) {
 				if (res.data.success == true) {
 					console.log("created post in API");
-					// PostActions.receiv
+					_PostActions2.default.receivedCreatePost(res.data.post);
 				} else {
-						console.log("ERROR failed to create post");
-						console.log(res.data);
-					}
+					console.log("ERROR failed to create post");
+					console.log(res.data);
+				}
 			}).catch(function (err) {
 				console.log("ERROR creating post");
+				console.log(err);
+			});
+		},
+		updatePost: function updatePost(postData) {
+			console.log("update post called in API");
+			return _axios2.default.put(urlBase + "/" + postData._id, postData).then(function (res) {
+				if (res.data.success == true) {
+					console.log("updated post in API");
+					_PostActions2.default.receivedUpdatePost(res.data.post);
+				} else {
+					console.log("ERROR failed to update post");
+					console.log(res.data);
+				}
+			}).catch(function (err) {
+				console.log("ERROR updating post");
 				console.log(err);
 			});
 		}
@@ -26512,6 +26532,18 @@
 				post: post
 			});
 		}
+
+		//update
+		,
+		requestUpdatePost: function requestUpdatePost(postData) {
+			_PostAPI2.default.updatePost(postData);
+		},
+		receivedUpdatePost: function receivedUpdatePost(post) {
+			_dispatcher2.default.dispatch({
+				actionType: _PostConstants2.default.UPDATED_POST,
+				post: post
+			});
+		}
 	};
 
 /***/ },
@@ -27312,7 +27344,7 @@
 
 	//get/set initial state
 	var getPostViewState = function getPostViewState() {
-		console.log("get app state called in post view");
+		// console.log("get app state called in post view");
 		return {
 			post: _PostHandler2.default.Store.get()
 		};
@@ -27327,7 +27359,7 @@
 			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(List).call(this, props));
 
 			_this.state = getPostViewState();
-			_this._onChange = _this._onChange.bind(_this); //lolwut
+			_this._onChange = _this._onChange.bind(_this);
 			return _this;
 		}
 
@@ -27358,6 +27390,17 @@
 				return _react2.default.createElement(
 					'div',
 					{ className: 'post-view' },
+					_react2.default.createElement(
+						_reactRouter.Link,
+						{ to: '/posts' },
+						' Back to list'
+					),
+					_react2.default.createElement('br', null),
+					_react2.default.createElement(
+						_reactRouter.Link,
+						{ to: '/posts/' + this.state.post._id + '/update' },
+						' edit post'
+					),
 					_react2.default.createElement(
 						'h1',
 						null,
@@ -27414,8 +27457,10 @@
 
 	var getPostCreateState = function getPostCreateState() {
 		return {
-			title: '',
-			content: ''
+			post: {
+				title: '',
+				content: ''
+			}
 		};
 	};
 
@@ -27430,18 +27475,34 @@
 			_this.state = getPostCreateState();
 			_this._handleFormChange = _this._handleFormChange.bind(_this);
 			_this._handleFormSubmit = _this._handleFormSubmit.bind(_this);
+			_this._onChange = _this._onChange.bind(_this);
 			return _this;
 		}
 
 		_createClass(List, [{
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+				_PostHandler2.default.Store.addChangeListener(this._onChange);
+			}
+		}, {
+			key: 'componentWillUnmount',
+			value: function componentWillUnmount() {
+				_PostHandler2.default.Store.removeChangeListener(this._onChange);
+			}
+		}, {
+			key: '_onChange',
+			value: function _onChange() {
+				//on change from the store, we know the post was created successfully
+				console.log("CREATE SUCCESSFUL. NAVIGATE AWAY NOW.");
+			}
+		}, {
 			key: '_handleFormChange',
 			value: function _handleFormChange(e) {
 				//this works WAY better than having a separate onChange for every input box
 				// just make sure input name attr == state name
-				var newState = {};
-				newState[e.target.name] = e.target.value;
-				// console.log(newState);
-				this.setState(newState);
+				var newPostState = this.state.post;
+				newPostState[e.target.name] = e.target.value;
+				this.setState(newPostState);
 			}
 		}, {
 			key: '_handleFormSubmit',
@@ -27466,6 +27527,11 @@
 					'div',
 					{ className: 'post-create' },
 					_react2.default.createElement(
+						_reactRouter.Link,
+						{ to: '/posts' },
+						' Back to list'
+					),
+					_react2.default.createElement(
 						'h1',
 						null,
 						'CREATE NEW POST'
@@ -27477,19 +27543,160 @@
 							type: 'text',
 							name: 'title',
 							placeholder: 'Post Title',
-							value: this.state.title,
+							value: this.state.post.title,
 							onChange: this._handleFormChange }),
 						_react2.default.createElement('br', null),
 						_react2.default.createElement('textarea', {
 							type: 'text',
 							name: 'content',
 							placeholder: 'Post Content',
-							value: this.state.content,
+							value: this.state.post.content,
 							onChange: this._handleFormChange }),
 						_react2.default.createElement(
 							'button',
 							{ type: 'submit' },
 							' Create '
+						)
+					)
+				);
+			}
+		}]);
+
+		return List;
+	})(_react2.default.Component);
+
+	exports.default = List;
+
+/***/ },
+/* 244 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(189);
+
+	var _PostHandler = __webpack_require__(218);
+
+	var _PostHandler2 = _interopRequireDefault(_PostHandler);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var getPostUpdateState = function getPostUpdateState() {
+		console.log("get app state called in post update");
+		return {
+			post: _PostHandler2.default.Store.get()
+		};
+	};
+
+	var List = (function (_React$Component) {
+		_inherits(List, _React$Component);
+
+		function List(props, context) {
+			_classCallCheck(this, List);
+
+			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(List).call(this, props));
+
+			_this.state = getPostUpdateState();
+			_this._handleFormChange = _this._handleFormChange.bind(_this);
+			_this._handleFormSubmit = _this._handleFormSubmit.bind(_this);
+			_this._onChange = _this._onChange.bind(_this);
+			return _this;
+		}
+
+		_createClass(List, [{
+			key: 'componentWillMount',
+			value: function componentWillMount() {
+				_PostHandler2.default.Actions.requestSinglePost(this.props.params.postId);
+			}
+		}, {
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+				_PostHandler2.default.Store.addChangeListener(this._onChange);
+			}
+		}, {
+			key: 'componentWillUnmount',
+			value: function componentWillUnmount() {
+				_PostHandler2.default.Store.removeChangeListener(this._onChange);
+			}
+		}, {
+			key: '_onChange',
+			value: function _onChange() {
+				this.setState(getPostUpdateState());
+			}
+		}, {
+			key: '_handleFormChange',
+			value: function _handleFormChange(e) {
+				var newPostState = this.state.post;
+				newPostState[e.target.name] = e.target.value;
+				this.setState(newPostState);
+				// console.log(this.state);
+			}
+		}, {
+			key: '_handleFormSubmit',
+			value: function _handleFormSubmit(e) {
+				e.preventDefault();
+				console.log(this.state.post);
+				var postData = this.state.post;
+				if (!postData.title || !postData.content) {
+					console.log("FORM NOT FILLED OUT");
+					return;
+				} else {
+					console.log("submitting");
+					_PostHandler2.default.Actions.requestUpdatePost(postData);
+				}
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				return _react2.default.createElement(
+					'div',
+					{ className: 'post-create' },
+					_react2.default.createElement(
+						_reactRouter.Link,
+						{ to: '/posts/' + this.state.post._id },
+						' Back to view'
+					),
+					_react2.default.createElement(
+						'h1',
+						null,
+						'UPDATE POST'
+					),
+					_react2.default.createElement(
+						'form',
+						{ className: 'post-update-form', onSubmit: this._handleFormSubmit },
+						_react2.default.createElement('input', {
+							type: 'text',
+							name: 'title',
+							placeholder: 'Post Title',
+							value: this.state.post.title,
+							onChange: this._handleFormChange }),
+						_react2.default.createElement('br', null),
+						_react2.default.createElement('textarea', {
+							type: 'text',
+							name: 'content',
+							placeholder: 'Post Content',
+							value: this.state.post.content,
+							onChange: this._handleFormChange }),
+						_react2.default.createElement(
+							'button',
+							{ type: 'submit' },
+							' SAVE '
 						)
 					)
 				);
