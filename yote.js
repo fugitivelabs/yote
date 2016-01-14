@@ -78,13 +78,14 @@ app.use(multipart({}));
 //sass middleware
 //only enable for development env - npm module can be buggy
 if (app.get('env') == 'development') {
+  console.log("using sass");
   app.use(sass({
-    src: __dirname + '/client/public'
-    , dest: __dirname + '/client/public/css'
+    src: __dirname + '/client/'
+    , dest: __dirname + '/public/css'
     , prefix: '/css'
     , debug: true
     , outputStyle: 'compressed'
-    , includePaths: ['/client/public/app/', '/client/public/sass/globals/', 'globals/sass/includes/']
+    , includePaths: ['/client/global/', '/client/modules/']
   }));
 }
 
