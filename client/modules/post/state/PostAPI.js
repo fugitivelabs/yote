@@ -5,10 +5,10 @@ let urlBase = "/api/posts";
 
 var PostAPI = {
   getAllPosts() {
-    console.log("get posts called in API");
+    // console.log("get posts called in API");
     return axios.get(urlBase).then((res) => {
       if(res.data.success == true) {
-        console.log("retrieved " + res.data.posts.length + " objects from server");
+        // console.log("retrieved " + res.data.posts.length + " objects from server");
         PostActions.receivedPostsList(res.data.posts);
       } else {
         console.log("ERROR failed to retrieve objects from server");
@@ -19,10 +19,10 @@ var PostAPI = {
     });
   }
   , getPost(postId) {
-    console.log("get single post called in API");
+    // console.log("get single post called in API");
     return axios.get(urlBase + "/" + postId).then((res) => {
       if(res.data.success == true) {
-        console.log("retrieved post with id = " + postId);
+        // console.log("retrieved post with id = " + postId);
         PostActions.receivedSinglePost(res.data.post);
       } else {
         console.log("ERROR failed to retrieve post from server");
@@ -34,10 +34,10 @@ var PostAPI = {
   }
 
   , createPost(postData) {
-    console.log("create post called in API");
+    // console.log("create post called in API");
     return axios.post(urlBase, postData).then((res) => {
     if(res.data.success == true) {
-        console.log("created post in API");
+        // console.log("created post in API");
         PostActions.receivedCreatePost(res.data.post);
       } else {
         console.log("ERROR failed to create post");
@@ -50,10 +50,10 @@ var PostAPI = {
   }
 
   , updatePost(postData) {
-    console.log("update post called in API");
+    // console.log("update post called in API");
     return axios.put(urlBase + "/" + postData._id, postData).then((res) => {
       if(res.data.success == true) {
-        console.log("updated post in API");
+        // console.log("updated post in API");
         PostActions.receivedUpdatePost(res.data.post);
       } else {
         console.log("ERROR failed to update post");

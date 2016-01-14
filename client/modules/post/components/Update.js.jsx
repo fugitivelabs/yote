@@ -34,6 +34,7 @@ export default class Update extends React.Component{
 
   _onChange() {
     this.setState(getPostUpdateState());
+    console.log("changed");
   }
 
   _handleFormChange(e) {
