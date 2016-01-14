@@ -13,7 +13,7 @@ export default {
 		//this whole file seems redundant. it receives the method from API, then sends the same exact thing to dispatcher.
 		// only different is methodName is camelcase and ACTIONTYPE is from the constants file.
 		AppDispatcher.dispatch({
-			actionType: PostConstants.RECEIVED_POSTS_LIST
+			actionType: Post.Constants.RECEIVED_POSTS_LIST
 			, posts: posts
 		});
 	}
