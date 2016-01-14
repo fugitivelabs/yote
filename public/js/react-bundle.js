@@ -25392,7 +25392,9 @@
 			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(List).call(this, props));
 
 			_this.state = getPostsListState();
-			_this._onChange = _this._onChange.bind(_this); //lolwut
+			_this._onChange = _this._onChange.bind(_this);
+			console.log("context:");
+			console.log(context);
 			return _this;
 		}
 
@@ -27498,8 +27500,9 @@
 		}, {
 			key: '_onChange',
 			value: function _onChange() {
-				//on change from the store, we know the post was created successfully
+				//on change from the store, we know the post was created successfully, assuming it was empty before.
 				console.log("CREATE SUCCESSFUL. NAVIGATE AWAY NOW.");
+				// this.transitionTo('/posts'); //doesnt work.
 			}
 		}, {
 			key: '_handleFormChange',
@@ -27616,7 +27619,7 @@
 		function Update(props, context) {
 			_classCallCheck(this, Update);
 
-			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Update).call(this, props));
+			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Update).call(this, props, context));
 
 			_this.state = getPostUpdateState();
 			_this._handleFormChange = _this._handleFormChange.bind(_this);
@@ -27665,6 +27668,7 @@
 				} else {
 					console.log("submitting");
 					_PostHandler2.default.Actions.requestUpdatePost(postData);
+					// this.transitionTo('/posts'); //doesnt work.
 				}
 			}
 		}, {

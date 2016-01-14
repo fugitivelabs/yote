@@ -21,7 +21,9 @@ export default class List extends React.Component{
 	constructor(props, context) {
 		super(props);
 		this.state = getPostsListState();
-		this._onChange = this._onChange.bind(this); //lolwut
+		this._onChange = this._onChange.bind(this);
+		console.log("context:");
+		console.log(context);
 	}
 
 	componentWillMount() {

@@ -13,7 +13,7 @@ let getPostUpdateState = () => {
 export default class Update extends React.Component{
 
 	constructor(props, context) {
-		super(props);
+		super(props, context);
 		this.state = getPostUpdateState();
 		this._handleFormChange = this._handleFormChange.bind(this);
 		this._handleFormSubmit = this._handleFormSubmit.bind(this);
@@ -53,6 +53,7 @@ export default class Update extends React.Component{
 		} else {
 			console.log("submitting");
 			Post.Actions.requestUpdatePost(postData);
+			// this.transitionTo('/posts'); //doesnt work.
 		}
 	}
 
