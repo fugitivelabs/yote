@@ -27429,18 +27429,35 @@
 
 			_this.state = getPostCreateState();
 			_this._handleFormChange = _this._handleFormChange.bind(_this);
+			_this._handleFormSubmit = _this._handleFormSubmit.bind(_this);
 			return _this;
 		}
 
 		_createClass(List, [{
 			key: '_handleFormChange',
-			value: function _handleFormChange(event) {
+			value: function _handleFormChange(e) {
 				//this works WAY better than having a separate onChange for every input box
 				// just make sure input name attr == state name
 				var newState = {};
-				newState[event.target.name] = event.target.value;
-				console.log(newState);
+				newState[e.target.name] = e.target.value;
+				// console.log(newState);
 				this.setState(newState);
+			}
+		}, {
+			key: '_handleFormSubmit',
+			value: function _handleFormSubmit(e) {
+				e.preventDefault();
+				var postData = {
+					title: this.state.title.trim(),
+					content: this.state.content.trim()
+				};
+				if (!postData.title || !postData.content) {
+					console.log("FORM NOT FILLED OUT");
+					return;
+				} else {
+					console.log("submitting");
+					_PostHandler2.default.Actions.requestCreatePost(postData);
+				}
 			}
 		}, {
 			key: 'render',
@@ -27455,7 +27472,7 @@
 					),
 					_react2.default.createElement(
 						'form',
-						{ className: 'post-create-form' },
+						{ className: 'post-create-form', onSubmit: this._handleFormSubmit },
 						_react2.default.createElement('input', {
 							type: 'text',
 							name: 'title',

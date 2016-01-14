@@ -16,15 +16,31 @@ class List extends React.Component{
 		super(props);
 		this.state = getPostCreateState();
 		this._handleFormChange = this._handleFormChange.bind(this);
+		this._handleFormSubmit = this._handleFormSubmit.bind(this);
 	}
 
-	_handleFormChange(event) {
+	_handleFormChange(e) {
 		//this works WAY better than having a separate onChange for every input box
 		// just make sure input name attr == state name
 		var newState = {};
-		newState[event.target.name] = event.target.value;
-		console.log(newState);
+		newState[e.target.name] = e.target.value;
+		// console.log(newState);
 		this.setState(newState);
+	}
+
+	_handleFormSubmit(e) {
+		e.preventDefault();
+		var postData = {
+			title: this.state.title.trim()
+			, content: this.state.content.trim()
+		}
+		if(!postData.title || !postData.content) {
+			console.log("FORM NOT FILLED OUT");
+			return;
+		} else {
+			console.log("submitting");
+			Post.Actions.requestCreatePost(postData);
+		}
 	}
 
 
@@ -32,7 +48,7 @@ class List extends React.Component{
 		return(
 			<div className="post-create">
 				<h1>CREATE NEW POST</h1>
-				<form className="post-create-form">
+				<form className="post-create-form" onSubmit={this._handleFormSubmit}>
 					<input 
 						type="text" 
 						name="title" 
