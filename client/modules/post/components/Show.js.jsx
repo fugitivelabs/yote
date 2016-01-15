@@ -33,6 +33,7 @@ export default class View extends React.Component{
   }
 
   _onChange() {
+    console.log("SHOW:  post changed");
     this.setState(getPostViewState());
   }
 

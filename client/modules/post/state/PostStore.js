@@ -1,9 +1,19 @@
 import AppDispatcher from "../../../dispatcher";
 import AppEventEmitter from "../../../AppEventEmitter";
 import PostConstants from "./PostConstants";
+import _ from "lodash";
 
 let _posts = [];
 let _post = {};
+
+
+let _addMorePosts = (newPosts, callback) => {
+  // something here handles pagination
+  _posts.push(newPosts);
+  callback();
+}
+
+
 
 class PostEventEmitter extends AppEventEmitter {
   list() {
@@ -13,6 +23,10 @@ class PostEventEmitter extends AppEventEmitter {
   get() {
     console.log("get single post called in store");
     return _post;
+  }
+  checkForPost(postId) {
+    var _postIndex = _.findIndex(_posts, { _id: postId });
+    return _postIndex < 0 ? false : true;
   }
 }
 

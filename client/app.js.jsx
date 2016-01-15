@@ -8,7 +8,7 @@ import Layout from './global/components/Layout.js.jsx';
 import Landing from './global/components/Landing.js.jsx';
 
 //import Post
-import Post from './modules/post/Post.js.jsx';
+import Post from './modules/post/components/Layout.js.jsx';
 import PostList from './modules/post/components/List.js.jsx';
 import PostShow from './modules/post/components/Show.js.jsx';
 import PostCreate from './modules/post/components/Create.js.jsx';

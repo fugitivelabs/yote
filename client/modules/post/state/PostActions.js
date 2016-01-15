@@ -1,6 +1,7 @@
 import AppDispatcher from "../../../dispatcher";
 import PostConstants from "./PostConstants";
 import PostAPI from "./PostAPI";
+import PostStore from "./PostStore";
 
 export default {
   //list posts
@@ -21,6 +22,7 @@ export default {
   //get post
   , requestSinglePost(postId) {
     console.log("requesting single post in ACTIONS");
+    console.log(PostStore.checkForPost(postId));
     PostAPI.getPost(postId);
   }
   , receivedSinglePost(post) {

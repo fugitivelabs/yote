@@ -32,6 +32,7 @@ export default class Create extends React.Component{
 
   _onChange() {
     //on change from the store, we know the post was created successfully, assuming it was empty before.
+    console.log("CREATE:  post changed");
     console.log("CREATE SUCCESSFUL. NAVIGATE AWAY NOW.");
     // this.transitionTo('/posts'); //doesnt work.
   }

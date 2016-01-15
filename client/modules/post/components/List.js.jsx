@@ -40,6 +40,7 @@ export default class List extends React.Component{
   }
 
   _onChange() {
+    console.log("LIST:  post changed");
     this.setState(getPostsListState());
   }
 

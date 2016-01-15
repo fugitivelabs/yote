@@ -1,0 +1,62 @@
+@charset "UTF-8";
+
+/* ====================================
+   Dependencies
+   ==================================== */
+
+@import "global/sass/dependencies/normalize";
+@import "global/sass/dependencies/mixins";
+@import "global/sass/dependencies/colorPalettes";
+@import "global/sass/dependencies/fonts";
+@import "global/sass/dependencies/zIndex";
+
+/* ====================================
+   Foundation
+   ==================================== */
+@import "global/sass/foundation/grid";
+@import "global/sass/foundation/colors";
+@import "global/sass/foundation/base";
+@import "global/sass/foundation/typography";
+// @import "global/sass/foundation/icons";
+
+/* ====================================
+   Helpers
+   ==================================== */
+
+// @import "global/sass/helpers/classes";
+// @import "global/sass/helpers/animations";
+
+/* ====================================
+   Components
+   ==================================== */
+
+// @import "global/sass/components/buttons";
+// @import "global/sass/components/lists";
+// @import "global/sass/components/media";
+// @import "global/sass/components/forms";
+// @import "global/sass/components/modules";
+// @import "global/sass/components/slideshows";
+
+/* ====================================
+   Regions
+   ==================================== */
+
+// @import "global/sass/sections/header";
+// @import "global/sass/sections/navigation";
+// @import "global/sass/sections/content";
+// @import "global/sass/sections/footer";
+
+/* ====================================
+   Static Pages
+   ==================================== */
+
+// @import "global/sass/pages/home";
+// @import "global/sass/pages/subpages";
+// @import "global/sass/pages/style-guide";
+
+/* ====================================
+   Modules
+   ==================================== */
+
+@import "modules/post/post-styles";
+
