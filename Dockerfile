@@ -5,9 +5,7 @@ RUN npm install -g forever
 
 ADD / ./yote
 
-RUN cd /yote && npm install node-sass
-RUN cd /yote && npm install node-sass-middleware
-RUN cd /yote && npm install winston-mongodb
+RUN cd /yote && npm install node-sass node-sass-middleware winston-mongodb
 
 EXPOSE 80
 

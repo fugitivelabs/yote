@@ -1,22 +1,21 @@
 import React from 'react';
 import { Router, Link } from 'react-router';
+import Base from "../../../global/components/BaseComponent.js.jsx";
 
 import Post from "../PostHandler";
 
-//get/set initial state
-let getPostViewState = () => {
-  // console.log("get app state called in post view");
-  return {
-    post: Post.Store.get()
-  }
-}
+export default class View extends Base{
 
-export default class View extends React.Component{
+  getState() {
+    return {
+      post: Post.Store.get()
+    }
+  }
 
   constructor(props, context) {
     super(props);
-    this.state = getPostViewState();
-    this._onChange = this._onChange.bind(this);
+    this.state = this.getState();
+    this._bind('_onChange');
   }
 
   componentWillMount () {
@@ -33,7 +32,7 @@ export default class View extends React.Component{
   }
 
   _onChange() {
-    this.setState(getPostViewState());
+    this.setState(this.getState());
   }
 
   render() {

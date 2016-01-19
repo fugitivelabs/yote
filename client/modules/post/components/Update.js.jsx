@@ -1,23 +1,22 @@
 import React from 'react';
 import { Router, Link } from 'react-router';
+import Base from "../../../global/components/BaseComponent.js.jsx";
 
 import Post from "../PostHandler";
 
-let getPostUpdateState = () => {
-  console.log("get app state called in post update");
-  return {
-    post: Post.Store.get()
-  }
-}
+export default class Update extends Base{
 
-export default class Update extends React.Component{
+  getState() {
+    console.log("get app state called in post update");
+    return {
+      post: Post.Store.get()
+    }
+  }
 
   constructor(props, context) {
     super(props, context);
-    this.state = getPostUpdateState();
-    this._handleFormChange = this._handleFormChange.bind(this);
-    this._handleFormSubmit = this._handleFormSubmit.bind(this);
-    this._onChange = this._onChange.bind(this); 
+    this.state = this.getState();
+    this._bind('_handleFormChange', '_handleFormSubmit', '_onChange');
   }
 
   componentWillMount() {
@@ -33,7 +32,7 @@ export default class Update extends React.Component{
   }
 
   _onChange() {
-    this.setState(getPostUpdateState());
+    this.setState(this.getState());
   }
 
   _handleFormChange(e) {

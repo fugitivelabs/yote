@@ -1,29 +1,23 @@
 import React from 'react';
 import { Router, Link } from 'react-router';
+import Base from "../../../global/components/BaseComponent.js.jsx";
 
 import Post from "../PostHandler";
 
-//CAN'T HAVE THIS HERE. it will initiate the call every time the module is imported.
-// better to have it in componentWillMount()
-// //initialize stores
-// Post.Actions.requestPostsList();
+export default class List extends Base{
 
-//get/set initial state
-let getPostsListState = () => {
-  console.log("get app state called in posts list");
-  return {
-    posts: Post.Store.list()
+  getState() {
+    //we could shorten this even further by just calling "setState({posts: Post.Store.list()})" instead of having it be it's own method.
+    console.log("get app state called in posts list");
+    return {
+      posts: Post.Store.list()
+    }
   }
-}
-
-export default class List extends React.Component{
 
   constructor(props, context) {
     super(props);
-    this.state = getPostsListState();
-    this._onChange = this._onChange.bind(this);
-    console.log("context:");
-    console.log(context);
+    this.state = this.getState();
+    this._bind('_onChange');
   }
 
   componentWillMount() {
@@ -40,7 +34,7 @@ export default class List extends React.Component{
   }
 
   _onChange() {
-    this.setState(getPostsListState());
+    this.setState(this.getState());
   }
 
   render() {
