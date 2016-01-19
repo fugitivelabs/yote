@@ -5,6 +5,13 @@ import PostConstants from "./PostConstants";
 let _posts = [];
 let _post = {};
 
+let _template = { //should be immutable
+  post: {
+    title: ''
+    , content: ''
+  }
+}
+
 class PostEventEmitter extends AppEventEmitter {
   list() {
     console.log("get all posts called in store");
@@ -13,6 +20,10 @@ class PostEventEmitter extends AppEventEmitter {
   get() {
     console.log("get single post called in store");
     return _post;
+  }
+  getBlankTemplate() {
+    console.log("get blank post object in store");
+    return _template;
   }
 }
 
