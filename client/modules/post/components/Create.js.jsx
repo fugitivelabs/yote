@@ -10,21 +10,21 @@ export default class Create extends Base{
     super(props);
     this.state = Post.Store.getBlankTemplate();
 
-    this._bind('_handleFormChange', '_handleFormSubmit', '_onChange');
+    this._bind('_handleFormChange', '_handleFormSubmit', '_onPostChange');
     // this._handleFormChange = this._handleFormChange.bind(this);
     // this._handleFormSubmit = this._handleFormSubmit.bind(this);
     // this._onChange = this._onChange.bind(this); 
   }
 
   componentDidMount() {
-    Post.Store.addChangeListener(this._onChange);
+    Post.Store.addChangeListener(this._onPostChange);
   }
 
   componentWillUnmount() {
-    Post.Store.removeChangeListener(this._onChange);
+    Post.Store.removeChangeListener(this._onPostChange);
   }
 
-  _onChange() {
+  _onPostChange() {
     //on change from the store, we know the post was created successfully, assuming it was empty before.
     console.log("CREATE SUCCESSFUL. NAVIGATE AWAY NOW.");
     // this.transitionTo('/posts'); //doesnt work.

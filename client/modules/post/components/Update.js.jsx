@@ -16,7 +16,7 @@ export default class Update extends Base{
   constructor(props, context) {
     super(props, context);
     this.state = this.getState();
-    this._bind('_handleFormChange', '_handleFormSubmit', '_onChange');
+    this._bind('_handleFormChange', '_handleFormSubmit', '_onPostChange');
   }
 
   componentWillMount() {
@@ -24,14 +24,14 @@ export default class Update extends Base{
   }
 
   componentDidMount() {
-    Post.Store.addChangeListener(this._onChange);
+    Post.Store.addChangeListener(this._onPostChange);
   }
 
   componentWillUnmount() {
-    Post.Store.removeChangeListener(this._onChange);
+    Post.Store.removeChangeListener(this._onPostChange);
   }
 
-  _onChange() {
+  _onPostChange() {
     this.setState(this.getState());
   }
 

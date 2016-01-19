@@ -17,7 +17,7 @@ export default class List extends Base{
   constructor(props, context) {
     super(props);
     this.state = this.getState();
-    this._bind('_onChange');
+    this._bind('_onPostChange');
   }
 
   componentWillMount() {
@@ -26,14 +26,14 @@ export default class List extends Base{
   }
 
   componentDidMount() {
-    Post.Store.addChangeListener(this._onChange);
+    Post.Store.addChangeListener(this._onPostChange);
   }
 
   componentWillUnmount() {
-    Post.Store.removeChangeListener(this._onChange);
+    Post.Store.removeChangeListener(this._onPostChange);
   }
 
-  _onChange() {
+  _onPostChange() {
     this.setState(this.getState());
   }
 
