@@ -9,6 +9,7 @@ export default class View extends Base{
   getState() {
     return {
       post: Post.Store.get()
+      , posts: Post.Store.list()
     }
   }
 
