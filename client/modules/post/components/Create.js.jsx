@@ -28,7 +28,7 @@ export default class Create extends Base {
   }
 
   _onPostChange() {
-    this.context.router.replace("/posts");
+    this.context.router.push("/posts");
   }
 
   _handleFormChange(e) {
