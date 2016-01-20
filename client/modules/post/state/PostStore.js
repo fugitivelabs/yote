@@ -32,6 +32,7 @@ class PostEventEmitter extends AppEventEmitter {
   checkForPost(postId) {
     var _postIndex = _.findIndex(_posts, { _id: postId });
     return _postIndex < 0 ? false : true;
+  }
   getBlankTemplate() {
     console.log("get blank post object in store");
     return _template;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { createHistory, useBasename } from 'history';
-import { Router, Route, IndexRoute } from 'react-router';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
 //import custom components
 import Layout from './global/components/Layout.js.jsx';
@@ -18,11 +18,11 @@ import PostUpdate from './modules/post/components/Update.js.jsx';
 //uncomment to remove console logs from the front end
 // console = {log: function() {}};
 
-const history = createHistory();
+// const history = createHistory();
 
 render(
   (
-    <Router history={history} >
+    <Router history={browserHistory} >
       <Route path="/" component={Layout} >
         <IndexRoute component={Landing} />
         <Route path="/posts" component={PostLayout} >

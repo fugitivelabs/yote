@@ -20,6 +20,10 @@ export default class Update extends Base{
   }
 
   componentWillMount() {
+    console.log("mounting Post Update");
+    console.log(this.context);
+
+    console.log(this.props);
     Post.Actions.requestSinglePost(this.props.params.postId);
   }
 
@@ -33,7 +37,9 @@ export default class Update extends Base{
 
 
   _onPostChange() {
+
     this.setState(this.getState());
+
   }
 
   _handleFormChange(e) {
@@ -53,6 +59,8 @@ export default class Update extends Base{
     } else {
       console.log("submitting");
       Post.Actions.requestUpdatePost(postData);
+      const { params } = this.props;
+      this.context.router.replace("/posts/" + params.postId);
       // this.transitionTo('/posts'); //doesnt work.
     }
   }
