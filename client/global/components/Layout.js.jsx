@@ -1,12 +1,12 @@
 import React from 'react';
+import Base from './BaseComponent.js.jsx';
 
-class Layout extends React.Component{
+export default class Layout extends Base {
   constructor(props) {
     super(props);
   }
 
   render() {
-    console.log("render layout");
     return (
       <div> 
         {this.props.children}
@@ -14,5 +14,3 @@ class Layout extends React.Component{
     )
   }
 }
-
-export default Layout;

@@ -31,6 +31,7 @@ export default class View extends Base{
     Post.Store.removeChangeListener(this._onPostChange);
   }
 
+
   _onPostChange() {
     this.setState(this.getState());
   }

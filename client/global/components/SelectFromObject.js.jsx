@@ -2,7 +2,7 @@ import React from 'react';
 
 import Base from "./BaseComponent.js.jsx";
 
-class SelectFromObject extends Base{
+class SelectFromObject extends Base {
 
   //require fields: 
   //  objects (array of objects to use)

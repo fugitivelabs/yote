@@ -4,7 +4,7 @@ import Base from "../../../global/components/BaseComponent.js.jsx";
 
 import Post from "../PostHandler";
 
-export default class Create extends Base{
+export default class Create extends Base {
 
   constructor(props, context) {
     super(props);
@@ -16,6 +16,9 @@ export default class Create extends Base{
     // this._onChange = this._onChange.bind(this); 
   }
 
+  // componentWillMount() {
+  // }
+
   componentDidMount() {
     Post.Store.addChangeListener(this._onPostChange);
   }
@@ -25,9 +28,7 @@ export default class Create extends Base{
   }
 
   _onPostChange() {
-    //on change from the store, we know the post was created successfully, assuming it was empty before.
-    console.log("CREATE SUCCESSFUL. NAVIGATE AWAY NOW.");
-    // this.transitionTo('/posts'); //doesnt work.
+    this.context.router.replace("/posts");
   }
 
   _handleFormChange(e) {

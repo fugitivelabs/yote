@@ -79,13 +79,14 @@ app.use(multipart({}));
 //only enable for development env - npm module can be buggy
 if (app.get('env') == 'development') {
   console.log("using sass");
+  console.log(__dirname);
   app.use(sass({
-    src: __dirname + '/client/'
+    src: __dirname + '/client'
     , dest: __dirname + '/public/css'
     , prefix: '/css'
     , debug: true
     , outputStyle: 'compressed'
-    , includePaths: ['/client/global/', '/client/modules/']
+    , includePaths: ['/client/global/sass/', '/client/modules/']
   }));
 }
 

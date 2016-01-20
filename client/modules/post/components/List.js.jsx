@@ -18,6 +18,7 @@ export default class List extends Base{
     super(props);
     this.state = this.getState();
     this._bind('_onPostChange');
+
   }
 
   componentWillMount() {

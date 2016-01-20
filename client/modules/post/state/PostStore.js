@@ -1,9 +1,11 @@
 import AppDispatcher from "../../../dispatcher";
 import AppEventEmitter from "../../../AppEventEmitter";
 import PostConstants from "./PostConstants";
+import _ from "lodash";
 
 let _posts = [];
 let _post = {};
+
 
 let _template = { //should be immutable
   post: {

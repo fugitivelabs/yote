@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class BaseComponent extends React.Component{
+class BaseComponent extends React.Component {
 
   //source: http://www.newmediacampaigns.com/blog/refactoring-react-components-to-es6-classes
   //todo: add more functionality to this base component
@@ -13,3 +13,9 @@ export default class BaseComponent extends React.Component{
     super(props);
   }
 }
+
+BaseComponent.contextTypes = {
+  router: React.PropTypes.object.isRequired
+}
+
+export default BaseComponent;

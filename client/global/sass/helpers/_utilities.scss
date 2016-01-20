@@ -1,0 +1,52 @@
+
+// Utility Classes
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+%u-clearfix {
+  @include clearfix;
+}
+
+%u-pullRight {
+  float: right;
+}
+
+%u-pullLeft {
+  float: left;
+}
+
+%u-underline {
+  text-decoration: underline;
+}
+
+%u-caps {
+  @include letterSpacing-loose;
+  text-transform: uppercase;
+}
+
+%u-centerText {
+  text-align: center;
+}
+
+.u-caps {
+  @extend %u-caps;
+}
+
+.u-clearfix {
+  @extend %-u-clearfix;
+}
+
+.u-pullRight {
+  @extend %u-pullRight;
+}
+
+.u-pullLeft {
+  @extend %u-pullLeft;
+}
+
+.u-underline {
+  @extend %u-underline;
+}
+
+.u-centerText {
+  @extend %u-centerText;
+}

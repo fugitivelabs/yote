@@ -1,0 +1,41 @@
+// @import 'sass/globals/colorPalettes';
+
+// Brand Palette
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+$brand-primary:               #FD605B;
+$brand-secondary:             #352D39;
+$brand-accent:                #ff4081;
+
+// UI Palette
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+$bg-color:                    $white-2;
+$grey:                        $grey-5;
+$white:                       $white-2;
+
+$text-color:                  rgba(0,0,0,0.6);
+$text-light:                  rgba(255,255,255,.9);
+$accent-color:                $brand-accent;
+
+$link-color:                  #ff4081;
+$link-visited-color:          $link-color;
+$link-hover-color:            lighten($link-color, 20);
+
+$divider-color:               rgba(0,0,0,0.15);
+
+
+$shadow-color:                rgba(0,0,0,0.15);
+
+
+// Semantic Colors
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+$success: #2ecc71;
+$success-hover: darken($success, 10);
+
+$warning: #e67e22;
+$warning-hover: darken($warning, 10);
+
+$danger: #e74c3c;
+$danger-hover: darken($danger, 10);
+

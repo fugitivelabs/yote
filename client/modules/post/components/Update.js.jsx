@@ -31,15 +31,18 @@ export default class Update extends Base{
     Post.Store.removeChangeListener(this._onPostChange);
   }
 
+
   _onPostChange() {
+
     this.setState(this.getState());
+
   }
 
   _handleFormChange(e) {
     var newPostState = this.state.post;
     newPostState[e.target.name] = e.target.value;
     this.setState(newPostState);
-    // console.log(this.state);
+
   }
 
   _handleFormSubmit(e) {
@@ -52,7 +55,7 @@ export default class Update extends Base{
     } else {
       console.log("submitting");
       Post.Actions.requestUpdatePost(postData);
-      // this.transitionTo('/posts'); //doesnt work.
+      this.context.router.replace("/posts/" + this.props.params.postId);
     }
   }
 

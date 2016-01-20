@@ -1,0 +1,203 @@
+// Default Button Styling
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+[yt-btn],
+.yt-btn {
+  @include base-font;
+  background-color: $link-color;
+  border: 1px solid $link-color;
+  color: $white;
+  border: none;
+  border-radius: 2px;
+  padding: .3em 1em;
+  position: relative;
+  transition: all .15s ease;
+
+  &:visited { color: $white; }
+
+  &:hover {
+    background-color: lighten($link-color, 10); 
+    text-decoration: none; 
+    border-color: lighten($link-color, 10);
+    @include box-shadow(0px 4px 8px $shadow-color);
+    // top: 2px;
+  }
+
+  &:active {
+    @include box-shadow(0px 4px 8px $shadow-color);
+    background-color: darken($link-color, 5);
+    border-color: darken($link-color, 5);
+    top: 2px;
+    color: $white;
+  }
+
+  &.disabled,
+  &[disabled] {
+    pointer-events: none;
+    cursor: not-allowed;
+    opacity: 0.65;
+    filter: alpha(opacity=65);
+    -webkit-box-shadow: none;
+            box-shadow: none;
+  }
+}
+
+// various button sizes
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+[yt-btn~="x-large"], 
+.yt-btn.x-large {
+  @include larger-font;
+}
+
+[yt-btn~="large"],
+.yt-btn.large {
+  @include large-font;
+}
+
+[yt-btn~="small"],
+.yt-btn.small {
+  @include small-font;
+}
+
+[yt-btn~="x-small"],
+.yt-btn.x-small {
+  @include smaller-font;
+}
+
+// Buttons that fill container as block element
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+[yt-btn~="block"]
+.yt-btn.block {
+  display: block;
+  width: 100%;
+}
+
+// Buttons with Primary, Accent and Alert colors
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+[yt-btn~="primary"],
+.yt-btn.primary {
+  background-color: $link-color;
+}
+
+
+// Buttons with semantic colors
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+// dark
+[yt-btn~="dark"],
+.yt-btn.dark {
+  background-color: $grey;
+  border-color: $grey;
+  color: $white;
+
+  &:visited { color: $white; }
+  &:hover {
+    background-color: darken($grey, 10);
+    color: $white;
+  }
+  &:active {
+    color: $white;
+  }
+
+}
+
+// success
+[yt-btn~="success"],
+.yt-btn.success {
+  background-color: $success;
+  border-color: $success-hover;
+  color: $white;
+
+  &:visited { color: $white; }
+  &:hover {
+    background-color: darken($success, 10);
+    color: $white;
+  }
+  &:active {
+    color: $white;
+  }
+}
+
+// warning
+[yt-btn~="warning"],
+.yt-btn.warning {
+  background-color: $warning;
+  border-color: $warning-hover;
+  color: $white;
+
+  &:visited { color: $white; }
+  &:hover {
+    background-color: darken($warning, 10);
+    color: $white;
+  }
+  &:active {
+    color: $white;
+  }
+}
+
+// danger
+[yt-btn~="danger"],
+.yt-btn.danger {
+  background-color: $danger;
+  border-color: $danger-hover;
+  color: $white;
+
+  &:visited { color: $white; }
+  &:hover {
+    background-color: darken($danger, 10);
+    color: $white;
+  }
+  &:active {
+    color: $white;
+  }
+
+}
+
+// for Grant
+[yt-btn~="fowler"],
+.yt-btn.fowler {
+  background-color: #2555e9;
+  border-color: #2555e9;
+  color: $white;
+
+  &:hover {
+    background-color: darken(#2555e9, 10);
+    color: $white;
+  }
+  &:active {
+    color: $white;
+  }
+
+}
+
+
+[yt-btn~="flat"],
+.yt-btn.flat {
+  position: static;
+  @include box-shadow(0px 0px 0px transparent);
+  &:hover {
+    &:hover { @include box-shadow(0px 0px 0px transparent); }
+    &:active { @include box-shadow(0px 0px 0px transparent); }
+  }
+}
+
+// link buttons
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+[yt-btn~="link"],
+.yt-btn.link {
+  background-color: transparent;
+  border: none;
+  color: $link-color;
+  &:hover {
+    &:visited { color: $link-visited-color; }
+    &:hover { color: $link-hover-color; background-color: $brand-primary; }
+    &:active { color: $link-hover-color; }
+  }
+}
+
+
+
