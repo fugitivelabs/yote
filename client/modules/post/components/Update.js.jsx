@@ -55,7 +55,7 @@ export default class Update extends Base{
     } else {
       console.log("submitting");
       Post.Actions.requestUpdatePost(postData);
-      this.context.router.replace("/posts/" + this.props.params.postId);
+      this.context.router.push("/posts/" + this.props.params.postId);
     }
   }
 
