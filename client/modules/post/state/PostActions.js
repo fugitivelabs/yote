@@ -1,7 +1,6 @@
 import AppDispatcher from "../../../dispatcher";
 import PostConstants from "./PostConstants";
 import PostAPI from "./PostAPI";
-import PostStore from "./PostStore";
 
 export default {
   //list posts
