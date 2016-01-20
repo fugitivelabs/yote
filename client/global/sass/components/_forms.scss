@@ -35,18 +35,18 @@ form {
   display: inline-block;
   vertical-align: top;
   width: 100%;
-  @include type-base;
+  @include base-font;
 
   label {
     display: block;
-    @include type-small;
+    @include small-font;
     overflow-wrap: break-word;
   }
 
   a {
     &.forgot {
       position: absolute;
-      @include type-small;
+      @include small-font;
       top: 0px;
       right: 0px;
     }

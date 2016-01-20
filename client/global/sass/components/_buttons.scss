@@ -1,29 +1,33 @@
 // Default Button Styling
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
-[yt-btn] {
-  @include type-base;
+[yt-btn],
+.yt-btn {
+  @include base-font;
   background-color: $link-color;
   border: 1px solid $link-color;
-  @include box-shadow(0px 4px 0px darken($link-color, 30));
   color: $white;
   border: none;
   border-radius: 2px;
   padding: .3em 1em;
   position: relative;
-  transition: background-color .15s ease;
+  transition: all .15s ease;
 
   &:visited { color: $white; }
 
   &:hover {
-    background-color: darken($link-color, 10); text-decoration: none; border-color: darken($link-color, 10);
-    @include box-shadow(0px 2px 0px darken($link-color, 30));
-    top: 2px;
+    background-color: lighten($link-color, 10); 
+    text-decoration: none; 
+    border-color: lighten($link-color, 10);
+    @include box-shadow(0px 4px 8px $shadow-color);
+    // top: 2px;
   }
 
   &:active {
-    @include box-shadow(0px 0px 0px darken($link-color, 30));
-    top: 4px;
+    @include box-shadow(0px 4px 8px $shadow-color);
+    background-color: darken($link-color, 5);
+    border-color: darken($link-color, 5);
+    top: 2px;
     color: $white;
   }
 
@@ -41,26 +45,31 @@
 // various button sizes
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
-[yt-btn~="x-large"] {
-  @include type-larger;
+[yt-btn~="x-large"], 
+.yt-btn.x-large {
+  @include larger-font;
 }
 
-[yt-btn~="large"] {
-  @include type-large;
+[yt-btn~="large"],
+.yt-btn.large {
+  @include large-font;
 }
 
-[yt-btn~="small"] {
-  @include type-small;
+[yt-btn~="small"],
+.yt-btn.small {
+  @include small-font;
 }
 
-[yt-btn~="x-small"] {
-  @include type-smaller;
+[yt-btn~="x-small"],
+.yt-btn.x-small {
+  @include smaller-font;
 }
 
 // Buttons that fill container as block element
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
-[yt-btn~="block"] {
+[yt-btn~="block"]
+.yt-btn.block {
   display: block;
   width: 100%;
 }
@@ -68,7 +77,8 @@
 // Buttons with Primary, Accent and Alert colors
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
-[yt-btn~="primary"] {
+[yt-btn~="primary"],
+.yt-btn.primary {
   background-color: $link-color;
 }
 
@@ -77,104 +87,95 @@
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
 // dark
-[yt-btn~="dark"] {
+[yt-btn~="dark"],
+.yt-btn.dark {
   background-color: $grey;
   border-color: $grey;
   color: $white;
-  @include box-shadow(0px 4px 0px darken($grey, 30));
 
   &:visited { color: $white; }
   &:hover {
-    @include box-shadow(0px 2px 0px darken($grey, 30));
     background-color: darken($grey, 10);
     color: $white;
   }
   &:active {
-    @include box-shadow(0px 0px 0px darken($grey, 30));
     color: $white;
   }
 
 }
 
 // success
-[yt-btn~="success"] {
+[yt-btn~="success"],
+.yt-btn.success {
   background-color: $success;
   border-color: $success-hover;
   color: $white;
-  @include box-shadow(0px 4px 0px darken($success, 30));
 
   &:visited { color: $white; }
   &:hover {
-    @include box-shadow(0px 2px 0px darken($success, 30));
     background-color: darken($success, 10);
     color: $white;
   }
   &:active {
-    @include box-shadow(0px 0px 0px darken($success, 30));
     color: $white;
   }
 }
 
 // warning
-[yt-btn~="warning"] {
+[yt-btn~="warning"],
+.yt-btn.warning {
   background-color: $warning;
   border-color: $warning-hover;
   color: $white;
-  @include box-shadow(0px 4px 0px darken($warning, 30));
 
   &:visited { color: $white; }
   &:hover {
-    @include box-shadow(0px 2px 0px darken($warning, 30));
     background-color: darken($warning, 10);
     color: $white;
   }
   &:active {
-    @include box-shadow(0px 0px 0px darken($warning, 30));
     color: $white;
   }
 }
 
 // danger
-[yt-btn~="danger"] {
+[yt-btn~="danger"],
+.yt-btn.danger {
   background-color: $danger;
   border-color: $danger-hover;
   color: $white;
-  @include box-shadow(0px 4px 0px darken($danger, 30));
 
   &:visited { color: $white; }
   &:hover {
-    @include box-shadow(0px 2px 0px darken($danger, 30));
     background-color: darken($danger, 10);
     color: $white;
   }
   &:active {
-    @include box-shadow(0px 0px 0px darken($danger, 30));
     color: $white;
   }
 
 }
 
 // for Grant
-[yt-btn~="fowler"] {
+[yt-btn~="fowler"],
+.yt-btn.fowler {
   background-color: #2555e9;
   border-color: #2555e9;
   color: $white;
-  @include box-shadow(0px 4px 0px darken(#2555e9, 30));
 
   &:hover {
-    @include box-shadow(0px 2px 0px darken(#2555e9, 30));
     background-color: darken(#2555e9, 10);
     color: $white;
   }
   &:active {
-    @include box-shadow(0px 0px 0px darken(#2555e9, 30));
     color: $white;
   }
 
 }
 
 
-[yt-btn~="flat"] {
+[yt-btn~="flat"],
+.yt-btn.flat {
   position: static;
   @include box-shadow(0px 0px 0px transparent);
   &:hover {
@@ -186,7 +187,8 @@
 // link buttons
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
-[yt-btn~="link"] {
+[yt-btn~="link"],
+.yt-btn.link {
   background-color: transparent;
   border: none;
   color: $link-color;
@@ -196,15 +198,6 @@
     &:active { color: $link-hover-color; }
   }
 }
-[yt-btn~="link"] {
-  background-color: transparent;
-  border: none;
-  color: $link-color;
-  &:hover {
-    &:visited { color: $link-visited-color; }
-    &:hover { color: $link-hover-color; background-color: $brand-primary; }
-    &:active { color: $link-hover-color; }
-  }
-}
+
 
 
