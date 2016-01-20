@@ -1,0 +1,6 @@
+.git/*
+.DS_Store
+webpack.config.js
+README.md
+secrets-sample.js
+nodemon.json

@@ -1,8 +1,9 @@
 import React from 'react';
 import Post from "../PostHandler";
 
-class Layout extends React.Component{
-  constructor(props, context) {
+
+export default class PostLayout extends React.Component{
+  constructor(props) {
     super(props);
   }
 
@@ -16,6 +17,3 @@ class Layout extends React.Component{
     )
   }
 }
-
-
-export default Layout;
