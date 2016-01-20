@@ -8,11 +8,6 @@ export default class PostLayout extends Base {
     super(props);
   }
 
-  componentWillMount() {
-    console.log("mounting PostLayout");
-    console.log(this.context);
-  }
-
   render() {
     console.log("render post layout");
     return (

@@ -22,7 +22,6 @@ export default {
   //get post
   , requestSinglePost(postId) {
     console.log("requesting single post in ACTIONS");
-    console.log(PostStore.checkForPost(postId));
     PostAPI.getPost(postId);
   }
   , receivedSinglePost(post) {

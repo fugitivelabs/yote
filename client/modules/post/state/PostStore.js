@@ -7,12 +7,6 @@ let _posts = [];
 let _post = {};
 
 
-let _addMorePosts = (newPosts, callback) => {
-  // something here handles pagination
-  _posts.push(newPosts);
-  callback();
-}
-
 let _template = { //should be immutable
   post: {
     title: ''
@@ -28,10 +22,6 @@ class PostEventEmitter extends AppEventEmitter {
   get() {
     console.log("get single post called in store");
     return _post;
-  }
-  checkForPost(postId) {
-    var _postIndex = _.findIndex(_posts, { _id: postId });
-    return _postIndex < 0 ? false : true;
   }
   getBlankTemplate() {
     console.log("get blank post object in store");
