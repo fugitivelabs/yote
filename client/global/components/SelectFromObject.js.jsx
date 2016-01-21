@@ -2,7 +2,7 @@ import React from 'react';
 
 import Base from "./BaseComponent.js.jsx";
 
-class SelectFromObject extends Base {
+class SelectFromObject extends Base{
 
   //require fields: 
   //  objects (array of objects to use)
@@ -11,6 +11,7 @@ class SelectFromObject extends Base {
   //optional: 
   //  change callback (returns selected value)
   //  selected object (string that matches to an object)
+  //  placeholder     (string that shows a default placeholder)
 
   //ex for Post objects:
   // <SelectFromObject 
@@ -18,7 +19,8 @@ class SelectFromObject extends Base {
   //   display={"title"} 
   //   value={"_id"} 
   //   change={this._onSelectChange} 
-  //   selected={"5696ed72d4fe105051db1fb1"} 
+  //   selected={"5696ed72d4fe105051db1fb1"} //- optional
+  //   placeholder="-- Select an Object -- " //- optional 
   // />
 
   constructor(props, context) {
@@ -29,6 +31,12 @@ class SelectFromObject extends Base {
     this._bind('_handleSelectChange');
   }
 
+  // // check the props the component receives
+  // componentWillReceiveProps(nextProps) {
+  //   console.log("SelectFromObject props");
+  //   console.log(nextProps);
+  // }
+
   _handleSelectChange(e) {
     console.log("handle select change in select");
     this.setState({
@@ -38,14 +46,22 @@ class SelectFromObject extends Base {
   }
 
   render() {
+    var options = this.props.objects.map((object, index) => {
+            return (
+              <option key={index} value={object[this.props.value]}>
+                {object[this.props.display]}
+              </option>
+            )
+          });
+    if(this.props.placeholder) {
+      // console.log("has placeholder value");
+      var placeholder = <option key="-1" value={null}>{this.props.placeholder}</option>;
+      options.unshift(placeholder);
+    }
     return(
       <div className="select-from-object">
         <select onChange={this._handleSelectChange} value={this.state.selected}>
-          {this.props.objects.map(object =>
-            <option value={object[this.props.value]}>
-              {object[this.props.display]}
-            </option>
-          )}
+          {options}
         </select>
       </div>
     )
