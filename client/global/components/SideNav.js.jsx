@@ -12,15 +12,8 @@ export default class SideNav extends Base {
       <div className="sidebar">
         <ul className="side-nav">
           <li>
-            <Link to="/studies" activeClassName="active">Studies</Link>
+            <Link to="/posts" activeClassName="active">Posts</Link>
           </li>
-          <li>
-            <Link to="/sites" activeClassName="active" >Sites</Link>
-          </li>
-          <li>
-            <Link to="/sponsors" activeClassName="active" >Sponsors</Link>
-          </li>
-
         </ul>
       </div>
     )
