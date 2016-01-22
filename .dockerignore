@@ -1,6 +1,16 @@
+#git files
 .git/*
-.DS_Store
-webpack.config.js
-README.md
-secrets-sample.js
-nodemon.json
+
+#dev npm modules. gotta be a better way to ignore these.
+# docker does not correctly delete inodes from the filesystem and babel modules use a TON
+# another (not tested yet) soln. is to nuke /var/libdocker
+# https://github.com/docker/docker/issues/9755
+
+node_modules/babel-core
+node_modules/babel-loader
+node_modules/babel-plugin-dev-expression
+node_modules/babel-preset-es2015
+node_modules/babel-preset-react
+node_modules/babel-runtime
+node_modules/webpack
+node_modules/webpack-dev-server
