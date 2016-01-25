@@ -1,0 +1,125 @@
+.nav-logo {
+  display: inline-block;
+  @include large-font;
+  color: #fff;
+  font-weight: 700;
+}
+
+.topbar {
+  background-color: $topbar-bg-color;
+  @include display-flex;
+  @include align-items(center);
+  padding: 1.5em;
+  @include justify-content(space-between);
+  .titles {
+    @include display-flex;
+    @include align-items(baseline);
+    .subtitle {
+      margin-left: $gutter;
+      color: rgba(255,255,255, 0.8);
+    }
+  }
+  .actions {
+    @include flex(1);
+    @include justify-content(flex-end);
+  }
+  .top-nav {
+    @include display-flex;
+    @include justify-content(flex-end);
+    list-style: none;
+    li {
+      margin-left: $gutter;
+      a {
+        color: rgba(255,255,255,0.75);
+        border-bottom: 3px solid $topbar-bg-color;
+        &:hover {
+          color: rgba(255,255,255,0.9);
+          border-bottom: 3px solid $brand-accent;
+        }
+        &.active {
+          color: rgba(255,255,255,1);
+        }
+      }
+    }
+  }
+} 
+
+.sidebar {
+  @include flex(0 0 12em);
+  background-color: $sidebar-bg-color;
+  color: rgba(255,255,255,0.8);
+  .nav-header {
+    padding: $gutter;
+    background-color: darken($sidebar-bg-color, 5);
+    border-bottom: 1px solid darken($sidebar-bg-color, 15);
+    width: 100%;
+    color: rgba(255,255,255,0.6);
+    font-weight: 700;
+  }
+  ul {
+    list-style: none;
+    // padding: $gutter 0 ;
+    li {
+      line-height: 1.25;
+      width: 100%;
+      
+
+      &.nav-header {
+        // @include letterSpacing-loose;
+        text-transform: uppercase;
+        font-weight: 700;
+        margin-bottom: $gutter;
+        padding: $gutter;
+        padding-bottom: 0;
+        @include small-font;
+        text-align: center;
+        width: 100%;
+      }
+      a {
+        padding: $gutter;
+        color: rgba(255,255,255,0.8);
+        width: 100%;
+        border-left: 3px solid $sidebar-bg-color;
+        display: block;
+        &:hover {
+          color: rgba(255,255,255,0.9);
+        }
+        &.active {
+          background-color: darken($sidebar-bg-color, 25);
+          color: rgba(255,255,255,1);
+          border-left: 3px solid $brand-accent;
+        }
+      }
+    }
+  }
+}
+
+
+.dropMenu {
+  z-index: 1000;
+  position: absolute;
+  top: 100%;
+  right:10px;
+  left: auto;
+  float: left;
+  min-width: 160px;
+  padding: 5px;
+  margin: 2px 0 0;
+  font-size: 14px;
+  text-align: left;
+  list-style: none;
+  background-color: #fff;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0,0,0,.15);
+  border-radius: 4px;
+
+  @include box-shadow(0 6px 12px rgba(0,0,0,.175))
+  li {
+    a {
+      border: none !important;
+      color: $link-color !important;
+    }
+  }
+}

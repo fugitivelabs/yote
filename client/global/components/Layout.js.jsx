@@ -1,7 +1,7 @@
 import React from 'react';
 import Base from './BaseComponent.js.jsx';
 
-import SideNav from './SideNav.js.jsx';
+import TopNav from './TopNav.js.jsx';
 
 export default class Layout extends Base {
   constructor(props) {
@@ -10,9 +10,15 @@ export default class Layout extends Base {
 
   render() {
     return (
-      <div className="flex main">
-        <SideNav /> 
-        {this.props.children}
+      <div className="flex layout">
+        <header className="header">
+          <TopNav /> 
+        </header>
+        <div className="body with-header">
+          <div className="main">
+            {this.props.children}
+          </div>
+        </div>
       </div>
     )
   }

@@ -9,7 +9,7 @@ $brand-accent:                #ff4081;
 
 // UI Palette
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
-$bg-color:                    $white-2;
+$bg-color:                    $blue-grey-9;
 $grey:                        $grey-5;
 $white:                       $white-2;
 
@@ -27,10 +27,15 @@ $divider-color:               rgba(0,0,0,0.15);
 $shadow-color:                rgba(0,0,0,0.15);
 
 
+// Component colors
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+$sidebar-bg-color:               $blue-grey-5;
+$topbar-bg-color:                $blue-grey-3;
+
 // Semantic Colors
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
-$success: #2ecc71;
+$success: #1DE9B6;
 $success-hover: darken($success, 10);
 
 $warning: #e67e22;
