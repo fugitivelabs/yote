@@ -12,8 +12,8 @@ class DropdownMenu extends Base {
       return(
         <ul className="dropMenu"> 
           <li className="dropdown-header"> Hello,  </li>
-          <li><a href="#"> Printers</a></li>
-          <li><a href="#"> Profile </a></li>
+          <li><Link onClick={this.props._openDropdown} to="/posts"> Posts</Link></li>
+          <li><a href="#"> Admin </a></li>
           <li role="separator" className="divider"><br/></li>
           <li><a href="#">Logout</a></li>
         </ul>
@@ -63,8 +63,11 @@ export default class TopNav extends Base {
         />
           
         <div className="titles">
-          <div className="nav-logo"> LEXITAS </div>
-          <div className="subtitle"> Payment Portal </div>
+          <Link to="/">
+            <div className="nav-logo"> Yote 
+              <span className="subtitle"> Standard Dev Kit </span>
+            </div>
+          </Link>
         </div>
         <div className="actions">
           <ul className="top-nav">
