@@ -17,7 +17,7 @@ $gutter-width:          40px;
 
 $gutter: $gutter-width * 0.5;
 
-
+$header-height:         70px;
 
 // Layout
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
@@ -32,17 +32,50 @@ $gutter: $gutter-width * 0.5;
   }
 }
 
+
 .flex {
   @include display-flex;
   @include flex-direction(row);
   @include flex-wrap(wrap);
+  &.layout {
+    @include flex-direction(column);
+    min-height: 100vh;
+  }
+  .header {
+    @include flex(none);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: $header-height;
+    &.fixed {
+      position: fixed;
+      @include zIndex-7;
+    }
+  }
+  .body {
+    @include display-flex;
+    @include flex(1);
+    &.with-header {
+      margin-top: $header-height;
+    }
+  }
+  &.column {
+    @include flex-direction(column);
+  }
+
 }
 
-.main {
-  @include flex-direction(column);
 
+
+.main {
+  @include display-flex;
+  @include flex-direction(column);
+  @include flex(1);
+  padding: $gutter;
   &.with-leftbar {
-    @include flex(1);
+    // min-height: 100vh;
+    // @include flex(1);
     padding: 10px;
     padding-top: 60px;
 
@@ -226,6 +259,11 @@ $gutter: $gutter-width * 0.5;
 
 .yt-col.gutter {
   padding: $gutter;
+}
+
+.yt-col.stretch-content {
+  @include display-flex;
+  @include flex-direction(column);
 }
 
 .yt-col.full,

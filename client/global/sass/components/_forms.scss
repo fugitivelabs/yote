@@ -5,12 +5,15 @@ $formContainerColor: #fff;
 $formAccentColor: $link-color;
 $formTextColor: $text-color;
 
-.formContainer {
-  @include box-shadow(0px 5px 6px #ccc);
-  border-radius: 4px;
-  background-color: $formContainerColor;
-  padding: 40px 20px;
-
+.form-container {
+  // @include box-shadow(0px 5px 6px #ccc);
+  // border-radius: 4px;
+  // background-color: $formContainerColor;
+  // padding: 40px 20px;
+  @include display-flex;
+  @include flex-direction(column);
+  @include justify-content(center);
+  max-width: 600px;
   h2 {
     text-align: center;
   }
@@ -19,15 +22,13 @@ $formTextColor: $text-color;
     display: block;
     margin: 0 auto;
   }
+  form {
+  }
 }
 
 form {
   margin: 0 auto;
-
-  button {
-    display: block;
-    margin: 0 auto;
-  }
+  padding: $gutter;
 }
 
 .input-group {
@@ -35,11 +36,12 @@ form {
   display: inline-block;
   vertical-align: top;
   width: 100%;
+  margin-bottom: $gutter;
   @include base-font;
 
   label {
     display: block;
-    @include small-font;
+    font-weight: 700;
     overflow-wrap: break-word;
   }
 
@@ -53,17 +55,18 @@ form {
   }
 
   input {
-    margin-bottom: 1em;
+    // margin-bottom: 1em;
     width: 100%;
     padding: 8px 6px;
     outline: none;
-    border: 2px solid $grey;
+    border: none;
+    border-bottom: 2px solid $grey;
     background-color: darken($formContainerColor, 3);
-    border-radius: 4px;
+    // border-radius: 4px;
     transition: all 0.5s ease;
 
     &:focus {
-      border: 2px solid $formAccentColor;
+      border-bottom: 2px solid $formAccentColor;
     }
 
     &[type="radio"] {
@@ -107,9 +110,10 @@ form {
     width: 100%;
     margin-bottom: 1em;
     padding: 8px 6px;
-    border-radius: 4px;
+    border-radius: 0;
     resize: vertical;
-    border: 2px solid $grey;
+    border: none;
+    border-bottom: 2px solid $grey;
 
     &:focus {
       border: 2px solid $formAccentColor;
@@ -136,6 +140,7 @@ form {
   .field {
     @include flex(1);
 
+    // padding: 0.5em 0.75em;
     &:not(:first-child) {
       border-left: 0;
       border-radius: 0;
@@ -148,22 +153,38 @@ form {
   }
 
   .item {
-    background-color: #fff;
-    color: $grey-7;
+    background-color: darken($formContainerColor, 3);
+    // color: $grey-7;
+    // padding: 8px 6px;
+    padding: 0.5em 0.75em;
     font: inherit;
-    font-weight: normal;
+    border: 2px solid $grey;
+    font-weight: 700;
 
   }
   button {
     &.item {
-      background-color: $link-color;
-      color: #fff;
+      // background-color:  lighten(#3A3042, 30);
+      // border-color: lighten(#3A3042, 30);
+      // color: #fff;
+      white-space: nowrap;
+      border: none;
+      &:hover {
+        background-color: darken($formContainerColor, 20);
+        // border-color: lighten(#3A3042, 35)
+      }
+    }
+    &:disabled {
+      color: darken($formContainerColor, 20);
+      &:hover {
+        background-color: darken($formContainerColor, 3);
+      }
     }
   }
   .field,
   .item {
-    border: 1px solid $grey-9;
-    padding: 0.5em 0.75em;
+    // border: 1px solid $grey-9;
+    // padding: 0.5em 0.75em;
     &:first-child {
       border-radius: 2px 0 0 2px;
     }
@@ -174,3 +195,23 @@ form {
 
 }
 
+
+.pill-item {
+  background-color: lighten(#3A3042, 30%);
+  margin-right: 5px;
+  display: inline-block;
+  margin-bottom: 10px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  color: $white;
+
+  p {
+    margin: 0px;
+  }
+
+  a {
+    display: inline-block;
+    margin-right: 4px;
+    color: $white;
+  }
+}

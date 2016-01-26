@@ -1,0 +1,56 @@
+// Cards
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+$card-padding: 5px;
+
+.card {
+  background-color: #fff;
+  // padding: $gutter;
+  @include box-shadow(0 2px 4px $shadow-color);
+  @include flex(1);
+
+  transition: all 150ms ease-in-out;
+
+
+  &.hoverable {
+    &:hover {
+      @include box-shadow(0 4px 12px $shadow-color);
+    }
+  }
+
+
+  .card-header {  
+    padding: $card-padding;
+    // margin-bottom: $gutter;
+    @include flex(0 0 20%);
+    .title {
+      @include large-font;
+      font-weight: 700;
+    }
+  }
+
+  .card-body {
+    padding: $card-padding;
+    @include flex(1);
+    img {
+      &.full {
+        margin: -$card-padding;
+      }
+    }
+  }
+
+  .card-footer {
+    padding: $card-padding;
+    @include flex(0 0 15%);
+  }
+
+
+}
+
+
+.stretch-content {
+  .card {
+    @include display-flex;
+    @include flex-direction(column);
+  }
+}

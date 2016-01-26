@@ -9,25 +9,25 @@
   color: $white;
   border: none;
   border-radius: 2px;
-  padding: .3em 1em;
+  padding: 14px 28px;
   position: relative;
-  transition: all .15s ease;
+  transition: all 150ms ease-in-out;
 
   &:visited { color: $white; }
 
   &:hover {
-    background-color: lighten($link-color, 10); 
+    background-color: lighten($link-color, 5); 
     text-decoration: none; 
-    border-color: lighten($link-color, 10);
+    border-color: lighten($link-color, 5);
     @include box-shadow(0px 4px 8px $shadow-color);
-    // top: 2px;
+    // top: -2px;
   }
 
   &:active {
-    @include box-shadow(0px 4px 8px $shadow-color);
+    @include box-shadow(0px 2px 4px $shadow-color);
     background-color: darken($link-color, 5);
     border-color: darken($link-color, 5);
-    top: 2px;
+    // top: 0px;
     color: $white;
   }
 
@@ -48,20 +48,24 @@
 [yt-btn~="x-large"], 
 .yt-btn.x-large {
   @include larger-font;
+  padding: 18px 36px;
 }
 
 [yt-btn~="large"],
 .yt-btn.large {
+  padding: 16px 32px;
   @include large-font;
 }
 
 [yt-btn~="small"],
 .yt-btn.small {
+  padding: 8px 16px;
   @include small-font;
 }
 
 [yt-btn~="x-small"],
 .yt-btn.x-small {
+  padding: 4px 8px;
   @include smaller-font;
 }
 
@@ -194,10 +198,15 @@
   color: $link-color;
   &:hover {
     &:visited { color: $link-visited-color; }
-    &:hover { color: $link-hover-color; background-color: $brand-primary; }
-    &:active { color: $link-hover-color; }
+    &:hover {  background-color:$grey-9; }
+    &:active { background-color: $link-hover-color; }
   }
 }
 
+
+.dropdown-btn {
+  height: 25px;
+  width: 25px;
+}
 
 

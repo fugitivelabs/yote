@@ -2,6 +2,8 @@ import React from 'react';
 import { Router, Link } from 'react-router';
 import Base from "../../../global/components/BaseComponent.js.jsx";
 
+import SelectFromArray from "../../../global/components/forms/SelectFromArray.js.jsx";
+
 import Post from "../PostHandler";
 
 export default class Create extends Base {
@@ -31,6 +33,10 @@ export default class Create extends Base {
     this.context.router.push("/posts");
   }
 
+  _onSelectChange(value) {
+    // console.log("do soemthing", value);
+  }
+
   _handleFormChange(e) {
     //this works WAY better than having a separate onChange for every input box
     // just make sure input name attr == state name
@@ -56,25 +62,50 @@ export default class Create extends Base {
 
   render() {
     return(
-      <div className="post-create">
-        <Link to={'/posts'}> Back to list</Link>
+      <div className="post-create yt-container">
         <h1>CREATE NEW POST</h1>
-        <form className="post-create-form" onSubmit={this._handleFormSubmit}>
-          <input 
-            type="text" 
-            name="title" 
-            placeholder="Post Title" 
-            value={this.state.post.title} 
-            onChange={this._handleFormChange}/>
-          <br />
-          <textarea 
-            type="text" 
-            name="content"
-            placeholder="Post Content" 
-            value={this.state.post.content} 
-            onChange={this._handleFormChange} />
-          <button type="submit"> Create </button>
-        </form>
+        <hr />
+        <div className="yt-row center-horiz">
+          <div className="form-container card">
+            <form className="post-create-form" onSubmit={this._handleFormSubmit}>
+              <div className="input-group">
+                <label htmlFor="title"> Title </label>
+                <input 
+                  type="text" 
+                  name="title" 
+                  placeholder="Post Title" 
+                  value={this.state.post.title} 
+                  onChange={this._handleFormChange}
+                />
+              </div>
+              <div className="input-group">
+                <label htmlFor="content"> Content </label>
+                <textarea 
+                  type="text" 
+                  name="content"
+                  placeholder="Post Content" 
+                  value={this.state.post.content} 
+                  onChange={this._handleFormChange} 
+                />
+              </div>
+              <div className="input-group">
+                <input 
+                  type="checkbox"
+                  name="isPublished"
+                  value={this.state.post.isPublished}
+
+                />
+                <label htmlFor="isPublished"> Publish </label>
+              </div>
+              <div className="input-group">
+                <div className="yt-row space-between">
+                  <Link className="yt-btn link" to={'/posts'}> Cancel</Link>
+                  <button className="yt-btn" type="submit"> Create Post </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
     )
   }

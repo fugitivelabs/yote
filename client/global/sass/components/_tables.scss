@@ -30,6 +30,12 @@ table {
     }
   }
 
+  &.no-borders {
+    td, th, tr {
+      border: none;
+    }
+  }
+
   thead {
     border-bottom: 1px solid #ddd;
     th {

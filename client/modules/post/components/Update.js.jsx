@@ -61,25 +61,42 @@ export default class Update extends Base{
 
   render() {
     return(
-      <div className="post-create">
-        <Link to={`/posts/${this.state.post._id}`}> Back to view</Link>
+      <div className="post-update yt-container">
         <h1>UPDATE POST</h1>
-        <form className="post-update-form" onSubmit={this._handleFormSubmit}>
-          <input 
-            type="text" 
-            name="title" 
-            placeholder="Post Title" 
-            value={this.state.post.title} 
-            onChange={this._handleFormChange}/>
-          <br />
-          <textarea 
-            type="text" 
-            name="content"
-            placeholder="Post Content" 
-            value={this.state.post.content} 
-            onChange={this._handleFormChange} />
-          <button type="submit"> SAVE </button>
-        </form>
+        <hr />
+        <div className="yt-row center-horiz">
+          <div className="form-container card">
+            <form className="post-update-form" onSubmit={this._handleFormSubmit}>
+              
+              <div className="input-group">
+                <label htmlFor="title"> Title </label>
+                <input 
+                  type="text" 
+                  name="title" 
+                  placeholder="Post Title" 
+                  value={this.state.post.title} 
+                  onChange={this._handleFormChange}
+                />
+              </div>
+              <div className="input-group">
+                <label htmlFor="content"> Content </label>
+                <textarea 
+                  type="text" 
+                  name="content"
+                  placeholder="Post Content" 
+                  value={this.state.post.content} 
+                  onChange={this._handleFormChange} 
+                />
+              </div>
+              <div className="input-group">
+                <div className="yt-row space-between">
+                  <Link className="yt-btn link" to={`/posts/${this.state.post._id}`}> Cancel</Link>
+                  <button className="yt-btn" type="submit"> Save Changes </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
     )
   }

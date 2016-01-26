@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Base from "./BaseComponent.js.jsx";
+import Base from "../BaseComponent.js.jsx";
 
 class SelectFromObject extends Base{
 
@@ -72,8 +72,9 @@ SelectFromObject.propTypes = {
   objects: React.PropTypes.array.isRequired
   , display: React.PropTypes.string.isRequired
   , value: React.PropTypes.string.isRequired
-  , change: React.PropTypes.func
+  , change: React.PropTypes.func.isRequired // should this be required??
   , selected: React.PropTypes.string
+  , placeholder: React.PropTypes.string
 }
 
 export default SelectFromObject;
