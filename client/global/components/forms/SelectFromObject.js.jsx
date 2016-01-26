@@ -72,7 +72,7 @@ SelectFromObject.propTypes = {
   objects: React.PropTypes.array.isRequired
   , display: React.PropTypes.string.isRequired
   , value: React.PropTypes.string.isRequired
-  , change: React.PropTypes.func // should this be required??
+  , change: React.PropTypes.func.isRequired // should this be required??
   , selected: React.PropTypes.string
   , placeholder: React.PropTypes.string
 }

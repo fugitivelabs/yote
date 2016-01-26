@@ -73,7 +73,7 @@ class SelectFromArray extends Base{
 
 SelectFromArray.propTypes = {
   items: React.PropTypes.array.isRequired
-  , change: React.PropTypes.func // should this be required?
+  , change: React.PropTypes.func.isRequired // should this be required?
   , selected: React.PropTypes.number // selected index 
   , placeholder: React.PropTypes.string
 }

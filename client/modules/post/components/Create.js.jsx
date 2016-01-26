@@ -98,14 +98,6 @@ export default class Create extends Base {
                 <label htmlFor="isPublished"> Publish </label>
               </div>
               <div className="input-group">
-                <label htmlFor="select"> SelectFromArray example </label>
-                <SelectFromArray 
-                  items={["one", "two", "three", "four"]} 
-                  change={this._onSelectChange} 
-                  placeholder="-- Select a Thing -- "
-                />
-              </div>
-              <div className="input-group">
                 <div className="yt-row space-between">
                   <Link className="yt-btn link" to={'/posts'}> Cancel</Link>
                   <button className="yt-btn" type="submit"> Create Post </button>
