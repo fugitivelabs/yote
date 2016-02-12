@@ -1,15 +1,20 @@
 {
   "name": "Yote",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Find Your Road",
   "main": "yote.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha --compilers js:babel-core/register --recursive",
     "watch": "webpack --progress --colors --watch"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/fugitivelabs/yote.git"
+    "url": "https://github.com/fugitivelabs/yote-react.git"
+  },
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
   },
   "keywords": [
     "node",
@@ -17,13 +22,14 @@
     "mongo",
     "mongoose",
     "react",
-    "flux"
+    "flux",
+    "redux"
   ],
   "author": "Fugitive Labs",
   "bugs": {
-    "url": "https://github.com/fugitivelabs/yote/issues"
+    "url": "https://github.com/fugitivelabs/yote-react/issues"
   },
-  "homepage": "https://github.com/fugitivelabs/yote",
+  "homepage": "https://github.com/fugitivelabs/yote-react",
   "dependencies": {
     "async": "^1.5.0",
     "axios": "^0.7.0",
@@ -73,6 +79,8 @@
     "babel-preset-es2015": "^6.1.18",
     "babel-preset-react": "^6.1.18",
     "babel-runtime": "^6.2.0",
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5",
     "webpack": "^1.12.9",
     "webpack-dev-server": "^1.14.0"
   }
