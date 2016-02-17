@@ -1,13 +1,13 @@
 /***********************************************************
 
-Sever-side controllers for Post.  
+Sever-side controllers for Post.
 
-By default, Yote's server controllers are dynamic relative 
+By default, Yote's server controllers are dynamic relative
 to their models -- i.e. if you add fields to the Post
 model, the create and update controllers below will respect
 the new schema.
 
-NOTE: make sure to account for any model changes 
+NOTE: make sure to account for any model changes
 on the client
 
 ***********************************************************/
@@ -41,6 +41,8 @@ exports.list = function(req, res) {
       if(err || !posts) {
         res.send({ success: false, message: err });
       } else {
+        // console.log("sending error on purpose");
+        // res.send({success: false, message: "Error in database"});
         res.send({ success: true, posts: posts });
       }
     });
@@ -74,7 +76,7 @@ exports.search = function(req, res) {
       if(err || !posts) {
         res.send({ success: false, message: err });
       } else {
-        res.send({ 
+        res.send({
           success: true
           , posts: posts
           , pagination: {

@@ -4,7 +4,7 @@
   "description": "Find Your Road",
   "main": "yote.js",
   "scripts": {
-    "test": "mocha --compilers js:babel-core/register --recursive",
+    "test": "mocha --compilers js:babel-core/register --require ./test/test-helper.js --recursive",
     "watch": "webpack --progress --colors --watch"
   },
   "repository": {
@@ -44,6 +44,8 @@
     "express-session": "^1.8.2",
     "flux": "^2.1.1",
     "history": "^1.13.1",
+    "immutable": "^3.7.6",
+    "isomorphic-fetch": "^2.2.1",
     "jade": "^1.11.0",
     "jwt-simple": "^0.4.0",
     "lodash": "^4.0.0",
@@ -66,6 +68,9 @@
     "react-flexgrid": "^0.7.0",
     "react-router": "^2.0.0-rc5",
     "react-tap-event-plugin": "^0.2.1",
+    "redux": "^3.3.1",
+    "redux-logger": "^2.5.2",
+    "redux-thunk": "^1.0.3",
     "serve-favicon": "^2.1.5",
     "serve-static": "^1.6.3",
     "winston": "^1.0.0",
@@ -80,6 +85,7 @@
     "babel-preset-react": "^6.1.18",
     "babel-runtime": "^6.2.0",
     "chai": "^3.5.0",
+    "chai-immutable": "^1.5.3",
     "mocha": "^2.4.5",
     "webpack": "^1.12.9",
     "webpack-dev-server": "^1.14.0"

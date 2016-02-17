@@ -1,7 +1,32 @@
-import React from 'react';
-import { render } from 'react-dom';
-import { createHistory, useBasename } from 'history';
-import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import React from 'react'
+import { render } from 'react-dom'
+
+//redux and state stuff
+import thunkMiddleware from 'redux-thunk'
+import createLogger from 'redux-logger'
+import { createStore, applyMiddleware } from 'redux'
+
+import rootReducer from './rootReducer'
+import { fetchAllPosts } from './modules/post2/PostActions'
+//todo: combine reducers into one big rootReducer
+
+const loggerMiddleware = createLogger();
+const store = createStore(
+  rootReducer
+  , applyMiddleware(
+    thunkMiddleware //lets 'dispatch' functions
+    , loggerMiddleware //logs actions
+  )
+)
+
+store.dispatch(fetchAllPosts()).then(() => {
+  console.log("State after fetch:")
+  console.log(store.getState())
+})
+
+
+import { createHistory, useBasename } from 'history'
+import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 
 //import custom components
 import Layout from './global/components/Layout.js.jsx';

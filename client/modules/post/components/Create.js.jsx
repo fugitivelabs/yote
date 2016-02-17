@@ -15,7 +15,7 @@ export default class Create extends Base {
     this._bind('_handleFormChange', '_handleFormSubmit', '_onPostChange');
     // this._handleFormChange = this._handleFormChange.bind(this);
     // this._handleFormSubmit = this._handleFormSubmit.bind(this);
-    // this._onChange = this._onChange.bind(this); 
+    // this._onChange = this._onChange.bind(this);
   }
 
   // componentWillMount() {
@@ -70,26 +70,26 @@ export default class Create extends Base {
             <form className="post-create-form" onSubmit={this._handleFormSubmit}>
               <div className="input-group">
                 <label htmlFor="title"> Title </label>
-                <input 
-                  type="text" 
-                  name="title" 
-                  placeholder="Post Title" 
-                  value={this.state.post.title} 
+                <input
+                  type="text"
+                  name="title"
+                  placeholder="Post Title"
+                  value={this.state.post.title}
                   onChange={this._handleFormChange}
                 />
               </div>
               <div className="input-group">
                 <label htmlFor="content"> Content </label>
-                <textarea 
-                  type="text" 
+                <textarea
+                  type="text"
                   name="content"
-                  placeholder="Post Content" 
-                  value={this.state.post.content} 
-                  onChange={this._handleFormChange} 
+                  placeholder="Post Content"
+                  value={this.state.post.content}
+                  onChange={this._handleFormChange}
                 />
               </div>
               <div className="input-group">
-                <input 
+                <input
                   type="checkbox"
                   name="isPublished"
                   value={this.state.post.isPublished}
