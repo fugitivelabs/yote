@@ -20,10 +20,18 @@ html(lang="en", ng-app="Yote")
     //- uncomment line below to use
     //- link(rel="stylesheet", href="/css/style.css")
 
-    //- //- this freaks the sublime jade highlighter out but it is valid
-    //- script.
-    //-   window.development = !{JSON.stringify(development)}
-
+    //- set current user if it exists. else set to null.
+    if !!currentUser
+      script.
+        window.currentUser = !{JSON.stringify(currentUser)}
+    else
+      script.
+        window.currentUser = {}
+    //- this freaks the sublime jade highlighter out but it is valid
+    script.
+      window.development = !{JSON.stringify(development)}
+    script.
+      window.initialState = !{JSON.stringify(initialState)}
   body
     //- load the react container and run the react script
     #react

@@ -7,8 +7,6 @@ import Landing from './global/components/Landing.js.jsx';
 
 //import Post
 
-//uncomment to rem
-
 const routes =
       <Route path="/" component={Layout} >
         <IndexRoute component={Landing} />

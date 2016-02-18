@@ -7,6 +7,8 @@ import { syncHistory, routeReducer } from 'react-router-redux';
 import rootReducer from './rootReducer';
 
 export default function configureStore(initialState) {
+  console.log("initialState");
+  console.log(initialState);
   // const reducer = combineReducers(
   //   Object.assign({}, reducers, {
   //   routing: routeReducer

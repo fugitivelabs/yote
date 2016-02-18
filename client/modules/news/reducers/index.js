@@ -1,34 +1,12 @@
 import { combineReducers } from 'redux';
-import { REQUEST_NEWS, RECEIVE_NEWS } from '../actions';
 
-function list(state = {
-  isFetching: false
-  , items: []
-  , pagination: {}
-}, action) {
-  switch (action.type) {
-    case REQUEST_NEWS:
-      console.log("REQUEST_NEWS")
-      return Object.assign({}, state, {
-        isFetching: true
-      })
-      break;
-    case RECEIVE_NEWS:
-      console.log("RECEIVE_NEWS");
-      console.log(action);
-      return Object.assign({}, state, {
-        isFetching: false
-        , items: action.list
-      })
-      break;
-
-    default:
-      return state
-  }
-}
+// import reducers
+import CRUD from './crudReducers';
+import customReducers from './customReducers';
 
 const newsReducer = combineReducers({
-  list
+  CRUD
+  , customReducers
 });
 
 export default newsReducer;

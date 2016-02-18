@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Base from "../../../global/components/BaseComponent.js.jsx";
-import * as action from '../actions';
+import * as crudAction from '../actions/crudActions';
 import { connect } from 'react-redux';
 
 
@@ -17,11 +17,11 @@ class List extends Base {
     // console.log(this.context);
 
     // action.fetchList();
-    this.props.dispatch(action.fetchList()).then(() => {
-      console.log("State after fetch:")
+    this.props.dispatch(crudAction.fetchList()).then(() => {
+      // console.log("State after fetch:")
       // console.log(getState())
       // console.log(this.context.store.getState());
-      console.log(this.props);
+      // console.log(this.props);
     })
   }
   //
@@ -32,16 +32,23 @@ class List extends Base {
   // }
 
   render() {
-    // const { selectedItem, news, isFetching, lastUpdated } = this.props;
-    // const isEmtpy = news.length === 0;
+    const { news } = this.props;
+    const isEmpty = news.items.length === 0;
     return(
       <div>
         <h1> News List </h1>
-          <ul>
-          {this.props.news.items.map((item, i) =>
-            <ListItem key={i} post={item} />
-          )}
-        </ul>
+          {isEmpty
+            ? (news.isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
+            : <div style={{ opacity: news.isFetching ? 0.5 : 1 }}>
+              <ul>
+                {news.items.map((item, i) =>
+                  <ListItem key={i} post={item} />
+                )}
+              </ul>
+
+            </div>
+          }
+
       </div>
     )
   }
@@ -49,9 +56,7 @@ class List extends Base {
 
 
 List.propTypes = {
-  list: PropTypes.array
-  , isFetching: PropTypes.bool
-  , dispatch: PropTypes.func.isRequired
+  dispatch: PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state) => {
@@ -59,7 +64,7 @@ const mapStateToProps = (state) => {
   console.log(state);
   const { news } = state;
   return {
-    news: news.list
+    news: news.CRUD.list
   }
 }
 
