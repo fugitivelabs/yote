@@ -64,6 +64,7 @@
     "react-addons-pure-render-mixin": "^0.14.3",
     "react-addons-transition-group": "^0.14.3",
     "react-addons-update": "^0.14.3",
+    "react-auto-form": "^1.2.4",
     "react-dom": "^0.14.3",
     "react-flexgrid": "^0.7.0",
     "react-redux": "^4.4.0",
