@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import Base from "../../../global/components/BaseComponent.js.jsx";
 import { fetchAllPosts } from '../postActions'
-import ListPosts from './ListPosts.js.jsx'
+import List from './List.js.jsx'
 
 class ListPostsContainer extends Base{
   constructor(props) {
@@ -16,7 +16,7 @@ class ListPostsContainer extends Base{
   render() {
     return (
       <div>
-        <ListPosts posts={this.props.posts}/>
+        <List posts={this.props.posts} />
       </div>
     )
   }
@@ -29,9 +29,22 @@ ListPostsContainer.propTypes = {
 }
 
 const mapStateToProps = (state, ownProps) => {
+  console.log(state);
   return {
     posts: state.posts.list.items
   }
 }
+
+//TODO: this doesnt work
+// const mapDispatchToProps = (dispatch, ownProps) => {
+//   // console.log(dispatch);
+//   return {
+//     , fetch: () => {
+//       dispatch(fetchAllPosts());
+//     }
+//
+//     // routerActions: bindActionCreators({pushState}, dispatch)
+//   }
+// }
 
 export default connect(mapStateToProps)(ListPostsContainer)

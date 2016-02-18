@@ -1,41 +1,43 @@
 import React from 'react'
 import { render } from 'react-dom'
-
 //redux and state stuff
 import thunkMiddleware from 'redux-thunk'
 import createLogger from 'redux-logger'
-import { createStore, applyMiddleware } from 'redux'
+import { combineReducers, createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
-
-import rootReducer from './rootReducer'
-import { fetchAllPosts } from './modules/post2/PostActions'
-//todo: combine reducers into one big rootReducer
-
+//state change logger
 const loggerMiddleware = createLogger();
+//routing stuff
+import { Router, Route, IndexRoute, browserHistory } from 'react-router'
+import { syncHistory } from 'react-router-redux'
+
+//our reducers
+import rootReducer from './rootReducer'
+
+const reduxRouterMiddleware = syncHistory(browserHistory)
+
 const store = createStore(
   rootReducer
   , applyMiddleware(
-    thunkMiddleware //lets 'dispatch' functions
+    reduxRouterMiddleware //routing
+    , thunkMiddleware //lets 'dispatch' functions
     , loggerMiddleware //logs actions
   )
 )
-//
-// store.dispatch(fetchAllPosts()).then(() => {
-//   console.log("State after fetch:")
-//
-//   console.log(store.getState())
-// })
 
-//import basic views
-import ListPostsContainer from './modules/post2/components/ListPostsContainer.js.jsx'
-
+import Layout from './global/components/Layout.js.jsx'
+import Landing from './global/components/Landing.js.jsx'
+//modules
+import postRoutes from './modules/post2/postRoutes'
 render(
   (
     <Provider store={store}>
-      <div>
-        <h1> test </h1>
-        <ListPostsContainer />
-      </div>
+      <Router history={browserHistory}>
+        <Route path="/" component={Layout}>
+          <IndexRoute component={Landing} />
+          {postRoutes}
+        </Route>
+      </Router>
     </Provider>
   )
   , document.getElementById('react')
