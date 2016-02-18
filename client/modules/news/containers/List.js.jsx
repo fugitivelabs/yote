@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Base from "../../../global/components/BaseComponent.js.jsx";
-import * as crudAction from '../actions/crudActions';
+import * as listActions from '../actions/list';
 import { connect } from 'react-redux';
 
 
@@ -17,7 +17,7 @@ class List extends Base {
     // console.log(this.context);
 
     // action.fetchList();
-    this.props.dispatch(crudAction.fetchList()).then(() => {
+    this.props.dispatch(listActions.fetchList()).then(() => {
       // console.log("State after fetch:")
       // console.log(getState())
       // console.log(this.context.store.getState());
@@ -32,16 +32,16 @@ class List extends Base {
   // }
 
   render() {
-    const { news } = this.props;
-    const isEmpty = news.items.length === 0;
+    const { list } = this.props;
+    const isEmpty = list.items.length === 0;
     return(
       <div>
         <h1> News List </h1>
           {isEmpty
-            ? (news.isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
-            : <div style={{ opacity: news.isFetching ? 0.5 : 1 }}>
+            ? (list.isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
+            : <div style={{ opacity: list.isFetching ? 0.5 : 1 }}>
               <ul>
-                {news.items.map((item, i) =>
+                {list.items.map((item, i) =>
                   <ListItem key={i} post={item} />
                 )}
               </ul>
@@ -63,8 +63,10 @@ const mapStateToProps = (state) => {
   console.log("mapStateToProps");
   console.log(state);
   const { news } = state;
+  const list = news.list;
+  // list.visibilityFilter = state.news.customReducers.setVisibilityFilter;
   return {
-    news: news.CRUD.list
+    list: list
   }
 }
 

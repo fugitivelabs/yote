@@ -25,5 +25,8 @@ class Layout extends Base {
   }
 }
 
+// Layout.propTypes = {
+//   dispatch: PropTypes.func.isRequired
+// }
 
 export default Layout;

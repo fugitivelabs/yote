@@ -1,13 +1,13 @@
 import React, { PropTypes } from 'react'
+import { Router, Link } from 'react-router';
 
 const ListItem = ({ post }) => {
 
   return (
     <li>
-      <a href="#"
-      >
-        {post.title}
-      </a>
+
+      <Link to={`/news/${post._id}`}> {post.title}</Link>
+
     </li>
   )
 }

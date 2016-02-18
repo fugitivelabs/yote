@@ -1,22 +1,28 @@
+/*****
+
+LIST ACTIONS GO HERE
+
+*****/
+
 import fetch from 'isomorphic-fetch'
 
 
-export const REQUEST_NEWS = "REQUEST_NEWS"
-export const RECEIVE_NEWS = "RECEIVE_NEWS"
-// export const SELECT_ITEM = "SELECT_ITEM"
+export const REQUEST_NEWS_LIST = "REQUEST_NEWS_LIST"
+export const RECEIVE_NEWS_LIST = "RECEIVE_NEWS_LIST"
+
 
 
 
 function requestNews() {
   console.log('requesting news')
   return {
-    type: REQUEST_NEWS
+    type: REQUEST_NEWS_LIST
   }
 }
 
 function receiveNews(json) {
   return {
-    type: RECEIVE_NEWS
+    type: RECEIVE_NEWS_LIST
     , list: json.posts
     , success: json.success
     , error: json.message

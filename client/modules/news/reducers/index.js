@@ -1,12 +1,13 @@
 import { combineReducers } from 'redux';
 
 // import reducers
-import CRUD from './crudReducers';
-import customReducers from './customReducers';
-
+// import { list, selected } from './crudReducers';
+// import custom from './customReducers';
+import list from './list';
+import single from './single';
 const newsReducer = combineReducers({
-  CRUD
-  , customReducers
+  list
+  , single
 });
 
 export default newsReducer;

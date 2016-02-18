@@ -112,7 +112,7 @@ exports.getById = function(req, res) {
 }
 
 exports.getAndPopulate = function(req, res) {
-  console.log('get post by id');
+  console.log('get post by id and populate');
   Post.findById(req.params.id).populate('author').exec(function(err, post) {
     if(err) {
       res.send({ success: false, message: err });
