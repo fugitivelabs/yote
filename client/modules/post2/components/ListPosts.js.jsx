@@ -13,25 +13,6 @@ const ListPosts = ({ posts }) => {
     </div>
   )
 }
-// // EQUIVALENT:
-// class ListPosts extends Base{
-//   constructor(props) {
-//     super(props);
-//   }
-//
-//   render() {
-//     return(
-//       <div>
-//         <h1>POSTS LIST</h1>
-//         <ul>
-//           {this.props.posts.map(post =>
-//             <li key={post._id}>{post.title}</li>
-//           )}
-//         </ul>
-//       </div>
-//     )
-//   }
-// }
 
 ListPosts.propTypes = {
   posts: PropTypes.array.isRequired

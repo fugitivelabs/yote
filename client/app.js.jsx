@@ -20,11 +20,11 @@ const store = createStore(
   )
 )
 //
-store.dispatch(fetchAllPosts()).then(() => {
-  console.log("State after fetch:")
-
-  console.log(store.getState())
-})
+// store.dispatch(fetchAllPosts()).then(() => {
+//   console.log("State after fetch:")
+//
+//   console.log(store.getState())
+// })
 
 //import basic views
 import ListPostsContainer from './modules/post2/components/ListPostsContainer.js.jsx'
@@ -34,9 +34,7 @@ render(
     <Provider store={store}>
       <div>
         <h1> test </h1>
-        <ListPostsContainer>
-
-        </ListPostsContainer>
+        <ListPostsContainer />
       </div>
     </Provider>
   )
