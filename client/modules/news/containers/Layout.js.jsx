@@ -12,7 +12,7 @@ class Layout extends Base {
 
   }
   componentWillMount() {
-    console.log("layout mounting");
+    console.log("news layout mounting");
     // NewsActions.fetchList();
   }
 

@@ -10,7 +10,7 @@ import Landing from './global/components/Landing.js.jsx';
 const routes =
       <Route path="/" component={Layout} >
         <IndexRoute component={Landing} />
-
+        {postRoutes}
         {newsRoutes}
       </Route>
 ;
@@ -20,5 +20,5 @@ export default routes;
 
 
 
-// import postRoutes from './modules/post2/post-routes.js.jsx';
+import postRoutes from './modules/post/routes.js.jsx';
 import newsRoutes from './modules/news/routes.js.jsx';
