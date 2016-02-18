@@ -46,6 +46,7 @@ function single(state = {
     case Actions.REQUEST_SINGLE_POST:
       return Object.assign({}, state, {
         isFetching: true
+        , item: {}
         , status: null
       })
     case Actions.RECEIVE_SINGLE_POST:
@@ -59,7 +60,7 @@ function single(state = {
       } else {
         return Object.assign({}, state, {
           isFetching: false
-          , item: null
+          , item: {}
           , error: action.error
           , lastUpdated: action.receivedAt
         })
@@ -81,7 +82,7 @@ function single(state = {
       } else {
         Object.assign({}, state, {
           isFetching: false
-          , item: null
+          , item: {}
           , status: null
           , error: action.error
         })
@@ -103,7 +104,7 @@ function single(state = {
         } else {
           Object.assign({}, state, {
             isFetching: false
-            , item: null
+            , item: {}
             , status: null
             , error: action.error
           })

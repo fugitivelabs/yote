@@ -69,7 +69,7 @@ export function requestUpdatePost(id, post) {
 }
 export const RECEIVE_UPDATE_POST = 'RECEIVE_UPDATE_POST'
 export function receiveUpdatePost(json) {
-  console.log(json);
+  console.log(json.post);
   return {
     type: RECEIVE_UPDATE_POST
     , id: json.post._id
