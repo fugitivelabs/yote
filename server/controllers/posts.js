@@ -146,6 +146,7 @@ exports.create = function(req, res) {
       post[k] = req.body[k];
     }
   }
+  console.log(req.body);
   post.save(function(err, post) {
     if(err) {
       res.send({ success: false, message: err });

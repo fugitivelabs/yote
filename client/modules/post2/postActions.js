@@ -36,6 +36,25 @@ export function receiveSinglePost(id, json) {
     , receivedAt: Date.now()
   }
 }
+//create
+export const REQUEST_CREATE_POST = 'REQUEST_CREATE_POST'
+export function requestCreatePost() {
+  return {
+    type: REQUEST_CREATE_POST
+  }
+}
+export const RECEIVE_CREATE_POST = 'RECEIVE_CREATE_POST'
+export function receiveCreatePost(json) {
+  console.log(json);
+  return {
+    type: RECEIVE_CREATE_POST
+    , id: json.post._id
+    , post: json.post
+    , success: json.success
+    , error: json.message
+    , receivedAt: Date.now()
+  }
+}
 
 //post api actions
 export function fetchAllPosts() {
@@ -50,7 +69,7 @@ export function fetchAllPosts() {
   }
 }
 export function fetchSinglePost(id) {
-  console.log("id: " + id);
+  // console.log("id: " + id);
   return function(dispatch) {
     dispatch(requestSinglePost())
     return fetch('/api/posts/' + id)
@@ -58,5 +77,23 @@ export function fetchSinglePost(id) {
       .then(json =>
         dispatch(receiveSinglePost(id, json))
       )
+  }
+}
+export function sendCreatePost(post) {
+  console.log("send create post");
+  // console.log(post);
+  // console.log(JSON.stringify({post: post}));
+  // console.log(JSON.stringify({post: post}).length);
+  return function(dispatch) {
+    dispatch(requestCreatePost())
+    return fetch('/api/posts', {
+      method: 'POST'
+      , headers: {
+        'Accept': 'application/json'
+        , 'Content-Type': 'application/json'
+      }
+      , body: JSON.stringify(post)
+    }).then(response => response.json())
+    .then(json => dispatch(receiveCreatePost(json)))
   }
 }

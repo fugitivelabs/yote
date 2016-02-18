@@ -1,15 +1,17 @@
 import React, { PropTypes } from 'react';
+import { Link } from 'react-router';
 
 const List = ({ posts }) => {
   return (
     <div>
+      <Link to={'/posts/new'}>CREATE NEW</Link>
       <h1>POSTS LIST</h1>
       <ul>
-        {posts.map(post =>
+        {posts.items.map(post =>
           <li key={post._id}>
             {post.title}
-            <a> GO
-            </a>
+            <Link to={'/posts/' + post._id}> View
+            </Link>
           </li>
         )}
       </ul>
@@ -18,8 +20,9 @@ const List = ({ posts }) => {
 }
 
 List.propTypes = {
-  posts: PropTypes.array.isRequired
-  , onClick: PropTypes.func.isRequired
+  posts: PropTypes.shape({
+    items: PropTypes.array.isRequired
+  })
 }
 
 export default List

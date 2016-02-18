@@ -4,16 +4,15 @@ import { Route, IndexRoute } from 'react-router';
 //import Post
 // import PostContainer from './containers/Layout.js.jsx';
 // import Layout from './containers/Layout.js.jsx';
-import ListPostsContainer from './components/ListPostsContainer.js.jsx'
-import SinglePostContainer from './components/SinglePostContainer.js.jsx'
-import Show from './components/Show.js.jsx'
+import ListContainer from './components/ListContainer.js.jsx'
+import ShowContainer from './components/ShowContainer.js.jsx'
+import NewContainer from './components/NewContainer.js.jsx'
 
 const postRoutes =
   <Route path="/posts" >
-    <IndexRoute component={ListPostsContainer} />
-    <Route path="/posts/:postId" component={SinglePostContainer}>
-      <IndexRoute component={Show} />
-    </Route>
+    <IndexRoute component={ListContainer} />
+    <Route path="/posts/new" component={NewContainer} />
+    <Route path="/posts/:postId" component={ShowContainer} />
   </Route>
 
 

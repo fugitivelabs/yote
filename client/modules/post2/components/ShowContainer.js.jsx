@@ -4,7 +4,7 @@ import Base from "../../../global/components/BaseComponent.js.jsx";
 import { fetchSinglePost } from '../postActions'
 import Show from './Show.js.jsx'
 
-class SinglePostContainer extends Base{
+class ShowContainer extends Base{
   constructor(props) {
     super(props)
   }
@@ -24,16 +24,17 @@ class SinglePostContainer extends Base{
 
 }
 
-SinglePostContainer.propTypes = {
+ShowContainer.propTypes = {
   post: PropTypes.object.isRequired
   , dispatch: PropTypes.func.isRequired
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (store, ownProps) => {
+  console.log(store);
   return {
     id: ownProps.params.postId
-    , post: state.posts.single.item
+    , post: store.posts.single.item
   }
 }
 
-export default connect(mapStateToProps)(SinglePostContainer)
+export default connect(mapStateToProps)(ShowContainer)
