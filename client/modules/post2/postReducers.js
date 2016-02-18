@@ -1,24 +1,20 @@
 import { combineReducers } from 'redux'
-import {
-  REQUEST_ALL_POSTS
-  , RECEIVE_ALL_POSTS
-  , REQUEST_SINGLE_POST
-  , RECEIVE_SINGLE_POST
-} from './postActions'
+import * as Actions from './postActions'
 //define initial state
 
 //get list
 function list(state = {
   isFetching: false
   , items: []
+  , error: null
   , pagination: {}
 }, action) {
   switch(action.type) {
-    case REQUEST_ALL_POSTS:
+    case Actions.REQUEST_ALL_POSTS:
       return Object.assign({}, state, {
         isFetching: true
       })
-    case RECEIVE_ALL_POSTS:
+    case Actions.RECEIVE_ALL_POSTS:
       //do different things based on action status
       if(action.success) {
         return Object.assign({}, state, {
@@ -43,14 +39,16 @@ function list(state = {
 function single(state = {
   isFetching: false
   , item: {}
-  //editting? status?
+  , error: null
+  , status: null //creating, editing
 }, action) {
   switch(action.type) {
-    case REQUEST_SINGLE_POST:
+    case Actions.REQUEST_SINGLE_POST:
       return Object.assign({}, state, {
         isFetching: true
+        , status: null
       })
-    case RECEIVE_SINGLE_POST:
+    case Actions.RECEIVE_SINGLE_POST:
       if(action.success) {
         return Object.assign({}, state, {
           isFetching: false
@@ -64,6 +62,28 @@ function single(state = {
           , item: null
           , error: action.error
           , lastUpdated: action.receivedAt
+        })
+      }
+    case Actions.REQUEST_CREATE_POST:
+      return Object.assign({}, state, {
+        isFetching: true
+        , item: action.post
+        , status: 'editing'
+      })
+    case Actions.RECEIVE_CREATE_POST:
+      if(action.success) {
+        Object.assign({}, state, {
+          isFetching: false
+          , item: action.post
+          , status: null
+          , error: null
+        })
+      } else {
+        Object.assign({}, state, {
+          isFetching: false
+          , item: null
+          , status: null
+          , error: action.error
         })
       }
     default:

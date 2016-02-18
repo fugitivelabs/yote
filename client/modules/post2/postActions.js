@@ -1,4 +1,6 @@
 import fetch from 'isomorphic-fetch'
+import { routeActions } from 'react-router-redux'
+
 //POST ACTIONS
 //list
 export const REQUEST_ALL_POSTS = 'REQUEST_ALL_POSTS'
@@ -38,9 +40,10 @@ export function receiveSinglePost(id, json) {
 }
 //create
 export const REQUEST_CREATE_POST = 'REQUEST_CREATE_POST'
-export function requestCreatePost() {
+export function requestCreatePost(post) {
   return {
     type: REQUEST_CREATE_POST
+    , post: post
   }
 }
 export const RECEIVE_CREATE_POST = 'RECEIVE_CREATE_POST'
@@ -56,7 +59,7 @@ export function receiveCreatePost(json) {
   }
 }
 
-//post api actions
+//POST API ACTIONS
 export function fetchAllPosts() {
   return function(dispatch) {
     dispatch(requestAllPosts())
@@ -85,7 +88,7 @@ export function sendCreatePost(post) {
   // console.log(JSON.stringify({post: post}));
   // console.log(JSON.stringify({post: post}).length);
   return function(dispatch) {
-    dispatch(requestCreatePost())
+    dispatch(requestCreatePost(post))
     return fetch('/api/posts', {
       method: 'POST'
       , headers: {
@@ -95,5 +98,7 @@ export function sendCreatePost(post) {
       , body: JSON.stringify(post)
     }).then(response => response.json())
     .then(json => dispatch(receiveCreatePost(json)))
+    //then update location
+    .then(json => dispatch(routeActions.push('/posts/' + json.post._id)))
   }
 }

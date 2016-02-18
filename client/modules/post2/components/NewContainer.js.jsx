@@ -15,18 +15,7 @@ class NewContainer extends Base{
     console.log("CREATE ACTION");
     console.log(data);
     //VALIDATION...
-
     this.props.dispatch(Actions.sendCreatePost(data));
-    //get the values from the synthetic event
-    // const post = {};
-    // console.log(typeof(e.target));
-    // for(var field in e.target) {
-    //   // console.log(e.target[target]);
-    //   if(e.target[field].name && typeof(e.target[field]) == 'object' ) {
-    //     console.log(e.target[field].name);
-    //     console.log(e.target[field].value);
-    //   }
-    // }
   }
 
   render() {
