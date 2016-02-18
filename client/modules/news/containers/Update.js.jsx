@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 // import actions
 import * as singleActions from '../actions/single';
-// import * as updateActions from '../actions/update';
+import * as updateActions from '../actions/update';
 
 // import components
 import NewsForm from '../components/NewsForm.js.jsx';
@@ -50,8 +50,9 @@ class Create extends Base {
 
   _handleFormSubmit(e) {
     e.preventDefault();
-    // console.log("_handleFormChange");
+    console.log("_handleFormSubmit");
     // console.log(e);
+    this.props.dispatch(updateActions.sendUpdateItem(this.state.item));
   }
 
   render() {
@@ -67,6 +68,7 @@ class Create extends Base {
             formType="update"
             handleFormSubmit={this._handleFormSubmit}
             handleFormChange={this._handleFormChange}
+            cancelLink={`/news/${item.slug}`}
             />
         }
       </div>

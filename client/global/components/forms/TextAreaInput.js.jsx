@@ -13,12 +13,12 @@ class TextAreaInput extends Base {
   }
   // check the props the component receives
   componentWillReceiveProps(nextProps) {
-    console.log("TextAreaInput props");
-    console.log(nextProps);
+    // console.log("TextAreaInput props");
+    // console.log(nextProps);
   }
   _handleInputChange(e) {
-    console.log("handleinputchange");
-    console.log(e);
+    // console.log("handleinputchange");
+    // console.log(e);
     this.props.change(e);
   }
   render() {
@@ -32,6 +32,7 @@ class TextAreaInput extends Base {
           placeholder={placeholder}
           onChange={this._handleInputChange}
           required={required}
+          value={value}
         >
           {value}
         </textarea>

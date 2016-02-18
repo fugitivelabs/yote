@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 // import actions
 import * as singleActions from '../actions/single';
-// import * as updateActions from '../actions/update';
+import * as createActions from '../actions/create';
 
 // import components
 import NewsForm from '../components/NewsForm.js.jsx';
@@ -20,7 +20,7 @@ class Create extends Base {
   }
   componentWillMount() {
     const { dispatch } = this.props;
-    dispatch(singleActions.setupNewPost())
+    dispatch(createActions.setupNewPost())
     // this.props.dispatch(singleActions.setupNewPost()).then(() =>{
     //     console.log(this.props);
     //   });
@@ -28,6 +28,11 @@ class Create extends Base {
 
   componentWillReceiveProps(nextProps) {
     this.setState(nextProps);
+    // console.log("NExt PROPs");
+    // console.log(nextProps);
+    if(nextProps.status === "error") {
+      alert(nextProps.error);
+    }
   }
 
   _handleFormChange(e) {
@@ -43,8 +48,9 @@ class Create extends Base {
 
   _handleFormSubmit(e) {
     e.preventDefault();
-    // console.log("_handleFormChange");
+    console.log("_handleFormSubmit");
     // console.log(e);
+    this.props.dispatch(createActions.sendCreateItem(this.state.item));
   }
 
   render() {
@@ -60,6 +66,7 @@ class Create extends Base {
             formType="create"
             handleFormSubmit={this._handleFormSubmit}
             handleFormChange={this._handleFormChange}
+            cancelLink="/news"
             />
         }
       </div>
@@ -76,6 +83,7 @@ const mapStateToProps = (state) => {
   // console.log(state);
   return {
     item: state.news.single.item
+    , status: state.news.single.status
   }
 }
 

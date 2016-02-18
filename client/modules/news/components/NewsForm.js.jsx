@@ -5,9 +5,9 @@ import { Router, Link } from 'react-router';
 import TextInput from '../../../global/components/forms/TextInput.js.jsx';
 import TextAreaInput from '../../../global/components/forms/TextAreaInput.js.jsx';
 
-const NewsForm = ({post, formType, handleFormSubmit, handleFormChange  }) => {
-  // const { post, type, handleFormSubmit, handleFormChange } = this.props;
-  console.log(post);
+const NewsForm = ({post, formType, handleFormSubmit, handleFormChange,  cancelLink }) => {
+  const buttonText = formType === "create" ? "Create Post" : "Update Post";
+  // console.log(post);
   return (
     <div className="formContainer">
       <form name="newsForm" className="card news-form" onSubmit={handleFormSubmit}>
@@ -35,6 +35,12 @@ const NewsForm = ({post, formType, handleFormSubmit, handleFormChange  }) => {
           required={true}
           placeholder="This is whre the content goes..."
           />
+          <div className="input-group">
+            <div className="yt-row space-between">
+              <Link className="yt-btn link" to={cancelLink}>Cancel</Link>
+              <button className="yt-btn " type="submit" > {buttonText} </button>
+            </div>
+          </div>
       </form>
     </div>
   )
@@ -45,6 +51,7 @@ NewsForm.propTypes = {
   , formType: PropTypes.string.isRequired
   , handleFormSubmit: PropTypes.func.isRequired
   , handleFormChange: PropTypes.func.isRequired
+  , cancelLink: PropTypes.string.isRequired
 }
 
 export default NewsForm;

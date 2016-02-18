@@ -6,7 +6,7 @@ const ListItem = ({ post }) => {
   return (
     <li>
 
-      <Link to={`/news/${post._id}`}> {post.title}</Link>
+      <Link to={`/news/${post.slug}`}> {post.title}</Link>
 
     </li>
   )
