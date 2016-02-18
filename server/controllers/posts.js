@@ -161,6 +161,7 @@ exports.create = function(req, res) {
 
 exports.update = function(req, res) {
   console.log("update post called");
+  console.log(req.body);
   Post.findById(req.params.id).exec(function(err, post) {
     if(err) {
       res.send({ success: false, message: err });

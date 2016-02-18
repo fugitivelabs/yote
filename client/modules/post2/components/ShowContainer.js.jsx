@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import Base from "../../../global/components/BaseComponent.js.jsx";
-import { fetchSinglePost } from '../postActions'
+import * as Actions from '../postActions'
 import Show from './Show.js.jsx'
 
 class ShowContainer extends Base{
@@ -11,7 +11,7 @@ class ShowContainer extends Base{
 
   componentWillMount() {
     console.log("fetching...");
-    this.props.dispatch(fetchSinglePost(this.props.id))
+    this.props.dispatch(Actions.fetchSinglePost(this.props.id))
   }
 
   render() {
@@ -30,7 +30,7 @@ ShowContainer.propTypes = {
 }
 
 const mapStateToProps = (store, ownProps) => {
-  console.log(store);
+  console.log("map props");
   return {
     id: ownProps.params.postId
     , post: store.posts.single.item

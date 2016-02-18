@@ -86,6 +86,28 @@ function single(state = {
           , error: action.error
         })
       }
+      case Actions.REQUEST_UPDATE_POST:
+        return Object.assign({}, state, {
+          isFetching: true
+          , item: action.post
+          , status: 'updating'
+        })
+      case Actions.RECEIVE_UPDATE_POST:
+        if(action.success) {
+          Object.assign({}, state, {
+            isFetching: false
+            , item: action.post
+            , status: null
+            , error: null
+          })
+        } else {
+          Object.assign({}, state, {
+            isFetching: false
+            , item: null
+            , status: null
+            , error: action.error
+          })
+        }
     default:
       return state
   }

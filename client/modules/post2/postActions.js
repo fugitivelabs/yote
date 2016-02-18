@@ -58,6 +58,27 @@ export function receiveCreatePost(json) {
     , receivedAt: Date.now()
   }
 }
+//update
+export const REQUEST_UPDATE_POST = 'REQUEST_UPDATE_POST'
+export function requestUpdatePost(id, post) {
+  return {
+    type: REQUEST_UPDATE_POST
+    , id: id
+    , post: post
+  }
+}
+export const RECEIVE_UPDATE_POST = 'RECEIVE_UPDATE_POST'
+export function receiveUpdatePost(json) {
+  console.log(json);
+  return {
+    type: RECEIVE_UPDATE_POST
+    , id: json.post._id
+    , post: json.post
+    , success: json.success
+    , error: json.message
+    , receivedAt: Date.now()
+  }
+}
 
 //POST API ACTIONS
 export function fetchAllPosts() {
@@ -84,9 +105,6 @@ export function fetchSinglePost(id) {
 }
 export function sendCreatePost(post) {
   console.log("send create post");
-  // console.log(post);
-  // console.log(JSON.stringify({post: post}));
-  // console.log(JSON.stringify({post: post}).length);
   return function(dispatch) {
     dispatch(requestCreatePost(post))
     return fetch('/api/posts', {
@@ -98,6 +116,25 @@ export function sendCreatePost(post) {
       , body: JSON.stringify(post)
     }).then(response => response.json())
     .then(json => dispatch(receiveCreatePost(json)))
+    //then update location
+    .then(json => dispatch(routeActions.push('/posts/' + json.post._id)))
+  }
+}
+
+export function sendUpdatePost(post) {
+  console.log("send update post");
+  console.log(post);
+  return function(dispatch) {
+    dispatch(requestUpdatePost(post))
+    return fetch('/api/posts/' + post._id, {
+      method: 'PUT'
+      , headers: {
+        'Accept': 'application/json'
+        , 'Content-Type': 'application/json'
+      }
+      , body: JSON.stringify(post)
+    }).then(response => response.json())
+    .then(json => dispatch(receiveUpdatePost(json)))
     //then update location
     .then(json => dispatch(routeActions.push('/posts/' + json.post._id)))
   }

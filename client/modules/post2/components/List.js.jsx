@@ -10,8 +10,8 @@ const List = ({ posts }) => {
         {posts.items.map(post =>
           <li key={post._id}>
             {post.title}
-            <Link to={'/posts/' + post._id}> View
-            </Link>
+            <Link to={'/posts/' + post._id}> View</Link>
+            <Link to={'/posts/' + post._id + '/edit'}> Edit</Link>
           </li>
         )}
       </ul>

@@ -7,10 +7,10 @@ import New from './New.js.jsx'
 class NewContainer extends Base{
   constructor(props) {
     super(props)
-    this._bind('_createAction');
+    this._bind('_handleSubmitAction');
   }
 
-  _createAction(event, data) {
+  _handleSubmitAction(event, data) {
     event.preventDefault();
     console.log("CREATE ACTION");
     console.log(data);
@@ -21,7 +21,7 @@ class NewContainer extends Base{
   render() {
     return (
       <div>
-        <New createAction={this._createAction}/>
+        <New createAction={this._handleSubmitAction}/>
       </div>
     )
   }
