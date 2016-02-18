@@ -1,5 +1,5 @@
 import API from "./state/PostAPI";
-import Actions from "./state/PostActions";
+import Actions from "./state/PostActionsOld";
 import Store from "./state/PostStore";
 import Constants from "./state/PostConstants";
 

@@ -1,5 +1,5 @@
 import axios from "axios";
-import PostActions from "./PostActions";
+import PostActions from "./PostActionsOld";
 
 let urlBase = "/api/posts";
 
