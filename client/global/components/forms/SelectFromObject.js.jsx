@@ -4,23 +4,23 @@ import Base from "../BaseComponent.js.jsx";
 
 class SelectFromObject extends Base{
 
-  //require fields: 
+  //require fields:
   //  objects (array of objects to use)
   //  display (string field in the objects to display)
   //  value (string field in objects to use as value)
-  //optional: 
+  //optional:
   //  change callback (returns selected value)
   //  selected object (string that matches to an object)
   //  placeholder     (string that shows a default placeholder)
 
   //ex for Post objects:
-  // <SelectFromObject 
-  //   objects={this.state.posts} 
-  //   display={"title"} 
-  //   value={"_id"} 
-  //   change={this._onSelectChange} 
+  // <SelectFromObject
+  //   objects={this.state.posts}
+  //   display={"title"}
+  //   value={"_id"}
+  //   change={this._onSelectChange}
   //   selected={"5696ed72d4fe105051db1fb1"} //- optional
-  //   placeholder="-- Select an Object -- " //- optional 
+  //   placeholder="-- Select an Object -- " //- optional
   // />
 
   constructor(props, context) {
@@ -31,11 +31,12 @@ class SelectFromObject extends Base{
     this._bind('_handleSelectChange');
   }
 
-  // // check the props the component receives
-  // componentWillReceiveProps(nextProps) {
-  //   console.log("SelectFromObject props");
-  //   console.log(nextProps);
-  // }
+  // check the props the component receives
+  componentWillReceiveProps(nextProps) {
+    // console.log("SelectFromObject props");
+    // console.log(nextProps);
+    nextProps.selected ? this.setState({selected: nextProps.selected}) : null;
+  }
 
   _handleSelectChange(e) {
     console.log("handle select change in select");

@@ -21,7 +21,7 @@ class List extends Base {
       // console.log("State after fetch:")
       // console.log(getState())
       // console.log(this.context.store.getState());
-      // console.log(this.props);
+      console.log(this.props);
     })
   }
   //

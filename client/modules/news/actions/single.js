@@ -13,6 +13,22 @@ export const REQUEST_SINGLE_NEWS_ITEM = "REQUEST_SINGLE_NEWS_ITEM";
 export const RECEIVE_SINGLE_NEWS_ITEM = "RECEIVE_SINGLE_NEWS_ITEM";
 
 
+export const REQUEST_SETUP_NEW_POST = "REQUEST_SETUP_NEW_POST";
+function requestSetupPost() {
+  return {
+    type: REQUEST_SETUP_NEW_POST
+  }
+}
+
+export const SETUP_NEW_POST = "SETUP_NEW_POST";
+export function setupNewPost() {
+  return dispatch => {
+    dispatch(requestSetupPost())
+    return {
+      type: SETUP_NEW_POST
+    }
+  }
+}
 // export const SELECT_NEWS_ITEM = "SELECT_NEWS_ITEM";
 //
 // export function selectItem(item) {

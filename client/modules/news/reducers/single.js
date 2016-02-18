@@ -33,7 +33,22 @@ function single(state = {
         , item: action.item
       })
       break;
-
+    case singleActions.REQUEST_SETUP_NEW_POST:
+      console.log("REQUEST_SETUP_NEW_POST");
+      return Object.assign({}, state, {
+        isFetching: true
+      })
+    case singleActions.SETUP_NEW_POST:
+      console.log("SETUP_NEW_POST");
+      return Object.assign({}, state, {
+        isFetching: false
+        , item: {
+          title: ""
+          , content: ""
+          , author: ""
+        }
+      });
+      break;
     default:
       return state
   }
