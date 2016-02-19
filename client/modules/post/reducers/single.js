@@ -8,8 +8,6 @@ LIST REDUCERS GO HERE
 import { combineReducers } from 'redux';
 import * as Actions from '../actions/single';
 
-
-
 function single(state = {
   isFetching: false
   , item: {}

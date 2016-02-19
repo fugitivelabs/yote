@@ -7,11 +7,9 @@ import { Provider } from 'react-redux';
 
 import routes from './routes.js.jsx';
 
-
 import configureStore from './configureStore';
 
 const store = configureStore();
-
 
 render(
   (

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import { Route, IndexRoute } from 'react-router';
 
 //import custom components
 import Layout from './global/components/Layout.js.jsx';

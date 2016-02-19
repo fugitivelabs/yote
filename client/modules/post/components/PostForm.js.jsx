@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react'
-import { Router, Link } from 'react-router';
+import { Link } from 'react-router';
 
 // import form components
 // import TextInput from '../../../global/components/forms/TextInput.js.jsx';

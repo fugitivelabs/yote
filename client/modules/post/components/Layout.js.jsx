@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import Base from "../../../global/components/BaseComponent.js.jsx";
 import { bindActionCreators } from 'redux'
 
