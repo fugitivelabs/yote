@@ -41,7 +41,6 @@
     "errorhandler": "^1.4.2",
     "express": "^4.13.3",
     "express-session": "^1.8.2",
-    "immutable": "^3.7.6",
     "isomorphic-fetch": "^2.2.1",
     "jade": "^1.11.0",
     "jwt-simple": "^0.4.0",
@@ -85,7 +84,6 @@
     "babel-preset-react": "^6.1.18",
     "babel-runtime": "^6.2.0",
     "chai": "^3.5.0",
-    "chai-immutable": "^1.5.3",
     "mocha": "^2.4.5",
     "webpack": "^1.12.9",
     "webpack-dev-server": "^1.14.0"

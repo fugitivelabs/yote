@@ -1,5 +1,5 @@
 // import React from 'react';
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import Base from './BaseComponent.js.jsx';
 
 import TopNav from './TopNav.js.jsx';
@@ -24,7 +24,3 @@ export default class Layout extends Base {
     )
   }
 }
-
-// Layout.propTypes = {
-//   dispatch: PropTypes.func.isRequired
-// }
