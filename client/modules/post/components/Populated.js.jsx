@@ -30,6 +30,12 @@ class Populated extends Base {
     const updated = !isEmpty ? moment(item.updated).calendar() : '';
     console.log("isEmpty", isEmpty);
     console.log(item);
+    if(item.author && item.author.username) {
+      var author = item.author.username;
+    } else {
+      var author = "Anonymous";
+    }
+    // const author = item.author.username ? item.author.username : "anonymous"
     return  (
       <div className="yt-container">
         <h3> Populated Post Item </h3>
@@ -43,7 +49,7 @@ class Populated extends Base {
               <hr/>
 
               <p><small>Updated {updated}</small></p>
-              <h4> Written by {item.author.username}</h4>
+              <h4> Written by {author}</h4>
               <p> {item.content }</p>
             </div>
           }
