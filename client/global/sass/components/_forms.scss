@@ -61,11 +61,12 @@ form {
     outline: none;
     border: none;
     border-bottom: 2px solid $grey;
-    background-color: darken($formContainerColor, 3);
+    background-color: darken($formContainerColor, 2);
     // border-radius: 4px;
     transition: all 0.5s ease;
 
     &:focus {
+      background-color: darken($formContainerColor, 4);
       border-bottom: 2px solid $formAccentColor;
     }
 
@@ -93,7 +94,7 @@ form {
   }
 
   select {
-    background-color: darken($formContainerColor, 3);
+    background-color: darken($formContainerColor, 2);
     width: 100%;
     margin-bottom: 1em;
     padding: 8px 6px;
@@ -106,7 +107,7 @@ form {
   }
 
   textarea {
-    background-color: darken($formContainerColor, 3);
+    background-color: darken($formContainerColor, 2);
     width: 100%;
     margin-bottom: 1em;
     padding: 8px 6px;
@@ -116,17 +117,14 @@ form {
     border-bottom: 2px solid $grey;
 
     &:focus {
-      border: 2px solid $formAccentColor;
+      background-color: darken($formContainerColor, 4);
+      border-color: $formAccentColor;
     }
   }
 }
 
 
 
-// override ng-invalid-required box shadow in firefox 
-.ng-pristine.ng-invalid-required {
-  box-shadow: none;
-}
 
 // input addons (for icon in a search box for example)
 // ••••••••••••••••••••••••••••••••••••••••••••••••••

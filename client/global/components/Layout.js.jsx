@@ -1,4 +1,5 @@
-import React from 'react';
+// import React from 'react';
+import React, { PropTypes } from 'react';
 import Base from './BaseComponent.js.jsx';
 
 import TopNav from './TopNav.js.jsx';
@@ -12,7 +13,7 @@ export default class Layout extends Base {
     return (
       <div className="flex layout">
         <header className="header">
-          <TopNav /> 
+          <TopNav />
         </header>
         <div className="body with-header">
           <div className="main">

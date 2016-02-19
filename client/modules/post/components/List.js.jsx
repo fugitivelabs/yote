@@ -1,56 +1,72 @@
-import React from 'react';
-import { Router, Link } from 'react-router';
+import React, { PropTypes } from 'react';
 import Base from "../../../global/components/BaseComponent.js.jsx";
+import { connect } from 'react-redux';
+import { Link } from 'react-router';
 
-import Post from "../PostHandler";
+// import actions
+import * as listActions from '../actions/list';
 
-export default class List extends Base{
+// import components
+import ListItem from './ListItem.js.jsx';
 
-  getState() {
-    //we could shorten this even further by just calling "setState({posts: Post.Store.list()})" instead of having it be it's own method.
-    console.log("get app state called in posts list");
-    return {
-      posts: Post.Store.list()
-    }
-  }
-
-  constructor(props, context) {
+class List extends Base {
+  constructor(props) {
     super(props);
-    this.state = this.getState();
-    this._bind('_onPostChange');
 
   }
 
   componentWillMount() {
-    //initialize stores
-    Post.Actions.requestPostsList();
+    console.log("list mounting");
+    this.props.dispatch(listActions.fetchList()).then(() => {
+      // console.log(this.props);
+    })
   }
-
-  componentDidMount() {
-    Post.Store.addChangeListener(this._onPostChange);
-  }
-
-  componentWillUnmount() {
-    Post.Store.removeChangeListener(this._onPostChange);
-  }
-
-  _onPostChange() {
-    this.setState(this.getState());
-  }
+  //
+  // componentWillReceiveProps(nextProps) {
+  //   if(nextProps.selectedItem !== this.props.selectedItem) {
+  //     const { dispatch, selectedItem } = nextProps;
+  //   }
+  // }
 
   render() {
+    const { list } = this.props;
+    const isEmpty = list.items.length === 0;
     return(
-      <div className="post-list">
-        <h1>LIST POSTS: {this.state.posts.length} found</h1>
-        <Link to={'/posts/new'}> NEW POST </Link>
-        { this.state.posts.map(post => 
-          <div key={post._id}>
-            <p>
-              <Link to={`/posts/${post._id}`}> {post.title}</Link>
-            </p>
-          </div>
-        )}
+      <div className="yt-container">
+        <h1> Post List
+          <Link className="yt-btn small u-pullRight" to={'/posts/new'}> NEW POST </Link>
+        </h1>
+        <hr/>
+          {isEmpty
+            ? (list.isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
+            : <div style={{ opacity: list.isFetching ? 0.5 : 1 }}>
+              <ul>
+                {list.items.map((item, i) =>
+                  <ListItem key={i} post={item} />
+                )}
+              </ul>
+            </div>
+          }
       </div>
     )
   }
 }
+
+
+List.propTypes = {
+  dispatch: PropTypes.func.isRequired
+}
+
+const mapStateToProps = (state) => {
+  console.log("list state");
+  console.log(state);
+  const { post } = state;
+  const list = post.list;
+  return {
+    list: list
+  }
+}
+
+export default connect(
+  mapStateToProps
+)(List);

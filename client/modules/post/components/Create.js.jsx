@@ -1,112 +1,93 @@
-import React from 'react';
-import { Router, Link } from 'react-router';
+import React, { PropTypes } from 'react';
 import Base from "../../../global/components/BaseComponent.js.jsx";
+import { connect } from 'react-redux';
 
-import SelectFromArray from "../../../global/components/forms/SelectFromArray.js.jsx";
+// import actions
+import * as singleActions from '../actions/single';
 
-import Post from "../PostHandler";
 
-export default class Create extends Base {
+// import components
+import PostForm from './PostForm.js.jsx';
 
-  constructor(props, context) {
+class Create extends Base {
+  constructor(props) {
     super(props);
-    this.state = Post.Store.getBlankTemplate();
-
-    this._bind('_handleFormChange', '_handleFormSubmit', '_onPostChange');
-    // this._handleFormChange = this._handleFormChange.bind(this);
-    // this._handleFormSubmit = this._handleFormSubmit.bind(this);
-    // this._onChange = this._onChange.bind(this); 
+    this.state = this.props;
+    this._bind(
+      '_handleFormChange'
+      , '_handleFormSubmit'
+    );
+  }
+  componentWillMount() {
+    const { dispatch } = this.props;
+    dispatch(singleActions.setupNewPost())
+    // this.props.dispatch(singleActions.setupNewPost()).then(() =>{
+    //     console.log(this.props);
+    //   });
   }
 
-  // componentWillMount() {
-  // }
-
-  componentDidMount() {
-    Post.Store.addChangeListener(this._onPostChange);
-  }
-
-  componentWillUnmount() {
-    Post.Store.removeChangeListener(this._onPostChange);
-  }
-
-  _onPostChange() {
-    this.context.router.push("/posts");
-  }
-
-  _onSelectChange(value) {
-    // console.log("do soemthing", value);
+  componentWillReceiveProps(nextProps) {
+    this.setState(nextProps);
+    // console.log("NExt PROPs");
+    // console.log(nextProps);
+    if(nextProps.status === "error") {
+      alert(nextProps.error.message);
+    }
   }
 
   _handleFormChange(e) {
     //this works WAY better than having a separate onChange for every input box
     // just make sure input name attr == state name
-    var newPostState = this.state.post;
+    var newPostState = this.state.item;
     newPostState[e.target.name] = e.target.value;
     this.setState(newPostState);
+    // console.log("_handleFormChange");
+    // console.log(e);
+    // this.props.item[e.target.name] = e.target.value;
   }
 
   _handleFormSubmit(e) {
     e.preventDefault();
-    var postData = {
-      title: this.state.title.trim()
-      , content: this.state.content.trim()
-    }
-    if(!postData.title || !postData.content) {
-      console.log("FORM NOT FILLED OUT");
-      return;
-    } else {
-      console.log("submitting");
-      Post.Actions.requestCreatePost(postData);
-    }
+    console.log("_handleFormSubmit");
+    // console.log(e);
+    this.props.dispatch(singleActions.sendCreatePost(this.state.item));
   }
 
   render() {
-    return(
-      <div className="post-create yt-container">
-        <h1>CREATE NEW POST</h1>
-        <hr />
-        <div className="yt-row center-horiz">
-          <div className="form-container card">
-            <form className="post-create-form" onSubmit={this._handleFormSubmit}>
-              <div className="input-group">
-                <label htmlFor="title"> Title </label>
-                <input 
-                  type="text" 
-                  name="title" 
-                  placeholder="Post Title" 
-                  value={this.state.post.title} 
-                  onChange={this._handleFormChange}
-                />
-              </div>
-              <div className="input-group">
-                <label htmlFor="content"> Content </label>
-                <textarea 
-                  type="text" 
-                  name="content"
-                  placeholder="Post Content" 
-                  value={this.state.post.content} 
-                  onChange={this._handleFormChange} 
-                />
-              </div>
-              <div className="input-group">
-                <input 
-                  type="checkbox"
-                  name="isPublished"
-                  value={this.state.post.isPublished}
+    const { item } = this.state;
+    const isEmpty = !item;
+    return  (
+      <div>
 
-                />
-                <label htmlFor="isPublished"> Publish </label>
-              </div>
-              <div className="input-group">
-                <div className="yt-row space-between">
-                  <Link className="yt-btn link" to={'/posts'}> Cancel</Link>
-                  <button className="yt-btn" type="submit"> Create Post </button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
+        {isEmpty
+          ? <h2> Loading...</h2>
+        : <PostForm
+            post={item}
+            formType="create"
+            handleFormSubmit={this._handleFormSubmit}
+            handleFormChange={this._handleFormChange}
+            cancelLink="/posts"
+            formTitle="Create Post"
+            />
+        }
       </div>
     )
   }
 }
+
+Create.propTypes = {
+  dispatch: PropTypes.func.isRequired
+}
+
+const mapStateToProps = (state) => {
+  // console.log("State");
+  // console.log(state);
+  return {
+    item: state.post.single.item
+    , status: state.post.single.status
+  }
+}
+
+export default connect(
+  mapStateToProps
+)(Create);

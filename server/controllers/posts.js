@@ -1,13 +1,13 @@
 /***********************************************************
 
-Sever-side controllers for Post.  
+Sever-side controllers for Post.
 
-By default, Yote's server controllers are dynamic relative 
+By default, Yote's server controllers are dynamic relative
 to their models -- i.e. if you add fields to the Post
 model, the create and update controllers below will respect
 the new schema.
 
-NOTE: make sure to account for any model changes 
+NOTE: make sure to account for any model changes
 on the client
 
 ***********************************************************/
@@ -41,6 +41,8 @@ exports.list = function(req, res) {
       if(err || !posts) {
         res.send({ success: false, message: err });
       } else {
+        // console.log("sending error on purpose");
+        // res.send({success: false, message: "Error in database"});
         res.send({ success: true, posts: posts });
       }
     });
@@ -74,7 +76,7 @@ exports.search = function(req, res) {
       if(err || !posts) {
         res.send({ success: false, message: err });
       } else {
-        res.send({ 
+        res.send({
           success: true
           , posts: posts
           , pagination: {
@@ -110,7 +112,7 @@ exports.getById = function(req, res) {
 }
 
 exports.getAndPopulate = function(req, res) {
-  console.log('get post by id');
+  console.log('get post by id and populate');
   Post.findById(req.params.id).populate('author').exec(function(err, post) {
     if(err) {
       res.send({ success: false, message: err });
@@ -144,6 +146,7 @@ exports.create = function(req, res) {
       post[k] = req.body[k];
     }
   }
+  console.log(req.body);
   post.save(function(err, post) {
     if(err) {
       res.send({ success: false, message: err });
@@ -158,6 +161,7 @@ exports.create = function(req, res) {
 
 exports.update = function(req, res) {
   console.log("update post called");
+  console.log(req.body);
   Post.findById(req.params.id).exec(function(err, post) {
     if(err) {
       res.send({ success: false, message: err });

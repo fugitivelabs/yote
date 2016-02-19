@@ -4,9 +4,9 @@ import Base from "../BaseComponent.js.jsx";
 
 class SelectFromArray extends Base{
 
-  //require fields: 
+  //require fields:
   //  items (array of items to use, i.e. ["Item One", "Item Two", "Item Three"] )
-  //optional: 
+  //optional:
   //  change callback (returns selected value)
   //  selected item (index value of the item in the array)
   //  placeholder     (string that shows a default placeholder)
@@ -16,11 +16,11 @@ class SelectFromArray extends Base{
   //   var things = ["Thing One", "Thing Two", "Thing Three"];
   //   return (
   //     <div>
-  //       <SelectFromArray 
-  //         items={things} 
+  //       <SelectFromArray
+  //         items={things}
   //         change={this._onSelectChange} // required
   //         selected={1} //- optional
-  //         placeholder="-- Select a Thing -- " //- optional 
+  //         placeholder="-- Select a Thing -- " //- optional
   //       />
   //     </div>
   //   )
@@ -34,11 +34,12 @@ class SelectFromArray extends Base{
     this._bind('_handleSelectChange');
   }
 
-  // // check the props the component receives
-  // componentWillReceiveProps(nextProps) {
-  //   console.log("SelectFromObject props");
-  //   console.log(nextProps);
-  // }
+  // check the props the component receives
+  componentWillReceiveProps(nextProps) {
+    console.log("SelectFromObject props");
+    console.log(nextProps);
+    nextProps.selected ? this.setState({selected: nextProps.selected}) : null;
+  }
 
   _handleSelectChange(e) {
     console.log("handle select change in select");
@@ -74,7 +75,7 @@ class SelectFromArray extends Base{
 SelectFromArray.propTypes = {
   items: React.PropTypes.array.isRequired
   , change: React.PropTypes.func.isRequired // should this be required?
-  , selected: React.PropTypes.number // selected index 
+  , selected: React.PropTypes.number // selected index
   , placeholder: React.PropTypes.string
 }
 

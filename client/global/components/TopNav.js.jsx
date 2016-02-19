@@ -10,7 +10,7 @@ class DropdownMenu extends Base {
   render() {
     if(this.props.isOpen) {
       return(
-        <ul className="dropMenu"> 
+        <ul className="dropMenu">
           <li className="dropdown-header"> Hello,  </li>
           <li><Link onClick={this.props._openDropdown} to="/posts"> Posts</Link></li>
           <li><a href="#"> Admin </a></li>
@@ -57,14 +57,14 @@ export default class TopNav extends Base {
   render() {
     return(
       <div className="topbar">
-        <CloseWrapper 
-          isOpen={this.state.isOpen} 
-          closeAction={this._closeDropdown} 
+        <CloseWrapper
+          isOpen={this.state.isOpen}
+          closeAction={this._closeDropdown}
         />
-          
+
         <div className="titles">
           <Link to="/">
-            <div className="nav-logo"> Yote 
+            <div className="nav-logo"> Yote
               <span className="subtitle"> Standard Dev Kit </span>
             </div>
           </Link>
@@ -72,11 +72,9 @@ export default class TopNav extends Base {
         <div className="actions">
           <ul className="top-nav">
             <li>
-              <Link to="/posts" activeClassName="active">Posts</Link>
+              <Link to="/posts" activeClassName="active">Posts <sup> redux</sup></Link>
             </li>
-            <li>
-              <Link to="/posts" activeClassName="active">Posts</Link>
-            </li>
+
             <li className="dropdown">
               <a onClick={this._openDropdown}> <i className="fa fa-caret-down"></i></a>
             </li>
