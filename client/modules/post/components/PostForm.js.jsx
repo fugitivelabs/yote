@@ -5,7 +5,7 @@ import { Router, Link } from 'react-router';
 import TextInput from '../../../global/components/forms/TextInput.js.jsx';
 import TextAreaInput from '../../../global/components/forms/TextAreaInput.js.jsx';
 
-const NewsForm = ({post, formType, handleFormSubmit, handleFormChange,  cancelLink, formTitle }) => {
+const PostForm = ({post, formType, handleFormSubmit, handleFormChange,  cancelLink, formTitle }) => {
   const buttonText = formType === "create" ? "Create Post" : "Update Post";
   // console.log(post);
   const header = formTitle ? <div className="formHeader"><h1> {formTitle} </h1><hr/></div> : <div/>;
@@ -14,7 +14,7 @@ const NewsForm = ({post, formType, handleFormSubmit, handleFormChange,  cancelLi
       {header}
       <div className="yt-row center-horiz">
         <div className="form-container">
-          <form name="newsForm" className="card news-form" onSubmit={handleFormSubmit}>
+          <form name="postForm" className="card post-form" onSubmit={handleFormSubmit}>
             <TextInput
               name="title"
               label="Title"
@@ -22,14 +22,6 @@ const NewsForm = ({post, formType, handleFormSubmit, handleFormChange,  cancelLi
               change={handleFormChange}
               placeholder="title required"
               required={true}
-              />
-            <TextInput
-              name="author"
-              label="Author"
-              value={post.author}
-              placeholder="Author optional"
-              change={handleFormChange}
-              required={false}
               />
             <TextAreaInput
               name="content"
@@ -52,7 +44,7 @@ const NewsForm = ({post, formType, handleFormSubmit, handleFormChange,  cancelLi
   )
 }
 
-NewsForm.propTypes = {
+PostForm.propTypes = {
   post: PropTypes.object.isRequired
   , formType: PropTypes.string.isRequired
   , handleFormSubmit: PropTypes.func.isRequired
@@ -61,4 +53,4 @@ NewsForm.propTypes = {
   , formTitle: PropTypes.string
 }
 
-export default NewsForm;
+export default PostForm;

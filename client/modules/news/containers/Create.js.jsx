@@ -58,7 +58,7 @@ class Create extends Base {
     const isEmpty = !item;
     return  (
       <div>
-        <h3> Create News Item </h3>
+
         {isEmpty
           ? <h2> Loading...</h2>
           : <NewsForm
@@ -67,6 +67,7 @@ class Create extends Base {
             handleFormSubmit={this._handleFormSubmit}
             handleFormChange={this._handleFormChange}
             cancelLink="/news"
+            formTitle="Create Post"
             />
         }
       </div>

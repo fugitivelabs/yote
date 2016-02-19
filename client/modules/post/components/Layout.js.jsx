@@ -1,20 +1,28 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 import Base from "../../../global/components/BaseComponent.js.jsx";
-import Post from "../PostHandler";
+import { bindActionCreators } from 'redux'
 
 
-export default class PostLayout extends Base {
+import { connect } from 'react-redux';
+// import { push }
+
+class Layout extends Base {
   constructor(props) {
     super(props);
+
+  }
+  componentWillMount() {
+    // console.log("post layout mounting");
+    // NewsActions.fetchList();
   }
 
   render() {
-    console.log("render post layout");
     return (
-      <div> 
+      <div>
         {this.props.children}
       </div>
     )
   }
 }
 
+export default Layout;

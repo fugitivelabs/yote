@@ -34,7 +34,6 @@ class TextAreaInput extends Base {
           required={required}
           value={value}
         >
-          {value}
         </textarea>
       </div>
     )

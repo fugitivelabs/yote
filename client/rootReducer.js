@@ -2,12 +2,12 @@ import { combineReducers } from 'redux'
 import { syncHistory, routeReducer } from 'react-router-redux';
 
 //individual reducers
-import posts from './modules/post2/PostReducers'
+import post from './modules/post/reducers';
 import news from './modules/news/reducers';
 
 const rootReducer = combineReducers({
   routeReducer
-  , posts
+  , post
   , news
   // next reducer
 })

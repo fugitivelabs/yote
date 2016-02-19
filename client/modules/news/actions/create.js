@@ -57,6 +57,8 @@ function errorWithCreate(json) {
 }
 
 export function sendCreateItem(data) {
+  console.log("sendCreatePost");
+  console.log(data);
   return dispatch => {
     dispatch(requestCreateItem(data))
     return fetch('/api/posts', {
