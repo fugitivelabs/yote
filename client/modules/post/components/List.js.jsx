@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import Base from "../../../global/components/BaseComponent.js.jsx";
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
@@ -17,7 +17,6 @@ class List extends Base {
 
   componentWillMount() {
     console.log("list mounting");
-
     this.props.dispatch(listActions.fetchList()).then(() => {
       // console.log(this.props);
     })
