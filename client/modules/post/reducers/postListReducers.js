@@ -6,7 +6,7 @@ LIST REDUCERS GO HERE
 *****/
 
 import { combineReducers } from 'redux';
-import * as listActions from '../actions/list';
+import * as listActions from '../actions/postListActions';
 
 
 

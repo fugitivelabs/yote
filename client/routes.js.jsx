@@ -15,9 +15,6 @@ const routes =
       </Route>
 ;
 
-
 export default routes;
 
-
-
-import postRoutes from './modules/post/routes.js.jsx';
+import postRoutes from './modules/post/postRoutes.js.jsx';

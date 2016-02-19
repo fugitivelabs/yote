@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
 // import actions
-import * as listActions from '../actions/list';
+import * as listActions from '../actions/postListActions';
 
 // import components
 import ListItem from './ListItem.js.jsx';

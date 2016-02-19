@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
 // import actions
-import * as singleActions from '../actions/single';
+import * as singleActions from '../actions/postSingleActions';
 
 // // import components
 // import SingleItem from '../components/SingleItem.js.jsx';
