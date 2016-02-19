@@ -13,8 +13,8 @@ class TextInput extends Base {
   }
   // check the props the component receives
   componentWillReceiveProps(nextProps) {
-    console.log("TextInput props");
-    console.log(nextProps);
+    // console.log("TextInput props");
+    // console.log(nextProps);
   }
   _handleInputChange(e) {
     // console.log("handleinputchange");

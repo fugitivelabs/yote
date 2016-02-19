@@ -11,31 +11,21 @@ class CheckboxInput extends Base {
     this._bind('_handleInputChange');
 
   }
-  // check the props the component receives
-  componentWillReceiveProps(nextProps) {
-    // console.log("TextInput props");
-    // console.log(nextProps);
-  }
+  // // check the props the component receives
+  // componentWillReceiveProps(nextProps) {
+  //   // console.log("CheckboxInput props");
+  //   // console.log(nextProps);
+  // }
   _handleInputChange(e) {
-    console.log("handleinputchange");
-    console.log(e.target);
-    console.log(typeof(e.target));
     const event = e;
-    // const checked = e.target.checked;
-    // const value = checked;
-    // event.target = Object.assign({}, e.target, {
-    //   checked: checked
-    //   , value: checked
-    // });
-
-    const target = Object.assign({}, e.target);
-    console.log(target);
-    target.value = target.checked;
-    event.target = target;
-    // e.target.checked = !e.target.checked;
-    // e.target.value = e.target.checked;
-    console.log("manipulate event");
-    console.log(event);
+    const checked = e.target.checked;
+    const value = checked;
+    const name = e.target.name;
+    event.target = Object.assign({}, e.target, {
+      checked: checked
+      , value: checked
+      , name: name
+    });
     this.props.change(event);
   }
   render() {
@@ -47,7 +37,6 @@ class CheckboxInput extends Base {
           name={name}
           value={value}
           onChange={this._handleInputChange}
-          checked={checked}
         />
         <label htmlFor={name}> {label} </label>
       </div>

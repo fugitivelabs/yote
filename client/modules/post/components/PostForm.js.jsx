@@ -1,14 +1,11 @@
 import React, { PropTypes } from 'react'
 import { Router, Link } from 'react-router';
 
-// import form components
-// import TextInput from '../../../global/components/forms/TextInput.js.jsx';
-// import TextAreaInput from '../../../global/components/forms/TextAreaInput.js.jsx';
+// import form components 
 import { TextInput, TextAreaInput, CheckboxInput } from '../../../global/components/forms';
 
 const PostForm = ({post, formType, handleFormSubmit, handleFormChange,  cancelLink, formTitle }) => {
   const buttonText = formType === "create" ? "Create Post" : "Update Post";
-  // console.log(post);
   const header = formTitle ? <div className="formHeader"><h1> {formTitle} </h1><hr/></div> : <div/>;
   return (
     <div className="yt-container">
