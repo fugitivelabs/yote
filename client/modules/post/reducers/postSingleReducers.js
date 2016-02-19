@@ -6,7 +6,7 @@ SINGLE REDUCERS GO HERE
 *****/
 
 
-import * as Actions from '../actions/single';
+import * as Actions from '../actions/postSingleActions';
 
 function single(state = {
   isFetching: false

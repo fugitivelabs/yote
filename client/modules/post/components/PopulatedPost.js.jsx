@@ -5,13 +5,10 @@ import { Link } from 'react-router';
 import moment from 'moment';
 
 // import actions
-import * as populatedActions from '../actions/populated';
-
-// // import components
-// import SingleItem from '../components/SingleItem.js.jsx';
+import * as populatedActions from '../actions/postPopulatedActions';
 
 
-class Populated extends Base {
+class PopulatedPost extends Base {
   constructor(props) {
     super(props);
 
@@ -58,7 +55,7 @@ class Populated extends Base {
   }
 }
 
-Populated.propTypes = {
+PopulatedPost.propTypes = {
   dispatch: PropTypes.func.isRequired
 }
 
@@ -72,4 +69,4 @@ const mapStateToProps = (state) => {
 
 export default connect(
   mapStateToProps
-)(Populated);
+)(PopulatedPost);

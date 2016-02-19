@@ -5,7 +5,7 @@ LIST REDUCERS GO HERE
 
 *****/
 
-import * as Actions from '../actions/populated';
+import * as Actions from '../actions/postPopulatedActions';
 
 function populated(state = {
   isFetching: false
