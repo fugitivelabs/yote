@@ -41,9 +41,8 @@ class Create extends Base {
     var newPostState = this.state.item;
     newPostState[e.target.name] = e.target.value;
     this.setState(newPostState);
-    // console.log("_handleFormChange");
-    // console.log(e);
-    // this.props.item[e.target.name] = e.target.value;
+    console.log("_handleFormChange");
+    console.log(e);
   }
 
   _handleFormSubmit(e) {

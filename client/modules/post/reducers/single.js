@@ -96,6 +96,7 @@ function single(state = {
         , item: {
           title: ""
           , content: ""
+          , isPublished: false
         }
       });
       break;
