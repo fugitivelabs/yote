@@ -39,30 +39,7 @@ function single(state = {
         })
       }
       break;
-    case Actions.REQUEST_SINGLE_PRODUCT_BY_SLUG:
-      return Object.assign({}, state, {
-        isFetching: true
-        , item: {}
-        , status: null
-      })
-      break;
-    case Actions.RECEIVE_SINGLE_PRODUCT_BY_SLUG:
-      if(action.success) {
-        return Object.assign({}, state, {
-          isFetching: false
-          , item: action.product
-          , error: null
-          , lastUpdated: action.receivedAt
-        })
-      } else {
-        return Object.assign({}, state, {
-          isFetching: false
-          , item: {}
-          , error: action.error
-          , lastUpdated: action.receivedAt
-        })
-      }
-      break;
+    
     case Actions.SETUP_NEW_PRODUCT:
       console.log("SETUP_NEW_PRODUCT");
       return Object.assign({}, state, {
