@@ -1,0 +1,8 @@
+.hero {
+  padding: 100px 0px;
+  @include display-flex;
+  @include align-items(center);
+  @include justify-content(center);
+  @include column-size(100%);
+
+}

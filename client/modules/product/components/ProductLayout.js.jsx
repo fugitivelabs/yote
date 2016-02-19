@@ -6,13 +6,13 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 // import { push }
 
-class Layout extends Base {
+class ProductLayout extends Base {
   constructor(props) {
     super(props);
 
   }
   componentWillMount() {
-    // console.log("post layout mounting");
+    // console.log("product layout mounting");
     // NewsActions.fetchList();
   }
 
@@ -25,4 +25,4 @@ class Layout extends Base {
   }
 }
 
-export default Layout;
+export default ProductLayout;

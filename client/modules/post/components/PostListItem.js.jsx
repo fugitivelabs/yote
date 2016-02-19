@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router';
 
-const ListItem = ({ post }) => {
+const PostListItem = ({ post }) => {
 
   return (
     <li>
@@ -12,8 +12,8 @@ const ListItem = ({ post }) => {
   )
 }
 
-ListItem.propTypes = {
+PostListItem.propTypes = {
   post: PropTypes.object.isRequired
 }
 
-export default ListItem;
+export default PostListItem;

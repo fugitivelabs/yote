@@ -1,3 +1,19 @@
+
+// Navigation components styles
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+$topbar-height:  80px;
+
+
+
+%nav--fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  @include zIndex-8;
+}
+
 .nav-logo {
   display: inline-block;
   @include large-font;
@@ -7,6 +23,7 @@
 
 .topbar {
   background-color: $topbar-bg-color;
+  height: $topbar-height;
   @include display-flex;
   @include align-items(center);
   padding: 1.5em;
@@ -44,7 +61,11 @@
       }
     }
   }
-} 
+  &._fixed {
+    @extend %nav--fixed;
+  }
+
+}
 
 .sidebar {
   @include flex(0 0 12em);
@@ -64,7 +85,7 @@
     li {
       line-height: 1.25;
       width: 100%;
-      
+
 
       &.nav-header {
         // @include letterSpacing-loose;

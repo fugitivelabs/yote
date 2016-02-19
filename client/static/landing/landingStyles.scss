@@ -1,0 +1,233 @@
+.landing-wrapper {
+  padding:0;
+}
+
+.landing-nav {
+  // background: transparent;
+  // transition: opacity 0.3s 0.6s, visibility 0s 0.9s;
+  // @include transition(transform 0.7s - 0.2s);
+  transition: all 500ms ease-in-out;
+  nav {
+    text-transform: uppercase;
+  }
+  &.transparent {
+    .titles {
+      .subtitle {
+
+      }
+    }
+    .actions {
+
+    }
+    .top-nav {
+
+      li {
+        a {
+          &:hover {
+          }
+          &.active {
+          }
+        }
+      }
+    }
+  }
+}
+
+.landingBtn {
+  margin: $gutter 0;
+
+}
+
+.hero {
+  min-height: 80vh;
+  background-image: url(/img/hero-1.png);
+  background-size: cover;
+  background-position: center center;
+  background-color: $success;
+  padding-top: $topbar-height;
+  h1{
+    margin: 0;
+    margin-bottom: 20px;
+  }
+  h2 {
+    font-weight: 300;
+    color: rgba(255,255,255,0.9);
+    @include jumbo-font;
+    margin: 0;
+  }
+  h3 {
+    font-weight: 500;
+    color: rgba(255,255,255,0.95);
+
+  }
+  input {
+    height: 50px;
+    margin-right: $gutter;
+    border: none;
+    line-height: 50px;
+    padding: 0 15px;
+    background-color: rgba(255,255,255,0.97);
+  }
+
+  &.testimonial {
+    min-height: 40vh;
+    &.first {
+      background-image: url(/img/testimonial-1.png);
+    }
+    &.second {
+      background-image: url(/img/testimonial-2.png);
+    }
+    .source {
+      color: #fff;
+      text-align: center;
+    }
+  }
+
+  &.get-started {
+    background-image: url(/img/work-1-light.png);
+    h2, h3 {
+      color: rgba(0,0,0,0.7);
+    }
+    i {
+      @include jumbo-font;
+      color: #ff4081;
+      @include align-self(center);
+    }
+    .actions {
+      padding-top: 100px;
+      width: 100%;
+      max-width: 560px;
+    }
+  }
+}
+
+.hero2 {
+  min-height: 80vh;
+  background-image: url(/img/hero-1.png);
+  background-size: cover;
+  background-position: center center;
+  background-color: $accent-color;
+  padding-top: $topbar-height;
+  h1{
+    margin: 0;
+    margin-bottom: 20px;
+  }
+  h2 {
+    font-weight: 300;
+    color: rgba(255,255,255,0.9);
+    @include jumbo-font;
+    margin: 0;
+  }
+  h3 {
+    font-weight: 500;
+    color: rgba(255,255,255,0.95);
+
+  }
+  input {
+    height: 50px;
+    margin-right: $gutter;
+    border: none;
+    line-height: 50px;
+    padding: 0 15px;
+    background-color: rgba(255,255,255,0.97);
+  }
+
+  &.testimonial {
+    min-height: 40vh;
+    &.first {
+      background-image: url(/img/testimonial-1.png);
+    }
+    &.second {
+      background-image: url(/img/testimonial-2.png);
+    }
+    .source {
+      color: #fff;
+      text-align: center;
+    }
+  }
+
+  &.get-started {
+    background-image: url(/img/work-1-light.png);
+    h2, h3 {
+      color: rgba(0,0,0,0.7);
+    }
+    i {
+      @include jumbo-font;
+      color: #ff4081;
+      @include align-self(center);
+    }
+    .actions {
+      padding-top: 100px;
+      width: 100%;
+      max-width: 560px;
+    }
+  }
+}
+
+
+.trustBar {
+  // height: 500px;
+  padding-bottom: 50px;
+  h3 {
+    margin: 50px 0;
+    color: #222;
+  }
+  .logo {
+    img {
+      max-width: 150px;
+    }
+  }
+}
+
+.simple-features {
+  // background-color: #3f51b5;
+  background-color: #ff4081;
+  color: #fff;
+  padding: 50px;
+  .feature {
+    width: 100%;
+    text-align: center;
+    margin: 50px auto;
+    i {
+      font-size: 5rem;
+    }
+    h2 {
+      @include jumbo-font;
+      font-weight: 300;
+    }
+    p {
+      max-width: 560px;
+      margin: auto;
+    }
+  }
+}
+
+.social {
+  font-size: 1.5rem;
+  padding: $gutter;
+  a {
+    color: $text-color;
+    &:hover {
+      color: lighten($text-color, 20);
+    }
+  }
+}
+
+.designer {
+  padding: 50px 0;
+  // min-height: 60vh;
+  background-color: $brand-secondary;
+  color: $text-light;
+  h2 {
+    @include largest-font;
+    font-weight: 300;
+  }
+
+}
+
+.contact {
+  padding: 50px 0;
+  background-color: lighten($brand-secondary, 5);
+  color: $text-light;
+
+}
