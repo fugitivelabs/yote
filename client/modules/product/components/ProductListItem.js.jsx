@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router';
 
-const ListItem = ({ product }) => {
+const ProductListItem = ({ product }) => {
 
   return (
     <li>
@@ -12,8 +12,8 @@ const ListItem = ({ product }) => {
   )
 }
 
-ListItem.propTypes = {
+ProductListItem.propTypes = {
   product: PropTypes.object.isRequired
 }
 
-export default ListItem;
+export default ProductListItem;

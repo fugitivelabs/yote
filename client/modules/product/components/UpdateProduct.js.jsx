@@ -3,12 +3,12 @@ import Base from "../../../global/components/BaseComponent.js.jsx";
 import { connect } from 'react-redux';
 
 // import actions
-import * as singleActions from '../actions/single';
+import * as singleActions from '../actions/productSingleActions';
 
 // import components
-import PostForm from './PostForm.js.jsx';
+import ProductForm from './ProductForm.js.jsx';
 
-class Create extends Base {
+class UpdateProduct extends Base {
   constructor(props) {
     super(props);
     this.state = this.props;
@@ -25,10 +25,10 @@ class Create extends Base {
     const populate = false;
     // const populate = false;
     const { dispatch, params } = this.props;
-    if(params.postId) {
-      dispatch(singleActions.fetchSinglePostById(params.postId, populate ))
+    if(params.productId) {
+      dispatch(singleActions.fetchSingleProductById(params.productId, populate ))
     } else {
-      dispatch(singleActions.fetchSinglePostBySlug(params.slug))
+      dispatch(singleActions.fetchSingleProductBySlug(params.slug))
     }
   }
 
@@ -39,10 +39,10 @@ class Create extends Base {
   _handleFormChange(e) {
     //this works WAY better than having a separate onChange for every input box
     // just make sure input name attr == state name
-    var newPostState = this.state.item;
-    newPostState[e.target.name] = e.target.value;
-    newPostState.status = newPostState.isPublished ? "published" : "draft";
-    this.setState(newPostState);
+    var newProductState = this.state.item;
+    newProductState[e.target.name] = e.target.value;
+    newProductState.status = newProductState.isPublished ? "published" : "draft";
+    this.setState(newProductState);
 
   }
 
@@ -50,7 +50,7 @@ class Create extends Base {
     e.preventDefault();
     // console.log("_handleFormSubmit");
     // console.log(e);
-    this.props.dispatch(singleActions.sendUpdatePost(this.state.item));
+    this.props.dispatch(singleActions.sendUpdateProduct(this.state.item));
   }
 
   render() {
@@ -60,13 +60,13 @@ class Create extends Base {
       <div >
         {isEmpty
           ? <h2> Loading...</h2>
-          : <PostForm
-            post={item}
+        : <ProductForm
+            product={item}
             formType="update"
             handleFormSubmit={this._handleFormSubmit}
             handleFormChange={this._handleFormChange}
-            cancelLink={`/posts/${item.slug}`}
-            formTitle="Update Post"
+            cancelLink={`/products/${item._id}`}
+            formTitle="Update Product"
             />
         }
       </div>
@@ -74,7 +74,7 @@ class Create extends Base {
   }
 }
 
-Create.propTypes = {
+UpdateProduct.propTypes = {
   dispatch: PropTypes.func.isRequired
 }
 
@@ -82,10 +82,10 @@ const mapStateToProps = (state) => {
   // console.log("State");
   // console.log(state);
   return {
-    item: state.post.single.item
+    item: state.product.single.item
   }
 }
 
 export default connect(
   mapStateToProps
-)(Create);
+)(UpdateProduct);

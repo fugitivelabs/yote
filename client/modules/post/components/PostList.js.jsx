@@ -4,12 +4,12 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
 // import actions
-import * as listActions from '../actions/list';
+import * as listActions from '../actions/postListActions';
 
 // import components
-import ListItem from './ListItem.js.jsx';
+import PostListItem from './PostListItem.js.jsx';
 
-class List extends Base {
+class PostList extends Base {
   constructor(props) {
     super(props);
 
@@ -42,7 +42,7 @@ class List extends Base {
             : <div style={{ opacity: list.isFetching ? 0.5 : 1 }}>
               <ul>
                 {list.items.map((item, i) =>
-                  <ListItem key={i} post={item} />
+                  <PostListItem key={i} post={item} />
                 )}
               </ul>
             </div>
@@ -53,7 +53,7 @@ class List extends Base {
 }
 
 
-List.propTypes = {
+PostList.propTypes = {
   dispatch: PropTypes.func.isRequired
 }
 
@@ -69,4 +69,4 @@ const mapStateToProps = (state) => {
 
 export default connect(
   mapStateToProps
-)(List);
+)(PostList);

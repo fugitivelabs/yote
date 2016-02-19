@@ -6,7 +6,7 @@ SINGLE REDUCERS GO HERE
 *****/
 
 
-import * as Actions from '../actions/single';
+import * as Actions from '../actions/postSingleActions';
 
 function single(state = {
   isFetching: false
@@ -15,18 +15,18 @@ function single(state = {
   , status: null //creating, editing
 }, action) {
   switch(action.type) {
-    case Actions.REQUEST_SINGLE_PRODUCT:
+    case Actions.REQUEST_SINGLE_POST:
       return Object.assign({}, state, {
         isFetching: true
         , item: {}
         , status: null
       })
       break;
-    case Actions.RECEIVE_SINGLE_PRODUCT:
+    case Actions.RECEIVE_SINGLE_POST:
       if(action.success) {
         return Object.assign({}, state, {
           isFetching: false
-          , item: action.product
+          , item: action.post
           , error: null
           , lastUpdated: action.receivedAt
         })
@@ -39,33 +39,57 @@ function single(state = {
         })
       }
       break;
-    
-    case Actions.SETUP_NEW_PRODUCT:
-      console.log("SETUP_NEW_PRODUCT");
+    case Actions.REQUEST_SINGLE_POST_BY_SLUG:
+      return Object.assign({}, state, {
+        isFetching: true
+        , item: {}
+        , status: null
+      })
+      break;
+    case Actions.RECEIVE_SINGLE_POST_BY_SLUG:
+      if(action.success) {
+        return Object.assign({}, state, {
+          isFetching: false
+          , item: action.post
+          , error: null
+          , lastUpdated: action.receivedAt
+        })
+      } else {
+        return Object.assign({}, state, {
+          isFetching: false
+          , item: {}
+          , error: action.error
+          , lastUpdated: action.receivedAt
+        })
+      }
+      break;
+    case Actions.SETUP_NEW_POST:
+      console.log("SETUP_NEW_POST");
       return Object.assign({}, state, {
         isFetching: false
         , item: {
           title: ""
-          , description: ""
+          , content: ""
+          , isPublished: false
         }
       });
       break;
-    case Actions.REQUEST_CREATE_PRODUCT:
-      console.log("REQUEST_CREATE_PRODUCT");
+    case Actions.REQUEST_CREATE_POST:
+      console.log("REQUEST_CREATE_POST");
       console.log(action);
       return Object.assign({}, state, {
         isFetching: true
-        , item: action.product
+        , item: action.post
         , status: 'creating'
       })
       break;
-    case Actions.RECEIVE_CREATE_PRODUCT:
-      console.log("RECEIVE_CREATE_PRODUCT");
+    case Actions.RECEIVE_CREATE_POST:
+      console.log("RECEIVE_CREATE_POST");
       console.log(action);
       if(action.success) {
         return Object.assign({}, state, {
           isFetching: false
-          , item: action.product
+          , item: action.post
           , status: null
           , error: null
         })
@@ -78,18 +102,18 @@ function single(state = {
         })
       }
       break;
-    case Actions.REQUEST_UPDATE_PRODUCT:
+    case Actions.REQUEST_UPDATE_POST:
       return Object.assign({}, state, {
         isFetching: true
-        , item: action.product
+        , item: action.post
         , status: 'updating'
       })
       break;
-    case Actions.RECEIVE_UPDATE_PRODUCT:
+    case Actions.RECEIVE_UPDATE_POST:
       if(action.success) {
         return Object.assign({}, state, {
           isFetching: false
-          , item: action.product
+          , item: action.post
           , status: null
           , error: null
         })
