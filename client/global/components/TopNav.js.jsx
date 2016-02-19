@@ -72,7 +72,10 @@ export default class TopNav extends Base {
         <div className="actions">
           <ul className="top-nav">
             <li>
-              <Link to="/posts" activeClassName="active">Posts <sup> redux</sup></Link>
+              <Link to="/products" activeClassName="active">Products <sup>simple</sup></Link>
+            </li>
+            <li>
+              <Link to="/posts" activeClassName="active">Posts <sup> complex</sup></Link>
             </li>
 
             <li className="dropdown">

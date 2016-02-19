@@ -3,13 +3,12 @@ import Base from "../../../global/components/BaseComponent.js.jsx";
 import { connect } from 'react-redux';
 
 // import actions
-import * as singleActions from '../actions/postSingleActions';
-
+import * as singleActions from '../actions/productSingleActions';
 
 // import components
-import PostForm from './PostForm.js.jsx';
+import ProductForm from './ProductForm.js.jsx';
 
-class Create extends Base {
+class UpdateProduct extends Base {
   constructor(props) {
     super(props);
     this.state = this.props;
@@ -19,55 +18,55 @@ class Create extends Base {
     );
   }
   componentWillMount() {
-    const { dispatch } = this.props;
-    dispatch(singleActions.setupNewPost())
-    // this.props.dispatch(singleActions.setupNewPost()).then(() =>{
-    //     console.log(this.props);
-    //   });
+    console.log("Single item mounting");
+    // console.log(this.context);
+
+    // action.fetchItem();
+    const populate = false;
+    // const populate = false;
+    const { dispatch, params } = this.props;
+    if(params.productId) {
+      dispatch(singleActions.fetchSingleProductById(params.productId, populate ))
+    } else {
+      dispatch(singleActions.fetchSingleProductBySlug(params.slug))
+    }
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState(nextProps);
-    // console.log("NExt PROPs");
-    // console.log(nextProps);
-    if(nextProps.status === "error") {
-      alert(nextProps.error.message);
-    }
   }
 
   _handleFormChange(e) {
     //this works WAY better than having a separate onChange for every input box
     // just make sure input name attr == state name
-    var newPostState = this.state.item;
-    newPostState[e.target.name] = e.target.value;
-    this.setState(newPostState);
-    // console.log("_handleFormChange");
-    // console.log(e);
-    // this.props.item[e.target.name] = e.target.value;
+    var newProductState = this.state.item;
+    newProductState[e.target.name] = e.target.value;
+    newProductState.status = newProductState.isPublished ? "published" : "draft";
+    this.setState(newProductState);
+
   }
 
   _handleFormSubmit(e) {
     e.preventDefault();
-    console.log("_handleFormSubmit");
+    // console.log("_handleFormSubmit");
     // console.log(e);
-    this.props.dispatch(singleActions.sendCreatePost(this.state.item));
+    this.props.dispatch(singleActions.sendUpdateProduct(this.state.item));
   }
 
   render() {
     const { item } = this.state;
     const isEmpty = !item;
     return  (
-      <div>
-
+      <div >
         {isEmpty
           ? <h2> Loading...</h2>
-        : <PostForm
-            post={item}
-            formType="create"
+        : <ProductForm
+            product={item}
+            formType="update"
             handleFormSubmit={this._handleFormSubmit}
             handleFormChange={this._handleFormChange}
-            cancelLink="/posts"
-            formTitle="Create Post"
+            cancelLink={`/products/${item._id}`}
+            formTitle="Update Product"
             />
         }
       </div>
@@ -75,7 +74,7 @@ class Create extends Base {
   }
 }
 
-Create.propTypes = {
+UpdateProduct.propTypes = {
   dispatch: PropTypes.func.isRequired
 }
 
@@ -83,11 +82,10 @@ const mapStateToProps = (state) => {
   // console.log("State");
   // console.log(state);
   return {
-    item: state.post.single.item
-    , status: state.post.single.status
+    item: state.product.single.item
   }
 }
 
 export default connect(
   mapStateToProps
-)(Create);
+)(UpdateProduct);

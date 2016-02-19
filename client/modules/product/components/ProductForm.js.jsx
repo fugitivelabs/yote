@@ -1,40 +1,33 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router';
 
-// import form components 
+// import form components
 import { TextInput, TextAreaInput, CheckboxInput } from '../../../global/components/forms';
 
-const PostForm = ({post, formType, handleFormSubmit, handleFormChange,  cancelLink, formTitle }) => {
-  const buttonText = formType === "create" ? "Create Post" : "Update Post";
+const ProductForm = ({product, formType, handleFormSubmit, handleFormChange,  cancelLink, formTitle }) => {
+  const buttonText = formType === "create" ? "Create Product" : "Update Product";
   const header = formTitle ? <div className="formHeader"><h1> {formTitle} </h1><hr/></div> : <div/>;
   return (
     <div className="yt-container">
       {header}
       <div className="yt-row center-horiz">
         <div className="form-container">
-          <form name="postForm" className="card post-form" onSubmit={handleFormSubmit}>
+          <form name="productForm" className="card product-form" onSubmit={handleFormSubmit}>
             <TextInput
               name="title"
               label="Title"
-              value={post.title}
+              value={product.title}
               change={handleFormChange}
               placeholder="Title (required)"
               required={true}
               />
             <TextAreaInput
-              name="content"
-              label="Content"
-              value={post.content}
+              name="description"
+              label="Description"
+              value={product.description}
               change={handleFormChange}
-              required={true}
+              required={false}
               placeholder="This is where the content goes..."
-              />
-            <CheckboxInput
-              name="isPublished"
-              label="Published"
-              value={post.isPublished}
-              change={handleFormChange}
-              checked={false}
               />
             <div className="input-group">
               <div className="yt-row space-between">
@@ -49,8 +42,8 @@ const PostForm = ({post, formType, handleFormSubmit, handleFormChange,  cancelLi
   )
 }
 
-PostForm.propTypes = {
-  post: PropTypes.object.isRequired
+ProductForm.propTypes = {
+  product: PropTypes.object.isRequired
   , formType: PropTypes.string.isRequired
   , handleFormSubmit: PropTypes.func.isRequired
   , handleFormChange: PropTypes.func.isRequired
@@ -58,4 +51,4 @@ PostForm.propTypes = {
   , formTitle: PropTypes.string
 }
 
-export default PostForm;
+export default ProductForm;

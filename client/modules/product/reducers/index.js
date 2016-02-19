@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 
 // import reducers
-import list from './postListReducers';
-import single from './postSingleReducers';
-import populated from './postPopulatedReducers';
+import list from './productListReducers';
+import single from './productSingleReducers';
+import populated from './productPopulatedReducers';
 
 const postReducer = combineReducers({
   list

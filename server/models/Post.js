@@ -1,13 +1,13 @@
 /***********************************************************
 
-Model for Post.  
+Model for Post.
 
-By default, Yote's server controllers are dynamic relative 
-to their models -- i.e. if you add properties to the 
-postSchema below, the create and update controllers 
+By default, Yote's server controllers are dynamic relative
+to their models -- i.e. if you add properties to the
+postSchema below, the create and update controllers
 will respect the updated model.
 
-NOTE: make sure to account for any model changes 
+NOTE: make sure to account for any model changes
 on the client
 
 ***********************************************************/
@@ -29,7 +29,7 @@ var postSchema = mongoose.Schema({
   , tags:                 [String]
 });
 
-// An example of how one would implement a slug into their model 
+// An example of how one would implement a slug into their model
 postSchema.plugin(slug(['title'], { update: true }));
 
 // post instance methods go here
@@ -44,7 +44,7 @@ Post = mongoose.model('Post', postSchema);
 function createDefaults() {
   Post.find({}).exec(function(err, posts) {
     if(posts.length == 0) {
-      Post.create({title: "Fugitive Labs Introduces Yote!", content: "A neat-o new product that helps you build apps on the MEAN stack!", featured: true});
+      Post.create({title: "Fugitive Labs Introduces Yote!", content: "A neat-o new product that helps you build apps on the MEAN stack!", featured: true });
       logger.info("created initial post defaults");
     }
   });

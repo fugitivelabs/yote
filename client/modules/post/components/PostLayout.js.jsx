@@ -4,16 +4,15 @@ import { bindActionCreators } from 'redux'
 
 
 import { connect } from 'react-redux';
-// import { push }
 
-class Layout extends Base {
+
+class PostLayout extends Base {
   constructor(props) {
     super(props);
 
   }
   componentWillMount() {
-    // console.log("post layout mounting");
-    // NewsActions.fetchList();
+
   }
 
   render() {
@@ -25,4 +24,4 @@ class Layout extends Base {
   }
 }
 
-export default Layout;
+export default PostLayout;

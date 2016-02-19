@@ -12,6 +12,7 @@ const routes =
         <IndexRoute component={Landing} />
         {userRoutes}
         {postRoutes}
+        {productRoutes}
       </Route>
 ;
 
@@ -19,3 +20,4 @@ export default routes;
 
 import userRoutes from './modules/user/userRoutes.js.jsx';
 import postRoutes from './modules/post/postRoutes.js.jsx';
+import productRoutes from './modules/product/productRoutes.js.jsx';

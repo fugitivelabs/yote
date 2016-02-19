@@ -4,13 +4,13 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
 // import actions
+<<<<<<< HEAD:client/modules/post/components/Single.js.jsx
 import * as singleActions from '../actions/postSingleActions';
+=======
+import * as singleActions from '../actions/productSingleActions';
+>>>>>>> 681e927b114e47dbe194fa39dc41d5095c8e0d09:client/modules/product/components/SingleProduct.js.jsx
 
-// // import components
-// import SingleItem from '../components/SingleItem.js.jsx';
-
-
-class Single extends Base {
+class SingleProduct extends Base {
   constructor(props) {
     super(props);
 
@@ -23,11 +23,7 @@ class Single extends Base {
     const populate = true;
     // const populate = false;
     const { dispatch, params } = this.props;
-    if(params.postId) {
-      dispatch(singleActions.fetchSinglePostById(params.postId, populate ))
-    } else {
-      dispatch(singleActions.fetchSinglePostBySlug(params.slug, populate))
-    }
+    dispatch(singleActions.fetchSingleProductById(params.productId, populate ))
   }
 
   render() {
@@ -36,16 +32,16 @@ class Single extends Base {
     console.log("isEmpty", isEmpty);
     return  (
       <div className="yt-container">
-        <h3> Single Post Item </h3>
+        <h3> Single Product Item </h3>
         {isEmpty
           ? (item.isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
           : <div style={{ opacity: item.isFetching ? 0.5 : 1 }}>
 
               <h1> { item.title }
-                <Link className="yt-btn small u-pullRight" to={`/posts/${item.slug}/update`}> UPDATE POST </Link>
+                <Link className="yt-btn small u-pullRight" to={`/products/${item._id}/update`}> UPDATE PRODUCT </Link>
               </h1>
               <hr/>
-              <p> {item.content }</p>
+              <p> {item.description }</p>
             </div>
           }
       </div>
@@ -53,7 +49,7 @@ class Single extends Base {
   }
 }
 
-Single.propTypes = {
+SingleProduct.propTypes = {
   dispatch: PropTypes.func.isRequired
 }
 
@@ -61,10 +57,10 @@ const mapStateToProps = (state) => {
   // console.log("State");
   // console.log(state);
   return {
-    item: state.post.single.item
+    item: state.product.single.item
   }
 }
 
 export default connect(
   mapStateToProps
-)(Single);
+)(SingleProduct);
