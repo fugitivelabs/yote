@@ -1,14 +1,14 @@
 import { combineReducers } from 'redux';
 
 // import reducers
-import list from './list';
-import single from './single';
-import populated from './populated';
+import list from './productListReducers';
+import single from './productSingleReducers';
+import populated from './productPopulatedReducers';
 
 const postReducer = combineReducers({
   list
   , single
-  , populated 
+  , populated
 });
 
 export default postReducer;

@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 // import { push }
 
-class Layout extends Base {
+class ProductLayout extends Base {
   constructor(props) {
     super(props);
 
@@ -25,4 +25,4 @@ class Layout extends Base {
   }
 }
 
-export default Layout;
+export default ProductLayout;

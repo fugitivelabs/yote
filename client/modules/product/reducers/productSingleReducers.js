@@ -6,7 +6,7 @@ SINGLE REDUCERS GO HERE
 *****/
 
 
-import * as Actions from '../actions/single';
+import * as Actions from '../actions/productSingleActions';
 
 function single(state = {
   isFetching: false
@@ -39,7 +39,7 @@ function single(state = {
         })
       }
       break;
-    
+
     case Actions.SETUP_NEW_PRODUCT:
       console.log("SETUP_NEW_PRODUCT");
       return Object.assign({}, state, {

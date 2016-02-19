@@ -21,4 +21,4 @@ export default routes;
 
 
 import postRoutes from './modules/post/postRoutes.js.jsx';
-import productRoutes from './modules/product/routes.js.jsx';
+import productRoutes from './modules/product/productRoutes.js.jsx';

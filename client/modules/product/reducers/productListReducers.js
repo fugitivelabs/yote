@@ -5,34 +5,34 @@ LIST REDUCERS GO HERE
 
 *****/
 
-import * as Actions from '../actions/populated';
+import { combineReducers } from 'redux';
+import * as Actions from '../actions/productListActions';
 
-function populated(state = {
+
+
+function list(state = {
   isFetching: false
-  , item: {}
-  , error: null
-  , status: null //creating, editing
+  , items: []
+  , pagination: {}
 }, action) {
-  switch(action.type){
-    case Actions.REQUEST_AND_POPULATE_SINGLE_PRODUCT:
+  switch (action.type) {
+    case Actions.REQUEST_PRODUCT_LIST:
       return Object.assign({}, state, {
         isFetching: true
-        , item: {}
-        , status: null
       })
       break;
-    case Actions.RECEIVE_POPULATED_SINGLE_PRODUCT:
+    case Actions.RECEIVE_PRODUCT_LIST:
       if(action.success) {
         return Object.assign({}, state, {
           isFetching: false
-          , item: action.product
+          , items: action.list
           , error: null
           , lastUpdated: action.receivedAt
         })
       } else {
         return Object.assign({}, state, {
           isFetching: false
-          , item: {}
+          , items: []
           , error: action.error
           , lastUpdated: action.receivedAt
         })
@@ -44,4 +44,4 @@ function populated(state = {
   }
 }
 
-export default populated;
+export default list;

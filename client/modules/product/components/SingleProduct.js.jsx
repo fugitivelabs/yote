@@ -4,13 +4,9 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
 // import actions
-import * as singleActions from '../actions/single';
+import * as singleActions from '../actions/productSingleActions';
 
-// // import components
-// import SingleItem from '../components/SingleItem.js.jsx';
-
-
-class Single extends Base {
+class SingleProduct extends Base {
   constructor(props) {
     super(props);
 
@@ -49,7 +45,7 @@ class Single extends Base {
   }
 }
 
-Single.propTypes = {
+SingleProduct.propTypes = {
   dispatch: PropTypes.func.isRequired
 }
 
@@ -63,4 +59,4 @@ const mapStateToProps = (state) => {
 
 export default connect(
   mapStateToProps
-)(Single);
+)(SingleProduct);

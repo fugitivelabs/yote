@@ -3,12 +3,12 @@ import Base from "../../../global/components/BaseComponent.js.jsx";
 import { connect } from 'react-redux';
 
 // import actions
-import * as singleActions from '../actions/single';
+import * as singleActions from '../actions/productSingleActions';
 
 // import components
 import ProductForm from './ProductForm.js.jsx';
 
-class Create extends Base {
+class UpdateProduct extends Base {
   constructor(props) {
     super(props);
     this.state = this.props;
@@ -74,7 +74,7 @@ class Create extends Base {
   }
 }
 
-Create.propTypes = {
+UpdateProduct.propTypes = {
   dispatch: PropTypes.func.isRequired
 }
 
@@ -88,4 +88,4 @@ const mapStateToProps = (state) => {
 
 export default connect(
   mapStateToProps
-)(Create);
+)(UpdateProduct);
