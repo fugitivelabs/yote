@@ -41,15 +41,14 @@ class Create extends Base {
     // just make sure input name attr == state name
     var newPostState = this.state.item;
     newPostState[e.target.name] = e.target.value;
+    newPostState.status = newPostState.isPublished ? "published" : "draft";
     this.setState(newPostState);
-    // console.log("_handleFormChange");
-    // console.log(e);
-    // this.props.item[e.target.name] = e.target.value;
+
   }
 
   _handleFormSubmit(e) {
     e.preventDefault();
-    console.log("_handleFormSubmit");
+    // console.log("_handleFormSubmit");
     // console.log(e);
     this.props.dispatch(singleActions.sendUpdatePost(this.state.item));
   }

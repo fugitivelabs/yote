@@ -1,14 +1,11 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router';
 
-// import form components
-// import TextInput from '../../../global/components/forms/TextInput.js.jsx';
-// import TextAreaInput from '../../../global/components/forms/TextAreaInput.js.jsx';
-import { TextInput, TextAreaInput } from '../../../global/components/forms';
+// import form components 
+import { TextInput, TextAreaInput, CheckboxInput } from '../../../global/components/forms';
 
 const PostForm = ({post, formType, handleFormSubmit, handleFormChange,  cancelLink, formTitle }) => {
   const buttonText = formType === "create" ? "Create Post" : "Update Post";
-  // console.log(post);
   const header = formTitle ? <div className="formHeader"><h1> {formTitle} </h1><hr/></div> : <div/>;
   return (
     <div className="yt-container">
@@ -21,7 +18,7 @@ const PostForm = ({post, formType, handleFormSubmit, handleFormChange,  cancelLi
               label="Title"
               value={post.title}
               change={handleFormChange}
-              placeholder="title required"
+              placeholder="Title (required)"
               required={true}
               />
             <TextAreaInput
@@ -30,7 +27,14 @@ const PostForm = ({post, formType, handleFormSubmit, handleFormChange,  cancelLi
               value={post.content}
               change={handleFormChange}
               required={true}
-              placeholder="This is whre the content goes..."
+              placeholder="This is where the content goes..."
+              />
+            <CheckboxInput
+              name="isPublished"
+              label="Published"
+              value={post.isPublished}
+              change={handleFormChange}
+              checked={false}
               />
             <div className="input-group">
               <div className="yt-row space-between">
