@@ -32,7 +32,6 @@
   "homepage": "https://github.com/fugitivelabs/yote-react",
   "dependencies": {
     "async": "^1.5.0",
-    "axios": "^0.7.0",
     "body-parser": "^1.14.1",
     "classnames": "^2.2.1",
     "connect-multiparty": "^2.0.0",
@@ -42,8 +41,6 @@
     "errorhandler": "^1.4.2",
     "express": "^4.13.3",
     "express-session": "^1.8.2",
-    "flux": "^2.1.1",
-    "history": "^1.13.1",
     "immutable": "^3.7.6",
     "isomorphic-fetch": "^2.2.1",
     "jade": "^1.11.0",

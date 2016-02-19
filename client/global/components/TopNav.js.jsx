@@ -72,11 +72,9 @@ export default class TopNav extends Base {
         <div className="actions">
           <ul className="top-nav">
             <li>
-              <Link to="/posts" activeClassName="active">Posts <sup> flux</sup></Link>
+              <Link to="/posts" activeClassName="active">Posts <sup> redux</sup></Link>
             </li>
-            <li>
-              <Link to="/news" activeClassName="active">News <sup> redux</sup></Link>
-            </li>
+
             <li className="dropdown">
               <a onClick={this._openDropdown}> <i className="fa fa-caret-down"></i></a>
             </li>
