@@ -1,13 +1,13 @@
 /***********************************************************
 
-Model for Post.  
+Model for Post.
 
-By default, Yote's server controllers are dynamic relative 
-to their models -- i.e. if you add properties to the 
-postSchema below, the create and update controllers 
+By default, Yote's server controllers are dynamic relative
+to their models -- i.e. if you add properties to the
+postSchema below, the create and update controllers
 will respect the updated model.
 
-NOTE: make sure to account for any model changes 
+NOTE: make sure to account for any model changes
 on the client
 
 ***********************************************************/
@@ -29,7 +29,7 @@ var postSchema = mongoose.Schema({
   , tags:                 [String]
 });
 
-// An example of how one would implement a slug into their model 
+// An example of how one would implement a slug into their model
 postSchema.plugin(slug(['title'], { update: true }));
 
 // post instance methods go here
@@ -41,13 +41,36 @@ postSchema.plugin(slug(['title'], { update: true }));
 Post = mongoose.model('Post', postSchema);
 
 // post model methods
+var User = require('mongoose').model('User');
 function createDefaults() {
-  Post.find({}).exec(function(err, posts) {
-    if(posts.length == 0) {
-      Post.create({title: "Fugitive Labs Introduces Yote!", content: "A neat-o new product that helps you build apps on the MEAN stack!", featured: true});
-      logger.info("created initial post defaults");
+  User.find({}).limit(1).exec(function(err, users) {
+    if(users.length === 0) {
+      var password_salt, password_hash;
+      password_salt = User.createPasswordSalt();
+      password_hash = User.hashPassword(password_salt, 'cheesecakesuprise');
+      User.create({firstName:'Yote', lastName:'Author', username:'author@yote.org', password_salt: password_salt, password_hash: password_hash, roles: []}, function(err, user) {
+
+        logger.info("created initial default user w/ username 'author@yote.org'")
+
+        Post.find({}).exec(function(err, posts) {
+          if(posts.length == 0) {
+            Post.create({title: "Fugitive Labs Introduces Yote!", content: "A neat-o new product that helps you build apps on the MEAN stack!", featured: true, author: user._id });
+            logger.info("created initial post defaults");
+          }
+        });
+      });
+
+    } else {
+
+      Post.find({}).exec(function(err, posts) {
+        if(posts.length == 0) {
+          Post.create({title: "Fugitive Labs Introduces Yote!", content: "A neat-o new product that helps you build apps on the MEAN stack!", featured: true, author: users[0]._id });
+          logger.info("created initial post defaults");
+        }
+      });
     }
-  });
+
+  })
 }
 
 exports.createDefaults = createDefaults;

@@ -139,6 +139,22 @@ exports.getBySlug = function(req, res) {
   });
 }
 
+// the post example uses slugs.  This is how you would find a resource by it's slug and populate
+exports.getBySlugAndPopulate = function(req, res) {
+  console.log('get post by slug');
+  Post.findOne({ slug: req.param('slug') })
+    .populate('author')
+    .exec(function(err, post) {
+      if(err) {
+        res.send({ success: false, message: err });
+      } else if(!post) {
+        res.send({ success: false, message: "no post found :(" });
+      } else {
+        res.send({ success: true, post: post });
+      }
+  });
+}
+
 exports.create = function(req, res) {
   var post = new Post({});
   for(var k in req.body) {
