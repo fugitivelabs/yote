@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import Base from "../../../global/components/BaseComponent.js.jsx";
+import TopNav from "../../../global/components/TopNav.js.jsx";
 import { bindActionCreators } from 'redux'
 
 
@@ -18,7 +19,8 @@ class ProductLayout extends Base {
 
   render() {
     return (
-      <div>
+      <div className="flex main landing-wrapper with-topbar">
+        <TopNav />
         {this.props.children}
       </div>
     )

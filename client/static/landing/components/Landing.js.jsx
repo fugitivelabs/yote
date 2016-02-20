@@ -27,6 +27,7 @@ class Landing extends Base {
   }
 
   componentWillUnmount() {
+    console.log("unmounting");
     window.removeEventListener('scroll', this._handleScroll.bind(this));
   }
 
@@ -52,7 +53,9 @@ class Landing extends Base {
           openDialog={this._openDialog}
         />
         <Hero />
-        <Hero />
+        <div className="hero sub u-centerText">
+          <p> Check out the docs on <a href="https://github.com/fugitivelabs/yote-react"> GitHub </a></p>
+        </div>
       </div>
     )
   }

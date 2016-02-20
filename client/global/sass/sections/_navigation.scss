@@ -24,6 +24,7 @@ $topbar-height:  80px;
 .topbar {
   background-color: $topbar-bg-color;
   height: $topbar-height;
+  position: relative;
   @include display-flex;
   @include align-items(center);
   padding: 1.5em;
@@ -50,7 +51,7 @@ $topbar-height:  80px;
       margin-left: $gutter;
       a {
         color: rgba(255,255,255,0.75);
-        border-bottom: 3px solid $topbar-bg-color;
+        border-bottom: 3px solid transparent;
         &:hover {
           color: rgba(255,255,255,0.9);
           border-bottom: 3px solid $brand-accent;

@@ -1,11 +1,9 @@
-// var React = require('react/addons');
+
 import React from 'react';
 
 import { Link } from 'react-router';
 
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-
-var coolThings = [ "products", "tools", "art", "experiments", "cool things", "apps"];
 
 class TheCoolThing extends React.Component{
   constructor(props){
@@ -14,43 +12,40 @@ class TheCoolThing extends React.Component{
       secondsElapsed: 0
       , coolThing: "apps"
       , coolThingIndex: 0
-      , coolThingsList : [ "products", "tools", "art", "experiments", "cool things", "apps"]
-
+      , coolThingsList : [ "blogs", "dashboards",  "experiments", "products", "art", "apps"]
     };
   }
+
   tick() {
-    console.log("check", React.Children.count(this.refs.test));
-
-    if(this.state.coolThingIndex == coolThings.length - 1) {
-      var coolThingIndex = 0;
+    var { coolThing, coolThingIndex, coolThingsList, secondsElapsed } = this.state;
+    if(coolThingIndex == coolThingsList.length - 1) {
+      var newCoolThingIndex = 0;
     } else {
-      var coolThingIndex = this.state.coolThingIndex + 1;
+      var newCoolThingIndex = coolThingIndex + 1;
     }
-    console.log(this.state);
     this.setState({
-      secondsElapsed: this.state.secondsElapsed + 1
-      , coolThing: coolThings[this.state.coolThingIndex]
-      , coolThingIndex: coolThingIndex
+      secondsElapsed: secondsElapsed + 1
+      , coolThing: coolThingsList[coolThingIndex]
+      , coolThingIndex: newCoolThingIndex
     });
-
   }
+
   componentDidMount() {
     this.interval = setInterval(this.tick.bind(this), 2200);
   }
 
   componentWillUnmount() {
-
+    clearInterval(this.interval);
   }
 
-  // componentDidUnmount(){
-  //   console.log("unmounted");
-  // }
   render() {
     return(
-      <ReactCSSTransitionGroup transitionName="fade" transitionEnterTimeout={300} transitionLeaveTimeout={300} transitionLeave={false}>
-        <Link to="work" className="cool-thing" key={this.state.coolThing}>
-          <span>  {this.state.coolThing} </span>
-        </Link>
+      <ReactCSSTransitionGroup transitionName="fade" transitionEnterTimeout={300} transitionLeaveTimeout={300} transitionLeave={false}
+      >
+        <span className="cool-thing" key={this.state.coolThing}>
+          {this.state.coolThing}
+        </span>
+
       </ReactCSSTransitionGroup>
     )
   }
@@ -61,23 +56,18 @@ class Hero extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      secondsElapsed: 0
-      , coolThing: "apps"
-      , coolThingIndex: 0
-      , coolThingsList : [ "products", "tools", "art", "experiments", "cool things", "apps"]
-
     };
   }
 
   render(){
     return (
-      <div className="hero">
+      <div className="hero main">
         <div className="yt-container">
-          <h1> We make
+          <h1>This is Yote</h1>
+          <h2>
             <TheCoolThing />
-            <br />
-            for web and mobile
-          </h1>
+          </h2>
+          <p> You can use it to make cool stuff </p>
         </div>
       </div>
     )
