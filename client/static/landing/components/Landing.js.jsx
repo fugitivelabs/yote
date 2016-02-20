@@ -5,6 +5,7 @@ import { Router, Route, Link } from 'react-router';
 
 // import actions
 import * as landingActions from '../actions/landingActions';
+import * as postListActions from '../../../modules/post/actions/postListActions';
 
 // import components
 import Hero from './Hero.js.jsx';
@@ -24,6 +25,7 @@ class Landing extends Base {
     window.addEventListener('scroll', this._handleScroll);
     const { dispatch } = this.props;
     dispatch(landingActions.setupNewLead());
+    dispatch(postListActions.fetchFeaturedList());
   }
 
   componentWillUnmount() {
@@ -71,6 +73,7 @@ const mapStateToProps = (state) => {
   // console.log(state);
   return {
     lead: state.landing.lead
+    , featuredPosts: state.post.list.featured
   }
 }
 
