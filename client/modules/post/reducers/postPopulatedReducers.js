@@ -20,7 +20,6 @@ function populated(state = {
         , item: {}
         , status: null
       })
-      break;
     case Actions.RECEIVE_POPULATED_SINGLE_POST:
       if(action.success) {
         return Object.assign({}, state, {
@@ -37,14 +36,12 @@ function populated(state = {
           , lastUpdated: action.receivedAt
         })
       }
-      break;
     case Actions.REQUEST_AND_POPULATE_SINGLE_POST_BY_SLUG:
       return Object.assign({}, state, {
         isFetching: true
         , item: {}
         , status: null
       })
-      break;
     case Actions.RECEIVE_POPULATED_SINGLE_POST_BY_SLUG:
       if(action.success) {
         return Object.assign({}, state, {
@@ -61,7 +58,6 @@ function populated(state = {
           , lastUpdated: action.receivedAt
         })
       }
-      break;
     default:
       return state
   }

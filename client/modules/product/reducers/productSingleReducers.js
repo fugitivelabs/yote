@@ -21,7 +21,6 @@ function single(state = {
         , item: {}
         , status: null
       })
-      break;
     case Actions.RECEIVE_SINGLE_PRODUCT:
       if(action.success) {
         return Object.assign({}, state, {
@@ -38,7 +37,6 @@ function single(state = {
           , lastUpdated: action.receivedAt
         })
       }
-      break;
 
     case Actions.SETUP_NEW_PRODUCT:
       console.log("SETUP_NEW_PRODUCT");
@@ -49,7 +47,6 @@ function single(state = {
           , description: ""
         }
       });
-      break;
     case Actions.REQUEST_CREATE_PRODUCT:
       console.log("REQUEST_CREATE_PRODUCT");
       console.log(action);
@@ -58,7 +55,6 @@ function single(state = {
         , item: action.product
         , status: 'creating'
       })
-      break;
     case Actions.RECEIVE_CREATE_PRODUCT:
       console.log("RECEIVE_CREATE_PRODUCT");
       console.log(action);
@@ -77,14 +73,12 @@ function single(state = {
           , error: action.error
         })
       }
-      break;
     case Actions.REQUEST_UPDATE_PRODUCT:
       return Object.assign({}, state, {
         isFetching: true
         , item: action.product
         , status: 'updating'
       })
-      break;
     case Actions.RECEIVE_UPDATE_PRODUCT:
       if(action.success) {
         return Object.assign({}, state, {
@@ -101,7 +95,6 @@ function single(state = {
           , error: action.error
         })
       }
-      break;
     default:
       return state
   }

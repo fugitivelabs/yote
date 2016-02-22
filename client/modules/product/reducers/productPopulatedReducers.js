@@ -20,7 +20,6 @@ function populated(state = {
         , item: {}
         , status: null
       })
-      break;
     case Actions.RECEIVE_POPULATED_SINGLE_PRODUCT:
       if(action.success) {
         return Object.assign({}, state, {
@@ -37,7 +36,6 @@ function populated(state = {
           , lastUpdated: action.receivedAt
         })
       }
-      break;
 
     default:
       return state

@@ -19,7 +19,6 @@ function list(state = {
       return Object.assign({}, state, {
         isFetching: true
       })
-      break;
     case Actions.RECEIVE_POST_LIST:
       if(action.success) {
         return Object.assign({}, state, {
@@ -36,12 +35,10 @@ function list(state = {
           , lastUpdated: action.receivedAt
         })
       }
-      break;
     case Actions.REQUEST_PUBLISHED_POST_LIST:
       return Object.assign({}, state, {
         isFetching: true
       })
-      break;
     case Actions.RECEIVE_PUBLISHED_POST_LIST:
       if(action.success) {
         return Object.assign({}, state, {
@@ -58,12 +55,10 @@ function list(state = {
           , lastUpdated: action.receivedAt
         })
       }
-      break;
     case Actions.REQUEST_FEATURED_POST_LIST:
       return Object.assign({}, state, {
         isFetching: true
       })
-      break;
     case Actions.RECEIVE_FEATURED_POST_LIST:
       if(action.success) {
         return Object.assign({}, state, {
@@ -80,7 +75,6 @@ function list(state = {
           , lastUpdated: action.receivedAt
         })
       }
-      break;
     default:
       return state
   }

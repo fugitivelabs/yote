@@ -20,7 +20,6 @@ function single(state = {
         , item: {}
         , status: null
       })
-      break;
     case Actions.RECEIVE_SINGLE_POST:
       if(action.success) {
         return Object.assign({}, state, {
@@ -37,14 +36,12 @@ function single(state = {
           , lastUpdated: action.receivedAt
         })
       }
-      break;
     case Actions.REQUEST_SINGLE_POST_BY_SLUG:
       return Object.assign({}, state, {
         isFetching: true
         , item: {}
         , status: null
       })
-      break;
     case Actions.RECEIVE_SINGLE_POST_BY_SLUG:
       if(action.success) {
         return Object.assign({}, state, {
@@ -61,7 +58,6 @@ function single(state = {
           , lastUpdated: action.receivedAt
         })
       }
-      break;
     case Actions.SETUP_NEW_POST:
       console.log("SETUP_NEW_POST");
       return Object.assign({}, state, {
@@ -72,7 +68,6 @@ function single(state = {
           , isPublished: false
         }
       });
-      break;
     case Actions.REQUEST_CREATE_POST:
       console.log("REQUEST_CREATE_POST");
       console.log(action);
@@ -81,7 +76,6 @@ function single(state = {
         , item: action.post
         , status: 'creating'
       })
-      break;
     case Actions.RECEIVE_CREATE_POST:
       console.log("RECEIVE_CREATE_POST");
       console.log(action);
@@ -100,14 +94,12 @@ function single(state = {
           , error: action.error
         })
       }
-      break;
     case Actions.REQUEST_UPDATE_POST:
       return Object.assign({}, state, {
         isFetching: true
         , item: action.post
         , status: 'updating'
       })
-      break;
     case Actions.RECEIVE_UPDATE_POST:
       if(action.success) {
         return Object.assign({}, state, {
@@ -124,7 +116,6 @@ function single(state = {
           , error: action.error
         })
       }
-      break;
     default:
       return state
   }
