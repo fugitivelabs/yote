@@ -1,49 +1,34 @@
-import fetch from 'isomorphic-fetch'
-import { routeActions } from 'react-router-redux'
+import & as Actions from '../actions/userSingleActions';
 
-export const REQUEST_LOGIN = "REQUEST_LOGIN"
-function requestLogin(username, password) {
-  return {
-    type: REQUEST_LOGIN
-    , username: username
-    , password: password
+function loggedIn(state = {
+  isFetching: false
+  , error: null
+  , status: null
+  , user: {}
+  }, action) {
+    switch(action.type) {
+      case Actions.REQUEST_LOGIN:
+        return Object.assign({}, state, {
+          isFetching: true
+          , user: {
+            username: action.username
+          }
+          , error: null
+          , status: null
+        })
+      case Actions.RECEIVE_LOGIN:
+        if(action.success) {
+          return Object.assign({}, state, {
+            isFetching: false
+            , user: action.user
+            , error: null
+          })
+        } else {
+          return Object.assign({}, state, {
+            isFetching: false
+            , user: {}
+            , error: action.error
+          })
+        }
+    }
   }
-}
-
-export const RECEIVE_LOGIN = "RECEIVE_LOGIN"
-function receiveLogin(json) {
-  return {
-    type: RECEIVE_LOGIN
-    , user: json.user
-    , success: json.success
-    , error: json.message
-    , receivedAt: Date.now()
-  }
-}
-
-export function sendLogin(username, password) {
-
-}
-
-export const REQUEST_REGISTER = "REQUEST_REGISTER"
-function requestRegister(userData) {
-  return {
-    type: REQUEST_REGISTER
-    , userData: userData
-  }
-}
-
-export const RECEIVE_REGISTER = "RECEIVE_REGISTER"
-function receiveRegister(json) {
-  return {
-    type: RECEIVE_REGISTER
-    , user: json.user
-    , success: json.success
-    , error: json.message
-    , receivedAt: Date.now()
-  }
-}
-
-export function sendRegister(userData) {
-
-}
