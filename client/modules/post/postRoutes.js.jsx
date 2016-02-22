@@ -14,12 +14,8 @@ const postRoutes =
 <Route path="/posts" component={Layout} >
   <IndexRoute component={List} />
   <Route path="/posts/new" component={Create} />
-  <Route path="/posts/byId/:postId">
-    <IndexRoute component={Single} />
-    <Route path="/posts/byId/:postId/update" component={Update} />
-  </Route>
   <Route path="/posts/:slug">
-    <IndexRoute component={Single} />
+    <IndexRoute component={Populated} />
     <Route path="/posts/:slug/update" component={Update} />
   </Route>
 </Route>

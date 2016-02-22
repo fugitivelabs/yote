@@ -27,7 +27,7 @@ class TextInput extends Base {
       <div className="input-group">
         <label htmlFor={name}> {label} </label>
         <input
-          type="text"
+          type={this.password ? "password" : "text"}
           name={name}
           placeholder={placeholder}
           value={value}
@@ -46,6 +46,7 @@ TextInput.propTypes = {
   , name: PropTypes.string
   , required: PropTypes.bool
   , change: PropTypes.func
+  , password: PropTypes.bool
 }
 
 export default TextInput;

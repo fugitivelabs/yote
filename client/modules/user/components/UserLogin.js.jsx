@@ -2,12 +2,11 @@ import React, { PropTypes } from 'react';
 import Base from "../../../global/components/BaseComponent.js.jsx";
 import { connect } from 'react-redux';
 
-// import actions
+//actions
 import * as userActions from '../actions/userSingleActions';
 
-
-// import components
-import PostForm from './PostForm.js.jsx';
+//components
+import UserLoginForm from './UserLoginForm.js.jsx';
 
 class UserLogin extends Base {
   constructor(props) {
@@ -18,69 +17,53 @@ class UserLogin extends Base {
       , '_handleFormSubmit'
     );
   }
-  componentWillMount() {
-    const { dispatch } = this.props;
-    dispatch(singleActions.setupNewPost())
-    // this.props.dispatch(singleActions.setupNewPost()).then(() =>{
-    //     console.log(this.props);
-    //   });
-  }
+  // componentWillMount() {
+  //   const { dispatch } = this.props;
+  //   dispatch(singleActions.setupNewPost())
+  //   // this.props.dispatch(singleActions.setupNewPost()).then(() =>{
+  //   //     console.log(this.props);
+  //   //   });
+  // }
 
   componentWillReceiveProps(nextProps) {
+    console.log("BLAH");
     this.setState(nextProps);
-    // console.log("NExt PROPs");
-    // console.log(nextProps);
     if(nextProps.status === "error") {
       alert(nextProps.error.message);
     }
   }
 
   _handleFormChange(e) {
-    //this works WAY better than having a separate onChange for every input box
-    // just make sure input name attr == state name
-    var newPostState = this.state.item;
-    newPostState[e.target.name] = e.target.value;
-    newPostState.status = newPostState.isPublished ? "published" : "draft";
-    this.setState(newPostState);
-    // console.log("_handleFormChange");
-    // console.log(e);
+    var nextState = this.state.user;
+    nextState[e.target.name] = e.target.value;
+    this.setState(nextState);
   }
 
   _handleFormSubmit(e) {
     e.preventDefault();
-    // console.log("_handleFormSubmit");
-    // console.log(e);
-    this.props.dispatch(singleActions.sendCreatePost(this.state.item));
+    this.props.dispatch(userActions.sendLogin(this.state.username, this.state.password));
   }
 
   render() {
-    const { item } = this.state;
-    const isEmpty = !item;
+    const { user } = this.state;
     return  (
       <div>
-
-        {isEmpty
-          ? <h2> Loading...</h2>
-        : <PostForm
-            post={item}
-            formType="create"
-            handleFormSubmit={this._handleFormSubmit}
-            handleFormChange={this._handleFormChange}
-            cancelLink="/posts"
-            formTitle="Create Post"
-            />
-        }
+        <UserLoginForm
+          user={user}
+          handleFormSubmit={this._handleFormSubmit}
+          handleFormChange={this._handleFormChange}
+        />
       </div>
     )
   }
 }
 
-CreatePost.propTypes = {
+UserLogin.propTypes = {
   dispatch: PropTypes.func.isRequired
 }
 
-const mapStateToProps = (state) => {
-  return {}
+const mapStateToProps = (state, ownProps) => {
+  return { user: state.user.single.user }
 }
 
 export default connect(

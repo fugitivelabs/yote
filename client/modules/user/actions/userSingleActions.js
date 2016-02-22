@@ -33,13 +33,13 @@ export function sendLogin(username, password) {
         username: username
         , password: password
       })
-      .then(res => res.json())
-      .then(json => dispatch(receiveLogin(json)))
-      .then((json) => {
-        //if they hit this route, where should they redirect to?
-        if(json.success) {
-          dispatch(routeActions.push('/'))
-        }
+    })
+    .then(res => res.json())
+    .then(json => dispatch(receiveLogin(json)))
+    .then((json) => {
+      //if they hit this route, where should they redirect to?
+      if(json.success) {
+        dispatch(routeActions.push('/'))
       }
     })
   }
@@ -74,12 +74,12 @@ export function sendRegister(userData) {
         , 'Content-Type': 'application/json'
       }
       , body: JSON.stringify(userData)
-      .then(res => res.json())
-      .then(json => dispatch(receiveRegister(json)))
-      .then((json) => {
-        if(json.success) {
-          dispatch(routeActions.push('/'))
-        }
+    })
+    .then(res => res.json())
+    .then(json => dispatch(receiveRegister(json)))
+    .then((json) => {
+      if(json.success) {
+        dispatch(routeActions.push('/'))
       }
     })
   }
@@ -111,13 +111,13 @@ export function sendLogout() {
         , 'Content-Type': 'application/json'
       }
       , body: null
-      .then(res => res.json())
-      .then(json => dispatch(receiveLogout(json)))
-      .then((json) => {
-        //if they hit this route, where should they redirect to?
-        if(json.success) {
-          dispatch(routeActions.push('/'))
-        }
+    })
+    .then(res => res.json())
+    .then(json => dispatch(receiveLogout(json)))
+    .then((json) => {
+      //if they hit this route, where should they redirect to?
+      if(json.success) {
+        dispatch(routeActions.push('/'))
       }
     })
   }

@@ -1,6 +1,6 @@
-import & as Actions from '../actions/userSingleActions';
+import * as Actions from '../actions/userSingleActions';
 
-function loggedIn(state = {
+function single(state = {
   isFetching: false
   , error: null
   , status: null
@@ -30,5 +30,9 @@ function loggedIn(state = {
             , error: action.error
           })
         }
+      default:
+        return state
     }
   }
+
+export default single;
