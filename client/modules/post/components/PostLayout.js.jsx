@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import Base from "../../../global/components/BaseComponent.js.jsx";
 import { bindActionCreators } from 'redux'
 
+import TopNav from "../../../global/components/TopNav.js.jsx";
 
 import { connect } from 'react-redux';
 
@@ -17,7 +18,8 @@ class PostLayout extends Base {
 
   render() {
     return (
-      <div>
+      <div className="flex main landing-wrapper with-topbar">
+        <TopNav/>
         {this.props.children}
       </div>
     )

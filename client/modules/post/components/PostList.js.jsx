@@ -16,21 +16,24 @@ class PostList extends Base {
   }
 
   componentWillMount() {
-    console.log("list mounting");
+    // console.log("list mounting");
+    // console.log(this.props);
     this.props.dispatch(listActions.fetchList()).then(() => {
       // console.log(this.props);
     })
   }
   //
-  // componentWillReceiveProps(nextProps) {
-  //   if(nextProps.selectedItem !== this.props.selectedItem) {
-  //     const { dispatch, selectedItem } = nextProps;
-  //   }
-  // }
+  componentWillReceiveProps(nextProps) {
+    // console.log("nextProps");
+    // console.log(nextProps);
+    // if(nextProps.selectedItem !== this.props.selectedItem) {
+    //   const { dispatch, selectedItem } = nextProps;
+    // }
+  }
 
   render() {
     const { list } = this.props;
-    const isEmpty = list.items.length === 0;
+    const isEmpty = list.all.length === 0;
     return(
       <div className="yt-container">
         <h1> Post List
@@ -41,7 +44,7 @@ class PostList extends Base {
             ? (list.isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
             : <div style={{ opacity: list.isFetching ? 0.5 : 1 }}>
               <ul>
-                {list.items.map((item, i) =>
+                {list.all.map((item, i) =>
                   <PostListItem key={i} post={item} />
                 )}
               </ul>

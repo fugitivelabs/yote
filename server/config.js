@@ -4,7 +4,7 @@ var rootPath = path.normalize(__dirname + '/../../');
 var secrets = require('../secrets.js');
 
 //change this to change the name of your mongodb database name
-var dbName = "yote";
+var dbName = "flabs";
 
 module.exports = {
   development: {
