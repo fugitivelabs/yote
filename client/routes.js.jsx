@@ -2,13 +2,13 @@ import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 
 //import custom components
-import Layout from './global/components/Layout.js.jsx';
-import Landing from './global/components/Landing.js.jsx';
+import Root from './global/components/Root.js.jsx';
+import Landing from './static/landing/components/Landing.js.jsx';
 
 //import Post
 
 const routes =
-      <Route path="/" component={Layout} >
+      <Route path="/" component={Root} >
         <IndexRoute component={Landing} />
         {postRoutes}
         {productRoutes}

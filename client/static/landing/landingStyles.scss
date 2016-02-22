@@ -1,0 +1,99 @@
+.landing-wrapper {
+  padding:0;
+}
+
+.landing-nav {
+  // background: transparent;
+  // transition: opacity 0.3s 0.6s, visibility 0s 0.9s;
+  // @include transition(transform 0.7s - 0.2s);
+  transition: all 500ms ease-in-out;
+  nav {
+    text-transform: uppercase;
+  }
+  &.transparent {
+    .titles {
+      .subtitle {
+
+      }
+    }
+    .actions {
+
+    }
+    .top-nav {
+
+      li {
+        a {
+          &:hover {
+          }
+          &.active {
+          }
+        }
+      }
+    }
+  }
+}
+
+.landingBtn {
+  margin: $gutter 0;
+
+}
+
+.hero {
+ &.main {
+    min-height: 70vh;
+    background-image: url(/img/hero-1.png);
+    background-size: cover;
+    background-position: center center;
+    background-color: $hero-bg-color;
+    padding-top: $topbar-height;
+    text-align: center;
+    color: rgba(255,255,255,0.8);
+    .cool-thing {
+      color: $success;
+    }
+    h1{
+      margin: 0;
+      margin-bottom: 20px;
+    }
+    h2 {
+      font-weight: 300;
+      color: rgba(255,255,255,0.9);
+      @include jumbo-font;
+      margin: 0;
+    }
+    h3 {
+      font-weight: 500;
+      color: rgba(255,255,255,0.95);
+
+    }
+    input {
+      height: 50px;
+      margin-right: $gutter;
+      border: none;
+      line-height: 50px;
+      padding: 0 15px;
+      background-color: rgba(255,255,255,0.97);
+    }
+
+
+    &.get-started {
+      background-image: url(/img/work-1-light.png);
+      h2, h3 {
+        color: rgba(0,0,0,0.7);
+      }
+      i {
+        @include jumbo-font;
+        color: #ff4081;
+        @include align-self(center);
+      }
+      .actions {
+        padding-top: 100px;
+        width: 100%;
+        max-width: 560px;
+      }
+    }
+  }
+  &.sub {
+    height: 30vh;
+  }
+}

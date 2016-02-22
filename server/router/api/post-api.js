@@ -13,6 +13,8 @@ module.exports = function(router, requireLogin, requireRole) {
 
   // - Read
   router.get('/api/posts'               , posts.list);
+  router.get('/api/posts/featured'      , posts.getFeatured);
+  router.get('/api/posts/published'     , posts.getPublished);
   router.get('/api/posts/search'        , posts.search);
   router.get('/api/posts/bySlug/:slug/populate'  , posts.getBySlugAndPopulate);
   router.get('/api/posts/bySlug/:slug'  , posts.getBySlug);

@@ -1,7 +1,7 @@
-/*  
+/*
 ••••••••••••••••••••••••••••••••••••••••••••••••••
 
-Welcome to Yote.  We hope you like it. 
+Welcome to Yote.  We hope you like it.
 
   - Fugitive Labs
 
@@ -68,7 +68,7 @@ app.use(session({
   //   secure: ((app.get('env') == 'production') ? true : false)
   // }
 }));
-// app.use(favicon(path.join(__dirname, 'public','favicon.ico'))); 
+// app.use(favicon(path.join(__dirname, 'public','favicon.ico')));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -86,7 +86,7 @@ if (app.get('env') == 'development') {
     , prefix: '/css'
     , debug: true
     , outputStyle: 'compressed'
-    , includePaths: ['/client/global/sass/', '/client/modules/']
+    , includePaths: ['/client/global/sass/', '/client/modules/', '/client/static']
   }));
 }
 
@@ -227,5 +227,3 @@ if(app.get('env') == 'production' && useHttps) {
   require('http').createServer(app).listen(config.port);
   logger.info('Yote is listening on port ' + config.port + '...');
 }
-
-

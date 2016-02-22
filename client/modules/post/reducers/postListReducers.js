@@ -12,7 +12,9 @@ import * as Actions from '../actions/postListActions';
 
 function list(state = {
   isFetching: false
-  , items: []
+  , all: []
+  , featured: []
+  , published: []
   , pagination: {}
 }, action) {
   switch (action.type) {
@@ -25,20 +27,63 @@ function list(state = {
       if(action.success) {
         return Object.assign({}, state, {
           isFetching: false
-          , items: action.list
+          , all: action.list
           , error: null
           , lastUpdated: action.receivedAt
         })
       } else {
         return Object.assign({}, state, {
           isFetching: false
-          , items: []
+          , all: []
           , error: action.error
           , lastUpdated: action.receivedAt
         })
       }
       break;
-
+    case Actions.REQUEST_PUBLISHED_POST_LIST:
+      return Object.assign({}, state, {
+        isFetching: true
+      })
+      break;
+    case Actions.RECEIVE_PUBLISHED_POST_LIST:
+      if(action.success) {
+        return Object.assign({}, state, {
+          isFetching: false
+          , published: action.list
+          , error: null
+          , lastUpdated: action.receivedAt
+        })
+      } else {
+        return Object.assign({}, state, {
+          isFetching: false
+          , published: []
+          , error: action.error
+          , lastUpdated: action.receivedAt
+        })
+      }
+      break;
+    case Actions.REQUEST_FEATURED_POST_LIST:
+      return Object.assign({}, state, {
+        isFetching: true
+      })
+      break;
+    case Actions.RECEIVE_FEATURED_POST_LIST:
+      if(action.success) {
+        return Object.assign({}, state, {
+          isFetching: false
+          , featured: action.list
+          , error: null
+          , lastUpdated: action.receivedAt
+        })
+      } else {
+        return Object.assign({}, state, {
+          isFetching: false
+          , featured: []
+          , error: action.error
+          , lastUpdated: action.receivedAt
+        })
+      }
+      break;
     default:
       return state
   }

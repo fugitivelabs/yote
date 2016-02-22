@@ -49,6 +49,55 @@ exports.list = function(req, res) {
   }
 }
 
+exports.getPublished = function(req, res) {
+  if(req.query.page) {
+    console.log('list published posts with pagination');
+    var page = req.query.page || 1;
+    var per = req.query.per || 20;
+    Post.find({status: "published" }).skip((page-1)*per).limit(per).exec(function(err, posts) {
+      if(err || !posts) {
+        res.send({success: false, message: err});
+      } else {
+        res.send({
+          success: true
+          , posts: posts
+          , pagination: {
+            per: per
+            , page: page
+          }
+        });
+      }
+    });
+
+  } else {
+    console.log('list published posts');
+    Post.find({status: "published"}).populate('author', {'firstName': 1, 'lastName': 1, 'username': 1}).exec(function(err, posts) {
+      if(err || !posts) {
+        res.send({ success: false, message: err });
+      } else {
+        // console.log("sending error on purpose");
+        // res.send({success: false, message: "Error in database"});
+        res.send({ success: true, posts: posts });
+      }
+    });
+  }
+}
+
+exports.getFeatured = function(req, res) {
+  console.log("get featured posts");
+  Post.find({featured: true})
+    .sort({ 'updated': -1 })
+    .limit(5)
+    .populate('author', {'firstName': 1, 'lastName': 1, 'username': 1, 'picture': 1, 'phone': 1 })
+    .exec(function(err, posts) {
+      if(err || !posts) {
+        res.send({ success: false, message: err });
+      } else {
+        res.status(200).send({ success: true, posts: posts });
+      }
+    });
+}
+
 exports.search = function(req, res) {
   //search by query parameters
   // up to front end to make sure the params exist on the model
@@ -98,6 +147,8 @@ exports.search = function(req, res) {
   }
 }
 
+
+
 exports.getById = function(req, res) {
   console.log('get post by id');
   Post.findById(req.params.id).exec(function(err, post) {
@@ -113,14 +164,16 @@ exports.getById = function(req, res) {
 
 exports.getAndPopulate = function(req, res) {
   console.log('get post by id and populate');
-  Post.findById(req.params.id).populate('author').exec(function(err, post) {
-    if(err) {
-      res.send({ success: false, message: err });
-    } else if(!post) {
-      res.send({ success: false, message: "no post found :(" });
-    } else {
-      res.send({ success: true, post: post });
-    }
+  Post.findById(req.params.id)
+    .populate('author', {'firstName': 1, 'lastName': 1, 'username': 1 })
+    .exec(function(err, post) {
+      if(err) {
+        res.send({ success: false, message: err });
+      } else if(!post) {
+        res.send({ success: false, message: "no post found :(" });
+      } else {
+        res.send({ success: true, post: post });
+      }
   });
 }
 
@@ -143,7 +196,7 @@ exports.getBySlug = function(req, res) {
 exports.getBySlugAndPopulate = function(req, res) {
   console.log('get post by slug');
   Post.findOne({ slug: req.param('slug') })
-    .populate('author')
+    .populate('author', {'firstName': 1, 'lastName': 1, 'username': 1 })
     .exec(function(err, post) {
       if(err) {
         res.send({ success: false, message: err });

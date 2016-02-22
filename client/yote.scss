@@ -37,6 +37,7 @@
 @import "global/sass/components/forms";
 @import "global/sass/components/tables";
 @import "global/sass/components/toolbar";
+@import "global/sass/components/hero";
 
 
 /* ====================================
@@ -61,3 +62,5 @@
    ==================================== */
 
 @import "modules/post/postStyles";
+@import "modules/product/productStyles";
+@import "static/landing/landingStyles";
