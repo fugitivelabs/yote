@@ -4,13 +4,13 @@ import { syncHistory, routeReducer } from 'react-router-redux';
 //individual reducers
 import post from './modules/post/reducers';
 import product from './modules/product/reducers';
-import landing from './static/landing/reducers/landingReducer';
+import statics from './modules/static/reducers';
 
 const rootReducer = combineReducers({
   routeReducer
   , post
   , product
-  , landing
+  , statics
   // next reducer
 })
 

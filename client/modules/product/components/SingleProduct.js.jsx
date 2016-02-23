@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
 // import actions
-import * as singleActions from '../actions/productSingleActions';
+import { singleActions } from '../actions';
 
 class SingleProduct extends Base {
   constructor(props) {

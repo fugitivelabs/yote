@@ -1,21 +1,22 @@
 /*****
 
-LANDING REDUCER
+CONTACT REDUCER
 
 *****/
 
 
-import * as Actions from '../actions/landingActions';
+import { contactActions } from '../actions';
+// import * as contactActions from '../actions/landingActions';
 
 
 
-function landingReducer(state = {
+function contactReducer(state = {
   isSending: false
   , lead: {}
 }, action) {
   switch (action.type) {
 
-    case Actions.SETUP_NEW_LEAD:
+    case contactActions.SETUP_NEW_LEAD:
       console.log("SETUP_NEW_LEAD");
       return Object.assign({}, state, {
         isSending: false
@@ -27,12 +28,12 @@ function landingReducer(state = {
         }
       });
       break;
-    case Actions.REQUEST_NEW_LEAD:
+    case contactActions.REQUEST_NEW_LEAD:
       return Object.assign({}, state, {
         isSending: true
       })
       break;
-    case Actions.RECEIVE_NEW_LEAD:
+    case contactActions.RECEIVE_NEW_LEAD:
       if(action.success) {
         return Object.assign({}, state, {
           isSending: false
@@ -55,4 +56,4 @@ function landingReducer(state = {
   }
 }
 
-export default landingReducer;
+export default contactReducer;

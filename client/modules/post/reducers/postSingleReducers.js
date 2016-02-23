@@ -6,27 +6,29 @@ SINGLE REDUCERS GO HERE
 *****/
 
 
-import * as Actions from '../actions/postSingleActions';
+import { singleActions } from '../actions';
 
 function single(state = {
   isFetching: false
   , item: {}
+  , populated: false
   , error: null
   , status: null //creating, editing
 }, action) {
   switch(action.type) {
-    case Actions.REQUEST_SINGLE_POST:
+    case singleActions.REQUEST_SINGLE_POST:
       return Object.assign({}, state, {
         isFetching: true
         , item: {}
         , status: null
       })
       break;
-    case Actions.RECEIVE_SINGLE_POST:
+    case singleActions.RECEIVE_SINGLE_POST:
       if(action.success) {
         return Object.assign({}, state, {
           isFetching: false
           , item: action.post
+          , populated: false
           , error: null
           , lastUpdated: action.receivedAt
         })
@@ -34,23 +36,25 @@ function single(state = {
         return Object.assign({}, state, {
           isFetching: false
           , item: {}
+          , populated: false
           , error: action.error
           , lastUpdated: action.receivedAt
         })
       }
       break;
-    case Actions.REQUEST_SINGLE_POST_BY_SLUG:
+    case singleActions.REQUEST_SINGLE_POST_BY_SLUG:
       return Object.assign({}, state, {
         isFetching: true
         , item: {}
         , status: null
       })
       break;
-    case Actions.RECEIVE_SINGLE_POST_BY_SLUG:
+    case singleActions.RECEIVE_SINGLE_POST_BY_SLUG:
       if(action.success) {
         return Object.assign({}, state, {
           isFetching: false
           , item: action.post
+          , populated: false
           , error: null
           , lastUpdated: action.receivedAt
         })
@@ -58,12 +62,67 @@ function single(state = {
         return Object.assign({}, state, {
           isFetching: false
           , item: {}
+          , populated: false
           , error: action.error
           , lastUpdated: action.receivedAt
         })
       }
       break;
-    case Actions.SETUP_NEW_POST:
+
+    case singleActions.REQUEST_AND_POPULATE_SINGLE_POST:
+      return Object.assign({}, state, {
+        isFetching: true
+        , item: {}
+        , status: null
+      })
+      break;
+    case singleActions.RECEIVE_POPULATED_SINGLE_POST:
+      if(action.success) {
+        return Object.assign({}, state, {
+          isFetching: false
+          , item: action.post
+          , populated: true
+          , error: null
+          , lastUpdated: action.receivedAt
+        })
+      } else {
+        return Object.assign({}, state, {
+          isFetching: false
+          , item: {}
+          , populated: true
+          , error: action.error
+          , lastUpdated: action.receivedAt
+        })
+      }
+      break;
+    case singleActions.REQUEST_AND_POPULATE_SINGLE_POST_BY_SLUG:
+      return Object.assign({}, state, {
+        isFetching: true
+        , item: {}
+        , status: null
+      })
+      break;
+    case singleActions.RECEIVE_POPULATED_SINGLE_POST_BY_SLUG:
+      if(action.success) {
+        return Object.assign({}, state, {
+          isFetching: false
+          , item: action.post
+          , populated: true
+          , error: null
+          , lastUpdated: action.receivedAt
+        })
+      } else {
+        return Object.assign({}, state, {
+          isFetching: false
+          , item: {}
+          , populated: true
+          , error: action.error
+          , lastUpdated: action.receivedAt
+        })
+      }
+      break;
+
+    case singleActions.SETUP_NEW_POST:
       console.log("SETUP_NEW_POST");
       return Object.assign({}, state, {
         isFetching: false
@@ -72,9 +131,10 @@ function single(state = {
           , content: ""
           , isPublished: false
         }
+        , populated: false
       });
       break;
-    case Actions.REQUEST_CREATE_POST:
+    case singleActions.REQUEST_CREATE_POST:
       console.log("REQUEST_CREATE_POST");
       console.log(action);
       return Object.assign({}, state, {
@@ -83,13 +143,14 @@ function single(state = {
         , status: 'creating'
       })
       break;
-    case Actions.RECEIVE_CREATE_POST:
+    case singleActions.RECEIVE_CREATE_POST:
       console.log("RECEIVE_CREATE_POST");
       console.log(action);
       if(action.success) {
         return Object.assign({}, state, {
           isFetching: false
           , item: action.post
+          , populated: false
           , status: null
           , error: null
         })
@@ -97,23 +158,25 @@ function single(state = {
         return Object.assign({}, state, {
           isFetching: false
           , item: {}
+          , populated: false
           , status: null
           , error: action.error
         })
       }
       break;
-    case Actions.REQUEST_UPDATE_POST:
+    case singleActions.REQUEST_UPDATE_POST:
       return Object.assign({}, state, {
         isFetching: true
         , item: action.post
         , status: 'updating'
       })
       break;
-    case Actions.RECEIVE_UPDATE_POST:
+    case singleActions.RECEIVE_UPDATE_POST:
       if(action.success) {
         return Object.assign({}, state, {
           isFetching: false
           , item: action.post
+          , populated: false
           , status: null
           , error: null
         })
@@ -121,6 +184,7 @@ function single(state = {
         return Object.assign({}, state, {
           isFetching: false
           , item: {}
+          , populated: false
           , status: null
           , error: action.error
         })

@@ -1,11 +1,11 @@
 import React, { PropTypes } from 'react';
-import Base from '../../../global/components/BaseComponent.js.jsx';
+import Base from '../../../../global/components/BaseComponent.js.jsx';
 import { connect } from 'react-redux';
 import { Router, Route, Link } from 'react-router';
 
 // import actions
-import * as landingActions from '../actions/landingActions';
-import * as postListActions from '../../../modules/post/actions/postListActions';
+import { contactActions } from '../../actions';
+import { listActions as postListActions } from '../../../post/actions';
 
 // import components
 import Hero from './Hero.js.jsx';
@@ -24,7 +24,7 @@ class Landing extends Base {
   componentWillMount() {
     window.addEventListener('scroll', this._handleScroll);
     const { dispatch } = this.props;
-    dispatch(landingActions.setupNewLead());
+    dispatch(contactActions.setupNewLead());
     dispatch(postListActions.fetchFeaturedList());
   }
 
@@ -72,7 +72,7 @@ const mapStateToProps = (state) => {
   // console.log("State");
   // console.log(state);
   return {
-    lead: state.landing.lead
+    lead: state.statics.contact.lead
     , featuredPosts: state.post.list.featured
   }
 }

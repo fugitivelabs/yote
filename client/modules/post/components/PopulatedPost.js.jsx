@@ -5,8 +5,7 @@ import { Link } from 'react-router';
 import moment from 'moment';
 
 // import actions
-import * as populatedActions from '../actions/postPopulatedActions';
-
+import { singleActions } from '../actions';
 
 class PopulatedPost extends Base {
   constructor(props) {
@@ -14,11 +13,12 @@ class PopulatedPost extends Base {
 
   }
   componentWillMount() {
-    console.log("Populated item mounting");
+    console.log("Populated item mounting *****");
     // console.log(this.context);
     const { dispatch, params } = this.props;
 
-    dispatch(populatedActions.fetchAndPopulateSinglePostBySlug(params.slug))
+    // dispatch(populatedActions.fetchAndPopulateSinglePostBySlug(params.slug))
+    dispatch(singleActions.fetchAndPopulateSinglePostBySlug(params.slug))
   }
 
   render() {
@@ -63,7 +63,7 @@ const mapStateToProps = (state) => {
   // console.log("State");
   // console.log(state);
   return {
-    item: state.post.populated.item
+    item: state.post.single.item
   }
 }
 

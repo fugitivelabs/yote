@@ -5,8 +5,7 @@ LIST REDUCERS GO HERE
 
 *****/
 
-import { combineReducers } from 'redux';
-import * as Actions from '../actions/postListActions';
+import { listActions } from '../actions';
 
 
 
@@ -18,12 +17,12 @@ function list(state = {
   , pagination: {}
 }, action) {
   switch (action.type) {
-    case Actions.REQUEST_POST_LIST:
+    case listActions.REQUEST_POST_LIST:
       return Object.assign({}, state, {
         isFetching: true
       })
       break;
-    case Actions.RECEIVE_POST_LIST:
+    case listActions.RECEIVE_POST_LIST:
       if(action.success) {
         return Object.assign({}, state, {
           isFetching: false
@@ -40,12 +39,12 @@ function list(state = {
         })
       }
       break;
-    case Actions.REQUEST_PUBLISHED_POST_LIST:
+    case listActions.REQUEST_PUBLISHED_POST_LIST:
       return Object.assign({}, state, {
         isFetching: true
       })
       break;
-    case Actions.RECEIVE_PUBLISHED_POST_LIST:
+    case listActions.RECEIVE_PUBLISHED_POST_LIST:
       if(action.success) {
         return Object.assign({}, state, {
           isFetching: false
@@ -62,12 +61,12 @@ function list(state = {
         })
       }
       break;
-    case Actions.REQUEST_FEATURED_POST_LIST:
+    case listActions.REQUEST_FEATURED_POST_LIST:
       return Object.assign({}, state, {
         isFetching: true
       })
       break;
-    case Actions.RECEIVE_FEATURED_POST_LIST:
+    case listActions.RECEIVE_FEATURED_POST_LIST:
       if(action.success) {
         return Object.assign({}, state, {
           isFetching: false
