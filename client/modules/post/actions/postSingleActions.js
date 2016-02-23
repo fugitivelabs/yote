@@ -50,7 +50,6 @@ GET BY SLUG EXAMPLE
 
 export const REQUEST_SINGLE_POST_BY_SLUG = "REQUEST_SINGLE_POST_BY_SLUG";
 function requestSinglePostBySlug(slug) {
-  console.log("----------- this one");
   return {
     type: REQUEST_SINGLE_POST_BY_SLUG
     , slug
@@ -110,7 +109,6 @@ function receivePopulatedSinglePost(json) {
 
 
 export function fetchAndPopulateSinglePostById(postId) {
-  console.log("*************** FIRED ");
   return dispatch => {
     dispatch(requestAndPopulateSinglePost(postId))
     return fetch(`/api/posts/${postId}/populate`)
