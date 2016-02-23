@@ -3,7 +3,7 @@ import Base from "../../../global/components/BaseComponent.js.jsx";
 import { connect } from 'react-redux';
 
 // import actions
-import * as singleActions from '../actions/productSingleActions';
+import { singleActions } from '../actions';
 
 
 // import components

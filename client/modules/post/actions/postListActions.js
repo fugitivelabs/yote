@@ -16,6 +16,7 @@ function requestPostList() {
 
 export const RECEIVE_POST_LIST = "RECEIVE_POST_LIST"
 function receivePostList(json) {
+  console.log("received post list?");
   return {
     type: RECEIVE_POST_LIST
     , list: json.posts
