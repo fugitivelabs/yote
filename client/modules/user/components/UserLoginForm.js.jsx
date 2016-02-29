@@ -23,7 +23,6 @@ const UserLoginForm = ({ user, handleFormSubmit, handleFormChange }) => {
                 label="Password"
                 value={user.password}
                 change={handleFormChange}
-                placeholder="Email (required)"
                 required={true}
                 password={true}
                 />

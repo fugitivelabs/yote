@@ -22,7 +22,8 @@ var express         = require('express')
   , passport        = require('passport')
   , LocalStrategy   = require('passport-local').Strategy
   , path            = require('path')
-  , RedisStore      = require('connect-redis')(session)
+  // , RedisStore      = require('connect-redis')(session)
+  , MongoStore      = require('connect-mongo')(session)
   , multipart       = require('connect-multiparty')
   , fs              = require('fs')
   , sass            = require('node-sass-middleware')
@@ -56,18 +57,14 @@ app.use(timeout(30000)); //upper bound on server connections, in ms.
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-//redis for persistent session storage
+
+//persistent session storage
 app.use(session({
-  store: new RedisStore({
-    host: config.redis.host
-    , port: config.redis.port
-  })
+  //TODO: configure mongo to use the same database connection
+  store: new MongoStore({url:'mongodb://localhost/yote'})
   , secret: config.secrets.sessionSecret
-  // //enable for secure cookies when using https
-  // , cookie: {
-  //   secure: ((app.get('env') == 'production') ? true : false)
-  // }
 }));
+
 // app.use(favicon(path.join(__dirname, 'public','favicon.ico')));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -138,14 +135,18 @@ passport.use('local', new LocalStrategy(
 ));
 
 passport.serializeUser(function(user, done) {
+  logger.warn("SERIALIZE USER");
   if(user) {
     done(null, user._id);
   }
 });
 
 passport.deserializeUser(function(id, done) {
+  logger.warn("DESERIALIZE USER");
   //does not need projection
   User.findOne({_id:id}).exec(function(err, user) {
+    console.log("TEST");
+    console.log(user.username);
     if(user) {
       return done(null, user);
     } else {

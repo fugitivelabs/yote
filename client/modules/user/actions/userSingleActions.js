@@ -104,7 +104,7 @@ function requestLogout(json) {
 export function sendLogout() {
   return dispatch => {
     dispatch(requestLogout())
-    return fetch('/api/users/login', {
+    return fetch('/api/users/logout', {
       method: 'POST'
       , headers: {
         'Accept': 'application/json'

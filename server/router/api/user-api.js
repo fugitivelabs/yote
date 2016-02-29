@@ -4,29 +4,35 @@ var users = require('../../controllers/users');
 module.exports = function(router, requireLogin, requireRole) {
     // user login
   router.post('/api/users/login', function(req, res, next) {
-    req.body.username = req.body.username.toLowerCase();
-    passport.authenticate('local', function(err, user) {
-      if(err) {
-        res.send({success:false, message: "Error authenticating user."});
-      }
-      if(!user) {
-        res.send({success:false, message: "Matching user not found."});
-      }
-      req.logIn(user, function(err) {
-        if(err) {return next(err);}
-        // by necessity, this user object has all of the password fields.
-        // we still want to remove hidden values, though, so lets try javascript rather than do another db query.
-        var returnUser = {
-          _id: user._id
-          , firstName: user.firstName
-          , lastName: user.lastName
-          , username: user.username
-          , roles: user.roles
+    if(req.body.username == undefined) {
+      res.send({success: false, message: "No username present."});
+    } else {
+      req.body.username = req.body.username.toLowerCase();
+      passport.authenticate('local', {session: true},  function(err, user) {
+        if(err) {
+          res.send({success:false, message: "Error authenticating user."});
+        } else if(!user) {
+          res.send({success:false, message: "Matching user not found."});
+        } else {
+          req.logIn(user, function(err) {
+            if(err) { return next(err);}
+            logger.warn(req.user.username);
+            // by necessity, this user object has all of the password fields.
+            // we still want to remove hidden values, though, so lets try javascript rather than do another db query.
+            var returnUser = {
+              _id: user._id
+              , firstName: user.firstName
+              , lastName: user.lastName
+              , username: user.username
+              , roles: user.roles
+            }
+            console.log("logged in");
+            logger.debug(returnUser);
+            res.send({success:true, user: returnUser});
+          });
         }
-        logger.debug(returnUser);
-        res.send({success:true, user: returnUser});
-      });
-    })(req, res, next);
+      })(req, res, next);
+    }
   });
 
   router.post('/api/users/token', function(req, res, next) {

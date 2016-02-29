@@ -27,7 +27,7 @@ class TextInput extends Base {
       <div className="input-group">
         <label htmlFor={name}> {label} </label>
         <input
-          type={this.password ? "password" : "text"}
+          type={this.props.password ? "password" : "text"}
           name={name}
           placeholder={placeholder}
           value={value}
