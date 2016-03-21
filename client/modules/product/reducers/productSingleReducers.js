@@ -24,7 +24,6 @@ function single(state = {
         // , item: {} // when transitioning within states where this is already populate -- i.e. from 'Single' to 'Update', this forces a refresh on the element, which isn't desirable.  Also, retrieve error is handled below, so this shouldn't be necessary even when calling new instances
         , status: null
       })
-      break;
     case singleActions.RECEIVE_SINGLE_PRODUCT:
       if(action.success) {
         return Object.assign({}, state, {
@@ -43,14 +42,12 @@ function single(state = {
           , lastUpdated: action.receivedAt
         })
       }
-      break;
     case singleActions.REQUEST_AND_POPULATE_SINGLE_PRODUCT:
       return Object.assign({}, state, {
         isFetching: true
         // , item: {} // see above
         , status: null
       })
-      break;
     case singleActions.RECEIVE_POPULATED_SINGLE_PRODUCT:
       if(action.success) {
         return Object.assign({}, state, {
@@ -69,7 +66,6 @@ function single(state = {
           , lastUpdated: action.receivedAt
         })
       }
-      break;
     case singleActions.SETUP_NEW_PRODUCT:
       console.log("SETUP_NEW_PRODUCT");
       return Object.assign({}, state, {
@@ -80,7 +76,6 @@ function single(state = {
         }
         , populated: false
       });
-      break;
     case singleActions.REQUEST_CREATE_PRODUCT:
       console.log("REQUEST_CREATE_PRODUCT");
       console.log(action);
@@ -110,14 +105,12 @@ function single(state = {
           , error: action.error
         })
       }
-      break;
     case singleActions.REQUEST_UPDATE_PRODUCT:
       return Object.assign({}, state, {
         isFetching: true
         , item: action.product
         , status: 'updating'
       })
-      break;
     case singleActions.RECEIVE_UPDATE_PRODUCT:
       if(action.success) {
         return Object.assign({}, state, {
@@ -136,7 +129,6 @@ function single(state = {
           , error: action.error
         })
       }
-      break;
     default:
       return state
   }

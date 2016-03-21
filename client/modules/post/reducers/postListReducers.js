@@ -7,8 +7,6 @@ LIST REDUCERS GO HERE
 
 import { listActions } from '../actions';
 
-
-
 function list(state = {
   isFetching: false
   , all: []
@@ -21,7 +19,6 @@ function list(state = {
       return Object.assign({}, state, {
         isFetching: true
       })
-      break;
     case listActions.RECEIVE_POST_LIST:
       if(action.success) {
         return Object.assign({}, state, {
@@ -38,12 +35,10 @@ function list(state = {
           , lastUpdated: action.receivedAt
         })
       }
-      break;
     case listActions.REQUEST_PUBLISHED_POST_LIST:
       return Object.assign({}, state, {
         isFetching: true
       })
-      break;
     case listActions.RECEIVE_PUBLISHED_POST_LIST:
       if(action.success) {
         return Object.assign({}, state, {
@@ -60,12 +55,10 @@ function list(state = {
           , lastUpdated: action.receivedAt
         })
       }
-      break;
     case listActions.REQUEST_FEATURED_POST_LIST:
       return Object.assign({}, state, {
         isFetching: true
       })
-      break;
     case listActions.RECEIVE_FEATURED_POST_LIST:
       if(action.success) {
         return Object.assign({}, state, {
@@ -82,7 +75,6 @@ function list(state = {
           , lastUpdated: action.receivedAt
         })
       }
-      break;
     default:
       return state
   }

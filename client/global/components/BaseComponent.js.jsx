@@ -14,8 +14,4 @@ class BaseComponent extends React.Component {
   }
 }
 
-// BaseComponent.contextTypes = {
-//   router: React.PropTypes.object.isRequired
-// }
-
 export default BaseComponent;

@@ -37,12 +37,10 @@ class UpdatePost extends Base {
   }
 
   _handleFormChange(e) {
-    //this works WAY better than having a separate onChange for every input box
-    // just make sure input name attr == state name
-    var newPostState = this.state.item;
-    newPostState[e.target.name] = e.target.value;
-    newPostState.status = newPostState.isPublished ? "published" : "draft";
-    this.setState(newPostState);
+    var nextState = this.state.user;
+    nextState[e.target.name] = e.target.value;
+    nextState.status = nextState.isPublished ? "published" : "draft";
+    this.setState(nextState);
 
   }
 

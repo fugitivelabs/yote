@@ -20,7 +20,6 @@ function list(state = {
       return Object.assign({}, state, {
         isFetching: true
       })
-      break;
     case listActions.RECEIVE_PRODUCT_LIST:
       if(action.success) {
         return Object.assign({}, state, {
@@ -37,7 +36,6 @@ function list(state = {
           , lastUpdated: action.receivedAt
         })
       }
-      break;
 
     default:
       return state
