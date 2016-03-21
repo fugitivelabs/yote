@@ -29,6 +29,7 @@ export function sendLogin(username, password) {
         'Accept': 'application/json'
         , 'Content-Type': 'application/json'
       }
+      , credentials: 'same-origin'
       , body: JSON.stringify({
         username: username
         , password: password

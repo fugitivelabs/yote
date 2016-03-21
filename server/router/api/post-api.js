@@ -9,7 +9,7 @@ var posts = require('../../controllers/posts');
 module.exports = function(router, requireLogin, requireRole) {
 
   // - Create
-  router.post('/api/posts'              , posts.create);
+  router.post('/api/posts'              , requireLogin(), posts.create);
 
   // - Read
   router.get('/api/posts'               , posts.list);
