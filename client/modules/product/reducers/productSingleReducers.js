@@ -21,7 +21,7 @@ function single(state = {
     case singleActions.REQUEST_SINGLE_PRODUCT:
       return Object.assign({}, state, {
         isFetching: true
-        , item: {}
+        // , item: {} // when transitioning within states where this is already populate -- i.e. from 'Single' to 'Update', this forces a refresh on the element, which isn't desirable.  Also, retrieve error is handled below, so this shouldn't be necessary even when calling new instances
         , status: null
       })
       break;
@@ -47,7 +47,7 @@ function single(state = {
     case singleActions.REQUEST_AND_POPULATE_SINGLE_PRODUCT:
       return Object.assign({}, state, {
         isFetching: true
-        , item: {}
+        // , item: {} // see above
         , status: null
       })
       break;

@@ -19,7 +19,7 @@ function single(state = {
     case singleActions.REQUEST_SINGLE_POST:
       return Object.assign({}, state, {
         isFetching: true
-        , item: {}
+        // , item: {}
         , status: null
       })
       break;
@@ -45,7 +45,7 @@ function single(state = {
     case singleActions.REQUEST_SINGLE_POST_BY_SLUG:
       return Object.assign({}, state, {
         isFetching: true
-        , item: {}
+        // , item: {}
         , status: null
       })
       break;
@@ -72,7 +72,7 @@ function single(state = {
     case singleActions.REQUEST_AND_POPULATE_SINGLE_POST:
       return Object.assign({}, state, {
         isFetching: true
-        , item: {}
+        // , item: {}
         , status: null
       })
       break;
@@ -98,7 +98,7 @@ function single(state = {
     case singleActions.REQUEST_AND_POPULATE_SINGLE_POST_BY_SLUG:
       return Object.assign({}, state, {
         isFetching: true
-        , item: {}
+        // , item: {}
         , status: null
       })
       break;
