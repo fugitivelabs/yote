@@ -14,12 +14,20 @@ export default function configureStore(initialState) {
   //   routing: routeReducer
   // }));
 
+  const jadeInitialState = {
+    user: {
+      single: {
+        user: window.currentUser || {}
+      }
+    }
+  };
+
   const loggerMiddleware = createLogger();
   const reduxRouterMiddleware = syncHistory(browserHistory);
 
   const store = createStore(
     rootReducer,
-    initialState,
+    jadeInitialState,
     applyMiddleware(
       thunkMiddleware
       , reduxRouterMiddleware

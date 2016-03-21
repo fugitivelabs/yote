@@ -11,15 +11,15 @@ module.exports = function(router, app) {
     res.send(404);
   });
 
-  //render jade views as html
-  router.get('/html/*', function(req, res) {
-    res.render('../../public/app/' + req.param("0")); //why?
-  });
+  // //render jade views as html
+  // router.get('/html/*', function(req, res) {
+  //   res.render('../../public/app/' + req.param("0")); //why?
+  // });
 
   //render layout
   router.get('*', function(req, res) {
-    console.log("LAYOUT");
-    console.log(req.user);
+    // console.log("LAYOUT");
+    // console.log(req.user ? req.user.username : "NONE");
     res.render('layout', {
       currentUser: req.user
       , development: app.get('env') == 'development' ? true : false

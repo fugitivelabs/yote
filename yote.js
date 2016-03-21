@@ -146,8 +146,6 @@ passport.deserializeUser(function(id, done) {
   logger.warn("DESERIALIZE USER");
   //does not need projection
   User.findOne({_id:id}).exec(function(err, user) {
-    console.log("TEST");
-    console.log(user.username);
     if(user) {
       return done(null, user);
     } else {
