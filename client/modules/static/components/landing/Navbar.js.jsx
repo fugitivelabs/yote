@@ -5,7 +5,7 @@ The navbar on the landing page is styled a little differently
 **/
 
 import React from 'react';
-import Base from '../../../global/components/BaseComponent.js.jsx';
+import Base from '../../../../global/components/BaseComponent.js.jsx';
 import { Link } from 'react-router';
 
 

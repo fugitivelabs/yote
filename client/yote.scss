@@ -49,18 +49,11 @@
 @import "global/sass/sections/content";
 // @import "global/sass/sections/footer";
 
-/* ====================================
-   Static Pages
-   ==================================== */
-
-// @import "global/sass/pages/home";
-// @import "global/sass/pages/subpages";
-// @import "global/sass/pages/style-guide";
 
 /* ====================================
    Modules
    ==================================== */
 
+@import "modules/static/components/landing/landingStyles";
 @import "modules/post/postStyles";
 @import "modules/product/productStyles";
-@import "static/landing/landingStyles";
