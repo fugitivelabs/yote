@@ -42,13 +42,12 @@ A simple client agnostic API framework for NodeJS.
 
 To run the application locally:
 
-1. Install all dependencies and run both mongo and redis.
+1. Install all dependencies and run mongo.
 2. Clone the github repo and cd into the directory.
 3. Run ``` $ npm install``` to install the application's node dependencies (npm is installed alongside node).
 4. Locate and copy the **secrets.js** file into the top level directory for the project.
   * This file contains the randomized session keys as well the application API keys, and is not tracked by Github.
-5. Locate and copy **ssl** folder into the top level directory for the project
-  * This contains the necessary keys for implementing https connections. (These files will be provided to you securely outside of the Github repo).
+
 
 Your folder structure should look something like this:
 ```
@@ -77,7 +76,7 @@ Finally, to run the application you'll need to open two separate terminals. (_NO
 
 In the first terminal, run ``` $ npm run watch ```  This runs webpack in watch mode to look for and recompile any changes to the bundle.js.
 
-In the second terminal, run ``` $ nodemon ```. This runs the node server and watches for changes. 
+In the second terminal, run ``` $ nodemon ```. This runs the node server and watches for changes.
 
 The server will be listening on [http://localhost:3030/](http://localhost:3030/) in your browser of choice.
 
@@ -95,7 +94,7 @@ $ (sudo) docker run -it --rm --link mongodb:mongodb library/mongo bash -c 'mongo
 
 ## TO RUN WITH SSL IN PRODUCTION INSTANCE
 ```
-$ (sudo) docker run -p 80:80 -p 443:443 -t -i --link redis:redis --link mongodb:mongodb --name gsk-registry -rm -e NODE_ENV=production fugitivelabs/gsk-registry
+$ (sudo) docker run -p 80:80 -p 443:443 -t -i --link mongodb:mongodb --name gsk-registry -rm -e NODE_ENV=production fugitivelabs/gsk-registry
 
 ```
 
@@ -106,7 +105,7 @@ $ (sudo) docker run -p 80:80 -p 443:443 -t -i --link redis:redis --link mongodb:
 
 To run development environment remotely use the following command:
 ```
- $ (sudo) docker run -p 80:3030 -t -i --link redis:redis --link mongodb:mongodb --name PROJECT_NAME --rm ORG_NAME/PROJECT_NAME
+ $ (sudo) docker run -p 80:3030 -t -i  --link mongodb:mongodb --name PROJECT_NAME --rm ORG_NAME/PROJECT_NAME
 ```
 
 #### Production
@@ -114,7 +113,7 @@ A **production** environment can be enabled by running ```NODE_ENV=production PO
 
 To run a production environment remotely use the following command:
 ```
-$ (sudo) docker run -p 80:3030 -p 443:443 -t -i --link redis:redis --link mongodb:mongodb --name PROJECT_NAME -rm -e NODE_ENV=production ORG_NAME/PROJECT_NAME
+$ (sudo) docker run -p 80:3030 -p 443:443 -t -i  --link mongodb:mongodb --name PROJECT_NAME -rm -e NODE_ENV=production ORG_NAME/PROJECT_NAME
 ```
 
 ## Remote Deployment
@@ -134,18 +133,16 @@ Then, we need to initialize our remote instance.
 
 #### Initialize Remote Instance
 
-On the remote server, run the following images and link them. Note that in older deployments of yote, the docker images are named "dockerfile/mongodb" and "dockerfile/redis" instead of the newer library notation.
+On the remote server, run the following images and link them. 
 
-1. Pull the Mongo and Redis repositories from Docker itself:
-  * ``` $ (sudo) docker pull library/mongo and library/redis ```
-2. Start Redis
-  * ``` $ (sudo) docker run -d --name redis library/redis ```
-3. Start mongod with flags for smallfiles and local storage
+1. Pull the Mongo repository from Docker itself:
+  * ``` $ (sudo) docker pull library/mongo ```
+2. Start mongod with flags for smallfiles and local storage
   * ``` $ (sudo) docker run -d -v ~/data:/data/db --name mongodb library/mongo mongod --smallfiles ```
-4. Start yote and link with other containers
-  * ``` $ (sudo) docker run -p 80:3030 -t -i --link redis:redis --link mongodb:mongodb --name PROJECT_NAME --rm ORG_NAME/PROJECT_NAME ```
+3. Start yote and link with other containers
+  * ``` $ (sudo) docker run -p 80:3030 -t -i  --link mongodb:mongodb --name PROJECT_NAME --rm ORG_NAME/PROJECT_NAME ```
 
-Note that **PROJECT_NAME** above should be replaced with the project name
+_Note that **PROJECT_NAME** above should be replaced with the project name_
 
 #### New Deployments
 
@@ -181,7 +178,7 @@ $ (sudo) docker rm [CONTAINER ID]
 Now, simply rerun the application and Docker will use the most recently pulled in container instance.
 
 ```
-$ (sudo) docker run -p 80:3030 -t -i --link redis:redis --link mongodb:mongodb --name yote --rm ORG_NAME/PROJECT_NAME
+$ (sudo) docker run -p 80:3030 -t -i --link mongodb:mongodb --name yote --rm ORG_NAME/PROJECT_NAME
 ```
 
 
@@ -210,22 +207,20 @@ development is the default environment. it listens on port 3030 and console.log 
 production environment can be enabled by running "NODE_ENV=production PORT=xxxx node yote.js", where xxxx is your desired port (like 80 on a production server). The PORT=xxxx call is not necessary; it will default to 80, but this will break if that port is already in use. Running production will disable all console.log calls on the front end, which is really f-ing cool.
 
 DOCKER DEPLOYMENT
-deployment to a remote instance is easy. it requires running containers for redis and mongodb. on your local machine, run "docker built -t ORG_NAME/PROJECT_NAME .", then "docker push ORG_NAME/PROJECT_NAME". on the remote instance, run "docker pull ORG_NAME/PROJECT_NAME", then:
+deployment to a remote instance is easy. it requires running containers for  mongodb. on your local machine, run "docker build -t ORG_NAME/PROJECT_NAME .", then "docker push ORG_NAME/PROJECT_NAME". on the remote instance, run "docker pull ORG_NAME/PROJECT_NAME", then:
 
-"docker run -p 80:3030 -t -i --link redis:redis --link mongodb:mongodb --name yote --rm ORG_NAME/PROJECT_NAME"
+"docker run -p 80:3030 -t -i  --link mongodb:mongodb --name yote --rm ORG_NAME/PROJECT_NAME"
 
 to run the image and link it. more details later.
 
 
 
-1) pull library/mongo and library/redis
-2) start redis
-"docker run -d --name redis library/redis"
-3) start mongod with flags for smallfiles and local storage
+1) pull library/mongo
+2)  start mongod with flags for smallfiles and local storage
 "docker run -d -v ~/data:/data/db --name mongodb library/mongo mongod --smallfiles"
 //in future, change "~/data" to "~/mongo/data". for time being, changing this will cause loss of old data.
-4) start yote and link with other containers
-"docker run -p 80:3030 -t -i --link redis:redis --link mongodb:mongodb --name yote --rm fugitivelabs/yote"
+3) start yote and link with other containers
+"docker run -p 80:3030 -t -i --link mongodb:mongodb --name yote --rm fugitivelabs/yote"
 
 extras:
 run mongo console on mongo image
@@ -242,7 +237,7 @@ Now, once you run Yote in production mode, it will allow users to connect with h
 (important note: update your docker file when you create a new project that uses https. you will need to change the folder from "/yote/*" to your project name)
 
 TO RUN WITH HTTPS IN PRODUCTION INSTANCE
-docker run -p 80:80 -p 443:443 -t -i --link redis:redis --link mongodb:mongodb --name NAME -e NODE_ENV=production fugitive
+docker run -p 80:80 -p 443:443 -t -i --link mongodb:mongodb --name NAME -e NODE_ENV=production fugitive
 bs/NAME
 
 SENDING EMAILS
