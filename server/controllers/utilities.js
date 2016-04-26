@@ -1,8 +1,8 @@
 var secrets = require('../config')[process.env.NODE_ENV].secrets;
 
-var async = require('async')  
+var async = require('async')
   , mandrill = require('mandrill-api/mandrill')
-  , mandrill_client = new mandrill.Mandrill(secrets.mandrill) 
+  , mandrill_client = new mandrill.Mandrill(secrets.mandrill)
   ;
 
 exports.sendEmail = function(targets, subject, content, callback) {
