@@ -51,7 +51,7 @@ exports.changePassword = function(req, res) {
 exports.create = function(req, res, next) {
   var userData = req.body;
 
-  userData.username = userData.username.toLowerCase();
+  userData.username = userData.username.toLowerCase().trim();
   //very simple email format validation
   if (!( /(.+)@(.+){2,}\.(.+){2,}/.test(userData.username) )) {
     logger.debug("invalid email");

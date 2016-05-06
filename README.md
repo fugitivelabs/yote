@@ -191,7 +191,7 @@ $ (sudo) docker run -p 80:3030 -t -i --link mongodb:mongodb --name yote --rm ORG
 #### Remove all unused images from docker
 Docker instances will build up, taking up memory on the server.  To clear run:
 ```
-$ (sudo) docker rmi $(sudo docker images -q -f dangling=true)
+docker rmi $(sudo docker images -q --filter "dangling=true")
 ```
 
 #Grant's notes:
