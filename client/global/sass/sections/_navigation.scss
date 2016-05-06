@@ -139,7 +139,7 @@ $topbar-height:  80px;
   border: 1px solid rgba(0,0,0,.15);
   border-radius: 4px;
 
-  @include box-shadow(0 6px 12px rgba(0,0,0,.175))
+  @include box-shadow(0 6px 12px rgba(0,0,0,0.175));
   li {
     a {
       border: none !important;
