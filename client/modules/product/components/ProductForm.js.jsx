@@ -29,6 +29,14 @@ const ProductForm = ({product, formType, handleFormSubmit, handleFormChange,  ca
               required={false}
               placeholder="This is where the content goes..."
               />
+            <TextInput
+              name="price"
+              label="Price"
+              value={product.price}
+              change={handleFormChange}
+              placeholder="Price (US)"
+              required={false}
+              />	
             <div className="input-group">
               <div className="yt-row space-between">
                 <Link className="yt-btn link" to={cancelLink}>Cancel</Link>
