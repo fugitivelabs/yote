@@ -38,7 +38,6 @@ class SingleProduct extends Base {
               </h1>
               <hr/>
               <p> {item.description }</p>
-              <p1> Price: $ {item.price} </p1>
             </div>
           }
       </div>
