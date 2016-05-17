@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { syncHistory, routeReducer } from 'react-router-redux';
+import { routerReducer } from 'react-router-redux';
 
 //individual reducers
 import user from './modules/user/reducers';
@@ -8,7 +8,7 @@ import product from './modules/product/reducers';
 import statics from './modules/static/reducers';
 
 const rootReducer = combineReducers({
-  routeReducer
+  routing: routerReducer
   , user
   , post
   , product

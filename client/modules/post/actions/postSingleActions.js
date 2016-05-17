@@ -7,7 +7,8 @@ getById, getByIdAndPopulate, getBySlug example (for posts), create, update
 
 
 import fetch from 'isomorphic-fetch'
-import { routeActions } from 'react-router-redux'
+import { browserHistory } from 'react-router';
+
 
 
 export const REQUEST_SINGLE_POST = "REQUEST_SINGLE_POST";
@@ -217,9 +218,9 @@ export function sendCreatePost(data) {
       console.log(json);
       if(json.success) {
         //redirect to slug route
-        dispatch(routeActions.push(`/posts/${json.post.slug}`))
+        browserHistory.push(`/posts/${json.post.slug}`)
         // //redirect to byId route
-        // dispatch(routeActions.push(`/news/byId/${json.post._id}`))
+        // browserHistory.push(`/news/byId/${json.post._id}`)
       }
     })
   }
@@ -270,9 +271,9 @@ export function sendUpdatePost(data) {
     .then((json) => {
       if(json.success) {
         //redirect to slug route
-        dispatch(routeActions.push(`/posts/${json.post.slug}`))
+        browserHistory.push(`/posts/${json.post.slug}`)
         // //redirect to byId route
-        // dispatch(routeActions.push(`/news/byId/${json.post._id}`))
+        // browserHistory.push(`/news/byId/${json.post._id}`)
       }
     })
   }
