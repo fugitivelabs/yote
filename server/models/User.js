@@ -65,7 +65,7 @@ userSchema.methods = {
         callback(err, null);
       } else {
         console.log("user token removed.");
-        callback((false, 'removed'));
+        callback(false, 'removed');
       }
     });
   }
@@ -93,7 +93,7 @@ userSchema.statics = {
   , tokenExpired: function(created) {
     var now = new Date();
     var diff = (now.getTime() - created);
-    return diff > 86400000; //API token active for 24 hours. 
+    return diff > 86400000; //API token active for 24 hours.
     // return false; //if you want your API tokens to NEVER expire, use this line instead.
   }
 };
