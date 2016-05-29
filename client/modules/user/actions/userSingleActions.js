@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch'
-import { routeActions } from 'react-router-redux'
+import { browserHistory } from 'react-router';
 
 export const REQUEST_LOGIN = "REQUEST_LOGIN"
 function requestLogin(username) {
@@ -40,7 +40,7 @@ export function sendLogin(username, password) {
     .then((json) => {
       //if they hit this route, where should they redirect to?
       if(json.success) {
-        dispatch(routeActions.push('/'))
+        browserHistory.push('/')
       }
     })
   }
@@ -80,7 +80,7 @@ export function sendRegister(userData) {
     .then(json => dispatch(receiveRegister(json)))
     .then((json) => {
       if(json.success) {
-        dispatch(routeActions.push('/'))
+        browserHistory.push('/')
       }
     })
   }
@@ -118,7 +118,7 @@ export function sendLogout() {
     .then((json) => {
       //if they hit this route, where should they redirect to?
       if(json.success) {
-        dispatch(routeActions.push('/'))
+        browserHistory.push('/')
       }
     })
   }

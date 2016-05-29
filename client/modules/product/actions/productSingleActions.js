@@ -7,7 +7,7 @@ getById, getByIdAndPopulate, getBySlug example (for products), create, update
 
 
 import fetch from 'isomorphic-fetch'
-import { routeActions } from 'react-router-redux'
+import { browserHistory } from 'react-router';
 
 
 export const REQUEST_SINGLE_PRODUCT = "REQUEST_SINGLE_PRODUCT";
@@ -143,9 +143,9 @@ export function sendCreateProduct(data) {
       console.log(json);
       if(json.success) {
         //redirect to slug route
-        dispatch(routeActions.push(`/products/${json.product._id}`))
+        browserHistory.push(`/products/${json.product._id}`)
         // //redirect to byId route
-        // dispatch(routeActions.push(`/news/byId/${json.product._id}`))
+        // browserHistory.push(`/news/byId/${json.product._id}`)
       }
     })
   }
@@ -196,9 +196,9 @@ export function sendUpdateProduct(data) {
     .then((json) => {
       if(json.success) {
         //redirect to slug route
-        dispatch(routeActions.push(`/products/${json.product._id}`))
+        browserHistory.push(`/products/${json.product._id}`)
         // //redirect to byId route
-        // dispatch(routeActions.push(`/news/byId/${json.product._id}`))
+        // browserHistory.push(`/news/byId/${json.product._id}`)
       }
     })
   }
