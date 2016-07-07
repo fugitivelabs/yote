@@ -21,7 +21,7 @@ class Landing extends Base {
     )
   }
 
-  componentWillMount() {
+  componentDidMount() {
     window.addEventListener('scroll', this._handleScroll);
     const { dispatch } = this.props;
     dispatch(contactActions.setupNewLead());
@@ -68,15 +68,15 @@ Landing.propTypes = {
   dispatch: PropTypes.func.isRequired
 }
 
-const mapStateToProps = (state) => {
+const mapStoreToProps = (store) => {
   // console.log("State");
   // console.log(state);
   return {
-    lead: state.statics.contact.lead
-    , featuredPosts: state.post.list.featured
+    lead: store.statics.contact.lead
+    , featuredPosts: store.post.list.featured
   }
 }
 
 export default connect(
-  mapStateToProps
+  mapStoreToProps
 )(Landing);

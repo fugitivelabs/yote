@@ -51,12 +51,12 @@ class SelectFromArray extends Base{
 
   render() {
     var items = this.props.items.map((item, index) => {
-            return (
-              <option key={index} value={index}>
-                {item}
-              </option>
-            )
-          });
+      return (
+        <option key={index} value={index}>
+          {item}
+        </option>
+      )
+    });
     if(this.props.placeholder) {
       // console.log("has placeholder value");
       var placeholder = <option key="-1" value={-1}>{this.props.placeholder}</option>;

@@ -62,10 +62,10 @@ UserLogin.propTypes = {
   dispatch: PropTypes.func.isRequired
 }
 
-const mapStateToProps = (state, ownProps) => {
-  return { user: state.user.single.user }
+const mapStoreToProps = (store) => {
+  return { user: store.user.single.user }
 }
 
 export default connect(
-  mapStateToProps
+  mapStoreToProps
 )(UserLogin);

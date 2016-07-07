@@ -4,15 +4,9 @@ import { bindActionCreators } from 'redux'
 
 import TopNav from "../../../global/components/TopNav.js.jsx";
 
-import { connect } from 'react-redux';
-
-
 class PostLayout extends Base {
   constructor(props) {
     super(props);
-
-  }
-  componentWillMount() {
 
   }
 

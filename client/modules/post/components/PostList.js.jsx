@@ -15,7 +15,7 @@ class PostList extends Base {
 
   }
 
-  componentWillMount() {
+  componentDidMount() {
     // console.log("list mounting");
     // console.log(this.props);
     this.props.dispatch(listActions.fetchList()).then(() => {
@@ -60,16 +60,12 @@ PostList.propTypes = {
   dispatch: PropTypes.func.isRequired
 }
 
-const mapStateToProps = (state) => {
-  console.log("list state");
-  console.log(state);
-  const { post } = state;
-  const list = post.list;
+const mapStoreToProps = (store) => {
   return {
-    list: list
+    list: store.post.list
   }
 }
 
 export default connect(
-  mapStateToProps
+  mapStoreToProps
 )(PostList);

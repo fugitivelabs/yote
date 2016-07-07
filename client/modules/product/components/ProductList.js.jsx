@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 
 // import actions
 // import * as listActions from '../actions/productListActions';
-import { listActions } from '../actions';
+import { listActions as productListActions } from '../actions';
 
 // import components
 import ProductListItem from './ProductListItem.js.jsx';
@@ -16,18 +16,10 @@ class ProductList extends Base {
 
   }
 
-  componentWillMount() {
-    console.log("list mounting");
-    this.props.dispatch(listActions.fetchList()).then(() => {
-      // console.log(this.props);
-    })
+  componentDidMount() {
+    // console.log("list mounting");
+    this.props.dispatch(productListActions.fetchList());
   }
-  //
-  // componentWillReceiveProps(nextProps) {
-  //   if(nextProps.selectedItem !== this.props.selectedItem) {
-  //     const { dispatch, selectedItem } = nextProps;
-  //   }
-  // }
 
   render() {
     const { list } = this.props;
@@ -42,8 +34,8 @@ class ProductList extends Base {
             ? (list.isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
             : <div style={{ opacity: list.isFetching ? 0.5 : 1 }}>
               <ul>
-                {list.items.map((item, i) =>
-                  <ProductListItem key={i} product={item} />
+                {Object.keys(list.itemMap).map((id, i) =>
+                  <ProductListItem key={i} product={list.itemMap[id]} />
                 )}
               </ul>
             </div>
@@ -53,21 +45,16 @@ class ProductList extends Base {
   }
 }
 
-
 ProductList.propTypes = {
   dispatch: PropTypes.func.isRequired
 }
 
-const mapStateToProps = (state) => {
-  console.log("list state");
-  console.log(state);
-  const { product } = state;
-  const list = product.list;
+const mapStoreToProps = (store) => {
   return {
-    list: list
+    list: store.product.list
   }
 }
 
 export default connect(
-  mapStateToProps
+  mapStoreToProps
 )(ProductList);

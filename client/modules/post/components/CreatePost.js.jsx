@@ -18,7 +18,7 @@ class CreatePost extends Base {
       , '_handleFormSubmit'
     );
   }
-  componentWillMount() {
+  componentDidMount() {
     const { dispatch } = this.props;
     dispatch(singleActions.setupNewPost())
     // this.props.dispatch(singleActions.setupNewPost()).then(() =>{
@@ -77,15 +77,15 @@ CreatePost.propTypes = {
   dispatch: PropTypes.func.isRequired
 }
 
-const mapStateToProps = (state) => {
+const mapStoreToProps = (store) => {
   // console.log("State");
   // console.log(state);
   return {
-    item: state.post.single.item
-    , status: state.post.single.status
+    item: store.post.single.item
+    , status: store.post.single.status
   }
 }
 
 export default connect(
-  mapStateToProps
+  mapStoreToProps
 )(CreatePost);

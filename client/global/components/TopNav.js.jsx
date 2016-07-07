@@ -1,7 +1,7 @@
 import React from 'react';
 import Base from './BaseComponent.js.jsx';
 import CloseWrapper from './helpers/CloseWrapper.js.jsx';
-import { Router, Route, Link } from 'react-router';
+import { Link } from 'react-router';
 
 class DropdownMenu extends Base {
   constructor(props) {

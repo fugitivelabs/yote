@@ -11,15 +11,10 @@ class SingleProduct extends Base {
     super(props);
 
   }
-  componentWillMount() {
-    console.log("Single item mounting");
-    // console.log(this.context);
-
-    // action.fetchItem();
-    const populate = true;
-    // const populate = false;
+  componentDidMount() {
+    // console.log("Single item mounting");
     const { dispatch, params } = this.props;
-    dispatch(singleActions.fetchSingleProductById(params.productId, populate ))
+    dispatch(singleActions.fetchSingleProductById(params.productId, true ))
   }
 
   render() {
@@ -49,14 +44,12 @@ SingleProduct.propTypes = {
   dispatch: PropTypes.func.isRequired
 }
 
-const mapStateToProps = (state) => {
-  // console.log("State");
-  // console.log(state);
+const mapStoreToProps = (store) => {
   return {
-    item: state.product.single.item
+    item: store.product.single.item
   }
 }
 
 export default connect(
-  mapStateToProps
+  mapStoreToProps
 )(SingleProduct);

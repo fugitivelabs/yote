@@ -1,6 +1,6 @@
 import React from 'react';
 import Base from './BaseComponent.js.jsx';
-import { Router, Route, Link } from 'react-router';
+import { Link } from 'react-router';
 
 export default class SideNav extends Base {
   constructor(props, context) {

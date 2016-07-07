@@ -1,10 +1,8 @@
 import React, { PropTypes } from 'react';
 import Base from "../../../global/components/BaseComponent.js.jsx";
 import TopNav from "../../../global/components/TopNav.js.jsx";
-import { bindActionCreators } from 'redux'
-
-
-import { connect } from 'react-redux';
+// import { bindActionCreators } from 'redux'
+// import { connect } from 'react-redux';
 // import { push }
 
 class ProductLayout extends Base {
@@ -12,7 +10,7 @@ class ProductLayout extends Base {
     super(props);
 
   }
-  componentWillMount() {
+  componentDidMount() {
     // console.log("product layout mounting");
     // NewsActions.fetchList();
   }
