@@ -17,7 +17,7 @@ class UpdatePost extends Base {
       , '_handleFormSubmit'
     );
   }
-  componentWillMount() {
+  componentDidMount() {
     console.log("Single item mounting");
     // console.log(this.context);
 
@@ -76,14 +76,14 @@ UpdatePost.propTypes = {
   dispatch: PropTypes.func.isRequired
 }
 
-const mapStateToProps = (state) => {
+const mapStoreToProps = (store) => {
   // console.log("State");
   // console.log(state);
   return {
-    item: state.post.single.item
+    item: store.post.single.item
   }
 }
 
 export default connect(
-  mapStateToProps
+  mapStoreToProps
 )(UpdatePost);

@@ -19,6 +19,7 @@ function receiveProductList(json) {
   return {
     type: RECEIVE_PRODUCT_LIST
     , list: json.products
+    , itemMap: json.itemMap
     , success: json.success
     , error: json.message
     , receivedAt: Date.now()
@@ -26,12 +27,25 @@ function receiveProductList(json) {
 }
 
 export function fetchList() {
+  // console.log("FETCH PRODUCT LIST");
   return dispatch => {
     dispatch(requestProductList())
     return fetch('/api/products')
       .then(response => response.json())
-      .then(json =>
-        dispatch(receiveProductList(json))
-      )
+      .then(json => {
+        if(json.success) {
+          var itemMap = {};
+          for(var i = 0; i < json.products.length; i++) {
+            itemMap[json.products[i]._id] = json.products[i];
+          }
+          json.itemMap = itemMap;
+          return json;
+
+        } else {
+          //do something with the error
+          return json;
+        }
+      })
+      .then(json => dispatch(receiveProductList(json)))
   }
 }

@@ -84,7 +84,6 @@ function single(state = {
         , item: action.product
         , status: 'creating'
       })
-      break;
     case singleActions.RECEIVE_CREATE_PRODUCT:
       console.log("RECEIVE_CREATE_PRODUCT");
       console.log(action);

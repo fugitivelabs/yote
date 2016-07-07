@@ -35,7 +35,9 @@ function receiveSingleProduct(json) {
 export function fetchSingleProductById(productId) {
   return dispatch => {
     dispatch(requestSingleProduct(productId))
-    return fetch(`/api/products/${productId}`)
+    return fetch(`/api/products/${productId}`, {
+      credentials: 'same-origin'
+    })
       .then(response => response.json())
       .then(json => dispatch(receiveSingleProduct(json)))
   }
@@ -73,7 +75,9 @@ function receivePopulatedSingleProduct(json) {
 export function fetchAndPopulateSingleProductById(productId) {
   return dispatch => {
     dispatch(requestAndPopulateSingleProduct(productId))
-    return fetch(`/api/products/${productId}/populate`)
+    return fetch(`/api/products/${productId}/populate`, {
+      credentials: 'same-origin'
+    })
       .then(response => response.json())
       .then(json => dispatch(receivePopulatedSingleProduct(json)))
   }
@@ -87,13 +91,6 @@ export function fetchAndPopulateSingleProductById(productId) {
 CREATE ACTIONS
 
 ***************/
-
-export const REQUEST_SETUP_NEW_PRODUCT = "REQUEST_SETUP_NEW_PRODUCT";
-function requestSetupNewProduct() {
-  return {
-    type: REQUEST_SETUP_NEW_PRODUCT
-  }
-}
 
 export const SETUP_NEW_PRODUCT = "SETUP_NEW_PRODUCT";
 export function setupNewProduct() {
@@ -134,6 +131,7 @@ export function sendCreateProduct(data) {
         'Accept': 'application/json'
         , 'Content-Type': 'application/json'
       }
+      , credentials: 'same-origin'
       , body: JSON.stringify(data)
     })
     .then(response => response.json())
@@ -142,10 +140,10 @@ export function sendCreateProduct(data) {
       console.log("chck rediredt");
       console.log(json);
       if(json.success) {
-        //redirect to slug route
         browserHistory.push(`/products/${json.product._id}`)
-        // //redirect to byId route
-        // browserHistory.push(`/news/byId/${json.product._id}`)
+      } else {
+        //TODO: do something useful with the error
+        alert("ERROR");
       }
     })
   }
@@ -189,16 +187,16 @@ export function sendUpdateProduct(data) {
         'Accept': 'application/json'
         , 'Content-Type': 'application/json'
       }
+      , credentials: 'same-origin'
       , body: JSON.stringify(data)
     })
     .then(response => response.json())
     .then(json => dispatch(receiveUpdateProduct(json)))
     .then((json) => {
       if(json.success) {
-        //redirect to slug route
         browserHistory.push(`/products/${json.product._id}`)
-        // //redirect to byId route
-        // browserHistory.push(`/news/byId/${json.product._id}`)
+      } else {
+        alert("ERROR");
       }
     })
   }

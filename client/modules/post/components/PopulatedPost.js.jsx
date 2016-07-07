@@ -12,7 +12,7 @@ class PopulatedPost extends Base {
     super(props);
 
   }
-  componentWillMount() {
+  componentDidMount() {
     console.log("Populated item mounting *****");
     // console.log(this.context);
     const { dispatch, params } = this.props;
@@ -59,14 +59,14 @@ PopulatedPost.propTypes = {
   dispatch: PropTypes.func.isRequired
 }
 
-const mapStateToProps = (state) => {
+const mapStoreToProps = (store) => {
   // console.log("State");
   // console.log(state);
   return {
-    item: state.post.single.item
+    item: store.post.single.item
   }
 }
 
 export default connect(
-  mapStateToProps
+  mapStoreToProps
 )(PopulatedPost);

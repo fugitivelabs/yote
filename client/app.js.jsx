@@ -1,8 +1,13 @@
 import React from 'react';
 import { render } from 'react-dom';
 
-import { Router, Route, IndexRoute, browserHistory, applyRouterMiddleware } from 'react-router';
-import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { Router, browserHistory } from 'react-router';
+
+//NOTE: not the same as react-router/applyRouterMiddleware. using that breaks relative links
+//TODO: in future, check to see if react-router one starts working and remove this dependency
+import applyRouterMiddleware from 'react-router-apply-middleware';
+
+// import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { useRelativeLinks } from 'react-router-relative-links';
@@ -23,7 +28,7 @@ render(
     <Provider store={store}>
       <Router
         history={history}
-        render={applyRouterMiddleware(useScroll(), useRelativeLinks())}
+        render={applyRouterMiddleware(useRelativeLinks(), useScroll() )}
         routes={routes}
       />
     </Provider>

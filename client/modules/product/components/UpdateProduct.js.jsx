@@ -78,14 +78,14 @@ UpdateProduct.propTypes = {
   dispatch: PropTypes.func.isRequired
 }
 
-const mapStateToProps = (state) => {
+const mapStoreToProps = (store) => {
   // console.log("State");
   // console.log(state);
   return {
-    item: state.product.single.item
+    item: store.product.single.item
   }
 }
 
 export default connect(
-  mapStateToProps
+  mapStoreToProps
 )(UpdateProduct);
