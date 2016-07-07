@@ -46,7 +46,7 @@ SingleProduct.propTypes = {
 
 const mapStoreToProps = (store) => {
   return {
-    item: state.product.single.item
+    item: store.product.single.item
   }
 }
 

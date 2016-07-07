@@ -78,5 +78,5 @@ const mapStoreToProps = (store) => {
 }
 
 export default connect(
-  mapStateToProps
+  mapStoreToProps
 )(Landing);
