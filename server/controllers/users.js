@@ -194,7 +194,9 @@ exports.requestPasswordReset = function(req, res) {
           html += "<br><p>" + resetUrl + " Reset Rostr Password</p>";
 
           utilitiesCtrl.sendEmail(targets, "Your Password for YOTE", html, function(data) {
-            res.send({success: true, message: data.message});
+            // console.log("RETURN:");
+            // console.log(data);
+            res.send({success: data.success, message: data.message});
           });
         }
       });
@@ -235,21 +237,27 @@ exports.resetPassword = function(req, res) {
     var projection = {
       firstName: 1, lastName: 1, username: 1, password_salt: 1, password_hash: 1, roles: 1
     }
-    User.findOne({_id: req.param('userId')}, projection).exec(function(err, user) {
-      if(err || !user) {
-        res.send({success: false, message: "Could not find user in db"});
-      } else {
-        var newSalt = User.createPasswordSalt();
-        var newHash = User.hashPassword(newSalt, req.param('newPass'));
-        user.password_salt = newSalt;
-        user.password_hash = newHash;
-        user.save(function(err, user) {
-          if(err || !user) {
-            res.send({success: false, message: "Error updating user password"});
-          } else {
-            res.send({success: true, message: "Updated password! Please login."});
-          }
-        });
-      }
-    });
+    if(!req.param('newPass') || req.param('newPass').length < 6) {
+      console.log("needs to use a better password");
+      res.send({success: false, message: "Password requirements not met: Must be at least 6 characters long."}); //bare minimum
+    } else {
+
+      User.findOne({_id: req.param('userId')}, projection).exec(function(err, user) {
+        if(err || !user) {
+          res.send({success: false, message: "Could not find user in db"});
+        } else {
+          var newSalt = User.createPasswordSalt();
+          var newHash = User.hashPassword(newSalt, req.param('newPass'));
+          user.password_salt = newSalt;
+          user.password_hash = newHash;
+          user.save(function(err, user) {
+            if(err || !user) {
+              res.send({success: false, message: "Error updating user password"});
+            } else {
+              res.send({success: true, message: "Updated password! Please login."});
+            }
+          });
+        }
+      });
+    }
 }

@@ -58,8 +58,7 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-//persistent session storage
-// mongoose.connect(config.db);
+mongoose.connect(config.db);
 app.use(session({
   //TODO: configure mongo to use the same database connection
   store: new MongoStore({mongooseConnection: mongoose.connection})

@@ -8,8 +8,8 @@ var mongoose = require('mongoose')
 //helper functions
 function requireLogin() {
   return function(req, res, next) {
-    logger.debug("LOGIN CHECK HIT");
     if(req.headers.token) {
+      logger.debug("LOGIN CHECK HIT - by token");
       //check by token
       logger.debug(req.headers.token);
       User.findOne({apiToken: req.headers.token}).exec(function(err, user) {
@@ -34,8 +34,11 @@ function requireLogin() {
       });
 
     } else {
+      logger.debug("LOGIN CHECK HIT - by cookie");
+      console.log(req.user);
       //check by passport session
       if(!req.isAuthenticated()) {
+        console.log("UNAUTHORIZED");
         res.status(403);
         res.send("UNAUTHORIZED - NOT LOGGED IN");
       } else {  next(); }

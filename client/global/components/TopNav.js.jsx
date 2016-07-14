@@ -3,43 +3,25 @@ import Base from './BaseComponent.js.jsx';
 import CloseWrapper from './helpers/CloseWrapper.js.jsx';
 import { Link } from 'react-router';
 
-class DropdownMenu extends Base {
-  constructor(props) {
-    super(props);
-  }
-  render() {
-    if(this.props.isOpen) {
-      return(
-        <ul className="dropMenu">
-          <li className="dropdown-header"> Hello,  </li>
-          <li><Link onClick={this.props._openDropdown} to="/posts"> Posts</Link></li>
-          <li><a href="#"> Admin </a></li>
-          <li role="separator" className="divider"><br/></li>
-          <li><a href="#">Logout</a></li>
-        </ul>
-      )
-    } else {
-      return null;
-    }
-  }
-}
-
+import DropdownMenu from './DropdownMenu.js.jsx';
 
 export default class TopNav extends Base {
   constructor(props, context) {
     super(props);
-    this.state = this.getState();
+    this.state = {
+      isOpen: false
+    }
     this._bind(
       '_openDropdown'
       , '_closeDropdown'
     );
   }
 
-  getState() {
-    return {
-      isOpen: false
-    }
-  }
+  // getState() {
+  //   return {
+  //     isOpen: false
+  //   }
+  // }
 
   _openDropdown(e) {
     e.stopPropagation();
@@ -75,7 +57,7 @@ export default class TopNav extends Base {
               <Link to="/products" activeClassName="active">Products <sup>simple</sup></Link>
             </li>
             <li>
-              <Link to="/posts" activeClassName="active">Posts <sup> complex</sup></Link>
+              <Link to="/posts" activeClassName="active">Posts 2<sup> complex</sup></Link>
             </li>
 
             <li className="dropdown">
