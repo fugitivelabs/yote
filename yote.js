@@ -10,6 +10,7 @@ Welcome to Yote.  We hope you like it.
 
 
 var express         = require('express')
+  , compress        = require('compression')
   , bodyParser      = require('body-parser')
   , cookieParser    = require('cookie-parser')
   , serveStatic     = require('serve-static')
@@ -49,17 +50,19 @@ require('./server/db')(config);
 var UserSchema = require('./server/models/User').User
   , User = mongoose.model('User')
 
+//use express compression plugin
+app.use(compress());
+
 //configure express
 app.set('views', __dirname + '/server/views');
-app.set('view engine', 'jade');
+app.set('view engine', 'pug');
 app.use(timeout(30000)); //upper bound on server connections, in ms.
 // app.use(logger('dev'));
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-//persistent session storage
-// mongoose.connect(config.db);
+mongoose.connect(config.db);
 app.use(session({
   //TODO: configure mongo to use the same database connection
   store: new MongoStore({mongooseConnection: mongoose.connection})
@@ -88,7 +91,7 @@ if (app.get('env') == 'development') {
   }));
 }
 
-//allow the angular ui-views to be written in Jade
+//serve static assets, incl. react bundle.js
 app.use(serveStatic(__dirname + '/public'));
 
 //request checks

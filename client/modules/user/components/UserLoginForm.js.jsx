@@ -30,6 +30,10 @@ const UserLoginForm = ({ user, handleFormSubmit, handleFormChange }) => {
               <div className="yt-row space-between">
                 <button className="yt-btn " type="submit" > Login </button>
               </div>
+              <br/>
+              <div className="yt-row space-between u-pullRight">
+                <Link to={"/user/forgotpassword"} className="yt-btn fowler x-small"> Forgot Password? </Link>
+              </div>
             </div>
           </form>
         </div>

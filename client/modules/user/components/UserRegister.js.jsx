@@ -6,9 +6,9 @@ import { connect } from 'react-redux';
 import * as userSingleActions from '../actions/userSingleActions';
 
 //components
-import UserLoginForm from './UserLoginForm.js.jsx';
+import UserRegisterForm from './UserRegisterForm.js.jsx';
 
-class UserLogin extends Base {
+class UserRegister extends Base {
   constructor(props) {
     super(props);
     this.state = this.props;
@@ -17,20 +17,10 @@ class UserLogin extends Base {
       , '_handleFormSubmit'
     );
   }
-  // componentWillMount() {
-  //   const { dispatch } = this.props;
-  //   dispatch(singleActions.setupNewPost())
-  //   // this.props.dispatch(singleActions.setupNewPost()).then(() =>{
-  //   //     console.log(this.props);
-  //   //   });
-  // }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState(nextProps);
-    if(nextProps.status === "error") {
-      alert(nextProps.error.message);
-    }
-  }
+ 
+ componentDidMount() {
+  this.props.dispatch(userSingleActions.setupNewUser());
+ }
 
   _handleFormChange(e) {
     var nextState = this.state.user;
@@ -40,14 +30,16 @@ class UserLogin extends Base {
 
   _handleFormSubmit(e) {
     e.preventDefault();
-    this.props.dispatch(userSingleActions.sendLogin(this.state.username, this.state.password));
+    console.log("SUBMIT");
+    console.log(this.state.user);
+    this.props.dispatch(userSingleActions.sendRegister(this.state.user));
   }
 
   render() {
     const { user } = this.state;
     return  (
       <div>
-        <UserLoginForm
+        <UserRegisterForm
           user={user}
           handleFormSubmit={this._handleFormSubmit}
           handleFormChange={this._handleFormChange}
@@ -57,7 +49,7 @@ class UserLogin extends Base {
   }
 }
 
-UserLogin.propTypes = {
+UserRegister.propTypes = {
   dispatch: PropTypes.func.isRequired
 }
 
@@ -67,4 +59,4 @@ const mapStoreToProps = (store) => {
 
 export default connect(
   mapStoreToProps
-)(UserLogin);
+)(UserRegister);

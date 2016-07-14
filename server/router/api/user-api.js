@@ -58,7 +58,7 @@ module.exports = function(router, requireLogin, requireRole) {
   });
 
   // user logout
-  router.post('/api/users/logout', function(req, res) {
+  router.post('/api/users/logout', requireLogin(), function(req, res) {
     //logout with token will not affect session status, and vice-versa
     logger.debug("logout");
     if(req.headers.token) {
@@ -67,7 +67,8 @@ module.exports = function(router, requireLogin, requireRole) {
       User.findOne({apiToken: req.headers.token}).exec(function(err, user) {
         if(err || !user) {
           logger.error("could not find user object to log out with");
-          res.end();
+          res.send({success: false, message: "could not find user object to log out with"})
+          // res.end();
         } else {
           user.removeToken(function(err) {
             if(err) {
@@ -75,15 +76,31 @@ module.exports = function(router, requireLogin, requireRole) {
               res.send({success: false, message: "could not remove user token"});
             } else {
               logger.debug("removed token");
-              res.end();
+              res.send({success: true, message: "User logged out via token"});
+              // res.end();
             }
           });
         }
       });
     } else {
-      //remove session object
-      req.logout();
-      res.end();
+      console.log("logout with cookie");
+      // // doing it with status codes:
+      // req.logout();
+      // res.status(200).end();
+
+      //know issues with passport local and logging out. don't know why this hasnt been a bigger issue for us before.
+      // but we'd rather do this with our normal success true/false for consistency
+      //https://github.com/jaredhanson/passport/issues/246
+
+      req.session.destroy(function(err) {
+        req.logout();
+        if(err) {
+          res.send({success: false, err: err, message: "Error logging user out"});
+        } else {
+          console.log("REMOVED SESSION OBJECT");
+          res.send({success: true, message: "User logged out."});
+        }
+      });
     }
   });
 

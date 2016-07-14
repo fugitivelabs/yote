@@ -2,7 +2,7 @@ doctype
 html(lang="en")
   head
     title Yote App
-    meta(name="description" content="")
+    meta(name="description" content="A cool app made with Yote")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     meta(charset="utf-8")
     link(href="/favicon.ico", rel="shortcut icon", type="image/x-icon")
@@ -28,7 +28,6 @@ html(lang="en")
     else
       script.
         window.currentUser = {}
-    //- this freaks the sublime jade highlighter out but it is valid
     script.
       window.development = !{JSON.stringify(development)}
   body
