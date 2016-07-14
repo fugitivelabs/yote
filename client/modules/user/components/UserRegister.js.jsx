@@ -30,7 +30,9 @@ class UserRegister extends Base {
 
   _handleFormSubmit(e) {
     e.preventDefault();
-    this.props.dispatch(userActions.sendRegister(this.state.username, this.state.password));
+    console.log("SUBMIT");
+    console.log(this.state.user);
+    this.props.dispatch(userSingleActions.sendRegister(this.state.user));
   }
 
   render() {

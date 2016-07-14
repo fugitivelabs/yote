@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 import { TextInput, EmailInput, PasswordInput } from '../../../global/components/forms';
 
 const UserRegisterForm = ({ user, handleFormSubmit, handleFormChange }) => {
-  console.log("register form loading");
+  // console.log("register form loading");
   return (
     <div className="yt-container">
       <h1> Register Account </h1>

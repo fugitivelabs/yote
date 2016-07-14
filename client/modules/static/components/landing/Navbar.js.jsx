@@ -71,7 +71,7 @@ class Navbar extends Base {
               <Link to="/products" activeClassName="active">Products <sup>simple</sup></Link>
             </li>
             <li>
-              <Link to="/posts" activeClassName="active">Posts 1 <sup> complex</sup></Link>
+              <Link to="/posts" activeClassName="active">Posts <sup> complex</sup></Link>
             </li>
 
             <li className="dropdown">

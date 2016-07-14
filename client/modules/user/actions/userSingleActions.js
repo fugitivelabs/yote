@@ -86,6 +86,7 @@ export function sendRegister(userData) {
         'Accept': 'application/json'
         , 'Content-Type': 'application/json'
       }
+      , credentials: 'same-origin'
       , body: JSON.stringify(userData)
     })
     .then(res => res.json())
@@ -93,6 +94,8 @@ export function sendRegister(userData) {
     .then((json) => {
       if(json.success) {
         browserHistory.push('/')
+      } else {
+        //catch error
       }
     })
   }

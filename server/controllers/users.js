@@ -73,8 +73,10 @@ exports.create = function(req, res, next) {
       }
       res.send({success: false, message: "Username is already in use."});
     } else {
-      req.logIn(user, function(err) {
+      req.login(user, function(err) {
         if(err) {
+          console.log("ERROR LOGGING IN NEW USER");
+          console.log(err);
           return next(err);
         } else {
           if(req.param("withToken")) {
@@ -87,7 +89,18 @@ exports.create = function(req, res, next) {
               }
             });
           } else {
-            res.send({success: true, user: user});
+            console.log("NEWLY REGISTERED USER LOGGING IN");
+            logger.warn(req.user.username);
+            var returnUser = {
+              _id: user._id
+              , firstName: user.firstName
+              , lastName: user.lastName
+              , username: user.username
+              , roles: user.roles
+            }
+            console.log("logged in");
+            logger.debug(returnUser);
+            res.send({success:true, user: returnUser});
           }
         }
       });

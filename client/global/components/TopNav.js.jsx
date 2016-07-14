@@ -57,7 +57,7 @@ export default class TopNav extends Base {
               <Link to="/products" activeClassName="active">Products <sup>simple</sup></Link>
             </li>
             <li>
-              <Link to="/posts" activeClassName="active">Posts 2<sup> complex</sup></Link>
+              <Link to="/posts" activeClassName="active">Posts <sup> complex</sup></Link>
             </li>
 
             <li className="dropdown">

@@ -45,13 +45,13 @@ function single(state = {
             , roles: []
           }
         })
-      case singleActions.REQUEST_USER_REGISTER:
+      case singleActions.REQUEST_REGISTER:
         return Object.assign({}, state, {
           isFetching: true
           , error: null
           , status: null
         })
-      case singleActions.RECEIVE_USER_REGISTER:
+      case singleActions.RECEIVE_REGISTER:
         if(action.success) {
           return Object.assign({}, state, {
             isFetching: false
