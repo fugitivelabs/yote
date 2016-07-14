@@ -46,6 +46,7 @@ export function sendLogin(username, password) {
         console.log(json.error);
         alert("Invalid login credentials. Please try again.");
       }
+      return json;
     })
   }
 }
@@ -95,8 +96,11 @@ export function sendRegister(userData) {
       if(json.success) {
         browserHistory.push('/')
       } else {
-        //catch error
+        console.log("Invalid registration");
+        console.log(json.error);
+        alert("Invalid registration. Please make sure all fields are correct and try again.");
       }
+      return json;
     })
   }
 }
@@ -132,30 +136,7 @@ export function sendLogout() {
       , credentials: 'same-origin'
       , body: null
     })
-    // .then((res) => {
-    //   console.log("RECEIVED LOGOUT RESPONSE");
-    //   if(res.status == 200) {
-    //     console.log("success");
-    //     dispatch(receiveLogout({
-    //       success: true
-    //     }))
-    //   } else {
-    //     console.log("not success");
-    //     dispatch(receiveLogout({
-    //       success: false,
-    //       message: "Failed to log out."
-    //     }))
-    //   }
-    //   console.log("HERE 1");
-    //   console.log(res);
-    //   // return res;
-    // })
     .then(res => res.json())
-    .then(json => {
-      console.log("HERE 2");
-      console.log(json);
-      return json;
-    })
     .then(json => dispatch(receiveLogout(json)))
     .then((json) => {
       //if they hit this route, where should they redirect to?
@@ -165,6 +146,7 @@ export function sendLogout() {
       } else {
         alert("An error occured while trying to log out. Please try again.");
       }
+      return json;
     })
   }
 }
@@ -213,6 +195,7 @@ export function sendForgotPassword(username) {
       } else {
         alert("There was a problem reseting your password on the server. Please contact a site admin.");
       }
+      return json;
     })
   }
 }
@@ -298,6 +281,7 @@ export function sendResetPassword(userId, password) {
       } else {
         alert("There was a problem reseting your password on the server. " + json.error);
       }
+      return json;
     })
   }
 }
