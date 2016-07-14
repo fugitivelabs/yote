@@ -1,0 +1,36 @@
+doctype
+html(lang="en")
+  head
+    title Yote App
+    meta(name="description" content="A cool app made with Yote")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(charset="utf-8")
+    link(href="/favicon.ico", rel="shortcut icon", type="image/x-icon")
+    link(href='https://fonts.googleapis.com/css?family=Roboto:400,300,400italic,300italic,700,700italic' rel='stylesheet' type='text/css')
+    link(href='https://fonts.googleapis.com/css?family=Source+Code+Pro:400,300,700,200,600,500,900' rel='stylesheet' type='text/css')
+    link(rel="stylesheet", href="/css/animate.min.css")
+
+    //- icons prefer either iconicons or fontawesome
+    //- link(rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css")
+    link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css")
+
+    //- compiled SASS styles
+    link(rel="stylesheet", href="/css/yote.css")
+
+    //- regular non-SASS styles
+    //- uncomment line below to use
+    //- link(rel="stylesheet", href="/css/style.css")
+
+    //- set current user if it exists. else set to null.
+    if !!currentUser
+      script.
+        window.currentUser = !{JSON.stringify(currentUser)}
+    else
+      script.
+        window.currentUser = {}
+    script.
+      window.development = !{JSON.stringify(development)}
+  body
+    //- load the react container and run the react script
+    #react
+    script(src='/js/react-bundle.js')
