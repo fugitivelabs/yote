@@ -36,7 +36,7 @@ class CreatePost extends Base {
   }
 
   _handleFormChange(e) {
-    var nextState = this.state.user;
+    var nextState = this.state.item;
     nextState[e.target.name] = e.target.value;
     nextState.status = nextState.isPublished ? "published" : "draft";
     this.setState(nextState);
