@@ -22,6 +22,8 @@ function single(state = {
         })
       case singleActions.RECEIVE_LOGIN:
         if(action.success) {
+          //set user global object for login checks
+          window.currentUser = action.user;
           return Object.assign({}, state, {
             isFetching: false
             , user: action.user
@@ -74,6 +76,8 @@ function single(state = {
         })
       case singleActions.RECEIVE_LOGOUT:
         if(action.success) {
+          //remove user global object for login checks
+          window.currentUser = {};
           return Object.assign({}, state, {
             isFetching: false
             , user: {}

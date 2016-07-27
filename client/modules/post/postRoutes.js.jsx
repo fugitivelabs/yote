@@ -1,7 +1,7 @@
-
-
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
+
+import Auth from '../../global/util/auth.js';
 
 //import Components
 import Layout from './components/PostLayout.js.jsx';
@@ -11,7 +11,7 @@ import Create from './components/CreatePost.js.jsx';
 import Update from './components/UpdatePost.js.jsx';
 
 const postRoutes =
-<Route path="/posts" component={Layout} >
+<Route path="/posts" onEnter={Auth.requireLogin} component={Layout} >
   <IndexRoute component={List} />
   <Route path="/posts/new" component={Create} />
   <Route path="/posts/:slug">
