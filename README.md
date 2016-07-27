@@ -255,6 +255,9 @@ to send emails, use the "utilities" controller. an example of its use is users c
 BACKING UP THE DATABASE
 (notes for later, from Grant to Grant)
 
+//access db:
+docker run -it --rm --link mongodb:mongodb library/mongo bash -c 'mongo --host mongodb'
+
 1. CREATE AND SAVE BACKUP FILES
 a. on remote, create backup files
 docker run -v ~/backup/:/backup/ -it --rm --link mongodb:mongodb library/mongo bash -c 'mongodump -d propatient -o /backup/ --host mongodb'
