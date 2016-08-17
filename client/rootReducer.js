@@ -2,9 +2,9 @@ import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux';
 
 //individual reducers
-import user from './modules/user/reducers';
-import post from './modules/post/reducers';
-import product from './modules/product/reducers';
+// import user from './modules/user/reducers';
+// import post from './modules/post/reducers';
+// import product from './modules/product/reducers';
 import statics from './modules/static/reducers';
 
 var routesToCombine = Object.assign(
