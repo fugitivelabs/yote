@@ -5,7 +5,7 @@ Find Your Road.
 
 # Formatted README below
 
-_NOTE: Grant needs to review and bring in some other things regarding https_
+_NOTE:  This is an internal tool we use at [Fugitive Labs](www.fugitivelabs.com). It has an accompanying [CLI](https://www.npmjs.com/package/yote) to make getting projects up and running easier, which you can install via npm. It is under active developement, but feel free to try it out and contribute!  _
 
 ======
 
@@ -263,12 +263,12 @@ a. on remote, create backup files
 docker run -v ~/backup/:/backup/ -it --rm --link mongodb:mongodb library/mongo bash -c 'mongodump -d propatient -o /backup/ --host mongodb'
 
 b. on local, retrieve backup files from instance
-gcloud compute copy-files grantfowler@propatient:/home/grant_fugitivelabs_com/backup/propatient ./ --zone us-central1-a
+gcloud compute copy-files grantfowler@propatient:/home/grant/backup/propatient ./ --zone us-central1-a
 
 2. RESTORE BACKUP FILES TO REMOTE INSTANCE
 a. on remote, make sure target folder has correct permissions
 b. on local, copy backup files to remote instance
-gcloud compute copy-files ~/Desktop/backup/propatient grantfowler@propatient:/home/grant_fugitivelabs_com/backup/ --zone us-central1-a
+gcloud compute copy-files ~/Desktop/backup/propatient grantfowler@propatient:/home/grant/backup/ --zone us-central1-a
 
 c. on remote, drop database
 d. on remote, restore db from backup files
