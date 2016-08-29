@@ -35,23 +35,28 @@ class PostList extends Base {
     const { list } = this.props;
     const isEmpty = list.all.length === 0;
     return(
-      <div className="yt-container">
-        <h1> Post List
-          <Link className="yt-btn small u-pullRight" to={'/posts/new'}> NEW POST </Link>
-        </h1>
-        <hr/>
-          {isEmpty
-            ? (list.isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
-            : <div style={{ opacity: list.isFetching ? 0.5 : 1 }}>
-              <ul>
-                {list.all.map((item, i) =>
-                  <PostListItem key={i} post={item} />
-                )}
-              </ul>
-            </div>
-          }
+      <div className="flex ">
+        <section className="section ">
+          <div className="yt-container">
+            <h1> Post List
+              <Link className="yt-btn small u-pullRight" to={'/posts/new'}> NEW POST </Link>
+            </h1>
+            <hr/>
+            {isEmpty
+              ? (list.isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
+                : <div style={{ opacity: list.isFetching ? 0.5 : 1 }}>
+                  <ul>
+                    {list.all.map((item, i) =>
+                      <PostListItem key={i} post={item} />
+                    )}
+                  </ul>
+                </div>
+            }
+          </div>
+        </section>
       </div>
     )
+
   }
 }
 

@@ -16,10 +16,10 @@ $topbar-height:  $header-height;
 
 %navigation {
   @extend %calibre-semibold;
-  @include smaller-font;
+  // @include smaller-font;
   @include display-flex;
   list-style: none;
-  text-transform: uppercase;
+  // text-transform: uppercase;
 }
 
 
@@ -199,7 +199,7 @@ ul.navigation {
 }
 
 .topbar {
-  background-color: inherit;
+  background-color: $topbar-bg-color;
   height: $topbar-height;
   position: relative;
   @include display-flex;
@@ -231,9 +231,9 @@ ul.navigation {
     @include display-flex;
     @include justify-content(flex-end);
     list-style: none;
-    @extend %calibre-semibold;
-    @include smaller-font;
-    text-transform: uppercase;
+    // @extend %calibre-semibold;
+    // @include smaller-font;
+    // text-transform: uppercase;
     li {
       margin-left: $gutter-width;
       a {

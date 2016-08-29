@@ -1,8 +1,8 @@
 section, .section {
   width: 100%;
   background-color: #fff;
-  @extend %top-spacer;
-  @extend %bottom-spacer;
+  // @extend %top-spacer;
+  // @extend %bottom-spacer;
   &.no-spacer {
     padding-top: 0;
     padding-bottom: 0;

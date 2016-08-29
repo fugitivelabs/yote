@@ -34,5 +34,5 @@ render(
     </Provider>
 
   )
-  , document.getElementById('react')
+  , document.getElementById('application-main-yote')
 )
