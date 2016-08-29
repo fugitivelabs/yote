@@ -22,19 +22,23 @@ class SingleProduct extends Base {
     const isEmpty = !item;
     console.log("isEmpty", isEmpty);
     return  (
-      <div className="yt-container">
-        <h3> Single Product Item </h3>
-        {isEmpty
-          ? (item.isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
-          : <div style={{ opacity: item.isFetching ? 0.5 : 1 }}>
+      <div className="flex">
+        <section className="section">
+          <div className="yt-container">
+            <h3> Single Product Item </h3>
+            {isEmpty
+              ? (item.isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
+                : <div style={{ opacity: item.isFetching ? 0.5 : 1 }}>
 
-              <h1> { item.title }
-                <Link className="yt-btn small u-pullRight" to={`/products/${item._id}/update`}> UPDATE PRODUCT </Link>
-              </h1>
-              <hr/>
-              <p> {item.description }</p>
-            </div>
-          }
+                  <h1> { item.title }
+                    <Link className="yt-btn small u-pullRight" to={`/products/${item._id}/update`}> UPDATE PRODUCT </Link>
+                  </h1>
+                  <hr/>
+                  <p> {item.description }</p>
+                </div>
+            }
+          </div>
+        </section>
       </div>
     )
   }
