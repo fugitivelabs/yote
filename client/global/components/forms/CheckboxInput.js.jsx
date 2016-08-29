@@ -14,12 +14,14 @@ class CheckboxInput extends Base {
     this._bind('_handleInputChange');
 
   }
-  componentDidMount() {
-    if(this.props.value === true ) {
 
-      this.setState({isChecked: true});
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.value !== this.state.isChecked) {
+      this.setState({isChecked: !this.state.isChecked})
     }
   }
+
+
   _handleInputChange(e) {
     const event = e;
     const checked = e.target.checked;
@@ -31,7 +33,6 @@ class CheckboxInput extends Base {
       , name: name
     });
     this.props.change(event, name, value);
-    this.setState({isChecked: !this.state.isChecked});
 
   }
   render() {

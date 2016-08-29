@@ -1,9 +1,11 @@
 import React, { PropTypes } from 'react';
 import Base from "../../../global/components/BaseComponent.js.jsx";
 import { connect } from 'react-redux';
+import _ from 'lodash';
 
 // import actions
-import { singleActions } from '../actions';
+import { singleActions as postSingleActions } from '../actions';
+import { listActions as userListActions } from '../../user/actions';
 
 // import components
 import PostForm from './PostForm.js.jsx';
@@ -18,17 +20,18 @@ class UpdatePost extends Base {
     );
   }
   componentDidMount() {
-    console.log("Single item mounting");
+    // console.log("Single item mounting");
     // console.log(this.context);
 
     // action.fetchItem();
     const populate = false;
     // const populate = false;
     const { dispatch, params } = this.props;
+    dispatch(userListActions.fetchList());
     if(params.postId) {
-      dispatch(singleActions.fetchSinglePostById(params.postId, populate ))
+      dispatch(postSingleActions.fetchSinglePostById(params.postId, populate ))
     } else {
-      dispatch(singleActions.fetchSinglePostBySlug(params.slug))
+      dispatch(postSingleActions.fetchSinglePostBySlug(params.slug))
     }
   }
 
@@ -36,36 +39,36 @@ class UpdatePost extends Base {
     this.setState(nextProps);
   }
 
-  _handleFormChange(e) {
-    var nextState = this.state.item;
-    nextState[e.target.name] = e.target.value;
-    nextState.status = nextState.isPublished ? "published" : "draft";
-    this.setState(nextState);
-
+  _handleFormChange(e, name, value) {
+    var newState = _.update( this.state.item, e.target.name, function() {
+      return e.target.value;
+    });
+    this.setState(newState);
   }
 
   _handleFormSubmit(e) {
     e.preventDefault();
     // console.log("_handleFormSubmit");
     // console.log(e);
-    this.props.dispatch(singleActions.sendUpdatePost(this.state.item));
+    this.props.dispatch(postSingleActions.sendUpdatePost(this.state.item));
   }
 
   render() {
-    const { item } = this.state;
+    const { item, users } = this.state;
     const isEmpty = !item;
     return  (
       <div >
         {isEmpty
           ? <h2> Loading...</h2>
-          : <PostForm
-            post={item}
-            formType="update"
-            handleFormSubmit={this._handleFormSubmit}
-            handleFormChange={this._handleFormChange}
-            cancelLink={`/posts/${item.slug}`}
-            formTitle="Update Post"
-            />
+            : <PostForm
+              post={item}
+              users={users}
+              formType="update"
+              handleFormSubmit={this._handleFormSubmit}
+              handleFormChange={this._handleFormChange}
+              cancelLink={`/posts/${item.slug}`}
+              formTitle="Update Post"
+              />
         }
       </div>
     )
@@ -81,6 +84,7 @@ const mapStoreToProps = (store) => {
   // console.log(state);
   return {
     item: store.post.single.item
+    , users: store.user.list.items
   }
 }
 

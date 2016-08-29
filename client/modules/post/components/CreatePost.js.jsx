@@ -38,14 +38,10 @@ class CreatePost extends Base {
   }
 
   _handleFormChange(e, name, value) {
-    // console.log("_handleFormChange");
-    // console.log(e);
-    var listing = this.state.item.listing;
-    var newPostState = _.update( this.state.item, e.target.name, function() {
+    var newState = _.update( this.state.item, e.target.name, function() {
       return e.target.value;
     });
-    console.log(newPostState);
-    this.setState(newPostState);
+    this.setState(newState);
   }
 
   _handleFormSubmit(e) {

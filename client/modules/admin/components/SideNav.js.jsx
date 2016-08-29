@@ -29,7 +29,7 @@ export default class SideNav extends Base {
           <li>
             <Link to="/admin/style-guide" activeClassName="active" >Styleguide</Link>
           </li>
-          
+
 
         </ul>
         <hr/>

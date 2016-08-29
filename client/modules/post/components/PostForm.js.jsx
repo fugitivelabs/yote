@@ -62,6 +62,7 @@ const PostForm = ({post, formType, handleFormSubmit, handleFormChange,  cancelLi
               objects={users}
               display={'username'}
               value={'_id'}
+              selected={post.author}
               change={handleFormChange}
               placeholder="-- Select an author --"
             />
