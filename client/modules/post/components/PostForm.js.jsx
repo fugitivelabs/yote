@@ -8,9 +8,10 @@ import {
   CheckboxInput,
   SelectFromArray,
   SimpleArrayEditor,
+  SelectFromObject,
 } from '../../../global/components/forms';
 
-const PostForm = ({post, formType, handleFormSubmit, handleFormChange,  cancelLink, formTitle }) => {
+const PostForm = ({post, formType, handleFormSubmit, handleFormChange,  cancelLink, formTitle, users }) => {
   const buttonText = formType === "create" ? "Create Post" : "Update Post";
   const header = formTitle ? <div className="formHeader"><h1> {formTitle} </h1><hr/></div> : <div/>;
   return (
@@ -54,6 +55,15 @@ const PostForm = ({post, formType, handleFormSubmit, handleFormChange,  cancelLi
               items={post.tags}
               arrayType="string"
               change={handleFormChange}
+            />
+            <SelectFromObject
+              name="author"
+              label="Author"
+              objects={users}
+              display={'username'}
+              value={'_id'}
+              change={handleFormChange}
+              placeholder="-- Select an author --"
             />
             <div className="input-group">
               <div className="yt-row space-between">

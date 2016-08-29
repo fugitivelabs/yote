@@ -26,7 +26,7 @@ class SelectFromObject extends Base{
   constructor(props, context) {
     super(props);
     this.state = {
-      selected: this.props.selected || null
+      selected: this.props.selected || ''
     }
     this._bind('_handleSelectChange');
   }
@@ -39,7 +39,6 @@ class SelectFromObject extends Base{
   }
 
   _handleSelectChange(e) {
-    console.log("handle select change in select");
     this.setState({
       selected: e.target.value
     });
@@ -57,7 +56,7 @@ class SelectFromObject extends Base{
           });
     if(placeholder) {
       // console.log("has placeholder value");
-      var placeholderText = <option key="-1" value={null}>{placeholder}</option>;
+      var placeholderText = <option key="-1" value={''}>{placeholder}</option>;
       options.unshift(placeholderText);
     }
     return(

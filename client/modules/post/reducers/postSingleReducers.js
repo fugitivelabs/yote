@@ -122,6 +122,7 @@ function single(state = {
           , featured: false
           , status: 'draft'
           , tags: []
+          , author: ''
         }
         , populated: false
       });

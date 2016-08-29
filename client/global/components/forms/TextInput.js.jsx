@@ -2,32 +2,28 @@ import React, { PropTypes } from 'react'
 
 import Base from "../BaseComponent.js.jsx";
 
-
 class TextInput extends Base {
 
 
   constructor(props) {
     super(props);
-    this.state = this.props;
+    this.state = { theVal: '' };
     this._bind('_handleInputChange');
+  }
 
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.value !== this.state.theVal) {
+      var val = nextProps.value;
+      this.setState({theVal: val});
+    }
   }
-  // // check the props the component receives
-  // componentWillReceiveProps(nextProps) {
-  //   // console.log("TextInput props");
-  //   // console.log(nextProps);
-  //   // if(nextProps.value !== this.state.value) {
-  //   //   this.setState(nextProps);
-  //   // }
-  // }
+
   _handleInputChange(e) {
-    // console.log("handleinputchange");
-    // console.log(e);
     this.props.change(e);
-    this.setState({value: e.target.value});
   }
+  
   render() {
-    const { label, value, placeholder, name, required } = this.state;
+    const { label, value, placeholder, name, required } = this.props;
     return (
       <div className="input-group">
         <label htmlFor={name}> {label} </label>
@@ -35,7 +31,7 @@ class TextInput extends Base {
           type="text"
           name={name}
           placeholder={placeholder}
-          value={value}
+          value={this.state.theVal}
           onChange={this._handleInputChange}
           required={required}
         />

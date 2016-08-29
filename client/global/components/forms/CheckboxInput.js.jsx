@@ -14,14 +14,6 @@ class CheckboxInput extends Base {
     this._bind('_handleInputChange');
 
   }
-  // // check the props the component receives
-  // componentWillReceiveProps(nextProps) {
-    // console.log("CheckboxInput props");
-    // console.log(nextProps);
-    // if(nextProps.value !== this.state.isChecked) {
-    //   this.setState({isChecked: nextProps.value});
-    // }
-  // }
   componentDidMount() {
     if(this.props.value === true ) {
 
@@ -39,15 +31,11 @@ class CheckboxInput extends Base {
       , name: name
     });
     this.props.change(event, name, value);
-    // setTimeout(() => {
-
-    // }, 150);
     this.setState({isChecked: !this.state.isChecked});
 
   }
   render() {
     const { label, value, name, checked } = this.props;
-    // const { isChecked } = this.state;
     return (
       <div className="input-group">
         <input

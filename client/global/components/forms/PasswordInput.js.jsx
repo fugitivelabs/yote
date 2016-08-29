@@ -6,22 +6,25 @@ class PasswordInput extends Base {
 
   constructor(props) {
     super(props);
-    this._bind('_handleInputChange');
+    this.state = this.props;
+    this._bind(
+      '_handleInputChange'
+      , '_validatePassword'
+    );
 
   }
-  // check the props the component receives
-  componentWillReceiveProps(nextProps) {
-    // console.log("PasswordInput props");
-    // console.log(nextProps);
-  }
+
   _handleInputChange(e) {
-    // console.log("handleinputchange");
-    // console.log(e);
     this.props.change(e);
+    this.setState({value: e.target.value});
   }
+
+  _validatePassword(password) {
+    // check password valid here
+  }
+
   render() {
-    // console.log("email inpu loading");
-    const { label, value, placeholder, name, required } = this.props;
+    const { label, value, placeholder, name, required } = this.state;
     return (
       <div className="input-group">
         <label htmlFor={name}> {label} </label>

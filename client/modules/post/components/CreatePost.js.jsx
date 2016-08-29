@@ -21,7 +21,8 @@ class CreatePost extends Base {
   }
   componentDidMount() {
     const { dispatch } = this.props;
-    dispatch(postSingleActions.setupNewPost())
+    dispatch(postSingleActions.setupNewPost());
+    dispatch(userListActions.fetchList());
     // this.props.dispatch(postSingleActions.setupNewPost()).then(() =>{
     //     console.log(this.props);
     //   });
@@ -37,13 +38,13 @@ class CreatePost extends Base {
   }
 
   _handleFormChange(e, name, value) {
-    console.log("_handleFormChange");
-    console.log(e);
+    // console.log("_handleFormChange");
+    // console.log(e);
     var listing = this.state.item.listing;
     var newPostState = _.update( this.state.item, e.target.name, function() {
       return e.target.value;
     });
-
+    console.log(newPostState);
     this.setState(newPostState);
   }
 
@@ -55,7 +56,7 @@ class CreatePost extends Base {
   }
 
   render() {
-    const { item } = this.state;
+    const { item, users } = this.state;
     const isEmpty = !item;
     return  (
       <div>
@@ -64,6 +65,7 @@ class CreatePost extends Base {
           ? <h2> Loading...</h2>
             : <PostForm
               post={item}
+              users={users}
               formType="create"
               handleFormSubmit={this._handleFormSubmit}
               handleFormChange={this._handleFormChange}
@@ -86,7 +88,7 @@ const mapStoreToProps = (store) => {
   return {
     item: store.post.single.item
     , status: store.post.single.status
-    // , users: store.user.list.items
+    , users: store.user.list.items
   }
 }
 

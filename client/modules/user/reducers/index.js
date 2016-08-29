@@ -2,9 +2,11 @@ import { combineReducers } from 'redux';
 
 // import reducers
 import single from './userSingleReducers';
+import list from './userListReducers';
 
 const userReducer = combineReducers({
-  single
+  single,
+  list
 });
 
 export default userReducer;

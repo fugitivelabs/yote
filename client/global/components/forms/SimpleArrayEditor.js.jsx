@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react'
 import Base from "../BaseComponent.js.jsx";
 
-import NumberInput from './NumberInput.js.jsx';
 import TextInput from './TextInput.js.jsx';
 
 class SimpleArrayEditor extends Base {
