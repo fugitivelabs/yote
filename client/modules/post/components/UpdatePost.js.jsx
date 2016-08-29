@@ -24,12 +24,12 @@ class UpdatePost extends Base {
     // console.log(this.context);
 
     // action.fetchItem();
-    const populate = false;
+
     // const populate = false;
     const { dispatch, params } = this.props;
     dispatch(userListActions.fetchList());
     if(params.postId) {
-      dispatch(postSingleActions.fetchSinglePostById(params.postId, populate ))
+      dispatch(postSingleActions.fetchSinglePostById(params.postId ))
     } else {
       dispatch(postSingleActions.fetchSinglePostBySlug(params.slug))
     }

@@ -33,9 +33,9 @@ class SelectFromObject extends Base{
 
   // check the props the component receives
   componentWillReceiveProps(nextProps) {
-    // console.log("SelectFromObject props");
-    // console.log(nextProps);
-    nextProps.selected ? this.setState({selected: nextProps.selected}) : null;
+    console.log("SelectFromObject props");
+    console.log(nextProps);
+    nextProps.selected ? this.setState({selected: nextProps.selected}) : '';
   }
 
   _handleSelectChange(e) {
