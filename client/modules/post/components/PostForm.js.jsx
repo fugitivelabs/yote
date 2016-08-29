@@ -1,8 +1,14 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router';
 
-// import form components 
-import { TextInput, TextAreaInput, CheckboxInput } from '../../../global/components/forms';
+// import form components
+import {
+  TextInput,
+  TextAreaInput,
+  CheckboxInput,
+  SelectFromArray,
+  SimpleArrayEditor,
+} from '../../../global/components/forms';
 
 const PostForm = ({post, formType, handleFormSubmit, handleFormChange,  cancelLink, formTitle }) => {
   const buttonText = formType === "create" ? "Create Post" : "Update Post";
@@ -20,7 +26,7 @@ const PostForm = ({post, formType, handleFormSubmit, handleFormChange,  cancelLi
               change={handleFormChange}
               placeholder="Title (required)"
               required={true}
-              />
+            />
             <TextAreaInput
               name="content"
               label="Content"
@@ -28,14 +34,27 @@ const PostForm = ({post, formType, handleFormSubmit, handleFormChange,  cancelLi
               change={handleFormChange}
               required={true}
               placeholder="This is where the content goes..."
-              />
+            />
             <CheckboxInput
-              name="isPublished"
-              label="Published"
-              value={post.isPublished}
+              name="featured"
+              label="Featured"
+              value={post.featured}
               change={handleFormChange}
-              checked={false}
-              />
+            />
+            <SelectFromArray
+              name="status"
+              label="Status:"
+              items={["draft","published","featured"]}
+              value={post.status}
+              change={handleFormChange}
+            />
+            <SimpleArrayEditor
+              name="tags"
+              label="Keywords/Tags"
+              items={post.tags}
+              arrayType="string"
+              change={handleFormChange}
+            />
             <div className="input-group">
               <div className="yt-row space-between">
                 <Link className="yt-btn link" to={cancelLink}>Cancel</Link>

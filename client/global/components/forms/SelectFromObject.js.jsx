@@ -43,25 +43,30 @@ class SelectFromObject extends Base{
     this.setState({
       selected: e.target.value
     });
-    this.props.change(e.target.value);
+    this.props.change(e, e.target.name, e.target.value);
   }
 
   render() {
-    var options = this.props.objects.map((object, index) => {
+    const { objects, value, display, name, label, placeholder } = this.props;
+    var options = objects.map((object, index) => {
             return (
-              <option key={index} value={object[this.props.value]}>
-                {object[this.props.display]}
+              <option key={index} value={object[value]}>
+                {object[display]}
               </option>
             )
           });
-    if(this.props.placeholder) {
+    if(placeholder) {
       // console.log("has placeholder value");
-      var placeholder = <option key="-1" value={null}>{this.props.placeholder}</option>;
-      options.unshift(placeholder);
+      var placeholderText = <option key="-1" value={null}>{placeholder}</option>;
+      options.unshift(placeholderText);
     }
     return(
-      <div className="select-from-object">
-        <select onChange={this._handleSelectChange} value={this.state.selected}>
+      <div className="select-from-object input-group">
+        <label htmlFor={name}> {label} </label>
+        <select name={name}
+          onChange={this._handleSelectChange}
+          value={this.state.selected}
+          >
           {options}
         </select>
       </div>

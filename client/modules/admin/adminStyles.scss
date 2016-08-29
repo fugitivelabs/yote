@@ -1,0 +1,72 @@
+
+
+
+.colors {
+  .yt-row {
+    margin-bottom: $gutter;
+  }
+  .yt-col {
+    padding: $gutter;
+  }
+  .blurple {
+    background-color: $blurple;
+    color: #fff;
+  }
+  .light-gray-1 {
+    background-color: $light-gray-1;
+  }
+  .light-gray-2 {
+    background-color: $light-gray-2;
+  }
+  .gray-1 {
+    background-color: $gray-1;
+  }
+  .gray-2 {
+    background-color: $gray-2;
+    color: #fff;
+  }
+  .black {
+    background-color: $black;
+    color: #fff;
+  }
+  .green {
+    background-color: $green;
+    color: #fff;
+  }
+}
+
+
+.flex-grid-demo {
+  .yt-container {
+    padding: $gutter-width 0;
+    background-color: pink;
+    border: pink;
+    &.slim { background-color: red; }
+  }
+  .yt-row {
+    padding: $gutter 0;
+    background-color: cyan;
+    &.with-gutters {
+      margin-top: 0;
+    }
+  }
+  .yt-col {
+    background-color: purple;
+    // color: #fff;
+  }
+  .card {
+    background-color: rgba(255,255,255,0.8);
+    padding: $gutter;
+  }
+}
+
+
+.panel-forms {
+  padding: $gutter;
+  border: 2px dotted $divider-color;
+  .panel-form {
+    margin: $gutter 0;
+    padding: $gutter 0;
+    border-top: 3px solid $text-color;
+  }
+}

@@ -5,6 +5,9 @@ import TextAreaInput from './TextAreaInput.js.jsx';
 import CheckboxInput from './CheckboxInput.js.jsx';
 import PasswordInput from './PasswordInput.js.jsx';
 import EmailInput from './EmailInput.js.jsx';
+import SimpleArrayEditor from './SimpleArrayEditor.js.jsx';
+import UrlInput from './UrlInput.js.jsx';
+import NumberInput from './NumberInput.js.jsx';
 
 export { SelectFromArray };
 export { SelectFromObject };
@@ -12,7 +15,10 @@ export { TextInput };
 export { TextAreaInput };
 export { CheckboxInput };
 export { PasswordInput };
-export { EmailInput }; 
+export { EmailInput };
+export { SimpleArrayEditor };
+export { UrlInput };
+export { NumberInput };
 
 export default {
   SelectFromArray
@@ -22,4 +28,7 @@ export default {
   , CheckboxInput
   , PasswordInput
   , EmailInput
+  , SimpleArrayEditor
+  , UrlInput
+  , NumberInput
 }
