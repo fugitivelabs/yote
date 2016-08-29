@@ -89,7 +89,7 @@ AdminCreateUser.defaultProps = {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStoreToProps = (state, ownProps) => {
   return {
     user: state.user.single.user
     , newUser: state.user.single.newUser
@@ -97,5 +97,5 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 export default connect(
-  mapStateToProps
+  mapStoreToProps
 )(AdminCreateUser);

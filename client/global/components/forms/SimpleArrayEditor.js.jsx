@@ -36,7 +36,7 @@ class SimpleArrayEditor extends Base {
     var items = this.props.items;
     items.splice(index, 1);
     var event = {target: {name: this.props.name, value: this.props.items} };
-    this.props.change(event,this.props.name, this.props.items);
+    this.props.change(event);
   }
 
   _addPillItem(value) {
@@ -51,7 +51,7 @@ class SimpleArrayEditor extends Base {
     var items = this.props.items;
     items.push(value);
     var event = {target: {name: this.props.name, value: this.props.items} };
-    this.props.change(event, this.props.name, this.props.items);
+    this.props.change(event);
     this.setState(newState);
   }
 

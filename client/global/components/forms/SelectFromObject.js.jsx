@@ -42,7 +42,7 @@ class SelectFromObject extends Base{
     this.setState({
       selected: e.target.value
     });
-    this.props.change(e, e.target.name, e.target.value);
+    this.props.change(e);
   }
 
   render() {

@@ -32,7 +32,7 @@ class CheckboxInput extends Base {
       , value: checked
       , name: name
     });
-    this.props.change(event, name, value);
+    this.props.change(event);
 
   }
   render() {

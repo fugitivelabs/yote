@@ -39,7 +39,7 @@ class UpdatePost extends Base {
     this.setState(nextProps);
   }
 
-  _handleFormChange(e, name, value) {
+  _handleFormChange(e) {
     var newState = _.update( this.state.item, e.target.name, function() {
       return e.target.value;
     });

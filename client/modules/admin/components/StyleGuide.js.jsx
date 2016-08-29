@@ -278,7 +278,7 @@ StyleGuide.propTypes = {
   dispatch: PropTypes.func.isRequired
 }
 
-const mapStateToProps = (state) => {
+const mapStoreToProps = (state) => {
   // console.log("State");
   // console.log(state);
   return {
@@ -286,5 +286,5 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(
-  mapStateToProps
+  mapStoreToProps
 )(StyleGuide);

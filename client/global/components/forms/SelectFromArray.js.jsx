@@ -59,7 +59,7 @@ class SelectFromArray extends Base{
     this.setState({
       selected: e.target.value
     });
-    this.props.change(e, e.target.name, e.target.value);
+    this.props.change(e);
   }
 
   render() {
@@ -98,7 +98,7 @@ class SelectFromArray extends Base{
 SelectFromArray.propTypes = {
   items: React.PropTypes.array.isRequired
   , change: React.PropTypes.func.isRequired // should this be required?
-  , value: React.PropTypes.any 
+  , value: React.PropTypes.any
   , placeholder: React.PropTypes.string
   , label: React.PropTypes.string
   , required: React.PropTypes.bool

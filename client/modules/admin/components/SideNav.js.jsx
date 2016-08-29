@@ -56,7 +56,7 @@ SideNav.propTypes = {
 }
 
 
-const mapStateToProps = (state) => {
+const mapStoreToProps = (state) => {
   console.log("list state");
   console.log(state);
   return {
@@ -64,5 +64,5 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(
-  mapStateToProps
+  mapStoreToProps
 )(SideNav);

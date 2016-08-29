@@ -90,7 +90,7 @@ AdminUserList.propTypes = {
   dispatch: PropTypes.func.isRequired
 }
 
-const mapStateToProps = (state) => {
+const mapStoreToProps = (state) => {
   console.log("list state");
   console.log(state);
   const { user } = state;
@@ -102,5 +102,5 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(
-  mapStateToProps
+  mapStoreToProps
 )(AdminUserList);
