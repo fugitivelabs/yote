@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
 // import components
-import GridDemo from './GridDemo.js.jsx';
 
 
 class StyleGuide extends Base {

@@ -93,13 +93,13 @@
 // dark
 [yt-btn~="dark"],
 .yt-btn.dark {
-  background-color: $grey;
-  border-color: $grey;
+  background-color: $gray;
+  border-color: $gray;
   color: $white;
 
   &:visited { color: $white; }
   &:hover {
-    background-color: darken($grey, 10);
+    background-color: darken($gray, 10);
     color: $white;
   }
   &:active {
@@ -198,7 +198,7 @@
   color: $link-color;
   &:hover {
     &:visited { color: $link-visited-color; }
-    &:hover {  background-color:$grey-9; }
+    &:hover {  background-color:$gray-9; }
     &:active { background-color: $link-hover-color; }
   }
 }

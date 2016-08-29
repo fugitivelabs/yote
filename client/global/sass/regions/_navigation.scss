@@ -1,0 +1,370 @@
+
+// Navigation components styles
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+$topbar-height:  $header-height;
+
+//header components will override this.  should clean it up in future
+%nav--fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  @include zIndex-8;
+}
+
+
+%navigation {
+  @extend %calibre-semibold;
+  @include smaller-font;
+  @include display-flex;
+  list-style: none;
+  text-transform: uppercase;
+}
+
+
+.nav-logo {
+  display: inline-block;
+  // @include large-font;
+  color: $brand-primary;
+  // font-weight: 700;
+  svg {
+    width: 120px;
+  }
+}
+
+.mobile-actions {
+  position: absolute;
+  height: 0px;
+  top: 0;
+  left: 0;
+  width: 100%;
+
+  @include MQ(M) {
+    display: none;
+  }
+}
+
+.mobileMenu {
+  @include display-flex;
+  @include zIndex-9;
+
+  height: 0;
+
+  &.open {
+    height: 100vh;
+    overflow: auto;
+  }
+
+  .mobileNavWrapper {
+    width: 100%;
+  }
+
+  nav {
+    @extend %navigation;
+    @include justify-content(flex-start);
+    @include flex-direction(column);
+    @include transform(scale(0,0));
+
+    background-color: #323b4b;
+    opacity: 0;
+    min-height: 100vh;
+    width: 100%;
+    z-index: 900;
+    padding-top: 2 * $gutter;
+
+    &.open {
+      @include transform(scale(1,1));
+      opacity: 1;
+    }
+
+    a {
+      @extend %calibre-light;
+      display: block;
+      padding-bottom: 30px;
+      width: 100%;
+      color: #fff;
+      opacity: 0.5;
+
+      &.primary {
+        font-size: 1.75rem;
+        text-transform: none;
+      }
+
+      &.secondary {
+        @extend %calibre-semibold;
+        font-size: 1rem;
+      }
+
+      &.active {
+        @extend %calibre-semibold;
+        opacity: 1;
+      }
+
+    }
+
+    a:last-child {
+      padding-bottom: 0
+    }
+
+    .linkGroup {
+        padding: $gutter * 2 0;
+        border-bottom: 1px solid rgba(255, 255, 255, .2);
+    }
+
+    .linkGroup:last-child {
+      margin-bottom: 0;
+      border: 0;
+    }
+  }
+}
+
+.iconWrapper {
+  position: relative;
+}
+
+.burger-menu {
+  @include zIndex-10;
+  position: absolute;
+  top: 23px;
+  right: 0;
+  width: 30px;
+  height: 30px;
+
+  .menuSvg, .closeSvg {
+    height: 30px;
+  }
+
+  .closeSvg {
+    display: none;
+  }
+
+  &.closer {
+
+    .menuSvg {
+      display: none;
+    }
+
+    .closeSvg {
+      display: inline-block;
+    }
+  }
+}
+
+
+ul.navigation {
+  @extend %navigation;
+  @include justify-content(flex-end);
+
+  li {
+    margin-left: $gutter;
+    a {
+      color: $text-light;
+      border-bottom: 3px solid transparent;
+      &:hover {
+        color: $brand-primary;
+        // border-bottom: 3px solid $brand-accent;
+      }
+      &.active {
+        color: $brand-primary;
+      }
+    }
+  }
+
+  &.primary {
+    @include flex(1);
+    border-right: 1px solid $divider-color;
+    padding-right: $gutter;
+    @extend %calibre-light;
+    font-size: 1.25rem;
+    line-height: 1;
+    @include MQ(XL) {
+      // everything above 1600px
+      font-size: 1.4rem;
+    }
+    text-transform: none;
+    .active {
+      @extend %calibre-semibold;
+    }
+    li {
+      text-align: center;
+      width: 120px;
+      margin-left: 0;
+      @include MQ(XS) {
+        // everything above 1600px
+        width: 120px;
+      }
+    }
+  }
+}
+
+.topbar {
+  background-color: inherit;
+  height: $topbar-height;
+  position: relative;
+  @include display-flex;
+  @include align-items(center);
+  @include justify-content(space-between);
+  .titles {
+    @include display-flex;
+    @include align-items(baseline);
+    .subtitle {
+      margin-left: $gutter;
+      color: rgba(255,255,255, 0.8);
+      @include base-font;
+      font-weight: normal;
+    }
+  }
+  .actions {
+    display: none;
+    // padding: 0 $gutter;
+    @include MQ(M) {
+      @include display-flex;
+      @include justify-content(flex-end);
+      @include align-items(center);
+      @include flex(1);
+    }
+    > .yt-row { width: 100%; }
+  }
+
+  .navigation {
+    @include display-flex;
+    @include justify-content(flex-end);
+    list-style: none;
+    @extend %calibre-semibold;
+    @include smaller-font;
+    text-transform: uppercase;
+    li {
+      margin-left: $gutter-width;
+      a {
+        color: $text-light;
+        border-bottom: 3px solid transparent;
+        &:hover {
+          color: $brand-primary;
+          // border-bottom: 3px solid $brand-accent;
+        }
+        &.active {
+          color: $brand-primary;
+        }
+      }
+    }
+    &.primary {
+      @include flex(1);
+      border-right: 1px solid $divider-color;
+      padding-right: $gutter;
+      @extend %calibre-light;
+      font-size: 1.25rem;
+      line-height: 1;
+      @include MQ(XL) {
+        // everything above 1600px
+        font-size: 1.4rem;
+      }
+      text-transform: none;
+      .active {
+        @extend %calibre-semibold;
+      }
+      li {
+        text-align: center;
+        width: 120px;
+        margin-left: 0;
+        @include MQ(S) {
+          // everything above 960px
+          width: 120px;
+        }
+        @include MQ(XL) {
+          width: 140px;
+        }
+      }
+    }
+  }
+
+
+  &._fixed {
+    @extend %nav--fixed;
+  }
+}
+
+.sidebar {
+  @include flex(0 0 12em);
+  background-color: $sidebar-bg-color;
+  color: $text-color;
+  position: relative;
+  .nav-header {
+    padding: $gutter;
+    background-color: darken($sidebar-bg-color, 7);
+    border-bottom: 1px solid darken($sidebar-bg-color, 15);
+    width: 100%;
+    color: $text-light;
+    font-weight: 700;
+  }
+  ul {
+    list-style: none;
+    // padding: $gutter 0 ;
+    // margin-top: $gutter;
+    li {
+      line-height: 1.25;
+      width: 100%;
+
+
+      &.nav-header {
+        // @include letterSpacing-loose;
+        text-transform: uppercase;
+        font-weight: 700;
+        margin-bottom: $gutter;
+        padding: $gutter;
+        padding-bottom: 0;
+        @include small-font;
+        text-align: center;
+        width: 100%;
+      }
+      a {
+        padding: $gutter;
+        color: $text-color;
+        width: 100%;
+        border-left: 3px solid $sidebar-bg-color;
+        display: block;
+        &:hover {
+          color: $link-hover-color;
+        }
+        &.active {
+          background-color: darken($sidebar-bg-color, 3);
+          color: $brand-primary;
+          border-left: 3px solid $brand-primary;
+        }
+      }
+    }
+  }
+  .side-nav-footer {
+
+  }
+}
+
+
+.dropMenu {
+  z-index: 1000;
+  position: absolute;
+  top: 100%;
+  right:10px;
+  left: auto;
+  float: left;
+  min-width: 160px;
+  padding: 5px;
+  margin: 2px 0 0;
+  font-size: 14px;
+  text-align: left;
+  list-style: none;
+  background-color: #fff;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0,0,0,.15);
+  border-radius: 4px;
+
+  @include box-shadow(0 6px 12px rgba(0,0,0,0.175));
+  li {
+    a {
+      border: none !important;
+      color: $link-color !important;
+    }
+  }
+}

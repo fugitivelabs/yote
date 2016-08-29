@@ -24,17 +24,12 @@ export default class SideNav extends Base {
   render() {
     return(
       <div className="sidebar">
-        <div className="nav-header"> Carbon Dashboard </div>
+        <div className="nav-header"> Admin Dashboard </div>
         <ul className="side-nav">
           <li>
-            <IndexLink to="/admin" activeClassName="active" >Styleguide</IndexLink>
+            <Link to="/admin/style-guide" activeClassName="active" >Styleguide</Link>
           </li>
-          <li>
-            <Link to="/admin/products" activeClassName="active" >Products</Link>
-          </li>
-          <li>
-            <Link to="/admin/posts" activeClassName="active">Posts</Link>
-          </li>
+          
 
         </ul>
         <hr/>

@@ -13,8 +13,9 @@
 /* ====================================
    Foundation
    ==================================== */
-@import "global/sass/foundation/grid";
 @import "global/sass/foundation/colors";
+@import "global/sass/foundation/grid";
+@import "global/sass/foundation/layout";
 @import "global/sass/foundation/base";
 @import "global/sass/foundation/typography";
 // @import "global/sass/foundation/icons";
@@ -25,6 +26,7 @@
 
 @import "global/sass/helpers/utilities";
 @import "global/sass/helpers/helpers";
+@import "global/sass/helpers/ieConditionals";
 
 /* ====================================
    Components
@@ -44,16 +46,18 @@
    Regions
    ==================================== */
 
-// @import "global/sass/sections/header";
-@import "global/sass/sections/navigation";
-@import "global/sass/sections/content";
-// @import "global/sass/sections/footer";
+@import "global/sass/regions/sections";
+@import "global/sass/regions/navigation";
+@import "global/sass/regions/content";
+@import "global/sass/regions/footer";
 
 
 /* ====================================
    Modules
    ==================================== */
 
+@import "modules/admin/adminStyles";
+@import "modules/user/userStyles";
 @import "modules/static/components/landing/landingStyles";
 @import "modules/post/postStyles";
 @import "modules/product/productStyles";

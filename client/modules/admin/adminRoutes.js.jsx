@@ -3,7 +3,7 @@
 import React from 'react';
 import { Route, IndexRoute, IndexRedirect } from 'react-router';
 
-import Auth from '../../global/utils/auth';
+import Auth from '../../global/util/auth';
 
 //import Components
 import Layout from './components/AdminLayout.js.jsx';
@@ -17,7 +17,7 @@ import adminUserRoutes from '../user/userAdminRoutes.js.jsx';
 
 const adminRoutes =
 <Route path="/admin" component={Layout} onEnter={Auth.requireAdmin}>
-  <IndexRedirect component={StyleGuide} />
+  <IndexRedirect to="style-guide" />
   <Route path="style-guide" component={StyleGuide} />
   {adminUserRoutes}
 </Route>
