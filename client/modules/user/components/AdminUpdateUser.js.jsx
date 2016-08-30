@@ -7,7 +7,7 @@ import { singleActions } from '../actions';
 
 
 //components
-import UserRegisterForm from './UserRegisterForm.js.jsx';
+import AdminUpdateUserForm from './AdminUpdateUserForm.js.jsx';
 
 class UserRegister extends Base {
   constructor(props) {
@@ -55,12 +55,12 @@ class UserRegister extends Base {
               <h3> Sorry, you don't have permission to view this page</h3>
             </div>
           :
-          <div>
+            <div>
 
-            {isEmpty
-              ? <h2> Loading... </h2>
-            :
-              <UserRegisterForm
+              {isEmpty
+                ? <h2> Loading... </h2>
+                :
+                  <AdminUpdateUserForm
                 user={this.state.newUser}
                 handleFormSubmit={this._handleFormSubmit}
                 handleFormChange={this._handleFormChange}

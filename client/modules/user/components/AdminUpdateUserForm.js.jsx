@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 
 import { TextInput, EmailInput, PasswordInput, SimpleArrayEditor, SelectFromObject } from '../../../global/components/forms';
 
-const UserRegisterForm = ({ user, handleFormSubmit, handleFormChange }) => {
+const AdminUpdateUserForm = ({ user, handleFormSubmit, handleFormChange }) => {
   console.log("register form loading");
   return (
     <div className="yt-container">
@@ -62,10 +62,10 @@ const UserRegisterForm = ({ user, handleFormSubmit, handleFormChange }) => {
   )
 }
 
-UserRegisterForm.propTypes = {
+AdminUpdateUserForm.propTypes = {
   user: PropTypes.object.isRequired
   , handleFormSubmit: PropTypes.func.isRequired
   , handleFormChange: PropTypes.func.isRequired
 }
 
-export default UserRegisterForm;
+export default AdminUpdateUserForm;
