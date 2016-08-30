@@ -119,7 +119,10 @@ function single(state = {
         , item: {
           title: ""
           , content: ""
-          , isPublished: false
+          , featured: false
+          , status: 'draft'
+          , tags: []
+          , author: ""
         }
         , populated: false
       });

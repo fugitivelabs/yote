@@ -34,22 +34,26 @@ class PopulatedPost extends Base {
     }
     // const author = item.author.username ? item.author.username : "anonymous"
     return  (
-      <div className="yt-container">
-        <h3> Populated Post Item </h3>
-        {isEmpty
-          ? (item.isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
-          : <div style={{ opacity: item.isFetching ? 0.5 : 1 }}>
+      <div className="flex ">
+        <section className="section ">
+          <div className="yt-container">
+            <h3> Populated Post Item </h3>
+            {isEmpty
+              ? (item.isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
+                : <div style={{ opacity: item.isFetching ? 0.5 : 1 }}>
 
-              <h1> { item.title }
-                <Link className="yt-btn small u-pullRight" to={`/posts/${item.slug}/update`}> UPDATE POST </Link>
-              </h1>
-              <hr/>
+                  <h1> { item.title }
+                    <Link className="yt-btn small u-pullRight" to={`/posts/${item.slug}/update`}> UPDATE POST </Link>
+                  </h1>
+                  <hr/>
 
-              <p><small>Updated {updated}</small></p>
-              <h4> Written by {author}</h4>
-              <p> {item.content }</p>
-            </div>
-          }
+                  <p><small>Updated {updated}</small></p>
+                  <h4> Written by {author}</h4>
+                  <p> {item.content }</p>
+                </div>
+            }
+          </div>
+        </section>
       </div>
     )
   }

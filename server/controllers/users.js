@@ -34,19 +34,19 @@ exports.list = function(req, res) {
   }
 }
 
-exports.changePassword = function(req, res) {
-  if(!req.user || !req.user.id) {
-    res.send({success: false, message: "Invalid User Id"});
-  } else {
-    User.findOne({_id: req.user._id}).exec(function(err, user) {
-      if(err || !user) {
-        res.send({success: false, message: "Invalid User Id"});
-      } else {
-        res.send(user);
-      }
-    });
-  }
-}
+// exports.changePassword = function(req, res) {
+//   if(!req.user || !req.user.id) {
+//     res.send({success: false, message: "Invalid User Id"});
+//   } else {
+//     User.findOne({_id: req.user._id}).exec(function(err, user) {
+//       if(err || !user) {
+//         res.send({success: false, message: "Invalid User Id"});
+//       } else {
+//         res.send(user);
+//       }
+//     });
+//   }
+// }
 
 exports.create = function(req, res, next) {
   var userData = req.body;
@@ -139,7 +139,7 @@ exports.changePassword = function(req, res) {
     res.send({success: false, message: "New passwords do not match"});
   }
   //do additional validation here (must contain special character, etc)
-  else if(req.param('newPass') == "") { 
+  else if(req.param('newPass') == "") {
     res.send({success: false, message: "Invalid New Password"});
   }
   var projection = {

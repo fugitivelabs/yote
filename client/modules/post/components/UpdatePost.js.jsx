@@ -1,9 +1,10 @@
 import React, { PropTypes } from 'react';
 import Base from "../../../global/components/BaseComponent.js.jsx";
 import { connect } from 'react-redux';
+import _ from 'lodash';
 
 // import actions
-import { singleActions } from '../actions';
+import { singleActions as postSingleActions } from '../actions';
 
 // import components
 import PostForm from './PostForm.js.jsx';
@@ -18,17 +19,11 @@ class UpdatePost extends Base {
     );
   }
   componentDidMount() {
-    console.log("Single item mounting");
-    // console.log(this.context);
-
-    // action.fetchItem();
-    const populate = false;
-    // const populate = false;
     const { dispatch, params } = this.props;
     if(params.postId) {
-      dispatch(singleActions.fetchSinglePostById(params.postId, populate ))
+      dispatch(postSingleActions.fetchSinglePostById(params.postId ))
     } else {
-      dispatch(singleActions.fetchSinglePostBySlug(params.slug))
+      dispatch(postSingleActions.fetchSinglePostBySlug(params.slug))
     }
   }
 
@@ -37,18 +32,17 @@ class UpdatePost extends Base {
   }
 
   _handleFormChange(e) {
-    var nextState = this.state.item;
-    nextState[e.target.name] = e.target.value;
-    nextState.status = nextState.isPublished ? "published" : "draft";
-    this.setState(nextState);
-
+    var newState = _.update( this.state.item, e.target.name, function() {
+      return e.target.value;
+    });
+    this.setState(newState);
   }
 
   _handleFormSubmit(e) {
     e.preventDefault();
     // console.log("_handleFormSubmit");
     // console.log(e);
-    this.props.dispatch(singleActions.sendUpdatePost(this.state.item));
+    this.props.dispatch(postSingleActions.sendUpdatePost(this.state.item));
   }
 
   render() {
@@ -58,14 +52,14 @@ class UpdatePost extends Base {
       <div >
         {isEmpty
           ? <h2> Loading...</h2>
-          : <PostForm
-            post={item}
-            formType="update"
-            handleFormSubmit={this._handleFormSubmit}
-            handleFormChange={this._handleFormChange}
-            cancelLink={`/posts/${item.slug}`}
-            formTitle="Update Post"
-            />
+            : <PostForm
+              post={item}
+              formType="update"
+              handleFormSubmit={this._handleFormSubmit}
+              handleFormChange={this._handleFormChange}
+              cancelLink={`/posts/${item.slug}`}
+              formTitle="Update Post"
+              />
         }
       </div>
     )
@@ -77,8 +71,6 @@ UpdatePost.propTypes = {
 }
 
 const mapStoreToProps = (store) => {
-  // console.log("State");
-  // console.log(state);
   return {
     item: store.post.single.item
   }

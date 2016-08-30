@@ -60,7 +60,7 @@ form {
     padding: 8px 6px;
     outline: none;
     border: none;
-    border-bottom: 2px solid $grey;
+    border-bottom: 2px solid $gray;
     background-color: darken($formContainerColor, 2);
     // border-radius: 4px;
     transition: all 0.5s ease;
@@ -98,7 +98,7 @@ form {
     width: 100%;
     margin-bottom: 1em;
     padding: 8px 6px;
-    border: 2px solid $grey;
+    border: 2px solid $gray;
     @include lineHeight-looser;
 
     &:focus {
@@ -114,7 +114,7 @@ form {
     border-radius: 0;
     resize: vertical;
     border: none;
-    border-bottom: 2px solid $grey;
+    border-bottom: 2px solid $gray;
 
     &:focus {
       background-color: darken($formContainerColor, 4);
@@ -152,11 +152,11 @@ form {
 
   .item {
     background-color: darken($formContainerColor, 3);
-    // color: $grey-7;
+    // color: $gray-7;
     // padding: 8px 6px;
     padding: 0.5em 0.75em;
     font: inherit;
-    border: 2px solid $grey;
+    border: 2px solid $gray;
     font-weight: 700;
 
   }
@@ -181,7 +181,7 @@ form {
   }
   .field,
   .item {
-    // border: 1px solid $grey-9;
+    // border: 1px solid $gray-9;
     // padding: 0.5em 0.75em;
     &:first-child {
       border-radius: 2px 0 0 2px;

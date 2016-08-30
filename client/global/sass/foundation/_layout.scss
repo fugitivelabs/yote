@@ -1,0 +1,158 @@
+
+
+// Layout
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+$header-height:         80px;
+
+// %container {
+//   max-width: $container-width;
+//   margin: 0 auto;
+//   padding: 0px $gutter;
+//
+//   @include MQ(L) {
+//     padding: 0px;
+//   }
+// }
+
+#application-main-yote {
+  max-width: 1800px;
+  margin: auto;
+  overflow-x: hidden;
+}
+
+
+.master-layout {
+  @include display-flex;
+  @include flex-direction(column);
+  height: 100%;
+  min-height: 100vh;
+}
+
+.admin-layout {
+  @include display-flex;
+  @include flex(1);
+  background-color: #fff;
+}
+
+.admin-main-content {
+  @include flex(1);
+  padding: $gutter;
+}
+
+
+
+
+.flex {
+  @include display-flex;
+  @include flex-direction(row);
+  @include flex-wrap(wrap);
+  width: 100%;
+  &.layout {
+    @include flex-direction(column);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  &.column {
+    @include flex-direction(column);
+  }
+
+}
+header, .header {
+  @include flex(none);
+  background-color: #fff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  max-width: 1800px;
+  margin: auto;
+  height: $header-height + 1;
+  // height: 0;
+  // overflow: hidden;
+  margin-top: 0;
+  // @include box-shadow(0 0 1px $shadow-color);
+  border-bottom: 1px solid $divider-color;
+  @include transition(all 500ms ease-in-out);
+  &.fixed {
+    position: fixed;
+    @include zIndex-7;
+  }
+  &.isHidden {
+    margin-top: -$header-height;
+    // height: $header-height + 1;
+    // height: 0;
+  }
+  &.dark {
+    background-color: #000;
+    color: $text-light;
+    // @include box-shadow(0 0 1px rgba(255,255,255,0.35));
+    border-bottom: 1px solid $light-divider-color;
+    .navigation {
+      &.primary {
+        border-color: rgba(255,255,255,0.15);
+      }
+      li {
+        a {
+          &:hover {
+            color: #fff;
+          }
+          &.active {
+            color: #fff;
+          }
+        }
+      }
+    }
+  }
+}
+.body {
+  @include flex(1 0 auto);
+   padding: var(--space) var(--space) 0;
+  width: 100%;
+  background-color: #fff;
+  // @include display-flex;
+  &.with-header {
+    // margin-top: $header-height;
+    padding-top: $header-height;
+    // width: 100%;
+  }
+  &.dark {
+    background-color: #000;
+  }
+  &:after {
+
+  }
+}
+
+
+
+.main {
+  @include display-flex;
+  @include flex-direction(column);
+  @include flex(1);
+  padding: $gutter;
+  &.with-leftbar {
+    // min-height: 100vh;
+    // @include flex(1);
+    padding: 10px;
+    padding-top: 60px;
+
+    @include MQ(S) {
+      padding-top: 10px;
+      padding-left: $sidenav-width+10px;
+
+    }
+  }
+  &.with-topbar {
+    @include column-size(100%);
+
+  }
+  &.with-rightbar {
+    @include flex(1);
+    order: -1;
+  }
+  &.with-bottombar {
+    @include column-size(100%);
+  }
+}

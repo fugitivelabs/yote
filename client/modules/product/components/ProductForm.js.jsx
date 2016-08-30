@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 import { Link } from 'react-router';
 
 // import form components
-import { TextInput, TextAreaInput, CheckboxInput } from '../../../global/components/forms';
+import { TextInput, TextAreaInput } from '../../../global/components/forms';
 
 const ProductForm = ({product, formType, handleFormSubmit, handleFormChange,  cancelLink, formTitle }) => {
   const buttonText = formType === "create" ? "Create Product" : "Update Product";
@@ -20,7 +20,7 @@ const ProductForm = ({product, formType, handleFormSubmit, handleFormChange,  ca
               change={handleFormChange}
               placeholder="Title (required)"
               required={true}
-              />
+            />
             <TextAreaInput
               name="description"
               label="Description"
@@ -28,7 +28,8 @@ const ProductForm = ({product, formType, handleFormSubmit, handleFormChange,  ca
               change={handleFormChange}
               required={false}
               placeholder="This is where the content goes..."
-              />
+            />
+
             <div className="input-group">
               <div className="yt-row space-between">
                 <Link className="yt-btn link" to={cancelLink}>Cancel</Link>

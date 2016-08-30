@@ -8,14 +8,20 @@ class CheckboxInput extends Base {
 
   constructor(props) {
     super(props);
+    this.state = {
+      isChecked: false
+    };
     this._bind('_handleInputChange');
 
   }
-  // // check the props the component receives
-  // componentWillReceiveProps(nextProps) {
-  //   // console.log("CheckboxInput props");
-  //   // console.log(nextProps);
-  // }
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.value !== this.state.isChecked) {
+      this.setState({isChecked: !this.state.isChecked})
+    }
+  }
+
+
   _handleInputChange(e) {
     const event = e;
     const checked = e.target.checked;
@@ -27,6 +33,7 @@ class CheckboxInput extends Base {
       , name: name
     });
     this.props.change(event);
+
   }
   render() {
     const { label, value, name, checked } = this.props;
@@ -35,7 +42,8 @@ class CheckboxInput extends Base {
         <input
           type="checkbox"
           name={name}
-          value={value}
+
+          checked={this.state.isChecked}
           onChange={this._handleInputChange}
         />
         <label htmlFor={name}> {label} </label>

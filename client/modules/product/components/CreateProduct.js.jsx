@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import Base from "../../../global/components/BaseComponent.js.jsx";
 import { connect } from 'react-redux';
+import _ from 'lodash';
 
 // import actions
 import { singleActions } from '../actions';
@@ -36,14 +37,12 @@ class CreateProduct extends Base {
   }
 
   _handleFormChange(e) {
-    //this works WAY better than having a separate onChange for every input box
-    // just make sure input name attr == state name
-    var newProductState = this.state.item;
-    newProductState[e.target.name] = e.target.value;
-    this.setState(newProductState);
-    // console.log("_handleFormChange");
-    // console.log(e);
+    var newState = _.update( this.state.item, e.target.name, function() {
+      return e.target.value;
+    });
+    this.setState(newState);
   }
+
 
   _handleFormSubmit(e) {
     e.preventDefault();

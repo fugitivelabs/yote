@@ -2,13 +2,17 @@ import React, { PropTypes } from 'react'
 
 import Base from "../BaseComponent.js.jsx";
 
-class TextInput extends Base {
+
+class UrlInput extends Base {
 
 
   constructor(props) {
     super(props);
     this.state = { theVal: '' };
-    this._bind('_handleInputChange');
+    this._bind(
+      '_handleInputChange'
+      , '_validateUrl'
+    );
   }
 
   componentWillReceiveProps(nextProps) {
@@ -18,17 +22,22 @@ class TextInput extends Base {
     }
   }
 
+
   _handleInputChange(e) {
     this.props.change(e);
   }
-  
+
+  _validateUrl(url) {
+    // use URL regex validator here
+  }
+
   render() {
     const { label, value, placeholder, name, required } = this.props;
     return (
       <div className="input-group">
         <label htmlFor={name}> {label} </label>
         <input
-          type="text"
+          type="url"
           name={name}
           placeholder={placeholder}
           value={this.state.theVal}
@@ -40,14 +49,13 @@ class TextInput extends Base {
   }
 }
 
-TextInput.propTypes = {
+UrlInput.propTypes = {
   label: PropTypes.string
   , value: PropTypes.string
   , placeholder: PropTypes.string
   , name: PropTypes.string
   , required: PropTypes.bool
   , change: PropTypes.func
-  , password: PropTypes.bool
 }
 
-export default TextInput;
+export default UrlInput;

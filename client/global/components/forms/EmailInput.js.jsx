@@ -6,21 +6,30 @@ class EmailInput extends Base {
 
   constructor(props) {
     super(props);
-    this._bind('_handleInputChange');
+    this.state = { theVal: '' };
+    this._bind(
+      '_handleInputChange'
+      , '_validateEmail'
+    );
 
   }
-  // check the props the component receives
+
   componentWillReceiveProps(nextProps) {
-    // console.log("EmailInput props");
-    // console.log(nextProps);
+    if(nextProps.value !== this.state.theVal) {
+      var val = nextProps.value;
+      this.setState({theVal: val});
+    }
   }
+
   _handleInputChange(e) {
-    // console.log("handleinputchange");
-    // console.log(e);
     this.props.change(e);
   }
+
+  _validateEmail(email) {
+    // use email regex validator here
+  }
+
   render() {
-    // console.log("email inpu loading");
     const { label, value, placeholder, name, required } = this.props;
     return (
       <div className="input-group">
@@ -29,7 +38,7 @@ class EmailInput extends Base {
           type="email"
           name={name}
           placeholder={placeholder}
-          value={value}
+          value={this.state.theVal}
           onChange={this._handleInputChange}
           required={required}
         />

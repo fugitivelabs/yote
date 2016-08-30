@@ -26,46 +26,69 @@ class SelectFromArray extends Base{
   //   )
   // }
 
-  constructor(props, context) {
+  constructor(props) {
     super(props);
+    // console.log("construct select from array");
+    // console.log(props);
+    // console.log(props.value);
     this.state = {
-      selected: this.props.selected || null
+      selected: props.value || ''
     }
-    this._bind('_handleSelectChange');
+    this._bind(
+      '_handleSelectChange'
+      , '_capitalizeFirstLetter'
+    );
   }
 
   // check the props the component receives
   componentWillReceiveProps(nextProps) {
-    console.log("SelectFromObject props");
-    console.log(nextProps);
-    nextProps.selected ? this.setState({selected: nextProps.selected}) : null;
+    // console.log("SelectFromObject props");
+    // console.log(nextProps);
+    if(this.props.value != nextProps.value){
+      this.setState({selected: nextProps.value});
+    }
+    // nextProps.value ? this.setState({selected: nextProps.value}) : null;
+  }
+
+  _capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
   _handleSelectChange(e) {
-    console.log("handle select change in select");
+    // console.log("handle select change in select");
     this.setState({
       selected: e.target.value
     });
-    this.props.change(e.target.value);
+    this.props.change(e);
   }
 
   render() {
-    var items = this.props.items.map((item, index) => {
-      return (
-        <option key={index} value={index}>
-          {item}
-        </option>
-      )
-    });
-    if(this.props.placeholder) {
+    const { items, placeholder, label, name, required } = this.props;
+    var theItems = items.map((item, index) => {
+            var display = this._capitalizeFirstLetter(item);
+            return (
+              <option key={index} value={item}>
+                {display}
+              </option>
+            )
+          });
+    if(placeholder) {
       // console.log("has placeholder value");
-      var placeholder = <option key="-1" value={-1}>{this.props.placeholder}</option>;
-      items.unshift(placeholder);
+      var placeholderText = <option key="-1" value={-1}>{placeholder}</option>;
+      theItems.unshift(placeholderText);
     }
+
+    const requiredText = required ? "(required)" : "";
     return(
-      <div className="form-group-select">
-        <select onChange={this._handleSelectChange} value={this.state.selected}>
-          {items}
+      <div className="form-group-select input-group">
+        <label htmlFor={name}>{label} <span className="subhead">{requiredText}</span></label>
+        <select
+          name={name}
+          onChange={this._handleSelectChange}
+          value={this.state.selected}
+          required={required}
+          >
+          {theItems}
         </select>
       </div>
     )
@@ -75,8 +98,10 @@ class SelectFromArray extends Base{
 SelectFromArray.propTypes = {
   items: React.PropTypes.array.isRequired
   , change: React.PropTypes.func.isRequired // should this be required?
-  , selected: React.PropTypes.number // selected index
+  , value: React.PropTypes.any
   , placeholder: React.PropTypes.string
+  , label: React.PropTypes.string
+  , required: React.PropTypes.bool
 }
 
 export default SelectFromArray;

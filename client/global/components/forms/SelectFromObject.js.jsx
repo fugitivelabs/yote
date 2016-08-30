@@ -13,55 +13,62 @@ class SelectFromObject extends Base{
   //  selected object (string that matches to an object)
   //  placeholder     (string that shows a default placeholder)
 
-  //ex for Post objects:
+  //example showing how to assiang an author for Post objects:
+  // //- get list of available authors who look liks this { username: '', _id: ''}
   // <SelectFromObject
-  //   objects={this.state.posts}
-  //   display={"title"}
-  //   value={"_id"}
-  //   change={this._onSelectChange}
-  //   selected={"5696ed72d4fe105051db1fb1"} //- optional
-  //   placeholder="-- Select an Object -- " //- optional
+  //   name="author"
+  //   label="Author"
+  //   objects={authors}
+  //   display={'username'}
+  //   value={'_id'}
+  //   selected={post.author}
+  //   change={handleFormChange}
+  //   placeholder="-- Select an author --"
   // />
 
   constructor(props, context) {
     super(props);
     this.state = {
-      selected: this.props.selected || null
+      selected: this.props.selected || ''
     }
     this._bind('_handleSelectChange');
   }
 
   // check the props the component receives
   componentWillReceiveProps(nextProps) {
-    // console.log("SelectFromObject props");
-    // console.log(nextProps);
-    nextProps.selected ? this.setState({selected: nextProps.selected}) : null;
+    console.log("SelectFromObject props");
+    console.log(nextProps);
+    nextProps.selected ? this.setState({selected: nextProps.selected}) : '';
   }
 
   _handleSelectChange(e) {
-    console.log("handle select change in select");
     this.setState({
       selected: e.target.value
     });
-    this.props.change(e.target.value);
+    this.props.change(e);
   }
 
   render() {
-    var options = this.props.objects.map((object, index) => {
+    const { objects, value, display, name, label, placeholder } = this.props;
+    var options = objects.map((object, index) => {
             return (
-              <option key={index} value={object[this.props.value]}>
-                {object[this.props.display]}
+              <option key={index} value={object[value]}>
+                {object[display]}
               </option>
             )
           });
-    if(this.props.placeholder) {
+    if(placeholder) {
       // console.log("has placeholder value");
-      var placeholder = <option key="-1" value={null}>{this.props.placeholder}</option>;
-      options.unshift(placeholder);
+      var placeholderText = <option key="-1" value={''}>{placeholder}</option>;
+      options.unshift(placeholderText);
     }
     return(
-      <div className="select-from-object">
-        <select onChange={this._handleSelectChange} value={this.state.selected}>
+      <div className="select-from-object input-group">
+        <label htmlFor={name}> {label} </label>
+        <select name={name}
+          onChange={this._handleSelectChange}
+          value={this.state.selected}
+          >
           {options}
         </select>
       </div>

@@ -3,14 +3,14 @@
 // Brand Palette
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
-$brand-primary:               #FD605B;
+$brand-primary:               #5bdffc;
 $brand-secondary:             #352D39;
 $brand-accent:                #ff4081;
 
 // UI Palette
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
-$bg-color:                    $blue-grey-9;
-$grey:                        $grey-5;
+$bg-color:                    $blue-gray-9;
+$gray:                        $gray-5;
 $white:                       $white-2;
 
 $text-color:                  rgba(0,0,0,0.6);
@@ -22,18 +22,21 @@ $link-visited-color:          $link-color;
 $link-hover-color:            lighten($link-color, 20);
 
 $divider-color:               rgba(0,0,0,0.15);
+$light-divider-color:         rgba(255,255,255,0.15);
 
 
 $shadow-color:                rgba(0,0,0,0.15);
+$black:                       $black-2;
 
 
 // Component colors
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
-$sidebar-bg-color:               $blue-grey-5;
-$topbar-bg-color:                $blue-grey-3;
+$sidebar-bg-color:               $blue-gray-5;
+$topbar-bg-color:                $blue-gray-3;
 // $topbar-text-color:
 
-$hero-bg-color:                 $blue-grey-1;
+$hero-bg-color:                 $blue-gray-1;
+$footer-bg-color:               $blue-gray-0;
 
 // Semantic Colors
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
