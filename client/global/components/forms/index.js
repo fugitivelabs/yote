@@ -7,6 +7,9 @@ import PasswordInput from './PasswordInput.js.jsx';
 import EmailInput from './EmailInput.js.jsx';
 import SimpleArrayEditor from './SimpleArrayEditor.js.jsx';
 import UrlInput from './UrlInput.js.jsx';
+import NumberInput from './NumberInput.js.jsx';
+import ListComparator from './ListComparator.js.jsx';
+
 
 export { SelectFromArray };
 export { SelectFromObject };
@@ -17,6 +20,8 @@ export { PasswordInput };
 export { EmailInput };
 export { SimpleArrayEditor };
 export { UrlInput };
+export { NumberInput };
+export { ListComparator };
 
 export default {
   SelectFromArray
@@ -28,4 +33,6 @@ export default {
   , EmailInput
   , SimpleArrayEditor
   , UrlInput
+  , NumberInput
+  , ListComparator
 }
