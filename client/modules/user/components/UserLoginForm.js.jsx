@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router';
 
-import { TextInput } from '../../../global/components/forms';
+import { TextInput, PasswordInput } from '../../../global/components/forms';
 
 const UserLoginForm = ({ user, handleFormSubmit, handleFormChange }) => {
   return (
@@ -17,8 +17,8 @@ const UserLoginForm = ({ user, handleFormSubmit, handleFormChange }) => {
               change={handleFormChange}
               placeholder="Email (required)"
               required={true}
-              />
-              <TextInput
+            />
+            <PasswordInput
                 name="password"
                 label="Password"
                 value={user.password}

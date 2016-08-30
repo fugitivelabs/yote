@@ -60,7 +60,7 @@ $header-height:         80px;
 }
 header, .header {
   @include flex(none);
-  background-color: #fff;
+  background-color: $header-bg-color;
   position: absolute;
   top: 0;
   left: 0;
