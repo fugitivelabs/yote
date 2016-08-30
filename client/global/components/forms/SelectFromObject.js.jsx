@@ -13,14 +13,17 @@ class SelectFromObject extends Base{
   //  selected object (string that matches to an object)
   //  placeholder     (string that shows a default placeholder)
 
-  //ex for Post objects:
+  //example showing how to assiang an author for Post objects:
+  // //- get list of available authors who look liks this { username: '', _id: ''}
   // <SelectFromObject
-  //   objects={this.state.posts}
-  //   display={"title"}
-  //   value={"_id"}
-  //   change={this._onSelectChange}
-  //   selected={"5696ed72d4fe105051db1fb1"} //- optional
-  //   placeholder="-- Select an Object -- " //- optional
+  //   name="author"
+  //   label="Author"
+  //   objects={authors}
+  //   display={'username'}
+  //   value={'_id'}
+  //   selected={post.author}
+  //   change={handleFormChange}
+  //   placeholder="-- Select an author --"
   // />
 
   constructor(props, context) {

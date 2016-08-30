@@ -11,7 +11,7 @@ import {
   SelectFromObject,
 } from '../../../global/components/forms';
 
-const PostForm = ({post, formType, handleFormSubmit, handleFormChange,  cancelLink, formTitle, users }) => {
+const PostForm = ({post, formType, handleFormSubmit, handleFormChange,  cancelLink, formTitle }) => {
   console.log("_____________________________ POST ____________________________");
   console.log(post);
   const buttonText = formType === "create" ? "Create Post" : "Update Post";
@@ -58,16 +58,7 @@ const PostForm = ({post, formType, handleFormSubmit, handleFormChange,  cancelLi
               arrayType="string"
               change={handleFormChange}
             />
-            <SelectFromObject
-              name="author"
-              label="Author"
-              objects={users}
-              display={'username'}
-              value={'_id'}
-              selected={post.author}
-              change={handleFormChange}
-              placeholder="-- Select an author --"
-            />
+
             <div className="input-group">
               <div className="yt-row space-between">
                 <Link className="yt-btn link" to={cancelLink}>Cancel</Link>
