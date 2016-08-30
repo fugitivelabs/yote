@@ -7,6 +7,7 @@ The navbar on the landing page is styled a little differently
 import React from 'react';
 import Base from '../../../../global/components/BaseComponent.js.jsx';
 import { Link } from 'react-router';
+import classNames from 'classnames';
 
 import CloseWrapper from '../../../../global/components/helpers/CloseWrapper.js.jsx';
 import DropdownMenu from '../../../../global/components/DropdownMenu.js.jsx';
@@ -52,38 +53,48 @@ class Navbar extends Base {
         , backgroundColor: "transparent" };
     }
 
-    return (
-      <div style={background} className="topbar landing-nav _fixed transparent">
-        <CloseWrapper
-          isOpen={this.state.isOpen}
-          closeAction={this._closeDropdown}
-        />
-        <div className="titles">
-          <Link to="/">
-            <div className="nav-logo"> Yote
-              <span className="subtitle"> Standard Dev Kit </span>
-            </div>
-          </Link>
-        </div>
-        <div className="actions">
-          <ul className="top-nav">
-            <li>
-              <Link to="/products" activeClassName="active">Products <sup>simple</sup></Link>
-            </li>
-            <li>
-              <Link to="/posts" activeClassName="active">Posts <sup> complex</sup></Link>
-            </li>
+    let headerClass = classNames(
+      'header'
+      // , 'fixed'
 
-            <li className="dropdown">
-              <a onClick={this._openDropdown}> <i className="fa fa-caret-down"></i></a>
-            </li>
-            <DropdownMenu
-              currentUser={null}
-              isOpen={this.state.isOpen}
-            />
-          </ul>
+    )
+
+    return (
+      <header className={headerClass} style={background}>
+        <div  className="topbar landing-nav yt-container">
+          <CloseWrapper
+            isOpen={this.state.isOpen}
+            closeAction={this._closeDropdown}
+          />
+          <div className="titles">
+            <Link to="/">
+              <div className="nav-logo"> Yote
+                <span className="subtitle"> Standard Dev Kit </span>
+              </div>
+            </Link>
+          </div>
+          <div className="actions">
+            <div className="yt-row center-vert right">
+              <ul className="navigation">
+                <li>
+                  <Link to="/products" activeClassName="active">Products <sup>simple</sup></Link>
+                </li>
+                <li>
+                  <Link to="/posts" activeClassName="active">Posts <sup> complex</sup></Link>
+                </li>
+
+                <li className="dropdown">
+                  <a onClick={this._openDropdown}> <i className="fa fa-caret-down"></i></a>
+                </li>
+                <DropdownMenu
+                  currentUser={null}
+                  isOpen={this.state.isOpen}
+                />
+              </ul>
+            </div>
+          </div>
         </div>
-      </div>
+      </header>
     )
   }
 }

@@ -49,7 +49,7 @@ class Landing extends Base {
 
   render() {
     return(
-      <div className="flex main landing-wrapper with-topbar">
+      <div className="master-layout">
         <Navbar
           isScrolled={this.state.isScrolled}
           openDialog={this._openDialog}
