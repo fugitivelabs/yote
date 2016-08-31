@@ -27,7 +27,7 @@ function requireLogin() {
           } else {
             req.user = user;
             logger.debug("REQ.USER 1");
-            logger.debug(req.user);
+            logger.debug(req.user.username);
             next();
           }
         }
@@ -35,7 +35,7 @@ function requireLogin() {
 
     } else {
       logger.debug("LOGIN CHECK HIT - by cookie");
-      console.log(req.user);
+      console.log(req.user.username);
       //check by passport session
       if(!req.isAuthenticated()) {
         console.log("UNAUTHORIZED");
@@ -50,7 +50,7 @@ function requireRole(role) {
     var rl = requireLogin();
     rl(req, res, function() {
       logger.debug("trying to require role");
-      logger.debug(req.user);
+      logger.debug(req.user.username);
       if(req.user.roles.indexOf(role) === -1) {
         res.status(403);
         res.send("UNAUTHORIZED - " + role + " PRIVILEDGES REQUIRED");

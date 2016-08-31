@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
+import { Link, Router } from 'react-router';
 import Base from "../../../global/components/BaseComponent.js.jsx";
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
 
 // import actions
 import { listActions }from '../actions';
@@ -16,19 +16,7 @@ class AdminUserList extends Base {
   }
 
   componentWillMount() {
-    // console.log("list mounting");
-    // console.log(this.props);
-    this.props.dispatch(listActions.fetchList()).then(() => {
-      // console.log(this.props);
-    })
-  }
-  //
-  componentWillReceiveProps(nextProps) {
-    // console.log("nextProps");
-    // console.log(nextProps);
-    // if(nextProps.selectedItem !== this.props.selectedItem) {
-    //   const { dispatch, selectedItem } = nextProps;
-    // }
+    this.props.dispatch(listActions.fetchList());
   }
 
   render() {
@@ -73,8 +61,8 @@ class AdminUserList extends Base {
                 {filteredItems.map((item, i) =>
                   <AdminUserListItem
                     key={i}
-                      user={item}
-                    />
+                    user={item}
+                  />
                 )}
               </tbody>
             </table>
@@ -90,10 +78,10 @@ AdminUserList.propTypes = {
   dispatch: PropTypes.func.isRequired
 }
 
-const mapStoreToProps = (state) => {
+const mapStoreToProps = (store) => {
   console.log("list state");
-  console.log(state);
-  const { user } = state;
+  console.log(store);
+  const { user } = store;
   const list = user.list;
   return {
     list: list

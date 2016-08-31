@@ -19,7 +19,7 @@ class SingleProduct extends Base {
 
   render() {
     const { item } = this.props;
-    const isEmpty = !item;
+    const isEmpty = (item.title === null || item.title === undefined);
     console.log("isEmpty", isEmpty);
     return  (
       <div className="flex">

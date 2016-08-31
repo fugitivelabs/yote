@@ -11,19 +11,17 @@ import UserLoginForm from './UserLoginForm.js.jsx';
 class UserLogin extends Base {
   constructor(props) {
     super(props);
-    this.state = this.props;
+    this.state = {
+      user: {
+        username: ''
+        , password: ''
+      }
+    }
     this._bind(
       '_handleFormChange'
       , '_handleFormSubmit'
     );
   }
-  // componentWillMount() {
-  //   const { dispatch } = this.props;
-  //   dispatch(singleActions.setupNewPost())
-  //   // this.props.dispatch(singleActions.setupNewPost()).then(() =>{
-  //   //     console.log(this.props);
-  //   //   });
-  // }
 
   componentWillReceiveProps(nextProps) {
     this.setState(nextProps);

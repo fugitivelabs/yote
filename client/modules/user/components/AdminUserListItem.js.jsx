@@ -1,17 +1,19 @@
 import React, { PropTypes } from 'react'
 import { Link, Router } from 'react-router';
+import { connect } from 'react-redux';
 import Base from "../../../global/components/BaseComponent.js.jsx";
 import moment from 'moment';
+import { browserHistory } from 'react-router';
 
 class AdminUserListItem extends Base {
-  constructor(props, context) {
+  constructor(props) {
     super(props);
   }
 
   _goToUser(userId) {
     // console.log("this.context");
     // console.log(this.context);
-    this.context.router.push(`/admin/users/${userId}`);
+    browserHistory.push(`/admin/users/${userId}`)
   }
   render() {
     const {user} = this.props;
@@ -28,7 +30,14 @@ class AdminUserListItem extends Base {
 }
 
 AdminUserListItem.propTypes = {
-  user: PropTypes.object.isRequired
+  dispatch: PropTypes.func.isRequired
+  , user: PropTypes.object.isRequired
 }
 
-export default AdminUserListItem;
+const mapStoreToProps = (store) => {
+  return {}
+}
+
+export default connect(
+  mapStoreToProps
+)(AdminUserListItem);

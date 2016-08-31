@@ -18,7 +18,7 @@ export default class SideNav extends Base {
   _handleLogout() {
     console.log("logout");
     const { dispatch } = this.props;
-    dispatch(userSingleActions.sendUserLogout());
+    dispatch(userSingleActions.sendLogout());
   }
 
   render() {
