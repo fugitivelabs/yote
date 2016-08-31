@@ -12,8 +12,8 @@ import {
 } from '../../../global/components/forms';
 
 const PostForm = ({post, formType, handleFormSubmit, handleFormChange,  cancelLink, formTitle }) => {
-  console.log("_____________________________ POST ____________________________");
-  console.log(post);
+  // console.log("_____________________________ POST ____________________________");
+  // console.log(post);
   const buttonText = formType === "create" ? "Create Post" : "Update Post";
   const header = formTitle ? <div className="formHeader"><h1> {formTitle} </h1><hr/></div> : <div/>;
   return (

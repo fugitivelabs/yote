@@ -8,7 +8,7 @@ class NumberInput extends Base {
 
   constructor(props) {
     super(props);
-    this.state = { theVal: 0 };
+    this.state = { theVal: this.props.value ? this.props.value : 0 };
     this._bind('_handleInputChange');
 
   }
@@ -61,7 +61,7 @@ class NumberInput extends Base {
 
 NumberInput.propTypes = {
   label: PropTypes.string
-  , value: PropTypes.number
+  , value: PropTypes.number.isRequired
   , name: PropTypes.string
   , required: PropTypes.bool
   , change: PropTypes.func
