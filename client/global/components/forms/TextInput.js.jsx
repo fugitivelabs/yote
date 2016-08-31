@@ -4,14 +4,14 @@ import Base from "../BaseComponent.js.jsx";
 
 class TextInput extends Base {
 
-
   constructor(props) {
     super(props);
-    this.state = { theVal: '' };
+    this.state = { theVal: this.props.value ? this.props.value : '' };
     this._bind('_handleInputChange');
   }
 
   componentWillReceiveProps(nextProps) {
+
     if(nextProps.value !== this.state.theVal) {
       var val = nextProps.value;
       this.setState({theVal: val});
@@ -42,9 +42,9 @@ class TextInput extends Base {
 
 TextInput.propTypes = {
   label: PropTypes.string
-  , value: PropTypes.string
+  , value: PropTypes.string.isRequired
   , placeholder: PropTypes.string
-  , name: PropTypes.string
+  , name: PropTypes.string.isRequired
   , required: PropTypes.bool
   , change: PropTypes.func
   , password: PropTypes.bool

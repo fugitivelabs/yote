@@ -7,6 +7,14 @@ SINGLE REDUCERS GO HERE
 
 import { singleActions } from '../actions';
 
+let defaultPost = {
+  title: ""
+  , content: ""
+  , featured: false
+  , status: 'draft'
+  , tags: []
+}
+
 function single(state = {
   isFetching: false
   , item: {}
@@ -116,14 +124,7 @@ function single(state = {
       console.log("SETUP_NEW_POST");
       return Object.assign({}, state, {
         isFetching: false
-        , item: {
-          title: ""
-          , content: ""
-          , featured: false
-          , status: 'draft'
-          , tags: []
-          , author: ""
-        }
+        , item:  JSON.parse(JSON.stringify(defaultPost))
         , populated: false
       });
     case singleActions.REQUEST_CREATE_POST:

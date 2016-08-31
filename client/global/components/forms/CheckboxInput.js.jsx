@@ -9,7 +9,7 @@ class CheckboxInput extends Base {
   constructor(props) {
     super(props);
     this.state = {
-      isChecked: false
+      isChecked: this.props.checked ? this.props.checked : false
     };
     this._bind('_handleInputChange');
 
@@ -43,7 +43,9 @@ class CheckboxInput extends Base {
           type="checkbox"
           name={name}
 
+
           checked={this.state.isChecked}
+          
           onChange={this._handleInputChange}
         />
         <label htmlFor={name}> {label} </label>
@@ -54,8 +56,8 @@ class CheckboxInput extends Base {
 
 CheckboxInput.propTypes = {
   label: PropTypes.string
-  , value: PropTypes.bool
-  , name: PropTypes.string
+  , value: PropTypes.bool.isRequired
+  , name: PropTypes.string.isRequired
   , checked: PropTypes.bool
   , change: PropTypes.func
 }

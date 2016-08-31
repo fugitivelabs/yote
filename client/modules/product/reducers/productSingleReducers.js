@@ -9,6 +9,10 @@ SINGLE REDUCERS GO HERE
 // import * as singleActions from '../actions/productSingleActions';
 import { singleActions } from '../actions';
 
+let defaultProduct = {
+  title: ""
+  , description: ""
+}
 
 function single(state = {
   isFetching: false
@@ -70,10 +74,7 @@ function single(state = {
       console.log("SETUP_NEW_PRODUCT");
       return Object.assign({}, state, {
         isFetching: false
-        , item: {
-          title: ""
-          , description: ""
-        }
+        , item:  JSON.parse(JSON.stringify(defaultProduct)) //copy object
         , populated: false
       });
     case singleActions.REQUEST_CREATE_PRODUCT:

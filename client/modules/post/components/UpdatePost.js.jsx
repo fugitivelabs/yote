@@ -47,7 +47,7 @@ class UpdatePost extends Base {
 
   render() {
     const { item } = this.state;
-    const isEmpty = !item;
+    const isEmpty = !item.title; 
     return  (
       <div >
         {isEmpty

@@ -6,7 +6,7 @@ class EmailInput extends Base {
 
   constructor(props) {
     super(props);
-    this.state = { theVal: '' };
+    this.state = { theVal: this.props.value ? this.props.value : '' };
     this._bind(
       '_handleInputChange'
       , '_validateEmail'
@@ -49,9 +49,9 @@ class EmailInput extends Base {
 
 EmailInput.propTypes = {
   label: PropTypes.string
-  , value: PropTypes.string
+  , value: PropTypes.string.isRequired
   , placeholder: PropTypes.string
-  , name: PropTypes.string
+  , name: PropTypes.string.isRequired
   , required: PropTypes.bool
   , change: PropTypes.func
 }

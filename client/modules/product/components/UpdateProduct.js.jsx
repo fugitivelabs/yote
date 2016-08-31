@@ -53,7 +53,7 @@ class UpdateProduct extends Base {
 
   render() {
     const { item } = this.state;
-    const isEmpty = !item;
+    const isEmpty = !item.title; //check a property to make sure that it resolved.
     return  (
       <div >
         {isEmpty
