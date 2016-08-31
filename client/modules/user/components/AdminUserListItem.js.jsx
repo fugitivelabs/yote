@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react'
 import { Link, Router } from 'react-router';
-import { connect } from 'react-redux';
 import Base from "../../../global/components/BaseComponent.js.jsx";
 import moment from 'moment';
 import { browserHistory } from 'react-router';
@@ -30,14 +29,7 @@ class AdminUserListItem extends Base {
 }
 
 AdminUserListItem.propTypes = {
-  dispatch: PropTypes.func.isRequired
-  , user: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired
 }
 
-const mapStoreToProps = (store) => {
-  return {}
-}
-
-export default connect(
-  mapStoreToProps
-)(AdminUserListItem);
+export default AdminUserListItem;
