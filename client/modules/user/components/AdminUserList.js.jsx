@@ -35,19 +35,19 @@ class AdminUserList extends Base {
         <p className="large">Here you can create, edit, and add permissions to users</p>
         {isEmpty
           ? (list.isFetching ? <h5>Loading...</h5> : <h5>Empty.</h5>)
-          : <div style={{ opacity: list.isFetching ? 0.5 : 1 }}>
-            <div className="yt-toolbar">
-              <div className="yt-tools space-between">
-                <div className="filters">
-                Filter By:
-                </div>
-                <div className="search">
-                Search:
-                  <input type="search" placeholder="Coming soon..." disabled/>
+            : <div style={{ opacity: list.isFetching ? 0.5 : 1 }}>
+              <div className="yt-toolbar">
+                <div className="yt-tools space-between">
+                  <div className="filters">
+                    Filter By:
+                  </div>
+                  <div className="search">
+                    Search:
+                    <input type="search" placeholder="Coming soon..." disabled/>
+                  </div>
                 </div>
               </div>
-            </div>
-            <table className="users-table striped">
+              <table className="yt-table striped">
               <caption> All Users </caption>
               <thead>
                 <tr>
