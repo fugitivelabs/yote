@@ -9,7 +9,7 @@ import SimpleArrayEditor from './SimpleArrayEditor.js.jsx';
 import UrlInput from './UrlInput.js.jsx';
 import NumberInput from './NumberInput.js.jsx';
 import ListComparator from './ListComparator.js.jsx';
-
+import SearchInput from './SearchInput.js.jsx';
 
 export { SelectFromArray };
 export { SelectFromObject };
@@ -22,6 +22,7 @@ export { SimpleArrayEditor };
 export { UrlInput };
 export { NumberInput };
 export { ListComparator };
+export { SearchInput };
 
 export default {
   SelectFromArray
@@ -35,4 +36,5 @@ export default {
   , UrlInput
   , NumberInput
   , ListComparator
+  , SearchInput
 }
