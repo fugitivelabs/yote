@@ -1,5 +1,6 @@
 
-table {
+table.yt-table,
+.admin table {
   // border-radius: 4px;
   border-top: 1px solid #aaa;
   border-bottom: 1px solid #aaa;
@@ -55,6 +56,18 @@ table {
       td {
         padding: 3px;
       }
+      &.linkable {
+        &:hover {
+          background-color: #f5f5f5;
+          cursor: pointer;
+          color: $link-color;
+        }
+      }
+    }
+  }
+  tr {
+    .numbers, .right {
+      text-align: right;
     }
   }
 }

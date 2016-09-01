@@ -2,7 +2,7 @@
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
 
-// variables: 
+// variables:
 
 $toolbar-height:            50px;
 $toolbar-tall-height:       100px;
@@ -10,7 +10,8 @@ $toolbar-bg-color:          #fff;
 $toolbar-color:             #fff;
 
 
-[yt-toolbar] {
+[yt-toolbar],
+.yt-toolbar {
   @include display-flex;
   @include flex-direction(column);
   position: relative;
@@ -19,7 +20,8 @@ $toolbar-color:             #fff;
 }
 
 
-[yt-tools] {
+[yt-tools],
+.yt-tools {
   @include display-inline-flex;
   @include align-items(center);
   @include flex-direction(row);
@@ -33,31 +35,36 @@ $toolbar-color:             #fff;
 }
 
 // aligns all items to the left edge of the toolbar (also is the default)
-[yt-tools~="left"] {
+[yt-tools~="left"],
+.yt-tools.left {
   @include justify-content(flex-end);
 }
 
 // aligns all items to the right edge of the toolbar
-[yt-tools~="right"] {
+[yt-tools~="right"],
+.yt-tools.right {
   @include justify-content(flex-end);
 }
 
 // align all items to the center of the toolbar
-[yt-tools~="center"] {
+[yt-tools~="center"],
+.yt-tools.center {
   @include justify-content(center);
 }
 
-// starting with columns justifed to the left and right edges of the toolbar, 
-// put an even amount of space between each 
+// starting with columns justifed to the left and right edges of the toolbar,
+// put an even amount of space between each
 // -- (give this a better name?)
-[yt-tools~="space-between"] {
+[yt-tools~="space-between"],
+.yt-tools.space-between {
   @include justify-content(space-between);
 }
 
-// starting with columns justifed to the center of the row, 
-// put an even amount of space between each column AND the left 
+// starting with columns justifed to the center of the row,
+// put an even amount of space between each column AND the left
 // and right edges of the tools
 // -- (give this a better name?)
-[yt-tools~="space-around"] {
+[yt-tools~="space-around"],
+.yt-tools.space-around {
   @include justify-content(space-around);
 }
