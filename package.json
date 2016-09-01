@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node yote.js",
     "test": "mocha --compilers js:babel-core/register --require ./test/test-helper.js --recursive",
-    "watch": "webpack --progress --colors --watch",
+    "watch": "webpack -d --progress --colors --watch",
     "build": "NODE_ENV=production webpack -p"
   },
   "repository": {
