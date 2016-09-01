@@ -1,4 +1,6 @@
 
+.table-wrapper { overflow-x: auto; }
+
 table.yt-table,
 .admin table {
   // border-radius: 4px;
@@ -37,6 +39,8 @@ table.yt-table,
     }
   }
 
+
+
   thead {
     border-bottom: 1px solid #ddd;
     th {
@@ -54,7 +58,7 @@ table.yt-table,
     tr {
       border-bottom: 1px solid #ddd;
       td {
-        padding: 3px;
+        padding: 5px;
       }
       &.linkable {
         &:hover {
@@ -68,6 +72,30 @@ table.yt-table,
   tr {
     .numbers, .right {
       text-align: right;
+    }
+  }
+  td, th {
+    &._10 { width: 10%; max-width: 100px; }
+    &._20 { width: 20%; max-width: 200px; }
+    &._25 { width: 25%; max-width: 250px; }
+    &._30 { width: 30%; max-width: 300px; }
+    &._33 { width: 33%; max-width: 330px; }
+    &._40 { width: 40%; max-width: 400px; }
+    &._50 { width: 50%; max-width: 500px; }
+    &._60 { width: 60%; max-width: 600px; }
+    &._66 { width: 66%; max-width: 660px; }
+    &._70 { width: 70%; max-width: 700px; }
+    &._75 { width: 75%; max-width: 750px; }
+    &._80 { width: 80%; max-width: 800px; }
+    &._90 { width: 90%; max-width: 900px; }
+
+  }
+  &.truncate-cells {
+    td {
+      height: 40px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
     }
   }
 }
