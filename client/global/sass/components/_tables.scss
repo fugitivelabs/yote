@@ -51,6 +51,14 @@ table.yt-table,
           text-decoration: underline;
         }
       }
+      &.sortable {
+        &:hover {
+          color: lighten($text-color, 15);
+          cursor: pointer;
+          text-decoration: underline;
+        }
+        i { margin-left: 5px;}
+      }
     }
   }
 
