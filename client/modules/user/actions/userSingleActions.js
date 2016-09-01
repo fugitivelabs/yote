@@ -1,6 +1,42 @@
 import fetch from 'isomorphic-fetch'
 import { browserHistory } from 'react-router';
 
+export const REQUEST_SINGLE_USER = "REQUEST_SINGLE_USER"
+function requestSingleUser(userId) {
+  return {
+    type: REQUEST_SINGLE_USER
+    , userId: userId
+  }
+}
+
+export const RECEIVE_SINGLE_USER = "RECEIVE_SINGLE_USER"
+function receiveSingleUser(json) {
+  console.log("received user");
+  console.log(json);
+  return {
+    type: RECEIVE_SINGLE_USER
+    , user: json.user
+    , success: json.success
+    , error: json.message
+    , receivedAt: Date.now()
+  }
+}
+
+export function fetchSingleUser(userId) {
+  return dispatch => {
+    dispatch(requestSingleUser(userId))
+    return fetch('/api/users/' + userId, {
+      headers: {
+        'Accept': 'application/json'
+        , 'Content-Type': 'application/json'
+      }
+      , credentials: 'same-origin'
+    })
+    .then(res => res.json())
+    .then(json => dispatch(receiveSingleUser(json)))
+  }
+}
+
 export const REQUEST_LOGIN = "REQUEST_LOGIN"
 function requestLogin(username) {
   return {
@@ -81,7 +117,7 @@ function receiveRegister(json) {
 export function sendRegister(userData) {
   return dispatch => {
     dispatch(requestRegister(userData))
-    return fetch('/api/users', {
+    return fetch('/api/users/register', {
       method: 'POST'
       , headers: {
         'Accept': 'application/json'
@@ -99,6 +135,50 @@ export function sendRegister(userData) {
         console.log("Invalid registration");
         console.log(json.error);
         alert("Invalid registration. Please make sure all fields are correct and try again.");
+      }
+      return json;
+    })
+  }
+}
+
+export const REQUEST_CREATE_USER = "REQUEST_CREATE_USER"
+function requestCreateUser(userData) {
+  return {
+    type: REQUEST_CREATE_USER
+    , userData: userData
+  }
+}
+
+export const RECEIVE_CREATE_USER = "RECEIVE_CREATE_USER"
+function receiveCreateUser(json) {
+  return {
+    type: RECEIVE_CREATE_USER
+    , user: json.user
+    , success: json.success
+    , error: json.message
+    , receivedAt: Date.now()
+  }
+}
+
+export function sendCreateUser(userData) {
+  return dispatch => {
+    dispatch(requestCreateUser(userData))
+    return fetch('/api/users', {
+      method: 'POST'
+      , headers: {
+        'Accept': 'application/json'
+        , 'Content-Type': 'application/json'
+      }
+      , credentials: 'same-origin'
+      , body: JSON.stringify(userData)
+    })
+    .then(res => res.json())
+    .then(json => dispatch(receiveCreateUser(json)))
+    .then((json) => {
+      if(!json.success) {
+        console.log("Invalid user");
+        console.log(json.error);
+        alert("Invalid user. Please make sure all fields are correct and try again.");
       }
       return json;
     })
@@ -148,6 +228,42 @@ export function sendLogout() {
       }
       return json;
     })
+  }
+}
+
+export const REQUEST_UPDATE_USER = "REQUEST_UPDATE_USER"
+function requestUpdateUser(userData) {
+  return {
+    type: REQUEST_UPDATE_USER
+    , userData: userData
+  }
+}
+
+export const RECEIVE_UPDATE_USER = "RECEIVE_UPDATE_USER"
+function receiveUpdateUser(json) {
+  return {
+    type: RECEIVE_UPDATE_USER
+    , user: json.user
+    , success: json.success
+    , error: json.message
+    , receivedAt: Date.now()
+  }
+}
+
+export function sendUpdateUser(userData) {
+  return dispatch => {
+    dispatch(requestUpdateUser(userData))
+    return fetch('/api/users/' + userData._id, {
+      method: 'PUT'
+      , headers: {
+        'Accept': 'application/json'
+        , 'Content-Type': 'application/json'
+      }
+      , credentials: 'same-origin'
+      , body: JSON.stringify(userData)
+    })
+    .then(res => res.json())
+    .then(json => dispatch(receiveUpdateUser(json)))
   }
 }
 

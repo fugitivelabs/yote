@@ -7,7 +7,7 @@ LIST ACTIONS GO HERE
 import fetch from 'isomorphic-fetch'
 
 export const REQUEST_USER_LIST = "REQUEST_USER_LIST"
-function requestProductList() {
+function requestUserList() {
   console.log('requesting users list')
   return {
     type: REQUEST_USER_LIST
@@ -15,7 +15,7 @@ function requestProductList() {
 }
 
 export const RECEIVE_USER_LIST = "RECEIVE_USER_LIST"
-function receiveProductList(json) {
+function receiveUserList(json) {
   return {
     type: RECEIVE_USER_LIST
     , list: json.users
@@ -27,14 +27,12 @@ function receiveProductList(json) {
 
 export function fetchList() {
   return dispatch => {
-    dispatch(requestProductList())
+    dispatch(requestUserList())
     return fetch('/api/users', {
       method: 'GET'
       , credentials: 'same-origin'
     })
-      .then(response => response.json())
-      .then(json =>
-        dispatch(receiveProductList(json))
-      )
+    .then(response => response.json())
+    .then(json => dispatch(receiveUserList(json)))
   }
 }

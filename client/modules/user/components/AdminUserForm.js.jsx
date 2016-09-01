@@ -1,22 +1,18 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router';
 
-import { TextInput, EmailInput, PasswordInput, SimpleArrayEditor, SelectFromObject } from '../../../global/components/forms';
+import { TextInput, EmailInput, PasswordInput, SimpleArrayEditor } from '../../../global/components/forms';
 
-const AdminCreateUserForm = ({ user, handleFormSubmit, handleFormChange }) => {
-  console.log("register form loading");
+const AdminUserForm = ({ user, formType, handleFormSubmit, handleFormChange,  cancelLink, formTitle }) => {
+  const buttonText = formType === "create" ? "Create User" : "Update User";
+  const header = formTitle ? <div className="formHeader"><h1> {formTitle} </h1><hr/></div> : <div/>;
+
   return (
     <div className="yt-container">
-      <div className="yt-row">
-        <Link className="" to="/admin/users">&larr; Cancel</Link>
-      </div>
-      <div className="form-header">
-        <h3 > Create New User </h3>
-        <hr/>
-      </div>
+      {header}
       <div className="yt-row center-horiz">
-        <div className="form-container yt-col full s_75 m_50">
-          <form name="userForm" className="user-form" onSubmit={handleFormSubmit}>
+        <div className="form-container">
+          <form name="userForm" className="card user-form" onSubmit={handleFormSubmit}>
             <EmailInput
               name="username"
               label="Email Address"
@@ -25,14 +21,17 @@ const AdminCreateUserForm = ({ user, handleFormSubmit, handleFormChange }) => {
               placeholder="Email (required)"
               required={true}
             />
-            <PasswordInput
-              name="password"
-              label="Password"
-              value={user.password}
-              change={handleFormChange}
-              required={true}
-              password={true}
-            />
+            { formType == "create" ?
+              <PasswordInput
+                name="password"
+                label="Password"
+                value={user.password}
+                change={handleFormChange}
+                required={true}
+                password={true}
+              />
+              : null
+            }
             <TextInput
               name="firstName"
               label="First Name"
@@ -54,11 +53,11 @@ const AdminCreateUserForm = ({ user, handleFormSubmit, handleFormChange }) => {
               arrayType="string"
               change={handleFormChange}
             />
-            <small className="input-helper">must be one of 'admin', 'author', 'customer' </small>
+            <small className="input-helper">by default, either 'admin' or null </small>
 
             <div className="input-group">
-              <div className="yt-row right">
-                <button className="yt-btn " type="submit" > Create This User </button>
+              <div className="yt-row space-between">
+                <button className="yt-btn " type="submit" > {buttonText} </button>
               </div>
             </div>
           </form>
@@ -68,10 +67,13 @@ const AdminCreateUserForm = ({ user, handleFormSubmit, handleFormChange }) => {
   )
 }
 
-AdminCreateUserForm.propTypes = {
+AdminUserForm.propTypes = {
   user: PropTypes.object.isRequired
+  , formType: PropTypes.string.isRequired
   , handleFormSubmit: PropTypes.func.isRequired
   , handleFormChange: PropTypes.func.isRequired
+  , cancelLink: PropTypes.string.isRequired
+  , formTitle: PropTypes.string
 }
 
-export default AdminCreateUserForm;
+export default AdminUserForm;

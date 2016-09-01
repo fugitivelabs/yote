@@ -106,10 +106,12 @@ module.exports = function(router, requireLogin, requireRole) {
 
   // ==> users CRUD api
   // - Create
-  router.post('/api/users'         , users.create);
+  router.post('/api/users/register'     , users.register); //create and login
+  router.post('/api/users'              , requireRole('admin'), users.create); //create without login
 
   // - Read
-  router.get('/api/users'          , requireRole('admin'), users.list); // must be an 'admin' to see the list of users
+  router.get('/api/users'               , requireRole('admin'), users.list); // must be an 'admin' to see the list of users
+  router.get('/api/users/:id'           , requireRole('admin'), users.getById);
 
   // - Update
   router.put('/api/users/:userId'      , requireLogin(), users.update);

@@ -2,16 +2,17 @@ import React, { PropTypes } from 'react'
 import { Link, Router } from 'react-router';
 import Base from "../../../global/components/BaseComponent.js.jsx";
 import moment from 'moment';
+import { browserHistory } from 'react-router';
 
 class AdminUserListItem extends Base {
-  constructor(props, context) {
+  constructor(props) {
     super(props);
   }
 
   _goToUser(userId) {
     // console.log("this.context");
     // console.log(this.context);
-    this.context.router.push(`/admin/users/${userId}`);
+    browserHistory.push(`/admin/users/${userId}`)
   }
   render() {
     const {user} = this.props;

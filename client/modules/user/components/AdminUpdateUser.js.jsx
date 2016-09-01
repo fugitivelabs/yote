@@ -1,15 +1,16 @@
 import React, { PropTypes } from 'react';
 import Base from "../../../global/components/BaseComponent.js.jsx";
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 
 //actions
 import { singleActions } from '../actions';
 
 
 //components
-import AdminUpdateUserForm from './AdminUpdateUserForm.js.jsx';
+import AdminUserForm from './AdminUserForm.js.jsx';
 
-class UserRegister extends Base {
+class AdminUpdateUser extends Base {
   constructor(props) {
     super(props);
     this.state = this.props;
@@ -22,9 +23,16 @@ class UserRegister extends Base {
     );
   }
 
-  componentWillMount() {
-    const { dispatch } = this.props;
-    dispatch(singleActions.setupNewUser());
+  componentDidMount() {
+    const { dispatch, params } = this.props;
+    dispatch(singleActions.fetchSingleUser(params.userId));
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState(nextProps);
+    if(nextProps.status === "error") {
+      alert(nextProps.error.message);
+    }
   }
 
   _handleFormChange(e) {
@@ -36,17 +44,24 @@ class UserRegister extends Base {
   _handleFormSubmit(e) {
     e.preventDefault();
     console.log(this.state.newUser);
-    this.props.dispatch(singleActions.sendUserRegister(this.state.newUser));
+    this.props.dispatch(singleActions.sendUpdateUser(this.state.newUser)).then((result) => {
+      if(result.success) {
+        console.log("success");
+        browserHistory.push('/admin/users')
+      } else {
+        console.log(result);
+        alert("ERROR UPDATING USER: " + result.message);
+      }
+    });
   }
 
   render() {
-    console.log(this.props);
     const { user, newUser } = this.props;
     var isLoggedIn = user._id ? true : false;
     console.log("isLoggedIn", isLoggedIn);
     var isAdmin = isLoggedIn && user.roles.indexOf('admin') > -1 ? true: false;
     console.log("isAdmin", isAdmin);
-    const isEmpty = !newUser;
+    const isEmpty = !newUser || (newUser.username === null || newUser.username === undefined);;
     return  (
       <div>
         {!isLoggedIn || !isAdmin
@@ -60,10 +75,13 @@ class UserRegister extends Base {
               {isEmpty
                 ? <h2> Loading... </h2>
                 :
-                  <AdminUpdateUserForm
-                user={this.state.newUser}
-                handleFormSubmit={this._handleFormSubmit}
-                handleFormChange={this._handleFormChange}
+                <AdminUserForm
+                  user={this.state.newUser}
+                  formType="update"
+                  handleFormSubmit={this._handleFormSubmit}
+                  handleFormChange={this._handleFormChange}
+                  cancelLink={`/admin/users`}
+                  formTitle="Update User"
                 />
 
             }
@@ -74,27 +92,17 @@ class UserRegister extends Base {
   }
 }
 
-UserRegister.propTypes = {
+AdminUpdateUser.propTypes = {
   dispatch: PropTypes.func.isRequired
 }
 
-UserRegister.defaultProps = {
-  newUser: {
-    username: ""
-    , password: ""
-    , firstName: ""
-    , lastName: ""
-    , roles: []
-  }
-}
-
-const mapStoreToProps = (state, ownProps) => {
+const mapStoreToProps = (store) => {
   return {
-    user: state.user.single.user
-    , newUser: state.user.single.newUser
+    user: store.user.single.user
+    , newUser: store.user.single.newUser
   }
 }
 
 export default connect(
   mapStoreToProps
-)(UserRegister);
+)(AdminUpdateUser);

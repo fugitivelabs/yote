@@ -18,9 +18,16 @@ class UserRegister extends Base {
     );
   }
  
- componentDidMount() {
-  this.props.dispatch(userSingleActions.setupNewUser());
- }
+  componentDidMount() {
+    this.props.dispatch(userSingleActions.setupNewUser());
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState(nextProps);
+    if(nextProps.status === "error") {
+      alert(nextProps.error.message);
+    }
+  }
 
   _handleFormChange(e) {
     var nextState = this.state.user;
@@ -37,13 +44,16 @@ class UserRegister extends Base {
 
   render() {
     const { user } = this.state;
+    const isEmpty = !user || (user.username === null || user.username === undefined);
     return  (
       <div>
-        <UserRegisterForm
-          user={user}
-          handleFormSubmit={this._handleFormSubmit}
-          handleFormChange={this._handleFormChange}
-        />
+        { isEmpty ? "Loading..." :
+          <UserRegisterForm
+            user={user}
+            handleFormSubmit={this._handleFormSubmit}
+            handleFormChange={this._handleFormChange}
+          />
+        }
       </div>
     )
   }
@@ -54,7 +64,7 @@ UserRegister.propTypes = {
 }
 
 const mapStoreToProps = (store) => {
-  return { user: store.user.single.user }
+  return { user: store.user.single.newUser }
 }
 
 export default connect(

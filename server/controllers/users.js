@@ -34,46 +34,64 @@ exports.list = function(req, res) {
   }
 }
 
-// exports.changePassword = function(req, res) {
-//   if(!req.user || !req.user.id) {
-//     res.send({success: false, message: "Invalid User Id"});
-//   } else {
-//     User.findOne({_id: req.user._id}).exec(function(err, user) {
-//       if(err || !user) {
-//         res.send({success: false, message: "Invalid User Id"});
-//       } else {
-//         res.send(user);
-//       }
-//     });
-//   }
-// }
+exports.getById = function(req, res) {
+  User.findById(req.params.id).exec(function(err, user) {
+    if(err || !user) {
+      res.send({success: false, message: "Error retrieving user", err: err});
+    } else {
+      res.send({success: true, user: user});
+    }
+  })
+}
 
-exports.create = function(req, res, next) {
-  var userData = req.body;
-
+exports.utilCheckAndSaveUser = function(userData, callback) {
+  console.log("util create user");
+  //we need both register and create for yote admin to function
+  // this util method handles most of the creation stuff
   userData.username = userData.username.toLowerCase().trim();
   //very simple email format validation
   if (!( /(.+)@(.+){2,}\.(.+){2,}/.test(userData.username) )) {
     logger.debug("invalid email");
-    res.send({success: false, message: "Invalid email address."});
+    callback({success: false, message: "Invalid email address."});
     return;
   }
   //check password for length
   if(userData.password.length <= 6) {
     logger.debug("password too short");
-    res.send({success: false, message: "Password not long enough. Min 6 characters."});
+    callback({success: false, message: "Password not long enough. Min 6 characters."});
     return;
   }
+  //perform additional checks
   userData.password_salt = User.createPasswordSalt();
   userData.password_hash = User.hashPassword(userData.password_salt, userData.password);
+
   User.create(userData, function(err, user) {
     if(err || !user) {
       if(err.toString().indexOf('E11000') > -1) {
         err = new Error('Duplicate Username');
       }
-      res.send({success: false, message: "Username is already in use."});
+      callback({success: false, message: "Username is already in use."});
     } else {
-      req.login(user, function(err) {
+      callback({success: true, user: user});
+    }
+  });
+}
+
+exports.create = function(req, res, next) {
+  var userData = req.body;
+  exports.utilCheckAndSaveUser(userData, function(result) {
+    res.send(result);
+  });
+}
+
+exports.register = function(req, res, next) {
+  var userData = req.body;
+  userData.roles = []; //don't let registering user set their own roles
+  exports.utilCheckAndSaveUser(userData, function(result) {
+    if(!result.success) {
+      res.send(result);
+    } else {
+      req.login(result.user, function(err) {
         if(err) {
           console.log("ERROR LOGGING IN NEW USER");
           console.log(err);
@@ -81,22 +99,22 @@ exports.create = function(req, res, next) {
         } else {
           if(req.param("withToken")) {
             logger.info("create api token for mobile user");
-            user.createToken(function(err, token) {
+            result.user.createToken(function(err, token) {
               if(err || !token) {
                 res.send({ success: false, message: "unable to generate user API token" });
               } else {
-                res.send({success: true, user: user});
+                res.send({success: true, user: result.user});
               }
             });
           } else {
             console.log("NEWLY REGISTERED USER LOGGING IN");
             logger.warn(req.user.username);
             var returnUser = {
-              _id: user._id
-              , firstName: user.firstName
-              , lastName: user.lastName
-              , username: user.username
-              , roles: user.roles
+              _id: result.user._id
+              , firstName: result.user.firstName
+              , lastName: result.user.lastName
+              , username: result.user.username
+              , roles: result.user.roles
             }
             console.log("logged in");
             logger.debug(returnUser);
