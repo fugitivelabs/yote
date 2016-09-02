@@ -213,3 +213,30 @@ form {
     color: $white;
   }
 }
+
+
+
+.search-input {
+  .input-add-on {
+    margin-bottom: 0;
+    .item {
+      background: transparent;
+      border: 1px solid $divider-color;
+      border-right: none;
+      border-radius: 50px 0 0 50px;
+    }
+    input {
+      border: 1px solid $divider-color;
+      border-left: none;
+      border-radius: 0 50px 50px 0;
+      @include transition(all 250ms ease-in-out);
+      width: 200px;
+      @include MQ(M) {
+
+        &:focus {
+          width: 300px;
+        }
+      }
+    }
+  }
+}
