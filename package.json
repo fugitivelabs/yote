@@ -46,7 +46,6 @@
     "errorhandler": "^1.4.2",
     "express": "^4.13.3",
     "express-session": "^1.8.2",
-    "gcloud": "^0.37.0",
     "isomorphic-fetch": "^2.2.1",
     "jwt-simple": "^0.4.0",
     "lodash": "^4.2.0",
