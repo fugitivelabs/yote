@@ -298,11 +298,11 @@ Additional notes on production deployment
   - 2 load balanced web server instances and a separate database instance
 
   1) create database instance
-    a) run with exposes mongo ports: sudo docker run -d -v ~/data:/data/db -p 27017:27017 --name mongodb library/mongo mongod --smallfiles
-    b) copy instance internal ip address
+    a) run with exposed mongo ports: sudo docker run -d -v ~/data:/data/db -p 27017:27017 --name mongodb library/mongo mongod --smallfiles
+    b) copy instance *internal* ip address
 
   2) create server instances and attach to database IP address
-    a) sudo docker run -it -p 80:80 -e NODE_ENV=production -e REMOTE_DB=$ID_ADDRESS --name yote fugitivelabs/yote
+    a) sudo docker run -it -p 80:80 -e NODE_ENV=production -e REMOTE_DB=$IP_ADDRESS --name yote fugitivelabs/yote
     b) must all be in same region, but not necessarily same zone. (us-centra1-a and us-central1-b is ok)
 
   3) configure load balancer
@@ -311,5 +311,16 @@ Additional notes on production deployment
     c) to view after completion, go to Gcloud Console -> Menu -> Networking -> Load Balancing (looks like you can also create from console if you want to)
 
     d) TODO: configure and test HTTPS
+
+
+
+logging in google compute
+
+this is possible, but in practice I can't get it working. basically, we need to authenticate the gcloud logging api, and then use logger to send all logs to it instead when in production. according to google, the relevant env variables should be defined automatically, but this doesn't seem to be the case. putting off for now. todo: try downloading the service account key manually and storing it in a folder in yote.
+
+https://cloud.google.com/compute/docs/access/create-enable-service-accounts-for-instances
+https://support.google.com/cloud/answer/6158849?hl=en#serviceaccounts
+https://cloud.google.com/logging/docs/api/tasks/authorization
+
 
 

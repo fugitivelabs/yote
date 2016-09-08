@@ -9,6 +9,12 @@ var config = require('./server/config')[env];
 winston.emitErrs = true;
 
 if(env == 'production') {
+
+  //testing Google Cloud Logging for production
+  // //if deployed on compute engine, Google will handle auth automatically
+  // var logging = require('@google-cloud/logging');
+
+
   //if prod, log to file and console
   var logger = new winston.Logger({
     transports: [
