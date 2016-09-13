@@ -34,6 +34,7 @@
   },
   "homepage": "https://github.com/fugitivelabs/yote-react",
   "dependencies": {
+    "@google-cloud/logging": "^0.2.0",
     "async": "^1.5.0",
     "body-parser": "^1.14.1",
     "classnames": "^2.2.1",

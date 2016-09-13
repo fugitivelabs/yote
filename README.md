@@ -292,3 +292,35 @@ each will log to the console normally on dev. when env="production", though, any
  logging to a file doesn't like working on the docker instances. in theory, we should be able to link the ~/logs volume from the host and write our logs there. in practice, i can't get this to work. so, for the time being, in production mode, any messages labeled "info" or "error" will also be saved into the mongo database with the collection name "logs". we can browse through these on the server using the standard mongo command line, or copy them all using the database backup method. while not quite as useful as a big text file, it will still work for our purposed.
 
 using the regular "console.log" is perfectly fine for debugging stuff. for anything that we might want to keep track of, use "logger.info".
+
+
+Additional notes on production deployment
+  - 2 load balanced web server instances and a separate database instance
+
+  1) create database instance
+    a) run with exposed mongo ports: sudo docker run -d -v ~/data:/data/db -p 27017:27017 --name mongodb library/mongo mongod --smallfiles
+    b) copy instance *internal* ip address
+
+  2) create server instances and attach to database IP address
+    a) sudo docker run -it -p 80:80 -e NODE_ENV=production -e REMOTE_DB=$IP_ADDRESS --name yote fugitivelabs/yote
+    b) must all be in same region, but not necessarily same zone. (us-centra1-a and us-central1-b is ok)
+
+  3) configure load balancer
+    a) create static ip: gcloud compute addresses create $NAME --region $REGION
+    b) follow instrutions to create and allocate target pool: https://cloud.google.com/compute/docs/load-balancing/network/example
+    c) to view after completion, go to Gcloud Console -> Menu -> Networking -> Load Balancing (looks like you can also create from console if you want to)
+
+    d) TODO: configure and test HTTPS
+
+
+
+logging in google compute
+
+this is possible, but in practice I can't get it working. basically, we need to authenticate the gcloud logging api, and then use logger to send all logs to it instead when in production. according to google, the relevant env variables should be defined automatically, but this doesn't seem to be the case. putting off for now. todo: try downloading the service account key manually and storing it in a folder in yote.
+
+https://cloud.google.com/compute/docs/access/create-enable-service-accounts-for-instances
+https://support.google.com/cloud/answer/6158849?hl=en#serviceaccounts
+https://cloud.google.com/logging/docs/api/tasks/authorization
+
+
+
