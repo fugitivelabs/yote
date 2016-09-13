@@ -313,6 +313,19 @@ Additional notes on production deployment
     d) TODO: configure and test HTTPS
 
 
+logging in docker
+
+view the logs from a given container from the command line:
+```docker logs [OPTIONS] CONTAINER_NAME```
+
+all logs on instance are stored in ```/var/log/daemon.log```
+
+example: 
+``` docker logs --tail --timestamps 50 yote ```
+// show last 50 logs and include timestamps
+
+list commands: https://docs.docker.com/engine/reference/commandline/logs/
+
 
 logging in google compute
 
