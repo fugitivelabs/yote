@@ -10,6 +10,7 @@ import UrlInput from './UrlInput.js.jsx';
 import NumberInput from './NumberInput.js.jsx';
 import ListComparator from './ListComparator.js.jsx';
 import SearchInput from './SearchInput.js.jsx';
+import RadioInput from './RadioInput.js.jsx';
 
 export { SelectFromArray };
 export { SelectFromObject };
@@ -23,6 +24,7 @@ export { UrlInput };
 export { NumberInput };
 export { ListComparator };
 export { SearchInput };
+export { RadioInput };
 
 export default {
   SelectFromArray
@@ -37,4 +39,5 @@ export default {
   , NumberInput
   , ListComparator
   , SearchInput
+  , RadioInput
 }
