@@ -74,13 +74,14 @@ class RadioInput extends Base {
 }
 
 RadioInput.propTypes = {
-  options: React.PropTypes.arrayOf(React.PropTypes.shape({
-              val: React.PropTypes.oneOfType([
-                          React.PropTypes.string
-                          , React.PropTypes.number
-                        ]).isRequired
-              , display: React.PropTypes.string.isRequired
-            })).isRequired
+  options: React.PropTypes.arrayOf(
+    React.PropTypes.shape({
+      val: React.PropTypes.oneOfType([
+          React.PropTypes.string
+          , React.PropTypes.number
+        ]).isRequired
+      , display: React.PropTypes.string.isRequired
+    })).isRequired
   , change: React.PropTypes.func.isRequired
   , value: React.PropTypes.any
   , label: React.PropTypes.string
