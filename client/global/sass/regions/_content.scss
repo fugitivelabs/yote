@@ -19,7 +19,7 @@ img {
   // @extend %bottom-spacer_80;
   padding-left: 0;
   padding-right: 0;
-  @extend %bottom-spacer_80;
+  // @extend %bottom-spacer_80;
   @include MQ(L) {
     // margin-top: 100px;
   }
@@ -42,7 +42,7 @@ img {
   padding-left: 0;
   padding-right: 0;
   max-width: 960px;
-  @extend %bottom-spacer_80;
+  // @extend %bottom-spacer_80;
 
   @include MQ(L) {
     // margin-top: 100px;
@@ -124,7 +124,7 @@ img {
       &.title {
         padding-bottom: $gutter;
 
-        @extend %calibre-semibold;
+        // @extend %calibre-semibold;
         @include small-font;
         text-transform: uppercase;
         color: $brand-primary;
