@@ -11,18 +11,73 @@ export default class TopNav extends Base {
     super(props);
     this.state = {
       isOpen: false
+      , scrollingDown: false
+      , isTop: true
     }
     this._bind(
       '_openDropdown'
       , '_closeDropdown'
+      , '_handleScroll'
     );
   }
 
-  // getState() {
-  //   return {
-  //     isOpen: false
-  //   }
-  // }
+
+  componentWillMount() {
+    window.addEventListener('scroll', this._handleScroll);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this._handleScroll);
+  }
+
+
+  _handleScroll(e) {
+    // alert(e);
+    // console.log(e);
+    let scrollTop;
+    if(e.target.scrollingElement) {
+      scrollTop = e.target.scrollingElement.scrollTop;
+    } else {
+      scrollTop = document.documentElement.scrollTop;
+    }
+
+    // handle initial na
+    let isTop = scrollTop < 20 ? true : false;
+    if(isTop !== this.state.isTop) {
+      this.setState({isTop: isTop});
+    }
+
+
+    // if the page is scrolled down, change the navbar style
+    var scrollingDown;
+    if ( typeof this._handleScroll.y == undefined ) {
+      // this._handleScroll.x=window.pageXOffset;
+      this._handleScroll.y=window.pageYOffset;
+      // console.log(this._handleScroll.y);
+      scrollingDown = false;
+    }
+    // var diffX=this._handleScroll.x-window.pageXOffset;
+    var diffY=this._handleScroll.y-window.pageYOffset;
+
+    if( diffY<0 ) {
+      // Scroll down
+      // console.log("down");
+      scrollingDown = true;
+    } else if( diffY>0 ) {
+      // Scroll up
+      // console.log("up");
+      scrollingDown = false;
+    }
+
+    if(scrollingDown !== undefined && scrollingDown != this.state.scrollingDown) {
+      this.setState({scrollingDown: scrollingDown});
+      // this.scrollingDown = scrollingDown;
+    }
+
+    this._handleScroll.x=window.pageXOffset;
+    this._handleScroll.y=window.pageYOffset;
+  }
+
 
   _openDropdown(e) {
     e.stopPropagation();
@@ -38,10 +93,13 @@ export default class TopNav extends Base {
   }
 
   render() {
+    let { isTop, scrollingDown, isFixed } = this.state;
     let headerClass = classNames(
       'header'
-      // , 'fixed'
-
+      , 'fixed'
+      , {
+        'isHidden': scrollingDown && !isTop
+      }
     )
 
     return(
