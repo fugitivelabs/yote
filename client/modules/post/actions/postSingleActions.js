@@ -213,16 +213,18 @@ export function sendCreatePost(data) {
     })
     .then(response => response.json())
     .then(json => dispatch(receiveCreatePost(json)))
-    .then((json) => {
-      console.log("chck rediredt");
-      console.log(json);
-      if(json.success) {
-        //redirect to slug route
-        browserHistory.push(`/posts/${json.post.slug}`)
-        // //redirect to byId route
-        // browserHistory.push(`/news/byId/${json.post._id}`)
-      }
-    })
+    /*** ACTION-BASED REDIRECT ***/
+    // // by default use component-based redirect so other actions can be performed
+    // .then((json) => {
+    //   console.log("chck rediredt");
+    //   console.log(json);
+    //   if(json.success) {
+    //     //redirect to slug route
+    //     browserHistory.push(`/posts/${json.post.slug}`)
+    //     // //redirect to byId route
+    //     // browserHistory.push(`/news/byId/${json.post._id}`)
+    //   }
+    // })
   }
 }
 
@@ -268,12 +270,63 @@ export function sendUpdatePost(data) {
     })
     .then(response => response.json())
     .then(json => dispatch(receiveUpdatePost(json)))
+    /*** ACTION-BASED REDIRECT ***/
+    // // by default use component-based redirect so other actions can be performed
+    // .then((json) => {
+    //   if(json.success) {
+    //     //redirect to slug route
+    //     browserHistory.push(`/posts/${json.post.slug}`)
+    //     // //redirect to byId route
+    //     // browserHistory.push(`/news/byId/${json.post._id}`)
+    //   }
+    // })
+  }
+}
+
+
+
+/***************
+
+DELETE ACTIONS
+
+***************/
+
+export const REQUEST_DELETE_POST = "REQUEST_DELETE_POST";
+function requestDeletePost(postId) {
+  return {
+    type: REQUEST_DELETE_POST
+    , postId
+  }
+}
+
+export const RECEIVE_DELETE_POST = "RECEIVE_DELETE_POST";
+function receiveDeletePost(json) {
+  return {
+    type: RECEIVE_DELETE_POST
+    , success: json.success
+    , error: json.message
+    , receivedAt: Date.now()
+  }
+}
+
+export function sendDelete(id) {
+  return dispatch => {
+    dispatch(requestDeletePost(id))
+    return fetch(`/api/posts/${id}`, {
+      method: 'DELETE'
+      , headers: {
+        'Accept': 'application/json'
+        , 'Content-Type': 'application/json'
+      }
+      , credentials: 'same-origin'
+    })
+    .then(res => res.json())
+    .then(json => dispatch(receiveDeletePost(json)))
     .then((json) => {
       if(json.success) {
-        //redirect to slug route
-        browserHistory.push(`/posts/${json.post.slug}`)
-        // //redirect to byId route
-        // browserHistory.push(`/news/byId/${json.post._id}`)
+        browserHistory.push(`/posts`)
+      } else {
+        alert("ERROR");
       }
     })
   }

@@ -18,7 +18,7 @@ class ProductList extends Base {
 
   componentDidMount() {
     // console.log("list mounting");
-    this.props.dispatch(productListActions.fetchList());
+    this.props.dispatch(productListActions.fetchListIfNeeded());
   }
 
   render() {

@@ -136,16 +136,18 @@ export function sendCreateProduct(data) {
     })
     .then(response => response.json())
     .then(json => dispatch(receiveCreateProduct(json)))
-    .then((json) => {
-      console.log("chck rediredt");
-      console.log(json);
-      if(json.success) {
-        browserHistory.push(`/products/${json.product._id}`)
-      } else {
-        //TODO: do something useful with the error
-        alert("ERROR");
-      }
-    })
+    /*** ACTION-BASED REDIRECT ***/
+    // // by default use component-based redirect so other actions can be performed
+    // .then((json) => {
+    //   console.log("chck rediredt");
+    //   console.log(json);
+    //   if(json.success) {
+    //     browserHistory.push(`/products/${json.product._id}`)
+    //   } else {
+    //     //TODO: do something useful with the error
+    //     alert("ERROR");
+    //   }
+    // })
   }
 }
 
@@ -192,9 +194,61 @@ export function sendUpdateProduct(data) {
     })
     .then(response => response.json())
     .then(json => dispatch(receiveUpdateProduct(json)))
+    /*** ACTION-BASED REDIRECT ***/
+    // // by default use component-based redirect so other actions can be performed
+    // .then((json) => {
+    //   if(json.success) {
+    //     browserHistory.push(`/products/${json.product._id}`)
+    //   } else {
+    //     alert("ERROR");
+    //   }
+    // })
+  }
+}
+
+
+/***************
+
+DELETE ACTIONS
+
+***************/
+
+export const REQUEST_DELETE_PRODUCT = "REQUEST_DELETE_PRODUCT";
+function requestDeleteProduct(productId) {
+  return {
+    type: REQUEST_DELETE_PRODUCT
+    , productId
+  }
+}
+
+export const RECEIVE_DELETE_PRODUCT = "RECEIVE_DELETE_PRODUCT";
+function receiveDeleteProduct(json) {
+  return {
+    type: RECEIVE_DELETE_PRODUCT
+    , success: json.success
+    , error: json.message
+    , receivedAt: Date.now()
+  }
+}
+
+export function sendDelete(id) {
+  return dispatch => {
+    dispatch(requestDeleteProduct(id))
+    return fetch(`/api/products/${id}`, {
+      method: 'DELETE'
+      , headers: {
+        'Accept': 'application/json'
+        , 'Content-Type': 'application/json'
+      }
+      , credentials: 'same-origin'
+    })
+    .then(res => res.json())
+    .then(json => dispatch(receiveDeleteProduct(json)))
+    /*** ACTION-BASED REDIRECT ***/
+    // - use this for Delete by default
     .then((json) => {
       if(json.success) {
-        browserHistory.push(`/products/${json.product._id}`)
+        browserHistory.push(`/products`)
       } else {
         alert("ERROR");
       }

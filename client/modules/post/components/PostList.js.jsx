@@ -18,9 +18,7 @@ class PostList extends Base {
   componentDidMount() {
     // console.log("list mounting");
     // console.log(this.props);
-    this.props.dispatch(listActions.fetchList()).then(() => {
-      // console.log(this.props);
-    })
+    this.props.dispatch(listActions.fetchListIfNeeded("all"));
   }
   //
   componentWillReceiveProps(nextProps) {
