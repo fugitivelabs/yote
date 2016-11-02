@@ -15,7 +15,7 @@ $topbar-height:  $header-height;
 
 
 %navigation {
-  @extend %calibre-semibold;
+  // @extend %calibre-semibold;
   // @include smaller-font;
   @include display-flex;
   list-style: none;
@@ -79,7 +79,7 @@ $topbar-height:  $header-height;
     }
 
     a {
-      @extend %calibre-light;
+      // @extend %calibre-light;
       display: block;
       padding-bottom: 30px;
       width: 100%;
@@ -92,12 +92,12 @@ $topbar-height:  $header-height;
       }
 
       &.secondary {
-        @extend %calibre-semibold;
+        // @extend %calibre-semibold;
         font-size: 1rem;
       }
 
       &.active {
-        @extend %calibre-semibold;
+        // @extend %calibre-semibold;
         opacity: 1;
       }
 
@@ -175,7 +175,7 @@ ul.navigation {
     @include flex(1);
     border-right: 1px solid $divider-color;
     padding-right: $gutter;
-    @extend %calibre-light;
+    // @extend %calibre-light;
     font-size: 1.25rem;
     line-height: 1;
     @include MQ(XL) {
@@ -184,7 +184,7 @@ ul.navigation {
     }
     text-transform: none;
     .active {
-      @extend %calibre-semibold;
+      // @extend %calibre-semibold;
     }
     li {
       text-align: center;
@@ -252,7 +252,7 @@ ul.navigation {
       @include flex(1);
       border-right: 1px solid $divider-color;
       padding-right: $gutter;
-      @extend %calibre-light;
+      // @extend %calibre-light;
       font-size: 1.25rem;
       line-height: 1;
       @include MQ(XL) {
@@ -261,7 +261,7 @@ ul.navigation {
       }
       text-transform: none;
       .active {
-        @extend %calibre-semibold;
+        // @extend %calibre-semibold;
       }
       li {
         text-align: center;

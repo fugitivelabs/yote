@@ -336,4 +336,12 @@ https://support.google.com/cloud/answer/6158849?hl=en#serviceaccounts
 https://cloud.google.com/logging/docs/api/tasks/authorization
 
 
+TO CHANGE COMMAND LINE PROJECT:
+gcloud config set project $ProjectName
+https://cloud.google.com/sdk/gcloud/reference/config/set
+note: not "Yote", but rather the actual id, which right now is 'norse-augury-508'
+
+TODO: notes on instance creation and auto-deploying containers during instance creation
+https://cloud.google.com/compute/docs/containers/container_vms
+
 
