@@ -5,7 +5,7 @@ import { browserHistory } from 'react-router';
 import _ from 'lodash';
 
 // import actions
-import { singleActions, listActions } from '../actions';
+// import { singleActions, listActions } from '../actions';
 
 import * as productActions from '../productActions';
 
