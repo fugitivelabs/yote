@@ -3,9 +3,9 @@ SINGLE PRODUCT CRUD ACTIONS GO HERE
 getById, getBySlug example (for products), create, update
 *****/
 
-import fetch from 'isomorphic-fetch'
 import { browserHistory } from 'react-router';
 
+import callAPI from '../../global/util/api'
 //SINGLE PRODUCT ACTIONS
 
 const shouldFetchSingle = (state, id) => {
@@ -68,10 +68,7 @@ export function fetchSingleProductById(productId) {
   console.log("fetching");
   return dispatch => {
     dispatch(requestSingleProduct(productId))
-    return fetch(`/api/products/${productId}`, {
-      credentials: 'same-origin'
-    })
-      .then(response => response.json())
+    return callAPI(`/api/products/${productId}`)
       .then(json => dispatch(receiveSingleProduct(json)))
   }
 }
@@ -102,17 +99,8 @@ export function sendCreateProduct(data) {
   console.log("sendCreateProduct")
   return dispatch => {
     dispatch(requestCreateProduct(data))
-    return fetch('/api/products', {
-      method: 'POST'
-      , headers: {
-        'Accept': 'application/json'
-        , 'Content-Type': 'application/json'
-      }
-      , credentials: 'same-origin'
-      , body: JSON.stringify(data)
-    })
-    .then(response => response.json())
-    .then(json => dispatch(receiveCreateProduct(json)))
+    return callAPI('/api/products', 'POST', data)
+      .then(json => dispatch(receiveCreateProduct(json)))
   }
 }
 
@@ -138,16 +126,7 @@ function receiveUpdateProduct(json) {
 export function sendUpdateProduct(data) {
   return dispatch => {
     dispatch(requestUpdateProduct(data))
-    return fetch(`/api/products/${data._id}`, {
-      method: 'PUT'
-      , headers: {
-        'Accept': 'application/json'
-        , 'Content-Type': 'application/json'
-      }
-      , credentials: 'same-origin'
-      , body: JSON.stringify(data)
-    })
-    .then(response => response.json())
+    return callAPI(`/api/products/${data._id}`, 'PUT', data)
     .then(json => dispatch(receiveUpdateProduct(json)))
     /*** ACTION-BASED REDIRECT ***/
     // // by default use component-based redirect so other actions can be performed
@@ -182,15 +161,7 @@ function receiveDeleteProduct(json) {
 export function sendDelete(id) {
   return dispatch => {
     dispatch(requestDeleteProduct(id))
-    return fetch(`/api/products/${id}`, {
-      method: 'DELETE'
-      , headers: {
-        'Accept': 'application/json'
-        , 'Content-Type': 'application/json'
-      }
-      , credentials: 'same-origin'
-    })
-    .then(res => res.json())
+    return callAPI(`/api/products/${id}`, 'DELETE')
     .then(json => dispatch(receiveDeleteProduct(json)))
     /*** ACTION-BASED REDIRECT ***/
     // - use this for Delete by default
@@ -262,8 +233,7 @@ export function fetchList() {
   // console.log("FETCH PRODUCT LIST");
   return dispatch => {
     dispatch(requestProductList())
-    return fetch('/api/products')
-      .then(response => response.json())
+    return callAPI('/api/products')
       .then(json => dispatch(receiveProductList(json)))
   }
 }
