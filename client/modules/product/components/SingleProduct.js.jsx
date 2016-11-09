@@ -11,7 +11,7 @@ class SingleProduct extends Base {
   }
   componentDidMount() {
     const { dispatch, params } = this.props;
-    dispatch(productActions.fetchSingleProductById(params.productId))
+    dispatch(productActions.fetchSingleIfNeeded(params.productId))
   }
 
   render() {

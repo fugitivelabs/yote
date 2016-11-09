@@ -26,11 +26,7 @@ class UpdateProduct extends Base {
   componentDidMount() {
     console.log("Single item mounting");
     const { dispatch, params } = this.props;
-    if(params.productId) {
-      dispatch(productActions.fetchSingleProductById(params.productId))
-    } else {
-      dispatch(productActions.fetchSingleProductBySlug(params.slug))
-    }
+    dispatch(productActions.fetchSingleIfNeeded(params.productId))
   }
 
   componentWillReceiveProps(nextProps) {

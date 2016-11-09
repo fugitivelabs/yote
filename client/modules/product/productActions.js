@@ -1,14 +1,46 @@
 /*****
-
 SINGLE PRODUCT CRUD ACTIONS GO HERE
-getById, getByIdAndPopulate, getBySlug example (for products), create, update
-
+getById, getBySlug example (for products), create, update
 *****/
-
 
 import fetch from 'isomorphic-fetch'
 import { browserHistory } from 'react-router';
 
+//SINGLE PRODUCT ACTIONS
+
+const shouldFetchSingle = (state, id) => {
+  console.log("shouldFetch");
+  const { map, selected } = state.product;
+  if(selected.id !== id) {
+    console.log("shouldFetch debug 0");
+    return true;
+  } else if(!map[id]) {
+    console.log("shouldFetch debug 1");
+    return true;
+  } else if(selected.isFetching) {
+    console.log("shouldFetch debug 2");
+    return false;
+  } else {
+    console.log("shouldFetch debug 3");
+    return selected.didInvalidate;
+  }
+}
+
+export const INVALIDATE_SELECTED_PRODUCT = "INVALIDATE_SELECTED_PRODUCT"
+export function invaldiateSelected() {
+  return {
+    type: INVALIDATE_SELECTED_PRODUCT
+  }
+}
+
+export const fetchSingleIfNeeded = (id) => (dispatch, getState) => {
+  if (shouldFetchSingle(getState(), id)) {
+    console.log("SHOULD FETCH!");
+    return dispatch(fetchSingleProductById(id))
+  } else {
+    console.log("DON'T NEED TO FETCH");
+  }
+}
 
 export const REQUEST_SINGLE_PRODUCT = "REQUEST_SINGLE_PRODUCT";
 function requestSingleProduct(id) {
@@ -43,14 +75,6 @@ export function fetchSingleProductById(productId) {
   }
 }
 
-
-/***************
-
-CREATE ACTIONS
-
-***************/
-
-
 export const REQUEST_CREATE_PRODUCT = "REQUEST_CREATE_PRODUCT";
 function requestCreateProduct(product) {
   return {
@@ -58,7 +82,6 @@ function requestCreateProduct(product) {
     , product
   }
 }
-
 
 export const RECEIVE_CREATE_PRODUCT = "RECEIVE_CREATE_PRODUCT";
 function receiveCreateProduct(json) {
@@ -73,7 +96,6 @@ function receiveCreateProduct(json) {
     , receivedAt: Date.now()
   }
 }
-
 
 export function sendCreateProduct(data) {
   console.log("sendCreateProduct")
@@ -93,14 +115,6 @@ export function sendCreateProduct(data) {
   }
 }
 
-
-/***************
-
-UPDATE ACTIONS
-
-***************/
-
-
 export const REQUEST_UPDATE_PRODUCT = "REQUEST_UPDATE_PRODUCT";
 function requestUpdateProduct(product) {
   return {
@@ -119,8 +133,6 @@ function receiveUpdateProduct(json) {
     , receivedAt: Date.now()
   }
 }
-
-
 
 export function sendUpdateProduct(data) {
   return dispatch => {
@@ -147,13 +159,6 @@ export function sendUpdateProduct(data) {
     // })
   }
 }
-
-
-/***************
-
-DELETE ACTIONS
-
-***************/
 
 export const REQUEST_DELETE_PRODUCT = "REQUEST_DELETE_PRODUCT";
 function requestDeleteProduct(productId) {
@@ -197,3 +202,5 @@ export function sendDelete(id) {
     })
   }
 }
+
+//PRODUCT LIST ACTIONS
