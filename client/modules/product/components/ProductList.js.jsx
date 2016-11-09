@@ -5,7 +5,8 @@ import { Link } from 'react-router';
 
 // import actions
 // import * as listActions from '../actions/productListActions';
-import { listActions as productListActions } from '../actions';
+// import { listActions as productListActions } from '../actions';
+import * as productActions from '../productActions';
 
 // import components
 import ProductListItem from './ProductListItem.js.jsx';
@@ -18,11 +19,11 @@ class ProductList extends Base {
 
   componentDidMount() {
     // console.log("list mounting");
-    this.props.dispatch(productListActions.fetchListIfNeeded());
+    this.props.dispatch(productActions.fetchListIfNeeded("all"));
   }
 
   render() {
-    const { list } = this.props;
+    const { list, map } = this.props;
     const isEmpty = list.items.length === 0;
     return(
       <div className="flex">
@@ -36,8 +37,8 @@ class ProductList extends Base {
               ? (list.isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
                 : <div style={{ opacity: list.isFetching ? 0.5 : 1 }}>
                   <ul>
-                    {Object.keys(list.itemMap).map((id, i) =>
-                      <ProductListItem key={i} product={list.itemMap[id]} />
+                    {list.items.map((id, i) =>
+                      <ProductListItem key={i} product={map[id]} />
                     )}
                   </ul>
                 </div>
@@ -55,7 +56,8 @@ ProductList.propTypes = {
 
 const mapStoreToProps = (store) => {
   return {
-    list: store.product.list
+    map: store.product.map
+    , list: store.product.lists.all
   }
 }
 

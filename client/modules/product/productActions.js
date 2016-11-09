@@ -12,6 +12,7 @@ const shouldFetchSingle = (state, id) => {
   console.log("shouldFetch");
   const { map, selected } = state.product;
   if(selected.id !== id) {
+    //TODO: we need more granularity here. we also don't want to fetch if the object is already in the map
     console.log("shouldFetch debug 0");
     return true;
   } else if(!map[id]) {
@@ -204,3 +205,113 @@ export function sendDelete(id) {
 }
 
 //PRODUCT LIST ACTIONS
+
+const shouldFetchList = (state, type) => {
+  console.log("shouldFetchList");
+  //types: "all", "published", etc
+  const list = state.product.lists[type];
+  if(!list || !list.items) {
+    console.log("ERROR: CANNOT FIND LIST TYPE: " + type);
+  } else if(list.items.length < 1) {
+    console.log("shouldFetch debug 0");
+    return true
+  } else if(list.isFetching) {
+    console.log("shouldFetch debug 1");
+    return false
+  } else {
+    console.log("shouldFetch debug 2");
+    return list.didInvalidate;
+  }
+}
+
+
+export const fetchListIfNeeded = (type, id) => (dispatch, getState) => {
+  if (shouldFetchList(getState(), type)) {
+    if(type === "all") {
+      return dispatch(fetchList());
+    // } else if(type === "test") {
+    //   //example with an additional byId argument
+    //   return dispatch(fetchListByTest(id));
+    } else {
+      console.log("NO MATCHING LIST TYPE SPECIFIED");
+      return false; //what to return here?
+    }
+  }
+}
+
+export const REQUEST_PRODUCT_LIST = "REQUEST_PRODUCT_LIST"
+function requestProductList() {
+  console.log('requesting products list')
+  return {
+    type: REQUEST_PRODUCT_LIST
+  }
+}
+
+export const RECEIVE_PRODUCT_LIST = "RECEIVE_PRODUCT_LIST"
+function receiveProductList(json) {
+  return {
+    type: RECEIVE_PRODUCT_LIST
+    , list: json.products
+    , success: json.success
+    , error: json.message
+    , receivedAt: Date.now()
+  }
+}
+
+export function fetchList() {
+  // console.log("FETCH PRODUCT LIST");
+  return dispatch => {
+    dispatch(requestProductList())
+    return fetch('/api/products')
+      .then(response => response.json())
+      .then(json => dispatch(receiveProductList(json)))
+  }
+}
+
+//MORE LIST TYPES HERE
+
+
+//LIST UTIL METHODS
+export const SET_PRODUCT_FILTER = "SET_PRODUCT_FILTER"
+export function setFilter(listType, filter) {
+  return {
+    type: SET_PRODUCT_FILTER
+    , filter
+    , listType
+  }
+}
+
+export const SET_PRODUCT_SORT = "SET_PRODUCT_SORT"
+export function setSortBy(listType, sortBy) {
+  return {
+    type: SET_PRODUCT_SORT
+    , sortBy
+    , listType
+  }
+}
+
+export const SET_PRODUCT_QUERY = "SET_PRODUCT_QUERY"
+export function setQuery(listType, query) {
+  return {
+    type: SET_PRODUCT_QUERY
+    , query
+    , listType
+  }
+}
+
+export const SET_PRODUCT_PAGINATION = "SET_PRODUCT_PAGINATION"
+export function setPagination(listType, pagination) {
+  return {
+    type: SET_PRODUCT_PAGINATION
+    , pagination
+    , listType
+  }
+}
+
+export const INVALIDATE_PRODUCT_LIST = "INVALIDATE_PRODUCT_LIST"
+export function invaldiateList(listType) {
+  return {
+    type: INVALIDATE_PRODUCT_LIST
+    , listType
+  }
+}
