@@ -4,8 +4,7 @@ import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import _ from 'lodash';
 
-// import actions
-import { singleActions, listActions } from '../actions';
+import * as productActions from '../productActions';
 
 // import components
 import ProductForm from './ProductForm.js.jsx';
@@ -13,29 +12,33 @@ import ProductForm from './ProductForm.js.jsx';
 class UpdateProduct extends Base {
   constructor(props) {
     super(props);
-    this.state = this.props;
+    const { selected, map } = this.props;
+    this.state = {
+      item: map[selected.id] ? JSON.parse(JSON.stringify(map[selected.id])) : {}      
+      //we don't want to change the store, just make changes to a copy
+    }
     this._bind(
       '_handleFormChange'
       , '_handleFormSubmit'
     );
   }
-  componentWillMount() {
-    console.log("Single item mounting");
-    // console.log(this.context);
 
-    // action.fetchItem();
-    const populate = false;
-    // const populate = false;
+  componentDidMount() {
+    console.log("Single item mounting");
     const { dispatch, params } = this.props;
     if(params.productId) {
-      dispatch(singleActions.fetchSingleProductById(params.productId, populate ))
+      dispatch(productActions.fetchSingleProductById(params.productId))
     } else {
-      dispatch(singleActions.fetchSingleProductBySlug(params.slug))
+      dispatch(productActions.fetchSingleProductBySlug(params.slug))
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState(nextProps);
+    const { selected, map } = nextProps;
+    this.state = {
+      item: map[selected.id] ? JSON.parse(JSON.stringify(map[selected.id])) : {}
+      //we don't want to actually change the store's item, just use a copy
+    }
   }
 
   _handleFormChange(e) {
@@ -49,25 +52,26 @@ class UpdateProduct extends Base {
     e.preventDefault();
     // console.log("_handleFormSubmit");
     // console.log(e);
-    this.props.dispatch(singleActions.sendUpdateProduct(this.state.item)).then((res) => {
-      if(res.success) {
-        this.props.dispatch(listActions.invaldiateList());
-        browserHistory.push(`/products/${res.product._id}`)
+    this.props.dispatch(productActions.sendUpdateProduct(this.state.item)).then((action) => {
+      console.log(action);
+      if(action.success) {
+        browserHistory.push(`/products/${action.item._id}`)
       } else {
         console.log("Response Error:");
-        console.log(res);
+        console.log(action);
         alert("ERROR - Check logs");
       }
     });
   }
 
   render() {
+    const { selected, map } = this.props;
     const { item } = this.state;
-    const isEmpty = (item.title === null || item.title === undefined);
+    const isEmpty = (!item || item.title === null || item.title === undefined);
     return  (
       <div >
         {isEmpty
-          ? <h2> Loading...</h2>
+          ? (selected.isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
         : <ProductForm
             product={item}
             formType="update"
@@ -87,10 +91,9 @@ UpdateProduct.propTypes = {
 }
 
 const mapStoreToProps = (store) => {
-  // console.log("State");
-  // console.log(state);
   return {
-    item: store.product.single.item
+    selected: store.product.selected
+    , map: store.product.map
   }
 }
 
