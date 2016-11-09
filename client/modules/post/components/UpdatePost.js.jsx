@@ -1,10 +1,11 @@
 import React, { PropTypes } from 'react';
 import Base from "../../../global/components/BaseComponent.js.jsx";
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 import _ from 'lodash';
 
 // import actions
-import { singleActions as postSingleActions } from '../actions';
+import { singleActions as postSingleActions, listActions as postListActions } from '../actions';
 
 // import components
 import PostForm from './PostForm.js.jsx';
@@ -42,12 +43,21 @@ class UpdatePost extends Base {
     e.preventDefault();
     // console.log("_handleFormSubmit");
     // console.log(e);
-    this.props.dispatch(postSingleActions.sendUpdatePost(this.state.item));
+    this.props.dispatch(postSingleActions.sendUpdatePost(this.state.item)).then((res) => {
+      if(res.success) {
+        this.props.dispatch(postListActions.invaldiateList("all"));
+        browserHistory.push(`/posts/${res.post._id}`)
+      } else {
+        console.log("Response Error:");
+        console.log(res);
+        alert("ERROR - Check logs");
+      }
+    });
   }
 
   render() {
     const { item } = this.state;
-    const isEmpty = (item.title === null || item.title === undefined); 
+    const isEmpty = (item.title === null || item.title === undefined);
     return  (
       <div >
         {isEmpty

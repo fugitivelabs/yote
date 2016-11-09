@@ -129,6 +129,28 @@ function single(state = {
           , error: action.error
         })
       }
+    case singleActions.REQUEST_DELETE_PRODUCT:
+      return Object.assign({}, state, {
+        isFetching: true
+        , status: 'deleting'
+      })
+    case singleActions.RECEIVE_DELETE_PRODUCT:
+      if(action.success) {
+        return Object.assign({}, state, {
+          isFetching: false
+          , item: {}
+          , status: null
+          , populated: false
+          , error: null
+        })
+      } else {
+        return Object.assign({}, state, {
+          isFetching: false
+          , status: null
+          , populated: false
+          , error: action.error
+        })
+      }
     default:
       return state
   }

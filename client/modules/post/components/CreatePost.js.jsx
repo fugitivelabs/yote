@@ -1,10 +1,11 @@
 import React, { PropTypes } from 'react';
 import Base from "../../../global/components/BaseComponent.js.jsx";
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 import _ from 'lodash';
 
 // import actions
-import { singleActions as postSingleActions } from '../actions';
+import { singleActions as postSingleActions, listActions as postListActions } from '../actions';
 
 
 // import components
@@ -40,7 +41,16 @@ class CreatePost extends Base {
 
   _handleFormSubmit(e) {
     e.preventDefault();
-    this.props.dispatch(postSingleActions.sendCreatePost(this.state.item));
+    this.props.dispatch(postSingleActions.sendCreatePost(this.state.item)).then((res) => {
+      if(res.success) {
+        this.props.dispatch(postListActions.invaldiateList("all"));
+        browserHistory.push(`/posts/${res.post._id}`)
+      } else {
+        console.log("Response Error:");
+        console.log(res);
+        alert("ERROR - Check logs");
+      }
+    });
   }
 
   render() {

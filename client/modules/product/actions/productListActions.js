@@ -49,3 +49,67 @@ export function fetchList() {
       .then(json => dispatch(receiveProductList(json)))
   }
 }
+
+
+const shouldFetchList = (state) => {
+  console.log("------- CHECK SHOULD FETCH LIST -----------");
+  // console.log(state);
+  const list = state.product.list;
+  console.log(list);
+  if(!list.items || list.items.length < 1) {
+    console.log("YES FETCH LIST");
+    return true
+  }
+  if(list.isFetching) {
+    console.log("FETCHING ALREADY DON'T FETCH LIST");
+    return false
+  }
+  return list.didInvalidate
+}
+
+
+export const fetchListIfNeeded = () => (dispatch, getState) => {
+  if (shouldFetchList(getState())) {
+    return dispatch(fetchList())
+  }
+}
+
+
+export const SET_PRODUCT_FILTER = "SET_PRODUCT_FILTER"
+export function setFilter(filter) {
+  return {
+    type: SET_PRODUCT_FILTER
+    , filter
+  }
+}
+
+export const SET_PRODUCT_SORT = "SET_PRODUCT_SORT"
+export function setSortBy(sortBy) {
+  return {
+    type: SET_PRODUCT_SORT
+    , sortBy
+  }
+}
+
+export const SET_PRODUCT_QUERY = "SET_PRODUCT_QUERY"
+export function setQuery(query) {
+  return {
+    type: SET_PRODUCT_QUERY
+    , query
+  }
+}
+
+export const SET_PRODUCT_PAGINATION = "SET_PRODUCT_PAGINATION"
+export function setPagination(pagination) {
+  return {
+    type: SET_PRODUCT_PAGINATION
+    , pagination
+  }
+}
+
+export const INVALIDATE_PRODUCT_LIST = "INVALIDATE_PRODUCT_LIST"
+export function invaldiateList() {
+  return {
+    type: INVALIDATE_PRODUCT_LIST
+  }
+}
