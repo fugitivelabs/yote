@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 
 // import actions
 import { singleActions as userSingleActions } from '../../user/actions';
-export default class SideNav extends Base {
+class SideNav extends Base {
   constructor(props, context) {
     super(props);
     this._bind(
