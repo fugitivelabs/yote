@@ -5,7 +5,7 @@ RUN npm install -g forever
 
 ADD / ./yote
 
-RUN cd /yote && npm install node-sass node-sass-middleware winston-mongodb 
+RUN cd /yote && npm rebuild node-sass node-sass-middleware winston-mongodb 
 # RUN cd /yote && npm install @google-cloud/logging
 
 EXPOSE 80
