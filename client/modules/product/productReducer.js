@@ -260,10 +260,9 @@ function product(state = {
         pagination: action.pagination
       })
     case Actions.INVALIDATE_PRODUCT_LIST:
-      return Object.assign({}, state, {
-        didInvalidate: true
-      })
-
+      let newState = Object.assign({}, state, {});
+      newState.lists[action.listType].didInvalidate = true;
+      return newState;
 
     default:
       return state
