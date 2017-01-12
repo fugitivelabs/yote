@@ -38,7 +38,7 @@ postSchema.plugin(slug(['title'], { update: true }));
 // post model static functions go here
 // postSchema.statics.staticFunctionName = function() {};
 
-Post = mongoose.model('Post', postSchema);
+var Post = mongoose.model('Post', postSchema);
 
 // post model methods
 function createDefaults() {

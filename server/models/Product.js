@@ -30,4 +30,4 @@ var productSchema = mongoose.Schema({
 // product model static functions go here
 // productSchema.statics.staticFunctionName = function() {};
 
-Product = mongoose.model('Product', productSchema);
+var Product = mongoose.model('Product', productSchema);

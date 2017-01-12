@@ -5,8 +5,9 @@ import { browserHistory } from 'react-router';
 import _ from 'lodash';
 
 // import actions
-import { singleActions, listActions } from '../actions';
+// import { singleActions, listActions } from '../actions';
 
+import * as productActions from '../productActions';
 
 // import components
 import ProductForm from './ProductForm.js.jsx';
@@ -14,28 +15,25 @@ import ProductForm from './ProductForm.js.jsx';
 class CreateProduct extends Base {
   constructor(props) {
     super(props);
-    this.state = this.props;
+    this.state = {
+      item: JSON.parse(JSON.stringify(this.props.defaultItem))
+      //we don't want to actually change the store's defaultItem, just use a copy
+    }
     this._bind(
       '_handleFormChange'
       , '_handleFormSubmit'
     );
   }
-  componentWillMount() {
+  componentDidMount() {
     const { dispatch } = this.props;
-    dispatch(singleActions.setupNewProduct())
-    // this.props.dispatch(singleActions.setupNewProduct()).then(() =>{
-    //     console.log(this.props);
-    //   });
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState(nextProps);
-    // console.log("NExt PROPs");
-    // console.log(nextProps);
-    if(nextProps.status === "error") {
-      alert(nextProps.error.message);
-    }
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   console.log("check next props for error");
+  //   if(nextProps.selected.error) {
+  //     alert(nextProps.selected.error);
+  //   }
+  // }
 
   _handleFormChange(e) {
     var newState = _.update( this.state.item, e.target.name, function() {
@@ -49,13 +47,15 @@ class CreateProduct extends Base {
     e.preventDefault();
     // console.log("_handleFormSubmit");
     // console.log(e);
-    this.props.dispatch(singleActions.sendCreateProduct(this.state.item)).then((res) => {
-      if(res.success) {
-        this.props.dispatch(listActions.invaldiateList());
-        browserHistory.push(`/products/${res.product._id}`)
+    this.props.dispatch(productActions.sendCreateProduct(this.state.item)).then((action) => {
+      // console.log("HANDLE SUBMIT");
+      // console.log(action);
+      if(action.success) {
+        // this.props.dispatch(listActions.invaldiateList());
+        browserHistory.push(`/products/${action.item._id}`)
       } else {
         console.log("Response Error:");
-        console.log(res);
+        console.log(action.error);
         alert("ERROR - Check logs");
       }
     });
@@ -88,11 +88,12 @@ CreateProduct.propTypes = {
 }
 
 const mapStoreToProps = (store) => {
-  // console.log("State");
-  // console.log(state);
+  // console.log("Store");
+  // console.log(store);
   return {
-    item: store.product.single.item
-    , status: store.product.single.status
+    defaultItem: store.product.defaultItem
+    , selected: store.product.selected
+    , map: store.product.map
   }
 }
 

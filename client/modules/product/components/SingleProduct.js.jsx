@@ -3,23 +3,21 @@ import Base from "../../../global/components/BaseComponent.js.jsx";
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
-// import actions
-import { singleActions } from '../actions';
+import * as productActions from '../productActions';
 
 class SingleProduct extends Base {
   constructor(props) {
     super(props);
-
   }
   componentDidMount() {
-    // console.log("Single item mounting");
     const { dispatch, params } = this.props;
-    dispatch(singleActions.fetchSingleProductById(params.productId, true ))
+    dispatch(productActions.fetchSingleIfNeeded(params.productId))
   }
 
   render() {
-    const { item } = this.props;
-    const isEmpty = (item.title === null || item.title === undefined);
+    const { selected, map } = this.props;
+    const isEmpty = (!selected.id || !map[selected.id] || map[selected.id].title === undefined);
+    // const isEmpty = (item.title === null || item.title === undefined);
     console.log("isEmpty", isEmpty);
     return  (
       <div className="flex">
@@ -27,14 +25,14 @@ class SingleProduct extends Base {
           <div className="yt-container">
             <h3> Single Product Item </h3>
             {isEmpty
-              ? (item.isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
-                : <div style={{ opacity: item.isFetching ? 0.5 : 1 }}>
+              ? (selected.isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
+                : <div style={{ opacity: selected.isFetching ? 0.5 : 1 }}>
 
-                  <h1> { item.title }
-                    <Link className="yt-btn small u-pullRight" to={`/products/${item._id}/update`}> UPDATE PRODUCT </Link>
+                  <h1> { map[selected.id].title }
+                    <Link className="yt-btn small u-pullRight" to={`/products/${map[selected.id]._id}/update`}> UPDATE PRODUCT </Link>
                   </h1>
                   <hr/>
-                  <p> {item.description }</p>
+                  <p> {map[selected.id].description }</p>
                 </div>
             }
           </div>
@@ -50,7 +48,8 @@ SingleProduct.propTypes = {
 
 const mapStoreToProps = (store) => {
   return {
-    item: store.product.single.item
+    selected: store.product.selected
+    , map: store.product.map
   }
 }
 
