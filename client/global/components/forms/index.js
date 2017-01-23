@@ -11,6 +11,7 @@ import NumberInput from './NumberInput.js.jsx';
 import ListComparator from './ListComparator.js.jsx';
 import SearchInput from './SearchInput.js.jsx';
 import RadioInput from './RadioInput.js.jsx';
+import FileInput from './FileInput.js.jsx';
 
 export { SelectFromArray };
 export { SelectFromObject };
@@ -25,6 +26,7 @@ export { NumberInput };
 export { ListComparator };
 export { SearchInput };
 export { RadioInput };
+export { FileInput };
 
 export default {
   SelectFromArray
@@ -40,4 +42,5 @@ export default {
   , ListComparator
   , SearchInput
   , RadioInput
+  , FileInput
 }
