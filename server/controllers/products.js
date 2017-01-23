@@ -55,9 +55,9 @@ exports.search = function(req, res) {
   for(key in req.query) {
     if(req.query.hasOwnProperty(key)) {
       if(key == "page") {
-        page = req.query.page;
+        page = parseInt(req.query.page);
       } else if(key == "per") {
-        per = req.query.per;
+        per = parseInt(req.query.per);
       } else {
         console.log("found search query param: " + key);
         mongoQuery[key] = req.query[key];
