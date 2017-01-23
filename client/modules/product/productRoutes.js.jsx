@@ -11,7 +11,7 @@ import CreateProduct from './components/CreateProduct.js.jsx';
 import UpdateProduct from './components/UpdateProduct.js.jsx';
 
 const productRoutes =
-<Route path="/products" component={ProductLayout} >
+<Route key={Math.floor(Math.random()*1000)} path="/products" component={ProductLayout} >
   <IndexRoute component={ProductList} />
   <Route path="/products/new" component={CreateProduct} />
   <Route path="/products/:productId">

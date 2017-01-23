@@ -15,7 +15,7 @@ class AdminUserList extends Base {
 
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.dispatch(listActions.fetchList());
   }
 

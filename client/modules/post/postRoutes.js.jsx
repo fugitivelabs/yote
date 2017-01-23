@@ -10,8 +10,9 @@ import Populated from './components/PopulatedPost.js.jsx';
 import Create from './components/CreatePost.js.jsx';
 import Update from './components/UpdatePost.js.jsx';
 
+
 const postRoutes =
-<Route path="/posts" onEnter={Auth.requireLogin} component={Layout} >
+<Route key={Math.floor(Math.random()*1000)} path="/posts" onEnter={Auth.requireLogin} component={Layout} >
   <IndexRoute component={List} />
   <Route path="/posts/new" component={Create} />
   <Route path="/posts/:slug">

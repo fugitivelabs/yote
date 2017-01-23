@@ -40,8 +40,8 @@ if((navigator.userAgent.toLowerCase().indexOf('webkit') == -1) || !window.develo
     }
   }
 }
-console.log("ENV:");
-console.log(window.development);
+// console.log("ENV:");
+// console.log(window.development);
 //END EXPERIMENTAL CROSS BROWSER STUFF
 
 const store = configureStore();

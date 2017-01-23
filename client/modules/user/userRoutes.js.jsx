@@ -10,7 +10,7 @@ import ResetPassword from './components/ResetPassword.js.jsx';
 
 //routes
 const userRoutes =
-<Route path="/user" component={UserLayout} >
+<Route key={Math.floor(Math.random()*1000)} path="/user" component={UserLayout} >
   <Route path="/user/login" component={UserLogin} />
   <Route path="/user/register" component={UserRegister} />
   <Route path="/user/forgotpassword" component={ForgotPassword} />
