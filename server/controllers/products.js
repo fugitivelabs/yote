@@ -15,12 +15,12 @@ on the client
 var Product = require('mongoose').model('Product')
   ;
 
-exports.list = function(req, res) {
+exports.list = (req, res) => {
   if(req.query.page) {
     console.log('list products with pagination');
     var page = req.query.page || 1;
     var per = req.query.per || 20;
-    Product.find({}).skip((page-1)*per).limit(per).exec(function(err, products) {
+    Product.find({}).skip((page-1)*per).limit(per).exec((err, products) => {
       if(err || !products) {
         res.send({success: false, message: err});
       } else {
@@ -36,7 +36,7 @@ exports.list = function(req, res) {
     });
   } else {
     console.log('list products');
-    Product.find({}).exec(function(err, products) {
+    Product.find({}).exec((err, products) => {
       if(err || !products) {
         res.send({ success: false, message: err });
       } else {
@@ -46,7 +46,7 @@ exports.list = function(req, res) {
   }
 }
 
-exports.search = function(req, res) {
+exports.search = (req, res) => {
   //search by query parameters
   // up to front end to make sure the params exist on the model
   console.log("searching for products with params.");
@@ -69,7 +69,7 @@ exports.search = function(req, res) {
     console.log(mongoQuery);
     page = page || 1;
     per = per || 20;
-    Product.find(mongoQuery).skip((page-1)*per).limit(per).exec(function(err, products) {
+    Product.find(mongoQuery).skip((page-1)*per).limit(per).exec((err, products) => {
       if(err || !products) {
         res.send({ success: false, message: err });
       } else {
@@ -85,7 +85,7 @@ exports.search = function(req, res) {
     });
   } else {
     console.log(mongoQuery);
-    Product.find(mongoQuery).exec(function(err, products) {
+    Product.find(mongoQuery).exec((err, products) => {
       if(err || !products) {
         res.send({ success: false, message: err });
       } else {
@@ -95,33 +95,20 @@ exports.search = function(req, res) {
   }
 }
 
-exports.getById = function(req, res) {
+exports.getById = (req, res) => {
   console.log('get product by id');
-  Product.findById(req.params.id).exec(function(err, product) {
+  Product.findById(req.params.id).exec((err, product) => {
     if(err) {
       res.send({ success: false, message: err });
     } else if (!product) {
-      res.send({ success: false, message: "no product found :(" });
+      res.send({ success: false, message: "Product not found." });
     } else {
       res.send({ success: true, product: product });
     }
   });
 }
 
-exports.getAndPopulate = function(req, res) {
-  console.log('get product by id');
-  Product.findById(req.params.id).populate('').exec(function(err, product) {
-    if(err) {
-      res.send({ success: false, message: err });
-    } else if(!product) {
-      res.send({ success: false, message: "no product found :(" });
-    } else {
-      res.send({ success: true, product: product });
-    }
-  });
-}
-
-exports.create = function(req, res) {
+exports.create = (req, res) => {
   console.log('creating new product');
   var product = new Product({});
   for(var k in req.body) {
@@ -129,11 +116,11 @@ exports.create = function(req, res) {
       product[k] = req.body[k];
     }
   }
-  product.save(function(err, product) {
+  product.save((err, product) => {
     if (err) {
       res.send({ success: false, message: err });
     } else if(!product) {
-      res.send({ success: false, message: "Could not create product :(" });
+      res.send({ success: false, message: "Could not create Product." });
     } else {
       console.log("created new product");
       res.send({ success: true, product: product });
@@ -141,13 +128,13 @@ exports.create = function(req, res) {
   });
 }
 
-exports.update = function(req, res) {
+exports.update = (req, res) => {
   console.log('updating product');
-  Product.findById(req.params.id).exec(function(err, product) {
+  Product.findById(req.params.id).exec((err, product) => {
     if(err) {
       res.send({ success: false, message: err });
     } else if(!product) {
-      res.send({ success: false, message: "Product not found. Edit failed. :(" });
+      res.send({ success: false, message: "Product not found." });
     } else {
       // run through and update all fields on the model
       for(var k in req.body) {
@@ -157,11 +144,11 @@ exports.update = function(req, res) {
       }
       // now edit the updated date
       product.updated = new Date();
-      product.save(function(err, product) {
+      product.save((err, product) => {
         if(err) {
           res.send({ success: false, message: err });
         } else if(!product) {
-          res.send({ success: false, message: "Could not save product :("});
+          res.send({ success: false, message: "Could not save product."});
         } else {
           res.send({ success: true, product: product });
         }
@@ -170,9 +157,9 @@ exports.update = function(req, res) {
   });
 }
 
-exports.delete = function(req, res) {
+exports.delete = (req, res) => {
   console.log("deleting product");
-  Product.findById(req.params.id).remove(function(err) {
+  Product.findById(req.params.id).remove((err) => {
     if(err) {
       res.send({ success: false, message: err });
     } else {

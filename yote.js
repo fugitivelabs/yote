@@ -25,7 +25,6 @@ var express         = require('express')
   , path            = require('path')
   // , RedisStore      = require('connect-redis')(session)
   , MongoStore      = require('connect-mongo')(session)
-  , multipart       = require('connect-multiparty')
   , fs              = require('fs')
   , sass            = require('node-sass-middleware')
   ;
@@ -74,7 +73,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //allow file uploads
-app.use(multipart({}));
+// app.use(multipart({}));
 
 //sass middleware
 //only enable for development env - npm module can be buggy
