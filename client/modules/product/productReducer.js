@@ -3,9 +3,8 @@ import * as Actions from './productActions';
 // import * as singleActions from './productSingleActions';
 
 function product(state = {
-
   //define fields for a "new" product
-  // a component that creates a new object should store this in it's state
+  // a component that creates a new object should store a copy of this in it's state
   defaultItem: {
     title: ""
     , description: ""
@@ -20,7 +19,6 @@ function product(state = {
     , didInvalidate: false
     , lastUpdated: null
   }
-
   , lists: {
 
     all: {
@@ -29,7 +27,6 @@ function product(state = {
       , didInvalidate: false
       , lastUpdated: null
       , items: []
-
       , pagination: {}
       , filter: {
         type: ''
@@ -42,6 +39,7 @@ function product(state = {
 
   }
 }, action) {
+  let nextState = Object.assign({}, state, {});
   switch(action.type) {
 //SINGLE ITEM ACTIONS
     case Actions.REQUEST_SINGLE_PRODUCT:
@@ -79,6 +77,14 @@ function product(state = {
           }
         })
       }
+    
+    case Actions.ADD_SINGLE_PRODUCT_TO_MAP:
+      console.log("ADD_SINGLE_PRODUCT_TO_MAP");
+      var newMap = Object.assign({}, state.map, {}); //copy map
+      newMap[action.item._id] = action.item; //add single
+      return Object.assign({}, state, {
+        map: newMap
+      })
 
     case Actions.REQUEST_CREATE_PRODUCT:
       console.log("REQUEST_CREATE_PRODUCT");
@@ -190,18 +196,13 @@ function product(state = {
 
 //LIST ACTIONS
     case Actions.REQUEST_PRODUCT_LIST:
-      return Object.assign({}, state, {
-        //need better way to do this. unless you merge with state at each level, it just replaces the whole "lists" object
-        // maybe https://github.com/reactjs/redux/issues/994 ??
-        lists: Object.assign({}, state.lists, {
-          all: Object.assign({}, state.lists.all, {
-            isFetching: true
-            , error: null
-            , items: []
-          })
-        })
-      })
+      nextState = Object.assign({}, state, {});
+      nextState.lists.all.isFetching = true;
+      nextState.lists.all.error = null;
+      nextState.lists.all.items = [];
+      return nextState;
     case Actions.RECEIVE_PRODUCT_LIST:
+      nextState = Object.assign({}, state, {});
       if(action.success) {
         //add api array objects to map
         //NOTE: should the "all" list overwrite the map? others only add to the map.
@@ -211,33 +212,22 @@ function product(state = {
           idArray.push(action.list[i]._id);
           newMap[action.list[i]._id] = action.list[i];
         }
-        return Object.assign({}, state, {
-          map: newMap
-          , lists: Object.assign({}, state.lists, {
-            all: Object.assign({}, state.lists.all, {
-              isFetching: false
-              , didInvalidate: false
-              , items: idArray
-              //reset filters and pagination?
-              , lastUpdated: action.receivedAt
-            })
-          })
-        })
+        //if "all" is a just a string type, we could generalize this reducer to any "typed" list
+        nextState.lists.all.isFetching = false;
+        nextState.lists.all.error = null;
+        nextState.lists.all.items = idArray;
+        nextState.lists.all.didInvalidate = false;
+        nextState.lists.all.lastUpdated = action.receivedAt
+        nextState.map = newMap;
+        return nextState;
       } else {
-        return Object.assign({}, state, {
-          lists: Object.assign({}, state.lists, {
-            all: Object.assign({}, state.lists.all, {
-              isFetching: false
-              , error: action.error
-              , idInvalidate: true
-              , items: []
-              //reset filters and pagination?
-              , lastUpdated: action.receivedAt
-            })
-          })
-        })
+        nextState.lists.all.isFetching = false;
+        nextState.lists.all.error = action.error;
+        nextState.lists.all.items = [];
+        nextState.lists.all.didInvalidate = true;
+        nextState.lists.all.lastUpdated = action.receivedAt
+        return nextState;
       }
-
     case Actions.SET_PRODUCT_FILTER:
       let newList = Object.assign({}, state.lists[action.listType], {});
       // newList.
@@ -260,9 +250,9 @@ function product(state = {
         pagination: action.pagination
       })
     case Actions.INVALIDATE_PRODUCT_LIST:
-      let newState = Object.assign({}, state, {});
-      newState.lists[action.listType].didInvalidate = true;
-      return newState;
+      let nextState = Object.assign({}, state, {});
+      nextState.lists[action.listType].didInvalidate = true;
+      return nextState;
 
     default:
       return state

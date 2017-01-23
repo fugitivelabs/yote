@@ -1,5 +1,4 @@
 const Auth = {
-
   requireLogin(nextState, replace) {
     console.log("requireAuth - LOGIN");
     console.log(window.currentUser);
