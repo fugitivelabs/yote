@@ -17,7 +17,7 @@ class CreateProduct extends Base {
     super(props);
     this.state = {
       item: JSON.parse(JSON.stringify(this.props.defaultItem))
-      //we don't want to actually change the store's defaultItem, just use a copy
+      //don't want to actually change the store's defaultItem, just use a copy
     }
     this._bind(
       '_handleFormChange'
@@ -27,13 +27,6 @@ class CreateProduct extends Base {
   componentDidMount() {
     const { dispatch } = this.props;
   }
-
-  // componentWillReceiveProps(nextProps) {
-  //   console.log("check next props for error");
-  //   if(nextProps.selected.error) {
-  //     alert(nextProps.selected.error);
-  //   }
-  // }
 
   _handleFormChange(e) {
     var newState = _.update( this.state.item, e.target.name, function() {

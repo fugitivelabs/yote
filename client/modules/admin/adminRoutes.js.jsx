@@ -16,7 +16,7 @@ import adminUserRoutes from '../user/userAdminRoutes.js.jsx';
 
 
 const adminRoutes =
-<Route path="/admin" component={Layout} onEnter={Auth.requireAdmin}>
+<Route key={Math.floor(Math.random()*1000)} path="/admin" component={Layout} onEnter={Auth.requireAdmin}>
   <IndexRedirect to="style-guide" />
   <Route path="style-guide" component={StyleGuide} />
   {adminUserRoutes}

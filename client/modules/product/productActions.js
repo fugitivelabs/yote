@@ -73,6 +73,14 @@ export function fetchSingleProductById(productId) {
   }
 }
 
+export const ADD_SINGLE_PRODUCT_TO_MAP = "ADD_SINGLE_PRODUCT_TO_MAP";
+export function addSingleProductToMap(item) {
+  return {
+    type: ADD_SINGLE_PRODUCT_TO_MAP
+    , item
+  }
+}
+
 export const REQUEST_CREATE_PRODUCT = "REQUEST_CREATE_PRODUCT";
 function requestCreateProduct(product) {
   return {
@@ -128,15 +136,6 @@ export function sendUpdateProduct(data) {
     dispatch(requestUpdateProduct(data))
     return callAPI(`/api/products/${data._id}`, 'PUT', data)
     .then(json => dispatch(receiveUpdateProduct(json)))
-    /*** ACTION-BASED REDIRECT ***/
-    // // by default use component-based redirect so other actions can be performed
-    // .then((json) => {
-    //   if(json.success) {
-    //     browserHistory.push(`/products/${json.product._id}`)
-    //   } else {
-    //     alert("ERROR");
-    //   }
-    // })
   }
 }
 
