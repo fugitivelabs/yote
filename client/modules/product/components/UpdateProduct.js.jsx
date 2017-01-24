@@ -75,7 +75,7 @@ class UpdateProduct extends Base {
             handleFormChange={this._handleFormChange}
             cancelLink={`/products/${item._id}`}
             formTitle="Update Product"
-            />
+          />
         }
       </div>
     )

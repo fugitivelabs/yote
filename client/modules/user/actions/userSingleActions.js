@@ -354,10 +354,9 @@ export function sendCheckResetHex(hex) {
 
 
 export const REQUEST_RESET_PASSWORD = "REQUEST_RESET_PASSWORD"
-function requestResetPassword(userId) {
+function requestResetPassword() {
   return {
     type: REQUEST_RESET_PASSWORD
-    , userId: userId
   }
 }
 
@@ -371,9 +370,10 @@ function receiveResetPassword(json) {
   }
 }
 
-export function sendResetPassword(userId, password) {
+export function sendResetPassword(resetHex, password) {
+  console.log("send reset", resetHex, password);
   return dispatch => {
-    dispatch(requestResetPassword(userId))
+    dispatch(requestResetPassword())
     return fetch('/api/users/resetpassword', {
       method: 'POST'
       , headers: {
@@ -382,7 +382,7 @@ export function sendResetPassword(userId, password) {
       }
       , credentials: 'same-origin'
       , body: JSON.stringify({
-        userId: userId
+        resetHex: resetHex
         , newPass: password
       })
     })
@@ -393,7 +393,7 @@ export function sendResetPassword(userId, password) {
       // console.log("PASSWORD RESET REQUEST");
       // console.log(json);
       if(json.success) {
-        browserHistory.push('/')
+        browserHistory.push('/user/login')
       } else {
         alert("There was a problem reseting your password on the server. " + json.error);
       }
