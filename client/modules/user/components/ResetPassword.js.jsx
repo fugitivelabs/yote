@@ -35,7 +35,7 @@ class ResetPassword extends Base {
 
   _handleFormSubmit(e) {
     e.preventDefault();
-    this.props.dispatch(userSingleActions.sendResetPassword(this.props.user.resetUserId, this.state.password));
+    this.props.dispatch(userSingleActions.sendResetPassword(this.props.params.hex, this.state.password));
   }
 
   render() {

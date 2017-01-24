@@ -217,6 +217,7 @@ exports.requestPasswordReset = function(req, res) {
         } else {
           //send user an email with their reset link.
           logger.debug("creating password reset email");
+          logger.error(user.resetPasswordHex);
           var targets = [user.username];
           var resetUrl = "http://localhost:3030/user/resetpassword/" + user.resetPasswordHex;
           var html = "<h1> You have requested a password reset for your Fugitive Labs YOTE account.</h1>";
@@ -236,59 +237,79 @@ exports.requestPasswordReset = function(req, res) {
 }
 
 exports.checkResetRequest = function(req, res, next) {
+  console.log("check reset request");
+  console.log(req.params.resetHex);
   //must be a valid hex and no older than 24 hours
-  var nowDate = new Date();
+  exports.utilCheckResetRequest(req.params.resetHex, function(result) {
+    if(result.success) {
+      res.send({success: true}); //DONT send user id back
+    } else {
+      res.send({success: false, message: "Invalid or Expired Token"});
+    }
+  })
+}
+
+exports.utilCheckResetRequest = function(resetHex, callback) {
+  console.log("util check password reset request");
   var projection = {
     firstName: 1, lastName: 1, username: 1, roles: 1, resetPasswordTime: 1, resetPasswordHex: 1
   }
-  User.findOne({resetPasswordHex: req.param('resetHex')}, projection).exec(function(err, user) {
+  User.findOne({resetPasswordHex: resetHex}, projection).exec(function(err, user) {
     if(err || !user) {
-      res.send({success: false, message: "Invalid or Expired Reset Token"});
+      callback({success: false, message: "1 Invalid or Expired Reset Token"});
     } else {
-
+      console.log("found user's date: ");
+      console.log(user.resetPasswordTime);
       var nowDate = new Date();
       var cutoffDate = new Date(user.resetPasswordTime);
-      logger.debug(cutoffDate);
+      console.log(cutoffDate);
       var validHours = 24;
       cutoffDate.setHours((cutoffDate.getHours() + validHours));
-      logger.debug(cutoffDate);
+      console.log(cutoffDate);
       if(nowDate < cutoffDate) {
-        logger.debug("TRUE");
-        res.send({success: true, userId: user._id});
+        console.log("TRUE");
+        callback({success: true, userId: user._id});
       } else {
-        logger.debug("FALSE");
-        res.send({success: false, message: "Invalid or Expired Reset Token"});
+        console.log("FALSE");
+        callback({success: false, message: "2 Invalid or Expired Reset Token"});
       }
 
     }
   });
 }
 
-exports.resetPassword = function(req, res) {
-    var projection = {
-      firstName: 1, lastName: 1, username: 1, password_salt: 1, password_hash: 1, roles: 1
-    }
-    if(!req.param('newPass') || req.param('newPass').length < 6) {
-      console.log("needs to use a better password");
-      res.send({success: false, message: "Password requirements not met: Must be at least 6 characters long."}); //bare minimum
-    } else {
 
-      User.findOne({_id: req.param('userId')}, projection).exec(function(err, user) {
-        if(err || !user) {
-          res.send({success: false, message: "Could not find user in db"});
-        } else {
-          var newSalt = User.createPasswordSalt();
-          var newHash = User.hashPassword(newSalt, req.param('newPass'));
-          user.password_salt = newSalt;
-          user.password_hash = newHash;
-          user.save(function(err, user) {
-            if(err || !user) {
-              res.send({success: false, message: "Error updating user password"});
-            } else {
-              res.send({success: true, message: "Updated password! Please login."});
-            }
-          });
-        }
-      });
+exports.resetPassword = function(req, res) {
+  console.log("RESETTING USER PASSWORD");
+  console.log(req.param('resetHex'));
+  exports.utilCheckResetRequest(req.param('resetHex'), function(result) {
+    if(result.success) {
+      if(!req.param('newPass') || req.param('newPass').length < 6) {
+        console.log("needs to use a better password");
+        res.send({success: false, message: "Password requirements not met: Must be at least 6 characters long."}); //bare minimum
+      } else {
+        User.findOne({_id: result.userId}).exec(function(err, user) {
+          if(err || !user) {
+            res.send({success: false, message: "Could not find user in db"});
+          } else {
+            var newSalt = User.createPasswordSalt();
+            var newHash = User.hashPassword(newSalt, req.param('newPass'));
+            user.password_salt = newSalt;
+            user.password_hash = newHash;
+            user.resetPasswordHex = Math.floor(Math.random()*16777215).toString(16) + Math.floor(Math.random()*16777215).toString(16);
+            //if we reset this, the link won't be valid after they're reset it
+            user.save(function(err, user) {
+              if(err || !user) {
+                res.send({success: false, message: "Error updating user password"});
+              } else {
+                res.send({success: true, user: user});
+              }
+            });
+          }
+        }); 
+      }
+    } else {
+      res.send(result);
     }
+  });
 }
