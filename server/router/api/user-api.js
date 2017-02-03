@@ -1,4 +1,5 @@
 var passport = require('passport');
+var User = require('mongoose').model('User');
 var users = require('../../controllers/users');
 
 module.exports = function(router, requireLogin, requireRole) {
@@ -14,22 +15,21 @@ module.exports = function(router, requireLogin, requireRole) {
         } else if(!user) {
           res.send({success:false, message: "Matching user not found."});
         } else {
-          req.logIn(user, function(err) {
-            if(err) { return next(err);}
-            logger.warn(req.user.username);
-            // by necessity, this user object has all of the password fields.
-            // we still want to remove hidden values, though, so lets try javascript rather than do another db query.
-            var returnUser = {
-              _id: user._id
-              , firstName: user.firstName
-              , lastName: user.lastName
-              , username: user.username
-              , roles: user.roles
+          //get actual user and log them in
+          // user above only has password fields projected. some projects want more user info,
+          // so we should return anything in the model that isn't select: false
+          User.findById(user._id, (err, user) => {
+            if(err || !user) {
+              res.send({success: false, message: "Error logging user in."});
+            } else {
+              req.logIn(user, function(err) {
+                if(err) { return next(err);}
+                logger.warn(req.user.username);
+                console.log(user);
+                res.send({success: true, user});
+              });
             }
-            console.log("logged in");
-            logger.debug(returnUser);
-            res.send({success:true, user: returnUser});
-          });
+          })
         }
       })(req, res, next);
     }
@@ -51,7 +51,15 @@ module.exports = function(router, requireLogin, requireRole) {
         } else {
           logger.debug("TOKEN");
           logger.debug(token);
-          res.send({success: true, user: user});
+          User.findById(user._id, (err, user) => {
+            if(err || !user) {
+              res.send({success: false, message: "Error retrieving matching user"});
+            } else {
+              //pass token explicitly to be stored on the mobile side
+              // this is the only way that token should be returned
+              res.send({success: true, user, token});
+            }
+          })
         }
       });
     })(req, res, next);
