@@ -4,7 +4,7 @@ var path = require('path');
 var webpack = require('webpack');
 
 const config = {
-  devtool: 'cheap-source-map'
+  devtool: 'cheap-module-source-map'
   , entry: './client/app.js.jsx'
   , output: {
     path: path.join(__dirname, 'public/js')
@@ -22,6 +22,21 @@ const config = {
       }
     ]
   }
+  , plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify('production')
+      }
+    })
+    , new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false
+        , screw_ie8: true
+      }
+      , comments: false
+      , sourceMap: false
+    })
+  ]
 }
 
 module.exports = config;

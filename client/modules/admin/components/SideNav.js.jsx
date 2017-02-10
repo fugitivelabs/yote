@@ -63,6 +63,7 @@ const mapStoreToProps = (state) => {
   }
 }
 
-export default connect(
-  mapStoreToProps
-)(SideNav);
+export default connect(mapStoreToProps
+, null, null, {
+  pure:false
+})(SideNav);

@@ -22,16 +22,19 @@ export default function configureStore(initialState) {
     }
   };
 
-  const loggerMiddleware = createLogger();
+  const middlewares = [thunkMiddleware];
 
+  if(process.env.NODE_ENV != "production") {
+    //don't log redux changes in production
+    const loggerMiddleware = createLogger();
+    middlewares.push(loggerMiddleware);
+  }
 
   const store = createStore(
     rootReducer,
     jadeInitialState,
     applyMiddleware(
-      thunkMiddleware
-  
-      , loggerMiddleware
+      ...middlewares
     )
   )
 
