@@ -2,6 +2,7 @@
 // and output regular .js to /public/react/
 var path = require('path');
 var webpack = require('webpack');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const config = {
   devtool: 'cheap-source-map'
@@ -20,8 +21,19 @@ const config = {
           presets: ['es2015','react', 'stage-0']
         }
       }
+      , {
+        test: /\.scss$/
+        , loader: ExtractTextPlugin.extract({ 
+          fallback: 'style-loader', loader: "css-loader!sass-loader",
+        })
+      }
     ]
   }
+  , plugins: [
+    new ExtractTextPlugin({
+      filename: '../css/yote.css'
+    })
+  ]
 }
 
 module.exports = config;

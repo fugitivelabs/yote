@@ -23,10 +23,10 @@ var express         = require('express')
   , passport        = require('passport')
   , LocalStrategy   = require('passport-local').Strategy
   , path            = require('path')
-  // , RedisStore      = require('connect-redis')(session)
+  // , RedisStore      = require('connect-redis')(session) //no longer used
   , MongoStore      = require('connect-mongo')(session)
   , fs              = require('fs')
-  , sass            = require('node-sass-middleware')
+  // , sass            = require('node-sass-middleware') //no longer used
   ;
 
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
@@ -77,18 +77,19 @@ app.use(passport.session());
 
 //sass middleware
 //only enable for development env - npm module can be buggy
-if (app.get('env') == 'development') {
-  console.log("using sass");
-  console.log(__dirname);
-  app.use(sass({
-    src: __dirname + '/client'
-    , dest: __dirname + '/public/css'
-    , prefix: '/css'
-    , debug: true
-    , outputStyle: 'compressed'
-    , includePaths: ['/client/global/sass/', '/client/modules/', '/client/static']
-  }));
-}
+//NOW rendered via webpack only on changes
+// if (app.get('env') == 'development') {
+//   console.log("using sass");
+//   console.log(__dirname);
+//   app.use(sass({
+//     src: __dirname + '/client'
+//     , dest: __dirname + '/public/css'
+//     , prefix: '/css'
+//     , debug: true
+//     , outputStyle: 'compressed'
+//     , includePaths: ['/client/global/sass/', '/client/modules/', '/client/static']
+//   }));
+// }
 
 //serve static assets, incl. react bundle.js
 app.use(serveStatic(__dirname + '/public'));
