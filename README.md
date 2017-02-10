@@ -293,7 +293,7 @@ each will log to the console normally on dev. when env="production", though, any
 
 using the regular "console.log" is perfectly fine for debugging stuff. for anything that we might want to keep track of, use "logger.info".
 
-
+LOAD BALANCING
 Additional notes on production deployment
   - 2 load balanced web server instances and a separate database instance
 
@@ -345,3 +345,6 @@ TODO: notes on instance creation and auto-deploying containers during instance c
 https://cloud.google.com/compute/docs/containers/container_vms
 
 
+NEW TYPE OF CONTAINERS - the "container optimized" ones are now obsolete, so going forward we will use the new gci ones
+notes - does not require sudo before commands, diff colors and filesystems
+https://cloud.google.com/container-optimized-os/docs/how-to/create-configure-instance

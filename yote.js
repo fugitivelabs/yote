@@ -123,7 +123,7 @@ app.use(function(req, res, next) {
 passport.use('local', new LocalStrategy(
   function(username, password, done) {
     var projection = {
-      firstName: 1, lastName: 1, username: 1, password_salt: 1, password_hash: 1, roles: 1
+      username: 1, password_salt: 1, password_hash: 1, roles: 1
     }
     User.findOne({username:username}, projection).exec(function(err, user) {
       if(user && user.authenticate(password)) {
@@ -146,7 +146,7 @@ passport.serializeUser(function(user, done) {
 
 passport.deserializeUser(function(id, done) {
   logger.warn("DESERIALIZE USER");
-  //does not need projection
+  //we want mobile user to have access to their api token, but we don't want it to be select: true
   User.findOne({_id:id}).exec(function(err, user) {
     if(user) {
       return done(null, user);
