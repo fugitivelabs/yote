@@ -18,6 +18,8 @@ import useScroll from 'react-router-scroll';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
+//import scss files. note that webpack does NOT actually import these as js; rather it will generate the yote.css file for us.
+import './yote.scss';
 
 import routes from './routes.js.jsx';
 
