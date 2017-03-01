@@ -1,4 +1,4 @@
-Yote
+Yote Server
 ======
 
 Find Your Road.
