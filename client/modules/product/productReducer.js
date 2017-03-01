@@ -2,6 +2,32 @@
 import * as Actions from './productActions';
 // import * as singleActions from './productSingleActions';
 
+function productList(state = {
+  //default state for a list
+  id: null //id of thing we're querying, null for 'all'
+  , items: [] //array of _id's
+  , isFetching: false
+  , error: null
+  , didInvalidate: false
+  , lastUpdated: null
+  //pagination?
+}, action) {
+  switch(action.type) {
+    case INVALIDATE_PRODUCT_LIST: {
+      return Object.assign({}, state, {
+        didInvalidate: true
+      })
+    }
+    case REQUEST_PRODUCT_LIST: {
+      
+    }
+    case RECEIVE_PRODUCT_LIST: {
+
+    }
+    //filter/query
+  }
+}
+
 function product(state = {
   //define fields for a "new" product
   // a component that creates a new object should store a copy of this in it's state
@@ -9,9 +35,7 @@ function product(state = {
     title: ""
     , description: ""
   }
-
-  , map: {} //map of all items
-
+  , byId: {} //map of all items
   , selected: { //single selected entity
     id: null
     , isFetching: false
@@ -39,7 +63,7 @@ function product(state = {
 
   }
 }, action) {
-  let nextState = Object.assign({}, state, {});
+  // let nextState = Object.assign({}, state, {});
   switch(action.type) {
 //SINGLE ITEM ACTIONS
     case Actions.REQUEST_SINGLE_PRODUCT:
@@ -54,10 +78,10 @@ function product(state = {
       if(action.success) {
         console.log("Mapping now");
         //add object to map
-        let newMap = Object.assign({}, state.map, {});
-        newMap[action.id] = action.item;
+        let newIdMap = Object.assign({}, state.byId, {});
+        newIdMap[action.id] = action.item;
         return Object.assign({}, state, {
-          map: newMap
+          byId: newIdMap
           , selected: {
             id: action.id
             , isFetching: false
@@ -80,10 +104,10 @@ function product(state = {
     
     case Actions.ADD_SINGLE_PRODUCT_TO_MAP:
       console.log("ADD_SINGLE_PRODUCT_TO_MAP");
-      var newMap = Object.assign({}, state.map, {}); //copy map
-      newMap[action.item._id] = action.item; //add single
+      var newIdMap = Object.assign({}, state.byId, {}); //copy map
+      newIdMap[action.item._id] = action.item; //add single
       return Object.assign({}, state, {
-        map: newMap
+        byId: newIdMap
       })
 
     case Actions.REQUEST_CREATE_PRODUCT:
@@ -99,10 +123,10 @@ function product(state = {
       console.log("RECEIVE_CREATE_PRODUCT");
       if(action.success) {
         //add object to map
-        let newMap = Object.assign({}, state.map, {});
-        newMap[action.id] = action.item;
+        let newIdMap = Object.assign({}, state.byId, {});
+        newIdMap[action.id] = action.item;
         return Object.assign({}, state, {
-          map: newMap
+          byId: newIdMap
           , selected: {
             id: action.id
             , isFetching: false
@@ -135,10 +159,10 @@ function product(state = {
     case Actions.RECEIVE_UPDATE_PRODUCT:
       if(action.success) {
         //add object to map
-        let newMap = Object.assign({}, state.map, {});
-        newMap[action.id] = action.item;
+        let newIdMap = Object.assign({}, state.byId, {});
+        newIdMap[action.id] = action.item;
         return Object.assign({}, state, {
-          map: newMap
+          byId: newIdMap
           , selected: {
             id: action.id
             , isFetching: false
@@ -170,10 +194,10 @@ function product(state = {
     case Actions.RECEIVE_DELETE_PRODUCT:
       if(action.success) {
         //remove object from map
-        let newMap = Object.assign({}, state.map, {});
-        delete newMap[action.id]; //remove key
+        let newIdMap = Object.assign({}, state.byId, {});
+        delete newIdMap[action.id]; //remove key
         return Object.assign({}, state, {
-          map: newMap
+          byId: newIdMap
           , selected: {
             id: null
             , isFetching: false
@@ -206,11 +230,11 @@ function product(state = {
       if(action.success) {
         //add api array objects to map
         //NOTE: should the "all" list overwrite the map? others only add to the map.
-        let newMap = Object.assign({}, state.map, {});
+        let newIdMap = Object.assign({}, state.byId, {});
         let idArray = [];
         for(var i = 0; i < action.list.length; i++) {
           idArray.push(action.list[i]._id);
-          newMap[action.list[i]._id] = action.list[i];
+          newIdMap[action.list[i]._id] = action.list[i];
         }
         //if "all" is a just a string type, we could generalize this reducer to any "typed" list
         nextState.lists.all.isFetching = false;
@@ -218,7 +242,7 @@ function product(state = {
         nextState.lists.all.items = idArray;
         nextState.lists.all.didInvalidate = false;
         nextState.lists.all.lastUpdated = action.receivedAt
-        nextState.map = newMap;
+        nextState.byId = newIdMap;
         return nextState;
       } else {
         nextState.lists.all.isFetching = false;
