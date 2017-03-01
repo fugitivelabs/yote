@@ -1,5 +1,5 @@
 {
-  "name": "Yote",
+  "name": "Yote-Client",
   "version": "0.6.0",
   "description": "Find Your Road",
   "main": "yote.js",
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/fugitivelabs/yote-react.git"
+    "url": "https://github.com/fugitivelabs/yote.git"
   },
   "babel": {
     "presets": [
@@ -30,9 +30,9 @@
   ],
   "author": "Fugitive Labs",
   "bugs": {
-    "url": "https://github.com/fugitivelabs/yote-react/issues"
+    "url": "https://github.com/fugitivelabs/yote/issues"
   },
-  "homepage": "https://github.com/fugitivelabs/yote-react",
+  "homepage": "https://github.com/fugitivelabs/yote",
   "dependencies": {
     "@google-cloud/logging": "^0.2.0",
     "async": "^2.1.2",
