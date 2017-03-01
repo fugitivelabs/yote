@@ -1,9 +1,9 @@
 var winston = require('winston');
 
-require('winston-mongodb').MongoDB; 
+require('winston-mongodb').MongoDB;
 
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
-var config = require('./server/config')[env];
+var config = require('./config')[env];
 
 // adapted from http://tostring.it/2014/06/23/advanced-logging-with-nodejs/
 winston.emitErrs = true;

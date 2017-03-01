@@ -31,7 +31,7 @@ var express         = require('express')
 
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 var app = express();
-var config = require('./server/config')[env];
+var config = require('./config')[env];
 
 //initialize logger
 // generally global is not considered "best practices", but this will allow access to the logger object in the entire app
@@ -43,17 +43,17 @@ logger.warn("WARN LOG");
 logger.error("ERROR LOG");
 
 //initialize database
-require('./server/db')(config);
+require('./db')(config);
 
 //init User model
-var UserSchema = require('./server/models/User').User
+var UserSchema = require('./models/User').User
   , User = mongoose.model('User')
 
 //use express compression plugin
 app.use(compress());
 
 //configure express
-app.set('views', __dirname + '/server/views');
+app.set('views', __dirname + '/views');
 app.set('view engine', 'pug');
 app.use(timeout(30000)); //upper bound on server connections, in ms.
 // app.use(logger('dev'));
@@ -170,7 +170,7 @@ if (app.get('env') == 'development') {
 //configure server routes
 var router = express.Router();
 // require('./server/routes/api-routes')(router);
-require('./server/router/server-router')(router, app);
+require('./router/server-router')(router, app);
 //some notes on router: http://scotch.io/tutorials/javascript/learn-to-use-the-new-router-in-expressjs-4
 app.use('/', router);
 
