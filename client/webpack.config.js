@@ -1,4 +1,4 @@
-// sets up the .jsx compiler to read .jsx from ./client/ 
+// sets up the .jsx compiler to read .jsx from ./client/
 // and output regular .js to /public/react/
 var path = require('path');
 var webpack = require('webpack');
@@ -6,9 +6,9 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const config = {
   devtool: 'cheap-source-map'
-  , entry: './client/app.js.jsx'
+  , entry: './app.js.jsx'
   , output: {
-    path: path.join(__dirname, 'public/js')
+    path: path.join(__dirname, '../server/public/js')
     , filename: 'react-bundle.js'
   }
   , module: {
@@ -23,7 +23,7 @@ const config = {
       }
       , {
         test: /\.scss$/
-        , loader: ExtractTextPlugin.extract({ 
+        , loader: ExtractTextPlugin.extract({
           fallback: 'style-loader', loader: "css-loader!sass-loader",
         })
       }
