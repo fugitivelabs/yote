@@ -42,7 +42,24 @@ export const fetchSingleIfNeeded = (id) => (dispatch, getState) => {
     return dispatch(fetchSingleProductById(id))
   } else {
     console.log("DON'T NEED TO FETCH");
+    return dispatch(returnSingleProductPromise(id)); //return promise that contains product
   }
+}
+
+export const returnSingleProductPromise = (id) => (dispatch, getState) => {
+  //for the "fetchIfNeeded" functionality, we need to return a promise object 
+  // EVEN IF we don't need to fetch it. this is because if we have any 
+  // .then()'s in the components, they will fail when we don't need to fetch.
+  // This returns the object from the map so that we can do things with it in the component.
+  console.log("return single without fetching");
+  return new Promise((resolve, reject) => {
+    resolve({
+      type: "RETURN_SINGLE_PRODUCT_WITHOUT_FETCHING"
+      , id: id
+      , item: getState().product.byId[id]
+      , success: true
+    })
+  });
 }
 
 export const REQUEST_SINGLE_PRODUCT = "REQUEST_SINGLE_PRODUCT";
@@ -223,7 +240,24 @@ export const fetchListIfNeeded = (...listArgs) => (dispatch, getState) => {
   }
   if (shouldFetchList(getState(), listArgs)) {
     return dispatch(fetchList(...listArgs));
+  } else {
+    return dispatch(returnProductListPromise(...listArgs));
   }
+}
+
+export const returnProductListPromise = (...listArgs) => (dispatch, getState) => {
+  //for the "fetchIfNeeded" functionality, we need to return a promise object 
+  // EVEN IF we don't need to fetch it. this is because if we have any 
+  // .then()'s in the components, they will fail when we don't need to fetch.
+  console.log("return list without fetching");
+  return new Promise((resolve, reject) => {
+    resolve({
+      type: "RETURN_PRODUCT_LIST_WITHOUT_FETCHING"
+      , listArgs: listArgs
+      , list: findListFromArgs(getState(), listArgs).items
+      , success: true
+    })
+  });
 }
 
 export const REQUEST_PRODUCT_LIST = "REQUEST_PRODUCT_LIST"

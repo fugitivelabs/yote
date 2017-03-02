@@ -19,8 +19,12 @@ class ProductList extends Base {
 
   componentDidMount() {
     // console.log("list mounting");
-    // this.props.dispatch(productActions.fetchListIfNeeded("all"));
     this.props.dispatch(productActions.fetchListIfNeeded());
+    //MORE LIST EXAMPLES
+    // this.props.dispatch(productActions.fetchListIfNeeded("all"));
+    // this.props.dispatch(productActions.fetchListIfNeeded()).then((data) => {
+    //   console.log("DATA", data);
+    // });
     // this.props.dispatch(productActions.fetchListIfNeeded("workout"));
     // this.props.dispatch(productActions.fetchListIfNeeded("section", "1234"));
     // this.props.dispatch(productActions.fetchList("section", "3456", "78910")).then(() => {
