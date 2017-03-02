@@ -210,17 +210,20 @@ export const fetchListIfNeeded = (type, id) => (dispatch, getState) => {
 }
 
 export const REQUEST_PRODUCT_LIST = "REQUEST_PRODUCT_LIST"
-function requestProductList() {
-  console.log('requesting products list')
+function requestProductList(...listArgs) {
+  console.log('requesting products list', listArgs)
   return {
     type: REQUEST_PRODUCT_LIST
+    , listArgs
   }
 }
 
 export const RECEIVE_PRODUCT_LIST = "RECEIVE_PRODUCT_LIST"
-function receiveProductList(json) {
+function receiveProductList(json, ...listArgs) {
   return {
     type: RECEIVE_PRODUCT_LIST
+    , listType
+    , listTypeId
     , list: json.products
     , success: json.success
     , error: json.message
@@ -228,12 +231,15 @@ function receiveProductList(json) {
   }
 }
 
-export function fetchList() {
-  // console.log("FETCH PRODUCT LIST");
+export function fetchList(...listArgs) {
+  console.log("FETCH PRODUCT LIST", listArgs);
   return dispatch => {
-    dispatch(requestProductList())
+    // if(!listArgs)
+    //default to "all" list if we don't pass any listType
+    dispatch(requestProductList(listArgs))
+    //determine what api route we want to hit
     return callAPI('/api/products')
-      .then(json => dispatch(receiveProductList(json)))
+      .then(json => dispatch(receiveProductList(json, listArgs)))
   }
 }
 

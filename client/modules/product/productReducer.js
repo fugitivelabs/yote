@@ -4,8 +4,7 @@ import * as Actions from './productActions';
 
 function productList(state = {
   //default state for a list
-  id: null //id of thing we're querying, null for 'all'
-  , items: [] //array of _id's
+  items: [] //array of _id's
   , isFetching: false
   , error: null
   , didInvalidate: false
@@ -13,17 +12,47 @@ function productList(state = {
   //pagination?
 }, action) {
   switch(action.type) {
-    case INVALIDATE_PRODUCT_LIST: {
+    case Actions.INVALIDATE_PRODUCT_LIST: {
       return Object.assign({}, state, {
         didInvalidate: true
       })
     }
-    case REQUEST_PRODUCT_LIST: {
-      
+    case Actions.REQUEST_PRODUCT_LIST: {
+      console.log("DEBUG 1");
+      return Object.assign({}, state, {
+        items: [] //array of _id's
+        , isFetching: true
+        , error: null
+        , lastUpdated: null
+      })
     }
-    case RECEIVE_PRODUCT_LIST: {
-
+    case Actions.RECEIVE_PRODUCT_LIST: {
+      console.log("DEBUG 2");
+      let newMap = {};
+      if(!action.success) {
+        return Object.assign({}, state, {
+          items: [] //array of _id's
+          , isFetching: false
+          , error: action.error
+          , didInvalidate: true
+          , lastUpdated: action.receivedAt
+        })
+      } else {
+        let idArray = [];
+        for(const item of action.list) {
+          idArray.push(item._id);
+        }
+        return Object.assign({}, state, {
+          items: idArray
+          , isFetching: false
+          , error: action.error || null
+          , didInvalidate: false
+          , lastUpdated: action.receivedAt
+        })
+      }
     }
+    default:
+      return Object.assign({}, state, {})
     //filter/query
   }
 }
@@ -44,20 +73,19 @@ function product(state = {
     , lastUpdated: null
   }
   , lists: {
-
-    all: {
-      isFetching: false
-      , error: null
-      , didInvalidate: false
-      , lastUpdated: null
-      , items: []
-      , pagination: {}
-      , filter: {
-        type: ''
-        , sortBy: ''
-        , query: ''
-      }
-    }
+    // all: {
+    //   isFetching: false
+    //   , error: null
+    //   , didInvalidate: false
+    //   , lastUpdated: null
+    //   , items: []
+    //   , pagination: {}
+    //   , filter: {
+    //     type: ''
+    //     , sortBy: ''
+    //     , query: ''
+    //   }
+    // }
     // add other lists here, like "published" or "featured"
     // accessed like "product.lists.all" or "product.lists.published"
 
@@ -219,64 +247,87 @@ function product(state = {
       }
 
 //LIST ACTIONS
+    case Actions.INVALIDATE_PRODUCT_LIST:
     case Actions.REQUEST_PRODUCT_LIST:
-      nextState = Object.assign({}, state, {});
-      nextState.lists.all.isFetching = true;
-      nextState.lists.all.error = null;
-      nextState.lists.all.items = [];
-      return nextState;
-    case Actions.RECEIVE_PRODUCT_LIST:
-      nextState = Object.assign({}, state, {});
-      if(action.success) {
-        //add api array objects to map
-        //NOTE: should the "all" list overwrite the map? others only add to the map.
-        let newIdMap = Object.assign({}, state.byId, {});
-        let idArray = [];
-        for(var i = 0; i < action.list.length; i++) {
-          idArray.push(action.list[i]._id);
-          newIdMap[action.list[i]._id] = action.list[i];
-        }
-        //if "all" is a just a string type, we could generalize this reducer to any "typed" list
-        nextState.lists.all.isFetching = false;
-        nextState.lists.all.error = null;
-        nextState.lists.all.items = idArray;
-        nextState.lists.all.didInvalidate = false;
-        nextState.lists.all.lastUpdated = action.receivedAt
-        nextState.byId = newIdMap;
-        return nextState;
-      } else {
-        nextState.lists.all.isFetching = false;
-        nextState.lists.all.error = action.error;
-        nextState.lists.all.items = [];
-        nextState.lists.all.didInvalidate = true;
-        nextState.lists.all.lastUpdated = action.receivedAt
-        return nextState;
-      }
-    case Actions.SET_PRODUCT_FILTER:
-      let newList = Object.assign({}, state.lists[action.listType], {});
-      // newList.
+      //"forward" on to individual list reducer
       return Object.assign({}, state, {
-        //TODO
+        lists: Object.assign({}, state.lists, {
+          [action.listType]: productList(state.lists[action.listType], action)
+        })
+      })
+    case Actions.RECEIVE_PRODUCT_LIST:
+      //add items to "byId" before we forward to individual list reducer
+      let newIdMap = Object.assign({}, state.byId, {});
+      if(action.success) {
+        for(const item of action.list) {
+          newIdMap[item._id] = item;
+        }
+      }
+      return Object.assign({}, state, {
+        byId: newIdMap
+        , lists: Object.assign({}, state.lists, {
+          [action.listType]: productList(state.lists[action.listType], action)
+        })
       })
 
-    case Actions.SET_PRODUCT_SORT:
-      return Object.assign({}, state, {
-        sortBy: action.sortBy
-        , type: action.listType
-      })
-    case Actions.SET_PRODUCT_QUERY:
-      return Object.assign({}, state, {
-        query: action.query
-        , listType: action.listType
-      })
-    case Actions.SET_PRODUCT_PAGINATION:
-      return Object.assign({}, state, {
-        pagination: action.pagination
-      })
-    case Actions.INVALIDATE_PRODUCT_LIST:
-      let nextState = Object.assign({}, state, {});
-      nextState.lists[action.listType].didInvalidate = true;
-      return nextState;
+    // case Actions.REQUEST_PRODUCT_LIST:
+    //   nextState = Object.assign({}, state, {});
+    //   nextState.lists.all.isFetching = true;
+    //   nextState.lists.all.error = null;
+    //   nextState.lists.all.items = [];
+    //   return nextState;
+    // case Actions.RECEIVE_PRODUCT_LIST:
+    //   nextState = Object.assign({}, state, {});
+    //   if(action.success) {
+    //     //add api array objects to map
+    //     //NOTE: should the "all" list overwrite the map? others only add to the map.
+    //     let newIdMap = Object.assign({}, state.byId, {});
+    //     let idArray = [];
+    //     for(var i = 0; i < action.list.length; i++) {
+    //       idArray.push(action.list[i]._id);
+    //       newIdMap[action.list[i]._id] = action.list[i];
+    //     }
+    //     //if "all" is a just a string type, we could generalize this reducer to any "typed" list
+    //     nextState.lists.all.isFetching = false;
+    //     nextState.lists.all.error = null;
+    //     nextState.lists.all.items = idArray;
+    //     nextState.lists.all.didInvalidate = false;
+    //     nextState.lists.all.lastUpdated = action.receivedAt
+    //     nextState.byId = newIdMap;
+    //     return nextState;
+    //   } else {
+    //     nextState.lists.all.isFetching = false;
+    //     nextState.lists.all.error = action.error;
+    //     nextState.lists.all.items = [];
+    //     nextState.lists.all.didInvalidate = true;
+    //     nextState.lists.all.lastUpdated = action.receivedAt
+    //     return nextState;
+    //   }
+    // case Actions.SET_PRODUCT_FILTER:
+    //   let newList = Object.assign({}, state.lists[action.listType], {});
+    //   // newList.
+    //   return Object.assign({}, state, {
+    //     //TODO
+    //   })
+
+    // case Actions.SET_PRODUCT_SORT:
+    //   return Object.assign({}, state, {
+    //     sortBy: action.sortBy
+    //     , type: action.listType
+    //   })
+    // case Actions.SET_PRODUCT_QUERY:
+    //   return Object.assign({}, state, {
+    //     query: action.query
+    //     , listType: action.listType
+    //   })
+    // case Actions.SET_PRODUCT_PAGINATION:
+    //   return Object.assign({}, state, {
+    //     pagination: action.pagination
+    //   })
+    // case Actions.INVALIDATE_PRODUCT_LIST:
+    //   let nextState = Object.assign({}, state, {});
+    //   nextState.lists[action.listType].didInvalidate = true;
+    //   return nextState;
 
     default:
       return state
