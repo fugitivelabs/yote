@@ -1,10 +1,11 @@
 import React, { PropTypes } from 'react';
-import Base from '../BaseComponent';
+import Base from '../../../global/components/BaseComponent';
 import DrawerLayoutAndroid from 'DrawerLayoutAndroid';
 import { connect } from 'react-redux';
 
 
 class YTDrawerLayout extends Base {
+  _drawer: ?DrawerLayoutAndroid;
   constructor(props, context) {
     super(props, context);
     this._bind(
@@ -17,7 +18,7 @@ class YTDrawerLayout extends Base {
   }
 
   componentWillUnmount() {
-    this.context.removeBackButtonListener(this.handleBackButton);
+    // this.context.removeBackButtonListener(this.handleBackButton);
     this._drawer = null;
   }
 
@@ -27,12 +28,12 @@ class YTDrawerLayout extends Base {
   }
 
   onDrawerOpen() {
-    this.context.addBackButtonListener(this.handleBackButton);
+    // this.context.addBackButtonListener(this.handleBackButton); 
     this.props.onDrawerOpen && this.props.onDrawerOpen();
   }
 
   onDrawerClose() {
-    this.context.removeBackButtonListener(this.handleBackButton);
+    // this.context.removeBackButtonListener(this.handleBackButton);
     this.props.onDrawerClose && this.props.onDrawerClose();
   }
 
@@ -41,6 +42,7 @@ class YTDrawerLayout extends Base {
   }
 
   openDrawer() {
+    // console.log("OPEN SEASAMEEEEE");
     this._drawer && this._drawer.openDrawer();
   }
 
@@ -72,12 +74,4 @@ YTDrawerLayout.propTypes = {
 }
 
 
-const mapStoreToProps = (store) => {
-  return {
-
-  }
-}
-
-export default connect(
-  mapStoreToProps
-)(YTDrawerLayout);
+export default YTDrawerLayout;

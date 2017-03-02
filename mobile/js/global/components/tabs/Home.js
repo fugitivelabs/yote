@@ -119,6 +119,7 @@ class Home extends Base {
     super(props);
     this._bind(
      '_openProfile'
+     ,'_handleOpenDrawer'
     );
   }
 
@@ -126,6 +127,10 @@ class Home extends Base {
     
     this.props.navigator.push({profile: true});
 
+  }
+  
+  _handleOpenDrawer() {
+    this.context.openDrawer();  
   }
 
   render() {
@@ -166,6 +171,10 @@ class Home extends Base {
 
 Home.propTypes = {
   dispatch: PropTypes.func
+}
+
+Home.contextTypes = {
+  openDrawer: React.PropTypes.func
 }
 
 const mapStoreToProps = (store) => {

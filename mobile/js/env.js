@@ -27,7 +27,7 @@ let stagingEnv = {
 }
 
 let mazenLocal = {
-  url: "http://10.254.133.103:3030"
+  url: "http://10.254.102.101:3030"
 }
 
 let env = simulator;
