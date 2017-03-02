@@ -9,20 +9,22 @@ import callAPI from '../../global/util/api'
 //SINGLE PRODUCT ACTIONS
 
 const shouldFetchSingle = (state, id) => {
-  console.log("shouldFetch");
-  const { map, selected } = state.product;
+  console.log("shouldFetch single");
+  const { byId, selected } = state.product;
   if(selected.id !== id) {
-    //TODO: we need more granularity here. we also don't want to fetch if the object is already in the map
-    console.log("shouldFetch debug 0");
+    console.log("Y shouldFetch - true: id changed");
     return true;
-  } else if(!map[id]) {
-    console.log("shouldFetch debug 1");
+  } else if(!byId[id]) {
+    console.log("Y shouldFetch - true: not in map");
     return true;
   } else if(selected.isFetching) {
-    console.log("shouldFetch debug 2");
+    console.log("Y shouldFetch - false: isFetching");
     return false;
+  } else if(new Date().getTime() - selected.lastUpdated > (1000 * 60 * 5)) {
+    console.log("Y shouldFetch - true: older than 5 minutes");
+    return true;
   } else {
-    console.log("shouldFetch debug 3");
+    console.log("Y shouldFetch - " + selected.didInvalidate + ": didInvalidate");
     return selected.didInvalidate;
   }
 }
@@ -208,7 +210,7 @@ const shouldFetchList = (state, listArgs) => {
     console.log("X shouldFetch - true: older than 5 minutes");
     return true;
   } else {
-    console.log("X shouldFetch - " + list.didInvalidate + ": invalidate");
+    console.log("X shouldFetch - " + list.didInvalidate + ": didInvalidate");
     return list.didInvalidate;
   }
 }
@@ -260,19 +262,19 @@ export function fetchList(...listArgs) {
     // if more than 2, will require custom checks
     let apiTarget = "/api/products";
     // if(test) {} //override defaults here
-    
-    // if(listArgs.length == 1 && listArgs[0] !== "all") {
-    //   apiTarget += `/by-${listArgs[0]}`;
-    // } else if(listArgs.length == 2) {
-    //   apiTarget += `/by-${listArgs[0]}/${listArgs[1]}`;
-    // } else if(listArgs.length > 2) {
-    //   apiTarget += `/by-${listArgs[0]}/${listArgs[1]}`;
-    //   for(let i = 2; i < listArgs.length; i++) {
-    //     apiTarget += `/${listArgs[i]}`;
-    //   }
-    // }
-    return callAPI(apiTarget)
-      .then(json => dispatch(receiveProductList(json, listArgs)))
+    if(listArgs.length == 1 && listArgs[0] !== "all") {
+      apiTarget += `/by-${listArgs[0]}`;
+    } else if(listArgs.length == 2) {
+      apiTarget += `/by-${listArgs[0]}/${listArgs[1]}`;
+    } else if(listArgs.length > 2) {
+      apiTarget += `/by-${listArgs[0]}/${listArgs[1]}`;
+      for(let i = 2; i < listArgs.length; i++) {
+        apiTarget += `/${listArgs[i]}`;
+      }
+    }
+    return callAPI(apiTarget).then(
+      json => dispatch(receiveProductList(json, listArgs))
+    )
   }
 }
 

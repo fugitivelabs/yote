@@ -81,12 +81,8 @@ CreateProduct.propTypes = {
 }
 
 const mapStoreToProps = (store) => {
-  // console.log("Store");
-  // console.log(store);
   return {
     defaultItem: store.product.defaultItem
-    , selected: store.product.selected
-    , map: store.product.map
   }
 }
 

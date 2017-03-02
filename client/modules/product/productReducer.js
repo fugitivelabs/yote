@@ -251,6 +251,12 @@ function product(state = {
           }
         })
       }
+    case Actions.INVALIDATE_SELECTED_PRODUCT:
+      return Object.assign({}, state, {
+        selected: {
+          didInvalidate: true
+        }
+      })
 
 //LIST ACTIONS
     case Actions.INVALIDATE_PRODUCT_LIST:

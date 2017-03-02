@@ -12,9 +12,9 @@ import ProductForm from './ProductForm.js.jsx';
 class UpdateProduct extends Base {
   constructor(props) {
     super(props);
-    const { selected, map } = this.props;
+    const { selectedProduct, productMap } = this.props;
     this.state = {
-      item: map[selected.id] ? JSON.parse(JSON.stringify(map[selected.id])) : {}      
+      item: productMap[selectedProduct.id] ? JSON.parse(JSON.stringify(productMap[selectedProduct.id])) : {}      
       //we don't want to change the store, just make changes to a copy
     }
     this._bind(
@@ -30,9 +30,9 @@ class UpdateProduct extends Base {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { selected, map } = nextProps;
+    const { selectedProduct, productMap } = nextProps;
     this.state = {
-      item: map[selected.id] ? JSON.parse(JSON.stringify(map[selected.id])) : {}
+      item: productMap[selectedProduct.id] ? JSON.parse(JSON.stringify(productMap[selectedProduct.id])) : {}
       //we don't want to actually change the store's item, just use a copy
     }
   }
@@ -61,13 +61,13 @@ class UpdateProduct extends Base {
   }
 
   render() {
-    const { selected, map } = this.props;
+    const { selectedProduct, productMap } = this.props;
     const { item } = this.state;
     const isEmpty = (!item || item.title === null || item.title === undefined);
     return  (
       <div >
         {isEmpty
-          ? (selected.isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
+          ? (selectedProduct.isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
         : <ProductForm
             product={item}
             formType="update"
@@ -88,8 +88,8 @@ UpdateProduct.propTypes = {
 
 const mapStoreToProps = (store) => {
   return {
-    selected: store.product.selected
-    , map: store.product.map
+    selectedProduct: store.product.selected
+    , productMap: store.product.byId
   }
 }
 
