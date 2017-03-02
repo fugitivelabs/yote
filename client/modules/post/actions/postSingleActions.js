@@ -73,7 +73,7 @@ function receiveSinglePostBySlug(json) {
 export function fetchSinglePostBySlug(slug) {
   return dispatch => {
     dispatch(requestSinglePostBySlug(slug))
-    return fetch(`/api/posts/bySlug/${slug}`)
+    return fetch(`/api/posts/by-slug/${slug}`)
       .then(response => response.json())
       .then(json => dispatch(receiveSinglePostBySlug(json)))
   }
@@ -109,14 +109,14 @@ function receivePopulatedSinglePost(json) {
 }
 
 
-export function fetchAndPopulateSinglePostById(postId) {
-  return dispatch => {
-    dispatch(requestAndPopulateSinglePost(postId))
-    return fetch(`/api/posts/${postId}/populate`)
-      .then(response => response.json())
-      .then(json => dispatch(receivePopulatedSinglePost(json)))
-  }
-}
+// export function fetchAndPopulateSinglePostById(postId) {
+//   return dispatch => {
+//     dispatch(requestAndPopulateSinglePost(postId))
+//     return fetch(`/api/posts/${postId}/populate`)
+//       .then(response => response.json())
+//       .then(json => dispatch(receivePopulatedSinglePost(json)))
+//   }
+// }
 
 
 /***************
@@ -146,14 +146,14 @@ function receivePopulatedSinglePostBySlug(json) {
   }
 }
 
-export function fetchAndPopulateSinglePostBySlug(slug) {
-  return dispatch => {
-    dispatch(requestAndPopulateSinglePostBySlug(slug))
-    return fetch(`/api/posts/bySlug/${slug}/populate`)
-      .then(response => response.json())
-      .then(json => dispatch(receivePopulatedSinglePostBySlug(json)))
-  }
-}
+// export function fetchAndPopulateSinglePostBySlug(slug) {
+//   return dispatch => {
+//     dispatch(requestAndPopulateSinglePostBySlug(slug))
+//     return fetch(`/api/posts/by-slug/${slug}/populate`)
+//       .then(response => response.json())
+//       .then(json => dispatch(receivePopulatedSinglePostBySlug(json)))
+//   }
+// }
 
 
 

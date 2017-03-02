@@ -18,6 +18,10 @@ import TouchableOpacity from 'TouchableOpacity';
 
 // import components
 import Profile from '../../../modules/user/components/Profile';
+import Home from './Home';
+import Product from '../../../modules/product/components/Product'; 
+import Feed from '../../../modules/post/components/Feed';
+import ActionButton from '../../../global/components/ActionButton'; 
 
 // import actions
 
@@ -57,11 +61,15 @@ var styles = StyleSheet.create({
 class TabsView extends Base {
   constructor(props) {
     super(props);
-    this.state = {selectedTab: "showings"}
+    this.state = {selectedTab: "home"}
     this._bind(
       'renderNavigationView'
       , 'openProfileSettings'
       , 'openDrawer'
+      , 'closeDrawer'
+      , '_goToFeed'
+      , '_goToMyProducts'
+      , '_goToHome'
     )
   }
 
@@ -76,6 +84,10 @@ class TabsView extends Base {
     this.refs.drawer.openDrawer();
   }
 
+  closeDrawer() {
+    this.refs.drawer.closeDrawer(); 
+  }
+
   onTabSelect(tab) {
     if (this.props.tab !== tab) {
       this.props.onTabSelect(tab);
@@ -88,25 +100,68 @@ class TabsView extends Base {
     // this.props.navigator.push({shareSettings: true});
   }
 
+  _goToFeed() {
+    this.setState({selectedTab: "feed"}); 
+    this.refs.drawer.closeDrawer(); 
+  }
+
+  _goToMyProducts() {
+    this.setState({selectedTab: "products"});  
+    this.refs.drawer.closeDrawer(); 
+  }
+
+  _goToHome() {
+    this.setState({selectedTab: "home"});  
+    this.refs.drawer.closeDrawer(); 
+  }
+
   renderNavigationView() {
     return (
       <View style={styles.drawer}>
-        <View><Text>THINGS HERE </Text></View>
+        <View style={styles.header}>
+          <TouchableOpacity
+            onPress={this.closeDrawer}>
+            <Text>Close </Text>
+          </TouchableOpacity>
+        </View>
+        <ActionButton
+          caption="home"
+          onPress={this._goToHome}
+        />
+        <ActionButton
+          caption="products"
+          onPress={this._goToMyProducts}
+        />
+        <ActionButton
+          caption="feed"
+          onPress={this._goToFeed}
+        />
       </View>
     )
   }
 
   renderContent() {
     switch (this.state.selectedTab) {
-      case 'squads':
+      case 'home':
         return (
-          <MySquads
+          <Home
             navigator={this.props.navigator}
           />
         );
 
-      case 'profile':
-        return <Profile navigator={this.props.navigator} />;
+      case 'products':
+        return (
+          <Product
+            navigator={this.props.navigator}
+          />
+        );
+
+      case 'feed':
+        return (
+          <Feed
+            navigator={this.props.navigator}
+          />
+        );
     }
     throw new Error(`Unknown tab ${this.props.tab}`);
   }
