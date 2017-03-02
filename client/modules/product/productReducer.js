@@ -3,13 +3,15 @@ import * as Actions from './productActions';
 
 function productList(state = {
   //default state for a list
+  // NOTE that this is not actually initialized here. the actual init happens the first time REQUEST_LIST is called.
+  // this is for reference only
   items: [] //array of _id's
   , isFetching: false
   , error: null
   , didInvalidate: false
   , lastUpdated: null
   , pagination: {}
-  , filter: { type: '', sortBy: '', query: '' }
+  , filter: {}
 
 }, action) {
   // console.log("DEBUG", state, action.listArgs);
@@ -34,6 +36,8 @@ function productList(state = {
           , isFetching: true
           , error: null
           , lastUpdated: null
+          , pagination: state.pagination || {}
+          , filter: state.filter || {}
         })
       }
       case Actions.RECEIVE_PRODUCT_LIST: {
@@ -60,14 +64,16 @@ function productList(state = {
           })
         }
       }
-      case Actions.SET_PRODUCT_FILTER:
+      case Actions.SET_PRODUCT_FILTER: {
         return Object.assign({}, state, {
           filter: action.filter
         })
-      case Actions.SET_PRODUCT_PAGINATION:
+      }
+      case Actions.SET_PRODUCT_PAGINATION: {
         return Object.assign({}, state, {
           pagination: action.pagination
         })
+      }
       default:
         return state;
     }
@@ -249,6 +255,8 @@ function product(state = {
 //LIST ACTIONS
     case Actions.INVALIDATE_PRODUCT_LIST:
     case Actions.REQUEST_PRODUCT_LIST:
+    case Actions.SET_PRODUCT_FILTER:
+    case Actions.SET_PRODUCT_PAGINATION:
       //"forward" on to individual list reducer
       let nextLists = Object.assign({}, state.lists, {});
       return Object.assign({}, state, {

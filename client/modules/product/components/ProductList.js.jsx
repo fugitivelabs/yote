@@ -21,11 +21,16 @@ class ProductList extends Base {
     // console.log("list mounting");
     // this.props.dispatch(productActions.fetchListIfNeeded("all"));
     this.props.dispatch(productActions.fetchList());
-    this.props.dispatch(productActions.fetchList("workout"));
-    this.props.dispatch(productActions.fetchList("section", "1234"));
-    this.props.dispatch(productActions.fetchList("section", "3456", "78910")).then(() => {
-      this.props.dispatch(productActions.invaldiateList("section", "3456", "78910"));
-    });
+    // this.props.dispatch(productActions.fetchList("workout"));
+    // this.props.dispatch(productActions.fetchList("section", "1234"));
+    // this.props.dispatch(productActions.fetchList("section", "3456", "78910")).then(() => {
+    //   this.props.dispatch(productActions.invaldiateList("section", "3456", "78910"));
+    // });
+    // this.props.dispatch(productActions.setFilter({test: 2}));
+    // this.props.dispatch(productActions.setFilter({test: 2}, "section", "1234"));
+    // this.props.dispatch(productActions.setPagination({test: 1}, "section", "1234"));
+
+
   }
 
   render() {

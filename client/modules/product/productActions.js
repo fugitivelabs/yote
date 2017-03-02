@@ -235,7 +235,7 @@ export function fetchList(...listArgs) {
     if(listArgs.length === 0) {
       listArgs = ["all"];
     }
-    //default to "all" list if we don't pass any listType
+    //default to "all" list if we don't pass any listArgs
     dispatch(requestProductList(listArgs))
     //determine what api route we want to hit
     //HERE: use listArgs to determine what api call to make.
@@ -269,7 +269,7 @@ export function setFilter(filter, ...listArgs) {
   return {
     type: SET_PRODUCT_FILTER
     , filter
-    , listType
+    , listArgs
   }
 }
 
