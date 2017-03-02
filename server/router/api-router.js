@@ -72,6 +72,6 @@ module.exports = function(router) {
 }
 
 //route names for use with CLI
-routeFilenames.push('users/userApi');
-routeFilenames.push('posts/postApi');
-routeFilenames.push('products/productApi');
+routeFilenames.push('users/usersApi');
+routeFilenames.push('posts/postsApi');
+routeFilenames.push('products/productsApi');
