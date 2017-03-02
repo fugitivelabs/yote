@@ -211,7 +211,6 @@ export const fetchListIfNeeded = (type, id) => (dispatch, getState) => {
 
 export const REQUEST_PRODUCT_LIST = "REQUEST_PRODUCT_LIST"
 function requestProductList(listArgs) {
-  // console.log('requesting products list', listArgs)
   return {
     type: REQUEST_PRODUCT_LIST
     , listArgs
@@ -239,6 +238,14 @@ export function fetchList(...listArgs) {
     //default to "all" list if we don't pass any listType
     dispatch(requestProductList(listArgs))
     //determine what api route we want to hit
+    //HERE: use listArgs to determine what api call to make.
+    // if listArgs[0] == null or "all", return list
+    // if listArgs has 1 arg, return "/api/products/by[ARG]"
+    // if 2 args, return return "/api/products/by-[ARG1]/[ARG2]". ex: /api/products/by-user/:userId
+    // if more than 2, will require custom checks
+    let apiTarget = "/api/products";
+    // if(test) {} //override defaults here
+    
     return callAPI('/api/products')
       .then(json => dispatch(receiveProductList(json, listArgs)))
   }
