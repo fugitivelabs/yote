@@ -244,12 +244,12 @@ export function fetchList(...listArgs) {
   }
 }
 
-//MORE LIST TYPES HERE
-
-
 //LIST UTIL METHODS
 export const SET_PRODUCT_FILTER = "SET_PRODUCT_FILTER"
-export function setFilter(listType, filter) {
+export function setFilter(filter, ...listArgs) {
+  if(listArgs.length === 0) {
+    listArgs = ["all"];
+  }
   return {
     type: SET_PRODUCT_FILTER
     , filter
@@ -257,37 +257,25 @@ export function setFilter(listType, filter) {
   }
 }
 
-export const SET_PRODUCT_SORT = "SET_PRODUCT_SORT"
-export function setSortBy(listType, sortBy) {
-  return {
-    type: SET_PRODUCT_SORT
-    , sortBy
-    , listType
-  }
-}
-
-export const SET_PRODUCT_QUERY = "SET_PRODUCT_QUERY"
-export function setQuery(listType, query) {
-  return {
-    type: SET_PRODUCT_QUERY
-    , query
-    , listType
-  }
-}
-
 export const SET_PRODUCT_PAGINATION = "SET_PRODUCT_PAGINATION"
-export function setPagination(listType, pagination) {
+export function setPagination(pagination, ...listArgs) {
+  if(listArgs.length === 0) {
+    listArgs = ["all"];
+  }
   return {
     type: SET_PRODUCT_PAGINATION
     , pagination
-    , listType
+    , listArgs
   }
 }
 
 export const INVALIDATE_PRODUCT_LIST = "INVALIDATE_PRODUCT_LIST"
-export function invaldiateList(listType) {
+export function invaldiateList(...listArgs) {
+  if(listArgs.length === 0) {
+    listArgs = ["all"];
+  }
   return {
     type: INVALIDATE_PRODUCT_LIST
-    , listType
+    , listArgs
   }
 }
