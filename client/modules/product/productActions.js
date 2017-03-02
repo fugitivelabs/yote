@@ -245,8 +245,17 @@ export function fetchList(...listArgs) {
     // if more than 2, will require custom checks
     let apiTarget = "/api/products";
     // if(test) {} //override defaults here
-    
-    return callAPI('/api/products')
+    if(listArgs.length == 1 && listArgs[0] !== "all") {
+      apiTarget += `/by-${listArgs[0]}`;
+    } else if(listArgs.length == 2) {
+      apiTarget += `/by-${listArgs[0]}/${listArgs[1]}`;
+    } else if(listArgs.length > 2) {
+      apiTarget += `/by-${listArgs[0]}/${listArgs[1]}`;
+      for(let i = 2; i < listArgs.length; i++) {
+        apiTarget += `/${listArgs[i]}`;
+      }
+    }
+    return callAPI(apiTarget)
       .then(json => dispatch(receiveProductList(json, listArgs)))
   }
 }
