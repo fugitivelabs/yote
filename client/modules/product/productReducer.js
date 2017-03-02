@@ -11,49 +11,61 @@ function productList(state = {
   , lastUpdated: null
   //pagination?
 }, action) {
-  switch(action.type) {
-    case Actions.INVALIDATE_PRODUCT_LIST: {
-      return Object.assign({}, state, {
-        didInvalidate: true
-      })
-    }
-    case Actions.REQUEST_PRODUCT_LIST: {
-      console.log("DEBUG 1");
-      return Object.assign({}, state, {
-        items: [] //array of _id's
-        , isFetching: true
-        , error: null
-        , lastUpdated: null
-      })
-    }
-    case Actions.RECEIVE_PRODUCT_LIST: {
-      console.log("DEBUG 2");
-      let newMap = {};
-      if(!action.success) {
+  console.log("DEBUG 0", state, action.listArgs);
+  // console.log("DEBUG 0", action.listArgs);
+  // console.log(action.listArgs);
+  let nextAction = JSON.parse(JSON.stringify(action));
+  nextAction.listArgs.shift();
+  // console.log("DEBUG 0", nextListArgs);
+  if(nextAction.listArgs.length > 0) {
+    console.log("NEST!!");
+    return Object.assign({}, state, {
+      [nextAction.listArgs[0]]: productList(state[nextAction.listArgs[0]], nextAction)
+    })
+  } else {
+    console.log("DONT NEST!!");
+    switch(action.type) {
+      case Actions.INVALIDATE_PRODUCT_LIST: {
         return Object.assign({}, state, {
-          items: [] //array of _id's
-          , isFetching: false
-          , error: action.error
-          , didInvalidate: true
-          , lastUpdated: action.receivedAt
-        })
-      } else {
-        let idArray = [];
-        for(const item of action.list) {
-          idArray.push(item._id);
-        }
-        return Object.assign({}, state, {
-          items: idArray
-          , isFetching: false
-          , error: action.error || null
-          , didInvalidate: false
-          , lastUpdated: action.receivedAt
+          didInvalidate: true
         })
       }
+      case Actions.REQUEST_PRODUCT_LIST: {
+        return Object.assign({}, state, {
+          items: [] //array of _id's
+          , isFetching: true
+          , error: null
+          , lastUpdated: null
+        })
+      }
+      case Actions.RECEIVE_PRODUCT_LIST: {
+        let newMap = {};
+        if(!action.success) {
+          return Object.assign({}, state, {
+            items: [] //array of _id's
+            , isFetching: false
+            , error: action.error
+            , didInvalidate: true
+            , lastUpdated: action.receivedAt
+          })
+        } else {
+          let idArray = [];
+          for(const item of action.list) {
+            idArray.push(item._id);
+          }
+          return Object.assign({}, state, {
+            items: idArray
+            , isFetching: false
+            , error: action.error || null
+            , didInvalidate: false
+            , lastUpdated: action.receivedAt
+          })
+        }
+      }
+      default:
+        return Object.assign({}, state, {})
+      //filter/query
     }
-    default:
-      return Object.assign({}, state, {})
-    //filter/query
   }
 }
 
@@ -250,9 +262,20 @@ function product(state = {
     case Actions.INVALIDATE_PRODUCT_LIST:
     case Actions.REQUEST_PRODUCT_LIST:
       //"forward" on to individual list reducer
+      let nextLists = Object.assign({}, state.lists, {});
+
+      // function setNestedList(action.listArgs, nextLists, )
+
+      // let nextObj = {};
+      // for(let i = action.listArgs.length - 1; i >= 0; i--) {
+      //   nextObj[arg] = {};
+      //   nextObj = [arg];
+      //   console.log("nextObj", nextObj);
+      // }
+      // console.log("nextObj", nextObj);
       return Object.assign({}, state, {
         lists: Object.assign({}, state.lists, {
-          [action.listType]: productList(state.lists[action.listType], action)
+          [action.listArgs[0]]: productList(state.lists[action.listArgs[0]] || {}, action)
         })
       })
     case Actions.RECEIVE_PRODUCT_LIST:
@@ -266,7 +289,7 @@ function product(state = {
       return Object.assign({}, state, {
         byId: newIdMap
         , lists: Object.assign({}, state.lists, {
-          [action.listType]: productList(state.lists[action.listType], action)
+          [action.listArgs[0]]: productList(state.lists[action.listArgs[0]], action)
         })
       })
 

@@ -23,6 +23,7 @@ class ProductList extends Base {
     this.props.dispatch(productActions.fetchList());
     this.props.dispatch(productActions.fetchList("workout"));
     this.props.dispatch(productActions.fetchList("section", "1234"));
+    this.props.dispatch(productActions.fetchList("section", "3456"));
   }
 
   render() {

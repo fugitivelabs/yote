@@ -210,8 +210,8 @@ export const fetchListIfNeeded = (type, id) => (dispatch, getState) => {
 }
 
 export const REQUEST_PRODUCT_LIST = "REQUEST_PRODUCT_LIST"
-function requestProductList(...listArgs) {
-  console.log('requesting products list', listArgs)
+function requestProductList(listArgs) {
+  // console.log('requesting products list', listArgs)
   return {
     type: REQUEST_PRODUCT_LIST
     , listArgs
@@ -219,11 +219,10 @@ function requestProductList(...listArgs) {
 }
 
 export const RECEIVE_PRODUCT_LIST = "RECEIVE_PRODUCT_LIST"
-function receiveProductList(json, ...listArgs) {
+function receiveProductList(json, listArgs) {
   return {
     type: RECEIVE_PRODUCT_LIST
-    , listType
-    , listTypeId
+    , listArgs
     , list: json.products
     , success: json.success
     , error: json.message
@@ -234,7 +233,9 @@ function receiveProductList(json, ...listArgs) {
 export function fetchList(...listArgs) {
   console.log("FETCH PRODUCT LIST", listArgs);
   return dispatch => {
-    // if(!listArgs)
+    if(listArgs.length === 0) {
+      listArgs = ["all"];
+    }
     //default to "all" list if we don't pass any listType
     dispatch(requestProductList(listArgs))
     //determine what api route we want to hit
