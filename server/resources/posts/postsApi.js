@@ -4,7 +4,7 @@ API for __Proper__.
 
 ***********************************************************/
 
-var posts = require('../../controllers/posts');
+var posts = require('./postsController');
 
 module.exports = function(router, requireLogin, requireRole) {
 
@@ -16,9 +16,7 @@ module.exports = function(router, requireLogin, requireRole) {
   router.get('/api/posts/featured'      , posts.getFeatured);
   router.get('/api/posts/published'     , posts.getPublished);
   router.get('/api/posts/search'        , posts.search);
-  router.get('/api/posts/bySlug/:slug/populate'  , posts.getBySlugAndPopulate);
-  router.get('/api/posts/bySlug/:slug'  , posts.getBySlug);
-  router.get('/api/posts/:id/populate'  , posts.getAndPopulate);
+  router.get('/api/posts/by-slug/:slug'  , posts.getBySlug);
   router.get('/api/posts/:id'           , posts.getById);
 
   // - Update

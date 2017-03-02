@@ -1,5 +1,5 @@
 var mongoose = require('mongoose')
-  , User = require('./models/User')
+  , User = require('./resources/users/UserModel')
   ;
 
 module.exports = function(config) {
@@ -17,5 +17,5 @@ module.exports = function(config) {
 };
 
 // new Mongoose models are defined below
-var Post = require('./models/Post');
-var Product = require('./models/Product');
+var Post = require('./resources/posts/PostModel');
+var Product = require('./resources/products/ProductModel');

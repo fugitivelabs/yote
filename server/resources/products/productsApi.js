@@ -4,7 +4,7 @@ API for Product.
 
 ***********************************************************/
 
-var products = require('../../controllers/products');
+var products = require('./productsController');
 
 module.exports = function(router, requireLogin, requireRole) {
   //to restrict routes to only logged in users, add "requireLogin()"
