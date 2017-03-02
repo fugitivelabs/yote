@@ -175,37 +175,52 @@ export function sendDelete(id) {
 }
 
 //PRODUCT LIST ACTIONS
+const findListFromArgs = (state, listArgs) => {
+  //because we are nesting productLists to arbitrary locations depths,
+  // finding the list becomes a little bit harder
+  // helper method to find list from listArgs
+  var list = Object.assign({}, state.product.lists, {});
+  for(var i = 0; i < listArgs.length; i++) {
+    list = list[listArgs[i]];
+    if(!list) {
+      return false;
+    }
+  }
+  return list;
+}
 
-const shouldFetchList = (state, type) => {
-  console.log("shouldFetchList");
-  //types: "all", "published", etc
-  const list = state.product.lists[type];
+const shouldFetchList = (state, listArgs) => {
+  //determine whether to fetch the list or not, from arbitrary listArgs
+  // leaving console logs in here for later help debugging apps
+  // console.log("shouldFetchList", listArgs);
+  const list = findListFromArgs(state, listArgs);
+  // console.log("LIST", list);
   if(!list || !list.items) {
-    console.log("ERROR: CANNOT FIND LIST TYPE: " + type);
+    console.log("X shouldFetch - true: list not found");
+    return true;
   } else if(list.items.length < 1) {
-    console.log("shouldFetch debug 0");
+    console.log("X shouldFetch - true: length 0");
     return true
   } else if(list.isFetching) {
-    console.log("shouldFetch debug 1");
+    console.log("X shouldFetch - false: fetching");
     return false
+  } else if(new Date().getTime() - list.lastUpdated > (1000 * 60 * 5)) {
+    console.log("X shouldFetch - true: older than 5 minutes");
+    return true;
   } else {
-    console.log("shouldFetch debug 2");
+    console.log("X shouldFetch - " + list.didInvalidate + ": invalidate");
     return list.didInvalidate;
   }
 }
 
 
-export const fetchListIfNeeded = (type, id) => (dispatch, getState) => {
-  if (shouldFetchList(getState(), type)) {
-    if(type === "all") {
-      return dispatch(fetchList());
-    // } else if(type === "test") {
-    //   //example with an additional byId argument
-    //   return dispatch(fetchListByTest(id));
-    } else {
-      console.log("NO MATCHING LIST TYPE SPECIFIED");
-      return false; //what to return here?
-    }
+export const fetchListIfNeeded = (...listArgs) => (dispatch, getState) => {
+  // console.log("FETCH IF NEEDED", listArgs);
+  if(listArgs.length === 0) {
+    listArgs = ["all"];
+  }
+  if (shouldFetchList(getState(), listArgs)) {
+    return dispatch(fetchList(...listArgs));
   }
 }
 
@@ -245,16 +260,17 @@ export function fetchList(...listArgs) {
     // if more than 2, will require custom checks
     let apiTarget = "/api/products";
     // if(test) {} //override defaults here
-    if(listArgs.length == 1 && listArgs[0] !== "all") {
-      apiTarget += `/by-${listArgs[0]}`;
-    } else if(listArgs.length == 2) {
-      apiTarget += `/by-${listArgs[0]}/${listArgs[1]}`;
-    } else if(listArgs.length > 2) {
-      apiTarget += `/by-${listArgs[0]}/${listArgs[1]}`;
-      for(let i = 2; i < listArgs.length; i++) {
-        apiTarget += `/${listArgs[i]}`;
-      }
-    }
+    
+    // if(listArgs.length == 1 && listArgs[0] !== "all") {
+    //   apiTarget += `/by-${listArgs[0]}`;
+    // } else if(listArgs.length == 2) {
+    //   apiTarget += `/by-${listArgs[0]}/${listArgs[1]}`;
+    // } else if(listArgs.length > 2) {
+    //   apiTarget += `/by-${listArgs[0]}/${listArgs[1]}`;
+    //   for(let i = 2; i < listArgs.length; i++) {
+    //     apiTarget += `/${listArgs[i]}`;
+    //   }
+    // }
     return callAPI(apiTarget)
       .then(json => dispatch(receiveProductList(json, listArgs)))
   }
