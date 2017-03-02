@@ -1,4 +1,4 @@
-var secrets = require('../config')[process.env.NODE_ENV].secrets;
+var secrets = require('./config')[process.env.NODE_ENV].secrets;
 
 var async = require('async')
   , mandrill = require('mandrill-api/mandrill')

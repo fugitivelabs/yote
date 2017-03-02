@@ -1,8 +1,8 @@
 //get secrets
-var secrets = require('../config')[process.env.NODE_ENV].secrets;
+var secrets = require('../../config')[process.env.NODE_ENV].secrets;
 
 var User = require('mongoose').model('User')
-  , utilitiesCtrl = require('./utilities')
+  , utilitiesCtrl = require('../../utilities')
   ;
 
 exports.list = function(req, res) {

@@ -67,11 +67,11 @@ var routeFilenames = [];
 module.exports = function(router) {
   routeFilenames.forEach(function(filename) {
     logger.debug("filename: " + filename);
-    require('./api/' + filename)(router, requireLogin, requireRole);
+    require('../resources/' + filename)(router, requireLogin, requireRole);
   });
 }
 
 //route names for use with CLI
-routeFilenames.push('user-api');
-routeFilenames.push('post-api');
-routeFilenames.push('product-api');
+routeFilenames.push('users/userApi');
+routeFilenames.push('posts/postApi');
+routeFilenames.push('products/productApi');

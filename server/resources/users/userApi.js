@@ -1,6 +1,6 @@
 var passport = require('passport');
 var User = require('mongoose').model('User');
-var users = require('../../controllers/users');
+var users = require('./usersController');
 
 module.exports = function(router, requireLogin, requireRole) {
     // user login
