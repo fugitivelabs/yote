@@ -1,6 +1,84 @@
 
 import * as Actions from './productActions';
-// import * as singleActions from './productSingleActions';
+
+function productList(state = {
+  //default state for a list
+  // NOTE that this is not actually initialized here. the actual init happens the first time REQUEST_LIST is called.
+  // this is for reference only
+  items: [] //array of _id's
+  , isFetching: false
+  , error: null
+  , didInvalidate: false
+  , lastUpdated: null
+  , pagination: {}
+  , filter: {}
+
+}, action) {
+  // console.log("DEBUG", state, action.listArgs);
+  let nextAction = JSON.parse(JSON.stringify(action)); //change copy not original object
+  nextAction.listArgs.shift();
+  if(nextAction.listArgs.length > 0) {
+    //action is asking for a nested state, like lists[workout][123ABC]. return additional productList reducer.
+    return Object.assign({}, state, {
+      [nextAction.listArgs[0]]: productList(state[nextAction.listArgs[0]] || {}, nextAction)
+    })
+  } else {
+    //don't nest any more, return actual product list store
+    switch(action.type) {
+      case Actions.INVALIDATE_PRODUCT_LIST: {
+        return Object.assign({}, state, {
+          didInvalidate: true
+        })
+      }
+      case Actions.REQUEST_PRODUCT_LIST: {
+        return Object.assign({}, state, {
+          items: [] //array of _id's
+          , isFetching: true
+          , error: null
+          , lastUpdated: null
+          , pagination: state.pagination || {}
+          , filter: state.filter || {}
+        })
+      }
+      case Actions.RECEIVE_PRODUCT_LIST: {
+        let newMap = {};
+        if(!action.success) {
+          return Object.assign({}, state, {
+            items: [] //array of _id's
+            , isFetching: false
+            , error: action.error
+            , didInvalidate: true
+            , lastUpdated: action.receivedAt
+          })
+        } else {
+          let idArray = [];
+          for(const item of action.list) {
+            idArray.push(item._id);
+          }
+          return Object.assign({}, state, {
+            items: idArray
+            , isFetching: false
+            , error: action.error || null
+            , didInvalidate: false
+            , lastUpdated: action.receivedAt
+          })
+        }
+      }
+      case Actions.SET_PRODUCT_FILTER: {
+        return Object.assign({}, state, {
+          filter: action.filter
+        })
+      }
+      case Actions.SET_PRODUCT_PAGINATION: {
+        return Object.assign({}, state, {
+          pagination: action.pagination
+        })
+      }
+      default:
+        return state;
+    }
+  }
+}
 
 function product(state = {
   //define fields for a "new" product
@@ -9,9 +87,7 @@ function product(state = {
     title: ""
     , description: ""
   }
-
-  , map: {} //map of all items
-
+  , byId: {} //map of all items
   , selected: { //single selected entity
     id: null
     , isFetching: false
@@ -19,27 +95,9 @@ function product(state = {
     , didInvalidate: false
     , lastUpdated: null
   }
-  , lists: {
-
-    all: {
-      isFetching: false
-      , error: null
-      , didInvalidate: false
-      , lastUpdated: null
-      , items: []
-      , pagination: {}
-      , filter: {
-        type: ''
-        , sortBy: ''
-        , query: ''
-      }
-    }
-    // add other lists here, like "published" or "featured"
-    // accessed like "product.lists.all" or "product.lists.published"
-
-  }
+  , lists: {} //individual instances of the productList reducer above
 }, action) {
-  let nextState = Object.assign({}, state, {});
+  // let nextState = Object.assign({}, state, {});
   switch(action.type) {
 //SINGLE ITEM ACTIONS
     case Actions.REQUEST_SINGLE_PRODUCT:
@@ -54,10 +112,10 @@ function product(state = {
       if(action.success) {
         console.log("Mapping now");
         //add object to map
-        let newMap = Object.assign({}, state.map, {});
-        newMap[action.id] = action.item;
+        let newIdMap = Object.assign({}, state.byId, {});
+        newIdMap[action.id] = action.item;
         return Object.assign({}, state, {
-          map: newMap
+          byId: newIdMap
           , selected: {
             id: action.id
             , isFetching: false
@@ -80,10 +138,10 @@ function product(state = {
     
     case Actions.ADD_SINGLE_PRODUCT_TO_MAP:
       console.log("ADD_SINGLE_PRODUCT_TO_MAP");
-      var newMap = Object.assign({}, state.map, {}); //copy map
-      newMap[action.item._id] = action.item; //add single
+      var newIdMap = Object.assign({}, state.byId, {}); //copy map
+      newIdMap[action.item._id] = action.item; //add single
       return Object.assign({}, state, {
-        map: newMap
+        byId: newIdMap
       })
 
     case Actions.REQUEST_CREATE_PRODUCT:
@@ -99,10 +157,10 @@ function product(state = {
       console.log("RECEIVE_CREATE_PRODUCT");
       if(action.success) {
         //add object to map
-        let newMap = Object.assign({}, state.map, {});
-        newMap[action.id] = action.item;
+        let newIdMap = Object.assign({}, state.byId, {});
+        newIdMap[action.id] = action.item;
         return Object.assign({}, state, {
-          map: newMap
+          byId: newIdMap
           , selected: {
             id: action.id
             , isFetching: false
@@ -135,10 +193,10 @@ function product(state = {
     case Actions.RECEIVE_UPDATE_PRODUCT:
       if(action.success) {
         //add object to map
-        let newMap = Object.assign({}, state.map, {});
-        newMap[action.id] = action.item;
+        let newIdMap = Object.assign({}, state.byId, {});
+        newIdMap[action.id] = action.item;
         return Object.assign({}, state, {
-          map: newMap
+          byId: newIdMap
           , selected: {
             id: action.id
             , isFetching: false
@@ -170,10 +228,10 @@ function product(state = {
     case Actions.RECEIVE_DELETE_PRODUCT:
       if(action.success) {
         //remove object from map
-        let newMap = Object.assign({}, state.map, {});
-        delete newMap[action.id]; //remove key
+        let newIdMap = Object.assign({}, state.byId, {});
+        delete newIdMap[action.id]; //remove key
         return Object.assign({}, state, {
-          map: newMap
+          byId: newIdMap
           , selected: {
             id: null
             , isFetching: false
@@ -193,67 +251,39 @@ function product(state = {
           }
         })
       }
+    case Actions.INVALIDATE_SELECTED_PRODUCT:
+      return Object.assign({}, state, {
+        selected: {
+          didInvalidate: true
+        }
+      })
 
 //LIST ACTIONS
-    case Actions.REQUEST_PRODUCT_LIST:
-      nextState = Object.assign({}, state, {});
-      nextState.lists.all.isFetching = true;
-      nextState.lists.all.error = null;
-      nextState.lists.all.items = [];
-      return nextState;
-    case Actions.RECEIVE_PRODUCT_LIST:
-      nextState = Object.assign({}, state, {});
-      if(action.success) {
-        //add api array objects to map
-        //NOTE: should the "all" list overwrite the map? others only add to the map.
-        let newMap = Object.assign({}, state.map, {});
-        let idArray = [];
-        for(var i = 0; i < action.list.length; i++) {
-          idArray.push(action.list[i]._id);
-          newMap[action.list[i]._id] = action.list[i];
-        }
-        //if "all" is a just a string type, we could generalize this reducer to any "typed" list
-        nextState.lists.all.isFetching = false;
-        nextState.lists.all.error = null;
-        nextState.lists.all.items = idArray;
-        nextState.lists.all.didInvalidate = false;
-        nextState.lists.all.lastUpdated = action.receivedAt
-        nextState.map = newMap;
-        return nextState;
-      } else {
-        nextState.lists.all.isFetching = false;
-        nextState.lists.all.error = action.error;
-        nextState.lists.all.items = [];
-        nextState.lists.all.didInvalidate = true;
-        nextState.lists.all.lastUpdated = action.receivedAt
-        return nextState;
-      }
-    case Actions.SET_PRODUCT_FILTER:
-      let newList = Object.assign({}, state.lists[action.listType], {});
-      // newList.
-      return Object.assign({}, state, {
-        //TODO
-      })
-
-    case Actions.SET_PRODUCT_SORT:
-      return Object.assign({}, state, {
-        sortBy: action.sortBy
-        , type: action.listType
-      })
-    case Actions.SET_PRODUCT_QUERY:
-      return Object.assign({}, state, {
-        query: action.query
-        , listType: action.listType
-      })
-    case Actions.SET_PRODUCT_PAGINATION:
-      return Object.assign({}, state, {
-        pagination: action.pagination
-      })
     case Actions.INVALIDATE_PRODUCT_LIST:
-      let nextState = Object.assign({}, state, {});
-      nextState.lists[action.listType].didInvalidate = true;
-      return nextState;
-
+    case Actions.REQUEST_PRODUCT_LIST:
+    case Actions.SET_PRODUCT_FILTER:
+    case Actions.SET_PRODUCT_PAGINATION:
+      //"forward" on to individual list reducer
+      let nextLists = Object.assign({}, state.lists, {});
+      return Object.assign({}, state, {
+        lists: Object.assign({}, state.lists, {
+          [action.listArgs[0]]: productList(state.lists[action.listArgs[0]] || {}, action)
+        })
+      })
+    case Actions.RECEIVE_PRODUCT_LIST:
+      //add items to "byId" before we forward to individual list reducer
+      let newIdMap = Object.assign({}, state.byId, {});
+      if(action.success) {
+        for(const item of action.list) {
+          newIdMap[item._id] = item;
+        }
+      }
+      return Object.assign({}, state, {
+        byId: newIdMap
+        , lists: Object.assign({}, state.lists, {
+          [action.listArgs[0]]: productList(state.lists[action.listArgs[0]], action)
+        })
+      })
     default:
       return state
   }

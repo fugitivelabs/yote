@@ -19,12 +19,27 @@ class ProductList extends Base {
 
   componentDidMount() {
     // console.log("list mounting");
-    this.props.dispatch(productActions.fetchListIfNeeded("all"));
+    this.props.dispatch(productActions.fetchListIfNeeded());
+    //MORE LIST EXAMPLES
+    // this.props.dispatch(productActions.fetchListIfNeeded("all"));
+    // this.props.dispatch(productActions.fetchListIfNeeded()).then((data) => {
+    //   console.log("DATA", data);
+    // });
+    // this.props.dispatch(productActions.fetchListIfNeeded("workout"));
+    // this.props.dispatch(productActions.fetchListIfNeeded("section", "1234"));
+    // this.props.dispatch(productActions.fetchList("section", "3456", "78910")).then(() => {
+    //   this.props.dispatch(productActions.invaldiateList("section", "3456", "78910"));
+    // });
+    // this.props.dispatch(productActions.setFilter({test: 2}));
+    // this.props.dispatch(productActions.setFilter({test: 2}, "section", "1234"));
+    // this.props.dispatch(productActions.setPagination({test: 1}, "section", "1234"));
   }
 
   render() {
-    const { list, map } = this.props;
-    const isEmpty = list.items.length === 0;
+    const { productList, productMap } = this.props;
+    //note the new isEmpty. when the app loads, all "product lists" are null objects; they exist only after we created them
+    const isEmpty = !productList || productList.items.length === 0 || productList.didInvalidate;
+    console.log("isEmpty", isEmpty);
     return(
       <div className="flex">
         <section className="section">
@@ -34,14 +49,14 @@ class ProductList extends Base {
             </h1>
             <hr/>
             {isEmpty
-              ? (list.isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
-                : <div style={{ opacity: list.isFetching ? 0.5 : 1 }}>
-                  <ul>
-                    {list.items.map((id, i) =>
-                      <ProductListItem key={i} product={map[id]} />
-                    )}
-                  </ul>
-                </div>
+              ? (productList && productList.isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
+              : <div style={{ opacity: productList.isFetching ? 0.5 : 1 }}>
+                <ul>
+                  {productList.items.map((id, i) =>
+                    <ProductListItem key={i} product={productMap[id]} />
+                  )}
+                </ul>
+              </div>
             }
           </div>
         </section>
@@ -56,8 +71,8 @@ ProductList.propTypes = {
 
 const mapStoreToProps = (store) => {
   return {
-    map: store.product.map
-    , list: store.product.lists.all
+    productList: store.product.lists.all
+    , productMap: store.product.byId
   }
 }
 

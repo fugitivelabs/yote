@@ -11,13 +11,12 @@ class SingleProduct extends Base {
   }
   componentDidMount() {
     const { dispatch, params } = this.props;
-    dispatch(productActions.fetchSingleIfNeeded(params.productId))
+    dispatch(productActions.fetchSingleIfNeeded(params.productId));
   }
 
   render() {
-    const { selected, map } = this.props;
-    const isEmpty = (!selected.id || !map[selected.id] || map[selected.id].title === undefined);
-    // const isEmpty = (item.title === null || item.title === undefined);
+    const { selectedProduct, productMap } = this.props;
+    const isEmpty = (!selectedProduct.id || !productMap[selectedProduct.id] || productMap[selectedProduct.id].title === undefined || !selectedProduct.didInvalidate);
     console.log("isEmpty", isEmpty);
     return  (
       <div className="flex">
@@ -25,14 +24,14 @@ class SingleProduct extends Base {
           <div className="yt-container">
             <h3> Single Product Item </h3>
             {isEmpty
-              ? (selected.isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
-                : <div style={{ opacity: selected.isFetching ? 0.5 : 1 }}>
+              ? (selectedProduct.isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
+                : <div style={{ opacity: selectedProduct.isFetching ? 0.5 : 1 }}>
 
-                  <h1> { map[selected.id].title }
-                    <Link className="yt-btn small u-pullRight" to={`/products/${map[selected.id]._id}/update`}> UPDATE PRODUCT </Link>
+                  <h1> { productMap[selectedProduct.id].title }
+                    <Link className="yt-btn small u-pullRight" to={`/products/${productMap[selectedProduct.id]._id}/update`}> UPDATE PRODUCT </Link>
                   </h1>
                   <hr/>
-                  <p> {map[selected.id].description }</p>
+                  <p> {productMap[selectedProduct.id].description }</p>
                 </div>
             }
           </div>
@@ -48,8 +47,8 @@ SingleProduct.propTypes = {
 
 const mapStoreToProps = (store) => {
   return {
-    selected: store.product.selected
-    , map: store.product.map
+    selectedProduct: store.product.selected
+    , productMap: store.product.byId
   }
 }
 

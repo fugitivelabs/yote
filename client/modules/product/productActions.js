@@ -9,20 +9,22 @@ import callAPI from '../../global/util/api'
 //SINGLE PRODUCT ACTIONS
 
 const shouldFetchSingle = (state, id) => {
-  console.log("shouldFetch");
-  const { map, selected } = state.product;
+  console.log("shouldFetch single");
+  const { byId, selected } = state.product;
   if(selected.id !== id) {
-    //TODO: we need more granularity here. we also don't want to fetch if the object is already in the map
-    console.log("shouldFetch debug 0");
+    console.log("Y shouldFetch - true: id changed");
     return true;
-  } else if(!map[id]) {
-    console.log("shouldFetch debug 1");
+  } else if(!byId[id]) {
+    console.log("Y shouldFetch - true: not in map");
     return true;
   } else if(selected.isFetching) {
-    console.log("shouldFetch debug 2");
+    console.log("Y shouldFetch - false: isFetching");
     return false;
+  } else if(new Date().getTime() - selected.lastUpdated > (1000 * 60 * 5)) {
+    console.log("Y shouldFetch - true: older than 5 minutes");
+    return true;
   } else {
-    console.log("shouldFetch debug 3");
+    console.log("Y shouldFetch - " + selected.didInvalidate + ": didInvalidate");
     return selected.didInvalidate;
   }
 }
@@ -40,7 +42,24 @@ export const fetchSingleIfNeeded = (id) => (dispatch, getState) => {
     return dispatch(fetchSingleProductById(id))
   } else {
     console.log("DON'T NEED TO FETCH");
+    return dispatch(returnSingleProductPromise(id)); //return promise that contains product
   }
+}
+
+export const returnSingleProductPromise = (id) => (dispatch, getState) => {
+  //for the "fetchIfNeeded" functionality, we need to return a promise object 
+  // EVEN IF we don't need to fetch it. this is because if we have any 
+  // .then()'s in the components, they will fail when we don't need to fetch.
+  // This returns the object from the map so that we can do things with it in the component.
+  console.log("return single without fetching");
+  return new Promise((resolve, reject) => {
+    resolve({
+      type: "RETURN_SINGLE_PRODUCT_WITHOUT_FETCHING"
+      , id: id
+      , item: getState().product.byId[id]
+      , success: true
+    })
+  });
 }
 
 export const REQUEST_SINGLE_PRODUCT = "REQUEST_SINGLE_PRODUCT";
@@ -175,52 +194,85 @@ export function sendDelete(id) {
 }
 
 //PRODUCT LIST ACTIONS
+const findListFromArgs = (state, listArgs) => {
+  //because we are nesting productLists to arbitrary locations depths,
+  // finding the list becomes a little bit harder
+  // helper method to find list from listArgs
+  var list = Object.assign({}, state.product.lists, {});
+  for(var i = 0; i < listArgs.length; i++) {
+    list = list[listArgs[i]];
+    if(!list) {
+      return false;
+    }
+  }
+  return list;
+}
 
-const shouldFetchList = (state, type) => {
-  console.log("shouldFetchList");
-  //types: "all", "published", etc
-  const list = state.product.lists[type];
+const shouldFetchList = (state, listArgs) => {
+  //determine whether to fetch the list or not, from arbitrary listArgs
+  // leaving console logs in here for later help debugging apps
+  // console.log("shouldFetchList", listArgs);
+  const list = findListFromArgs(state, listArgs);
+  // console.log("LIST", list);
   if(!list || !list.items) {
-    console.log("ERROR: CANNOT FIND LIST TYPE: " + type);
+    console.log("X shouldFetch - true: list not found");
+    return true;
   } else if(list.items.length < 1) {
-    console.log("shouldFetch debug 0");
+    console.log("X shouldFetch - true: length 0");
     return true
   } else if(list.isFetching) {
-    console.log("shouldFetch debug 1");
+    console.log("X shouldFetch - false: fetching");
     return false
+  } else if(new Date().getTime() - list.lastUpdated > (1000 * 60 * 5)) {
+    console.log("X shouldFetch - true: older than 5 minutes");
+    return true;
   } else {
-    console.log("shouldFetch debug 2");
+    console.log("X shouldFetch - " + list.didInvalidate + ": didInvalidate");
     return list.didInvalidate;
   }
 }
 
 
-export const fetchListIfNeeded = (type, id) => (dispatch, getState) => {
-  if (shouldFetchList(getState(), type)) {
-    if(type === "all") {
-      return dispatch(fetchList());
-    // } else if(type === "test") {
-    //   //example with an additional byId argument
-    //   return dispatch(fetchListByTest(id));
-    } else {
-      console.log("NO MATCHING LIST TYPE SPECIFIED");
-      return false; //what to return here?
-    }
+export const fetchListIfNeeded = (...listArgs) => (dispatch, getState) => {
+  // console.log("FETCH IF NEEDED", listArgs);
+  if(listArgs.length === 0) {
+    listArgs = ["all"];
+  }
+  if (shouldFetchList(getState(), listArgs)) {
+    return dispatch(fetchList(...listArgs));
+  } else {
+    return dispatch(returnProductListPromise(...listArgs));
   }
 }
 
+export const returnProductListPromise = (...listArgs) => (dispatch, getState) => {
+  //for the "fetchIfNeeded" functionality, we need to return a promise object 
+  // EVEN IF we don't need to fetch it. this is because if we have any 
+  // .then()'s in the components, they will fail when we don't need to fetch.
+  console.log("return list without fetching");
+  return new Promise((resolve, reject) => {
+    resolve({
+      type: "RETURN_PRODUCT_LIST_WITHOUT_FETCHING"
+      , listArgs: listArgs
+      , list: findListFromArgs(getState(), listArgs).items
+      , success: true
+    })
+  });
+}
+
 export const REQUEST_PRODUCT_LIST = "REQUEST_PRODUCT_LIST"
-function requestProductList() {
-  console.log('requesting products list')
+function requestProductList(listArgs) {
   return {
     type: REQUEST_PRODUCT_LIST
+    , listArgs
   }
 }
 
 export const RECEIVE_PRODUCT_LIST = "RECEIVE_PRODUCT_LIST"
-function receiveProductList(json) {
+function receiveProductList(json, listArgs) {
   return {
     type: RECEIVE_PRODUCT_LIST
+    , listArgs
     , list: json.products
     , success: json.success
     , error: json.message
@@ -228,59 +280,70 @@ function receiveProductList(json) {
   }
 }
 
-export function fetchList() {
-  // console.log("FETCH PRODUCT LIST");
+export function fetchList(...listArgs) {
+  console.log("FETCH PRODUCT LIST", listArgs);
   return dispatch => {
-    dispatch(requestProductList())
-    return callAPI('/api/products')
-      .then(json => dispatch(receiveProductList(json)))
+    if(listArgs.length === 0) {
+      listArgs = ["all"];
+    }
+    //default to "all" list if we don't pass any listArgs
+    dispatch(requestProductList(listArgs))
+    //determine what api route we want to hit
+    //HERE: use listArgs to determine what api call to make.
+    // if listArgs[0] == null or "all", return list
+    // if listArgs has 1 arg, return "/api/products/by[ARG]"
+    // if 2 args, return return "/api/products/by-[ARG1]/[ARG2]". ex: /api/products/by-user/:userId
+    // if more than 2, will require custom checks
+    let apiTarget = "/api/products";
+    // if(test) {} //override defaults here
+    if(listArgs.length == 1 && listArgs[0] !== "all") {
+      apiTarget += `/by-${listArgs[0]}`;
+    } else if(listArgs.length == 2) {
+      apiTarget += `/by-${listArgs[0]}/${listArgs[1]}`;
+    } else if(listArgs.length > 2) {
+      apiTarget += `/by-${listArgs[0]}/${listArgs[1]}`;
+      for(let i = 2; i < listArgs.length; i++) {
+        apiTarget += `/${listArgs[i]}`;
+      }
+    }
+    return callAPI(apiTarget).then(
+      json => dispatch(receiveProductList(json, listArgs))
+    )
   }
 }
-
-//MORE LIST TYPES HERE
-
 
 //LIST UTIL METHODS
 export const SET_PRODUCT_FILTER = "SET_PRODUCT_FILTER"
-export function setFilter(listType, filter) {
+export function setFilter(filter, ...listArgs) {
+  if(listArgs.length === 0) {
+    listArgs = ["all"];
+  }
   return {
     type: SET_PRODUCT_FILTER
     , filter
-    , listType
-  }
-}
-
-export const SET_PRODUCT_SORT = "SET_PRODUCT_SORT"
-export function setSortBy(listType, sortBy) {
-  return {
-    type: SET_PRODUCT_SORT
-    , sortBy
-    , listType
-  }
-}
-
-export const SET_PRODUCT_QUERY = "SET_PRODUCT_QUERY"
-export function setQuery(listType, query) {
-  return {
-    type: SET_PRODUCT_QUERY
-    , query
-    , listType
+    , listArgs
   }
 }
 
 export const SET_PRODUCT_PAGINATION = "SET_PRODUCT_PAGINATION"
-export function setPagination(listType, pagination) {
+export function setPagination(pagination, ...listArgs) {
+  if(listArgs.length === 0) {
+    listArgs = ["all"];
+  }
   return {
     type: SET_PRODUCT_PAGINATION
     , pagination
-    , listType
+    , listArgs
   }
 }
 
 export const INVALIDATE_PRODUCT_LIST = "INVALIDATE_PRODUCT_LIST"
-export function invaldiateList(listType) {
+export function invaldiateList(...listArgs) {
+  if(listArgs.length === 0) {
+    listArgs = ["all"];
+  }
   return {
     type: INVALIDATE_PRODUCT_LIST
-    , listType
+    , listArgs
   }
 }
