@@ -3,7 +3,7 @@ import Base from "../../../global/components/BaseComponent.js.jsx";
 import { connect } from 'react-redux';
 
 //actions
-import * as userSingleActions from '../actions/userSingleActions';
+import * as userActions from '../userActions';
 
 //components
 import UserLoginForm from './UserLoginForm.js.jsx';
@@ -38,7 +38,7 @@ class UserLogin extends Base {
 
   _handleFormSubmit(e) {
     e.preventDefault();
-    this.props.dispatch(userSingleActions.sendLogin(this.state.username, this.state.password));
+    this.props.dispatch(userActions.sendLogin(this.state.username, this.state.password));
   }
 
   render() {

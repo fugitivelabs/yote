@@ -3,7 +3,7 @@ import Base from "../../../global/components/BaseComponent.js.jsx";
 import { connect } from 'react-redux';
 
 //actions
-import * as userSingleActions from '../actions/userSingleActions';
+import * as userActions from '../userActions';
 
 //components
 import UserRegisterForm from './UserRegisterForm.js.jsx';
@@ -11,22 +11,14 @@ import UserRegisterForm from './UserRegisterForm.js.jsx';
 class UserRegister extends Base {
   constructor(props) {
     super(props);
-    this.state = this.props;
+    this.state = {
+      user: JSON.parse(JSON.stringify(this.props.defaultUser))
+      //don't want to actually change the store's defaultItem, just use a copy
+    }
     this._bind(
       '_handleFormChange'
       , '_handleFormSubmit'
     );
-  }
- 
-  componentDidMount() {
-    this.props.dispatch(userSingleActions.setupNewUser());
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState(nextProps);
-    if(nextProps.status === "error") {
-      alert(nextProps.error.message);
-    }
   }
 
   _handleFormChange(e) {
@@ -39,7 +31,7 @@ class UserRegister extends Base {
     e.preventDefault();
     console.log("SUBMIT");
     console.log(this.state.user);
-    this.props.dispatch(userSingleActions.sendRegister(this.state.user));
+    this.props.dispatch(userActions.sendRegister(this.state.user));
   }
 
   render() {
@@ -64,7 +56,9 @@ UserRegister.propTypes = {
 }
 
 const mapStoreToProps = (store) => {
-  return { user: store.user.single.newUser }
+  return {
+    defaultUser: store.user.defaultItem
+  }
 }
 
 export default connect(
