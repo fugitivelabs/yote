@@ -6,7 +6,7 @@ import { Link } from 'react-router';
 import { TextInput } from '../../../global/components/forms';
 
 //actions
-import * as userSingleActions from '../actions/userSingleActions';
+import * as userActions from '../userActions';
 
 //components
 
@@ -30,7 +30,7 @@ class ForgotPassword extends Base {
 
   _handleFormSubmit(e) {
     e.preventDefault();
-    this.props.dispatch(userSingleActions.sendForgotPassword(this.state.username));
+    this.props.dispatch(userActions.sendForgotPassword(this.state.username));
   }
 
   render() {

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 
 //actions
-import { singleActions } from '../actions';
+import * as userActions from '../userActions';
 
 
 //components
@@ -25,7 +25,7 @@ class AdminUpdateUser extends Base {
 
   componentDidMount() {
     const { dispatch, params } = this.props;
-    dispatch(singleActions.fetchSingleUser(params.userId));
+    dispatch(userActions.fetchSingleUser(params.userId));
   }
 
   componentWillReceiveProps(nextProps) {
@@ -44,7 +44,7 @@ class AdminUpdateUser extends Base {
   _handleFormSubmit(e) {
     e.preventDefault();
     console.log(this.state.newUser);
-    this.props.dispatch(singleActions.sendUpdateUser(this.state.newUser)).then((result) => {
+    this.props.dispatch(userActions.sendUpdateUser(this.state.newUser)).then((result) => {
       if(result.success) {
         console.log("success");
         browserHistory.push('/admin/users')

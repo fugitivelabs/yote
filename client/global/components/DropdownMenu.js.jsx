@@ -3,8 +3,7 @@ import Base from "./BaseComponent.js.jsx";
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
-import * as userSingleActions from '../../modules/user/actions/userSingleActions';
-
+import * as userActions from '../../modules/user/userActions';
 
 class DropdownMenu extends Base {
   constructor(props) {
@@ -16,7 +15,7 @@ class DropdownMenu extends Base {
 
   _logout(e) {
     console.log("logout function called");
-    this.props.dispatch(userSingleActions.sendLogout());
+    this.props.dispatch(userActions.sendLogout());
   }
 
 

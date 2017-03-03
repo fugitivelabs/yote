@@ -4,7 +4,7 @@ import Base from "../../../global/components/BaseComponent.js.jsx";
 import { connect } from 'react-redux';
 
 // import actions
-import { listActions }from '../actions';
+import * as userActions from '../userActions';
 
 // import components
 import AdminUserListItem from './AdminUserListItem.js.jsx';
@@ -16,7 +16,7 @@ class AdminUserList extends Base {
   }
 
   componentDidMount() {
-    this.props.dispatch(listActions.fetchList());
+    this.props.dispatch(userActions.fetchList());
   }
 
   render() {

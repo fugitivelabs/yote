@@ -6,7 +6,8 @@ import { connect } from 'react-redux';
 // import Site from "../../site/SiteHandler";
 
 // import actions
-import { singleActions as userSingleActions } from '../../user/actions';
+import * as userActions from '../../user/userActions';
+
 class SideNav extends Base {
   constructor(props, context) {
     super(props);
@@ -18,7 +19,7 @@ class SideNav extends Base {
   _handleLogout() {
     console.log("logout");
     const { dispatch } = this.props;
-    dispatch(userSingleActions.sendLogout());
+    dispatch(userActions.sendLogout());
   }
 
   render() {
@@ -29,8 +30,6 @@ class SideNav extends Base {
           <li>
             <Link to="/admin/style-guide" activeClassName="active" >Styleguide</Link>
           </li>
-
-
         </ul>
         <hr/>
         <ul className="side-nav">

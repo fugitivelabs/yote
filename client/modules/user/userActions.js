@@ -82,6 +82,14 @@ export function sendRegister(userData) {
   }
 }
 
+export const REQUEST_LOGOUT = "REQUEST_LOGOUT"
+function requestLogout() {
+  console.log("REQUEST_LOGOUT");
+  return {
+    type: REQUEST_LOGOUT
+  }
+}
+
 export const RECEIVE_LOGOUT = "RECEIVE_LOGOUT"
 function receiveLogout(json) {
   console.log("RECEIVE_LOGOUT");
@@ -97,7 +105,7 @@ export function sendLogout() {
   console.log("SEND USER LOGOUT");
   return dispatch => {
     dispatch(requestLogout())
-    return callAPI('/api/users/logout', 'POST', null)
+    return callAPI('/api/users/logout', 'POST')
     .then(json => dispatch(receiveLogout(json)))
   }
 }
