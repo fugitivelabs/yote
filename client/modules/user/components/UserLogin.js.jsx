@@ -60,7 +60,7 @@ UserLogin.propTypes = {
 }
 
 const mapStoreToProps = (store) => {
-  return { user: store.user.single.user }
+  return {}
 }
 
 export default connect(

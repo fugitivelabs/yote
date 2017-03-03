@@ -12,7 +12,7 @@ class UserRegister extends Base {
   constructor(props) {
     super(props);
     this.state = {
-      user: JSON.parse(JSON.stringify(this.props.defaultUser))
+      user: this.props.defaultUser ? JSON.parse(JSON.stringify(this.props.defaultUser)): null
       //don't want to actually change the store's defaultItem, just use a copy
     }
     this._bind(

@@ -12,7 +12,6 @@ function userList(state = {
   , lastUpdated: null
   , pagination: {}
   , filter: {}
-
 }, action) {
   // console.log("DEBUG", state, action.listArgs);
   let nextAction = JSON.parse(JSON.stringify(action)); //change copy not original object
@@ -93,7 +92,7 @@ function user(state = {
   , loggedIn: {
     //different from "selected"
     //this is static and does not interact with the byId map
-    user: {}
+    user: window.currentUser || {}
     , isFetching: false
     , error: null
     , didInvalidate: false
@@ -110,6 +109,8 @@ function user(state = {
   }
   , lists: {} //individual instances of the userList reducer above
 }, action) {
+  console.log("HTAHATEHYJYAJYAR");
+  console.log(state);
   // let nextState = Object.assign({}, state, {});
   switch(action.type) {
 //LOGGED IN USER ACTIONS

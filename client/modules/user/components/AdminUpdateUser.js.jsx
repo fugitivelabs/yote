@@ -13,10 +13,11 @@ import AdminUserForm from './AdminUserForm.js.jsx';
 class AdminUpdateUser extends Base {
   constructor(props) {
     super(props);
-    this.state = this.props;
-
-    //TODO: figure out how to navigate away if user is logged in
-
+    const { selectedUser, userMap } = this.props;
+    this.state = {
+      user: userMap[selectedUser.id] ? JSON.parse(JSON.stringify(userMap[selectedUser.id])) : {}      
+      //we don't want to change the store, just make changes to a copy
+    }
     this._bind(
       '_handleFormChange'
       , '_handleFormSubmit'
@@ -25,26 +26,27 @@ class AdminUpdateUser extends Base {
 
   componentDidMount() {
     const { dispatch, params } = this.props;
-    dispatch(userActions.fetchSingleUser(params.userId));
+    dispatch(userActions.fetchSingleIfNeeded(params.userId));
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState(nextProps);
-    if(nextProps.status === "error") {
-      alert(nextProps.error.message);
+    const { selectedUser, userMap } = nextProps;
+    this.state = {
+      user: userMap[selectedUser.id] ? JSON.parse(JSON.stringify(userMap[selectedUser.id])) : {test: "a"}      
+      //we don't want to change the store, just make changes to a copy
     }
   }
 
   _handleFormChange(e) {
-    var nextState = this.state.newUser;
+    var nextState = this.state.user;
     nextState[e.target.name] = e.target.value;
     this.setState(nextState);
   }
 
   _handleFormSubmit(e) {
     e.preventDefault();
-    console.log(this.state.newUser);
-    this.props.dispatch(userActions.sendUpdateUser(this.state.newUser)).then((result) => {
+    // console.log(this.state.user);
+    this.props.dispatch(userActions.sendUpdateUser(this.state.user)).then((result) => {
       if(result.success) {
         console.log("success");
         browserHistory.push('/admin/users')
@@ -56,36 +58,23 @@ class AdminUpdateUser extends Base {
   }
 
   render() {
-    const { user, newUser } = this.props;
-    var isLoggedIn = user._id ? true : false;
-    console.log("isLoggedIn", isLoggedIn);
-    var isAdmin = isLoggedIn && user.roles.indexOf('admin') > -1 ? true: false;
-    console.log("isAdmin", isAdmin);
-    const isEmpty = !newUser || (newUser.username === null || newUser.username === undefined);;
+    const { selectedUser, userMap } = this.props;
+    const { user } = this.state;
+    console.log("USER", user);
+    const isEmpty = !user || !user.username;
     return  (
       <div>
-        {!isLoggedIn || !isAdmin
-          ?
-            <div>
-              <h3> Sorry, you don't have permission to view this page</h3>
-            </div>
+        { isEmpty
+          ? <h2> Loading... </h2>
           :
-            <div>
-
-              {isEmpty
-                ? <h2> Loading... </h2>
-                :
-                <AdminUserForm
-                  user={this.state.newUser}
-                  formType="update"
-                  handleFormSubmit={this._handleFormSubmit}
-                  handleFormChange={this._handleFormChange}
-                  cancelLink={`/admin/users`}
-                  formTitle="Update User"
-                />
-
-            }
-          </div>
+          <AdminUserForm
+            user={this.state.user}
+            formType="update"
+            handleFormSubmit={this._handleFormSubmit}
+            handleFormChange={this._handleFormChange}
+            cancelLink={`/admin/users`}
+            formTitle="Update User"
+          />
         }
       </div>
     )
@@ -98,8 +87,8 @@ AdminUpdateUser.propTypes = {
 
 const mapStoreToProps = (store) => {
   return {
-    user: store.user.single.user
-    , newUser: store.user.single.newUser
+    selectedUser: store.user.selected
+    , userMap: store.user.byId
   }
 }
 

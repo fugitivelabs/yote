@@ -74,7 +74,7 @@ ForgotPassword.propTypes = {
 }
 
 const mapStoreToProps = (store) => {
-  return { user: store.user.single.user }
+  return { user: store.user.loggedIn.user }
 }
 
 export default connect(

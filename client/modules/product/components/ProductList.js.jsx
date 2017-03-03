@@ -48,12 +48,12 @@ class ProductList extends Base {
               <Link className="yt-btn small u-pullRight" to={'/products/new'}> NEW PRODUCT </Link>
             </h1>
             <hr/>
-            {isEmpty
+            { isEmpty
               ? (productList && productList.isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
               : <div style={{ opacity: productList.isFetching ? 0.5 : 1 }}>
                 <ul>
                   {productList.items.map((id, i) =>
-                    <ProductListItem key={i} product={productMap[id]} />
+                    <ProductListItem key={id} product={productMap[id]} />
                   )}
                 </ul>
               </div>

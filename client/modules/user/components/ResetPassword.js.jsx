@@ -106,7 +106,7 @@ ResetPassword.propTypes = {
 }
 
 const mapStoreToProps = (store) => {
-  return { user: store.user.single }
+  return { user: store.user.loggedIn.user }
 }
 
 export default connect(

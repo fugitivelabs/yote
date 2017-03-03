@@ -9,18 +9,15 @@ import rootReducer from './rootReducer';
 export default function configureStore(initialState) {
   console.log("initialState");
   console.log(initialState);
-  // const reducer = combineReducers(
-  //   Object.assign({}, reducers, {
-  //   routing: routeReducer
-  // }));
 
-  const jadeInitialState = {
-    user: {
-      single: {
-        user: window.currentUser || {}
-      }
-    }
-  };
+  //TODO: get initial state from server and populate
+  // const jadeInitialState = {
+  //   user: {
+  //     loggedIn: {
+  //       user: window.currentUser || {}
+  //     }
+  //   }
+  // };
 
   const middlewares = [thunkMiddleware];
 
@@ -31,9 +28,9 @@ export default function configureStore(initialState) {
   }
 
   const store = createStore(
-    rootReducer,
-    jadeInitialState,
-    applyMiddleware(
+    rootReducer
+    // , jadeInitialState
+    , applyMiddleware(
       ...middlewares
     )
   )
