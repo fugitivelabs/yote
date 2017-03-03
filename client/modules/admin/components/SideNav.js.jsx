@@ -17,7 +17,6 @@ class SideNav extends Base {
   }
 
   _handleLogout() {
-    console.log("logout");
     const { dispatch } = this.props;
     dispatch(userActions.sendLogout());
   }

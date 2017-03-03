@@ -5,7 +5,7 @@ getById, getBySlug example (for products), create, update
 
 import { browserHistory } from 'react-router';
 
-import callAPI from '../../global/util/api'
+import callAPI from '../../global/utils/api'
 //SINGLE PRODUCT ACTIONS
 
 const shouldFetchSingle = (state, id) => {

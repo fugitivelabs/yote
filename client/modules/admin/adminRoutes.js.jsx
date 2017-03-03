@@ -3,7 +3,7 @@
 import React from 'react';
 import { Route, IndexRoute, IndexRedirect } from 'react-router';
 
-import Auth from '../../global/util/auth';
+import Auth from '../../global/utils/auth';
 
 //import Components
 import Layout from './components/AdminLayout.js.jsx';

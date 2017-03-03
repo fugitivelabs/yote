@@ -5,7 +5,7 @@ getById, getBySlug example (for users), create, update
 
 import { browserHistory } from 'react-router';
 
-import callAPI from '../../global/util/api'
+import callAPI from '../../global/utils/api'
 //LOGGED IN USER ACTIONS
 export const REQUEST_LOGIN = "REQUEST_LOGIN"
 function requestLogin(username) {
