@@ -15,12 +15,12 @@ class DropdownMenu extends Base {
 
   _logout(e) {
     console.log("logout function called");
-    this.props.dispatch(userActions.sendLogout()).then((data) => {
-      if(data.success) {
+    this.props.dispatch(userActions.sendLogout()).then((res) => {
+      if(res.success) {
         //redirect
         browserHistory.push('/');
       } else {
-        alert("ERROR LOGGING OUT - " + data.message);
+        alert("ERROR LOGGING OUT - " + res.message);
       }
     })
   }

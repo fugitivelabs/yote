@@ -34,7 +34,6 @@ class AdminCreateUser extends Base {
 
   _handleFormSubmit(e) {
     e.preventDefault();
-    console.log(this.state.user);
     this.props.dispatch(userActions.sendCreateUser(this.state.user)).then((result) => {
       if(result.success) {
         browserHistory.push('/admin/users');

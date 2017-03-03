@@ -61,7 +61,6 @@ export function sendRegister(userData) {
 
 export const REQUEST_LOGOUT = "REQUEST_LOGOUT"
 function requestLogout() {
-  console.log("REQUEST_LOGOUT");
   return {
     type: REQUEST_LOGOUT
   }
@@ -69,8 +68,6 @@ function requestLogout() {
 
 export const RECEIVE_LOGOUT = "RECEIVE_LOGOUT"
 function receiveLogout(json) {
-  console.log("RECEIVE_LOGOUT");
-  console.log(json);
   return {
     type: RECEIVE_LOGOUT
     , success: json.success
@@ -79,7 +76,6 @@ function receiveLogout(json) {
 }
 
 export function sendLogout() {
-  console.log("SEND USER LOGOUT");
   return dispatch => {
     dispatch(requestLogout())
     return callAPI('/api/users/logout', 'POST')
@@ -161,7 +157,6 @@ function receiveResetPassword(json) {
 }
 
 export function sendResetPassword(resetHex, password) {
-  console.log("send reset", resetHex, password);
   return dispatch => {
     dispatch(requestResetPassword())
     return callAPI('/api/users/resetpassword', 'POST', { resetHex, newPass: password })
@@ -202,10 +197,8 @@ export function invaldiateSelected() {
 
 export const fetchSingleIfNeeded = (id) => (dispatch, getState) => {
   if (shouldFetchSingle(getState(), id)) {
-    console.log("SHOULD FETCH!");
     return dispatch(fetchSingleUserById(id))
   } else {
-    console.log("DON'T NEED TO FETCH");
     return dispatch(returnSingleUserPromise(id)); //return promise that contains user
   }
 }
@@ -236,7 +229,6 @@ function requestSingleUser(id) {
 
 export const RECEIVE_SINGLE_USER = "RECEIVE_SINGLE_USER";
 function receiveSingleUser(json) {
-  console.log("received", json.user._id);
   return {
     type: RECEIVE_SINGLE_USER
     , id: json.user._id
@@ -248,7 +240,6 @@ function receiveSingleUser(json) {
 }
 
 export function fetchSingleUserById(userId) {
-  console.log("fetching");
   return dispatch => {
     dispatch(requestSingleUser(userId))
     return callAPI(`/api/users/${userId}`)
@@ -274,8 +265,6 @@ function requestCreateUser(user) {
 
 export const RECEIVE_CREATE_USER = "RECEIVE_CREATE_USER";
 function receiveCreateUser(json) {
-  console.log("RECEIVE_CREATE_USER");
-  console.log(json);
   return {
     type: RECEIVE_CREATE_USER
     , id: json.user ? json.user._id : null
@@ -287,7 +276,6 @@ function receiveCreateUser(json) {
 }
 
 export function sendCreateUser(data) {
-  console.log("sendCreateUser")
   return dispatch => {
     dispatch(requestCreateUser(data))
     return callAPI('/api/users', 'POST', data)
@@ -436,7 +424,6 @@ function receiveUserList(json, listArgs) {
 }
 
 export function fetchList(...listArgs) {
-  console.log("FETCH USER LIST", listArgs);
   return dispatch => {
     if(listArgs.length === 0) {
       listArgs = ["all"];

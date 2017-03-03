@@ -45,14 +45,11 @@ class AdminUpdateUser extends Base {
 
   _handleFormSubmit(e) {
     e.preventDefault();
-    // console.log(this.state.user);
-    this.props.dispatch(userActions.sendUpdateUser(this.state.user)).then((result) => {
-      if(result.success) {
-        console.log("success");
+    this.props.dispatch(userActions.sendUpdateUser(this.state.user)).then((res) => {
+      if(res.success) {
         browserHistory.push('/admin/users')
       } else {
-        console.log(result);
-        alert("ERROR UPDATING USER: " + result.message);
+        alert("ERROR UPDATING USER: " + res.message);
       }
     });
   }
@@ -60,7 +57,6 @@ class AdminUpdateUser extends Base {
   render() {
     const { selectedUser, userMap } = this.props;
     const { user } = this.state;
-    console.log("USER", user);
     const isEmpty = !user || !user.username;
     return  (
       <div>
