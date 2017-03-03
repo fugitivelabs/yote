@@ -31,7 +31,14 @@ class UserRegister extends Base {
     e.preventDefault();
     console.log("SUBMIT");
     console.log(this.state.user);
-    this.props.dispatch(userActions.sendRegister(this.state.user));
+    this.props.dispatch(userActions.sendRegister(this.state.user)).then((res) => {
+      if(res.success) {
+        //redirect
+        browserHistory.push('/');
+      } else {
+        alert(res.error);
+      }
+    })
   }
 
   render() {

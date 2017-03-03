@@ -18,7 +18,14 @@ class SideNav extends Base {
 
   _handleLogout() {
     const { dispatch } = this.props;
-    dispatch(userActions.sendLogout());
+    dispatch(userActions.sendLogout()).then((data) => {
+      if(data.success) {
+        //redirect
+        browserHistory.push('/');
+      } else {
+        alert("ERROR LOGGING OUT - " + data.message);
+      }
+    })
   }
 
   render() {

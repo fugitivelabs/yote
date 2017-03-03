@@ -109,9 +109,6 @@ function user(state = {
   }
   , lists: {} //individual instances of the userList reducer above
 }, action) {
-  console.log("HTAHATEHYJYAJYAR");
-  console.log(state);
-  // let nextState = Object.assign({}, state, {});
   switch(action.type) {
 //LOGGED IN USER ACTIONS
     case Actions.REQUEST_LOGIN: 

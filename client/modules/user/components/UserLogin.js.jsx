@@ -38,7 +38,15 @@ class UserLogin extends Base {
 
   _handleFormSubmit(e) {
     e.preventDefault();
-    this.props.dispatch(userActions.sendLogin(this.state.username, this.state.password));
+    this.props.dispatch(userActions.sendLogin(this.state.username, this.state.password)).then((res) => {
+      if(res.success) {
+        //redirect
+        browserHistory.push('/');
+        //TODO: handle next params
+      } else {
+        alert(res.error);
+      }
+    })
   }
 
   render() {

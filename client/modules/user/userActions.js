@@ -3,8 +3,6 @@ SINGLE USER CRUD ACTIONS GO HERE
 getById, getBySlug example (for users), create, update
 *****/
 
-import { browserHistory } from 'react-router';
-
 import callAPI from '../../global/utils/api'
 //LOGGED IN USER ACTIONS
 export const REQUEST_LOGIN = "REQUEST_LOGIN"
@@ -31,17 +29,6 @@ export function sendLogin(username, password) {
     dispatch(requestLogin(username))
     return callAPI('/api/users/login', 'POST', { username, password })
     .then(json => dispatch(receiveLogin(json)))
-    .then((json) => {
-      //if they hit this route, where should they redirect to?
-      if(json.success) {
-        browserHistory.push('/')
-      } else {
-        console.log("Invalid login");
-        console.log(json.error);
-        alert("Invalid login credentials. Please try again.");
-      }
-      return json;
-    })
   }
 }
 
@@ -69,16 +56,6 @@ export function sendRegister(userData) {
     dispatch(requestRegister(userData))
     return callAPI('/api/users/register', 'POST', userData)
     .then(json => dispatch(receiveRegister(json)))
-    .then((json) => {
-      if(json.success) {
-        browserHistory.push('/')
-      } else {
-        console.log("Invalid registration");
-        console.log(json.error);
-        alert("Invalid registration. Please make sure all fields are correct and try again.");
-      }
-      return json;
-    })
   }
 }
 
@@ -133,18 +110,6 @@ export function sendForgotPassword(username) {
     dispatch(requestForgotPassword(username))
     return callAPI('/api/users/requestpasswordreset', 'POST', { email: username })
     .then(json => dispatch(receiveForgotPassword(json)))
-    .then((json) => {
-      //pop up an alert and then redirect them
-      // console.log("PASSWORD RESET REQUEST");
-      // console.log(json);
-      if(json.success) {
-        alert("You should receive an email shortly with password reset instructions.");
-        browserHistory.push('/')
-      } else {
-        alert("There was a problem reseting your password on the server. Please contact a site admin.");
-      }
-      return json;
-    })
   }
 }
 
@@ -375,20 +340,11 @@ function receiveDeleteUser(json) {
   }
 }
 
-export function sendDelete(id) {
+export function sendDelete(id) { //is this ever called?
   return dispatch => {
     dispatch(requestDeleteUser(id))
     return callAPI(`/api/users/${id}`, 'DELETE')
     .then(json => dispatch(receiveDeleteUser(json)))
-    /*** ACTION-BASED REDIRECT ***/
-    // - use this for Delete by default
-    .then((json) => {
-      if(json.success) {
-        browserHistory.push(`/users`)
-      } else {
-        alert("ERROR");
-      }
-    })
   }
 }
 

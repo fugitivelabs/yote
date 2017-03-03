@@ -30,7 +30,14 @@ class ForgotPassword extends Base {
 
   _handleFormSubmit(e) {
     e.preventDefault();
-    this.props.dispatch(userActions.sendForgotPassword(this.state.username));
+    this.props.dispatch(userActions.sendForgotPassword(this.state.username)).then((res) => {
+      if(res.success) {
+        alert("You should receive an email shortly with password reset instructions.");
+        browserHistory.push('/');
+      } else {
+        alert("There was a problem reseting your password on the server. Please contact a site admin.");
+      }
+    })
   }
 
   render() {

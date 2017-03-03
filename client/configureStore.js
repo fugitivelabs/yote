@@ -7,8 +7,8 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import rootReducer from './rootReducer';
 
 export default function configureStore(initialState) {
-  console.log("initialState");
-  console.log(initialState);
+  // console.log("initialState");
+  // console.log(initialState);
 
   //TODO: get initial state from server and populate
   // const jadeInitialState = {
