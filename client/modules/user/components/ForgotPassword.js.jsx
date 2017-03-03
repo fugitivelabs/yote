@@ -1,14 +1,12 @@
 import React, { PropTypes } from 'react';
 import Base from "../../../global/components/BaseComponent.js.jsx";
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 
 import { TextInput } from '../../../global/components/forms';
 
-//actions
+//import actions
 import * as userActions from '../userActions';
-
-//components
 
 class ForgotPassword extends Base {
   constructor(props) {
