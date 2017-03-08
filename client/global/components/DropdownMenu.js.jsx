@@ -1,10 +1,9 @@
 import React, { PropTypes } from 'react';
 import Base from "./BaseComponent.js.jsx";
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 
-import * as userSingleActions from '../../modules/user/actions/userSingleActions';
-
+import * as userActions from '../../modules/user/userActions';
 
 class DropdownMenu extends Base {
   constructor(props) {
@@ -16,7 +15,14 @@ class DropdownMenu extends Base {
 
   _logout(e) {
     console.log("logout function called");
-    this.props.dispatch(userSingleActions.sendLogout());
+    this.props.dispatch(userActions.sendLogout()).then((res) => {
+      if(res.success) {
+        //redirect
+        browserHistory.push('/');
+      } else {
+        alert("ERROR LOGGING OUT - " + res.message);
+      }
+    })
   }
 
 
@@ -57,7 +63,7 @@ DropdownMenu.propTypes = {
 }
 
 const mapStoreToProps = (store) => {
-  return { user: store.user.single.user }
+  return { user: store.user.loggedIn.user }
 }
 
 export default connect(

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 
-import Auth from '../../global/util/auth.js';
+import Auth from '../../global/utils/auth.js';
 
 //import Components
 import Layout from './components/PostLayout.js.jsx';

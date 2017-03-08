@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
-import Auth from '../../global/util/auth';
+import Auth from '../../global/utils/auth';
 
 //components
 import AdminUserList from './components/AdminUserList.js.jsx';

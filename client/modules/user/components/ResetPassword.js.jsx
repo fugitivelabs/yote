@@ -6,7 +6,7 @@ import { Link } from 'react-router';
 import { TextInput } from '../../../global/components/forms';
 
 //actions
-import * as userSingleActions from '../actions/userSingleActions';
+import * as userActions from '../userActions';
 
 //components
 
@@ -24,7 +24,7 @@ class ResetPassword extends Base {
 
   componentDidMount() {
     // console.log("Mounted");
-    this.props.dispatch(userSingleActions.sendCheckResetHex(this.props.params.hex));
+    this.props.dispatch(userActions.sendCheckResetHex(this.props.params.hex));
   }
 
   _handleFormChange(e) {
@@ -35,7 +35,7 @@ class ResetPassword extends Base {
 
   _handleFormSubmit(e) {
     e.preventDefault();
-    this.props.dispatch(userSingleActions.sendResetPassword(this.props.params.hex, this.state.password));
+    this.props.dispatch(userActions.sendResetPassword(this.props.params.hex, this.state.password));
   }
 
   render() {
@@ -106,7 +106,7 @@ ResetPassword.propTypes = {
 }
 
 const mapStoreToProps = (store) => {
-  return { user: store.user.single }
+  return { user: store.user.loggedIn.user }
 }
 
 export default connect(

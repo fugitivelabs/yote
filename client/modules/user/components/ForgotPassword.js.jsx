@@ -1,14 +1,12 @@
 import React, { PropTypes } from 'react';
 import Base from "../../../global/components/BaseComponent.js.jsx";
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 
 import { TextInput } from '../../../global/components/forms';
 
-//actions
-import * as userSingleActions from '../actions/userSingleActions';
-
-//components
+//import actions
+import * as userActions from '../userActions';
 
 class ForgotPassword extends Base {
   constructor(props) {
@@ -30,7 +28,14 @@ class ForgotPassword extends Base {
 
   _handleFormSubmit(e) {
     e.preventDefault();
-    this.props.dispatch(userSingleActions.sendForgotPassword(this.state.username));
+    this.props.dispatch(userActions.sendForgotPassword(this.state.username)).then((res) => {
+      if(res.success) {
+        alert("You should receive an email shortly with password reset instructions.");
+        browserHistory.push('/');
+      } else {
+        alert("There was a problem reseting your password on the server. Please contact a site admin.");
+      }
+    })
   }
 
   render() {
@@ -74,7 +79,7 @@ ForgotPassword.propTypes = {
 }
 
 const mapStoreToProps = (store) => {
-  return { user: store.user.single.user }
+  return { user: store.user.loggedIn.user }
 }
 
 export default connect(
