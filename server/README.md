@@ -133,7 +133,7 @@ Then, we need to initialize our remote instance.
 
 #### Initialize Remote Instance
 
-On the remote server, run the following images and link them. 
+On the remote server, run the following images and link them.
 
 1. Pull the Mongo repository from Docker itself:
   * ``` $ (sudo) docker pull library/mongo ```
@@ -196,7 +196,7 @@ docker rmi $(sudo docker images -q --filter "dangling=true")
 
 #API Documentation
 
-Everything in regards to the API is stored in the server/ folder. Every time you run ``` yote gen resourceName ``` a controller, model and router are created for your project based on the resourceName. 
+Everything in regards to the API is stored in the server/ folder. Every time you run ``` yote gen resourceName ``` a controller, model and router are created for your project based on the resourceName.
 
 #### server/controllers/
 this is where you would store your logic happens and you return a success boolean, message, or anything else needed to be returned
@@ -335,7 +335,7 @@ view the logs from a given container from the command line:
 
 all logs on instance are stored in ```/var/log/daemon.log```
 
-example: 
+example:
 ``` docker logs --tail --timestamps 50 yote ```
 // show last 50 logs and include timestamps
 
