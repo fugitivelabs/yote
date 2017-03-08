@@ -16,7 +16,7 @@ class CreateProduct extends Base {
   constructor(props) {
     super(props);
     this.state = {
-      item: JSON.parse(JSON.stringify(this.props.defaultItem))
+      item: JSON.parse(JSON.stringify(this.props.defaultProduct))
       //don't want to actually change the store's defaultItem, just use a copy
     }
     this._bind(
@@ -24,8 +24,9 @@ class CreateProduct extends Base {
       , '_handleFormSubmit'
     );
   }
+
   componentDidMount() {
-    const { dispatch } = this.props;
+
   }
 
   _handleFormChange(e) {
@@ -57,7 +58,7 @@ class CreateProduct extends Base {
   render() {
     const { item } = this.state;
     const isEmpty = (item.title === null || item.title === undefined);
-    return  (
+    return (
       <div>
 
         {isEmpty
@@ -82,7 +83,7 @@ CreateProduct.propTypes = {
 
 const mapStoreToProps = (store) => {
   return {
-    defaultItem: store.product.defaultItem
+    defaultProduct: store.product.defaultItem
   }
 }
 

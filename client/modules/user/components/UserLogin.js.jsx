@@ -1,9 +1,10 @@
 import React, { PropTypes } from 'react';
 import Base from "../../../global/components/BaseComponent.js.jsx";
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 
 //actions
-import * as userSingleActions from '../actions/userSingleActions';
+import * as userActions from '../userActions';
 
 //components
 import UserLoginForm from './UserLoginForm.js.jsx';
@@ -38,7 +39,15 @@ class UserLogin extends Base {
 
   _handleFormSubmit(e) {
     e.preventDefault();
-    this.props.dispatch(userSingleActions.sendLogin(this.state.username, this.state.password));
+    this.props.dispatch(userActions.sendLogin(this.state.username, this.state.password)).then((res) => {
+      if(res.success) {
+        //redirect
+        browserHistory.push('/');
+        //TODO: handle next params
+      } else {
+        alert(res.error);
+      }
+    })
   }
 
   render() {
@@ -60,7 +69,7 @@ UserLogin.propTypes = {
 }
 
 const mapStoreToProps = (store) => {
-  return { user: store.user.single.user }
+  return {}
 }
 
 export default connect(

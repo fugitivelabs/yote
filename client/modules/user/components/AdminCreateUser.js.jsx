@@ -4,8 +4,7 @@ import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 
 //actions
-import { singleActions } from '../actions';
-
+import * as userActions from '../userActions';
 
 //components
 import AdminUserForm from './AdminUserForm.js.jsx';
@@ -13,9 +12,9 @@ import AdminUserForm from './AdminUserForm.js.jsx';
 class AdminCreateUser extends Base {
   constructor(props) {
     super(props);
-    this.state = this.props;
-
-    //TODO: figure out how to navigate away if user is logged in
+    this.state = {
+      user: JSON.parse(JSON.stringify(this.props.defaultUser))
+    }
 
     this._bind(
       '_handleFormChange'
@@ -24,27 +23,18 @@ class AdminCreateUser extends Base {
   }
 
   componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch(singleActions.setupNewUser());
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState(nextProps);
-    if(nextProps.status === "error") {
-      alert(nextProps.error.message);
-    }
+    
   }
 
   _handleFormChange(e) {
-    var nextState = this.state.newUser;
+    var nextState = this.state.user;
     nextState[e.target.name] = e.target.value;
     this.setState(nextState);
   }
 
   _handleFormSubmit(e) {
     e.preventDefault();
-    console.log(this.state.newUser);
-    this.props.dispatch(singleActions.sendCreateUser(this.state.newUser)).then((result) => {
+    this.props.dispatch(userActions.sendCreateUser(this.state.user)).then((result) => {
       if(result.success) {
         browserHistory.push('/admin/users');
       } else {
@@ -54,36 +44,21 @@ class AdminCreateUser extends Base {
   }
 
   render() {
-    const { user, newUser } = this.props;
-    var isLoggedIn = user._id ? true : false;
-    console.log("isLoggedIn", isLoggedIn);
-    var isAdmin = isLoggedIn && user.roles.indexOf('admin') > -1 ? true: false;
-    console.log("isAdmin", isAdmin);
-    const isEmpty = !newUser || (newUser.username === null || newUser.username === undefined);;
-    return  (
+    const { user } = this.state;
+    const isEmpty = !user || (user.username === null || user.username === undefined);;
+    return (
       <div>
-        {!isLoggedIn || !isAdmin
-          ?
-            <div>
-              <h3> Sorry, you don't have permission to view this page</h3>
-            </div>
+        { isEmpty
+          ? <h2> Loading... </h2>
           :
-            <div>
-
-              {isEmpty
-                ? <h2> Loading... </h2>
-                :
-                <AdminUserForm
-                  user={this.state.newUser}
-                  formType="create"
-                  handleFormSubmit={this._handleFormSubmit}
-                  handleFormChange={this._handleFormChange}
-                  cancelLink={`/admin/users`}
-                  formTitle="Create User"
-                />
-
-            }
-          </div>
+            <AdminUserForm
+              user={this.state.user}
+              formType="create"
+              handleFormSubmit={this._handleFormSubmit}
+              handleFormChange={this._handleFormChange}
+              cancelLink={`/admin/users`}
+              formTitle="Create User"
+            />
         }
       </div>
     )
@@ -96,8 +71,7 @@ AdminCreateUser.propTypes = {
 
 const mapStoreToProps = (store) => {
   return {
-    user: store.user.single.user
-    , newUser: store.user.single.newUser
+    defaultUser: store.user.defaultItem
   }
 }
 
