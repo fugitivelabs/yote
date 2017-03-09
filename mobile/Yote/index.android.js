@@ -1,11 +1,9 @@
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
+ * Point the app to /js
  */
 
 import React, { Component } from 'react';
-import setup from './js/setup';
 import { AppRegistry } from 'react-native';
+import setup from './js/setup';
 
 AppRegistry.registerComponent('mobile', setup);
