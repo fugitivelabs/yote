@@ -6,6 +6,9 @@ Yote Mobile will quickly get you a Yote-flavored ReactNative app up and running 
 * [Getting Started](#getting-started)
   - [Initializing Yote Mobile](#initializing-yote-mobile)
   - [Running the server](#running-the-server)
+* [Run Yote Mobile](#run-yote-mobile)
+  - [Running the Server](#running-the-server)
+  - [Running React Native](#running-react-native)
 
 ## Dependencies
 - [ReactJS](https://reactjs.com/)  -- (default web client)
@@ -15,6 +18,7 @@ Yote Mobile will quickly get you a Yote-flavored ReactNative app up and running 
 - Java
 - XCode
 - Android Studio
+
   > _**NOTE:** reference RN [Running On Device](http://facebook.github.io/react-native/releases/0.41/docs/running-on-device.html#running-on-device) docs to ensure you have the correct environment setup_
 
 
@@ -55,8 +59,7 @@ Yote Mobile can be initialized with the CLI or manually.
     import { AppRegistry } from 'react-native';
     import setup from './js/setup';
 
-    // change 'Yote' to 'NewProjectName'
-    AppRegistry.registerComponent('Yote', setup);
+    AppRegistry.registerComponent('NewProjectName', setup);
 
   ```
 1. copy/paste entire `Yote/js/` directory into `NewProjectName/`
@@ -68,14 +71,18 @@ Yote Mobile can be initialized with the CLI or manually.
    $ rm -rf Yote
   ```
 
+## Run Yote Mobile
+While Yote Mobile can certainly run server-less (or with a service other than Yote), for now it looks for the Yote Server by default.
+
+> We may change this later to be configureable via the CLI
+
+### Running Mongo
+In a new terminal window run ``` $ mongod ```
 
 ### Running the server
+Make sure you have the Yote server initialized in the top level directory (see [Yote the server README](/server/README.md#getting-started) for reference). Then in another new terminal window run ```$ nodemon``` or ```$ yote start```
 
-While Yote Mobile can certainly run server-less (or with a service other than Yote), for now it looks for the Yote Server by default.
-1. Init Yote server (see [Yote the server README](/server/README.md#getting-started))
-1. cd into `/server` and run `$ nodemon` or `$ yote start`
-
-### Running Yote Mobile
+### Running React Native
 See [React Native docs](http://facebook.github.io/react-native/releases/0.41/docs/running-on-device.html#running-on-device) for running on device
 
 To run in iOS simulator
