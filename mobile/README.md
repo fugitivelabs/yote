@@ -1,13 +1,13 @@
 ## To start a new project
 - Initialize new React Native project at most recent "stable" version
 
-_**NOTE:** The CLI will effectively do this for you_
+  _**NOTE:** The CLI will effectively do this for you_
 
-> "stable" in this context is the latest version of ReactNative that is confirmed to work with current version of Yote
+  > "stable" in this context is the latest version of ReactNative that is confirmed to work with current version of Yote
 
-```
-react-native init --version="0.41.0" MyNewApp
-```
+  ```
+  react-native init --version="0.41.0" MyNewApp
+  ```
 
 - copy/paste `Yote/package.json` contents into `MyNewApp/package.json`
 - cd into `MyNewApp` and run `$ npm install`
