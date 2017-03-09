@@ -11,9 +11,9 @@ Yote Mobile will quickly get you a Yote-flavored ReactNative app up and running 
   - [Running React Native](#running-react-native)
 
 ## Dependencies
-- [ReactJS](https://reactjs.com/)  -- (default web client)
+- [ReactJS](https://reactjs.com/)
 - [React Native](https://reactnative.com)
-- [Redux](https://redux.js.org/)  -- (client store)
+- [Redux](https://redux.js.org/) 
 - [Yote Server](/server/README.md)
 - Java
 - XCode
