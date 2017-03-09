@@ -16,7 +16,7 @@ import YTCard from '../../../global/components/YTCard';
 import ScrollContainer from '../../../global/components/ScrollContainer';
 import YTColors from '../../../global/styles/YTColors'; 
 
-import * as productActions from '../actions/productActions'
+import * as productActions from '../productActions'
 
 var styles = StyleSheet.create({
   container: {
@@ -126,7 +126,7 @@ class Product extends Base {
 
     const {  products, navigator, user } = this.props;
 
-    let productList = products.list.all.items;
+    let productList = products.lists.all.items;
 
     const rightItem = {
       title: 'New',
@@ -150,8 +150,8 @@ class Product extends Base {
         <ScrollView style={{backgroundColor: '#fff'}}>
           {productList.map((productId, i) =>
             <View key={i} style={{borderWidth: 1, borderColor: 'black', margin: 5}}>
-              <Text style={styles.content}>{products.map[productId].title} </Text>
-              <Text style={styles.caption}>{products.map[productId].description} </Text>
+              <Text style={styles.content}>{products.byId[productId].title} </Text>
+              <Text style={styles.caption}>{products.byId[productId].description} </Text>
             </View>
           )}
         </ScrollView>

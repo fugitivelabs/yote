@@ -2,16 +2,12 @@ import env from '../env';
 
 let rootUrl = env.url;
 
-const baseUrl = ""; //later required for server rendering
-
-export default function callAPI(route, method = 'GET', body) {
+export default function callAPI(route, method = 'GET', body, headers = { 
+    'Accept': 'application/json', 'Content-Type': 'application/json', 'token': store.getState().user.loggedIn.apiToken
+  }) {
   console.log("CALLING API FUNCTION");
   return fetch(`${rootUrl}` + route, {
-    headers: {
-      'Accept': 'application/json'
-      , 'Content-Type': 'application/json'
-      , 'token': store.getState().user.current.apiToken
-    }
+    headers
     , method
     , credentials: 'same-origin'
     , body: JSON.stringify(body)

@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 
 //individual reducers
-import user from './modules/user/reducers/userReducers.js';
+import user from './modules/user/userReducer.js';
 import post from './modules/post/reducers/postReducers.js';
-import product from './modules/product/reducers/productReducer.js'
+import product from './modules/product/productReducer.js'
 
 
 const appReducer = combineReducers({

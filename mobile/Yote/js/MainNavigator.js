@@ -190,8 +190,8 @@ class MainNavigator extends Base {
 
 const mapStoreToProps = (store) => {
   return {
-    isLoggedIn: store.user.isLoggedIn
-    , user: store.user.current
+    isLoggedIn: store.user.loggedIn
+    , user: store.user.loggedIn.user
   }
 }
 

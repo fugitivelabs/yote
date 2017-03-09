@@ -24,7 +24,7 @@ import YTCard from '../../../global/components/YTCard';
 
 
 // import actions
-import { singleActions as singleUserActions } from '../actions';
+import * as singleActions from '../userActions.js';
 
 // import styles
 import YTColors from '../../../global/styles/YTColors';

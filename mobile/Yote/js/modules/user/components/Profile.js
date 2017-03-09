@@ -25,7 +25,7 @@ import ScrollContainer from '../../../global/components/ScrollContainer';
 import YTCard from '../../../global/components/YTCard';
 
 // import actions
-import { singleActions as singleUserActions } from '../actions';
+import * as singleActions from '../userActions.js';
 
 // import libraries
 import moment from 'moment';
@@ -125,8 +125,8 @@ class Profile extends Base {
   }
 
   _handleLogout() {
-    console.log("_handleLogout firled");
-    this.props.dispatch(singleUserActions.sendLogout());
+    // console.log("_handleLogout firled");
+    this.props.dispatch(singleActions.sendLogout());
   }
 
   _openPrivacy() {
@@ -261,8 +261,8 @@ class Profile extends Base {
 
 const mapStoreToProps = (store) => {
   return {
-    user: store.user.current,
-    isFetching: store.user.isFetching,
+    user: store.user.loggedIn.user,
+    isFetching: store.user.loggedIn.isFetching,
   }
 }
 
