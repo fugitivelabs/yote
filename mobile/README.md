@@ -1,76 +1,96 @@
-## To start a new project
-- Initialize new React Native project at most recent "stable" version
-  _ **NOTE:** The CLI will effectively do this for you_
-  > "stable" in this context is the latest version of ReactNative that is confirmed to work with current version of Yote
 
-```
-react-native init --version="0.41.0" MyNewApp
-```
+# Yote Mobile
+Yote Mobile will quickly get you a Yote-flavored ReactNative app up and running with basic user login/registration, post and product CRUD examples, and fully functioning navigation. This is intended to act as a good baseline for more complicated apps.
 
-- copy/paste `Yote/package.json` contents into `MyNewApp/package.json`
-- cd into `MyNewApp` and run `$ npm install`
-- run `$ rnpm link`
-- copy/paste contents of `Yote/index.ios.js` & `Yote/index.android.js` into `MyNewApp/index.ios.js` & `MyNewApp/index.android.js`
-- change this line in each `AppRegistry.registerComponent('Yote', setup);` to `AppRegistry.registerComponent('MyNewApp', setup);`
-- copy/paste entire `Yote/js/` directory into `MyNewApp/`
-- remove entire `Yote/` directory
-```
- $ rm -rf Yote
-```
+* [Dependencies](#dependencies)
+* [Getting Started](#getting-started)
+  - [Initializing Yote Mobile](#initializing-yote-mobile)
+  - [Running the server](#running-the-server)
+* [Run Yote Mobile](#run-yote-mobile)
+  - [Running the Server](#running-the-server)
+  - [Running React Native](#running-react-native)
+
+## Dependencies
+- [ReactJS](https://reactjs.com/)  -- (default web client)
+- [React Native](https://reactnative.com)
+- [Redux](https://redux.js.org/)  -- (client store)
+- [Yote Server](/server/README.md)
+- Java
+- XCode
+- Android Studio
+
+  > _**NOTE:** reference RN [Running On Device](http://facebook.github.io/react-native/releases/0.41/docs/running-on-device.html#running-on-device) docs to ensure you have the correct environment setup_
 
 
 
-Welcome to Yote Mobile!
+## Getting Started
+Welcome to Yote Mobile. Let's get it started.
 
-downloads:
-node
-mongo (brew)
-sudo npm install -g react-native-cli
-java
 
-xcode
-android studio (follow instructions on React-Native docs to install the right items)
+### Initializing Yote Mobile
+Yote Mobile can be initialized with the CLI or manually.
 
-### Getting started with React Native
-url: https://facebook.github.io/react-native/docs/getting-started.html#content
+#### Init with CLI
+> COMING SOON!!
 
-react-native init NewProjectName
-___this is the name that will appear in the app store and on devices for your app, it's a pain to change in xcode so make sure it's right.
---- this creates your new react native mobile project  
+#### Init Manually
 
-to run:
---- npm run watch and nodemon because this app will look to server on localhost:3030 to login, etc
---- npm start for the debugger
-cd into NewProjectName
-react-native run-ios
-react-native run-android
+1. Initialize new React Native project at most recent "stable" version
 
-### Copy over latest package.json dependencies
---- React Native only includes react and react-native on initial startup so you'll have to add a few more
---- npm install
+  _**NOTE:** The CLI will eventually do all this for you_
 
-### Replace index files (index.ios.js and index.android.js)
-replace content in these files with:
+  > "stable" in this context is the latest version of React Native that is confirmed to work with current version of Yote
 
-import React, { Component } from 'react';
-import setup from './js/setup';
-import { AppRegistry } from 'react-native';
+  ```
+  # current confirmed stable version is 0.41.0  
+  $ react-native init --version="0.41.0" NewProjectName
+  ```
 
-AppRegistry.registerComponent('mobile', setup);
+1. copy/paste `Yote/package.json` contents into `NewProjectName/package.json`
+1. cd into `NewProjectName` and run `$ npm install`
+1. run `$ rnpm link`
+1. copy/paste contents of `Yote/index.ios.js` & `Yote/index.android.js` with the following
+  ```js
+    /**
+     * Point the app to /js
+     */
 
---- change 'mobile' to the name of the new project
+    import React, { Component } from 'react';
+    import { AppRegistry } from 'react-native';
+    import setup from './js/setup';
 
-### JS Folder
---- copy over latest JS folder into project's root directory
---- rename MobileApp.js file to NewProjectNameApp.js
---- in NewProjectNameApp.js change the class name and export name (last line) from MobileApp to NewProjectNameApp
---- in setup.js change import MobileApp from './mobileApp' to import NewProjectNameApp from './NewProjectNameApp'
---- in setup.js change <MobileApp/> under Provider component to <NewProjectNameApp/>
+    AppRegistry.registerComponent('NewProjectName', setup);
 
-### Run again
---- react-native run-ios
---- if no errors should load a login screen on simulator
+  ```
+1. copy/paste entire `Yote/js/` directory into `NewProjectName/`
+1. rename `js/YoteApp.js` to `js/NewProjectNameApp.js` and change references inside that file
+1. in `setup.js` change `import YoteApp from './YoteApp'` to `import NewProjectNameApp from './NewProjectNameApp'`
+1. in `setup.js` change `<YoteApp/>` under Provider component to `<NewProjectNameApp/>`
+1. remove entire `Yote/` directory
+  ```
+   $ rm -rf Yote
+  ```
 
-### Default Login Info
-username: admin@admin.com
-password: admin
+## Run Yote Mobile
+While Yote Mobile can certainly run server-less (or with a service other than Yote), for now it looks for the Yote Server by default.
+
+> We may change this later to be configureable via the CLI
+
+### Running Mongo
+In a new terminal window run ``` $ mongod ```
+
+### Running the server
+Make sure you have the Yote server initialized in the top level directory (see [Yote the server README](/server/README.md#getting-started) for reference). Then in another new terminal window run ```$ nodemon``` or ```$ yote start```
+
+### Running React Native
+See [React Native docs](http://facebook.github.io/react-native/releases/0.41/docs/running-on-device.html#running-on-device) for running on device
+
+To run in iOS simulator
+1. cd into `/NewProjectName`
+1. run `$ react-native run-ios`
+
+> if no errors should load a login screen on simulator
+
+#### Default Login Info
+**username:** admin@admin.com
+**password:** admin

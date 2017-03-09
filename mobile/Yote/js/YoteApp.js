@@ -20,7 +20,7 @@ import MainNavigator from './MainNavigator';
 import LoggedOutNavigator from './LoggedOutNavigator';
 import Login from './modules/user/components/Login';
 
-class MobileApp extends Base {
+class YoteApp extends Base {
   constructor(props) {
     super(props);
     this._bind(
@@ -87,4 +87,4 @@ const mapStoreToProps = (store) => {
 
 export default connect(
   mapStoreToProps
-)(MobileApp);
+)(YoteApp);
