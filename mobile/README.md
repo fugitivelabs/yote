@@ -1,6 +1,6 @@
 ## To start a new project
 - Initialize new React Native project at most recent "stable" version
-  _ **NOTE:** The CLI will effectively do this for you_
+  __**NOTE:** The CLI will effectively do this for you__
   > "stable" in this context is the latest version of ReactNative that is confirmed to work with current version of Yote
 
 ```
