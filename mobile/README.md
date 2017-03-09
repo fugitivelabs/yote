@@ -1,11 +1,17 @@
-## To start a new project
+[![Build Status](https://img.shields.io/travis/martindale/maki.svg?branch=master&style=flat-square)](https://travis-ci.org/martindale/maki)
+[![Coverage Status](https://img.shields.io/coveralls/martindale/maki.svg?style=flat-square)](https://coveralls.io/r/martindale/maki)
+[![Community](https://chat.maki.io/badge.svg)](https://chat.maki.io/)
+[![npm](https://img.shields.io/npm/v/npm.svg)](https://npmjs.org/yote)
+## To manually start a new project
 - Initialize new React Native project at most recent "stable" version
-  __**NOTE:** The CLI will effectively do this for you__
-  > "stable" in this context is the latest version of ReactNative that is confirmed to work with current version of Yote
 
-```
-react-native init --version="0.41.0" MyNewApp
-```
+  _**NOTE:** The CLI will eventually do this for you_
+
+  > "stable" in this context is the latest version of React Native that is confirmed to work with current version of Yote
+
+  ```
+  react-native init --version="0.41.0" MyNewApp
+  ```
 
 - copy/paste `Yote/package.json` contents into `MyNewApp/package.json`
 - cd into `MyNewApp` and run `$ npm install`
