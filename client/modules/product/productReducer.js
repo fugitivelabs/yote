@@ -98,7 +98,7 @@ function product(state = {
 }, action) {
   // let nextState = Object.assign({}, state, {});
   switch(action.type) {
-//SINGLE ITEM ACTIONS
+    //SINGLE ITEM ACTIONS
     case Actions.REQUEST_SINGLE_PRODUCT:
       return Object.assign({}, state, {
         selected: {
@@ -134,7 +134,7 @@ function product(state = {
           }
         })
       }
-    
+
     case Actions.ADD_SINGLE_PRODUCT_TO_MAP:
       console.log("ADD_SINGLE_PRODUCT_TO_MAP");
       var newIdMap = Object.assign({}, state.byId, {}); //copy map
@@ -262,15 +262,16 @@ function product(state = {
     case Actions.REQUEST_PRODUCT_LIST:
     case Actions.SET_PRODUCT_FILTER:
     case Actions.SET_PRODUCT_PAGINATION:
-      //"forward" on to individual list reducer
+      // "forward" on to individual list reducer
       let nextLists = Object.assign({}, state.lists, {});
       return Object.assign({}, state, {
         lists: Object.assign({}, state.lists, {
+          // NOTE:  This is a badass line of elegant code right here
           [action.listArgs[0]]: productList(state.lists[action.listArgs[0]] || {}, action)
         })
       })
     case Actions.RECEIVE_PRODUCT_LIST:
-      //add items to "byId" before we forward to individual list reducer
+      // add items to "byId" before we forward to individual list reducer
       let newIdMap = Object.assign({}, state.byId, {});
       if(action.success) {
         for(const item of action.list) {
