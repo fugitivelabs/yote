@@ -9,5 +9,5 @@ Find Your Road.
 * * *
 
 - [Client](./client)
-- [Server](./server)
+- [Server](./server/)
 - [Mobile](./mobile)
