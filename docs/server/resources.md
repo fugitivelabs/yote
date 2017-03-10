@@ -1,6 +1,6 @@
-[Docs](../) / [Server](../server/) / Controllers 
+[Docs](../) / [Server](../server/) / Resources
 
-Controllers
+Resources
 ========
 
 things
