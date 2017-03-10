@@ -1,3 +1,11 @@
+---
+id: installation
+title: Yote Mobile
+permalink: docs/mobile.md
+
+---
+
+
 
 # Yote Mobile  this is in /docs/mobile.md
 Yote Mobile will quickly get you a Yote-flavored ReactNative app up and running with basic user login/registration, post and product CRUD examples, and fully functioning navigation. This is intended to act as a good baseline for more complicated apps.
