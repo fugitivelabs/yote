@@ -1,3 +1,5 @@
+![Howler Logo](https://s3.amazonaws.com/fugitive-labs/yote/Howler-02.png)
+
 Yote
 ======
 
