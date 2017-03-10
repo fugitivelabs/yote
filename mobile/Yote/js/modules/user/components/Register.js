@@ -21,7 +21,7 @@ import Alert from 'Alert';
 import TouchableOpacity from 'TouchableOpacity';
 
 // import actions
-import { singleActions } from '../actions';
+import * as userActions from '../userActions.js';
 
 // import custom components
 import YTButton from '../../../global/components/YTButton';
@@ -220,7 +220,8 @@ class Register extends Base {
     }
     let newUser = this.state.user;
     newUser.password2 = newUser.password;
-    this.props.dispatch(singleActions.sendRegister(newUser)).then((res) => {
+    newUser.withToken = true;
+    this.props.dispatch(userActions.sendRegister(newUser)).then((res) => {
       // console.log("done registering");
       // console.log(res);
       if(!res.success) {

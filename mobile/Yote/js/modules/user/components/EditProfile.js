@@ -33,7 +33,7 @@ import moment from 'moment';
 import _ from 'lodash';
 
 // import actions
-import { singleActions } from '../actions';
+import * as singleActions from '../userActions.js';
 
 
 // import styles
@@ -74,6 +74,13 @@ var styles = StyleSheet.create({
     paddingTop: 8,
     paddingBottom: 8,
     backgroundColor: 'rgba(255,255,255,0.7)'
+  },
+  username: {
+    height: 52,
+    flex: 1,
+    fontSize: 17,
+    paddingTop: 8,
+    paddingBottom: 8,
   },
   details: {
     height: 52,
@@ -325,23 +332,7 @@ class EditProfile extends Base {
               <View style={styles.inputContainer}>
 
                 <Text style={styles.label}>Email/Username</Text>
-                <TextInput
-                  ref="newUserData.username"
-                  onFocus={ (e) => this._scrollToInput(e, 'newUserData.username')}
-                  isRequired={true}
-                  style={styles.input}
-                  autoCapitalize="words"
-                  placeholder=""
-                  placeholderTextColor={YTColors.lightText}
-                  autoCorrect={false}
-                  onChange={ (e) => this._handleInputChange(e, "newUserData.username") }
-                  keyboardType="email-address"
-                  returnKeyType="next"
-                  value={this.state.newUserData.username}
-                  onSubmitEditing={(event) => {
-                    this.refs['newUserData.phone'].focus();
-                  }}
-                />
+                <Text style={styles.username}>{this.state.newUserData.username} </Text>
               </View>
             </View>
 
@@ -370,8 +361,8 @@ class EditProfile extends Base {
 
 const mapStoreToProps = (store) => {
   return {
-    user: store.user.current,
-    isFetching: store.user.isFetching,
+    user: store.user.loggedIn.user,
+    isFetching: store.user.loggedIn.isFetching,
   }
 }
 

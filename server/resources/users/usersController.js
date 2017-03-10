@@ -103,7 +103,7 @@ exports.register = function(req, res, next) {
               if(err || !token) {
                 res.send({ success: false, message: "unable to generate user API token" });
               } else {
-                res.send({success: true, user: result.user});
+                res.send({success: true, user: result.user, token});
               }
             });
           } else {
@@ -139,6 +139,32 @@ exports.update = function(req, res) {
       user.lastName = req.param('lastName');
       user.updated = new Date();
       user.roles = req.param('roles');
+      user.save(function(err, user) {
+        if(err || !user) {
+          res.send({success: false, message: "Error saving user profile"});
+        } else {
+          res.send({success: true, user: user});
+        }
+      });
+    }
+  });
+}
+
+exports.updateProfile = function(req, res) {
+  //qikshow has both this an update. one is from the user's own page, the other is from admin
+  // in future, they should have different things they can change (billing stuff, account status, etc)
+  console.log("UPDATE PROFILE")
+  //update user object EXCEPT for password related fields
+  User.findOne({_id: req.user}).exec(function(err, user) {
+    if(err || !user) {
+      res.send({success: false, message: "Could not find user"});
+    } else {
+      //not standard yote with the loop; can't allow update of protected fields.
+      user.username = req.body.username;
+      user.firstName = req.body.firstName;
+      user.lastName = req.body.lastName;
+      // user.handle = req.body.handle;
+      user.updated = new Date();
       user.save(function(err, user) {
         if(err || !user) {
           res.send({success: false, message: "Error saving user profile"});

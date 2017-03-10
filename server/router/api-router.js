@@ -14,6 +14,7 @@ function requireLogin() {
       logger.debug(req.headers.token);
       User.findOne({apiToken: req.headers.token}).exec(function(err, user) {
         if(err || !user) {
+          console.log("")
           logger.error(err);
           res.status(403);
           res.send("UNAUTHORIZED - INVALID TOKEN");

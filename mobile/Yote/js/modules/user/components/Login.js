@@ -22,7 +22,7 @@ import Dimensions from 'Dimensions';
 import Linking from 'Linking'; 
 
 // import actions
-import { singleActions } from '../actions';
+import * as singleActions from '../userActions.js';
 
 // import custom components
 import YTButton from '../../../global/components/YTButton';
@@ -362,8 +362,8 @@ class Login extends Base {
 
 const mapStoreToProps = (store) => {
   return {
-    isLoggedIn: store.user.isLoggedIn,
-    isFetching: store.user.isFetching,
+    isLoggedIn: store.user.loggedIn,
+    isFetching: store.user.loggedIn.isFetching,
   }
 }
 
