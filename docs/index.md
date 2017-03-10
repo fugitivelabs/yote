@@ -12,6 +12,6 @@ _NOTE:  This is an internal tool we use at [Fugitive Labs](www.fugitivelabs.com)
 ======
 
 
-- [Client](/client)
-- [Server](/server)
-- [Mobile](/mobile)
+- [Client](./client)
+- [Server](./server)
+- [Mobile](./mobile)
