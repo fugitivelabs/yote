@@ -15,6 +15,8 @@ Our idea is to take the best practices of the best frameworks and services avail
 
 Right now the stack looks like this (from back to front):
 
+###
+
 #### Server
 * [Mongo]()
 * [Mongoose]()
@@ -32,7 +34,7 @@ Right now the stack looks like this (from back to front):
 * [React Native]()
 * [Redux]()
 
-We're not married to it (we used to use Angular on the client). But we think this is the most comprehensive stack available right now. 
+We're not married to it (we used to use Angular on the client). But we think this is the most comprehensive stack available right now.
 
 * * *
 - [Getting Started](./getting-started)
