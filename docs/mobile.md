@@ -2,7 +2,6 @@
 id: mobile
 title: Yote Mobile
 
-
 ---
 
 
