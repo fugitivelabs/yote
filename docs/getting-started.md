@@ -5,5 +5,4 @@ Getting Started
 
 things
 
-
-[Next &rarr;](./server/)
+<div style="text-align: right"> <a href="./server/">Next &rarr;</a> </div>
