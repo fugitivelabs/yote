@@ -1,7 +1,7 @@
 ---
-id: installation
+id: mobile
 title: Yote Mobile
-permalink: docs/mobile.md
+
 
 ---
 
