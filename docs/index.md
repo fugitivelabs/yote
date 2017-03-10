@@ -1,4 +1,6 @@
-Yote this is in /docs 
+![Howler Logo](https://s3.amazonaws.com/fugitive-labs/yote/Howler-02.png)
+
+Yote
 ======
 
 Find Your Road.
@@ -9,8 +11,7 @@ _NOTE:  This is an internal tool we use at [Fugitive Labs](www.fugitivelabs.com)
 
 ======
 
-# Reference other README files
 
-- [Client README](https://github.com/fugitivelabs/yote/client/README.md)
-- [Server README](https://github.com/fugitivelabs/yote/server/README.md)
-- [Mobile README](https://github.com/fugitivelabs/yote/mobile/README.md)
+- [Client](/client)
+- [Server](/server)
+- [Mobile](/mobile)
