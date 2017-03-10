@@ -122,6 +122,7 @@ module.exports = function(router, requireLogin, requireRole) {
   router.get('/api/users/:id'           , requireRole('admin'), users.getById);
 
   // - Update
+  router.put('/api/users/updateProfile'     , requireLogin(), users.updateProfile);
   router.put('/api/users/:userId'      , requireLogin(), users.update);
   router.post('/api/users/password'    , requireLogin(), users.changePassword);
   router.post('/api/users/requestpasswordreset'          , users.requestPasswordReset);

@@ -45,7 +45,7 @@ class YoteApp extends Base {
 
 
   render() {
-    if (!this.props.isLoggedIn) {
+    if (!this.props.loggedIn.apiToken) {
       return (
         <View style={styles.container}>
           <StatusBar
@@ -80,8 +80,7 @@ const styles = StyleSheet.create({
 
 const mapStoreToProps = (store) => {
   return {
-    isLoggedIn: store.user.isLoggedIn
-    , user: store.user.current
+    loggedIn: store.user.loggedIn
   }
 }
 
