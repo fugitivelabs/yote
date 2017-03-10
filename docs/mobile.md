@@ -1,13 +1,9 @@
----
-id: mobile
-title: Yote Mobile
-
----
 
 
-
-# Yote Mobile  this is in /docs/mobile.md
+# Yote Mobile
 Yote Mobile will quickly get you a Yote-flavored ReactNative app up and running with basic user login/registration, post and product CRUD examples, and fully functioning navigation. This is intended to act as a good baseline for more complicated apps.
+
+## Table of Contents
 
 * [Dependencies](#dependencies)
 * [Getting Started](#getting-started)
@@ -17,18 +13,20 @@ Yote Mobile will quickly get you a Yote-flavored ReactNative app up and running 
   - [Running the Server](#running-the-server)
   - [Running React Native](#running-react-native)
 
+* * *
+
 ## Dependencies
-- [ReactJS](https://reactjs.com/)  -- (default web client)
+- [ReactJS](https://reactjs.com/)
 - [React Native](https://reactnative.com)
-- [Redux](https://redux.js.org/)  -- (client store)
-- [Yote Server](/server/README.md)
+- [Redux](https://redux.js.org/)
+- [Yote Server](./server)
 - Java
 - XCode
 - Android Studio
 
   > _**NOTE:** reference RN [Running On Device](http://facebook.github.io/react-native/releases/0.41/docs/running-on-device.html#running-on-device) docs to ensure you have the correct environment setup_
 
-
+* * *
 
 ## Getting Started
 Welcome to Yote Mobile. Let's get it started.
@@ -78,6 +76,8 @@ Yote Mobile can be initialized with the CLI or manually.
    $ rm -rf Yote
   ```
 
+* * *
+
 ## Run Yote Mobile
 While Yote Mobile can certainly run server-less (or with a service other than Yote), for now it looks for the Yote Server by default.
 
@@ -98,6 +98,6 @@ To run in iOS simulator
 
 > if no errors should load a login screen on simulator
 
-#### Default Login Info
+### Default Login Info
 **username:** admin@admin.com
 **password:** admin
