@@ -11,6 +11,6 @@ _NOTE:  This is an internal tool we use at [Fugitive Labs](www.fugitivelabs.com)
 
 # Reference other README files
 
-- [Client README](https://github.com/fugitivelabs/yote/tree/master/client/README.md)
-- [Server README](https://github.com/fugitivelabs/yote/tree/master/server/README.md)
-- [Mobile README](https://github.com/fugitivelabs/yote/tree/master/mobile/README.md)
+- [Client README](https://github.com/fugitivelabs/yote/client/README.md)
+- [Server README](https://github.com/fugitivelabs/yote/server/README.md)
+- [Mobile README](https://github.com/fugitivelabs/yote/mobile/README.md)
