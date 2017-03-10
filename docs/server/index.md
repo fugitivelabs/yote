@@ -1,6 +1,6 @@
-[Docs](../) / Server 
+[Docs](../) / Server
 
-Yote Server
+Server
 ======
 
 
