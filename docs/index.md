@@ -9,32 +9,32 @@ Yote is the best super-stack solution out there for any data-driven application.
 
 ## Philosophy
 
-Client-agnostic services and server-agnostic clients that are **FAST**, **FLEXIBLE**, and **POWERFUL**.
-
 Our idea is to take the best practices of the best frameworks and services available and package them up together in one place to help developers roll out production ready solutions as quickly and painlessly as possible.  
 
-Right now the stack looks like this (from back to front):
+Right now the Yote stack looks like this:
 
-###
+#### Database
+* [Mongo](http://www.mongodb.org/)
+* [Mongoose](http://mongoosejs.com/)
 
-#### Server
-* [Mongo]()
-* [Mongoose]()
-* [Node]()
-* [Express]()
-* [Passport]()
-* [Docker]() _deployment_
+#### Server/API
+* [Node](https://nodejs.org/)
+* [Express](http://expressjs.com/)
+* [Passport](http://passportjs.org/)
+* [Docker](https://www.docker.com/) 
 
 #### Client
-* [React]()
-* [React-Router]()
-* [Redux]()
+* [React](https://reactjs.com/)
+* [React-Router](https://reacttraining.com/react-router/)
+* [Redux](https://redux.js.org/)
 
 #### Mobile
-* [React Native]()
-* [Redux]()
+* [React Native](http://www.reactnative.com/)
+* [Redux again](https://redux.js.org/)
 
-We're not married to it (we used to use Angular on the client). But we think this is the most comprehensive stack available right now.
+We're not married to it, but we think this is the most comprehensive stack available.
+
+Yote may change the nuts and bolts from time to time &mdash; hell, we used to use Angular as the default client &mdash; but the general philosophy will remain the same: Yote will always provide client-agnostic services and server-agnostics clients that are **FAST**, **FLEXIBLE**, and **POWERFUL** out of the box.
 
 * * *
 - [Getting Started](./getting-started)
