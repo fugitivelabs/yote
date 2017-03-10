@@ -18,6 +18,8 @@ import Privacy from './modules/user/components/Privacy';
 import Team from './modules/user/components/Team';
 import FAQ from './modules/user/components/FAQ';
 
+import NewProduct from './modules/product/components/NewProduct'; 
+
 // styles
 
 let styles = StyleSheet.create({
@@ -158,6 +160,15 @@ class MainNavigator extends Base {
         />
       )
     }
+
+    if(route.newProduct) {
+      return (
+        <NewProduct
+          {...route}
+          navigator={navigator}
+        />
+      )
+    }
     
     return <TabsView navigator={navigator} />;
   }
@@ -171,7 +182,7 @@ class MainNavigator extends Base {
           if (Platform.OS === 'android') {
             return Navigator.SceneConfigs.FloatFromBottomAndroid;
           }
-          if (route.editProfile || route.settings || route.privacy || route.profile || route.team ) {
+          if (route.newProduct || route.editProfile || route.settings || route.privacy || route.profile || route.team ) {
             return Navigator.SceneConfigs.FloatFromBottom;
           } else if(route.faq ) {
             return Navigator.SceneConfigs.FloatFromLeft;

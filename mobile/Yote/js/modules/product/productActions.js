@@ -110,8 +110,8 @@ function requestCreateProduct(product) {
 
 export const RECEIVE_CREATE_PRODUCT = "RECEIVE_CREATE_PRODUCT";
 function receiveCreateProduct(json) {
-  console.log("RECEIVE_CREATE_PRODUCT");
-  console.log(json);
+  // console.log("RECEIVE_CREATE_PRODUCT");
+  // console.log(json);
   return {
     type: RECEIVE_CREATE_PRODUCT
     , id: json.product ? json.product._id : null
@@ -185,7 +185,7 @@ export function sendDelete(id) {
     // - use this for Delete by default
     .then((json) => {
       if(json.success) {
-        browserHistory.push(`/products`)
+        console.log("success"); 
       } else {
         alert("ERROR");
       }
@@ -309,6 +309,31 @@ export function fetchList(...listArgs) {
     return callAPI(apiTarget).then(
       json => dispatch(receiveProductList(json, listArgs))
     )
+  }
+}
+
+export const ADD_PRODUCT_TO_LIST = "ADD_PRODUCT_TO_LIST";
+export function addProductToList(id, ...listArgs) {
+  // console.log("Add product to list", id);
+  if(listArgs.length === 0) {
+    listArgs = ["all"];
+  }
+  return {
+    type: ADD_PRODUCT_TO_LIST
+    , id
+    , listArgs
+  }
+}
+
+export const REMOVE_PRODUCT_FROM_LIST = "REMOVE_PRODUCT_FROM_LIST"
+export function removeProductFromList(id, ...listArgs) {
+  if(listArgs.length === 0) {
+    listArgs = ['all'];
+  }
+  return {
+    type: REMOVE_PRODUCT_FROM_LIST
+    , id
+    , listArgs
   }
 }
 

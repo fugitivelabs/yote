@@ -28,7 +28,7 @@ import _ from 'lodash';
 
 
 // import actions
-import { singleActions } from '../actions';
+import * as productActions from '../productActions'
 
 
 // import styles
@@ -125,9 +125,7 @@ class NewProduct extends Base {
       isFormValid: false
       , newProduct: {
         title: ""
-        , templateId: null
-        , items: []
-        , type: 'custom'
+        , description: ""
       }
     }
     this._bind(
@@ -170,7 +168,8 @@ class NewProduct extends Base {
       Alert.alert("Whoops", "All fields are required.");
       return;
     }
-    dispatch(singleActions.sendCreateMyProduct(newProduct)).then((res) => {
+    dispatch(productActions.sendCreateProduct(newProduct)).then((res) => {
+      dispatch(productActions.addProductToList(res.item._id)); 
       // console.log('done');
       // console.log(res);
       this.props.navigator.pop();
@@ -200,10 +199,10 @@ class NewProduct extends Base {
 
       var scrollResponder = this.refs.myScrollView.getScrollResponder();
       // var scrollResponder = scrollView.getScrollRef();
-      console.log("on focus called ", refName);
-      console.log(this.refs[refName].props.returnKeyType);
+      // console.log("on focus called ", refName);
+      // console.log(this.refs[refName].props.returnKeyType);
       var offset = 130;
-      console.log(offset);
+      // console.log(offset);
       scrollResponder.scrollResponderScrollNativeHandleToKeyboard(
         ReactNative.findNodeHandle(this.refs[refName]),
         offset, // adjust depending on your contentInset
@@ -232,7 +231,6 @@ class NewProduct extends Base {
         <YTHeader
           navigator={navigator}
           leftItem={leftItem}
-          rightItem={rightItem}
           title="New Product"
         />
         <ScrollView ref="myScrollView" keyboardDismissMode="interactive" style={[styles.formWrapper]}>
@@ -296,12 +294,6 @@ class NewProduct extends Base {
 
               isDisabled={!isFormValid}
             />
-
-            <YTButton
-              onPress={this._openLibrary}
-              caption={"Import from Library"}
-              type="secondary"
-            />
           </View>
         </ScrollView>
       </View>
@@ -318,8 +310,8 @@ const mapStoreToProps = (store) => {
 
   return {
 
-    user: store.user.current,
-    isFetching: store.myProduct.isFetching,
+    user: store.user.loggedIn.user,
+    isFetching: store.product.selected.isFetching,
 
   }
 }
