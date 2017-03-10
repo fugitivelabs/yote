@@ -8,6 +8,6 @@ Find Your Road.
 
 * * *
 
-- [Client](./client)
+- [Client](./client/)
 - [Server](./server/)
-- [Mobile](./mobile)
+- [Mobile](./mobile/)
