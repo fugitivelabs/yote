@@ -1,3 +1,5 @@
+[Docs](../) / Server 
+
 Yote Server
 ======
 
