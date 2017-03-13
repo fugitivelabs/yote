@@ -15,11 +15,15 @@ module.exports = {
     , rootPath: rootPath
     , port: process.env.PORT || 3030
     , secrets: secrets || {}
+    , useHttps: false
+    , httpsOptional: true
   }
   , production: {
     db: remoteDb ? 'mongodb://' + remoteDb + '/' + dbName : process.env.MONGODB_PORT ? process.env.MONGODB_PORT.replace("tcp", "mongodb") + "/" + dbName : 'mongodb://localhost/' + dbName
     , rootPath: rootPath
     , port: process.env.PORT || 80
     , secrets: secrets || {}
+    , useHttps: false
+    , httpsOptional: true
   }
 }
