@@ -23,10 +23,8 @@ var express         = require('express')
   , passport        = require('passport')
   , LocalStrategy   = require('passport-local').Strategy
   , path            = require('path')
-  // , RedisStore      = require('connect-redis')(session) //no longer used
   , MongoStore      = require('connect-mongo')(session)
   , fs              = require('fs')
-  // , sass            = require('node-sass-middleware') //no longer used
   ;
 
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
@@ -75,21 +73,6 @@ app.use(passport.session());
 //allow file uploads
 // app.use(multipart({}));
 
-//sass middleware
-//only enable for development env - npm module can be buggy
-//NOW rendered via webpack only on changes
-// if (app.get('env') == 'development') {
-//   console.log("using sass");
-//   console.log(__dirname);
-//   app.use(sass({
-//     src: __dirname + '/client'
-//     , dest: __dirname + '/public/css'
-//     , prefix: '/css'
-//     , debug: true
-//     , outputStyle: 'compressed'
-//     , includePaths: ['/client/global/sass/', '/client/modules/', '/client/static']
-//   }));
-// }
 
 //serve static assets, incl. react bundle.js
 app.use(serveStatic(__dirname + '/public'));
@@ -99,7 +82,7 @@ app.use(function(req, res, next) {
 
   //to allow CORS access to the node APIs, follow these steps:
   // 1. know what you are doing.
-  // 2. uncommente the following 3 lines.
+  // 2. uncomment the following 3 lines.
   res.header("Access-Control-Allow-Origin", "*");
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, token");

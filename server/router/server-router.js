@@ -20,7 +20,7 @@ module.exports = function(router, app) {
   router.get('*', function(req, res) {
     // console.log("LAYOUT");
     // console.log(req.user ? req.user.username : "NONE");
-    res.render('layout', {
+    res.render('index', {
       currentUser: req.user
       , development: app.get('env') == 'development' ? true : false
     });
