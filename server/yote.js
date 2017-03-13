@@ -183,10 +183,8 @@ function haltOnTimedout(req, res, next){
 
 //SSL
 //Yote comes out of the box with https support! Check the readme for instructions on how to use.
-var useHttps = false;
-var httpsOptional = false;
 
-if(app.get('env') == 'production' && useHttps) {
+if(app.get('env') == 'production' && config.useHttps) {
   logger.info("starting production server WITH ssl");
 
   require('https').createServer({
@@ -205,7 +203,7 @@ if(app.get('env') == 'production' && useHttps) {
 
   //need to catch for all http requests and redirect to httpS
   var http = require('http');
-  if(httpsOptional) {
+  if(config.httpsOptional) {
     require('http').createServer(app).listen(80);
   } else {
     require('http').createServer(function(req, res) {
