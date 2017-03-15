@@ -16,7 +16,7 @@ class SingleProduct extends Base {
 
   render() {
     const { selectedProduct, productMap } = this.props;
-    const isEmpty = (!selectedProduct.id || !productMap[selectedProduct.id] || productMap[selectedProduct.id].title === undefined || !selectedProduct.didInvalidate);
+    const isEmpty = (!selectedProduct.id || !productMap[selectedProduct.id] || productMap[selectedProduct.id].title === undefined || selectedProduct.didInvalidate);
     console.log("isEmpty", isEmpty);
     return  (
       <div className="flex">
