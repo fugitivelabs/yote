@@ -3,6 +3,16 @@
 Getting Started
 ========
 
+Let's see how to install Yote, initialize a new project, and get everything running.
+
+## Install Yote
+Yote is intended to limit a bunch of boilerplate typing.  You're gonna want the CLI.
+```
+$ (sudo) npm install -g yote
+```
+That was easy.
+
+
 ## Initializing your project
 
 By default, the Yote CLI will build the super-scaffold when you initialize a new project.
@@ -45,6 +55,19 @@ We test different things at different times, so each stack component runs indepe
 
 > **NOTE** All Yote projects come with a default user whose credentials are **username:** `admin@admin.com` **password** `admin`
 
+### Run all stack components
+To run everything in one command, change directory to `MyApp` and run:
+
+```
+$ yote run-everything
+```
+This will check which services you have built into the stack (server and/or client and/or mobile) and run them all in separate terminals.
+
+A whole bunch of stuff is going to happen.  Afterward, you should have server listening on `http://localhost:3030`, the iOS simulator open and running the Yote login screen, and a browser open to the default Yote landing page.  
+
+### Run individual stack components
+Additionally, each stack component can run by itself.  
+
 #### Running the server
 In a new terminal, change directory to `MyApp/server` and run:
 ```
@@ -75,4 +98,7 @@ This will open the iOS simulator to the default login view.
 > Behind this scenes this runs `npm start` + `react-native run-ios`.
 
 
-<div style="text-align: right"> <a href="./server/">Next &rarr;</a> </div>
+## Now What?
+Now that you're up and running, we'll look at [adding a new resource module](/tutorial).
+
+<div style="text-align: right"> <a href="./tutorial">Next &rarr;</a> </div>

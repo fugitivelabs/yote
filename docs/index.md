@@ -18,24 +18,21 @@ $ (sudo) npm install -g yote
 
 Yote should always be the most comprehensive and flexible stack available. Right now that stack looks like this:
 
-#### Database
-* [Mongo](http://www.mongodb.org/)
-* [Mongoose](http://mongoosejs.com/)
-
-#### Server/API
-* [Node](https://nodejs.org/)
-* [Express](http://expressjs.com/)
-* [Passport](http://passportjs.org/)
-* [Docker](https://www.docker.com/)
-
-#### Client
-* [React](https://reactjs.com/)
-* [React-Router](https://reacttraining.com/react-router/)
-* [Redux](https://redux.js.org/)
-
-#### Mobile
-* [React Native](http://www.reactnative.com/)
-* [Redux again](https://redux.js.org/)
+- **Database**
+  * [Mongo](http://www.mongodb.org/)
+  * [Mongoose](http://mongoosejs.com/)
+- **Server/API**
+  * [Node](https://nodejs.org/)
+  * [Express](http://expressjs.com/)
+  * [Passport](http://passportjs.org/)
+  * [Docker](https://www.docker.com/)
+- **Client**
+  * [React](https://reactjs.com/)
+  * [React-Router](https://reacttraining.com/react-router/)
+  * [Redux](https://redux.js.org/)
+- **Mobile**
+  * [React Native](http://www.reactnative.com/)
+  * [Redux again](https://redux.js.org/)
 
 We're not married to it, however. Yote originally used AngularJS as the client. As our average project complexity grew, we looked for a more performant solution and found it in React/Flux. Then we discovered Redux (which is awesome)... and so on.
 
@@ -90,6 +87,7 @@ We assume at least intermediate-level knowledge of Javascript. For the server yo
 ## Documentation
 
 - [Getting Started](./getting-started)
+- [Tutorial](./tutorial)
 - [Client](./client/)
 - [Server](./server/)
 - [Mobile](./mobile/)
