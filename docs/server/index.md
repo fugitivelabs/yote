@@ -8,6 +8,7 @@ The Yote Server is a Node/Express application server that runs off a Mongo datab
 ## Table of Contents
 
 * [Dependencies](#dependencies)
+* [Directory](#directory)
 * [Yote.js](#yotejs)
 * [Config](#config)
 * [Database](#database)
@@ -30,16 +31,42 @@ The Yote Server is a Node/Express application server that runs off a Mongo datab
 
 * * *
 
-## `Yote.js`
+## Directory
+The core pieces of the yote `server/` directory are as follows:
+
+```
+--- server/           
+  |_ public/                      # public assets, compiled CSS & JS
+  |_ resources/                   # modularized resource components (more on this later)
+  |_ views/                       # static layout
+  |_ config.js
+  |_ db.js
+  |_ secrets.js
+  |_ utilities.js
+  |_ yote.js   
+
+```
+> **NOTE:** there are several other files related to Node, Docker and git that are pretty standard to those services.
+
+Let's go over each piece.
+
+* * *
+
+
+## yote.js
 
 Ultimately the Yote server (`yote.js`), is a pretty standard Node/Express application.  As with everything else, we're following best practices here &mdash; at least our humble opinion of best practices.  Regardless, if you're familiar with Express, you should feel right at home with Yote.  
 
 A few things do make it 'Yote' though. Namely out-of-the-box HTTPS support, CORS access to the node APIs, and built in authentication with Passport _and_ API tokens.  
 
-> more docs coming soon
+
+* * *
 
 ## Config
 The `server/config.js` file handles setting up Yote for the proper Node environment (by default either `development` or `production`). This is where you tell Yote which port to listen to, whether or not to use SSL, the app's default URL, etc.
+
+
+* * *
 
 ## Database
 Database configuration lives at `server/db.js`.  Every new resource added to Yote will need to be referenced here for the app to register.
@@ -53,7 +80,10 @@ var Product = require('./resources/products/ProductModel');
 
 ```
 
-> **Note:** The CLI will do this for you.  
+> **NOTE:** The CLI will do this for you.  
+
+* * *
+
 
 ## Secrets
 Store all private API keys and other secrets in `server/secrets.js`.  This file is intended to allow you to safely use secret api keys in your application without exposing them in publicly.
@@ -62,23 +92,34 @@ Stock Yote currently uses three secret keys: two for user session security and o
 
 > **NOTE:** We recommend [https://www.random.org/strings/](https://www.random.org/strings/) to generate random session secrets and tokens
 
+* * *
+
+
 ## Public
 Like most servers, Yote will serve static assets (CSS, images, Javascript, etc.) from the `server/public/` directory.  Note much else to note here...
+
+* * *
+
 
 ## Views
 In its current form, the only "View" Yote serves is the index page that sets up the client.  The reason it's here is because it needs to be compiled prior to sending.  
 
+* * *
+
+
 ## Router
 The `server/router/` directory handles two things:  setup any static routing; and configuring the API routes.
 
-#### `server-router.js`
+### `server-router.js`
 `sever-router` runs first and points the application to the `api-router` and establishes paths to static assets.
 
-#### `api-router.js`
+### `api-router.js`
 This is the configuration file for the REST API routes. It also handles token and/or session authentication for any protected routes.  
 
+* * *
+
 ## Resources
-Every newly initialized Yote application comes with three resources: posts, products, and users.  
+Every newly initialized Yote application comes with two resources: products, and users.  
 
 - `users` is a convenient boilerplate resource that nearly every _application_ needs at some point.  Yote users by default conform to the following schema:
 
@@ -109,10 +150,8 @@ Every newly initialized Yote application comes with three resources: posts, prod
 
 - The `products` resource is intended to provide a bare-bones example of a fully functioning Yote model.
 
-- The `posts` resource is intended to provide a more complex example of a fully functioning Yote model.
 
-## Now what?
-Now that you're familiar with the basic structure, let's learn about resources and how to actually make cool things with Yote.  
+## Up next
+Resource modules are the real meat and potatoes of every Yote app. Let's look deeper at how resources work on the server side of things.
 
-
-<div style="text-align: right"> <a href="./server/">Next: More on resources &rarr;</a> </div>
+<div><a style="float: left;" href="./tutorial">&larr; Previous</a>  <a style="float: right;" href="./server/resources">Next &rarr;</a> </div>

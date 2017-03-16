@@ -56,13 +56,7 @@ MyApp/
 
 We test different things at different times, so each stack component runs independently in its own terminal.
 
-**NOTE** All Yote projects come with a default user whose credentials are:
-<dl>
-  <dt>username:</dt>
-  <dd>admin@admin.com</dd>
-  <dt>password:</dt>
-  <dd>admin</dd>
-</dl>
+**NOTE** All Yote projects come with a default user whose credentials are username: `admin@admin.com` &mdash; pswd: `admin`
 
 
 ### Run all stack components
