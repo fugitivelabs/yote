@@ -112,4 +112,4 @@ This will open the iOS simulator to the default login view.
 ## Now What?
 Now that you're up and running, we'll look at [adding a new resource module](/tutorial).
 
-<div style="text-align: right"> <a href="./tutorial">Next &rarr;</a> </div>
+<div><a style="float: left;" href="./">&larr; Previous</a>  <a style="float: right;" href="./tutorial">Next &rarr;</a> </div>
