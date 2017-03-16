@@ -10,8 +10,9 @@ Yote is intended to limit a bunch of boilerplate typing.  You're gonna want the 
 ```
 $ (sudo) npm install -g yote
 ```
-That was easy.
+That was easy!
 
+* * * *
 
 ## Initializing your project
 
@@ -49,11 +50,20 @@ MyApp/
 
 ```
 
+* * * *
+
 ## Running Yote
 
 We test different things at different times, so each stack component runs independently in its own terminal.
 
-> **NOTE** All Yote projects come with a default user whose credentials are **username:** `admin@admin.com` **password** `admin`
+**NOTE** All Yote projects come with a default user whose credentials are:
+<dl>
+  <dt>username:</dt>
+  <dd>admin@admin.com</dd>
+  <dt>password:</dt>
+  <dd>admin</dd>
+</dl>
+
 
 ### Run all stack components
 To run everything in one command, change directory to `MyApp` and run:
@@ -97,6 +107,7 @@ $ yote run-mobile
 This will open the iOS simulator to the default login view.
 > Behind this scenes this runs `npm start` + `react-native run-ios`.
 
+* * * *
 
 ## Now What?
 Now that you're up and running, we'll look at [adding a new resource module](/tutorial).
