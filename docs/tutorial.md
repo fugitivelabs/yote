@@ -145,7 +145,7 @@ Now let's associate any new `Post` with this logged in user. In `/posts/postsCon
 
 
 ## Navigate to the post list in the web
-Yote builds the route file in the web client for you in `MyApp/client/modules/post/postRoutes.js.jsx`.  Let's checkout the list view on [localhost:3030/posts](http://localhost:3030/posts)
+Yote builds the route file in the web client for you in `MyApp/client/modules/post/postRoutes.js.jsx`.  Let's checkout the list view on `localhost:3030/posts`
 
 _**NOTE** add screenshot here_
 
@@ -311,9 +311,9 @@ Voila! We have a post!
 
 Let's see if we can view this new post on mobile. Open the iOS simulator and login.
 
-> Remember, the login credentials are `admin@admin.com` - pswd: `admin`
+> Remember, the login credentials are `admin@admin.com` &mdash; pswd: `admin`
 
 
 * * * *
 
-<div><a style="float: left;" href="./getting-started">&larr; Previous</a>  <a style="float: right;" href="./server">Next &rarr;</a> </div>
+<div><a style="float: left;" href="./getting-started">&larr; Previous</a>  <a style="float: right;" href="./server/">Next &rarr;</a> </div>

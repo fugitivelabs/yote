@@ -80,7 +80,7 @@ We assume at least intermediate-level knowledge of Javascript. For the server yo
     $ yote run-client
     ```
     This runs the Yote client in watch mode to look for and recompile changes to the `bundle.js`
-1. Using a browser, go to [http://localhost:3030](http://localhost:3030) and you'll see "Welcome to Yote!"
+1. Using a browser, go to `http://localhost:3030` and you'll see "Welcome to Yote!"
 
 ****
 
@@ -88,6 +88,7 @@ We assume at least intermediate-level knowledge of Javascript. For the server yo
 
 - [Getting Started](./getting-started)
 - [Tutorial](./tutorial)
-- [Client](./client/)
 - [Server](./server/)
+  - [Resources](./server/resources)
+- [Client](./client/)
 - [Mobile](./mobile/)
