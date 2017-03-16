@@ -13,9 +13,8 @@ module.exports = function(config) {
 
   //any other initial model calls
   User.createDefaults();
-  Post.createDefaults();
+  Product.createDefaults();
 };
 
 // new Mongoose models are defined below
-var Post = require('./resources/posts/PostModel');
 var Product = require('./resources/products/ProductModel');

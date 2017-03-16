@@ -77,11 +77,9 @@ class Navbar extends Base {
             <div className="yt-row center-vert right">
               <ul className="navigation">
                 <li>
-                  <Link to="/products" activeClassName="active">Products <sup>simple</sup></Link>
+                  <Link to="/products" activeClassName="active">Products</Link>
                 </li>
-                <li>
-                  <Link to="/posts" activeClassName="active">Posts <sup> complex</sup></Link>
-                </li>
+
 
                 <li className="dropdown">
                   <a onClick={this._openDropdown}> <i className="fa fa-caret-down"></i></a>
