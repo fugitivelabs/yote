@@ -12,7 +12,7 @@ export default class SideNav extends Base {
       <div className="sidebar">
         <ul className="side-nav">
           <li>
-            <Link to="/producs" activeClassName="active">Products</Link>
+            <Link to="/products" activeClassName="active">Products</Link>
           </li>
         </ul>
       </div>
