@@ -19,8 +19,8 @@ import Text from 'Text';
 import Profile from '../../../modules/user/components/Profile';
 //import ProductTemplateLibrary from '../../../modules/productTemplate/components/Library';
 import Home from './Home';
-import Product from '../../../modules/product/components/Product'; 
-import Feed from '../../../modules/post/components/Feed'; 
+import Product from '../../../modules/product/components/Product';
+
 // import actions
 
 
@@ -111,17 +111,6 @@ class TabsView extends Base {
           />
         </TabBarIOS.Item>
 
-        <TabBarIOS.Item
-          title="Feed"
-          selected={this.state.selectedTab === 'posts'}
-          onPress={this._onTabSelect.bind(this, 'posts')}
-          icon={require('./img/feed.png')}
-          selectedIcon={require('./img/feed_filled.png')}
-        >
-          <Feed
-            navigator={this.props.navigator}
-          />
-        </TabBarIOS.Item>
 
       </TabBarIOS>
     )
@@ -133,10 +122,6 @@ TabsView.propTypes = {
   dispatch: PropTypes.func
   // tab: PropTypes.string
 }
-//
-// TabsView.defaultProps = {
-//   tab: 'showings'
-// }
 
 const mapStoreToProps = (store) => {
   return {

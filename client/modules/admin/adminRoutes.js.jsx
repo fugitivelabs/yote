@@ -10,7 +10,6 @@ import Layout from './components/AdminLayout.js.jsx';
 import StyleGuide from './components/StyleGuide.js.jsx';
 
 
-// import adminPostRoutes from '../post/postAdminRoutes.js.jsx';
 // import adminProductRoutes from '../post/productAdminRoutes.js.jsx';
 import adminUserRoutes from '../user/userAdminRoutes.js.jsx';
 
@@ -23,7 +22,6 @@ const adminRoutes =
 </Route>
 
 ;
-// {adminPostRoutes}
-// {adminProductRoutes}
+
 
 export default adminRoutes;
