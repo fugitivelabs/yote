@@ -35,8 +35,8 @@ var Product = mongoose.model('Product', productSchema);
 
 // prouct model methods
 function createDefaults() {
-  Product.find({}).exec(function(err, posts) {
-    if(posts.length == 0) {
+  Product.find({}).exec(function(err, products) {
+    if(products.length == 0) {
       Product.create({title: "Fugitive Labs Introduces Yote!", description: "A neat-o new product that helps you build apps on the MERN stack!" });
       logger.info("created initial post defaults");
     }
