@@ -1,4 +1,4 @@
-//get secrets
+// get secrets
 var secrets = require('../../config')[process.env.NODE_ENV].secrets;
 
 var User = require('mongoose').model('User')
@@ -332,7 +332,7 @@ exports.resetPassword = function(req, res) {
               }
             });
           }
-        }); 
+        });
       }
     } else {
       res.send(result);

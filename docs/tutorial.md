@@ -9,9 +9,10 @@ Almost every data-driven app we build relies on a user object with login authent
 
 The `Product` resource module is a general purpose example. In this tutorial, we'll add blog posts to go along with `Products`.
 
-* * * *
 
 ## Add a new resource module called 'post'
+****
+
 From the root directory of `MyApp` run the following:
 
 ```
@@ -65,10 +66,11 @@ MyApp/
       ...                
 ```
 
-* * * *
 
 
 ## Define the Post data model
+****
+
 All Yote resource modules come defined with `name`, `created`, and `updated` by default.
 
 ```js
@@ -141,10 +143,11 @@ Now let's associate any new `Post` with this logged in user. In `/posts/postsCon
 
 ```
 
-* * * *
 
 
 ## Navigate to the post list in the web
+****
+
 Yote builds the route file in the web client for you in `MyApp/client/modules/post/postRoutes.js.jsx`.  Let's checkout the list view on `localhost:3030/posts`
 
 _**NOTE** add screenshot here_
@@ -152,10 +155,11 @@ _**NOTE** add screenshot here_
 Nothing there! Let's make a new post.  
 
 
-* * * *
 
 
 ## Edit the PostForm
+****
+
 We'll need to edit `postReducer.js` and `PostForm.js.jsx` to accommodate the schema additions.  
 
 First in `postReducer.js`, add new schema items to the defaultItem:
@@ -217,9 +221,9 @@ Next, in `PostForm.js.jsx`, add input fields for `content` and `status`
   // ...
 ```
 
-* * * *
 
 ## Create a new post in the web client
+****
 
 Now we can navigate to `localhost:3030/posts/new` to create a new `post`.  
 
@@ -227,9 +231,9 @@ Once that's done, we can navigate back to the `/posts` list to see the final cre
 
 > **NOTE:** this list page is just fetching everything by default, regardless of `status`.  Refer to the [Yote Mobile docs](./mobile/) for more on lists and filters.  
 
-* * * *
 
 ## Show the post
+****
 
 In the post show page, notice that you only see the `name` field of the post. We need to modify `PostListItem.js.jsx` and `SinglePost.js.jsx` to see `_author` and `content`.
 
@@ -305,15 +309,15 @@ export default connect(
 
 Voila! We have a post!
 
-* * * *
 
 ## View posts on mobile
+****
 
 Let's see if we can view this new post on mobile. Open the iOS simulator and login.
 
 > Remember, the login credentials are `admin@admin.com` &mdash; pswd: `admin`
 
 
-* * * *
+****
 
 <div><a style="float: left;" href="./getting-started">&larr; Previous</a>  <a style="float: right;" href="./server/">Next &rarr;</a> </div>
