@@ -24,7 +24,6 @@ let express         = require('express');
 let favicon         = require('serve-favicon');
 let fs              = require('fs');
 let LocalStrategy   = require('passport-local').Strategy;
-let MongoStore      = require('connect-mongo')(session);
 let mongoose        = require('mongoose');
 let passport        = require('passport');
 let path            = require('path');
@@ -33,12 +32,16 @@ let session         = require('express-session');
 let timeout         = require('connect-timeout');
 let winston         = require('winston');
 
+// init MongoStore sessions
+let MongoStore      = require('connect-mongo')(session);
+
+
 // init express
 let app = express();
 
 // configure the envirment
-let config = require('./config')[env];
 let env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+let config = require('./config')[env];
 
 // initialize logger
 // NOTE: generally 'global' is not considered "best practices", but this will allow access to the logger object in the entire app
@@ -159,7 +162,7 @@ if (app.get('env') == 'development') {
 
 // configure server routes
 let router = express.Router();
-require('./router/server-router')(router, app); 
+require('./router/server-router')(router, app);
 app.use('/', router);
 // some notes on router: http://scotch.io/tutorials/javascript/learn-to-use-the-new-router-in-expressjs-4
 
