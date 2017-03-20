@@ -44,10 +44,10 @@ exports.list = (req, res) => {
 
 exports.search = (req, res) => {
   // search by query parameters
-  // NOTE: It's up to the front end to make sure the params exist on the model
+  // NOTE: It's up to the front end to make sure the params match the model
   let mongoQuery = {};
   let page, per;
-  
+
   for(key in req.query) {
     if(req.query.hasOwnProperty(key)) {
       if(key == "page") {
