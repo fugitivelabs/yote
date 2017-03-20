@@ -1,77 +1,92 @@
-var mongoose = require('mongoose')
-  , crypto = require('crypto')
-  //get secrets
-  , secrets = require('../../config')[process.env.NODE_ENV].secrets
-  , jwt = require('jwt-simple')
-  , tokenSecret = secrets.tokenSecret //generate your own randomized token here.
-  ;
+/**
+ * Define the User data model.
+ *
+ * NOTE: User has some special cases over generic resource modules to account for
+ * various authentication issues and whatnot.
+ */
 
-//define user schema
-var userSchema = mongoose.Schema({
-  created:          { type: Date, default: Date.now }
-  , updated:        { type: Date, default: Date.now }
+// get application secrets
+let secrets = require('../../config')[process.env.NODE_ENV].secrets;
+let tokenSecret = secrets.tokenSecret; // Or generate your own randomized token here.
+
+let crypto = require('crypto');
+let jwt = require('jwt-simple');
+let mongoose = require('mongoose');
+
+
+// define the User schema
+let userSchema = mongoose.Schema({
+  created:            { type: Date, default: Date.now }
+  , updated:          { type: Date, default: Date.now }
   , firstName:        { type: String, required: '{PATH} is required!' }
-  , lastName:       { type: String, required: '{PATH} is required!' }
-  , username:       {
+  , lastName:         { type: String, required: '{PATH} is required!' }
+  , username:         {
     type: String
     , required: '{PATH} is required!'
-    , unique:true
+    , unique: true
   }
-  //by default, password and reset fields are hidden from db queries. to return them, you must EXPLICITLY request them in the User.find call.
-  , password_salt:  { type: String, required: '{PATH} is required!', select: false }
-  , password_hash:  { type: String, required: '{PATH} is required!', select: false }
-  , roles:          [String]
-    //reset password fields
+  , roles:            [String]
+
+  /**
+   * Password & API token fields
+   * NOTE: by default, password and reset fields are hidden from db queries.
+   * To return them, you must EXPLICITLY request them in the User.find call.
+   */
+
+  // crypto-stored password
+  , password_salt:    { type: String, required: '{PATH} is required!', select: false }
+  , password_hash:    { type: String, required: '{PATH} is required!', select: false }
+
+  // Reset password fields
   , resetPasswordTime:    { type: Date, default: Date.now, select: false }
   , resetPasswordHex:     { type: String, default: Math.floor(Math.random()*16777215).toString(16) + Math.floor(Math.random()*16777215).toString(16), select: false }
 
-  //api token fields
+  // API token fields
   , apiToken:             { type: String, select: false }
   , tokenCreated:         { type: Date, default: Date.now, select: false }
 });
 
-//user instance methods
+// user instance methods
 userSchema.methods = {
   authenticate: function(passwordToMatch) {
-    console.log("trying to authenticate username '" + this.username + "'");
+    logger.info(`trying to authenticate username '${this.username}'`);
     return User.hashPassword(this.password_salt, passwordToMatch) === this.password_hash;
   }
   , hasRole: function(role) {
     return this.roles.indexOf(role) > -1;
   }
   , createToken: function(callback) {
-    console.log("creating a user token");
+    logger.info("creating a user token");
     var token = User.encode({username: this.username});
-    console.log("TOKEN: " + token);
+    logger.info("TOKEN: ", token);
     this.apiToken = token;
     this.tokenCreated = new Date();
     this.save(function(err, user) {
       if(err) {
-        console.log(err);
+        logger.error(err);
         callback(err, null);
       } else {
-        console.log("user token created.");
-        // console.log(user);
+        logger.info("user token created.");
         callback(false, user.apiToken);
       }
     });
   }
   , removeToken: function(callback) {
-    //akin to 'logout' for api tokens
-    console.log("REMOVE TOKEN CALLED");
+    // NOTE: This is akin to 'logout' for api tokens
+    logger.warn("REMOVE TOKEN CALLED");
     this.apiToken = null;
     this.save(function(err, user) {
       if(err) {
         callback(err, null);
       } else {
-        console.log("user token removed.");
+        logger.info("user token removed.");
         callback(false, 'removed');
       }
     });
   }
 };
 
-//user model static methods
+// user model static methods
 userSchema.statics = {
   createPasswordSalt: function() {
     return crypto.randomBytes(256).toString('base64');
@@ -91,24 +106,28 @@ userSchema.statics = {
     return jwt.decode(data, tokenSecret);
   }
   , tokenExpired: function(created) {
+    // NOTE: if you want your API token to expire, use the following:
     var now = new Date();
     var diff = (now.getTime() - created);
-    return diff > 86400000; //API token active for 24 hours.
-    // return false; //if you want your API tokens to NEVER expire, use this line instead.
+    return diff > 86400000; // API token will be active for 24 hours.
+
+    // Otherwise, if you want your API tokens to NEVER expire, use this line instead:
+    // return false;
   }
 };
 
 var User = mongoose.model('User', userSchema);
 
+// validations
 User.schema.path('roles').validate(function(roles){
-  console.log("checking roles");
+  logger.info("checking roles");
   if(roles.length == 0) {
     roles.push(null);
   }
-  console.log(roles);
+  logger.info(roles);
   var refs = [null,'admin'];
   roles.forEach(function(role){
-    console.log("role: " + role);
+    logger.debug("role: ", role);
     refs.forEach(function(ref){
       if(ref==role) {
         valid = true;
@@ -123,15 +142,22 @@ User.schema.path('roles').validate(function(roles){
 }, 'roles not valid');
 
 
-//user model methods
+// user model methods
 function createDefaults() {
   User.find({}).exec(function(err, users) {
     if(users.length === 0) {
       var password_salt, password_hash;
       password_salt = User.createPasswordSalt();
       password_hash = User.hashPassword(password_salt, 'admin');
-      User.create({firstName:'Admin', lastName:'Admin', username:'admin@admin.com', password_salt: password_salt, password_hash: password_hash, roles: ['admin']});
-      logger.info("created initial default user w/ username 'admin' and password 'admin'");
+      User.create({
+        firstName:'Admin'
+        , lastName:'Admin'
+        , username:'admin@admin.com'
+        , password_salt: password_salt
+        , password_hash: password_hash
+        , roles: ['admin']
+      });
+      logger.info("created initial default user w/ username 'admin@admin.com' and password 'admin'");
     }
   });
 };

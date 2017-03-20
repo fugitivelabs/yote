@@ -1,14 +1,15 @@
-var secrets = require('./config')[process.env.NODE_ENV].secrets;
+// import secrets
+let secrets = require('./config')[process.env.NODE_ENV].secrets;
 
-var async = require('async')
-  , mandrill = require('mandrill-api/mandrill')
-  , mandrill_client = new mandrill.Mandrill(secrets.mandrill)
-  ;
+// import libraries
+let async = require('async');
+let mandrill = require('mandrill-api/mandrill');
+let mandrill_client = new mandrill.Mandrill(secrets.mandrill);
 
 exports.sendEmail = function(targets, subject, content, callback) {
   logger.debug("trying to send email");
-  //message fields
-  var msg = {
+  // message fields
+  let msg = {
     important: true
     , track_opens: true
     , track_clicks: true
@@ -25,7 +26,7 @@ exports.sendEmail = function(targets, subject, content, callback) {
   }
   for(var i = 0; i < targets.length; i++) {
     msg.to.push({
-      "type": "to" //type = "cc" or something?
+      "type": "to"
       , "email": targets[i]
     });
   }
@@ -39,3 +40,5 @@ exports.sendEmail = function(targets, subject, content, callback) {
     callback({success: false, message: "Failed to send email.", error: e});
   });
 }
+
+// TODO: bring in sendEmailTemplate
