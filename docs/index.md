@@ -36,7 +36,7 @@ Yote should always be the most comprehensive and flexible stack available. Right
 
 We're not married to it, however. Yote originally used AngularJS as the client. As our average project complexity grew, we looked for a more performant solution and found it in React/Flux. Then we discovered Redux (which is awesome)... and so on.
 
-If at some point in the future ViewJS or some other new fangled thing proves itself to be better in the wild, we reserve the right to switch things around.  
+If at some point in the future Vue.js or some other new fangled thing proves itself to be better in the wild, we reserve the right to switch things around.  
 
 > We'll do our best to support older versions through the CLI, but ultimately Yote is forward-looking in nature
 
