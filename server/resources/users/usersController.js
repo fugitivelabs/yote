@@ -147,7 +147,7 @@ exports.update = function(req, res) {
     if(err || !user) {
       res.send({ success: false, message: "Could not find user" });
     } else {
-      // NOTE: Do NOT user standard Yote update loop. Can't allow update of protected fields.
+      // NOTE: Do NOT user standard Yote update loop. Don't allow update of protected fields.
       user.username = req.param('username');
       user.firstName = req.param('firstName');
       user.lastName = req.param('lastName');
@@ -176,7 +176,7 @@ exports.updateProfile = function(req, res) {
     if(err || !user) {
       res.send({ success: false, message: "Could not find user" });
     } else {
-      // NOTE: Do NOT user standard Yote update loop. Can't allow update of protected fields.
+      // NOTE: Do NOT user standard Yote update loop. Don't allow update of protected fields.
       user.username = req.body.username;
       user.firstName = req.body.firstName;
       user.lastName = req.body.lastName;
@@ -302,7 +302,7 @@ exports.checkResetRequest = function(req, res, next) {
 exports.utilCheckResetRequest = function(resetHex, callback) {
   /**
    * This checks that the user is using a valid password reset request.
-   * Token ust be a matching hex and no older than 24 hours.
+   * Token must be a matching hex and no older than 24 hours.
    */
   var projection = {
     firstName: 1, lastName: 1, username: 1, roles: 1, resetPasswordTime: 1, resetPasswordHex: 1
