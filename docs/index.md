@@ -66,7 +66,7 @@ We assume at least intermediate-level knowledge of Javascript. For the server yo
     ```
 1. Initialize your project
     ```
-    $ yote init MyApp
+    $ yote init MyApp -i
     # ... this may take a minute
     ```
 1. Change directory to `MyApp/server` and start the web server
