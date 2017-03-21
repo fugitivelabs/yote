@@ -1,11 +1,34 @@
+/**
+ * Build the User store
+ *
+ * Follows best practices from Redux documentation:
+ *   - Single source of truth
+ *   - State/Store is read-only
+ *   - Changes are made with pure functions
+ *
+ * See http://redux.js.org/docs/recipes/StructuringReducers.html for specific
+ * docs on structuring reducers
+ */
 
+// import user actions 
 import * as Actions from './userActions';
 
+/**
+ * userList reducer -
+ *
+ * Accepts arbitrary list arguments and recursively builds nested list as needed
+ *
+ * NOTE: this is never called directly. Only by parent 'user' reducer (defined
+ * below) when dealing with a LIST action
+ */
 function userList(state = {
-  //default state for a list
-  // NOTE that this is not actually initialized here. the actual init happens the first time REQUEST_LIST is called.
-  // this is for reference only
-  items: [] //array of _id's
+  /**
+   * The "items" object defines the default state for a list
+   *
+   * NOTE: This is for reference only. The list is not actually initialized here.
+   * The actual init happens the first time REQUEST_LIST is called.
+   */
+  items: [] // array of _id's
   , isFetching: false
   , error: null
   , didInvalidate: false
@@ -14,15 +37,24 @@ function userList(state = {
   , filter: {}
 }, action) {
   // console.log("DEBUG", state, action.listArgs);
-  let nextAction = JSON.parse(JSON.stringify(action)); //change copy not original object
+  let nextAction = JSON.parse(JSON.stringify(action)); // Only change copy. NOT the original object.
   nextAction.listArgs.shift();
+
+  /**
+   * Check for nested list --
+   * If the action is asking for a nested state, like lists[workout][123ABC],
+   * then recursively return an _additional_ userList reducer.
+   *
+   * Otherwise, return the actual user lists' store
+   */
   if(nextAction.listArgs.length > 0) {
-    //action is asking for a nested state, like lists[workout][123ABC]. return additional userList reducer.
     return Object.assign({}, state, {
       [nextAction.listArgs[0]]: userList(state[nextAction.listArgs[0]] || {}, nextAction)
     })
   } else {
-    //don't nest any more, return actual user list store
+    /**
+     * Listen for the actions and respond accordingly.
+     */
     switch(action.type) {
       case Actions.INVALIDATE_USER_LIST: {
         return Object.assign({}, state, {
@@ -31,7 +63,7 @@ function userList(state = {
       }
       case Actions.REQUEST_USER_LIST: {
         return Object.assign({}, state, {
-          items: [] //array of _id's
+          items: [] // array of _id's
           , isFetching: true
           , error: null
           , lastUpdated: null
@@ -42,7 +74,7 @@ function userList(state = {
       case Actions.RECEIVE_USER_LIST: {
         if(!action.success) {
           return Object.assign({}, state, {
-            items: [] //array of _id's
+            items: [] // array of _id's
             , isFetching: false
             , error: action.error
             , didInvalidate: true
@@ -78,9 +110,22 @@ function userList(state = {
   }
 }
 
+/**
+ * Primary user reducer -
+ *
+ * This is the single source of truth for all things 'user' related within the
+ * application. The primary components of the reducer are defined in detail below.
+ *
+ * The basic idea is that the reducer listens for actions indicating a desired
+ * state change and the reducer returns a new _copy_ of the state accordingly.
+ */
+
 function user(state = {
-  //define fields for a "new" user
-  // a component that creates a new object should store a copy of this in it's state
+  /**
+   * "defaultItem" defines fields for a _new_ user
+   * any component that creates a new user object should store a copy of this
+   * in its state
+   */
   defaultItem: {
     username: ""
     , password: ""
@@ -88,10 +133,18 @@ function user(state = {
     , lastName: ""
     , roles: []
   }
-  , byId: {} //map of all items
+  /**
+   * "byId" is an object map of all user items in the store. The map's keys are
+   * the Mongo ids of the objects
+   */
+  , byId: {}
+  /**
+   * "loggedIn" is literally the logged in user for the current session
+   *
+   * NOTE: this is different from "selected", is static, and does _not_ intereact
+   * with the "byId" map.
+   */
   , loggedIn: {
-    //different from "selected"
-    //this is static and does not interact with the byId map
     user: window.currentUser || {}
     , isFetching: false
     , error: null
@@ -100,18 +153,36 @@ function user(state = {
     , resetUserId: null
     , resetTokenValid: false
   }
-  , selected: { //single selected entity
+  /**
+   * "selected" is a single _selected_ entity within the store
+   *
+   * For example, when assigning roles a single user in /admin, the single user
+   * being edited would be defined by "selected"
+   */
+  , selected: {
     id: null
     , isFetching: false
     , error: null
     , didInvalidate: false
     , lastUpdated: null
   }
-  , lists: {} //individual instances of the userList reducer above
+  /**
+   * "lists" corresponds to individual instances of the userList reducer as
+   * defined above.
+   *
+   * NOTE: when requesting a list, if args are undefined, the lists defaults to
+   * lists['all']
+   */
+  , lists: {}
 }, action) {
+  /**
+   * Listen for the actions and respond accordingly.
+   */
   switch(action.type) {
-//LOGGED IN USER ACTIONS
-    case Actions.REQUEST_LOGIN: 
+    /**
+     * LOGGED IN USER ACTIONS
+     */
+    case Actions.REQUEST_LOGIN:
       return Object.assign({}, state, {
         loggedIn: {
           user: {
@@ -194,8 +265,6 @@ function user(state = {
         window.currentUser = {};
         return Object.assign({}, state, {
           loggedIn: {
-            //different from "selected"
-            //this is static and does not interact with the byId map
             user: {}
             , isFetching: false
             , error: null
@@ -206,8 +275,6 @@ function user(state = {
           }
         })
       }
-    //update profile
-
     case Actions.REQUEST_CHECK_RESET_HEX:
       return Object.assign({}, state, {
         loggedIn: {
@@ -220,7 +287,6 @@ function user(state = {
           , resetTokenValid: false
         }
       })
-
     case Actions.RECEIVE_CHECK_RESET_HEX:
       return Object.assign({}, state, {
         loggedIn: {
@@ -234,7 +300,9 @@ function user(state = {
         }
       })
 
-//SINGLE ITEM ACTIONS
+    /**
+     * SINGLE USER ITEM ACTIONS
+     */
     case Actions.REQUEST_SINGLE_USER:
       return Object.assign({}, state, {
         selected: {
@@ -245,8 +313,8 @@ function user(state = {
       })
     case Actions.RECEIVE_SINGLE_USER:
       if(action.success) {
-        console.log("Mapping now");
-        //add object to map
+        // add object to map
+        // console.log("Mapping now");
         let newIdMap = Object.assign({}, state.byId, {});
         newIdMap[action.id] = action.item;
         return Object.assign({}, state, {
@@ -270,17 +338,17 @@ function user(state = {
           }
         })
       }
-    
+
     case Actions.ADD_SINGLE_USER_TO_MAP:
-      console.log("ADD_SINGLE_USER_TO_MAP");
-      var newIdMap = Object.assign({}, state.byId, {}); //copy map
-      newIdMap[action.item._id] = action.item; //add single
+      // console.log("ADD_SINGLE_USER_TO_MAP");
+      var newIdMap = Object.assign({}, state.byId, {}); // copy map
+      newIdMap[action.item._id] = action.item; // add single to map
       return Object.assign({}, state, {
         byId: newIdMap
       })
 
     case Actions.REQUEST_CREATE_USER:
-      console.log("REQUEST_CREATE_USER");
+      // console.log("REQUEST_CREATE_USER");
       return Object.assign({}, state, {
         selected: {
           id: null
@@ -289,9 +357,9 @@ function user(state = {
         }
       })
     case Actions.RECEIVE_CREATE_USER:
-      console.log("RECEIVE_CREATE_USER");
+      // console.log("RECEIVE_CREATE_USER");
       if(action.success) {
-        //add object to map
+        // add object to map
         let newIdMap = Object.assign({}, state.byId, {});
         newIdMap[action.id] = action.item;
         return Object.assign({}, state, {
@@ -327,7 +395,7 @@ function user(state = {
 
     case Actions.RECEIVE_UPDATE_USER:
       if(action.success) {
-        //add object to map
+        // add object to map
         let newIdMap = Object.assign({}, state.byId, {});
         newIdMap[action.id] = action.item;
         return Object.assign({}, state, {
@@ -362,9 +430,9 @@ function user(state = {
       })
     case Actions.RECEIVE_DELETE_USER:
       if(action.success) {
-        //remove object from map
+        // remove object from map
         let newIdMap = Object.assign({}, state.byId, {});
-        delete newIdMap[action.id]; //remove key
+        delete newIdMap[action.id]; // remove key
         return Object.assign({}, state, {
           byId: newIdMap
           , selected: {
@@ -393,12 +461,14 @@ function user(state = {
         }
       })
 
-//LIST ACTIONS
+    /**
+     * LIST ACTIONS
+     */
     case Actions.INVALIDATE_USER_LIST:
     case Actions.REQUEST_USER_LIST:
     case Actions.SET_USER_FILTER:
     case Actions.SET_USER_PAGINATION:
-      //"forward" on to individual list reducer
+      // forward these actions on to individual list reducer
       let nextLists = Object.assign({}, state.lists, {});
       return Object.assign({}, state, {
         lists: Object.assign({}, state.lists, {
@@ -406,7 +476,7 @@ function user(state = {
         })
       })
     case Actions.RECEIVE_USER_LIST:
-      //add items to "byId" before we forward to individual list reducer
+      // add all new items to the "byId" map before we forward to individual list reducer
       let newIdMap = Object.assign({}, state.byId, {});
       if(action.success) {
         for(const item of action.list) {
