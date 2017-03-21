@@ -10,7 +10,7 @@
  * docs on structuring reducers
  */
 
-// import user actions 
+// import user actions
 import * as Actions from './userActions';
 
 /**
@@ -104,8 +104,9 @@ function userList(state = {
           pagination: action.pagination
         })
       }
-      default:
+      default: {
         return state;
+      }
     }
   }
 }
@@ -182,7 +183,7 @@ function user(state = {
     /**
      * LOGGED IN USER ACTIONS
      */
-    case Actions.REQUEST_LOGIN:
+    case Actions.REQUEST_LOGIN: {
       return Object.assign({}, state, {
         loggedIn: {
           user: {
@@ -194,7 +195,8 @@ function user(state = {
           , lastUpdated: null
         }
       })
-    case Actions.RECEIVE_LOGIN:
+    }
+    case Actions.RECEIVE_LOGIN: {
       if(!action.success) {
         return Object.assign({}, state, {
           loggedIn: {
@@ -215,7 +217,8 @@ function user(state = {
           }
         })
       }
-    case Actions.REQUEST_REGISTER:
+    }
+    case Actions.REQUEST_REGISTER: {
       return Object.assign({}, state, {
         loggedIn: {
           user: {}
@@ -225,7 +228,8 @@ function user(state = {
           , lastUpdated: null
         }
       })
-    case Actions.RECEIVE_REGISTER:
+    }
+    case Actions.RECEIVE_REGISTER: {
       if(!action.success) {
         return Object.assign({}, state, {
           loggedIn: {
@@ -246,14 +250,16 @@ function user(state = {
           }
         })
       }
-    case Actions.REQUEST_LOGOUT:
+    }
+    case Actions.REQUEST_LOGOUT: {
       return Object.assign({}, state, {
         loggedIn: Object.assign({}, state.loggedIn, {
           isFetching: true
           , error: null
         })
       })
-    case Actions.RECEIVE_LOGOUT:
+    }
+    case Actions.RECEIVE_LOGOUT: {
       if(!action.success) {
         return Object.assign({}, state, {
           loggedIn: Object.assign({}, state.loggedIn, {
@@ -275,7 +281,8 @@ function user(state = {
           }
         })
       }
-    case Actions.REQUEST_CHECK_RESET_HEX:
+    }
+    case Actions.REQUEST_CHECK_RESET_HEX: {
       return Object.assign({}, state, {
         loggedIn: {
           user: {}
@@ -287,7 +294,8 @@ function user(state = {
           , resetTokenValid: false
         }
       })
-    case Actions.RECEIVE_CHECK_RESET_HEX:
+    }
+    case Actions.RECEIVE_CHECK_RESET_HEX: {
       return Object.assign({}, state, {
         loggedIn: {
           user: {}
@@ -299,11 +307,12 @@ function user(state = {
           , resetTokenValid: action.success
         }
       })
+    }
 
     /**
      * SINGLE USER ITEM ACTIONS
      */
-    case Actions.REQUEST_SINGLE_USER:
+    case Actions.REQUEST_SINGLE_USER: {
       return Object.assign({}, state, {
         selected: {
           id: action.id
@@ -311,7 +320,8 @@ function user(state = {
           , error: null
         }
       })
-    case Actions.RECEIVE_SINGLE_USER:
+    }
+    case Actions.RECEIVE_SINGLE_USER: {
       if(action.success) {
         // add object to map
         // console.log("Mapping now");
@@ -338,17 +348,15 @@ function user(state = {
           }
         })
       }
-
-    case Actions.ADD_SINGLE_USER_TO_MAP:
-      // console.log("ADD_SINGLE_USER_TO_MAP");
-      var newIdMap = Object.assign({}, state.byId, {}); // copy map
+    }
+    case Actions.ADD_SINGLE_USER_TO_MAP: {
+      let newIdMap = Object.assign({}, state.byId, {}); // copy map
       newIdMap[action.item._id] = action.item; // add single to map
       return Object.assign({}, state, {
         byId: newIdMap
       })
-
-    case Actions.REQUEST_CREATE_USER:
-      // console.log("REQUEST_CREATE_USER");
+    }
+    case Actions.REQUEST_CREATE_USER: {
       return Object.assign({}, state, {
         selected: {
           id: null
@@ -356,8 +364,8 @@ function user(state = {
           , error: null
         }
       })
-    case Actions.RECEIVE_CREATE_USER:
-      // console.log("RECEIVE_CREATE_USER");
+    }
+    case Actions.RECEIVE_CREATE_USER: {
       if(action.success) {
         // add object to map
         let newIdMap = Object.assign({}, state.byId, {});
@@ -383,8 +391,8 @@ function user(state = {
           }
         })
       }
-
-    case Actions.REQUEST_UPDATE_USER:
+    }
+    case Actions.REQUEST_UPDATE_USER: {
       return Object.assign({}, state, {
         selected: {
           id: action.id
@@ -392,8 +400,8 @@ function user(state = {
           , error: null
         }
       })
-
-    case Actions.RECEIVE_UPDATE_USER:
+    }
+    case Actions.RECEIVE_UPDATE_USER: {
       if(action.success) {
         // add object to map
         let newIdMap = Object.assign({}, state.byId, {});
@@ -419,8 +427,8 @@ function user(state = {
           }
         })
       }
-
-    case Actions.REQUEST_DELETE_USER:
+    }
+    case Actions.REQUEST_DELETE_USER: {
       return Object.assign({}, state, {
         selected: {
           id: action.id
@@ -428,7 +436,8 @@ function user(state = {
           , error: null
         }
       })
-    case Actions.RECEIVE_DELETE_USER:
+    }
+    case Actions.RECEIVE_DELETE_USER: {
       if(action.success) {
         // remove object from map
         let newIdMap = Object.assign({}, state.byId, {});
@@ -454,20 +463,21 @@ function user(state = {
           }
         })
       }
-    case Actions.INVALIDATE_SELECTED_USER:
+    }
+    case Actions.INVALIDATE_SELECTED_USER: {
       return Object.assign({}, state, {
         selected: {
           didInvalidate: true
         }
       })
-
+    }
     /**
      * LIST ACTIONS
      */
     case Actions.INVALIDATE_USER_LIST:
     case Actions.REQUEST_USER_LIST:
     case Actions.SET_USER_FILTER:
-    case Actions.SET_USER_PAGINATION:
+    case Actions.SET_USER_PAGINATION: {
       // forward these actions on to individual list reducer
       let nextLists = Object.assign({}, state.lists, {});
       return Object.assign({}, state, {
@@ -475,7 +485,8 @@ function user(state = {
           [action.listArgs[0]]: userList(state.lists[action.listArgs[0]] || {}, action)
         })
       })
-    case Actions.RECEIVE_USER_LIST:
+    }
+    case Actions.RECEIVE_USER_LIST: {
       // add all new items to the "byId" map before we forward to individual list reducer
       let newIdMap = Object.assign({}, state.byId, {});
       if(action.success) {
@@ -489,8 +500,10 @@ function user(state = {
           [action.listArgs[0]]: userList(state.lists[action.listArgs[0]], action)
         })
       })
-    default:
+    }
+    default: {
       return state
+    }
   }
 }
 
