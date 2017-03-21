@@ -3,6 +3,9 @@ import React, { PropTypes } from 'react';
 import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 
+// import third-party libraries
+import _ from 'lodash';
+
 // import actions
 import * as userActions from '../userActions';
 
@@ -25,17 +28,24 @@ class AdminCreateUser extends Base {
   }
 
   _handleFormChange(e) {
-    let nextState = this.state.user;
-    nextState[e.target.name] = e.target.value;
-    this.setState(nextState);
+    /**
+     * This let's us change arbitrarily nested objects with one pass
+     */
+    let newState = _.update( this.state.user, e.target.name, function() {
+      return e.target.value;
+    });
+    this.setState(newState);
   }
 
   _handleFormSubmit(e) {
     e.preventDefault();
     this.props.dispatch(userActions.sendCreateUser(this.state.user)).then((action) => {
       if(action.success) {
+        this.props.dispatch(userActions.invaldiateList());
         browserHistory.push('/admin/users');
       } else {
+        // console.log("Response Error:");
+        // console.log(action);
         alert("ERROR CREATING USER: ", action.message);
       }
     });
@@ -68,6 +78,10 @@ AdminCreateUser.propTypes = {
 }
 
 const mapStoreToProps = (store) => {
+  /**
+  * NOTE: Yote refer's to the global Redux 'state' as 'store' to keep it mentally
+  * differentiated from the React component's internal state
+  */
   return {
     defaultUser: store.user.defaultItem
   }

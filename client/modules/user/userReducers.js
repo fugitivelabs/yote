@@ -48,12 +48,16 @@ function userList(state = {
    * Otherwise, return the actual user lists' store
    */
   if(nextAction.listArgs.length > 0) {
+    /**
+     * The action is asking for a nested state, like lists[workout][123ABC].
+     * Let's nest it by returning an additional userList reducer and trying again.
+     */
     return Object.assign({}, state, {
       [nextAction.listArgs[0]]: userList(state[nextAction.listArgs[0]] || {}, nextAction)
     })
   } else {
     /**
-     * Listen for the actions and respond accordingly.
+     * Stop nesting. Instead listen for the actions and respond accordingly.
      */
     switch(action.type) {
       case Actions.INVALIDATE_USER_LIST: {
@@ -120,8 +124,8 @@ function userList(state = {
  * The basic idea is that the reducer listens for actions indicating a desired
  * state change and the reducer returns a new _copy_ of the state accordingly.
  */
-
 function user(state = {
+
   /**
    * "defaultItem" defines fields for a _new_ user
    * any component that creates a new user object should store a copy of this
@@ -134,11 +138,13 @@ function user(state = {
     , lastName: ""
     , roles: []
   }
+
   /**
    * "byId" is an object map of all user items in the store. The map's keys are
-   * the Mongo ids of the objects
+   * the Mongo ids of the objects by default
    */
   , byId: {}
+
   /**
    * "loggedIn" is literally the logged in user for the current session
    *
@@ -154,6 +160,7 @@ function user(state = {
     , resetUserId: null
     , resetTokenValid: false
   }
+
   /**
    * "selected" is a single _selected_ entity within the store
    *
@@ -167,6 +174,7 @@ function user(state = {
     , didInvalidate: false
     , lastUpdated: null
   }
+
   /**
    * "lists" corresponds to individual instances of the userList reducer as
    * defined above.
@@ -175,6 +183,7 @@ function user(state = {
    * lists['all']
    */
   , lists: {}
+
 }, action) {
   /**
    * Listen for the actions and respond accordingly.
@@ -310,7 +319,7 @@ function user(state = {
     }
 
     /**
-     * SINGLE USER ITEM ACTIONS
+     * SINGLE USER ACTIONS
      */
     case Actions.REQUEST_SINGLE_USER: {
       return Object.assign({}, state, {
@@ -471,6 +480,7 @@ function user(state = {
         }
       })
     }
+
     /**
      * LIST ACTIONS
      */

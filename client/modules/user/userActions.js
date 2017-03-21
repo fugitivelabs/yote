@@ -253,7 +253,7 @@ export const RECEIVE_SINGLE_USER = "RECEIVE_SINGLE_USER";
 function receiveSingleUser(json) {
   return {
     type: RECEIVE_SINGLE_USER
-    , id: json.user._id
+    , id: json.user._id || null // to avoid error if empty json
     , item: json.user
     , success: json.success
     , error: json.message
@@ -416,10 +416,10 @@ const shouldFetchList = (state, listArgs) => {
 
 export const fetchListIfNeeded = (...listArgs) => (dispatch, getState) => {
   if(listArgs.length === 0) {
-    // of no arguments passed, make the list we want "all"
+    // If no arguments passed, make the list we want "all"
     listArgs = ["all"];
   }
-  if (shouldFetchList(getState(), listArgs)) {
+  if(shouldFetchList(getState(), listArgs)) {
     return dispatch(fetchList(...listArgs));
   } else {
     return dispatch(returnUserListPromise(...listArgs));

@@ -22,8 +22,14 @@ class AdminUserList extends Base {
 
   render() {
     const { params, userList, userMap } = this.props;
+
+    /**
+     * NOTE: Regarding isEmpty, when the app loads, all "product lists"
+     * are null objects. They exist only after we create them.
+     */
     const isEmpty = !userList || userList.items.length === 0 || userList.didInvalidate;
-    return(
+
+    return (
       <div className="yt-container">
         <h3> All Registered Users
           <Link className="yt-btn small u-pullRight" to={'/admin/users/new'}> NEW USER </Link>
@@ -76,6 +82,10 @@ AdminUserList.propTypes = {
 }
 
 const mapStoreToProps = (store) => {
+  /**
+  * NOTE: Yote refer's to the global Redux 'state' as 'store' to keep it mentally
+  * differentiated from the React component's internal state
+  */
   return {
     userList: store.user.lists.all
     , userMap: store.user.byId

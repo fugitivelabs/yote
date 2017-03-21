@@ -1,3 +1,7 @@
+/**
+ * Reusable stateless form component for User by admins
+ */
+
 // import primary libraries
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router';
@@ -18,6 +22,7 @@ function AdminUserForm({
   , cancelLink
   , formTitle
 }) {
+
   // set the button text
   const buttonText = formType === "create" ? "Create User" : "Update User";
 
@@ -91,6 +96,10 @@ AdminUserForm.propTypes = {
   , handleFormSubmit: PropTypes.func.isRequired
   , handleFormChange: PropTypes.func.isRequired
   , user: PropTypes.object.isRequired
+}
+
+AdminUserForm.defaultProps = {
+  formTitle: ''
 }
 
 export default AdminUserForm;

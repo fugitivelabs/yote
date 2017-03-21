@@ -1,10 +1,11 @@
-
+// import primary libraries
 import React from 'react';
-
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { Link } from 'react-router';
 
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-
+/**
+ * build a temporary component for each "cool thing"
+ */
 class TheCoolThing extends React.Component{
   constructor(props){
     super(props);
@@ -18,15 +19,18 @@ class TheCoolThing extends React.Component{
 
   tick() {
     var { coolThing, coolThingIndex, coolThingsList, secondsElapsed } = this.state;
+    let nextCoolThingIndex;
     if(coolThingIndex == coolThingsList.length - 1) {
-      var newCoolThingIndex = 0;
+      // last one, reset to 0
+      nextCoolThingIndex = 0;
     } else {
-      var newCoolThingIndex = coolThingIndex + 1;
+      // setup the next cool thing
+      nextCoolThingIndex = coolThingIndex + 1;
     }
     this.setState({
       secondsElapsed: secondsElapsed + 1
       , coolThing: coolThingsList[coolThingIndex]
-      , coolThingIndex: newCoolThingIndex
+      , coolThingIndex: nextCoolThingIndex
     });
   }
 
@@ -40,23 +44,29 @@ class TheCoolThing extends React.Component{
 
   render() {
     return(
-      <ReactCSSTransitionGroup transitionName="fade" transitionEnterTimeout={300} transitionLeaveTimeout={300} transitionLeave={false}
+      <ReactCSSTransitionGroup
+        transitionName="fade"
+        transitionEnterTimeout={300}
+        transitionLeaveTimeout={300}
+        transitionLeave={false}
       >
-        <span className="cool-thing" key={this.state.coolThing}>
+        <span
+          className="cool-thing"
+          key={this.state.coolThing}
+        >
           {this.state.coolThing}
         </span>
-
       </ReactCSSTransitionGroup>
     )
   }
 }
 
-
+/**
+ * build and export the landing page Hero banner
+ */
 class Hero extends React.Component{
   constructor(props){
     super(props);
-    this.state = {
-    };
   }
 
   render(){

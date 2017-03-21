@@ -17,12 +17,13 @@ class TextAreaInput extends Base {
 
   render() {
     const {
-      label
-      , value
-      , placeholder
+      helpText
+      , label
       , name
+      , placeholder
       , required
-      , helpText
+      , rows
+      , value
     } = this.props;
 
     return (

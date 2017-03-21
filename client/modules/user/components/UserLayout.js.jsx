@@ -1,3 +1,8 @@
+/**
+ * Wraps all non-admin User components in a default view wrapper
+ * is a class in case you want some extra special logic...
+ */
+
 // import primary libraries
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';

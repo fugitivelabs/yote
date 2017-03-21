@@ -1,12 +1,23 @@
+/**
+ * Updates a single product from a copy of the selcted product
+ * as defined in the product reducer
+ */
+
+// import primary libraries
 import React, { PropTypes } from 'react';
-import Base from "../../../global/components/BaseComponent.js.jsx";
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
+
+// import third-party libraries
 import _ from 'lodash';
 
+// import actions
 import * as productActions from '../productActions';
 
-// import components
+// import global components
+import Base from "../../../global/components/BaseComponent.js.jsx";
+
+// import module components
 import ProductForm from './ProductForm.js.jsx';
 
 class UpdateProduct extends Base {
@@ -14,8 +25,8 @@ class UpdateProduct extends Base {
     super(props);
     const { selectedProduct, productMap } = this.props;
     this.state = {
-      item: productMap[selectedProduct.id] ? JSON.parse(JSON.stringify(productMap[selectedProduct.id])) : {}      
-      //we don't want to change the store, just make changes to a copy
+      product: productMap[selectedProduct.id] ? JSON.parse(JSON.stringify(productMap[selectedProduct.id])) : {}
+      // NOTE: we don't want to change the store, just make changes to a copy
     }
     this._bind(
       '_handleFormChange'
@@ -24,7 +35,6 @@ class UpdateProduct extends Base {
   }
 
   componentDidMount() {
-    console.log("Single item mounting");
     const { dispatch, params } = this.props;
     dispatch(productActions.fetchSingleIfNeeded(params.productId))
   }
@@ -32,13 +42,13 @@ class UpdateProduct extends Base {
   componentWillReceiveProps(nextProps) {
     const { selectedProduct, productMap } = nextProps;
     this.state = {
-      item: productMap[selectedProduct.id] ? JSON.parse(JSON.stringify(productMap[selectedProduct.id])) : {}
-      //we don't want to actually change the store's item, just use a copy
+      product: productMap[selectedProduct.id] ? JSON.parse(JSON.stringify(productMap[selectedProduct.id])) : {}
+      //we don't want to actually change the store's product, just use a copy
     }
   }
 
   _handleFormChange(e) {
-    var newState = _.update( this.state.item, e.target.name, function() {
+    var newState = _.update( this.state.product, e.target.name, function() {
       return e.target.value;
     });
     this.setState(newState);
@@ -46,15 +56,12 @@ class UpdateProduct extends Base {
 
   _handleFormSubmit(e) {
     e.preventDefault();
-    // console.log("_handleFormSubmit");
-    // console.log(e);
-    this.props.dispatch(productActions.sendUpdateProduct(this.state.item)).then((action) => {
-      console.log(action);
+    this.props.dispatch(productActions.sendUpdateProduct(this.state.product)).then((action) => {
       if(action.success) {
-        browserHistory.push(`/products/${action.item._id}`)
+        browserHistory.push(`/products/${action.product._id}`)
       } else {
-        console.log("Response Error:");
-        console.log(action);
+        // console.log("Response Error:");
+        // console.log(action);
         alert("ERROR - Check logs");
       }
     });
@@ -62,18 +69,18 @@ class UpdateProduct extends Base {
 
   render() {
     const { selectedProduct, productMap } = this.props;
-    const { item } = this.state;
-    const isEmpty = (!item || item.title === null || item.title === undefined);
+    const { product } = this.state;
+    const isEmpty = (!product || product.title === null || product.title === undefined);
     return  (
       <div >
         {isEmpty
           ? (selectedProduct.isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
         : <ProductForm
-            product={item}
+            product={product}
             formType="update"
             handleFormSubmit={this._handleFormSubmit}
             handleFormChange={this._handleFormChange}
-            cancelLink={`/products/${item._id}`}
+            cancelLink={`/products/${product._id}`}
             formTitle="Update Product"
           />
         }
@@ -87,6 +94,10 @@ UpdateProduct.propTypes = {
 }
 
 const mapStoreToProps = (store) => {
+  /**
+  * NOTE: Yote refer's to the global Redux 'state' as 'store' to keep it mentally
+  * differentiated from the React component's internal state
+  */
   return {
     selectedProduct: store.product.selected
     , productMap: store.product.byId
