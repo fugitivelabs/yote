@@ -1,6 +1,6 @@
 /**
  * Creates a new product from a copy of the defaultItem in the product reducer
- */ 
+ */
 
 // import primary libraries
 import React, { PropTypes } from 'react';
@@ -24,7 +24,7 @@ class CreateProduct extends Base {
     super(props);
     this.state = {
       product: JSON.parse(JSON.stringify(this.props.defaultProduct))
-      // We don't want to actually change the store's defaultItem, just use a copy
+      // NOTE: We don't want to actually change the store's defaultItem, just use a copy
     }
     this._bind(
       '_handleFormChange'
