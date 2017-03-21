@@ -9,20 +9,22 @@ class TextAreaInput extends Base {
   constructor(props) {
     super(props);
     this._bind('_handleInputChange');
+  }
 
-  }
-  // check the props the component receives
-  componentWillReceiveProps(nextProps) {
-    // console.log("TextAreaInput props");
-    // console.log(nextProps);
-  }
   _handleInputChange(e) {
-    // console.log("handleinputchange");
-    // console.log(e);
     this.props.change(e);
   }
+
   render() {
-    const { label, value, placeholder, name, required } = this.props;
+    const {
+      label
+      , value
+      , placeholder
+      , name
+      , required
+      , helpText
+    } = this.props;
+
     return (
       <div className="input-group">
         <label htmlFor={name}> {label} </label>
@@ -33,20 +35,24 @@ class TextAreaInput extends Base {
           onChange={this._handleInputChange}
           required={required}
           value={value}
+          rows={rows ? rows : "4"}
         >
         </textarea>
+        <small className="help-text"><em>{helpText}</em></small>
       </div>
     )
   }
 }
 
 TextAreaInput.propTypes = {
-  label: PropTypes.string
-  , value: PropTypes.string
-  , placeholder: PropTypes.string
+  change: PropTypes.func
+  , helpText: PropTypes.any
+  , label: PropTypes.string
   , name: PropTypes.string
+  , placeholder: PropTypes.string
   , required: PropTypes.bool
-  , change: PropTypes.func
+  , rows: PropTypes.string
+  , value: PropTypes.string
 }
 
 export default TextAreaInput;

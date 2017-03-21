@@ -1,12 +1,15 @@
+// import primary libraries
 import React, { PropTypes } from 'react';
-import Base from "../../../global/components/BaseComponent.js.jsx";
-import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
+import { connect } from 'react-redux';
 
 //actions
 import * as userActions from '../userActions';
 
-//components
+// import global components
+import Base from "../../../global/components/BaseComponent.js.jsx";
+
+// import user components
 import UserRegisterForm from './UserRegisterForm.js.jsx';
 
 class UserRegister extends Base {
@@ -14,7 +17,7 @@ class UserRegister extends Base {
     super(props);
     this.state = {
       user: this.props.defaultUser ? JSON.parse(JSON.stringify(this.props.defaultUser)): null
-      //don't want to actually change the store's defaultItem, just use a copy
+      // NOTE: don't want to actually change the store's defaultItem, just use a copy
     }
     this._bind(
       '_handleFormChange'
@@ -30,14 +33,12 @@ class UserRegister extends Base {
 
   _handleFormSubmit(e) {
     e.preventDefault();
-    console.log("SUBMIT");
-    console.log(this.state.user);
-    this.props.dispatch(userActions.sendRegister(this.state.user)).then((res) => {
-      if(res.success) {
-        //redirect
+    this.props.dispatch(userActions.sendRegister(this.state.user)).then((action) => {
+      if(action.success) {
         browserHistory.push('/');
+        // TODO: handle next params
       } else {
-        alert(res.error);
+        alert(action.error);
       }
     })
   }
@@ -47,7 +48,9 @@ class UserRegister extends Base {
     const isEmpty = !user || (user.username === null || user.username === undefined);
     return  (
       <div>
-        { isEmpty ? "Loading..." :
+        { isEmpty ?
+          "Loading..."
+          :
           <UserRegisterForm
             user={user}
             handleFormSubmit={this._handleFormSubmit}

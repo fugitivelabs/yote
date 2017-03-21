@@ -1,22 +1,23 @@
+// import primary libraries
 import React, { PropTypes } from 'react';
-import Base from "../../../global/components/BaseComponent.js.jsx";
-import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
+import { connect } from 'react-redux';
 
-//actions
+// import actions
 import * as userActions from '../userActions';
 
+// import global components
+import Base from "../../../global/components/BaseComponent.js.jsx";
 
-//components
+// import user components
 import AdminUserForm from './AdminUserForm.js.jsx';
 
 class AdminUpdateUser extends Base {
   constructor(props) {
     super(props);
-    const { selectedUser, userMap } = this.props;
     this.state = {
-      user: userMap[selectedUser.id] ? JSON.parse(JSON.stringify(userMap[selectedUser.id])) : {}      
-      //we don't want to change the store, just make changes to a copy
+      user: props.userMap[props.selectedUser.id] ? JSON.parse(JSON.stringify(props.userMap[props.selectedUser.id])) : {}
+      // NOTE: we don't want to change the store, just make changes to a copy
     }
     this._bind(
       '_handleFormChange'
@@ -31,25 +32,25 @@ class AdminUpdateUser extends Base {
 
   componentWillReceiveProps(nextProps) {
     const { selectedUser, userMap } = nextProps;
-    this.state = {
-      user: userMap[selectedUser.id] ? JSON.parse(JSON.stringify(userMap[selectedUser.id])) : {test: "a"}      
-      //we don't want to change the store, just make changes to a copy
-    }
+    this.setState({
+      user: userMap[selectedUser.id] ? JSON.parse(JSON.stringify(userMap[selectedUser.id])) : {test: "a"}
+    })
+    // NOTE: again, we don't want to change the store, just make changes to a copy
   }
 
   _handleFormChange(e) {
-    var nextState = this.state.user;
+    let nextState = this.state.user;
     nextState[e.target.name] = e.target.value;
     this.setState(nextState);
   }
 
   _handleFormSubmit(e) {
     e.preventDefault();
-    this.props.dispatch(userActions.sendUpdateUser(this.state.user)).then((res) => {
-      if(res.success) {
+    this.props.dispatch(userActions.sendUpdateUser(this.state.user)).then((action) => {
+      if(action.success) {
         browserHistory.push('/admin/users')
       } else {
-        alert("ERROR UPDATING USER: " + res.message);
+        alert("ERROR UPDATING USER: ", action.message);
       }
     });
   }
@@ -60,8 +61,8 @@ class AdminUpdateUser extends Base {
     const isEmpty = !user || !user.username;
     return  (
       <div>
-        { isEmpty
-          ? <h2> Loading... </h2>
+        { isEmpty ?
+          <h2> Loading... </h2>
           :
           <AdminUserForm
             user={this.state.user}
