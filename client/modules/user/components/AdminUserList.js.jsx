@@ -1,12 +1,15 @@
+// import primary libraries
 import React, { PropTypes } from 'react';
 import { Link, Router } from 'react-router';
-import Base from "../../../global/components/BaseComponent.js.jsx";
 import { connect } from 'react-redux';
 
 // import actions
 import * as userActions from '../userActions';
 
-// import components
+// import global components
+import Base from "../../../global/components/BaseComponent.js.jsx";
+
+// import user components
 import AdminUserListItem from './AdminUserListItem.js.jsx';
 
 class AdminUserList extends Base {
@@ -19,18 +22,24 @@ class AdminUserList extends Base {
 
   render() {
     const { params, userList, userMap } = this.props;
+
+    /**
+     * NOTE: Regarding isEmpty, when the app loads, all "product lists"
+     * are null objects. They exist only after we create them.
+     */
     const isEmpty = !userList || userList.items.length === 0 || userList.didInvalidate;
-    //try to tell me that this next line isn't cool as hell. go ahead, try. es6 ftw.
-    return(
+
+    return (
       <div className="yt-container">
         <h3> All Registered Users
           <Link className="yt-btn small u-pullRight" to={'/admin/users/new'}> NEW USER </Link>
         </h3>
         <hr/>
         <p className="large">Here you can create, edit, and add permissions to users</p>
-        { isEmpty
-          ? (userList && userList.isFetching ? <h5>Loading...</h5> : <h5>Empty.</h5>)
-          : <div style={{ opacity: userList.isFetching ? 0.5 : 1 }}>
+        { isEmpty ?
+          (userList && userList.isFetching ? <h5>Loading...</h5> : <h5>Empty.</h5>)
+          :
+          <div style={{ opacity: userList.isFetching ? 0.5 : 1 }}>
             <div className="yt-toolbar">
               <div className="yt-tools space-between">
                 <div className="filters">
@@ -43,24 +52,24 @@ class AdminUserList extends Base {
               </div>
             </div>
             <table className="yt-table striped">
-            <caption> All Users </caption>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Roles</th>
-                <th className="numbers">Last Modified</th>
-              </tr>
-            </thead>
-            <tbody>
-              {userList.items.map((id, i) =>
-                <AdminUserListItem
-                  key={id}
-                  user={userMap[id]}
-                />
-              )}
-            </tbody>
-          </table>
+              <caption> All Users </caption>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Roles</th>
+                  <th className="numbers">Last Modified</th>
+                </tr>
+              </thead>
+              <tbody>
+                {userList.items.map((id, i) =>
+                  <AdminUserListItem
+                    key={id}
+                    user={userMap[id]}
+                  />
+                )}
+              </tbody>
+            </table>
           </div>
         }
       </div>
@@ -68,12 +77,15 @@ class AdminUserList extends Base {
   }
 }
 
-
 AdminUserList.propTypes = {
   dispatch: PropTypes.func.isRequired
 }
 
 const mapStoreToProps = (store) => {
+  /**
+  * NOTE: Yote refer's to the global Redux 'state' as 'store' to keep it mentally
+  * differentiated from the React component's internal state
+  */
   return {
     userList: store.user.lists.all
     , userMap: store.user.byId

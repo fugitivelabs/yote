@@ -1,10 +1,33 @@
+/**
+ * Build the Product store
+ *
+ * Follows best practices from Redux documentation:
+ *   - Single source of truth
+ *   - State/Store is read-only
+ *   - Changes are made with pure functions
+ *
+ * See http://redux.js.org/docs/recipes/StructuringReducers.html for specific
+ * docs on structuring reducers
+ */
 
+// import product actions
 import * as Actions from './productActions';
 
+/**
+ * productList reducer -
+ *
+ * Accepts arbitrary list arguments and recursively builds nested list as needed
+ *
+ * NOTE: this is never called directly. Only by parent 'product' reducer (defined
+ * below) when dealing with a LIST action
+ */
 function productList(state = {
-  //default state for a list
-  // NOTE that this is not actually initialized here. the actual init happens the first time REQUEST_LIST is called.
-  // this is for reference only
+  /**
+   * The "items" object defines the default state for a list
+   *
+   * NOTE: This is for reference only. The list is not actually initialized here.
+   * The actual init happens the first time REQUEST_LIST is called.
+   */
   items: [] //array of _id's
   , isFetching: false
   , error: null
@@ -15,15 +38,28 @@ function productList(state = {
 
 }, action) {
   // console.log("DEBUG", state, action.listArgs);
-  let nextAction = JSON.parse(JSON.stringify(action)); //change copy not original object
+  let nextAction = JSON.parse(JSON.stringify(action)); // Only change copy. NOT the  original object
   nextAction.listArgs.shift();
+
+  /**
+   * Check for nested list --
+   * If the action is asking for a nested state, like lists[workout][123ABC],
+   * then recursively return an _additional_ productList reducer.
+   *
+   * Otherwise, return the actual product lists' store
+   */
   if(nextAction.listArgs.length > 0) {
-    //action is asking for a nested state, like lists[workout][123ABC]. return additional productList reducer.
+    /**
+     * The action is asking for a nested state, like lists[workout][123ABC].
+     * Let's nest it by returning an additional productList reducer and trying again.
+     */
     return Object.assign({}, state, {
       [nextAction.listArgs[0]]: productList(state[nextAction.listArgs[0]] || {}, nextAction)
     })
   } else {
-    //don't nest any more, return actual product list store
+    /**
+     * Stop nesting. Instead listen for the actions and respond accordingly.
+     */
     switch(action.type) {
       case Actions.INVALIDATE_PRODUCT_LIST: {
         return Object.assign({}, state, {
@@ -79,27 +115,65 @@ function productList(state = {
   }
 }
 
+/**
+ * Primary product reducer -
+ *
+ * This is the single source of truth for all things 'product' related within the
+ * application. The primary components of the reducer are defined in detail below.
+ *
+ * The basic idea is that the reducer listens for actions indicating a desired
+ * state change and the reducer returns a new _copy_ of the state accordingly.
+ */
 function product(state = {
-  //define fields for a "new" product
-  // a component that creates a new object should store a copy of this in it's state
+
+  /**
+   * "defaultItem" defines fields for a _new_ product
+   * any component that creates a new product object should store a copy of this
+   * in its state
+   */
   defaultItem: {
     title: ""
     , description: ""
   }
-  , byId: {} //map of all items
-  , selected: { //single selected entity
+
+  /**
+   * "byId" is an object map of all product items in the store. The map's keys are
+   * the Mongo ids of the objects by default
+   */
+  , byId: {}
+
+  /**
+   * "selected" is a single _selected_ entity within the store
+   *
+   * For example, when changing the name of a product, the single product
+   * being edited would be defined by "selected"
+   */
+  , selected: {
     id: null
     , isFetching: false
     , error: null
     , didInvalidate: false
     , lastUpdated: null
   }
-  , lists: {} //individual instances of the productList reducer above
+
+  /**
+   * "lists" corresponds to individual instances of the productList reducer as
+   * defined above.
+   *
+   * NOTE: when requesting a list, if args are undefined, the lists defaults to
+   * lists['all']
+   */
+  , lists: {}
+
 }, action) {
-  // let nextState = Object.assign({}, state, {});
+  /**
+   * Listen for the actions and respond accordingly.
+   */
   switch(action.type) {
-    //SINGLE ITEM ACTIONS
-    case Actions.REQUEST_SINGLE_PRODUCT:
+    /**
+     * SINGLE PRODUCT ACTIONS
+     */
+    case Actions.REQUEST_SINGLE_PRODUCT: {
       return Object.assign({}, state, {
         selected: {
           id: action.id
@@ -107,10 +181,10 @@ function product(state = {
           , error: null
         }
       })
-    case Actions.RECEIVE_SINGLE_PRODUCT:
+    }
+    case Actions.RECEIVE_SINGLE_PRODUCT: {
       if(action.success) {
-        console.log("Mapping now");
-        //add object to map
+        // add received object to map
         let newIdMap = Object.assign({}, state.byId, {});
         newIdMap[action.id] = action.item;
         return Object.assign({}, state, {
@@ -134,17 +208,16 @@ function product(state = {
           }
         })
       }
-
-    case Actions.ADD_SINGLE_PRODUCT_TO_MAP:
-      console.log("ADD_SINGLE_PRODUCT_TO_MAP");
-      var newIdMap = Object.assign({}, state.byId, {}); //copy map
-      newIdMap[action.item._id] = action.item; //add single
+    }
+    case Actions.ADD_SINGLE_PRODUCT_TO_MAP: {
+      // deliberately add this product to the map
+      let newIdMap = Object.assign({}, state.byId, {}); // copy map
+      newIdMap[action.item._id] = action.item; // add single
       return Object.assign({}, state, {
         byId: newIdMap
       })
-
-    case Actions.REQUEST_CREATE_PRODUCT:
-      console.log("REQUEST_CREATE_PRODUCT");
+    }
+    case Actions.REQUEST_CREATE_PRODUCT: {
       return Object.assign({}, state, {
         selected: {
           id: null
@@ -152,10 +225,10 @@ function product(state = {
           , error: null
         }
       })
-    case Actions.RECEIVE_CREATE_PRODUCT:
-      console.log("RECEIVE_CREATE_PRODUCT");
+    }
+    case Actions.RECEIVE_CREATE_PRODUCT: {
       if(action.success) {
-        //add object to map
+        // add received object to map
         let newIdMap = Object.assign({}, state.byId, {});
         newIdMap[action.id] = action.item;
         return Object.assign({}, state, {
@@ -179,8 +252,8 @@ function product(state = {
           }
         })
       }
-
-    case Actions.REQUEST_UPDATE_PRODUCT:
+    }
+    case Actions.REQUEST_UPDATE_PRODUCT: {
       return Object.assign({}, state, {
         selected: {
           id: action.id
@@ -188,10 +261,10 @@ function product(state = {
           , error: null
         }
       })
-
-    case Actions.RECEIVE_UPDATE_PRODUCT:
+    }
+    case Actions.RECEIVE_UPDATE_PRODUCT:{
       if(action.success) {
-        //add object to map
+        // add received object to map
         let newIdMap = Object.assign({}, state.byId, {});
         newIdMap[action.id] = action.item;
         return Object.assign({}, state, {
@@ -215,8 +288,8 @@ function product(state = {
           }
         })
       }
-
-    case Actions.REQUEST_DELETE_PRODUCT:
+    }
+    case Actions.REQUEST_DELETE_PRODUCT: {
       return Object.assign({}, state, {
         selected: {
           id: action.id
@@ -224,9 +297,10 @@ function product(state = {
           , error: null
         }
       })
-    case Actions.RECEIVE_DELETE_PRODUCT:
+    }
+    case Actions.RECEIVE_DELETE_PRODUCT: {
       if(action.success) {
-        //remove object from map
+        // remove this object from map
         let newIdMap = Object.assign({}, state.byId, {});
         delete newIdMap[action.id]; //remove key
         return Object.assign({}, state, {
@@ -250,19 +324,23 @@ function product(state = {
           }
         })
       }
-    case Actions.INVALIDATE_SELECTED_PRODUCT:
+    }
+    case Actions.INVALIDATE_SELECTED_PRODUCT: {
       return Object.assign({}, state, {
         selected: {
           didInvalidate: true
         }
       })
+    }
 
-//LIST ACTIONS
+    /**
+     * LIST ACTIONS
+     */
     case Actions.INVALIDATE_PRODUCT_LIST:
     case Actions.REQUEST_PRODUCT_LIST:
     case Actions.SET_PRODUCT_FILTER:
-    case Actions.SET_PRODUCT_PAGINATION:
-      // "forward" on to individual list reducer
+    case Actions.SET_PRODUCT_PAGINATION: {
+      // forward these actions on to individual list reducer
       let nextLists = Object.assign({}, state.lists, {});
       return Object.assign({}, state, {
         lists: Object.assign({}, state.lists, {
@@ -270,7 +348,8 @@ function product(state = {
           [action.listArgs[0]]: productList(state.lists[action.listArgs[0]] || {}, action)
         })
       })
-    case Actions.RECEIVE_PRODUCT_LIST:
+    }
+    case Actions.RECEIVE_PRODUCT_LIST: {
       // add items to "byId" before we forward to individual list reducer
       let newIdMap = Object.assign({}, state.byId, {});
       if(action.success) {
@@ -284,8 +363,10 @@ function product(state = {
           [action.listArgs[0]]: productList(state.lists[action.listArgs[0]], action)
         })
       })
-    default:
+    }
+    default: {
       return state
+    }
   }
 }
 

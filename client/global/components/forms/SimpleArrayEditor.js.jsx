@@ -60,7 +60,7 @@ class SimpleArrayEditor extends Base {
   }
 
   render() {
-    const { items, name, label, arrayType } = this.props;
+    const { items, name, label, arrayType, helpText } = this.props;
     var pillItems = items.map((item, index) => {
       return (
         <div className="pill-item" key={index}>
@@ -99,6 +99,7 @@ class SimpleArrayEditor extends Base {
           {theInput}
           <button className="item" type="button" onTouchTap={this._addPillItem.bind(this, this.state.newItem)}  disabled={this.state.newItem  ? false : true } >Add {label}</button>
         </div>
+        <small className="help-text"><em>{helpText}</em></small>
       </div>
     )
   }
@@ -113,6 +114,7 @@ SimpleArrayEditor.propTypes = {
     ])
   , change: PropTypes.func.isRequired
   , arrayType: PropTypes.oneOf(["string", "number"])
+  , helpText: PropTypes.any
 }
 
 SimpleArrayEditor.defaultProps = {

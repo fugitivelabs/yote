@@ -1,10 +1,11 @@
+// import primary libraries
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router';
 
+// import form components
 import { TextInput, EmailInput, PasswordInput } from '../../../global/components/forms';
 
-const UserRegisterForm = ({ user, handleFormSubmit, handleFormChange }) => {
-  // console.log("register form loading");
+function UserRegisterForm({ user, handleFormSubmit, handleFormChange }) {
   return (
     <div className="yt-container">
       <h1> Register Account </h1>
@@ -54,9 +55,9 @@ const UserRegisterForm = ({ user, handleFormSubmit, handleFormChange }) => {
 }
 
 UserRegisterForm.propTypes = {
-  user: PropTypes.object.isRequired
+  handleFormChange: PropTypes.func.isRequired
   , handleFormSubmit: PropTypes.func.isRequired
-  , handleFormChange: PropTypes.func.isRequired
+  , user: PropTypes.object.isRequired
 }
 
 export default UserRegisterForm;

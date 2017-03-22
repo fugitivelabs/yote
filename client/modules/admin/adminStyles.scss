@@ -1,14 +1,15 @@
+/**
+ * Styles specific to the /admin side of the app should live here
+ */
 
-
-
-.colors {
+.color-samples {
   .yt-row {
     margin-bottom: $gutter;
   }
   .yt-col {
     padding: $gutter;
   }
-  .blurple {
+  .primary {
     background-color: $brand-primary;
     color: #fff;
   }
@@ -29,8 +30,16 @@
     background-color: $black;
     color: #fff;
   }
-  .green {
+  .success {
     background-color: $success;
+    color: #fff;
+  }
+  .warning {
+    background-color: $warning;
+    color: #fff;
+  }
+  .danger {
+    background-color: $danger;
     color: #fff;
   }
 }

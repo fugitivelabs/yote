@@ -1,11 +1,14 @@
+// import primary libraries
 import React, { PropTypes } from 'react';
-import Base from '../../../../global/components/BaseComponent.js.jsx';
 import { connect } from 'react-redux';
 import { Router, Route, Link } from 'react-router';
 
-// import components
+// import global components
+import Base from '../../../../global/components/BaseComponent.js.jsx';
+
+// import landing page components
 import Hero from './Hero.js.jsx';
-import Navbar from './Navbar.js.jsx';
+import LandingNav from './LandingNav.js.jsx';
 
 class Landing extends Base {
   constructor(props, context) {
@@ -37,7 +40,7 @@ class Landing extends Base {
   render() {
     return(
       <div className="master-layout">
-        <Navbar
+        <LandingNav
           isScrolled={this.state.isScrolled}
           openDialog={this._openDialog}
         />
@@ -48,7 +51,6 @@ class Landing extends Base {
       </div>
     )
   }
-
 }
 
 Landing.propTypes = {

@@ -1,23 +1,30 @@
+/**
+ * Creates a new product from a copy of the defaultItem in the product reducer
+ */
+
+// import primary libraries
 import React, { PropTypes } from 'react';
-import Base from "../../../global/components/BaseComponent.js.jsx";
-import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
+import { connect } from 'react-redux';
+
+// import third-party libraries
 import _ from 'lodash';
 
 // import actions
-// import { singleActions, listActions } from '../actions';
-
 import * as productActions from '../productActions';
 
-// import components
+// import global components
+import Base from "../../../global/components/BaseComponent.js.jsx";
+
+// import product components
 import ProductForm from './ProductForm.js.jsx';
 
 class CreateProduct extends Base {
   constructor(props) {
     super(props);
     this.state = {
-      item: JSON.parse(JSON.stringify(this.props.defaultProduct))
-      //don't want to actually change the store's defaultItem, just use a copy
+      product: JSON.parse(JSON.stringify(this.props.defaultProduct))
+      // NOTE: We don't want to actually change the store's defaultItem, just use a copy
     }
     this._bind(
       '_handleFormChange'
@@ -25,12 +32,11 @@ class CreateProduct extends Base {
     );
   }
 
-  componentDidMount() {
-
-  }
-
   _handleFormChange(e) {
-    var newState = _.update( this.state.item, e.target.name, function() {
+    /**
+     * This let's us change arbitrarily nested objects with one pass
+     */
+    let newState = _.update( this.state.product, e.target.name, function() {
       return e.target.value;
     });
     this.setState(newState);
@@ -39,38 +45,34 @@ class CreateProduct extends Base {
 
   _handleFormSubmit(e) {
     e.preventDefault();
-    // console.log("_handleFormSubmit");
-    // console.log(e);
-    this.props.dispatch(productActions.sendCreateProduct(this.state.item)).then((action) => {
-      // console.log("HANDLE SUBMIT");
-      // console.log(action);
+    this.props.dispatch(productActions.sendCreateProduct(this.state.product)).then((action) => {
       if(action.success) {
-        // this.props.dispatch(listActions.invaldiateList());
-        browserHistory.push(`/products/${action.item._id}`)
+        this.props.dispatch(productActions.invaldiateList());
+        browserHistory.push(`/products/${action.product._id}`)
       } else {
-        console.log("Response Error:");
-        console.log(action.error);
+        // console.log("Response Error:");
+        // console.log(action);
         alert("ERROR - Check logs");
       }
     });
   }
 
   render() {
-    const { item } = this.state;
-    const isEmpty = (item.title === null || item.title === undefined);
+    const { product } = this.state;
+    const isEmpty = (product.title === null || product.title === undefined);
     return (
       <div>
-
-        {isEmpty
-          ? <h2> Loading...</h2>
-        : <ProductForm
-            product={item}
+        {isEmpty ?
+          <h2> Loading...</h2>
+          :
+          <ProductForm
+            product={product}
             formType="create"
             handleFormSubmit={this._handleFormSubmit}
             handleFormChange={this._handleFormChange}
             cancelLink="/products"
             formTitle="Create Product"
-            />
+          />
         }
       </div>
     )
@@ -82,6 +84,10 @@ CreateProduct.propTypes = {
 }
 
 const mapStoreToProps = (store) => {
+  /**
+  * NOTE: Yote refer's to the global Redux 'state' as 'store' to keep it mentally
+  * differentiated from the React component's internal state
+  */
   return {
     defaultProduct: store.product.defaultItem
   }

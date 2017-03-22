@@ -1,9 +1,6 @@
-/***************
-
-LANDING ACTIONS
-
-***************/
-
+/**
+ * Contact page actions
+ */
 
 export const SETUP_NEW_LEAD = "SETUP_NEW_LEAD";
 export function setupNewLead() {
@@ -33,8 +30,6 @@ function receiveNewLead(json) {
 }
 
 export function sendNewLead(data) {
-  console.log("sendAddToNewsLetter")
-  console.log(data);
   return dispatch => {
     dispatch(requestNewLead(data))
     return fetch('/api/leads', {

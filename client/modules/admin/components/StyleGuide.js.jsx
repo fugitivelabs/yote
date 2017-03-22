@@ -1,40 +1,35 @@
+/**
+ * Living style-guide for this Yote application
+ *
+ * TODO:  This needs a lot of work 
+ */
+
+// import primary libraries
 import React, { PropTypes } from 'react';
-import Base from "../../../global/components/BaseComponent.js.jsx";
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
-// import components
-
+// import global components
+import Base from "../../../global/components/BaseComponent.js.jsx";
 
 class StyleGuide extends Base {
   constructor(props) {
     super(props);
-
-  }
-  componentWillMount() {
-    console.log("StyleGuide mounting");
   }
 
   render() {
-    const { item } = this.props;
-    const isEmpty = !item;
-    console.log("isEmpty", isEmpty);
     return  (
       <div className="flex">
         <section className="section">
           <div className="yt-container style-guide">
-
             <h3> Style Guide </h3>
-
             <div className="content">
               <div className="main-copy with-eyebrow">
                 <div className="eyebrow title">
                 Typography
                 </div>
                 <div className="eyebrow content">
-
                   <h1>Heading 1</h1>
-
                   <h2>Heading 2</h2>
 
                   <h3>Heading 3</h3>
@@ -71,7 +66,7 @@ class StyleGuide extends Base {
             </div>
             <div className="content">
 
-              <div className="main-copy with-eyebrow colors ">
+              <div className="main-copy with-eyebrow colors-samples ">
                 <div className="eyebrow title">Colors</div>
                 <div className="eyebrow content">
 
@@ -87,13 +82,13 @@ class StyleGuide extends Base {
                     </div>
                   </div>
                   <div className="yt-row center-vert">
-                    <div className="yt-col blurple">
+                    <div className="yt-col primary">
                       <strong>
-                      Blurple
+                      desert sunset
                       </strong>
                     </div>
-                    <div className="yt-col blurple">
-                    #6551ff
+                    <div className="yt-col primary">
+
                     </div>
                     <div className="yt-col _50">
 
@@ -170,15 +165,13 @@ class StyleGuide extends Base {
                       Green
                       </strong>
                     </div>
-                    <div className="yt-col green">
+                    <div className="yt-col success">
                     #37CCA5
                     </div>
                     <div className="yt-col _50">
                     Buttons
                     </div>
                   </div>
-
-
                 </div>
               </div>
             </div>
@@ -205,7 +198,6 @@ class StyleGuide extends Base {
                 <div className="eyebrow title">yt-row</div>
                 <div className="eyebrow content  flex-grid-demo">
                   <div className="yt-container">
-
                     <div className="yt-row grid-demo">
                       <div className="yt-col grid-demo"><div className="card"> yt-col</div> </div>
                       <div className="yt-col grid-demo"><div className="card"> yt-col</div> </div>
@@ -265,8 +257,6 @@ class StyleGuide extends Base {
                 </div>
               </div>
             </div>
-
-
           </div>
         </section>
       </div>
@@ -274,17 +264,4 @@ class StyleGuide extends Base {
   }
 }
 
-StyleGuide.propTypes = {
-  dispatch: PropTypes.func.isRequired
-}
-
-const mapStoreToProps = (state) => {
-  // console.log("State");
-  // console.log(state);
-  return {
-  }
-}
-
-export default connect(
-  mapStoreToProps
-)(StyleGuide);
+export default StyleGuide;

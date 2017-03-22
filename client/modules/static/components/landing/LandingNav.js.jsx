@@ -1,18 +1,20 @@
 /**
+ * The navbar on the landing page is styled a little differently
+ */
 
-The navbar on the landing page is styled a little differently
-
-**/
-
-import React from 'react';
-import Base from '../../../../global/components/BaseComponent.js.jsx';
+// import primary libraries
+import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
+
+// import third-party libraries
 import classNames from 'classnames';
 
+// import global components
+import Base from '../../../../global/components/BaseComponent.js.jsx';
 import CloseWrapper from '../../../../global/components/helpers/CloseWrapper.js.jsx';
 import DropdownMenu from '../../../../global/components/DropdownMenu.js.jsx';
 
-class Navbar extends Base {
+class LandingNav extends Base {
   constructor(props) {
     super(props);
     this.state = {
@@ -56,7 +58,6 @@ class Navbar extends Base {
     let headerClass = classNames(
       'header'
       // , 'fixed'
-
     )
 
     return (
@@ -79,8 +80,6 @@ class Navbar extends Base {
                 <li>
                   <Link to="/products" activeClassName="active">Products</Link>
                 </li>
-
-
                 <li className="dropdown">
                   <a onClick={this._openDropdown}> <i className="fa fa-caret-down"></i></a>
                 </li>
@@ -97,10 +96,10 @@ class Navbar extends Base {
   }
 }
 
-Navbar.propTypes = {
-  isScrolled: React.PropTypes.bool
-  , openDialog: React.PropTypes.func
+LandingNav.propTypes = {
+  isScrolled: PropTypes.bool
+  , openDialog: PropTypes.func
 
 }
 
-export default Navbar;
+export default LandingNav;

@@ -1,23 +1,21 @@
-/*****
-
-CONTACT REDUCER
-
-*****/
-
+/**
+ * EXAMPLE:
+ * This is intended to serve as an example of a static reducer that would need
+ * to have some global state/store functionality, but isn't necessarily tied to
+ * a server-side resource of any kind.
+ *
+ * The contactReducer should setup and handle actions for an applications
+ * "contact-us" form page.
+ */
 
 import { contactActions } from '../actions';
-// import * as contactActions from '../actions/landingActions';
-
-
 
 function contactReducer(state = {
   isSending: false
   , lead: {}
 }, action) {
   switch (action.type) {
-
-    case contactActions.SETUP_NEW_LEAD:
-      console.log("SETUP_NEW_LEAD");
+    case contactActions.SETUP_NEW_LEAD: {
       return Object.assign({}, state, {
         isSending: false
         , lead: {
@@ -28,12 +26,14 @@ function contactReducer(state = {
         }
       });
       break;
-    case contactActions.REQUEST_NEW_LEAD:
+    }
+    case contactActions.REQUEST_NEW_LEAD: {
       return Object.assign({}, state, {
         isSending: true
       })
       break;
-    case contactActions.RECEIVE_NEW_LEAD:
+    }
+    case contactActions.RECEIVE_NEW_LEAD: {
       if(action.success) {
         return Object.assign({}, state, {
           isSending: false
@@ -50,9 +50,10 @@ function contactReducer(state = {
         })
       }
       break;
-
-    default:
+    }
+    default: {
       return state
+    }
   }
 }
 

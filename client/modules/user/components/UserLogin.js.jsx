@@ -1,12 +1,15 @@
+// import primary libraries
 import React, { PropTypes } from 'react';
-import Base from "../../../global/components/BaseComponent.js.jsx";
-import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
+import { connect } from 'react-redux';
 
-//actions
+// import actions actions
 import * as userActions from '../userActions';
 
-//components
+// import form components
+import Base from "../../../global/components/BaseComponent.js.jsx";
+
+// import user components
 import UserLoginForm from './UserLoginForm.js.jsx';
 
 class UserLogin extends Base {
@@ -39,13 +42,12 @@ class UserLogin extends Base {
 
   _handleFormSubmit(e) {
     e.preventDefault();
-    this.props.dispatch(userActions.sendLogin(this.state.username, this.state.password)).then((res) => {
-      if(res.success) {
-        //redirect
+    this.props.dispatch(userActions.sendLogin(this.state.username, this.state.password)).then((action) => {
+      if(action.success) {
         browserHistory.push('/');
-        //TODO: handle next params
+        // TODO: handle next params
       } else {
-        alert(res.error);
+        alert(action.error);
       }
     })
   }

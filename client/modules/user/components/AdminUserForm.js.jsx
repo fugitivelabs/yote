@@ -1,10 +1,32 @@
+/**
+ * Reusable stateless form component for User by admins
+ */
+
+// import primary libraries
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router';
 
-import { TextInput, EmailInput, PasswordInput, SimpleArrayEditor } from '../../../global/components/forms';
+// import form components
+import {
+  EmailInput
+  , PasswordInput
+  , SimpleArrayEditor
+  , TextInput
+} from '../../../global/components/forms';
 
-const AdminUserForm = ({ user, formType, handleFormSubmit, handleFormChange,  cancelLink, formTitle }) => {
+function AdminUserForm({
+  user
+  , formType
+  , handleFormSubmit
+  , handleFormChange
+  , cancelLink
+  , formTitle
+}) {
+
+  // set the button text
   const buttonText = formType === "create" ? "Create User" : "Update User";
+
+  // set the form header
   const header = formTitle ? <div className="formHeader"><h1> {formTitle} </h1><hr/></div> : <div/>;
 
   return (
@@ -21,7 +43,7 @@ const AdminUserForm = ({ user, formType, handleFormSubmit, handleFormChange,  ca
               placeholder="Email (required)"
               required={true}
             />
-            { formType == "create" ?
+            { formType === "create" ?
               <PasswordInput
                 name="password"
                 label="Password"
@@ -30,7 +52,8 @@ const AdminUserForm = ({ user, formType, handleFormSubmit, handleFormChange,  ca
                 required={true}
                 password={true}
               />
-              : null
+              :
+              null
             }
             <TextInput
               name="firstName"
@@ -52,9 +75,8 @@ const AdminUserForm = ({ user, formType, handleFormSubmit, handleFormChange,  ca
               items={user.roles}
               arrayType="string"
               change={handleFormChange}
+              helpText={<span>by default, either <strong>admin</strong> or <strong>null</strong></span>}
             />
-            <small className="input-helper">by default, either 'admin' or null </small>
-
             <div className="input-group">
               <div className="yt-row space-between">
                 <button className="yt-btn " type="submit" > {buttonText} </button>
@@ -68,12 +90,16 @@ const AdminUserForm = ({ user, formType, handleFormSubmit, handleFormChange,  ca
 }
 
 AdminUserForm.propTypes = {
-  user: PropTypes.object.isRequired
+  cancelLink: PropTypes.string.isRequired
+  , formTitle: PropTypes.string
   , formType: PropTypes.string.isRequired
   , handleFormSubmit: PropTypes.func.isRequired
   , handleFormChange: PropTypes.func.isRequired
-  , cancelLink: PropTypes.string.isRequired
-  , formTitle: PropTypes.string
+  , user: PropTypes.object.isRequired
+}
+
+AdminUserForm.defaultProps = {
+  formTitle: ''
 }
 
 export default AdminUserForm;
