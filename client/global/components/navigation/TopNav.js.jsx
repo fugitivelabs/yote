@@ -1,10 +1,18 @@
+/**
+ * Global TopNav component.
+ */
+
+// import primary libararies
 import React from 'react';
-import Base from './BaseComponent.js.jsx';
-import CloseWrapper from './helpers/CloseWrapper.js.jsx';
 import { Link } from 'react-router';
+
+// import third-party libraries
 import classNames from 'classnames';
 
-import DropdownMenu from './DropdownMenu.js.jsx';
+// import components
+import Base from '../BaseComponent.js.jsx';
+import CloseWrapper from '../helpers/CloseWrapper.js.jsx';
+import DropdownNav from './DropdownNav.js.jsx';
 
 export default class TopNav extends Base {
   constructor(props, context) {
@@ -21,7 +29,6 @@ export default class TopNav extends Base {
     );
   }
 
-
   componentWillMount() {
     window.addEventListener('scroll', this._handleScroll);
   }
@@ -30,10 +37,14 @@ export default class TopNav extends Base {
     window.removeEventListener('scroll', this._handleScroll);
   }
 
-
   _handleScroll(e) {
-    // alert(e);
-    // console.log(e);
+    /**
+     * When the page scrolls, check the Y position to determine whether to
+     * hide, show or fade in TopNav.
+     *
+     * @param e = broswer scroll event
+     */
+
     let scrollTop;
     if(e.target.scrollingElement) {
       scrollTop = e.target.scrollingElement.scrollTop;
@@ -41,43 +52,40 @@ export default class TopNav extends Base {
       scrollTop = document.documentElement.scrollTop;
     }
 
-    // handle initial na
+    // handle initial position
     let isTop = scrollTop < 20 ? true : false;
     if(isTop !== this.state.isTop) {
       this.setState({isTop: isTop});
     }
 
-
     // if the page is scrolled down, change the navbar style
     var scrollingDown;
     if ( typeof this._handleScroll.y == undefined ) {
-      // this._handleScroll.x=window.pageXOffset;
       this._handleScroll.y=window.pageYOffset;
-      // console.log(this._handleScroll.y);
       scrollingDown = false;
     }
-    // var diffX=this._handleScroll.x-window.pageXOffset;
+
+    // check last position vs current position
     var diffY=this._handleScroll.y-window.pageYOffset;
 
+    // check the direction of the scroll
     if( diffY<0 ) {
-      // Scroll down
-      // console.log("down");
+      // Page is scrolling down
       scrollingDown = true;
     } else if( diffY>0 ) {
-      // Scroll up
-      // console.log("up");
+      // Page is scrolling up
       scrollingDown = false;
     }
 
+    // tell the State about the scroll direction
     if(scrollingDown !== undefined && scrollingDown != this.state.scrollingDown) {
       this.setState({scrollingDown: scrollingDown});
-      // this.scrollingDown = scrollingDown;
     }
 
+    // set the function's XY position to the current position
     this._handleScroll.x=window.pageXOffset;
     this._handleScroll.y=window.pageYOffset;
   }
-
 
   _openDropdown(e) {
     e.stopPropagation();
@@ -109,7 +117,6 @@ export default class TopNav extends Base {
             isOpen={this.state.isOpen}
             closeAction={this._closeDropdown}
           />
-
           <div className="titles">
             <Link to="/">
               <div className="nav-logo"> Yote
@@ -119,16 +126,14 @@ export default class TopNav extends Base {
           </div>
           <div className="actions">
             <div className="yt-row center-vert right">
-
               <ul className="navigation">
                 <li>
                   <Link to="/products" activeClassName="active">Products</Link>
                 </li>
-
                 <li className="dropdown">
                   <a onClick={this._openDropdown}> <i className="fa fa-caret-down"></i></a>
                 </li>
-                <DropdownMenu
+                <DropdownNav
                   currentUser={null}
                   isOpen={this.state.isOpen}
                 />

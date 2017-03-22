@@ -11,8 +11,8 @@ require('es5-shim');
 require('es5-shim/es5-sham');
 
 // import primary libraries
-import applyRouterMiddleware from 'react-router-apply-middleware';
 import React from 'react';
+import applyRouterMiddleware from 'react-router-apply-middleware';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import useScroll from 'react-router-scroll';
 import { Provider } from 'react-redux';

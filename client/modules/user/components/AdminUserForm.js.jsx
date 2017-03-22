@@ -17,6 +17,7 @@ import {
 function AdminUserForm({
   user
   , formType
+  , handleDeleteUser
   , handleFormSubmit
   , handleFormChange
   , cancelLink
@@ -79,6 +80,11 @@ function AdminUserForm({
             />
             <div className="input-group">
               <div className="yt-row space-between">
+                { formType === 'update' ?
+                  <button className="yt-btn link" type="button" onClick={handleDeleteUser}> Delete User </button>
+                  :
+                  null
+                }
                 <button className="yt-btn " type="submit" > {buttonText} </button>
               </div>
             </div>
@@ -93,6 +99,7 @@ AdminUserForm.propTypes = {
   cancelLink: PropTypes.string.isRequired
   , formTitle: PropTypes.string
   , formType: PropTypes.string.isRequired
+  , handleDeleteUser: PropTypes.func.isRequired
   , handleFormSubmit: PropTypes.func.isRequired
   , handleFormChange: PropTypes.func.isRequired
   , user: PropTypes.object.isRequired

@@ -1,0 +1,105 @@
+
+// fade in/out
+.fade-enter {
+  opacity: 0.01;
+  &.fade-enter-active {
+    opacity: 1;
+    // transition: opacity 500ms ease-in;
+    @include transition(opacity 500ms ease-in-out);
+  }
+}
+
+
+.fade-leave {
+  opacity: 1;
+  &.fade-leave-active {
+    opacity: 0.01;
+    @include transition(opacity 300ms ease-in-out);
+    // transition: opacity 300ms ease-in;
+  }
+}
+
+
+.modal-anim-appear {
+    opacity: 0.00;
+    @include transform(scale(0.1));
+    @include transform-origin(center center);
+    // @include transform-origin(left top);
+    @include transition(all 350ms ease-in-out);
+    &.modal-anim-appear-active {
+      opacity: 1;
+      @include scale(1);
+    }
+}
+
+
+.modal-anim-enter {
+    opacity: 0.00;
+    @include transform(scale(0.1));
+    @include transform-origin(center center);
+    // @include transform-origin(left top);
+    @include transition(all 350ms ease-in-out);
+    &.modal-anim-enter-active {
+      opacity: 1;
+      // @include scale(1);
+      @include transform(scale(1));
+    }
+}
+
+
+.modal-anim-leave {
+    opacity: 1;
+    // @include transform-origin(left bottom);
+    @include transform-origin(center center);
+    @include transform(scale(1));
+    @include transition(all 350ms ease-in-out);
+    &.modal-anim-leave-active {
+      opacity: 0.00;
+      @include transform(scale(0.1));
+
+    }
+}
+
+.drawer-anim-appear {
+    opacity: 0.00;
+    // @include transform(scale(0.1));
+    @include transform(scale(1, 1));
+    @include transform-origin(left center);
+    // @include transform-origin(left top);
+    @include transition(all 350ms ease-in-out);
+    &.drawer-anim-appear-active {
+      opacity: 1;
+      // @include transform(scale(1));
+      @include transform(scale(1,1));
+      // @include scale(1);
+    }
+}
+
+
+.drawer-anim-enter {
+    opacity: 0.00;
+    @include transform(scale(0.1, 1));
+    @include transform-origin(left center);
+    // @include transform-origin(left top);
+    @include transition(all 350ms ease-in-out);
+    &.drawer-anim-enter-active {
+      opacity: 1;
+      @include transform(scale(1,1));
+      // @include scale(1);
+    }
+}
+
+
+.drawer-anim-leave {
+    opacity: 1;
+    // @include transform-origin(left bottom);
+    @include transform-origin(left center);
+    @include transform(scale(1, 1));
+    @include transition(all 350ms );
+    &.drawer-anim-leave-active {
+      opacity: 0.00;
+      // @include transform(scale(0.1));
+      @include transform(scale(0.1, 1));
+
+    }
+}

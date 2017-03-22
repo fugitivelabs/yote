@@ -1,13 +1,20 @@
+/**
+ * Helper component to handle pagination UI on any lists
+ */
+
+// import primary libraries
 import React, { PropTypes } from 'react'
-import Base from '../BaseComponent.js.jsx';
+
+// import third-party libraries
 import classNames from 'classnames';
+
+// import components 
+import Base from '../BaseComponent.js.jsx';
 
 class Pagination extends Base {
   constructor(props) {
     super(props);
-    this.state = {
-
-    }
+    this.state = {}
     this._bind(
       '_handleNext'
       , '_handlePrevious'
@@ -16,14 +23,12 @@ class Pagination extends Base {
   }
 
   _handlePrevious() {
-    console.log("_handlePrevious");
     var newPagination = this.props.pagination;
     newPagination.page--;
     this.props.setPagination(newPagination);
   }
 
   _handleNext() {
-    console.log("_handleNext")
     var newPagination = this.props.pagination;
     newPagination.page++;
     this.props.setPagination(newPagination);
@@ -37,12 +42,14 @@ class Pagination extends Base {
 
   render() {
     const { pagination, totalPages } = this.props;
-    // console.log("************** PAGINATION RENDER **************");
-    // console.log(pagination);
-    // console.log(totalPages);
     let before;
     let after;
     let currentPage = pagination.page;
+
+    /**
+     * determine how many pages came before the current page and display (at most)
+     * the three most recent
+     */
     if(currentPage === 1) {
       before = [];
     } else if(currentPage === 2) {
@@ -53,6 +60,10 @@ class Pagination extends Base {
       before = [ (currentPage - 3), (currentPage - 2), (currentPage - 1) ];
     }
 
+    /**
+     * determine how many pages come after the current page and display (at most)
+     * the next three
+     */
     if(currentPage === totalPages) {
       after = [];
     } else if(currentPage === totalPages - 1) {
@@ -73,30 +84,50 @@ class Pagination extends Base {
       , {'disabled': currentPage === totalPages }
     )
 
-    // console.log(before);
     return (
       <ul className="pagination">
-        <li ><a className={prevClass} onClick={currentPage > 1 ? this._handlePrevious : null }> <i className="fa fa-angle-double-left" /> Previous</a></li>
-
-        {currentPage > 4 ? <li>...</li> : null }
-
-        {before.map((page, i)=>
-          <li key={i} ><a className="page-num" onClick={()=> this._jumpToPage(page)}>{page}</a></li>
+        <li >
+          <a
+            className={prevClass}
+            onClick={currentPage > 1 ? this._handlePrevious : null }
+          >
+            <i className="fa fa-angle-double-left" /> Previous
+          </a>
+        </li>
+        { currentPage > 4 ?
+          <li>...</li>
+          :
+          null
+        }
+        { before.map((page, i) =>
+          <li key={i} >
+            <a className="page-num" onClick={()=> this._jumpToPage(page)}>{page}</a>
+          </li>
         )}
-
-        <li ><span className="current-page">{currentPage}</span></li>
-
-        {after.map((page, i)=>
-          <li key={i} ><a className="page-num" onClick={()=> this._jumpToPage(page)}>{page}</a></li>
+        <li >
+          <span className="current-page">{currentPage}</span>
+        </li>
+        { after.map((page, i) =>
+          <li key={i} >
+            <a className="page-num" onClick={()=> this._jumpToPage(page)}>{page}</a>
+          </li>
         )}
-        {currentPage < totalPages - 3 ? <li>...</li> : null }
-
-        <li ><a className={nextClass} onClick={currentPage < totalPages ? this._handleNext : null }> Next <i className="fa fa-angle-double-right" /> </a></li>
-
+        { currentPage < totalPages - 3 ?
+          <li>...</li>
+          :
+          null
+        }
+        <li >
+          <a
+            className={nextClass}
+            onClick={currentPage < totalPages ? this._handleNext : null }
+          >
+           Next <i className="fa fa-angle-double-right" />
+          </a>
+        </li>
       </ul>
     )
   }
-
 }
 
 Pagination.propTypes = {
