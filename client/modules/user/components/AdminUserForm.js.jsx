@@ -99,7 +99,7 @@ AdminUserForm.propTypes = {
   cancelLink: PropTypes.string.isRequired
   , formTitle: PropTypes.string
   , formType: PropTypes.string.isRequired
-  , handleDeleteUser: PropTypes.func.isRequired
+  , handleDeleteUser: PropTypes.func
   , handleFormSubmit: PropTypes.func.isRequired
   , handleFormChange: PropTypes.func.isRequired
   , user: PropTypes.object.isRequired
@@ -107,6 +107,7 @@ AdminUserForm.propTypes = {
 
 AdminUserForm.defaultProps = {
   formTitle: ''
+  , handleDeleteUser: null
 }
 
 export default AdminUserForm;

@@ -1,53 +1,63 @@
+/**
+ * Helper form component for rendering password inputs
+ *
+ * TODO: add REGEX validators
+ */
+
+// import primary libraries
 import React, { PropTypes } from 'react'
 
+// import components
 import Base from "../BaseComponent.js.jsx";
 
 class PasswordInput extends Base {
-
   constructor(props) {
     super(props);
-    this.state = this.props;
     this._bind(
       '_handleInputChange'
       , '_validatePassword'
     );
-
   }
 
   _handleInputChange(e) {
     this.props.change(e);
-    this.setState({value: e.target.value});
   }
 
   _validatePassword(password) {
-    // check password valid here
+    // TODO: check password valid here
   }
 
   render() {
-    const { label, value, placeholder, name, required } = this.state;
+    const {  helpText, label, name, required, value } = this.props;
     return (
       <div className="input-group">
         <label htmlFor={name}> {label} </label>
         <input
           type="password"
           name={name}
-          placeholder={placeholder}
           value={value}
           onChange={this._handleInputChange}
           required={required}
         />
+        <small className="help-text"><em>{helpText}</em></small>
       </div>
     )
   }
 }
 
 PasswordInput.propTypes = {
-  label: PropTypes.string
-  , value: PropTypes.string
-  , placeholder: PropTypes.string
-  , name: PropTypes.string
+  change: PropTypes.func.isRequired
+  , helpText: PropTypes.any
+  , label: PropTypes.string
+  , name: PropTypes.string.isRequired
   , required: PropTypes.bool
-  , change: PropTypes.func
+  , value: PropTypes.string.isRequired
+}
+
+PasswordInput.defaultProps = {
+  helpText: null
+  , label: ''
+  , required: false
 }
 
 export default PasswordInput;

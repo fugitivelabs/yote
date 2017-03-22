@@ -1,11 +1,14 @@
+/**
+ * Helper component for rendering textarea inputs
+ */
+
+// import primary libraries
 import React, { PropTypes } from 'react'
 
+// import components
 import Base from "../BaseComponent.js.jsx";
 
-
 class TextAreaInput extends Base {
-
-
   constructor(props) {
     super(props);
     this._bind('_handleInputChange');
@@ -36,7 +39,7 @@ class TextAreaInput extends Base {
           onChange={this._handleInputChange}
           required={required}
           value={value}
-          rows={rows ? rows : "4"}
+          rows={rows}
         >
         </textarea>
         <small className="help-text"><em>{helpText}</em></small>
@@ -46,14 +49,22 @@ class TextAreaInput extends Base {
 }
 
 TextAreaInput.propTypes = {
-  change: PropTypes.func
+  change: PropTypes.func.isRequired
   , helpText: PropTypes.any
   , label: PropTypes.string
-  , name: PropTypes.string
+  , name: PropTypes.string.isRequired
   , placeholder: PropTypes.string
   , required: PropTypes.bool
   , rows: PropTypes.string
-  , value: PropTypes.string
+  , value: PropTypes.string.isRequired
+}
+
+TextAreaInput.defaultProps = {
+  helpText: null
+  , label: ''
+  , placeholder: ''
+  , required: false
+  , rows: '4'
 }
 
 export default TextAreaInput;

@@ -1,22 +1,31 @@
-import React from 'react';
-import Base from "../BaseComponent.js.jsx";
+/**
+ * Helper component for rendering radio inputs
+ *
+ * NOTE: To use -
+ * <RadioInput
+ *   label="Leaderboard Sort Order"
+ *   options={[
+ *     {val: 'descending', display: 'Sort Descending'},
+ *     {val: 'ascending', display: 'Sort Ascending'},
+ *   ]}
+ *   name="sortOrder"
+ *   value={item.sortOrder}
+ *   change={handleFormChange}
+ *   inLine={true}
+ * />
+ */
+
+// import primary libraries
+import React, { PropTypes } from 'react';
+
+// import third-party libraries
 import classNames from 'classnames';
 
+// import components
+import Base from "../BaseComponent.js.jsx";
 
 
 class RadioInput extends Base {
-  //
-  // <RadioInput
-  //   label="Leaderboard Sort Order"
-  //   options={[
-  //     {val: 'descending', display: 'Sort Descending'},
-  //     {val: 'ascending', display: 'Sort Ascending'},
-  //   ]}
-  //   name="sortOrder"
-  //   value={item.sortOrder}
-  //   change={handleFormChange}
-  //   inLine={true}
-  // />
   constructor(props) {
     super(props);
     this.state = {
@@ -24,7 +33,6 @@ class RadioInput extends Base {
     }
     this._bind(
       '_handleSelectChange'
-
     )
   }
 
@@ -35,13 +43,11 @@ class RadioInput extends Base {
   }
 
   _handleSelectChange(e) {
-    // console.log("_handleSelectChange");
-    // console.log(e.target.name, e.target.value, e.target.checked);
     this.props.change(e);
   }
 
   render() {
-    const { options, label, name, selected, inLine } = this.props;
+    const {  helpText, inLine, label, name, options, selected,  } = this.props;
 
     const inputClass = classNames(
       'radio-input'
@@ -67,6 +73,7 @@ class RadioInput extends Base {
       <div className="input-group">
         <label htmlFor={name}>{label}</label>
         {theOptions}
+        <small className="help-text"><em>{helpText}</em></small>
       </div>
     )
   }
@@ -74,18 +81,24 @@ class RadioInput extends Base {
 }
 
 RadioInput.propTypes = {
-  options: React.PropTypes.arrayOf(
-    React.PropTypes.shape({
-      val: React.PropTypes.oneOfType([
-          React.PropTypes.string
-          , React.PropTypes.number
+  change: PropTypes.func.isRequired
+  , helpText: PropTypes.any
+  , label: PropTypes.string
+  , name: PropTypes.string.isRequired
+  , options: PropTypes.arrayOf(
+    PropTypes.shape({
+      val: PropTypes.oneOfType([
+          PropTypes.string
+          , PropTypes.number
         ]).isRequired
-      , display: React.PropTypes.string.isRequired
+      , display: PropTypes.string.isRequired
     })).isRequired
-  , change: React.PropTypes.func.isRequired
-  , value: React.PropTypes.any
-  , label: React.PropTypes.string
-  , name: React.PropTypes.string
+  , value: PropTypes.any.isRequired
+}
+
+RadioInput.defaultProps = {
+  helpText: null
+  , label: ''
 }
 
 export default RadioInput;
