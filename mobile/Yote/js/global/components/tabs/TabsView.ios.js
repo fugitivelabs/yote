@@ -17,7 +17,6 @@ import Text from 'Text';
 // import components
 
 import Profile from '../../../modules/user/components/Profile';
-//import ProductTemplateLibrary from '../../../modules/productTemplate/components/Library';
 import Home from './Home';
 import Product from '../../../modules/product/components/Product';
 
