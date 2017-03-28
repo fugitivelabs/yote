@@ -70,6 +70,13 @@ form {
       border-bottom: 2px solid $formAccentColor;
     }
 
+    &:disabled {
+      opacity: 0.7;
+      &:hover {
+        cursor: not-allowed;
+      }
+    }
+
     &[type="radio"] {
       display: inline-block;
       width: 20px;
@@ -90,6 +97,7 @@ form {
       margin-right: 20px;
       display: inline-block;
     }
+
 
   }
 

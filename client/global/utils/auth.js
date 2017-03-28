@@ -1,6 +1,8 @@
 /**
  * This is a series of utilities to provide route protection for react-router
  * before the route is entered.
+ *
+ * TODO: Rework this so the user info is pulled from the store, not 'window'
  */
 
 const Auth = {

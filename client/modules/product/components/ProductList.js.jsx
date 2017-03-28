@@ -46,9 +46,10 @@ class ProductList extends Base {
 
     /**
      * NOTE: Regarding isEmpty, when the app loads, all "product lists"
-     * are null objects. They exist only after we create them.
+     * are null objects. Lists exist in memory and only after we deliberately
+     * create them.
      */
-    const isEmpty = !productList || productList.items.length === 0 || productList.didInvalidate;
+    const isEmpty = !productList || !productList.items || productList.items.length === 0 || productList.didInvalidate;
 
     return (
       <div className="flex">

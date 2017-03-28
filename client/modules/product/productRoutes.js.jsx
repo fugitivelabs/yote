@@ -2,6 +2,9 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 
+// import utilities
+import Auth from '../../global/utils/auth';
+
 // import product components
 import CreateProduct from './components/CreateProduct.js.jsx';
 import ProductLayout from './components/ProductLayout.js.jsx';
@@ -11,12 +14,12 @@ import UpdateProduct from './components/UpdateProduct.js.jsx';
 
 // define product routes
 const productRoutes =
-<Route key={Math.floor(Math.random()*1000)} path="/products" component={ProductLayout} >
+<Route key={Math.floor(Math.random()*1000)} path="products" component={ProductLayout} >
   <IndexRoute component={ProductList} />
-  <Route path="/products/new" component={CreateProduct} />
-  <Route path="/products/:productId">
+  <Route path="new" component={CreateProduct} onEnter={Auth.requireLogin} />
+  <Route path=":productId">
     <IndexRoute component={SingleProduct} />
-    <Route path="/products/:productId/update" component={UpdateProduct} />
+    <Route path="update" component={UpdateProduct} onEnter={Auth.requireLogin} />
   </Route>
 </Route>
 ;

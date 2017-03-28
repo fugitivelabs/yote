@@ -147,7 +147,7 @@ Modal.propTypes = {
 }
 
 Modal.defaultProps = {
-  btnColor: 'primary'
+  btnColor: 'info'
   , cardSize: 'standard'
   , closeText: 'Close'
   , confirmAction: null

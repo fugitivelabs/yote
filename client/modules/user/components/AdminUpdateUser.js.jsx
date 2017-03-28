@@ -126,6 +126,7 @@ class AdminUpdateUser extends Base {
         <AlertModal
           alertMessage="Silly noob, we can't let you delete yourself..."
           alertTitle="Nope"
+          closeAction={this._closeInfoModal}
           confirmAction={this._closeInfoModal}
           confirmText="Gotcha, never mind"
           isOpen={this.state.isInfoModalOpen}

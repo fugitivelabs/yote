@@ -24,6 +24,7 @@ function requestLogin(username) {
 
 export const RECEIVE_LOGIN = "RECEIVE_LOGIN"
 function receiveLogin(json) {
+  window.currentUser = json.user || {};
   return {
     type: RECEIVE_LOGIN
     , user: json.user
@@ -77,6 +78,7 @@ function requestLogout() {
 
 export const RECEIVE_LOGOUT = "RECEIVE_LOGOUT"
 function receiveLogout(json) {
+  window.currentUser = {};
   return {
     type: RECEIVE_LOGOUT
     , success: json.success
@@ -113,7 +115,7 @@ function receiveForgotPassword(json) {
 export function sendForgotPassword(username) {
   return dispatch => {
     dispatch(requestForgotPassword(username))
-    return callAPI('/api/users/requestpasswordreset', 'POST', { email: username })
+    return callAPI('/api/users/request-password-reset', 'POST', { email: username })
     .then(json => dispatch(receiveForgotPassword(json)))
   }
 }
@@ -141,7 +143,7 @@ function receiveCheckResetHex(json) {
 export function sendCheckResetHex(hex) {
   return dispatch => {
     dispatch(requestCheckResetHex(hex))
-    return callAPI('/api/users/checkresetrequest/' + hex)
+    return callAPI('/api/users/check-reset-request/' + hex)
     .then(json => dispatch(receiveCheckResetHex(json)))
   }
 }
@@ -166,8 +168,37 @@ function receiveResetPassword(json) {
 export function sendResetPassword(resetHex, password) {
   return dispatch => {
     dispatch(requestResetPassword())
-    return callAPI('/api/users/resetpassword', 'POST', { resetHex, newPass: password })
+    return callAPI('/api/users/reset-password', 'POST', { resetHex, newPass: password })
     .then(json => dispatch(receiveResetPassword(json)))
+  }
+}
+
+
+export const REQUEST_UPDATE_PROFILE = "REQUEST_UPDATE_PROFILE"
+function requestUpdateProfile(userData) {
+  return {
+    type: REQUEST_UPDATE_PROFILE
+    , userData: userData
+  }
+}
+
+export const RECEIVE_UPDATE_PROFILE = "RECEIVE_UPDATE_PROFILE"
+function receiveUpdateProfile(json) {
+  return {
+    type: RECEIVE_UPDATE_PROFILE
+    , user: json.user
+    , success: json.success
+    , error: json.message
+    , receivedAt: Date.now()
+  }
+}
+
+export function sendUpdateProfile(userData) {
+  return dispatch => {
+    dispatch(requestUpdateProfile(userData))
+    return callAPI('/api/users/update-profile', 'PUT', userData)
+    .then(json => dispatch(receiveUpdateProfile(json)))
+
   }
 }
 

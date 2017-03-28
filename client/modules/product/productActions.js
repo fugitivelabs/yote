@@ -4,11 +4,14 @@
  * Actions are payloads of information that send data from the application
  * (i.e. Yote server) to the store. They are the _only_ source of information
  * for the store.
+ *
+ * NOTE: In Yote, we try to keep actions and reducers dealing with CRUD payloads
+ * in terms of 'item' or 'items'. This keeps the action payloads consistent and
+ * aides various scoping issues with list management in the reducers.
  */
 
 // import api utility
 import callAPI from '../../global/utils/api'
-
 
 const shouldFetchSingle = (state, id) => {
   /**
@@ -88,7 +91,7 @@ export const RECEIVE_SINGLE_PRODUCT = "RECEIVE_SINGLE_PRODUCT";
 function receiveSingleProduct(json) {
   return {
     type: RECEIVE_SINGLE_PRODUCT
-    , id: json.product._id || null // to avoid error if empty json
+    , id: json.product._id || null // to avoid silent error if empty json
     , item: json.product
     , success: json.success
     , error: json.message
@@ -124,7 +127,7 @@ export const RECEIVE_CREATE_PRODUCT = "RECEIVE_CREATE_PRODUCT";
 function receiveCreateProduct(json) {
   return {
     type: RECEIVE_CREATE_PRODUCT
-    , id: json.product._id || null // to avoid error if empty json
+    , id: json.product._id || null // to avoid silent error if empty json
     , item: json.product
     , success: json.success
     , error: json.message
@@ -136,7 +139,7 @@ export function sendCreateProduct(data) {
   return dispatch => {
     dispatch(requestCreateProduct(data))
     return callAPI('/api/products', 'POST', data)
-    .then(json => dispatch(receiveCreateProduct(json)))
+      .then(json => dispatch(receiveCreateProduct(json)))
   }
 }
 
@@ -163,7 +166,7 @@ export function sendUpdateProduct(data) {
   return dispatch => {
     dispatch(requestUpdateProduct(data))
     return callAPI(`/api/products/${data._id}`, 'PUT', data)
-    .then(json => dispatch(receiveUpdateProduct(json)))
+      .then(json => dispatch(receiveUpdateProduct(json)))
   }
 }
 
@@ -189,9 +192,10 @@ export function sendDelete(id) {
   return dispatch => {
     dispatch(requestDeleteProduct(id))
     return callAPI(`/api/products/${id}`, 'DELETE')
-    .then(json => dispatch(receiveDeleteProduct(json)))
+      .then(json => dispatch(receiveDeleteProduct(json)))
   }
 }
+
 
 /**
  * PRODUCT LIST ACTIONS
@@ -202,10 +206,10 @@ const findListFromArgs = (state, listArgs) => {
    * Helper method to find appropriate list from listArgs.
    *
    * Because we nest productLists to arbitrary locations/depths,
-   * finding the list becomes a little bit harder
+   * finding the correct list becomes a little bit harder
    */
-  var list = Object.assign({}, state.product.lists, {});
-  for(var i = 0; i < listArgs.length; i++) {
+  let list = Object.assign({}, state.product.lists, {});
+  for(let i = 0; i < listArgs.length; i++) {
     list = list[listArgs[i]];
     if(!list) {
       return false;
@@ -246,7 +250,6 @@ const shouldFetchList = (state, listArgs) => {
     return list.didInvalidate;
   }
 }
-
 
 export const fetchListIfNeeded = (...listArgs) => (dispatch, getState) => {
   if(listArgs.length === 0) {
@@ -300,7 +303,6 @@ function receiveProductList(json, listArgs) {
 }
 
 export function fetchList(...listArgs) {
-  console.log("FETCH PRODUCT LIST", listArgs);
   return dispatch => {
     if(listArgs.length === 0) {
       // default to "all" list if we don't pass any listArgs

@@ -39,8 +39,9 @@ class DropdownNav extends Base {
           { this.props.user.username ?
             <div>
               <li className="dropdown-header"> Logged in as {this.props.user.firstName} {this.props.user.lastName}</li>
-              { this.props.user.roles && this.props.user.roles.indexOf('admin') > -1 ?
-                <li><a href="/admin"> Admin </a></li>
+              <li><Link to="/profile">Profile</Link></li>
+            { this.props.user.roles && this.props.user.roles.indexOf('admin') > -1 ?
+                <li><Link to="/admin"> Admin </Link></li>
                 :
                 null
               }
@@ -49,9 +50,9 @@ class DropdownNav extends Base {
             </div>
             :
             <div>
-              <li><a href="/user/login">Log In</a></li>
+              <li><Link to="/user/login">Log In</Link></li>
               <li role="separator" className="divider"><br/></li>
-              <li><a href="/user/register">Register</a></li>
+              <li><Link to="/user/register">Register</Link></li>
             </div>
           }
         </ul>

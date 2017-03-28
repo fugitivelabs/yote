@@ -5,15 +5,15 @@
  * model, the create and update controllers below will respect
  * the new schema.
  *
- * NOTE: HOWEVER, you still have to make sure to account for
+ * NOTE: HOWEVER, you still need to make sure to account for
  * any model changes on the client
  */
 
 let Product = require('mongoose').model('Product');
 
 exports.list = (req, res) => {
-  // paginate on the server
   if(req.query.page) {
+    // paginate on the server
     var page = req.query.page || 1;
     var per = req.query.per || 20;
     Product.find({}).skip((page-1)*per).limit(per).exec((err, products) => {
@@ -31,7 +31,7 @@ exports.list = (req, res) => {
       }
     });
   } else {
-    logger.info('list all products');
+    // list all products
     Product.find({}).exec((err, products) => {
       if(err || !products) {
         res.send({ success: false, message: err });
@@ -116,8 +116,11 @@ exports.create = (req, res) => {
 
   product.save((err, product) => {
     if (err) {
+      logger.error("ERROR:");
+      logger.info(err);
       res.send({ success: false, message: err });
     } else if(!product) {
+      logger.error("ERROR: Could not create Product")
       res.send({ success: false, message: "Could not create Product." });
     } else {
       logger.info("created new product");
@@ -140,7 +143,7 @@ exports.update = (req, res) => {
           product[k] = req.body[k];
         }
       }
-      // now edit the updated date
+      // now edit the 'updated' date
       product.updated = new Date();
       product.save((err, product) => {
         if(err) {

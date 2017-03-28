@@ -13,7 +13,7 @@ let mongoose = require('mongoose');
 let ObjectId = mongoose.SchemaTypes.ObjectId;
 
 // define product schema
-var productSchema = mongoose.Schema({
+const productSchema = mongoose.Schema({
   created:                  { type: Date, default: Date.now }
   , updated:                { type: Date, default: Date.now }
   , title:                  { type: String, required: '{PATH} is required!' }
@@ -26,7 +26,7 @@ var productSchema = mongoose.Schema({
 // product model static functions go here
 // productSchema.statics.staticFunctionName = function() {};
 
-var Product = mongoose.model('Product', productSchema);
+const Product = mongoose.model('Product', productSchema);
 
 
 // prouct model methods
@@ -35,9 +35,9 @@ function createDefaults() {
     if(products.length == 0) {
       Product.create({
         title: "Fugitive Labs Introduces Yote!"
-        , description: "A neat-o new product that helps you build apps on the super-stack!" 
+        , description: "A neat-o new product that helps you build apps on the super-stack!"
       });
-      logger.info("created initial post defaults");
+      logger.info("created initial product defaults");
     }
   });
 }

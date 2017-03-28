@@ -124,7 +124,7 @@ class AlertModal extends Base {
 }
 
 AlertModal.propTypes = {
-  alertMessage: PropTypes.string.isRequired
+  alertMessage: PropTypes.any.isRequired
   , alertTitle: PropTypes.string.isRequired
   , closeAction: PropTypes.func.isRequired
   , confirmAction: PropTypes.func

@@ -15,11 +15,29 @@ import UserRegister from './components/UserRegister.js.jsx';
 
 // define routes
 const userRoutes =
-<Route key={Math.floor(Math.random()*1000)} path="/user" component={UserLayout} >
-  <Route path="/user/login" component={UserLogin} />
-  <Route path="/user/register" component={UserRegister} />
-  <Route path="/user/forgotpassword" component={ForgotPassword} />
-  <Route path="/user/resetpassword/:hex" component={ResetPassword} />
+<Route key={Math.floor(Math.random()*1000)} path="user" component={UserLayout} >
+  <Route path="login" component={UserLogin} onEnter={checkLogin} />
+  <Route path="register" component={UserRegister} onEnter={checkLogin} />
+  <Route path="forgotpassword" component={ForgotPassword} />
+  <Route path="resetpassword/:hex" component={ResetPassword} />
 </Route>
 
 export default userRoutes;
+
+
+function checkLogin(nextState, replace) {
+  /**
+   * Checks currentUser cookie to see that if a user is already logged in.
+   * If so, reroute to index page.
+   *
+   * NOTE: This is good for email invitations and such that have links that
+   * point to a login page
+   */
+  if (window.currentUser._id) {
+    // user already logged in. Redirect to index.
+    replace({
+      pathname: '/',
+      state: { nextPathname: nextState.location.pathname }
+    })
+  }
+}

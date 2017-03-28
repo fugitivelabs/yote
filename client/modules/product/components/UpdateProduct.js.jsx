@@ -58,7 +58,7 @@ class UpdateProduct extends Base {
     e.preventDefault();
     this.props.dispatch(productActions.sendUpdateProduct(this.state.product)).then((action) => {
       if(action.success) {
-        browserHistory.push(`/products/${action.product._id}`)
+        browserHistory.push(`/products/${action.item._id}`)
       } else {
         // console.log("Response Error:");
         // console.log(action);

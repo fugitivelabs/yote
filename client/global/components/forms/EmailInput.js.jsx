@@ -28,7 +28,7 @@ class EmailInput extends Base {
   }
 
   render() {
-    const { label, value, placeholder, name, required, helpText } = this.props;
+    const { disabled, label, value, placeholder, name, required, helpText } = this.props;
     return (
       <div className="input-group">
         <label htmlFor={name}> {label} </label>
@@ -39,6 +39,7 @@ class EmailInput extends Base {
           value={value}
           onChange={this._handleInputChange}
           required={required}
+          disabled={disabled}
         />
         <small className="help-text"><em>{helpText}</em></small>
       </div>

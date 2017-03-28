@@ -27,7 +27,7 @@ class TextInput extends Base {
           type="text"
           name={name}
           placeholder={placeholder}
-          value={this.state.theVal}
+          value={value}
           onChange={this._handleInputChange}
           required={required}
         />
@@ -48,7 +48,7 @@ TextInput.propTypes = {
 TextInput.defaultProps = {
   label: ''
   , placeholder: ''
-  , required: false 
+  , required: false
 }
 
 export default TextInput;
