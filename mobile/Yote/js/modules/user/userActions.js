@@ -7,7 +7,7 @@
  */
 
 // import api utility
-import callAPI from '../../global/utils/api'
+import callAPI from '../../global/utils/api';
 
 
 /**

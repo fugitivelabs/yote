@@ -4,5 +4,5 @@
  * NOTE: this facilitates adding reducers via the CLI
  */
 
-export { default as product } from './product/productReducer.js';
-export { default as user } from './user/userReducer.js';
+export { default as product } from './product/productReducers.js';
+export { default as user } from './user/userReducers.js';
