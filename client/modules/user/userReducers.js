@@ -260,6 +260,23 @@ function user(state = {
         })
       }
     }
+    case Actions.REQUEST_UPDATE_PROFILE: {
+      let newState = Object.assign({}, state, {});
+      newState.loggedIn.isFetching = true;
+      return newState;
+    }
+    case Actions.RECEIVE_UPDATE_PROFILE: {
+      let newState = Object.assign({}, state, {});
+      if(!action.success) {
+        newState.loggedIn.isFetching = false;
+        newState.loggedIn.error = action.error;
+      } else {
+        newState.loggedIn.isFetching = false;
+        newState.loggedIn.user = action.user;
+        newState.loggedIn.lastUpdated = action.receivedAt;
+      }
+      return newState;
+    }
     case Actions.REQUEST_LOGOUT: {
       return Object.assign({}, state, {
         loggedIn: Object.assign({}, state.loggedIn, {
