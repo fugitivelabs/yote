@@ -26,13 +26,13 @@ import TabsView from './global/components/tabs/TabsView';
 import * as productActions from './modules/product/productActions';
 
 // import module components
-import EditProfile from './modules/user/components/EditProfile';
+import UpdateProfile from './modules/user/components/UpdateProfile';
 import FAQ from './modules/user/components/FAQ';
 import NewProduct from './modules/product/components/NewProduct';
 import Privacy from './modules/user/components/Privacy';
 import Profile from './modules/user/components/Profile';
 import Settings from './modules/user/components/Settings';
-import Team from './modules/user/components/Team';
+
 
 // define styles
 let styles = StyleSheet.create({
@@ -55,7 +55,7 @@ class MainNavigator extends Base {
   }
 
   componentDidMount() {
-    // setup android back button listener 
+    // setup android back button listener
     BackAndroid.addEventListener('hardwareBackPress', this._handleBackButton);
 
     const { dispatch } = this.props;
@@ -124,7 +124,7 @@ class MainNavigator extends Base {
 
     if(route.editProfile) {
       return (
-        <EditProfile
+        <UpdateProfile
           {...route}
           navigator={navigator}
         />
@@ -143,15 +143,6 @@ class MainNavigator extends Base {
     if(route.privacy) {
       return (
         <Privacy
-          {...route}
-          navigator={navigator}
-        />
-      )
-    }
-
-    if(route.team) {
-      return (
-        <Team
           {...route}
           navigator={navigator}
         />
