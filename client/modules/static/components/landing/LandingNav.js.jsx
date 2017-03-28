@@ -12,7 +12,7 @@ import classNames from 'classnames';
 // import global components
 import Base from '../../../../global/components/BaseComponent.js.jsx';
 import CloseWrapper from '../../../../global/components/helpers/CloseWrapper.js.jsx';
-import DropdownMenu from '../../../../global/components/DropdownMenu.js.jsx';
+import DropdownNav from '../../../../global/components/navigation/DropdownNav.js.jsx';
 
 class LandingNav extends Base {
   constructor(props) {
@@ -83,7 +83,7 @@ class LandingNav extends Base {
                 <li className="dropdown">
                   <a onClick={this._openDropdown}> <i className="fa fa-caret-down"></i></a>
                 </li>
-                <DropdownMenu
+                <DropdownNav
                   currentUser={null}
                   isOpen={this.state.isOpen}
                 />

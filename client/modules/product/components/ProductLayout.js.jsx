@@ -1,6 +1,6 @@
 /**
  * Wraps all Product components in a default view wrapper
- * is a class in case you want some extra special logic...
+ * This is a class in case you want some extra special logic...
  */
 
 // import primary libraries

@@ -3,32 +3,40 @@
 /**
  * Dependencies
  */
-@import "global/sass/dependencies/normalize";
-@import "global/sass/dependencies/mixins";
 @import "global/sass/dependencies/colorPalettes";
 @import "global/sass/dependencies/fonts";
+@import "global/sass/dependencies/mixins";
+@import "global/sass/dependencies/normalize";
+@import "global/sass/dependencies/reactTransitions";
 @import "global/sass/dependencies/zIndex";
 
+
 /**
- * Foundation
+ * Foundation -
+ * depends on 'Dependencies '
  */
 @import "global/sass/foundation/colors";
 @import "global/sass/foundation/grid";
 @import "global/sass/foundation/layout";
-@import "global/sass/foundation/base";
 @import "global/sass/foundation/typography";
 
+/**
+ * Base -
+ * depends on 'Dependencies' & 'Foundation'
+ */
+@import "global/sass/foundation/base";
 
 /**
  * Helpers
  */
-@import "global/sass/helpers/ieConditionals";
 @import "global/sass/helpers/helpers";
+@import "global/sass/helpers/ieConditionals";
 @import "global/sass/helpers/utilities";
 
 /**
  * Components
  */
+@import "global/sass/components/alerts";
 @import "global/sass/components/buttons";
 @import "global/sass/components/cards";
 @import "global/sass/components/forms";
@@ -42,10 +50,10 @@
 /**
  * Regions
  */
-@import "global/sass/regions/sections";
-@import "global/sass/regions/navigation";
 @import "global/sass/regions/content";
 @import "global/sass/regions/footer";
+@import "global/sass/regions/navigation";
+@import "global/sass/regions/sections";
 
 
 /**

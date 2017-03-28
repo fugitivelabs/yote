@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 // import actions
 import * as userActions from '../../user/userActions';
 
-class SideNav extends Base {
+class AdminSideNav extends Base {
   constructor(props, context) {
     super(props);
     this._bind(
@@ -56,14 +56,12 @@ class SideNav extends Base {
 
 }
 
-SideNav.propTypes = {
+AdminSideNav.propTypes = {
   dispatch: PropTypes.func.isRequired
 }
 
 
-const mapStoreToProps = (state) => {
-  console.log("list state");
-  console.log(state);
+const mapStoreToProps = (store) => {
   return {
   }
 }
@@ -71,4 +69,4 @@ const mapStoreToProps = (state) => {
 export default connect(mapStoreToProps
 , null, null, {
   pure:false
-})(SideNav);
+})(AdminSideNav);

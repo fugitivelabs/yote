@@ -8,6 +8,10 @@
  *
  * See http://redux.js.org/docs/recipes/StructuringReducers.html for specific
  * docs on structuring reducers
+ *
+ * NOTE: In Yote, we try to keep actions and reducers dealing with CRUD payloads
+ * in terms of 'item' or 'items'. This keeps the action payloads consistent and
+ * aides various scoping issues with list management in the reducers.
  */
 
 // import product actions
@@ -28,7 +32,7 @@ function productList(state = {
    * NOTE: This is for reference only. The list is not actually initialized here.
    * The actual init happens the first time REQUEST_LIST is called.
    */
-  items: [] //array of _id's
+  items: [] // array of _id's
   , isFetching: false
   , error: null
   , didInvalidate: false
@@ -68,7 +72,7 @@ function productList(state = {
       }
       case Actions.REQUEST_PRODUCT_LIST: {
         return Object.assign({}, state, {
-          items: [] //array of _id's
+          items: [] // array of _id's
           , isFetching: true
           , error: null
           , lastUpdated: null
@@ -79,7 +83,7 @@ function productList(state = {
       case Actions.RECEIVE_PRODUCT_LIST: {
         if(!action.success) {
           return Object.assign({}, state, {
-            items: [] //array of _id's
+            items: [] // array of _id's
             , isFetching: false
             , error: action.error
             , didInvalidate: true
@@ -132,8 +136,8 @@ function product(state = {
    * in its state
    */
   defaultItem: {
-    title: ""
-    , description: ""
+    title: ''
+    , description: ''
   }
 
   /**

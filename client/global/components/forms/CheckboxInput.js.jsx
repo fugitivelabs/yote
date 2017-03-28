@@ -1,18 +1,20 @@
+/**
+ * Helper form component for rendering checkboxes
+ */
+
+// import primary libraries
 import React, { PropTypes } from 'react'
 
+// import components
 import Base from "../BaseComponent.js.jsx";
 
-
 class CheckboxInput extends Base {
-
-
   constructor(props) {
     super(props);
     this.state = {
-      isChecked: this.props.checked ? this.props.checked : false
+      isChecked: this.props.checked
     };
     this._bind('_handleInputChange');
-
   }
 
   componentWillReceiveProps(nextProps) {
@@ -21,7 +23,6 @@ class CheckboxInput extends Base {
     }
   }
 
-
   _handleInputChange(e) {
     const event = e;
     const checked = e.target.checked;
@@ -29,37 +30,44 @@ class CheckboxInput extends Base {
     const name = e.target.name;
     event.target = Object.assign({}, e.target, {
       checked: checked
-      , value: checked
       , name: name
+      , value: checked
     });
     this.props.change(event);
-
   }
+
   render() {
-    const { label, value, name, checked } = this.props;
+    const { label, value, name, checked, helpText } = this.props;
     return (
       <div className="input-group">
         <input
-          type="checkbox"
+          checked={value}
           name={name}
-
-
-          checked={this.state.isChecked}
-          
           onChange={this._handleInputChange}
+          type="checkbox"
+          value={value}
         />
         <label htmlFor={name}> {label} </label>
+        <br/>
+        <small className="help-text"><em>{helpText}</em></small>
       </div>
     )
   }
 }
 
 CheckboxInput.propTypes = {
-  label: PropTypes.string
-  , value: PropTypes.bool.isRequired
-  , name: PropTypes.string.isRequired
+  change: PropTypes.func.isRequired
   , checked: PropTypes.bool
-  , change: PropTypes.func
+  , helpText: PropTypes.string
+  , label: PropTypes.string
+  , name: PropTypes.string.isRequired
+  , value: PropTypes.bool.isRequired
+}
+
+CheckboxInput.defaultProps = {
+  checked: false
+  , helpText: ''
+  , label: ''
 }
 
 export default CheckboxInput;

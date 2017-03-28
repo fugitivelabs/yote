@@ -1,6 +1,6 @@
 /**
  * User's API includes login to session, login and retrieve API token, logout,
- * and standard CRUD.  
+ * and standard CRUD.
  */
 
 let passport = require('passport');
@@ -131,12 +131,12 @@ module.exports = function(router, requireLogin, requireRole) {
   router.get('/api/users/:id'           , requireRole('admin'), users.getById); // must be an 'admin' to see individual user info
 
   // - Update
-  router.put('/api/users/updateProfile'     , requireLogin(), users.updateProfile);
+  router.put('/api/users/update-profile'     , requireLogin(), users.updateProfile);
   router.put('/api/users/:userId'      , requireLogin(), users.update);
   router.post('/api/users/password'    , requireLogin(), users.changePassword);
-  router.post('/api/users/requestpasswordreset'          , users.requestPasswordReset);
-  router.get('/api/users/checkresetrequest/:resetHex'    , users.checkResetRequest);
-  router.post('/api/users/resetpassword'                 , users.resetPassword);
+  router.post('/api/users/request-password-reset'          , users.requestPasswordReset);
+  router.get('/api/users/check-reset-request/:resetHex'    , users.checkResetRequest);
+  router.post('/api/users/reset-password'                 , users.resetPassword);
 
   // - Delete
   // NOTE: Be careful with this...
