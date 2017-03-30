@@ -7,21 +7,28 @@ import { connect } from 'react-redux';
 import * as userActions from '../userActions';
 
 // import global components
+import AlertModal from '../../../global/components/modals/AlertModal.js.jsx';
 import Base from "../../../global/components/BaseComponent.js.jsx";
 
 // import form components
-import { TextInput } from '../../../global/components/forms';
+import { EmailInput } from '../../../global/components/forms';
 
 
 class ForgotPassword extends Base {
   constructor(props) {
     super(props);
     this.state = {
-      username: ""
+      errorMessage: ''
+      , isErrorModalOpen: false
+      , isSuccessModalOpen: false
+      , username: ""
     };
     this._bind(
-      '_handleFormChange'
+      '_closeSuccessModal'
+      , '_handleFormChange'
       , '_handleFormSubmit'
+      , '_openSuccessModal'
+      , '_toggleErrorModal'
     );
   }
 
@@ -35,44 +42,84 @@ class ForgotPassword extends Base {
     e.preventDefault();
     this.props.dispatch(userActions.sendForgotPassword(this.state.username)).then((action) => {
       if(action.success) {
-        alert("You should receive an email shortly with password reset instructions.");
-        browserHistory.push('/');
+        this._openSuccessModal();
       } else {
-        alert("There was a problem reseting your password on the server. Please contact a site admin.");
+        this.setState({errorMessage: action.error});
+        this._toggleErrorModal();
       }
     })
   }
 
+  _openSuccessModal() {
+    this.setState({isSuccessModalOpen: true});
+  }
+
+  _closeSuccessModal() {
+    this.setState({isSuccessModalOpen: false});
+    browserHistory.push('/');
+  }
+
+  _toggleErrorModal() {
+    this.setState({isErrorModalOpen: !this.state.isErrorModalOpen});
+  }
+
   render() {
+    const { user } = this.props;
     return  (
-      <div>
-        <div className="yt-container">
-          <h1> Forgot Password </h1>
-          <div className="yt-row center-horiz">
-            <div className="form-container">
-              <form name="userForm" className="card user-form" onSubmit={this._handleFormSubmit}>
-                <span></span>
-                <TextInput
-                  name="username"
-                  label="Email Address"
-                  value={this.state.username}
-                  change={this._handleFormChange}
-                  placeholder="Email Address"
-                  required={true}
-                />
-                <div className="input-group">
-                  <div className="yt-row space-between">
-                    <button className="yt-btn " type="submit" > Send Password Reset </button>
-                  </div>
-                  <br/>
-                  <div className="yt-row space-between u-pullRight">
-                    <Link to={"/user/login"} className="yt-btn fowler x-small"> Back To Login </Link>
-                  </div>
+      <div className="yt-container">
+        <div className="yt-row center-horiz">
+          <div className="form-container -slim">
+            <form name="forgotPassowrdForm" className="user-form" onSubmit={this._handleFormSubmit}>
+              <h2> Forgot Password </h2>
+              <hr/>
+              <EmailInput
+                name="username"
+                label="Email Address"
+                value={this.state.username}
+                change={this._handleFormChange}
+                required={true}
+              />
+              <div className="input-group">
+                <div className="yt-row right">
+                  <Link to={"/user/login"} className="yt-btn link"> Back To Login </Link>
+                  <button className="yt-btn " type="submit" disabled={user.isFetching}>
+                    {user.isFetching ?
+                      <span>Sending...</span>
+                      :
+                      <span>Send Password Reset</span>
+                    }
+                   </button>
                 </div>
-              </form>
-            </div>
+              </div>
+            </form>
           </div>
         </div>
+        <AlertModal
+          alertMessage="You should receive an email shortly with password reset instructions."
+          alertTitle="Success"
+          closeAction={this._closeSuccessModal}
+          confirmAction={this._closeSuccessModal}
+          confirmText="Go it"
+          isOpen={this.state.isSuccessModalOpen}
+          type="info"
+        />
+        <AlertModal
+          alertMessage={
+            <div>
+              <strong>
+                {this.state.errorMessage}
+              </strong>
+              <br/>
+              <div>You may need to contact a study coordinator.</div>
+            </div>
+          }
+          alertTitle="Error"
+          closeAction={this._toggleErrorModal}
+          confirmAction={this._toggleErrorModal}
+          confirmText="Try again"
+          isOpen={this.state.isErrorModalOpen}
+          type="danger"
+        />
       </div>
     )
   }
@@ -83,7 +130,7 @@ ForgotPassword.propTypes = {
 }
 
 const mapStoreToProps = (store) => {
-  return { user: store.user.loggedIn.user }
+  return { user: store.user.loggedIn }
 }
 
 export default connect(

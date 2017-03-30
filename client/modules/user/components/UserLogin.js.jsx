@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import * as userActions from '../userActions';
 
 // import form components
+import AlertModal from '../../../global/components/modals/AlertModal.js.jsx';
 import Base from "../../../global/components/BaseComponent.js.jsx";
 
 // import user components
@@ -16,7 +17,9 @@ class UserLogin extends Base {
   constructor(props) {
     super(props);
     this.state = {
-      user: {
+      errorMessage: ''
+      , isErrorModalOpen: false
+      , user: {
         username: ''
         , password: ''
       }
@@ -24,6 +27,8 @@ class UserLogin extends Base {
     this._bind(
       '_handleFormChange'
       , '_handleFormSubmit'
+      , '_toggleErrorModal'
+      , '_goToResetPass'
     );
   }
 
@@ -47,19 +52,41 @@ class UserLogin extends Base {
         browserHistory.push('/');
         // TODO: handle next params
       } else {
-        alert(action.error);
+        this.setState({errorMessage: action.error});
+        this._toggleErrorModal();
       }
     })
+  }
+
+  _toggleErrorModal() {
+    this.setState({isErrorModalOpen: !this.state.isErrorModalOpen});
+  }
+
+  _goToResetPass() {
+    browserHistory.push('/user/forgot-password')
   }
 
   render() {
     const { user } = this.state;
     return  (
-      <div>
-        <UserLoginForm
-          user={user}
-          handleFormSubmit={this._handleFormSubmit}
-          handleFormChange={this._handleFormChange}
+      <div className="yt-container">
+        <div className="yt-row center-horiz">
+          <UserLoginForm
+            user={user}
+            handleFormSubmit={this._handleFormSubmit}
+            handleFormChange={this._handleFormChange}
+          />
+        </div>
+        <AlertModal
+          alertMessage={this.state.errorMessage}
+          alertTitle="Error with sign in"
+          closeAction={this._toggleErrorModal}
+          confirmAction={this._toggleErrorModal}
+          confirmText="Try again"
+          declineText="Reset Password"
+          declineAction={this._goToResetPass}
+          isOpen={this.state.isErrorModalOpen}
+          type="danger"
         />
       </div>
     )

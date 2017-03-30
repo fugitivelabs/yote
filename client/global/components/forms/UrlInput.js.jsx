@@ -39,7 +39,7 @@ class UrlInput extends Base {
     const { label, value, placeholder, name, required } = this.props;
     return (
       <div className="input-group">
-        <label htmlFor={name}> {label} </label>
+        <label htmlFor={name}> {label} {required ? <sup className="-required">*</sup> : null}</label>
         <input
           type="url"
           name={name}
@@ -65,7 +65,7 @@ UrlInput.propTypes = {
 UrlInput.propTypes = {
   label: ''
   , placeholder: ''
-  , required: false 
+  , required: false
 }
 
 export default UrlInput;

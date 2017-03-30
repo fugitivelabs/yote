@@ -18,11 +18,9 @@ class UserLayout extends Base {
 
   render() {
     return (
-      <div className="master-layout">
-        <div className="body with-header -gray">
-          {this.props.children}
-        </div>
-      </div>
+      <DefaultLayout>
+        {this.props.children}
+      </DefaultLayout>
     )
   }
 }

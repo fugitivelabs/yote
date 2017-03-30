@@ -22,14 +22,14 @@ function ProductForm({
   const buttonText = formType === "create" ? "Create Product" : "Update Product";
 
   // set the form header
-  const header = formTitle ? <div className="formHeader"><h1> {formTitle} </h1><hr/></div> : <div/>;
+  const header = formTitle ? <div className="formHeader"><h2> {formTitle} </h2><hr/></div> : <div/>;
 
   return (
     <div className="yt-container">
-      {header}
       <div className="yt-row center-horiz">
-        <div className="form-container">
-          <form name="productForm" className="card product-form" onSubmit={handleFormSubmit}>
+        <div className="form-container -slim">
+          <form name="productForm" className="product-form" onSubmit={handleFormSubmit}>
+            {header}
             <TextInput
               name="title"
               label="Title"

@@ -273,7 +273,7 @@ exports.requestPasswordReset = function(req, res) {
           logger.debug("creating password reset email");
           logger.error(user.resetPasswordHex);
           let targets = [user.username];
-          let resetUrl = `http://${appUrl}/user/resetpassword/${user.resetPasswordHex}`;
+          let resetUrl = `http://${appUrl}/user/reset-password/${user.resetPasswordHex}`;
           let html = "<h1> You have requested a password reset for your YOTE account.</h1>";
           html += "<p>You reset link will be active for 24 hours. </p>";
           html += "<p>If you believe you received this email by mistake, please call (919) 414-4801 and ask for Zabajone.</p>";

@@ -61,19 +61,21 @@ class CreateProduct extends Base {
     const { product } = this.state;
     const isEmpty = (product.title === null || product.title === undefined);
     return (
-      <div>
-        {isEmpty ?
-          <h2> Loading...</h2>
-          :
-          <ProductForm
-            product={product}
-            formType="create"
-            handleFormSubmit={this._handleFormSubmit}
-            handleFormChange={this._handleFormChange}
-            cancelLink="/products"
-            formTitle="Create Product"
-          />
-        }
+      <div className="flex">
+        <section className="section">
+          {isEmpty ?
+            <h2> Loading...</h2>
+            :
+            <ProductForm
+              product={product}
+              formType="create"
+              handleFormSubmit={this._handleFormSubmit}
+              handleFormChange={this._handleFormChange}
+              cancelLink="/products"
+              formTitle="Create Product"
+            />
+          }
+        </section>
       </div>
     )
   }

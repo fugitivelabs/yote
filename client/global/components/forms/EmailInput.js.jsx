@@ -31,7 +31,7 @@ class EmailInput extends Base {
     const { disabled, label, value, placeholder, name, required, helpText } = this.props;
     return (
       <div className="input-group">
-        <label htmlFor={name}> {label} </label>
+        <label htmlFor={name}> {label} {required ? <sup className="-required">*</sup> : null}</label>
         <input
           type="email"
           name={name}

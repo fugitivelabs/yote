@@ -7,8 +7,8 @@ import { connect } from 'react-redux';
 import * as userActions from '../userActions';
 
 // import global components
-import Base from '../../../global/components/BaseComponent.js.jsx';
 import AlertModal from '../../../global/components/modals/AlertModal.js.jsx';
+import Base from '../../../global/components/BaseComponent.js.jsx';
 
 // import user components
 import AdminUserForm from './AdminUserForm.js.jsx';

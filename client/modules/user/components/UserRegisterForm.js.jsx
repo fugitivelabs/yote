@@ -5,59 +5,93 @@ import { Link } from 'react-router';
 // import form components
 import { TextInput, EmailInput, PasswordInput } from '../../../global/components/forms';
 
-function UserRegisterForm({ user, handleFormSubmit, handleFormChange }) {
+function UserRegisterForm({
+  confirmPassword
+  , handleFormChange
+  , handleFormSubmit
+  , passwordErrorMessage
+  , passwordValid
+  , password2ErrorMessage
+  , password2Valid
+  , user
+  , validatePassword
+}) {
   return (
-    <div className="yt-container">
-      <h1> Register Account </h1>
-      <div className="yt-row center-horiz">
-        <div className="form-container">
-          <form name="userForm" className="card user-form" onSubmit={handleFormSubmit}>
-            <EmailInput
-              name="username"
-              label="Email Address"
-              value={user.username}
-              change={handleFormChange}
-              placeholder="Email (required)"
-              required={true}
-            />
-            <PasswordInput
-              name="password"
-              label="Password"
-              value={user.password}
-              change={handleFormChange}
-              required={true}
-              password={true}
-            />
-            <TextInput
-              name="firstName"
-              label="First Name"
-              value={user.firstName}
-              change={handleFormChange}
-              required={true}
-              />
-            <TextInput
-              name="lastName"
-              label="Last Name"
-              value={user.lastName}
-              change={handleFormChange}
-              required={true}
-            />
-            <div className="input-group">
-              <div className="yt-row space-between">
-                <button className="yt-btn " type="submit" > Register </button>
-              </div>
-            </div>
-          </form>
+    <div className="form-container -slim">
+      <form name="userForm" className="user-form" onSubmit={handleFormSubmit}>
+        <h2> Register for Yote</h2>
+        <hr/>
+        <EmailInput
+          change={handleFormChange}
+          label="Email Address"
+          name="username"
+          required={true}
+          value={user.username}
+        />
+        <PasswordInput
+          change={handleFormChange}
+          errorMessage={passwordErrorMessage}
+          handleBlur={validatePassword}
+          isValid={passwordValid}
+          label="Password"
+          name="password"
+          password={true}
+          required={true}
+          value={user.password}
+        />
+        <PasswordInput
+          change={handleFormChange}
+          errorMessage={password2ErrorMessage}
+          handleBlur={confirmPassword}
+          label="Confirm Password"
+          isValid={password2Valid}
+          name="password2"
+          password={true}
+          required={true}
+          value={user.password2}
+        />
+        <TextInput
+          change={handleFormChange}
+          label="First Name"
+          name="firstName"
+          required={true}
+          value={user.firstName}
+          />
+        <TextInput
+          change={handleFormChange}
+          label="Last Name"
+          name="lastName"
+          required={true}
+          value={user.lastName}
+        />
+        <div className="input-group">
+          <div className="yt-row right">
+            <Link to="/user/login" className="yt-btn link">Sign in </Link>
+            <button className="yt-btn " type="submit" > Register </button>
+          </div>
         </div>
-      </div>
+      </form>
     </div>
   )
 }
 
 UserRegisterForm.propTypes = {
-  handleFormChange: PropTypes.func.isRequired
+  confirmPassword: PropTypes.func.isRequired
+  , handleFormChange: PropTypes.func.isRequired
   , handleFormSubmit: PropTypes.func.isRequired
+  , passwordErrorMessage: PropTypes.string
+  , passwordValid: PropTypes.bool
+  , password2ErrorMessage: PropTypes.string
+  , password2Valid: PropTypes.bool
   , user: PropTypes.object.isRequired
+  , validatePassword: PropTypes.func.isRequired
+}
+
+UserRegisterForm.defaultProps = {
+  passwordErrorMessage: ""
+  , passwordValid: true
+  , password2ErrorMessage: ""
+  , password2Valid: true 
 }
 
 export default UserRegisterForm;
