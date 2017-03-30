@@ -1,5 +1,7 @@
 /**
- * Helper component for rendering textarea inputs
+ * Helper form component for rendering email inputs
+ *
+ * TODO: add REGEX validators
  */
 
 // import primary libraries
@@ -8,63 +10,58 @@ import React, { PropTypes } from 'react'
 // import components
 import Base from "../BaseComponent.js.jsx";
 
-class TextAreaInput extends Base {
+class EmailInput extends Base {
   constructor(props) {
     super(props);
-    this._bind('_handleInputChange');
+    this._bind(
+      '_handleInputChange'
+      , '_validateEmail'
+    );
   }
 
   _handleInputChange(e) {
     this.props.change(e);
   }
 
-  render() {
-    const {
-      helpText
-      , label
-      , name
-      , placeholder
-      , required
-      , rows
-      , value
-    } = this.props;
+  _validateEmail(email) {
+    // TODO: use email regex validator here
+  }
 
+  render() {
+    const { disabled, label, value, placeholder, name, required, helpText } = this.props;
     return (
       <div className="input-group">
-        <label htmlFor={name}> {label} {required ? <sup className="-required">*</sup> : null}</label>
-        <textarea
-          type="text"
+        <label htmlFor={name}> {label} </label>
+        <input
+          type="email"
           name={name}
           placeholder={placeholder}
+          value={value}
           onChange={this._handleInputChange}
           required={required}
-          value={value}
-          rows={rows}
-        >
-        </textarea>
+          disabled={disabled}
+        />
         <small className="help-text"><em>{helpText}</em></small>
       </div>
     )
   }
 }
 
-TextAreaInput.propTypes = {
+EmailInput.propTypes = {
   change: PropTypes.func.isRequired
   , helpText: PropTypes.any
   , label: PropTypes.string
   , name: PropTypes.string.isRequired
   , placeholder: PropTypes.string
   , required: PropTypes.bool
-  , rows: PropTypes.string
   , value: PropTypes.string.isRequired
 }
 
-TextAreaInput.defaultProps = {
+EmailInput.defaultProps = {
   helpText: null
   , label: ''
   , placeholder: ''
   , required: false
-  , rows: '4'
 }
 
-export default TextAreaInput;
+export default EmailInput;

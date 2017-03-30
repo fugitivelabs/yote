@@ -5,6 +5,7 @@
 // import primary libraries
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
+import { connect } from 'react-redux';
 
 // import third-party libraries
 import classNames from 'classnames';
@@ -40,40 +41,38 @@ class LandingNav extends Base {
   }
 
   render() {
+    let { user } = this.props;
     let isScrolled = this.props.isScrolled;
-    if(isScrolled) {
-      var background = {
-        color: "rgba(0,0,0,0.6)"
-        , backgroundColor: "#fff"
-        , borderBottom: "1px solid rgba(0,0,0,0.15) " };
-      var recStyle = {
-        color: "#ff4081"
-      }
-    } else {
-      var background = {
-        color: "rgba(0,0,0,0.97)"
-        , backgroundColor: "transparent" };
-    }
+
 
     let headerClass = classNames(
-      'header'
-      // , 'fixed'
+      'header landing-header'
+      , 'fixed'
+      , { 'transparent': !isScrolled }
+
     )
 
+    let topClass = classNames(
+      "topbar landing-nav main-container"
+      , { 'transparent': !isScrolled }
+    )
+
+    let pictureUrl = '/img/defaults/profile.png';
+    if(user && user.profilePicUrl) {
+      pictureUrl = user.profilePicUrl;
+    }
+    // console.log(pictureUrl);
+
+    let profileImg = {backgroundImage: `url(${pictureUrl})`};
+
     return (
-      <header className={headerClass} style={background}>
-        <div  className="topbar landing-nav yt-container">
+      <header className={headerClass} >
+        <div className={topClass}>
           <CloseWrapper
             isOpen={this.state.isOpen}
             closeAction={this._closeDropdown}
           />
-          <div className="titles">
-            <Link to="/">
-              <div className="nav-logo"> Yote
-                <span className="subtitle"> Standard Dev Kit </span>
-              </div>
-            </Link>
-          </div>
+
           <div className="actions">
             <div className="yt-row center-vert right">
               <ul className="navigation">
@@ -81,10 +80,12 @@ class LandingNav extends Base {
                   <Link to="/products" activeClassName="active">Products</Link>
                 </li>
                 <li className="dropdown">
-                  <a onClick={this._openDropdown}> <i className="fa fa-caret-down"></i></a>
+                  <a onClick={this._openDropdown}>
+                    <div className="-profile-pic" style={profileImg} />
+                    <i className="fa fa-caret-down"></i>
+                  </a>
                 </li>
                 <DropdownNav
-                  currentUser={null}
                   isOpen={this.state.isOpen}
                 />
               </ul>
@@ -102,4 +103,12 @@ LandingNav.propTypes = {
 
 }
 
-export default LandingNav;
+const mapStoreToProps = (store) => {
+  return {
+    user: store.user.loggedIn.user
+  }
+}
+
+export default connect(
+  mapStoreToProps
+)(LandingNav);

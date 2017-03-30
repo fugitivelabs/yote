@@ -72,18 +72,20 @@ class UpdateProduct extends Base {
     const { product } = this.state;
     const isEmpty = (!product || product.title === null || product.title === undefined);
     return  (
-      <div >
-        {isEmpty
-          ? (selectedProduct.isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
-        : <ProductForm
-            product={product}
-            formType="update"
-            handleFormSubmit={this._handleFormSubmit}
-            handleFormChange={this._handleFormChange}
-            cancelLink={`/products/${product._id}`}
-            formTitle="Update Product"
-          />
-        }
+      <div className="flex">
+        <section className="section">
+          {isEmpty
+            ? (selectedProduct.isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
+          : <ProductForm
+              product={product}
+              formType="update"
+              handleFormSubmit={this._handleFormSubmit}
+              handleFormChange={this._handleFormChange}
+              cancelLink={`/products/${product._id}`}
+              formTitle="Update Product"
+            />
+          }
+        </section>
       </div>
     )
   }

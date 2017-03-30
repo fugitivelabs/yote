@@ -7,8 +7,6 @@
 // import primary libraries
 import React, { PropTypes } from 'react'
 
-import classNames from 'classnames';
-
 // import components
 import Base from "../BaseComponent.js.jsx";
 
@@ -17,8 +15,7 @@ class PasswordInput extends Base {
     super(props);
     this._bind(
       '_handleInputChange'
-      , '_handleBlur'
-
+      , '_validatePassword'
     );
   }
 
@@ -26,32 +23,22 @@ class PasswordInput extends Base {
     this.props.change(e);
   }
 
-  _handleBlur(e) {
+  _validatePassword(password) {
     // TODO: check password valid here
-    this.props.handleBlur(e);
   }
 
   render() {
-    const {  errorMessage, helpText, isValid, label, name, required, value } = this.props;
-    let inputClass = classNames({ "-error": !isValid });
-
+    const {  helpText, label, name, required, value } = this.props;
     return (
       <div className="input-group">
-        <label htmlFor={name}> {label} {required ? <sup className="-required">*</sup> : null}</label>
+        <label htmlFor={name}> {label} </label>
         <input
-          className={inputClass}
+          type="password"
           name={name}
-          onBlur={this._handleBlur}
+          value={value}
           onChange={this._handleInputChange}
           required={required}
-          type="password"
-          value={value}
         />
-        { !isValid ?
-          <div className="-error-message">{errorMessage}</div>
-          :
-          null
-        }
         <small className="help-text"><em>{helpText}</em></small>
       </div>
     )
@@ -60,22 +47,15 @@ class PasswordInput extends Base {
 
 PasswordInput.propTypes = {
   change: PropTypes.func.isRequired
-  , errorMessage: PropTypes.any
-  , handleBlur: PropTypes.func
   , helpText: PropTypes.any
-  , isValid: PropTypes.bool
   , label: PropTypes.string
   , name: PropTypes.string.isRequired
   , required: PropTypes.bool
   , value: PropTypes.string.isRequired
-
 }
 
 PasswordInput.defaultProps = {
-  errorMessage: null
-  , handleBlur: null
-  , helpText: null
-  , isValid: true
+  helpText: null
   , label: ''
   , required: false
 }

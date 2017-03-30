@@ -134,6 +134,7 @@ function user(state = {
   defaultItem: {
     username: ""
     , password: ""
+    , password2: ""
     , firstName: ""
     , lastName: ""
     , roles: []
@@ -260,6 +261,39 @@ function user(state = {
         })
       }
     }
+    case Actions.REQUEST_FORGOT_PASSWORD: {
+      return Object.assign({}, state, {
+        loggedIn: {
+          user: {}
+          , isFetching: true
+          , error: null
+          , didInvalidate: false
+          , lastUpdated: null
+        }
+      })
+    }
+    case Actions.RECEIVE_FORGOT_PASSWORD: {
+      if(!action.success) {
+        return Object.assign({}, state, {
+          loggedIn: {
+            user: {}
+            , isFetching: false
+            , error: action.error
+            , didInvalidate: true
+          }
+        })
+      } else {
+        return Object.assign({}, state, {
+          loggedIn: {
+            user: {}
+            , isFetching: false
+            , error: null
+            , didInvalidate: false
+            , lastUpdated: action.receivedAt
+          }
+        })
+      }
+    }
     case Actions.REQUEST_UPDATE_PROFILE: {
       let newState = Object.assign({}, state, {});
       newState.loggedIn.isFetching = true;
@@ -325,7 +359,7 @@ function user(state = {
       return Object.assign({}, state, {
         loggedIn: {
           user: {}
-          , isFetching: true
+          , isFetching: false
           , error: null
           , didInvalidate: false
           , lastUpdated: null
