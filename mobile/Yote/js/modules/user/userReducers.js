@@ -159,6 +159,7 @@ function user(state = {
     , lastUpdated: null
     , resetUserId: null
     , resetTokenValid: false
+    , apiToken: null 
   }
 
   /**
@@ -210,9 +211,10 @@ function user(state = {
         return Object.assign({}, state, {
           loggedIn: {
             user: {}
+            , apiToken: null
             , isFetching: false
             , error: action.error
-            , didInvalidate: true
+            , didInvalidate: true 
           }
         })
       } else {
@@ -223,6 +225,7 @@ function user(state = {
             , error: null
             , didInvalidate: false
             , lastUpdated: action.receivedAt
+            , apiToken: action.apiToken 
           }
         })
       }
@@ -246,6 +249,7 @@ function user(state = {
             , isFetching: false
             , error: action.error
             , didInvalidate: true
+            , apiToken: null
           }
         })
       } else {
@@ -256,6 +260,7 @@ function user(state = {
             , error: null
             , didInvalidate: false
             , lastUpdated: action.receivedAt
+            , apiToken: action.apiToken
           }
         })
       }
@@ -401,6 +406,33 @@ function user(state = {
         })
       }
     }
+    case Actions.REQUEST_UPDATE_PROFILE: 
+      return Object.assign({}, state, {
+        isFetching: true
+        , error: null
+        , status: null
+      })
+    case Actions.RECEIVE_UPDATE_PROFILE: 
+      if(action.success) {
+        let newUser = JSON.parse(JSON.stringify(state.loggedIn));
+        newUser.user.username = action.user.username;
+        newUser.user.firstName = action.user.firstName;
+        newUser.user.lastName = action.user.lastName; 
+        // newUser.info.profilePicUrl = action.user.info.profilePicUrl; 
+        return Object.assign({}, state, {
+          isFetching: false
+          , loggedIn: newUser
+          , error: action.error
+          , status: null
+        })
+      } else {
+
+        return Object.assign({}, state, {
+          isFetching: false
+          , error: action.error
+          , status: null
+        })
+      }
     case Actions.REQUEST_UPDATE_USER: {
       return Object.assign({}, state, {
         selected: {
