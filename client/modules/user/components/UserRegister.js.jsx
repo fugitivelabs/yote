@@ -61,7 +61,6 @@ class UserRegister extends Base {
             "Loading..."
             :
             <UserRegisterForm
-              confirmPassword={this._confirmPassword}
               handleFormChange={this._handleFormChange}
               handleFormSubmit={this._handleFormSubmit}
               user={user}
