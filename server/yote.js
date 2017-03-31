@@ -1,118 +1,111 @@
-/*
-••••••••••••••••••••••••••••••••••••••••••••••••••
+/**
+ * ••••••••••••••••••••••••••••••••••••••••••••••••••
+ *
+ * Welcome to Yote!
+ *
+ * For documentation visit fugitivelabs.github.io/yote/
+ *
+ * We hope you like it!
+ *   - Fugitive Labs
+ *
+ * ••••••••••••••••••••••••••••••••••••••••••••••••••
+ *
+ * Copyright (c) 2015-present, Fugitive Labs, LLC.
+ * All rights reserved.
+ *
+ */
 
-Welcome to Yote.  We hope you like it.
+// require libraries
+let bodyParser      = require('body-parser');
+let cookieParser    = require('cookie-parser');
+let compress        = require('compression');
+let errorHandler    = require('errorhandler');
+let express         = require('express');
+let favicon         = require('serve-favicon');
+let fs              = require('fs');
+let LocalStrategy   = require('passport-local').Strategy;
+let mongoose        = require('mongoose');
+let passport        = require('passport');
+let path            = require('path');
+let serveStatic     = require('serve-static');
+let session         = require('express-session');
+let timeout         = require('connect-timeout');
+let winston         = require('winston');
 
-  - Fugitive Labs
-
-••••••••••••••••••••••••••••••••••••••••••••••••••
-*/
+// init MongoStore sessions
+let MongoStore      = require('connect-mongo')(session);
 
 
-var express         = require('express')
-  , compress        = require('compression')
-  , bodyParser      = require('body-parser')
-  , cookieParser    = require('cookie-parser')
-  , serveStatic     = require('serve-static')
-  , winston         = require('winston')
-  , session         = require('express-session')
-  , favicon         = require('serve-favicon')
-  , timeout         = require('connect-timeout')
-  , errorHandler    = require('errorhandler')
-  , mongoose        = require('mongoose')
-  , passport        = require('passport')
-  , LocalStrategy   = require('passport-local').Strategy
-  , path            = require('path')
-  // , RedisStore      = require('connect-redis')(session) //no longer used
-  , MongoStore      = require('connect-mongo')(session)
-  , fs              = require('fs')
-  // , sass            = require('node-sass-middleware') //no longer used
-  ;
+// init express
+let app = express();
 
-var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
-var app = express();
-var config = require('./config')[env];
+// configure the envirment
+let env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+let config = require('./config')[env];
 
-//initialize logger
-// generally global is not considered "best practices", but this will allow access to the logger object in the entire app
+// initialize logger
+// NOTE: generally 'global' is not considered "best practices", but this will allow access to the logger object in the entire app
 global.logger = require('./logger');
-// LOG EXAMPLES:
+
+// logger examples:
 logger.debug("DEBUG LOG");
 logger.info("INFO LOG");
 logger.warn("WARN LOG");
 logger.error("ERROR LOG");
 
-//initialize database
+// initialize database
 require('./db')(config);
 
-//init User model
-var UserSchema = require('./resources/users/UserModel').User
-  , User = mongoose.model('User')
+// init User model
+let UserSchema = require('./resources/users/UserModel').User;
+let User = mongoose.model('User');
 
-//use express compression plugin
+// use express compression plugin
 app.use(compress());
 
-//configure express
+// configure express
 app.set('views', __dirname + '/views');
 app.set('view engine', 'pug');
 app.use(timeout(30000)); //upper bound on server connections, in ms.
-// app.use(logger('dev'));
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// mongoose.connect(config.db);
 app.use(session({
-  //TODO: configure mongo to use the same database connection
   store: new MongoStore({mongooseConnection: mongoose.connection})
   , secret: config.secrets.sessionSecret
 }));
 
-// app.use(favicon(path.join(__dirname, 'public','favicon.ico')));
 app.use(passport.initialize());
 app.use(passport.session());
 
-//allow file uploads
+// app.use(favicon(path.join(__dirname, 'public','favicon.ico')));
+
+// // Uncomment below to allow file uploads
 // app.use(multipart({}));
 
-//sass middleware
-//only enable for development env - npm module can be buggy
-//NOW rendered via webpack only on changes
-// if (app.get('env') == 'development') {
-//   console.log("using sass");
-//   console.log(__dirname);
-//   app.use(sass({
-//     src: __dirname + '/client'
-//     , dest: __dirname + '/public/css'
-//     , prefix: '/css'
-//     , debug: true
-//     , outputStyle: 'compressed'
-//     , includePaths: ['/client/global/sass/', '/client/modules/', '/client/static']
-//   }));
-// }
 
-//serve static assets, incl. react bundle.js
+// serve static assets, incl. react bundle.js
 app.use(serveStatic(__dirname + '/public'));
 
-//request checks
+// request checks
 app.use(function(req, res, next) {
 
-  //to allow CORS access to the node APIs, follow these steps:
-  // 1. know what you are doing.
-  // 2. uncommente the following 3 lines.
+  // Allow CORS & mobile access to the node APIs -- ref https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS
   res.header("Access-Control-Allow-Origin", "*");
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, token");
-  // ref https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS
 
-  //test user:
+  // test user:
   logger.info("YOTE USER: " + (req.user ? req.user.username : "none"));
-  //no mongo connection
+
+  // check mongo connection
   if(mongoose.connection.readyState !== 1) {
     mongoose.connect(config.db);
     res.send("mongoose error, hold your horses...");
   }
-  //check for OPTIONS method
+
+  // check for OPTIONS method
   if(req.method == 'OPTIONS') {
     res.send(200);
   } else {
@@ -120,7 +113,7 @@ app.use(function(req, res, next) {
   }
 });
 
-//initialize passport
+// initialize passport
 passport.use('local', new LocalStrategy(
   function(username, password, done) {
     var projection = {
@@ -147,7 +140,7 @@ passport.serializeUser(function(user, done) {
 
 passport.deserializeUser(function(id, done) {
   logger.warn("DESERIALIZE USER");
-  //we want mobile user to have access to their api token, but we don't want it to be select: true
+  // NOTE: we want mobile user to have access to their api token, but we don't want it to be select: true
   User.findOne({_id:id}).exec(function(err, user) {
     if(user) {
       return done(null, user);
@@ -163,59 +156,52 @@ if (app.get('env') == 'development') {
   // app.use(errorHandler());
 } else if(app.get('env') == 'production') {
   logger.debug("PRODUCTION");
-  //log express http requests in production. way to much in dev.
+  // log express http requests in production.
   app.use(require('morgan')({"stream":logger.stream}));
 }
 
-//configure server routes
-var router = express.Router();
-// require('./server/routes/api-routes')(router);
+// configure server routes
+let router = express.Router();
 require('./router/server-router')(router, app);
-//some notes on router: http://scotch.io/tutorials/javascript/learn-to-use-the-new-router-in-expressjs-4
 app.use('/', router);
+// some notes on router: http://scotch.io/tutorials/javascript/learn-to-use-the-new-router-in-expressjs-4
 
-//check for the server timeout. must be last in the middleware stack
+// check for the server timeout. NOTE: this must be last in the middleware stack
 app.use(haltOnTimedout);
 function haltOnTimedout(req, res, next){
   //http://stackoverflow.com/questions/21708208/express-js-response-timeout
   if (!req.timedout) next();
 }
 
-//SSL
-//Yote comes out of the box with https support! Check the readme for instructions on how to use.
-var useHttps = false;
-var httpsOptional = false;
+/*
+ * Using HTTPS
+ * Yote comes out of the box with https support! Check the docs for instructions on how to use.
+ */
 
-if(app.get('env') == 'production' && useHttps) {
+if(app.get('env') == 'production' && config.useHttps) {
   logger.info("starting production server WITH ssl");
 
   require('https').createServer({
-      key: fs.readFileSync('../projectName/ssl/yourSsl.key') //so it works on server and local
+      key: fs.readFileSync('../projectName/ssl/yourSsl.key') // so it works on server and local
       , cert: fs.readFileSync('../projectName/ssl/yourCertFile.crt')
-      , ca: [fs.readFileSync('../projectName/ssl/yourCaFile.crt')] // godaddy splits certs into two
-      // this should all be taken care of by default in Node v4.
-      // //disallow ciphers that have security flaws
-      // , honorCipherOrder: true
-      // , ciphers: 'ECDHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA256:AES128-GCM-SHA256:!RC4:HIGH:!MD5:!aNULL'
-      // //https://nodejs.org/docs/latest/api/tls.html#tls_tls_createserver_options_secureconnectionlistener
-      // //https://www.openssl.org/docs/apps/ciphers.html#CIPHER_LIST_FORMAT
-      // //https://sites.google.com/site/jimmyxu101/testing/openssl
-  // }, app).listen(9191);
+      , ca: [fs.readFileSync('../projectName/ssl/yourCaFile.crt')] // NOTE: GoDaddy splits certs into two
+
+  // }, app).listen(9191); // NOTE: uncomment to test HTTPS locally
   }, app).listen(443);
 
-  //need to catch for all http requests and redirect to httpS
+  // need to catch for all http requests and redirect to httpS
   var http = require('http');
-  if(httpsOptional) {
+  if(config.httpsOptional) {
     require('http').createServer(app).listen(80);
   } else {
     require('http').createServer(function(req, res) {
       logger.info("REDIRECTING TO HTTPS");
       res.writeHead(302, {
         'Location': 'https://YOUR-URL.com:443' + req.url
-        // 'Location': 'https://localhost:9191' + req.url
+        // 'Location': 'https://localhost:9191' + req.url // NOTE: uncomment to test HTTPS locally
       });
       res.end();
-    // }).listen(3030);
+    // }).listen(3030); // NOTE: uncomment to test HTTPS locally
     }).listen(80);
   }
 

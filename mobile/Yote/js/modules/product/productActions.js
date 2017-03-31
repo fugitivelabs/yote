@@ -5,7 +5,7 @@ getById, getBySlug example (for products), create, update
 
 // import { browserHistory } from 'react-router';
 
-import callAPI from '../../global/api'
+import callAPI from '../../global/utils/api';
 //SINGLE PRODUCT ACTIONS
 
 const shouldFetchSingle = (state, id) => {
@@ -47,8 +47,8 @@ export const fetchSingleIfNeeded = (id) => (dispatch, getState) => {
 }
 
 export const returnSingleProductPromise = (id) => (dispatch, getState) => {
-  //for the "fetchIfNeeded" functionality, we need to return a promise object 
-  // EVEN IF we don't need to fetch it. this is because if we have any 
+  //for the "fetchIfNeeded" functionality, we need to return a promise object
+  // EVEN IF we don't need to fetch it. this is because if we have any
   // .then()'s in the components, they will fail when we don't need to fetch.
   // This returns the object from the map so that we can do things with it in the component.
   console.log("return single without fetching");
@@ -185,7 +185,7 @@ export function sendDelete(id) {
     // - use this for Delete by default
     .then((json) => {
       if(json.success) {
-        console.log("success"); 
+        console.log("success");
       } else {
         alert("ERROR");
       }
@@ -246,8 +246,8 @@ export const fetchListIfNeeded = (...listArgs) => (dispatch, getState) => {
 }
 
 export const returnProductListPromise = (...listArgs) => (dispatch, getState) => {
-  //for the "fetchIfNeeded" functionality, we need to return a promise object 
-  // EVEN IF we don't need to fetch it. this is because if we have any 
+  //for the "fetchIfNeeded" functionality, we need to return a promise object
+  // EVEN IF we don't need to fetch it. this is because if we have any
   // .then()'s in the components, they will fail when we don't need to fetch.
   console.log("return list without fetching");
   return new Promise((resolve, reject) => {

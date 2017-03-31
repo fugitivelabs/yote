@@ -7,24 +7,24 @@ import View from 'View';
 import Text from 'Text';
 import StyleSheet from 'StyleSheet';
 import TouchableOpacity from 'TouchableOpacity';
-import ScrollView from 'ScrollView'; 
-import TextInput from 'TextInput'; 
+import ScrollView from 'ScrollView';
+import TextInput from 'TextInput';
 
 // import custom components
 import YTHeader from '../../../global/components/YTHeader';
 import YTButton from '../../../global/components/YTButton';
-import ActionButton from '../../../global/components/ActionButton'; 
+import ActionButton from '../../../global/components/ActionButton';
 import YTCard from '../../../global/components/YTCard';
 import ScrollContainer from '../../../global/components/ScrollContainer';
-import YTColors from '../../../global/styles/YTColors'; 
-import EmptyMessage from '../../../global/components/EmptyMessage'; 
+import YTColors from '../../../global/styles/YTColors';
+import EmptyMessage from '../../../global/components/EmptyMessage';
 
- 
+
 
 import * as productActions from '../productActions'
 
 // import styles
-import productStyles from '../productStyles'; 
+import productStyles from '../productStyles';
 
 
 class Product extends Base {
@@ -38,15 +38,15 @@ class Product extends Base {
   }
 
   componentDidMount() {
-    this.props.dispatch(productActions.fetchList());  
+    // this.props.dispatch(productActions.fetchListIfNeeded());  
   }
 
   _openProfile() {
     this.props.navigator.push({profile: true});
   }
 
-  _openNew() { 
-    this.props.navigator.push({newProduct: true}); 
+  _openNew() {
+    this.props.navigator.push({newProduct: true});
   }
 
   _sendDelete(id) {
@@ -57,7 +57,7 @@ class Product extends Base {
 
   render() {
 
-    const {  products, navigator, user } = this.props; 
+    const {  products, navigator, user } = this.props;
 
     if(!products.lists.all || products.lists.all.isFetching) {
       return (
@@ -113,7 +113,7 @@ class Product extends Base {
           </View>
         : null
         }
-          
+
         </ScrollView>
         </View>
       </View>
@@ -130,7 +130,7 @@ const mapStoreToProps = (store) => {
   return {
     user: store.user
     , products: store.product
-    
+
   }
 }
 

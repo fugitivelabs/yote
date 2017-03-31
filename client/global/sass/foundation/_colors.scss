@@ -22,6 +22,12 @@ $link-color:                  #ff4081;
 $link-visited-color:          $link-color;
 $link-hover-color:            lighten($link-color, 20);
 
+
+$button-color:                $brand-accent;
+$button-hover-color:          lighten($button-color, 20);
+$button-visited-color:        $button-color;
+
+
 $divider-color:               rgba(0,0,0,0.15);
 $light-divider-color:         rgba(255,255,255,0.15);
 
@@ -39,6 +45,7 @@ $header-bg-color:                $blue-gray-3;
 $hero-bg-color:                 $blue-gray-1;
 $footer-bg-color:               $blue-gray-0;
 
+
 // Semantic Colors
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
@@ -50,3 +57,6 @@ $warning-hover: darken($warning, 10);
 
 $danger: #e74c3c;
 $danger-hover: darken($danger, 10);
+
+$info: #12B3F5;
+$info-hover: darken($info, 10);

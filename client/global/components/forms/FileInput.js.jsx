@@ -1,7 +1,12 @@
-//old react-file-input repo not maintained, and we will probably iterate on this.
-// below initially includes master + some unmerged pull requests
-
-//see other projects (sof) for examples of integrating on the server side.
+/**
+ * Helper component for rendering and handling file inputs
+ *
+ * NOTE: This is a 'fork' of the old 'react-file-input' repo, which is no
+ * longer maintained. We will probably continue to iterate on this.
+ * See other projects (sof) for examples of integrating on the server side.
+ *
+ * TODO: Could use an example of how to use
+ */
 
 var React = require('react');
 

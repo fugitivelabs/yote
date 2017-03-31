@@ -123,6 +123,11 @@
                   overflow-y: scroll;
 }
 
+@mixin mobile-scroll-x {
+  -webkit-overflow-scrolling: touch;
+                  overflow-x: scroll;
+}
+
 
 @mixin center($xy:xy) {
   @if $xy == xy {
@@ -172,21 +177,42 @@
   @media only screen and (min-width: $media) { @content; }
 }
 
-$S:     480px;
-$M:     768px;
-$L:     960px;
+$XS:    640px;
+$S:     900px;
+$M:     1020px;
+$L:     1280px;
+$XL:    1600px;
 
 // media queries
 
 @mixin MQ($canvas) {
-  @if $canvas == S {
+  @if $canvas == XS {
+    // anything greater than $XS will have this style
+   @media only screen and (min-width: $XS) { @content; }
+  }
+  @else if $canvas == S {
+    // anything greater than $S will have this style
    @media only screen and (min-width: $S) { @content; }
   }
   @else if $canvas == M {
+    // anything greater than $M will have this style
    @media only screen and (min-width: $M) { @content; }
   }
   @else if $canvas == L {
+    // anything greater than $L will have this style
    @media only screen and (min-width: $L) { @content; }
+  }
+  @else if $canvas == XL {
+    // anything greater than $XL will have this style
+   @media only screen and (min-width: $XL) { @content; }
+  }
+
+}
+
+// print
+@mixin Print() {
+  @media print {
+    @content;
   }
 }
 
@@ -364,4 +390,3 @@ $L:     960px;
 
 // Custom
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
-

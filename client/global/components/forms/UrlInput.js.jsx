@@ -1,11 +1,16 @@
+/**
+ * Helper component for rendering url inputs
+ *
+ * TODO: add REGEX validators for urls
+ */
+
+// import primary libraries
 import React, { PropTypes } from 'react'
 
+// import components
 import Base from "../BaseComponent.js.jsx";
 
-
 class UrlInput extends Base {
-
-
   constructor(props) {
     super(props);
     this.state = { theVal: '' };
@@ -22,13 +27,12 @@ class UrlInput extends Base {
     }
   }
 
-
   _handleInputChange(e) {
     this.props.change(e);
   }
 
   _validateUrl(url) {
-    // use URL regex validator here
+    // TODO: use URL regex validator here
   }
 
   render() {
@@ -50,12 +54,18 @@ class UrlInput extends Base {
 }
 
 UrlInput.propTypes = {
-  label: PropTypes.string
-  , value: PropTypes.string
+  change: PropTypes.func.isRequired
+  , label: PropTypes.string
+  , name: PropTypes.string.isRequired
   , placeholder: PropTypes.string
-  , name: PropTypes.string
   , required: PropTypes.bool
-  , change: PropTypes.func
+  , value: PropTypes.string.isRequired
+}
+
+UrlInput.propTypes = {
+  label: ''
+  , placeholder: ''
+  , required: false 
 }
 
 export default UrlInput;

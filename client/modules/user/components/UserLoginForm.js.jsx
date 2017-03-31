@@ -1,9 +1,11 @@
+// import primary libraries
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router';
 
+// import form components
 import { TextInput, PasswordInput } from '../../../global/components/forms';
 
-const UserLoginForm = ({ user, handleFormSubmit, handleFormChange }) => {
+function UserLoginForm({ user, handleFormSubmit, handleFormChange }) {
   return (
     <div className="yt-container">
       <h1> Login </h1>
@@ -43,9 +45,9 @@ const UserLoginForm = ({ user, handleFormSubmit, handleFormChange }) => {
 }
 
 UserLoginForm.propTypes = {
-  user: PropTypes.object.isRequired
+  handleFormChange: PropTypes.func.isRequired
   , handleFormSubmit: PropTypes.func.isRequired
-  , handleFormChange: PropTypes.func.isRequired
+  , user: PropTypes.object.isRequired
 }
 
 export default UserLoginForm;

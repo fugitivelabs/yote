@@ -1,12 +1,17 @@
+// import primary libraries
 import React, { PropTypes } from 'react';
-import Base from "../../../global/components/BaseComponent.js.jsx";
-import { connect } from 'react-redux';
 import { Link, browserHistory } from 'react-router';
+import { connect } from 'react-redux';
 
+// import actions
+import * as userActions from '../userActions';
+
+// import global components
+import Base from "../../../global/components/BaseComponent.js.jsx";
+
+// import form components
 import { TextInput } from '../../../global/components/forms';
 
-//import actions
-import * as userActions from '../userActions';
 
 class ForgotPassword extends Base {
   constructor(props) {
@@ -28,8 +33,8 @@ class ForgotPassword extends Base {
 
   _handleFormSubmit(e) {
     e.preventDefault();
-    this.props.dispatch(userActions.sendForgotPassword(this.state.username)).then((res) => {
-      if(res.success) {
+    this.props.dispatch(userActions.sendForgotPassword(this.state.username)).then((action) => {
+      if(action.success) {
         alert("You should receive an email shortly with password reset instructions.");
         browserHistory.push('/');
       } else {
@@ -55,7 +60,6 @@ class ForgotPassword extends Base {
                   placeholder="Email Address"
                   required={true}
                 />
- 
                 <div className="input-group">
                   <div className="yt-row space-between">
                     <button className="yt-btn " type="submit" > Send Password Reset </button>

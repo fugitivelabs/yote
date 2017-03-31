@@ -1,27 +1,40 @@
-// import react things
-import React from 'react';
-import Platform from 'Platform';
-import Navigator from 'Navigator'
-import BackAndroid from 'BackAndroid';
-import StyleSheet from 'StyleSheet';
-import { connect } from 'react-redux';
-import Base from './global/components/BaseComponent';
-import AppState from 'AppState';
+/**
+ * Primary navigation stack for the app.  Utilizes RN Navigator
+ *
+ * See https://facebook.github.io/react-native/releases/next/docs/navigator.html
+ * for docs
+ *
+ * TODO: Investigate replacing this with react-router v4
+ */
 
-// import components
+// import primary libraries
+import React from 'react';
+import { connect } from 'react-redux';
+
+// import RN components
+import AppState from 'AppState';
+import BackAndroid from 'BackAndroid';
+import Navigator from 'Navigator'
+import Platform from 'Platform';
+import StyleSheet from 'StyleSheet';
+
+// import YT components
+import Base from './global/components/BaseComponent';
 import TabsView from './global/components/tabs/TabsView';
 
-import Settings from './modules/user/components/Settings';
-import EditProfile from './modules/user/components/EditProfile';
-import Profile from './modules/user/components/Profile';
-import Privacy from './modules/user/components/Privacy';
-import Team from './modules/user/components/Team';
+// import actions
+import * as productActions from './modules/product/productActions';
+
+// import module components
+import UpdateProfile from './modules/user/components/UpdateProfile';
 import FAQ from './modules/user/components/FAQ';
+import NewProduct from './modules/product/components/NewProduct';
+import Privacy from './modules/user/components/Privacy';
+import Profile from './modules/user/components/Profile';
+import Settings from './modules/user/components/Settings';
 
-import NewProduct from './modules/product/components/NewProduct'; 
 
-// styles
-
+// define styles
 let styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -32,8 +45,7 @@ let styles = StyleSheet.create({
 class MainNavigator extends Base {
   constructor(props) {
     super(props);
-    this._handlers = [];
-
+    this._handlers = []; // android handlers
     this._bind(
       '_renderScene'
       , '_handleBackButton'
@@ -43,18 +55,21 @@ class MainNavigator extends Base {
   }
 
   componentDidMount() {
-    // AppState.addEventListener('change', this._handleAppStateChange);
+    // setup android back button listener
     BackAndroid.addEventListener('hardwareBackPress', this._handleBackButton);
+
+    const { dispatch } = this.props;
+
+    // if logged in, call initial actions to load the app
     if(this.props.isLoggedIn) {
-      // this.props.dispatch(postActions.fetchList()); 
+      // call initial actions here
+      dispatch(productActions.fetchList());
     }
   }
 
   componentWillUnmount() {
     AppState.removeEventListener('change', this._handleAppStateChange);
     BackAndroid.removeEventListener('hardwareBackPress', this._handleBackButton);
-
-
   }
 
 
@@ -109,7 +124,7 @@ class MainNavigator extends Base {
 
     if(route.editProfile) {
       return (
-        <EditProfile
+        <UpdateProfile
           {...route}
           navigator={navigator}
         />
@@ -128,15 +143,6 @@ class MainNavigator extends Base {
     if(route.privacy) {
       return (
         <Privacy
-          {...route}
-          navigator={navigator}
-        />
-      )
-    }
-
-    if(route.team) {
-      return (
-        <Team
           {...route}
           navigator={navigator}
         />
@@ -169,7 +175,7 @@ class MainNavigator extends Base {
         />
       )
     }
-    
+
     return <TabsView navigator={navigator} />;
   }
 

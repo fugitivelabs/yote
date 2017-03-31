@@ -1,13 +1,11 @@
+// import primary libraries
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router';
 
-const ProductListItem = ({ product }) => {
-
+function ProductListItem({ product }) {
   return (
     <li>
-
       <Link to={`/products/${product._id}`}> {product.title}</Link>
-
     </li>
   )
 }

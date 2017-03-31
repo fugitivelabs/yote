@@ -1,11 +1,14 @@
+/**
+ * This is a utility to handle default API requests with the Yote server
+ */
+
 import fetch from 'isomorphic-fetch';
 
 const baseUrl = ""; //later required for server rendering
 
-export default function callAPI(route, method = 'GET', body, headers = { 
+export default function callAPI(route, method = 'GET', body, headers = {
     'Accept': 'application/json', 'Content-Type': 'application/json'
   }) {
-  console.log("CALLING API FUNCTION");
   return fetch(baseUrl + route, {
     headers
     , method

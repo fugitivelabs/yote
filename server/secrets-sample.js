@@ -19,7 +19,7 @@
 *
 * Then, in your controller, require the secrets object:
 *
-* var secrets = require('[RELATIVE PATH TO CONFIG FILE]')[process.env.NODE_ENV].secrets;
+*     var secrets = require('[RELATIVE PATH TO CONFIG FILE]')[process.env.NODE_ENV].secrets;
 *
 * secrets.APITOKEN will then be populated and can be used by that controller.
 *
