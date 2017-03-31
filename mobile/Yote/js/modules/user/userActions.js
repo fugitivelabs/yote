@@ -28,10 +28,11 @@ function receiveLogin(json) {
   return {
     type: RECEIVE_LOGIN
     , user: json.user
+    , token: json.token
     , success: json.success
     , error: json.message
     , receivedAt: Date.now()
-    , apiToken: json.token
+    , apiToken: json.token 
   }
 }
 
@@ -53,6 +54,7 @@ function requestRegister(userData) {
 
 export const RECEIVE_REGISTER = "RECEIVE_REGISTER"
 function receiveRegister(json) {
+  // console.log(json);
   return {
     type: RECEIVE_REGISTER
     , user: json.user

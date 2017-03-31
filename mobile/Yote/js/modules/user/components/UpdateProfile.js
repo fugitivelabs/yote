@@ -119,7 +119,7 @@ var styles = StyleSheet.create({
 
 });
 
-class EditProfile extends Base {
+class UpdateProfile extends Base {
   constructor(props){
     super(props);
     this.state = {
@@ -366,4 +366,4 @@ const mapStoreToProps = (store) => {
   }
 }
 
-export default connect(mapStoreToProps)(EditProfile);
+export default connect(mapStoreToProps)(UpdateProfile);
