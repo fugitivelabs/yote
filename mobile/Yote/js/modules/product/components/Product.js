@@ -1,7 +1,12 @@
+/**
+* Product component called from TabsView
+* sends productList as props to ProductTitleList component for the ListView datasource
+*/
+
 // import react/redux dependencies
 import React, { PropTypes } from 'react';
-import Base from '../../../global/components/BaseComponent';
 import { connect } from 'react-redux';
+
 // import react-native components & apis
 import View from 'View';
 import Text from 'Text';
@@ -11,6 +16,7 @@ import ScrollView from 'ScrollView';
 import TextInput from 'TextInput';
 
 // import custom components
+import Base from '../../../global/components/BaseComponent';
 import YTHeader from '../../../global/components/YTHeader';
 import YTButton from '../../../global/components/YTButton';
 import ActionButton from '../../../global/components/ActionButton';
@@ -18,9 +24,9 @@ import YTCard from '../../../global/components/YTCard';
 import ScrollContainer from '../../../global/components/ScrollContainer';
 import YTColors from '../../../global/styles/YTColors';
 import EmptyMessage from '../../../global/components/EmptyMessage';
+import ProductTitleList from './ProductTitleList';
 
-
-
+// import actions
 import * as productActions from '../productActions'
 
 // import styles
@@ -90,32 +96,14 @@ class Product extends Base {
           rightItem={rightItem}
         >
         </YTHeader>
+        
         <View style={{flex: 1}}>
-        <ScrollView style={{backgroundColor: '#fff', marginBottom: 50}}>
-        {productList ?
-          <View>
-            {productList.map((productId, i) =>
-              <View key={i} style={{flex: 1, flexDirection: 'row', borderWidth: 1, borderColor: 'black', margin: 5}}>
-                <View style={{flex: 1}}>
-                  <Text style={productStyles.content}>{products.byId[productId].title} </Text>
-                  <Text style={productStyles.caption}>{products.byId[productId].description} </Text>
-                </View>
-                <View style={{paddingHorizontal: 10, justifyContent: 'center'}}>
-                  <YTButton
-                    type="secondary"
-                    caption="Delete"
-                    captionStyle={{color: YTColors.danger}}
-                    onPress={() => this._sendDelete(productId)}
-                  />
-                </View>
-              </View>
-            )}
-          </View>
-        : null
-        }
-
-        </ScrollView>
+          <ProductTitleList 
+            products={productList}
+            navigator={navigator}
+          />
         </View>
+        
       </View>
     )
   }

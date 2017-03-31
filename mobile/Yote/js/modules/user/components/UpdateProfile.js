@@ -268,7 +268,7 @@ class UpdateProfile extends Base {
     const { user, isFetching } = this.props;
     const { newUserData, showPicker } = this.state;
 
-    const profileImg = user.info && user.info.profilePicUrl ? {uri: user.info.profilePicUrl} : require('../../../global/img/green_army_men.jpg');
+    const profileImg = user.info && user.info.profilePicUrl ? {uri: user.info.profilePicUrl} : require('../../../global/img/wile.png');
 
 
     const leftItem = {

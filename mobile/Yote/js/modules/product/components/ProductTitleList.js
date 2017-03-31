@@ -1,6 +1,10 @@
+/**
+* sets up datasource and necessary functions for the ListView call
+* _renderRow is where each productId of the datasource is sent to ProductTitleCard
+*/
+
 // import react things
 import React, { PropTypes } from 'react';
-import Base from '../../../global/components/BaseComponent';
 import { connect } from 'react-redux';
 
 // import react-native components
@@ -16,63 +20,15 @@ import ScrollView from 'ScrollView';
 import Image from 'Image';
 
 // import actions
-import { listActions as myProductListActions, singleActions as myProductSingleActions } from '../actions';
+import * as productActions from '../productActions';
 
 // import custom components
+import Base from '../../../global/components/BaseComponent';
 import ProductTitleCard from './ProductTitleCard';
 
 // import Styles
+import productStyles from '../productStyles'; 
 import YTColors from '../../../global/styles/YTColors';
-
-
-
-var styles = StyleSheet.create({
-  separator: {
-    backgroundColor: YTColors.listSeparator,
-    height: 1,
-  },
-  mainContainer: {
-    flex: 1,
-    backgroundColor: YTColors.lightBackground,
-    // backgroundColor: YTColors.anagada,
-  },
-  emptyContainer: {
-    position: "absolute",
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
-    // flex: 1,
-    // backgroundColor: YTColors.primaryHeader,
-    backgroundColor: YTColors.lightBackground,
-    padding: 4,
-  },
-  emptyMessage: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    flexDirection: 'column',
-  },
-  bigImage: {
-    marginTop: Dimensions.get('window').height * 0.25,
-    marginBottom: 20,
-  },
-  message: {
-    // color: "#fff",
-    color: YTColors.darkText,
-    fontSize: 28,
-    marginBottom: 50,
-  },
-  listWrapper: {
-    // flex: 1
-    backgroundColor: "transparent"
-    // , marginBottom: 50
-    // , minHeight
-    // , padding: 4
-  },
-});
-
-
 
 // FIXME: Android has a bug when scrolling ListView the view insertions
 // will make it go reverse. Temporary fix - pre-render more rows
@@ -124,45 +80,45 @@ class ProductTitleList extends Base {
   }
 
   _renderHeader() {
-    return this.props.renderHeader && this.props.renderHeader();
+    return (
+      <View>
+        <Text style={productStyles.header}> ListView Header! </Text>
+      </View>)
   }
 
   _renderFooter() {
     // console.log("render Footer");
-    if(this.state.dataSource.getRowCount() === 0) {
-
-      return this.props.renderEmptyList && this.props.renderEmptyList();
-    }
-    return this.props.renderFooter && this.props.renderFooter();
   }
 
   _renderSeparator(sectionID, rowID) {
-    return (
-      <View style={styles.separator} key={rowID} />
-    )
+    // return (
+    //   <View style={styles.separator} key={rowID} />
+    // )
   }
 
-  _renderRow(product) {
+  _renderRow(productId) {
+    const { productMap } = this.props; 
     return (
       <ProductTitleCard
-        product={product}
-        onPress={() => this._openProduct(product)}
+        product={productMap[productId]}
+        onPress={() => this._openProduct(productId)}
       />
     )
   }
 
   _handleRefresh() {
     this.setState({refreshing: true});
-    this.props.dispatch(myProductListActions.fetchList()).then(() => {
-      console.log("REFRESHED");
+    this.props.dispatch(productActions.fetchList()).then(() => {
+      // console.log("REFRESHED", this.state.refreshing);
       this.setState({refreshing: false});
 
     });
   }
 
-  _openProduct(product) {
-    this.props.dispatch(myProductSingleActions.setCurrent(product._id));
-    this.props.navigator.push({userProduct: product});
+  _openProduct(productId) {
+    console.log("open product", productId); 
+    // this.props.dispatch(myProductSingleActions.setCurrent(product._id));
+    this.props.navigator.push({singleProduct: true, productId: productId}); 
   }
 
   render() {
@@ -179,12 +135,11 @@ class ProductTitleList extends Base {
      />
 
    return (
-     <View style={styles.mainContainer}>
+     <View style={productStyles.container}>
 
        <ListView
          ref="templateList"
          initialListSize={10}
-         style={[styles.listWrapper, listFlex]}
          pageSize={LIST_VIEW_PAGE_SIZE}
          dataSource={this.state.dataSource}
          renderRow={this._renderRow}
@@ -232,7 +187,8 @@ function cloneWithData(dataSource: ListView.DataSource, data: ?Data) {
 
 const mapStoreToProps = (store) => {
   return {
-    user: store.user.current
+    user: store.user.loggedIn.user
+    , productMap: store.product.byId
   }
 }
 

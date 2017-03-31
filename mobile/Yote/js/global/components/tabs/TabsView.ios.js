@@ -1,21 +1,21 @@
+/** 
+* Global tabs bar for iOS that is called from MainNavigator
+*/
 
-// import react things
+// import react libraries
 import React, { PropTypes } from 'react';
-import Base from '../BaseComponent';
 import { connect } from 'react-redux';
-
 
 // import react-native components
 import StatusBar from 'StatusBar';
 import TabBarIOS from 'TabBarIOS';
-// import TabBarIOS.Item from 'TabBarIOS.Item';
 import Navigator from 'Navigator';
 import StyleSheet from 'StyleSheet';
 import View from 'View';
 import Text from 'Text';
 
 // import components
-
+import Base from '../BaseComponent';
 import Profile from '../../../modules/user/components/Profile';
 import Home from './Home';
 import Product from '../../../modules/product/components/Product';
@@ -25,6 +25,7 @@ import Product from '../../../modules/product/components/Product';
 
 // import styles
 import YTColors from '../../styles/YTColors';
+
 var styles = StyleSheet.create({
   container: {
     flex: 1

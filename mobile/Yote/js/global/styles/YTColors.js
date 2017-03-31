@@ -17,6 +17,6 @@ module.exports = {
   subHeader: '#093b41',
   checkboxEmpty: '#6a858c',
   checkboxFilled: '#08bdec',
-  underlayColor: '#6a858c',
+  underlayColor: '#eaeced',
 
 }

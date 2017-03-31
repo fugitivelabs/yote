@@ -1,15 +1,14 @@
+/**
+* Global tabs view for android called from MainNavigator
+* Calls custom Drawer Layout component
+*/
 
-// import react things
+// import react libraries
 import React, { PropTypes } from 'react';
-import Base from '../BaseComponent';
 import { connect } from 'react-redux';
 
-
 // import react-native components
-import StatusBar from 'StatusBar';
-import YTDrawerLayout from './YTDrawerLayout.js'; 
-
-
+import StatusBar from 'StatusBar'; 
 import Navigator from 'Navigator';
 import StyleSheet from 'StyleSheet';
 import View from 'View';
@@ -17,6 +16,8 @@ import Text from 'Text';
 import TouchableOpacity from 'TouchableOpacity';
 
 // import components
+import Base from '../BaseComponent';
+import YTDrawerLayout from './YTDrawerLayout.js';
 import Profile from '../../../modules/user/components/Profile';
 import Home from './Home';
 import Product from '../../../modules/product/components/Product'; 
@@ -28,6 +29,7 @@ import ActionButton from '../../../global/components/ActionButton';
 
 // import styles
 import YTColors from '../../styles/YTColors';
+
 var styles = StyleSheet.create({
   drawer: {
     flex: 1,
