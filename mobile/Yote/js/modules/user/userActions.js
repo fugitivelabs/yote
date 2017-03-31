@@ -28,16 +28,18 @@ function receiveLogin(json) {
   return {
     type: RECEIVE_LOGIN
     , user: json.user
+    , token: json.token
     , success: json.success
     , error: json.message
     , receivedAt: Date.now()
+    , apiToken: json.token 
   }
 }
 
 export function sendLogin(username, password) {
   return dispatch => {
     dispatch(requestLogin(username))
-    return callAPI('/api/users/login', 'POST', { username, password })
+    return callAPI('/api/users/token', 'POST', { username, password })
     .then(json => dispatch(receiveLogin(json)))
   }
 }
@@ -52,12 +54,14 @@ function requestRegister(userData) {
 
 export const RECEIVE_REGISTER = "RECEIVE_REGISTER"
 function receiveRegister(json) {
+  // console.log(json); 
   return {
     type: RECEIVE_REGISTER
     , user: json.user
     , success: json.success
     , error: json.message
     , receivedAt: Date.now()
+    , apiToken: json.token
   }
 }
 
