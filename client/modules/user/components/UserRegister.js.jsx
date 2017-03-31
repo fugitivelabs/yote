@@ -19,36 +19,14 @@ class UserRegister extends Base {
     this.state = {
       errorMessage: ''
       , isErrorModalOpen: false
-      , isSuccessModalOpen: false
-      , passwordErrorMessage: ""
-      , passwordValid: true
-      , password2ErrorMessage: ""
-      , password2Valid: true
       , user: this.props.defaultUser ? JSON.parse(JSON.stringify(this.props.defaultUser)): null
       // NOTE: don't want to actually change the store's defaultItem, just use a copy
     }
     this._bind(
-      '_confirmPassword'
-      , '_handleFormChange'
+      '_handleFormChange'
       , '_handleFormSubmit'
       , '_toggleErrorModal'
-      , '_validatePassword'
     );
-  }
-
-  _confirmPassword(e) {
-    console.log('confirmPassword');
-    if(this.state.user.password !== this.state.user.password2) {
-      this.setState({
-        password2Valid: false
-        , password2ErrorMessage: "Passwords don't match"
-      });
-    } else {
-      this.setState({
-        password2Valid: true
-        , password2ErrorMessage: ""
-      })
-    }
   }
 
   _handleFormChange(e) {
@@ -73,20 +51,6 @@ class UserRegister extends Base {
     this.setState({isErrorModalOpen: !this.state.isErrorModalOpen});
   }
 
-  _validatePassword(e) {
-    if(this.state.user.password.length < 5 ) {
-      this.setState({
-        passwordValid: false
-        , passwordErrorMessage: "Password must be at least 6 characters long."
-      })
-    } else {
-      this.setState({
-        passwordValid: true
-        , passwordErrorMessage: ""
-      })
-    }
-  }
-
   render() {
     const { user } = this.state;
     const isEmpty = !user || (user.username === null || user.username === undefined);
@@ -100,12 +64,7 @@ class UserRegister extends Base {
               confirmPassword={this._confirmPassword}
               handleFormChange={this._handleFormChange}
               handleFormSubmit={this._handleFormSubmit}
-              passwordErrorMessage={this.state.passwordErrorMessage}
-              passwordValid={this.state.passwordValid}
-              password2ErrorMessage={this.state.password2ErrorMessage}
-              password2Valid={this.state.password2Valid}
               user={user}
-              validatePassword={this._validatePassword}
             />
           }
         </div>

@@ -24,20 +24,21 @@ function requestLogin(username) {
 
 export const RECEIVE_LOGIN = "RECEIVE_LOGIN"
 function receiveLogin(json) {
-  window.currentUser = json.user || {};
+  console.log(json);
   return {
     type: RECEIVE_LOGIN
     , user: json.user
     , success: json.success
     , error: json.message
     , receivedAt: Date.now()
+    , apiToken: json.token
   }
 }
 
 export function sendLogin(username, password) {
   return dispatch => {
     dispatch(requestLogin(username))
-    return callAPI('/api/users/login', 'POST', { username, password })
+    return callAPI('/api/users/token', 'POST', { username, password })
     .then(json => dispatch(receiveLogin(json)))
   }
 }
@@ -58,6 +59,7 @@ function receiveRegister(json) {
     , success: json.success
     , error: json.message
     , receivedAt: Date.now()
+    , apiToken: json.token
   }
 }
 
@@ -78,7 +80,6 @@ function requestLogout() {
 
 export const RECEIVE_LOGOUT = "RECEIVE_LOGOUT"
 function receiveLogout(json) {
-  window.currentUser = {};
   return {
     type: RECEIVE_LOGOUT
     , success: json.success

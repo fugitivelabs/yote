@@ -11,7 +11,7 @@ import AlertModal from '../../../global/components/modals/AlertModal.js.jsx';
 import Base from "../../../global/components/BaseComponent.js.jsx";
 
 // import form components
-import { PasswordInput } from '../../../global/components/forms';
+import { NewPasswordInput } from '../../../global/components/forms';
 
 class ResetPassword extends Base {
   constructor(props) {
@@ -20,18 +20,12 @@ class ResetPassword extends Base {
       errorMessage: ''
       , isErrorModalOpen: false
       , password: ""
-      , passwordErrorMessage: ""
-      , passwordValid: true
-      , password2: ""
-      , password2ErrorMessage: ""
-      , password2Valid: true
+      , submitting: false
     };
     this._bind(
-      '_confirmPassword'
-      , '_handleFormChange'
+      '_handleFormChange'
       , '_handleFormSubmit'
       , '_toggleErrorModal'
-      , '_validatePassword'
     );
   }
 
@@ -39,33 +33,17 @@ class ResetPassword extends Base {
     this.props.dispatch(userActions.sendCheckResetHex(this.props.params.hex));
   }
 
-  _confirmPassword(e) {
-    if(this.state.password !== this.state.password2) {
-      this.setState({
-        password2Valid: false
-        , password2ErrorMessage: "Passwords don't match"
-      });
-    } else {
-      this.setState({
-        password2Valid: true
-        , password2ErrorMessage: ""
-      })
-    }
-  }
-
   _handleFormChange(e) {
-    var nextState = this.state;
+    let nextState = this.state;
     nextState[e.target.name] = e.target.value;
-    if(nextState.password === nextState.password2) {
-      nextState.password2Valid = true;
-      nextState.password2ErrorMessage = "";
-    }
     this.setState(nextState);
   }
 
   _handleFormSubmit(e) {
     e.preventDefault();
+    this.setState({submitting: true});
     this.props.dispatch(userActions.sendResetPassword(this.props.params.hex, this.state.password)).then((action) =>{
+      this.setState({submitting: false});
       if(action.success) {
         browserHistory.push('/user/login');
       } else {
@@ -79,69 +57,37 @@ class ResetPassword extends Base {
     this.setState({isErrorModalOpen: !this.state.isErrorModalOpen});
   }
 
-  _validatePassword(e) {
-    if(this.state.password.length < 5 ) {
-      this.setState({
-        passwordValid: false
-        , passwordErrorMessage: "Password must be at least 6 characters long and contain a number and an uppercase letter."
-      })
-    } else {
-      this.setState({
-        passwordValid: true
-        , passwordErrorMessage: ""
-      })
-    }
-  }
-
   render() {
-    const {
-      password
-      , passwordErrorMessage
-      , passwordValid
-      , password2
-      , password2ErrorMessage
-      , password2Valid
-    } = this.state;
-    let isDisabled = true;
-    if(password.length > 6 && password2 === password) {
-      isDisabled = false
-    }
+    const { user } = this.props;
+    const { password , submitting} = this.state;
+    let isDisabled = !password;
     return  (
       <div className="yt-container">
         <div className="yt-row center-horiz">
-          { this.props.user.isFetching ?
+          { user.isFetching ?
             <h3>Loading...</h3>
             :
             <div className="form-container -slim">
 
-              { this.props.user.resetTokenValid ?
+              { user.resetTokenValid ?
                 <form name="userForm" className="user-form" onSubmit={this._handleFormSubmit}>
                   <h2>Reset Password</h2>
                   <hr/>
-                  <PasswordInput
+                  <NewPasswordInput
                     change={this._handleFormChange}
-                    errorMessage={passwordErrorMessage}
-                    handleBlur={this._validatePassword}
-                    isValid={passwordValid}
-                    label="New Password"
                     name="password"
-                    required={true}
                     value={password}
-                  />
-                  <PasswordInput
-                    change={this._handleFormChange}
-                    errorMessage={password2ErrorMessage}
-                    handleBlur={this._confirmPassword}
-                    isValid={password2Valid}
-                    label="Confirm Password"
-                    name="password2"
-                    required={true}
-                    value={password2}
                   />
                   <div className="input-group">
                     <div className="yt-row right">
                       <Link to={"/user/login"} className="yt-btn link"> Back To Login </Link>
-                      <button className="yt-btn " type="submit" disabled={isDisabled}> Send Password Reset </button>
+                      <button className="yt-btn " type="submit" disabled={isDisabled || submitting}>
+                        { submitting ?
+                          <span>Sending...</span>
+                          :
+                          <span>Send Password Reset </span>
+                        }
+                      </button>
                     </div>
 
                   </div>

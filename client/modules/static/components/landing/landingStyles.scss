@@ -12,8 +12,12 @@
 .topbar.landing-nav {
   &.transparent {
     color: #fff;
-    a { color: #fff; }
-
+    a {
+      color: rgba(255,255,255,0.8);
+      &:hover {
+        color: #fff;
+      }
+    }
   }
 }
 

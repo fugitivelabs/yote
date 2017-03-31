@@ -73,6 +73,7 @@ class Hero extends React.Component{
     return (
       <div className="hero main">
         <div className="yt-container">
+          <img src="/img/howler.png" />
           <h1>This is Yote</h1>
           <h2>
             <TheCoolThing />

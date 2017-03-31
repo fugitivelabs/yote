@@ -159,6 +159,7 @@ function user(state = {
     , lastUpdated: null
     , resetUserId: null
     , resetTokenValid: false
+    , apiToken: null
   }
 
   /**
@@ -213,6 +214,7 @@ function user(state = {
             , isFetching: false
             , error: action.error
             , didInvalidate: true
+            , apiToken: null
           }
         })
       } else {
@@ -223,6 +225,7 @@ function user(state = {
             , error: null
             , didInvalidate: false
             , lastUpdated: action.receivedAt
+            , apiToken: action.apiToken
           }
         })
       }
@@ -246,6 +249,7 @@ function user(state = {
             , isFetching: false
             , error: action.error
             , didInvalidate: true
+            , apiToken: null
           }
         })
       } else {
@@ -256,6 +260,7 @@ function user(state = {
             , error: null
             , didInvalidate: false
             , lastUpdated: action.receivedAt
+            , apiToken: action.apiToken
           }
         })
       }
@@ -287,6 +292,7 @@ function user(state = {
             , lastUpdated: null
             , resetUserId: null
             , resetTokenValid: false
+            , apiToken: null
           }
         })
       }
