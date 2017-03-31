@@ -22,7 +22,7 @@ class TextInput extends Base {
     const { label, name, placeholder, required, value } = this.props;
     return (
       <div className="input-group">
-        <label htmlFor={name}> {label} </label>
+        <label htmlFor={name}> {label} {required ? <sup className="-required">*</sup> : null}</label>
         <input
           type="text"
           name={name}

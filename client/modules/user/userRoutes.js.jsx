@@ -18,8 +18,8 @@ const userRoutes =
 <Route key={Math.floor(Math.random()*1000)} path="user" component={UserLayout} >
   <Route path="login" component={UserLogin} onEnter={checkLogin} />
   <Route path="register" component={UserRegister} onEnter={checkLogin} />
-  <Route path="forgotpassword" component={ForgotPassword} />
-  <Route path="resetpassword/:hex" component={ResetPassword} />
+  <Route path="forgot-password" component={ForgotPassword} />
+  <Route path="reset-password/:hex" component={ResetPassword} />
 </Route>
 
 export default userRoutes;

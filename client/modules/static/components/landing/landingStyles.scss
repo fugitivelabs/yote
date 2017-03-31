@@ -2,24 +2,20 @@
   padding:0;
 }
 
-.landing-nav {
-  @include transition(all 500ms ease-in-out);
-  nav {
-    text-transform: uppercase;
-  }
+.header.landing-header {
   &.transparent {
-    .titles {
-      .subtitle {
-      }
-    }
-    .actions {
-    }
-    .top-nav {
-      a {
-        &:hover {
-        }
-        &.active {
-        }
+    background-color: transparent;
+    border-bottom: none;
+  }
+}
+
+.topbar.landing-nav {
+  &.transparent {
+    color: #fff;
+    a {
+      color: rgba(255,255,255,0.8);
+      &:hover {
+        color: #fff;
       }
     }
   }
