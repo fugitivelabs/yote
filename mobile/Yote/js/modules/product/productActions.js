@@ -177,7 +177,7 @@ function receiveDeleteProduct(json) {
 }
 
 export function sendDelete(id) {
-  console.log("Delete ", id); 
+  // console.log("Delete ", id); 
   return dispatch => {
     dispatch(requestDeleteProduct(id))
     return callAPI(`/api/products/${id}`, 'DELETE')

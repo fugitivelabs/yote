@@ -25,7 +25,6 @@ function requestLogin(username) {
 export const RECEIVE_LOGIN = "RECEIVE_LOGIN"
 function receiveLogin(json) {
   window.currentUser = json.user || {};
-  console.log(json); 
   return {
     type: RECEIVE_LOGIN
     , user: json.user
