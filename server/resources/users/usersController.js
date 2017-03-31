@@ -358,3 +358,17 @@ exports.resetPassword = function(req, res) {
     }
   });
 }
+
+exports.delete = function(req, res) {
+  console.log("deleting user " + req.param('userId'));
+
+  User.findById(req.param('userId')).remove(function(err) {
+    console.log("done removing?");
+    console.log(err);
+    if(err) {
+      res.send({ success: false, message: err });
+    } else {
+      res.send({ success: true, message: "Deleted user."});
+    }
+  });
+}

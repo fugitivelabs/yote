@@ -79,7 +79,7 @@ class AdminUpdateUser extends Base {
 
   _confirmDelete() {
     const { dispatch } = this.props;
-    dispatch(singleActions.sendDeleteUser(this.state.newUser._id)).then((result) => {
+    dispatch(userActions.sendDelete(this.state.user._id)).then((result) => {
       if(result.success) {
         this._closeDeleteModal();
         browserHistory.push('/admin/users');
