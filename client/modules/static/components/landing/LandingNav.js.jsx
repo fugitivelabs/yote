@@ -79,16 +79,28 @@ class LandingNav extends Base {
                 <li>
                   <Link to="/products" activeClassName="active">Products</Link>
                 </li>
-                <li className="dropdown">
-                  <a onClick={this._openDropdown}>
-                    <div className="-profile-pic" style={profileImg} />
-                    <i className="fa fa-caret-down"></i>
-                  </a>
-                </li>
-                <DropdownNav
-                  isOpen={this.state.isOpen}
-                />
+                { user.username ?
+                  <li className="dropdown">
+                    <a onClick={this._openDropdown}>
+                      <div className="-profile-pic" style={profileImg} />
+                      <i className="fa fa-caret-down"></i>
+                    </a>
+                    <DropdownNav
+                      isOpen={this.state.isOpen}
+                    />
+                  </li>
+                  :
+                  null
+                }
               </ul>
+              {!user.username ?
+                  <div className="yt-row">
+                    <Link to="/user/login" className="yt-btn small link ">Sign In</Link>
+                    <Link to="/user/register" className="yt-btn small success ">Register</Link>
+                  </div>
+                :
+                null
+              }
             </div>
           </div>
         </div>

@@ -54,33 +54,25 @@ class DropdownNav extends Base {
           transitionLeaveTimeout={350}
         >
         <ul className="dropMenu">
-          { user.username
-            ?
-              <div>
-                <li className="-drop-header">
-                  <div className="-profile-pic" style={profileImg} />
-                  <div className="-profile-info">
-                    {user.firstName + " "} {user.lastName}
-                    <br/>
-                    <small>{user.username}</small>
-                  </div>
-                </li>
-                <li><Link to="/profile">My Profile </Link></li>
+          <div>
+            <li className="-drop-header">
+              <div className="-profile-pic" style={profileImg} />
+              <div className="-profile-info">
+                {user.firstName + " "} {user.lastName}
+                <br/>
+                <small>{user.username}</small>
+              </div>
+            </li>
+            <li><Link to="/profile">My Profile </Link></li>
 
-                { user.roles && user.roles.indexOf('admin') > -1
-                  ?
-                  <li><Link to="/admin" target="_blank" > Go to Admin <i className="fa fa-external-link"/> </Link></li>
-                  : ''
-                }
-                <li role="separator" className="-divider"/>
-                <li><a onClick={this._logout}>Logout</a></li>
-              </div>
-            :
-              <div>
-                <li><a href="/user/login">Log In</a></li>
-                <li role="separator" className="-divider"><br/></li>
-              </div>
-          }
+            { user.roles && user.roles.indexOf('admin') > -1
+              ?
+              <li><Link to="/admin" target="_blank" > Go to Admin <i className="fa fa-external-link"/> </Link></li>
+              : ''
+            }
+            <li role="separator" className="-divider"/>
+            <li><a onClick={this._logout}>Logout</a></li>
+          </div>
         </ul>
         </ReactCSSTransitionGroup>
       )
