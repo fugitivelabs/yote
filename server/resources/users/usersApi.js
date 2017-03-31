@@ -140,7 +140,7 @@ module.exports = function(router, requireLogin, requireRole) {
 
   // - Delete
   // NOTE: Be careful with this...
-  // router.del('/api/users'          , requireRole('admin'), users.delete);
+  router.delete('/api/users/:userId'   , requireRole('admin'), users.delete);
 
 
 }
