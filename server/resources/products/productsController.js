@@ -158,34 +158,6 @@ exports.update = (req, res) => {
   });
 }
 
-// exports.updateProductInfo = function(req, res) {
-//   /**
-//    * NOTE: this is intended to be things the user updates about a product
-//    * i.e. (name, description, etc)
-//    *
-//    * NOTE: Not sure if this is necessary because of the regular update product
-//    * method above 
-//    */
-
-//   Product.findOne({ _id: req.product }).exec(function(err, product) {
-//     if(err || !product) {
-//       res.send({ success: false, message: "Could not find product" });
-//     } else {
-//       // NOTE: Do NOT product standard Yote update loop. Don't allow update of protected fields.
-//       product.title = req.body.title;
-//       product.description = req.body.description;
-//       product.updated = new Date();
-//       product.save(function(err, product) {
-//         if(err || !product) {
-//           res.send({ success: false, message: "Error saving product info" });
-//         } else {
-//           res.send({ success: true, product: product });
-//         }
-//       });
-//     }
-//   });
-// }
-
 exports.delete = (req, res) => {
   logger.warn("deleting product");
   Product.findById(req.params.id).remove((err) => {
