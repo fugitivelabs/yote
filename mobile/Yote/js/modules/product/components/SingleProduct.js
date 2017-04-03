@@ -7,24 +7,23 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 // import react-native components
-import ListView from 'ListView';
-import Dimensions from 'Dimensions';
-import Platform from 'Platform';
-import StyleSheet from 'StyleSheet';
-import View from 'View';
-import Text from 'Text';
-import Image from 'Image';
-import ScrollView from 'ScrollView';
-import TouchableOpacity from 'TouchableOpacity';
-import TextInput from 'TextInput';
 import Alert from 'Alert';
+import Dimensions from 'Dimensions';
+import Image from 'Image';
+import ListView from 'ListView';
+import Platform from 'Platform';
+import ScrollView from 'ScrollView';
+import Text from 'Text';
+import TextInput from 'TextInput';
+import TouchableOpacity from 'TouchableOpacity';
+import View from 'View';
 
 // import custom components
+import ActionButton from '../../../global/components/ActionButton';
 import Base from '../../../global/components/BaseComponent';
 import YTTouchable from '../../../global/components/YTTouchable';
 import YTButton from '../../../global/components/YTButton';
 import YTHeader from '../../../global/components/YTHeader';
-import ActionButton from '../../../global/components/ActionButton';
 
 // import libraries
 import moment from 'moment';
@@ -46,12 +45,18 @@ class SingleProduct extends Base {
     )
   }
 
+  componentDidMount() {
+    const { productId } = this.props;
+    this.props.dispatch(productActions.fetchSingleProductById(productId)); 
+  }
+
   _closeModal() {
     this.props.navigator.pop();
   }
 
   _openEdit() {
-    console.log("open edit product");
+    console.log("open update product");
+    this.props.navigator.push({updateProduct: true}); 
   }
 
   render() {
@@ -73,24 +78,28 @@ class SingleProduct extends Base {
       <View style={productStyles.container}>
         <YTHeader
           leftItem={leftItem}
+          title={product.title}
           rightItem={rightItem}
         />
-        <View style={productStyles.infoBox}>
-          <Text style={productStyles.header}>{product.title} </Text>
-          <Text style={productStyles.description}>{product.description}</Text>
-          <Text style={productStyles.description}>Created: {moment(product.created).format("MMMM Do YYYY, h:mm a")}</Text>
-          <Text style={productStyles.description}>Id: {product._id}</Text>
+        <View style={productStyles.cell}>
+          <View style={productStyles.infoBox}>
+            <Text style={productStyles.headerLeft}>{product.title} </Text>
+            <View style={productStyles.listSeparator}/>
+            <Text style={productStyles.description}>{product.description}</Text>
+            <Text style={productStyles.description}>Created: {moment(product.created).format("MMMM Do YYYY, h:mm a")}</Text>
+            <Text style={productStyles.description}>Id: {product._id}</Text>
+          </View>
         </View>
-        <View style={{padding: 8}}>
+        <View style={{padding: 10}}>
           <YTButton
             onPress={null}
-            caption={"Yote Button"}
+            caption={"Yote Button!"}
           />
         </View>
-        <View style={{padding: 8}}>
+        <View style={{padding: 10}}>
           <ActionButton
             onPress={null}
-            caption={"Action Button"}
+            caption={"Action Button!"}
             style={{backgroundColor: '#31ce7c'}}
           />
         </View>

@@ -8,30 +8,29 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 // import react-native components & apis
-import View from 'View';
-import Text from 'Text';
 import StyleSheet from 'StyleSheet';
-import TouchableOpacity from 'TouchableOpacity';
 import ScrollView from 'ScrollView';
+import Text from 'Text';
 import TextInput from 'TextInput';
+import TouchableOpacity from 'TouchableOpacity';
+import View from 'View';
 
 // import custom components
-import Base from '../../../global/components/BaseComponent';
-import YTHeader from '../../../global/components/YTHeader';
-import YTButton from '../../../global/components/YTButton';
 import ActionButton from '../../../global/components/ActionButton';
-import YTCard from '../../../global/components/YTCard';
-import ScrollContainer from '../../../global/components/ScrollContainer';
-import YTColors from '../../../global/styles/YTColors';
+import Base from '../../../global/components/BaseComponent';
 import EmptyMessage from '../../../global/components/EmptyMessage';
 import ProductTitleList from './ProductTitleList';
+import ScrollContainer from '../../../global/components/ScrollContainer';
+import YTHeader from '../../../global/components/YTHeader';
+import YTButton from '../../../global/components/YTButton';
+import YTCard from '../../../global/components/YTCard';
+import YTColors from '../../../global/styles/YTColors';
 
 // import actions
 import * as productActions from '../productActions'
 
 // import styles
 import productStyles from '../productStyles';
-
 
 class Product extends Base {
   constructor(props) {

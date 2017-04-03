@@ -1,14 +1,16 @@
 // import react things
 import React from 'react';
-import Platform from 'Platform';
-import Navigator from 'Navigator'
-import BackAndroid from 'BackAndroid';
-import StyleSheet from 'StyleSheet';
 import { connect } from 'react-redux';
-import Base from './global/components/BaseComponent';
-import AppState from 'AppState';
 
-// import components
+// import react components
+import AppState from 'AppState';
+import BackAndroid from 'BackAndroid';
+import Navigator from 'Navigator'
+import Platform from 'Platform';
+import StyleSheet from 'StyleSheet';
+
+// import custom components
+import Base from './global/components/BaseComponent';
 import Login from './modules/user/components/Login';
 import Register from './modules/user/components/Register';
 import Privacy from './modules/user/components/Privacy';

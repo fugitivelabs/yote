@@ -26,13 +26,14 @@ import TabsView from './global/components/tabs/TabsView';
 import * as productActions from './modules/product/productActions';
 
 // import module components
-import UpdateProfile from './modules/user/components/UpdateProfile';
 import FAQ from './modules/user/components/FAQ';
 import NewProduct from './modules/product/components/NewProduct';
-import SingleProduct from './modules/product/components/SingleProduct'; 
 import Privacy from './modules/user/components/Privacy';
 import Profile from './modules/user/components/Profile';
 import Settings from './modules/user/components/Settings';
+import SingleProduct from './modules/product/components/SingleProduct'; 
+import UpdateProduct from './modules/product/components/UpdateProduct'; 
+import UpdateProfile from './modules/user/components/UpdateProfile';
 
 
 // define styles
@@ -186,6 +187,15 @@ class MainNavigator extends Base {
       )
     }
 
+    if(route.updateProduct) {
+      return (
+        <UpdateProduct
+          {...route}
+          navigator={navigator}
+        />
+      )
+    }
+
     return <TabsView navigator={navigator} />;
   }
 
@@ -198,7 +208,7 @@ class MainNavigator extends Base {
           if (Platform.OS === 'android') {
             return Navigator.SceneConfigs.FloatFromBottomAndroid;
           }
-          if (route.newProduct || route.editProfile || route.settings || route.privacy || route.profile || route.team ) {
+          if (route.updateProduct || route.newProduct || route.editProfile || route.settings || route.privacy || route.profile || route.team ) {
             return Navigator.SceneConfigs.FloatFromBottom;
           } else if(route.faq ) {
             return Navigator.SceneConfigs.FloatFromLeft;

@@ -1,18 +1,18 @@
 // import react things
 import React, { PropTypes } from 'react';
-import Base from '../../../global/components/BaseComponent';
 import { connect } from 'react-redux';
 
 // import react-native components
-import ListView from 'ListView';
 import Dimensions from 'Dimensions';
+import Image from 'Image';
+import ListView from 'ListView';
 import Platform from 'Platform';
 import StyleSheet from 'StyleSheet';
-import View from 'View';
 import Text from 'Text';
-import Image from 'Image';
+import View from 'View';
 
 // import custom components
+import Base from '../../../global/components/BaseComponent';
 import YTTouchable from '../../../global/components/YTTouchable';
 import YTButton from '../../../global/components/YTButton'; 
 
@@ -33,15 +33,20 @@ class ProductTitleCard extends Base {
     let icon = <Image source={require('../../../global/img/breast.png')} />;
 
     var cell =
-            <View style={{flex: 1, flexDirection: 'row', borderWidth: 1, borderColor: 'black', margin: 5}}>
-              <View style={{flex: 1, justifyContent: 'center'}}>
-                <Text style={productStyles.content}>{product.title} </Text>
-                <Text style={productStyles.emptyMessage}>{product.description} </Text>
-              </View>
-              <View style={{justifyContent: 'center', paddingHorizontal: 10}}>
-                <Image
-                  source={require('../../../global/img/forward.png')}
-                />
+            <View style={productStyles.cell}>
+              <View style ={productStyles.cellBackground}>
+                <Text style={productStyles.cardHeader}>{product.title} </Text>
+                <View style={productStyles.cellRow}>
+                  <View style={productStyles.cellColumn}>
+                    <Text style={productStyles.emptyMessage}>{product.description} </Text>
+                    <Text style={productStyles.emptyMessage}>Created: {moment(product.created).format("MMMM Do YYYY, h:mm a")}</Text>
+                  </View>
+                  <View style={productStyles.cellForwardImg}>
+                    <Image
+                      source={require('../../../global/img/forward.png')}
+                    />
+                  </View>
+                </View>
               </View>
             </View>;
 

@@ -7,11 +7,31 @@ import StyleSheet from 'StyleSheet';
 import YTColors from '../../global/styles/YTColors'; 
 
 var productStyles = StyleSheet.create({
+  cardHeader: {
+    fontSize: 16,
+    textAlign: 'center',
+    color: "#fff",
+    padding: 4,
+    backgroundColor: YTColors.yoteRed,
+  },
   cell: {
-    flex: 1,
-    backgroundColor: 'transparent',
-    marginTop: 10,
-    marginBottom: 10,
+    padding: 5
+  },
+  cellBackground: {
+    backgroundColor: 'white'
+  },
+  cellRow: {
+    flex: 1
+    , flexDirection: 'row'
+    , margin: 5
+  }, 
+  cellColumn: {
+    flex: 1
+    , justifyContent: 'center'
+  },
+  cellForwardImg: {
+    justifyContent: 'center'
+    , paddingHorizontal: 10
   },
   comment: {
     backgroundColor: '#fff',
@@ -24,7 +44,7 @@ var productStyles = StyleSheet.create({
   container: {
     flex: 1,
     // paddingBottom: 50,
-    backgroundColor: '#fff',
+    backgroundColor: YTColors.lightBackground,
     // backgroundColor: '#572d66',
     // backgroundColor: '#fff',
   },
@@ -35,10 +55,10 @@ var productStyles = StyleSheet.create({
     fontSize: 20,
   },
   description: {
-    fontSize: 18,
-    textAlign: 'center',
+    fontSize: 15,
+    // textAlign: 'center',
     color: YTColors.lightText,
-    padding: 10,
+    padding: 8,
   },
   details: {
     height: 52,
@@ -65,8 +85,14 @@ var productStyles = StyleSheet.create({
     padding: 4,
     color: YTColors.actionText,
   },
+  headerLeft: {
+    fontSize: 25
+    , color: '#fff'
+    , padding: 4
+    , color: YTColors.actionText
+  },
   infoBox: {
-    // backgroundColor: 'white',
+    backgroundColor: 'white',
     padding: 8,
   },
   instructions: {
@@ -74,7 +100,7 @@ var productStyles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 5,
   },
-  inputContainer: {
+  listSeparator: {
     // padding: 10,
     borderTopWidth: 1,
     // borderBottomColor: '#CCC',
@@ -93,6 +119,13 @@ var productStyles = StyleSheet.create({
     fontSize: 12,
     marginTop: 4,
     color: YTColors.lightText,
+  },
+  newProductHeader: {
+    fontSize: 16,
+    textAlign: 'center',
+    color: "#fff",
+    padding: 4,
+    backgroundColor: YTColors.lightText,
   },
   scrollView: {
     marginBottom: 50

@@ -1,5 +1,5 @@
 /**
-* Will create a new product from information in the TextInputs
+* Will update the name and description of an already existing product
 */
 
 // import react things
@@ -34,15 +34,13 @@ import * as productActions from '../productActions'
 import productStyles from '../productStyles'; 
 import YTColors from '../../../global/styles/YTColors';
 
-class NewProduct extends Base {
+class UpdateProduct extends Base {
   constructor(props) {
     super(props);
+    const { selectedProduct, productMap } = this.props;
     this.state = {
       isFormValid: false
-      , newProduct: {
-        title: ""
-        , description: ""
-      }
+      , newProductData: productMap[selectedProduct.id] ? JSON.parse(JSON.stringify(productMap[selectedProduct.id])) : {}
     }
     this._bind(
       '_closeModal'
@@ -54,9 +52,7 @@ class NewProduct extends Base {
 
   }
 
-  componentDidMount() {
-    this.refs['newProduct.title'].focus();
-  }
+
 
   _checkFormValid() {
 
@@ -79,13 +75,13 @@ class NewProduct extends Base {
     console.log("_handleAction fired");
 
     const { dispatch, user } = this.props;
-    const { newProduct } = this.state;
+    const { newProductData } = this.state;
+    console.log(newProductData); 
     if(!this.state.isFormValid) {
       Alert.alert("Whoops", "All fields are required.");
       return;
     }
-    dispatch(productActions.sendCreateProduct(newProduct)).then((res) => {
-      dispatch(productActions.addProductToList(res.item._id)); 
+    dispatch(productActions.sendUpdateProduct(newProductData)).then((res) => {
       // console.log('done');
       // console.log(res);
       this.props.navigator.pop();
@@ -97,7 +93,6 @@ class NewProduct extends Base {
   }
 
   _openLibrary() {
-    this.refs['newProduct.title'].blur();
     this.props.navigator.push({library: true});
   }
 
@@ -105,7 +100,7 @@ class NewProduct extends Base {
     var newState = _.update( this.state, target, function() {
       return e.nativeEvent.text;
     });
-    console.log("input changed");
+    // console.log("input changed");
     this.setState(newState);
     this._checkFormValid();
   }
@@ -115,10 +110,10 @@ class NewProduct extends Base {
 
       var scrollResponder = this.refs.myScrollView.getScrollResponder();
       // var scrollResponder = scrollView.getScrollRef();
-      // console.log("on focus called ", refName);
-      // console.log(this.refs[refName].props.returnKeyType);
+      console.log("on focus called ", refName);
+      console.log(this.refs[refName].props.returnKeyType);
       var offset = 130;
-      // console.log(offset);
+      console.log(offset);
       scrollResponder.scrollResponderScrollNativeHandleToKeyboard(
         ReactNative.findNodeHandle(this.refs[refName]),
         offset, // adjust depending on your contentInset
@@ -131,73 +126,76 @@ class NewProduct extends Base {
 
   render() {
 
-    const { navigator, isFetching } = this.props;
-    const { newProduct, isFormValid } = this.state;
+    const { navigator, isFetching } = this.props; 
+    const { newProductData, isFormValid } = this.state;
     const leftItem = {
       title: 'Cancel',
       onPress: this._closeModal
     };
-    const rightItem = {
-      title: 'Import',
-      onPress: this._openLibrary
-    }
 
     return (
       <View style={productStyles.container} >
         <YTHeader
           navigator={navigator}
           leftItem={leftItem}
-          title="New Product"
+          title="Update Product"
         />
         <ScrollView ref="myScrollView" keyboardDismissMode="interactive" style={[productStyles.formWrapper]}>
           <View style={productStyles.cell}>
+
             <Text style={productStyles.newProductHeader}>Product Info</Text>
             <View style={productStyles.infoBox}>
               <View>
                 <Text style={productStyles.label}>Title</Text>
                 <TextInput
-                  ref="newProduct.title"
-                  onFocus={ (e) => this._scrollToInput(e, 'newProduct.title')}
+                  ref="newProductData.title"
+                  onFocus={ (e) => this._scrollToInput(e, 'newProductData.title')}
                   isRequired={true}
                   style={productStyles.input}
                   placeholder=""
                   placeholderTextColor={YTColors.lightText}
                   autoCorrect={true}
-                  onChange={ (e) => this._handleInputChange(e, "newProduct.title") }
+                  onChange={ (e) => this._handleInputChange(e, "newProductData.title") }
+                  underlineColorAndroid={YTColors.anagada}
                   returnKeyType="go"
-                  value={this.state.newProduct.title}
+                  value={this.state.newProductData.title}
                   onSubmitEditing={this._handleAction}
                 />
               </View>
             </View>
           </View>
+
           <View style={productStyles.cell}>
             <Text style={productStyles.newProductHeader}>Product Description</Text>
             <View style={productStyles.infoBox}>
               <View>
                 <Text style={productStyles.label}>Description</Text>
                 <TextInput
-                  ref="newProduct.description"
-                  onFocus={ (e) => this._scrollToInput(e, 'newProduct.description')}
+                  ref="newProductData.description"
+                  onFocus={ (e) => this._scrollToInput(e, 'newProductData.description')}
                   isRequired={true}
                   style={productStyles.input}
                   placeholder=""
                   placeholderTextColor={YTColors.lightText}
                   autoCorrect={true}
-                  onChange={ (e) => this._handleInputChange(e, "newProduct.description")}
+                  onChange={ (e) => this._handleInputChange(e, "newProductData.description")}
                   returnKeyType="go"
-                  value={this.state.newProduct.description}
+                  value={this.state.newProductData.description}
                   onSubmitEditing={this._handleAction}
                 />
               </View>
             </View>
           </View>
+
+
           <View style={{padding: 10}}>
             <YTButton
               onPress={this._handleAction}
-              caption={isFetching ? "Creating..." : "Create new product"}
+              caption={isFetching ? "Updating..." : "Update product"}
+
               isDisabled={!isFormValid}
             />
+
           </View>
         </ScrollView>
       </View>
@@ -210,14 +208,16 @@ class NewProduct extends Base {
 }
 
 
-const mapStoreToProps = (store) => {
+const mapStoreToProps = (store) => { 
 
   return {
 
     user: store.user.loggedIn.user,
-    isFetching: store.product.selected.isFetching,
+    selectedProduct: store.product.selected,
+    productMap: store.product.byId,
+    isFetching: store.product.lists.all.isFetching,
 
   }
 }
 
-export default connect(mapStoreToProps)(NewProduct);
+export default connect(mapStoreToProps)(UpdateProduct);

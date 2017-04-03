@@ -18,5 +18,6 @@ module.exports = {
   checkboxEmpty: '#6a858c',
   checkboxFilled: '#08bdec',
   underlayColor: '#eaeced',
+  yoteRed: '#E02B3A',
 
 }

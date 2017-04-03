@@ -20,6 +20,7 @@ module.exports = function(router, requireLogin, requireRole) {
 
   // - Update
   router.put('/api/products/:id'            , requireLogin(), products.update); // must login by default
+  // router.put('/api/products/update-product-info'  , requireLogin(), products.updateProductInfo); 
 
   // - Delete
   router.delete('/api/products/:id'         , requireRole('admin'), products.delete); // must be an 'admin' by default

@@ -1,32 +1,35 @@
+/**
+* Register component to create new users
+*/
+
 // import react/redux dependencies
 import React, { PropTypes } from 'react';
 import ReactNative from 'react-native';
-import Base from '../../../global/components/BaseComponent';
 import { connect } from 'react-redux';
-
 
 // import libraries
 import _ from 'lodash';
 
 // import react-native components & apis
-import View from 'View';
-import Text from 'Text';
-import StyleSheet from 'StyleSheet';
-import TextInput from 'TextInput';
-import TouchableHighlight from 'TouchableHighlight';
+import Alert from 'Alert';
 import Image from 'Image';
 import Modal from 'Modal';
 import ScrollView from 'ScrollView';
-import Alert from 'Alert';
+import StyleSheet from 'StyleSheet';
+import Text from 'Text';
+import TextInput from 'TextInput';
+import TouchableHighlight from 'TouchableHighlight';
 import TouchableOpacity from 'TouchableOpacity';
+import View from 'View';
 
 // import actions
 import * as userActions from '../userActions.js';
 
 // import custom components
+import Base from '../../../global/components/BaseComponent';
+import ScrollContainer from '../../../global/components/ScrollContainer';
 import YTButton from '../../../global/components/YTButton';
 import YTHeader from '../../../global/components/YTHeader';
-import ScrollContainer from '../../../global/components/ScrollContainer';
 
 // import styles
 import YTColors from '../../../global/styles/YTColors';

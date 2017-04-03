@@ -8,16 +8,16 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 // import react-native components
-import ListView from 'ListView';
 import Dimensions from 'Dimensions';
+import Image from 'Image';
+import ListView from 'ListView';
 import Platform from 'Platform';
-import StyleSheet from 'StyleSheet';
-import View from 'View';
-import Text from 'Text';
-import TouchableHighlight from 'TouchableHighlight';
 import RefreshControl from 'RefreshControl';
 import ScrollView from 'ScrollView';
-import Image from 'Image';
+import StyleSheet from 'StyleSheet';
+import Text from 'Text';
+import TouchableHighlight from 'TouchableHighlight';
+import View from 'View';
 
 // import actions
 import * as productActions from '../productActions';
@@ -150,6 +150,7 @@ class ProductTitleList extends Base {
          onContentSizeChange={this._onContentSizeChange}
          scrollRenderAheadDistance={600}
          refreshControl={ refreshControl }
+         removeClippedSubviews={false}
        />
 
      </View>

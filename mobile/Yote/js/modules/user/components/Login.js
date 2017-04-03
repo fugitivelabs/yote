@@ -1,25 +1,29 @@
+/**
+* Login component renders when there is no apiToken associated with a user
+*/
+
 // import react/redux dependencies
 import React, { PropTypes } from 'react';
 import ReactNative from 'react-native';
-import Base from '../../../global/components/BaseComponent';
 import { connect } from 'react-redux';
 
 // import libraries
 import _ from 'lodash';
 
 // import react-native components & apis
-import View from 'View';
-import Text from 'Text';
-import StyleSheet from 'StyleSheet';
+import Alert from 'Alert';
+import Base from '../../../global/components/BaseComponent';
+import Dimensions from 'Dimensions';
+import Image from 'Image';
+import Linking from 'Linking'; 
+import Modal from 'Modal';
 import ScrollView from 'ScrollView';
+import StyleSheet from 'StyleSheet';
+import Text from 'Text';
 import TextInput from 'TextInput';
 import TouchableHighlight from 'TouchableHighlight';
 import TouchableOpacity from 'TouchableOpacity';
-import Image from 'Image';
-import Modal from 'Modal';
-import Alert from 'Alert';
-import Dimensions from 'Dimensions';
-import Linking from 'Linking'; 
+import View from 'View';
 
 // import actions
 import * as singleActions from '../userActions.js';
