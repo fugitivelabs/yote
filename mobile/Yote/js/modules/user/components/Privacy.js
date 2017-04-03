@@ -14,13 +14,13 @@ import TouchableOpacity from 'TouchableOpacity';
 import View from 'View';
 import WebView from 'WebView';
 
-// import custom components
+// import global components
 import Base from '../../../global/components/BaseComponent';
 import ScrollContainer from '../../../global/components/ScrollContainer';
-import YTTouchable from '../../../global/components/YTTouchable';
 import YTButton from '../../../global/components/YTButton';
-import YTHeader from '../../../global/components/YTHeader';
 import YTCard from '../../../global/components/YTCard';
+import YTHeader from '../../../global/components/YTHeader';
+import YTTouchable from '../../../global/components/YTTouchable';
 
 // import libraries
 import moment from 'moment';

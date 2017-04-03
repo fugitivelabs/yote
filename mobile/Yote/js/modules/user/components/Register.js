@@ -25,7 +25,7 @@ import View from 'View';
 // import actions
 import * as userActions from '../userActions.js';
 
-// import custom components
+// import global components
 import Base from '../../../global/components/BaseComponent';
 import ScrollContainer from '../../../global/components/ScrollContainer';
 import YTButton from '../../../global/components/YTButton';

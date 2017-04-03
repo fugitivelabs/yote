@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
-import StyleSheet from 'StyleSheet';
 import Dimensions from 'Dimensions';
+import StyleSheet from 'StyleSheet';
 import YTColors from '../../global/styles/YTColors';
 
 

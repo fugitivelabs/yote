@@ -18,12 +18,12 @@ import TextInput from 'TextInput';
 import TouchableOpacity from 'TouchableOpacity';
 import View from 'View';
 
-// import custom components
+// import global components
 import ActionButton from '../../../global/components/ActionButton';
 import Base from '../../../global/components/BaseComponent';
-import YTTouchable from '../../../global/components/YTTouchable';
 import YTButton from '../../../global/components/YTButton';
 import YTHeader from '../../../global/components/YTHeader';
+import YTTouchable from '../../../global/components/YTTouchable';
 
 // import libraries
 import moment from 'moment';

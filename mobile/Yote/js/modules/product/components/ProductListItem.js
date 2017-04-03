@@ -11,19 +11,19 @@ import StyleSheet from 'StyleSheet';
 import Text from 'Text';
 import View from 'View';
 
-// import custom components
+// import global components
 import Base from '../../../global/components/BaseComponent';
-import YTTouchable from '../../../global/components/YTTouchable';
 import YTButton from '../../../global/components/YTButton'; 
+import YTTouchable from '../../../global/components/YTTouchable';
 
 // import libraries
 import moment from 'moment';
 
 // import styles
-import YTColors from '../../../global/styles/YTColors';
 import productStyles from '../productStyles'; 
+import YTColors from '../../../global/styles/YTColors';
 
-class ProductTitleCard extends Base {
+class ProductListItem extends Base {
   constructor(props){
     super(props);
   }
@@ -63,7 +63,7 @@ class ProductTitleCard extends Base {
 
 }
 
-ProductTitleCard.propTypes = {
+ProductListItem.propTypes = {
   product: PropTypes.object
   , onPress: PropTypes.func
 }
@@ -76,4 +76,4 @@ const mapStoreToProps = (store) => {
   }
 }
 
-export default connect(mapStoreToProps)(ProductTitleCard);
+export default connect(mapStoreToProps)(ProductListItem);

@@ -22,9 +22,11 @@ import View from 'View';
 // import actions
 import * as productActions from '../productActions';
 
-// import custom components
+// import global components
 import Base from '../../../global/components/BaseComponent';
-import ProductTitleCard from './ProductTitleCard';
+
+// import module components
+import ProductListItem from './ProductListItem';
 
 // import Styles
 import productStyles from '../productStyles'; 
@@ -35,7 +37,7 @@ import YTColors from '../../../global/styles/YTColors';
 const LIST_VIEW_PAGE_SIZE = Platform.OS === 'android' ? 20 : 1;
 
 
-class ProductTitleList extends Base {
+class ProductList extends Base {
   constructor(props) {
     super(props);
     let dataSource = new ListView.DataSource({
@@ -66,7 +68,7 @@ class ProductTitleList extends Base {
   }
 
   componentWillReceiveProps(nextProps) {
-    if(this.props.products !== nextProps.products) {
+    if(this.props.products !== nextProps.products || this.props.productMap !== nextProps.productMap) {
       this.setState({
         dataSource: cloneWithData(this.state.dataSource, nextProps.products)
       });
@@ -99,7 +101,7 @@ class ProductTitleList extends Base {
   _renderRow(productId) {
     const { productMap } = this.props; 
     return (
-      <ProductTitleCard
+      <ProductListItem
         product={productMap[productId]}
         onPress={() => this._openProduct(productId)}
       />
@@ -160,13 +162,13 @@ class ProductTitleList extends Base {
 
 }
 
-ProductTitleList.propTypes = {
+ProductList.propTypes = {
   products: PropTypes.array
   , contentInset: PropTypes.object
   , minContentHeight: PropTypes.number
 }
 
-ProductTitleList.defaultProps = {
+ProductList.defaultProps = {
   products: [],
   contentInset: { top: 0, bottom: 0 },
   // TODO: This has to be scrollview height + fake header
@@ -193,4 +195,4 @@ const mapStoreToProps = (store) => {
   }
 }
 
-export default connect(mapStoreToProps)(ProductTitleList);
+export default connect(mapStoreToProps)(ProductList);

@@ -7,18 +7,20 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 // import react-native components
-import StatusBar from 'StatusBar';
-import TabBarIOS from 'TabBarIOS';
 import Navigator from 'Navigator';
+import StatusBar from 'StatusBar';
 import StyleSheet from 'StyleSheet';
-import View from 'View';
+import TabBarIOS from 'TabBarIOS';
 import Text from 'Text';
+import View from 'View';
 
-// import components
+// import global components
 import Base from '../BaseComponent';
-import Profile from '../../../modules/user/components/Profile';
 import Home from './Home';
+
+// import module components
 import Product from '../../../modules/product/components/Product';
+import Profile from '../../../modules/user/components/Profile';
 
 // import actions
 
@@ -26,35 +28,29 @@ import Product from '../../../modules/product/components/Product';
 // import styles
 import YTColors from '../../styles/YTColors';
 
-var styles = StyleSheet.create({
+let styles = StyleSheet.create({
   container: {
     flex: 1
     , flexDirection: 'column'
     , alignSelf: 'stretch'
     , justifyContent: 'center'
     , backgroundColor: '#ffffff'
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    color: '#333333',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-  newButton: {
-
-
-  },
-  newText: {
-    color: 'green',
   }
+  , welcome: {
+      fontSize: 20
+      , textAlign: 'center'
+      , color: '#333333'
+      , margin: 10
+    }
+  , instructions: {
+      textAlign: 'center'
+      , color: '#333333'
+      , marginBottom: 5
+    }
+  , newText: {
+      color: 'green'
+    }
 });
-
-
 
 class TabsView extends Base {
   constructor(props) {

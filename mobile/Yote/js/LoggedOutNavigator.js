@@ -9,11 +9,14 @@ import Navigator from 'Navigator'
 import Platform from 'Platform';
 import StyleSheet from 'StyleSheet';
 
-// import custom components
+// import global components
 import Base from './global/components/BaseComponent';
+
+// import module components
 import Login from './modules/user/components/Login';
 import Register from './modules/user/components/Register';
 import Privacy from './modules/user/components/Privacy';
+
 
 // styles
 

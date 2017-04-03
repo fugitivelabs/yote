@@ -6,8 +6,8 @@ import React, { PropTypes } from 'react';
 
 // import react-native components
 import StyleSheet from 'StyleSheet';
-import View from 'ScrollView';
 import Text from 'Text';
+import View from 'ScrollView';
 
 // import styles
 import YTColors from '../styles/YTColors';
@@ -16,22 +16,19 @@ import YTColors from '../styles/YTColors';
 var styles = StyleSheet.create({
 
   card: {
-    backgroundColor: 'white',
-    // marginTop: 10,
-    // marginBottom: 10,
-  },
-  body: {
-    backgroundColor: 'white',
-    padding: 8,
-  },
-  header: {
-    fontSize: 16,
-    textAlign: 'center',
-    color: "#fff",
-    padding: 4,
-    backgroundColor: "#E02B3A",
-  },
-
+    backgroundColor: 'white'
+  }
+  , body: {
+      backgroundColor: 'white'
+      , padding: 8
+    }
+  , header: {
+      fontSize: 16
+      , textAlign: 'center'
+      , color: "#fff"
+      , padding: 4
+      , backgroundColor: "#E02B3A"
+    }
 });
 
 

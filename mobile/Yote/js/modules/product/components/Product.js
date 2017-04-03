@@ -15,16 +15,18 @@ import TextInput from 'TextInput';
 import TouchableOpacity from 'TouchableOpacity';
 import View from 'View';
 
-// import custom components
+// import global components
 import ActionButton from '../../../global/components/ActionButton';
 import Base from '../../../global/components/BaseComponent';
 import EmptyMessage from '../../../global/components/EmptyMessage';
-import ProductTitleList from './ProductTitleList';
 import ScrollContainer from '../../../global/components/ScrollContainer';
-import YTHeader from '../../../global/components/YTHeader';
 import YTButton from '../../../global/components/YTButton';
 import YTCard from '../../../global/components/YTCard';
 import YTColors from '../../../global/styles/YTColors';
+import YTHeader from '../../../global/components/YTHeader';
+
+// import module components
+import ProductList from './ProductList';
 
 // import actions
 import * as productActions from '../productActions'
@@ -97,7 +99,7 @@ class Product extends Base {
         </YTHeader>
         
         <View style={{flex: 1}}>
-          <ProductTitleList 
+          <ProductList 
             products={productList}
             navigator={navigator}
           />

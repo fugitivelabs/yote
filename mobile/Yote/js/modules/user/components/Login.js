@@ -28,9 +28,8 @@ import View from 'View';
 // import actions
 import * as singleActions from '../userActions.js';
 
-// import custom components
+// import global components
 import YTButton from '../../../global/components/YTButton';
-
 
 // import styles
 import YTColors from '../../../global/styles/YTColors';

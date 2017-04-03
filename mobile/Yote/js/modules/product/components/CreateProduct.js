@@ -17,11 +17,11 @@ import TextInput from 'TextInput';
 import TouchableOpacity from 'TouchableOpacity';
 import View from 'View';
 
-// import custom components
+// import global components
 import Base from '../../../global/components/BaseComponent';
-import YTTouchable from '../../../global/components/YTTouchable';
 import YTButton from '../../../global/components/YTButton';
 import YTHeader from '../../../global/components/YTHeader';
+import YTTouchable from '../../../global/components/YTTouchable';
 
 // import libraries
 import moment from 'moment';
@@ -34,7 +34,7 @@ import * as productActions from '../productActions'
 import productStyles from '../productStyles'; 
 import YTColors from '../../../global/styles/YTColors';
 
-class NewProduct extends Base {
+class CreateProduct extends Base {
   constructor(props) {
     super(props);
     this.state = {
@@ -147,7 +147,7 @@ class NewProduct extends Base {
         <YTHeader
           navigator={navigator}
           leftItem={leftItem}
-          title="New Product"
+          title="Create Product"
         />
         <ScrollView ref="myScrollView" keyboardDismissMode="interactive" style={[productStyles.formWrapper]}>
           <View style={productStyles.cell}>
@@ -220,4 +220,4 @@ const mapStoreToProps = (store) => {
   }
 }
 
-export default connect(mapStoreToProps)(NewProduct);
+export default connect(mapStoreToProps)(CreateProduct);

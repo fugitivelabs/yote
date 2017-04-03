@@ -17,11 +17,11 @@ import TextInput from 'TextInput';
 import TouchableOpacity from 'TouchableOpacity';
 import View from 'View';
 
-// import custom components
+// import global components
 import Base from '../../../global/components/BaseComponent';
-import YTTouchable from '../../../global/components/YTTouchable';
 import YTButton from '../../../global/components/YTButton';
 import YTHeader from '../../../global/components/YTHeader';
+import YTTouchable from '../../../global/components/YTTouchable';
 
 // import libraries
 import moment from 'moment';
@@ -49,10 +49,7 @@ class UpdateProduct extends Base {
       , '_checkFormValid'
       , '_openLibrary'
     )
-
   }
-
-
 
   _checkFormValid() {
 
@@ -82,6 +79,8 @@ class UpdateProduct extends Base {
       return;
     }
     dispatch(productActions.sendUpdateProduct(newProductData)).then((res) => {
+      dispatch(productActions.invalidateList());
+      dispatch(productActions.fetchListIfNeeded()); 
       // console.log('done');
       // console.log(res);
       this.props.navigator.pop();

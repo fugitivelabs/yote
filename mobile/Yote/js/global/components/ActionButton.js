@@ -20,39 +20,30 @@ const BUTTON_FONT = Platform.OS === 'android' ? 'sans-serif-condensed' : 'Avenir
 
 const HEIGHT = 80;
 
-var styles = StyleSheet.create({
+let styles = StyleSheet.create({
   actionWrapper: {
-    height: HEIGHT,
-    // justifyContent: 'center',
-    // alignItems: 'center',
-    // paddingVertical: 2,
-    //paddingHorizontal: 8,
-    //backgroundColor: '#fff'
-
-  },
-
-  button: {
-    flex: 1,
-    // flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: 40,
-    backgroundColor: '#12B3F5',
-  },
-  disabled: {
-    backgroundColor: YTColors.disabledButton,
-  },
-  secondaryAction: {
-    backgroundColor: YTColors.buttonSecondaryBG,
-
-  },
-  caption: {
-    letterSpacing: 1,
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#fff',
-    fontFamily: BUTTON_FONT,
+    height: HEIGHT
   }
+  , button: {
+      flex: 1
+      , alignItems: 'center'
+      , justifyContent: 'center'
+      , paddingHorizontal: 40
+      , backgroundColor: '#12B3F5'
+    }
+  , disabled: {
+      backgroundColor: YTColors.disabledButton
+    }
+  , caption: {
+      letterSpacing: 1
+      , fontSize: 16
+      , fontWeight: '600'
+      , color: '#fff'
+      , fontFamily: BUTTON_FONT
+    }
+  , secondaryAction: {
+      backgroundColor: YTColors.buttonSecondaryBG
+    }
 });
 
 const ActionButton = ({ type, icon, caption, style, onPress, isDisabled }) => {

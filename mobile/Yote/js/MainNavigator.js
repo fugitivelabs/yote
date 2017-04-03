@@ -27,7 +27,7 @@ import * as productActions from './modules/product/productActions';
 
 // import module components
 import FAQ from './modules/user/components/FAQ';
-import NewProduct from './modules/product/components/NewProduct';
+import CreateProduct from './modules/product/components/CreateProduct';
 import Privacy from './modules/user/components/Privacy';
 import Profile from './modules/user/components/Profile';
 import Settings from './modules/user/components/Settings';
@@ -171,7 +171,7 @@ class MainNavigator extends Base {
 
     if(route.newProduct) {
       return (
-        <NewProduct
+        <CreateProduct
           {...route}
           navigator={navigator}
         />

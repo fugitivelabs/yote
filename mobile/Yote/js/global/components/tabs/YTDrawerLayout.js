@@ -4,10 +4,12 @@
 
 // import react libraries
 import React, { PropTypes } from 'react';
-import DrawerLayoutAndroid from 'DrawerLayoutAndroid';
 import { connect } from 'react-redux';
 
-// import components
+// import react components
+import DrawerLayoutAndroid from 'DrawerLayoutAndroid';
+
+// import global components
 import Base from '../../../global/components/BaseComponent';
 
 

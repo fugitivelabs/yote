@@ -2,12 +2,12 @@ import React, { PropTypes } from 'react';
 
 
 // import react-native components & apis
-import View from 'View';
-import Text from 'Text';
-import StyleSheet from 'StyleSheet';
-import TouchableOpacity from 'TouchableOpacity';
 import Image from 'Image';
 import Platform from 'Platform';
+import StyleSheet from 'StyleSheet';
+import Text from 'Text';
+import TouchableOpacity from 'TouchableOpacity';
+import View from 'View';
 
 // import styles
 import YTColors from '../styles/YTColors';
@@ -18,45 +18,42 @@ const HEIGHT = 50;
 
 var styles = StyleSheet.create({
   container: {
-    height: HEIGHT,
-    // borderRadius: HEIGHT / 2,
-    // borderWidth: 1 / PixelRatio.get(),
-  },
-  button: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: 40,
-
-  },
-  border: {
-    borderWidth: 1,
-    borderColor: YTColors.actionText,
-    borderRadius: HEIGHT / 2,
-  },
-  primaryButton: {
-    borderRadius: HEIGHT / 2,
-    backgroundColor: '#FCA641',
-  },
-  icon: {
-    marginRight: 12,
-  },
-  caption: {
-    letterSpacing: 1,
-    fontSize: 15,
-    fontWeight: '600',
-    fontFamily: BUTTON_FONT,
-  },
-  primaryCaption: {
-    color: '#fff',
-  },
-  secondaryCaption: {
-    color: YTColors.actionText,
-  },
-  disabled: {
-    opacity: 0.7,
+    height: HEIGHT
   }
+  , button: {
+      flex: 1
+      , flexDirection: 'row'
+      , alignItems: 'center'
+      , justifyContent: 'center'
+      , paddingHorizontal: 40
+    }
+  , border: {
+      borderWidth: 1
+      , borderColor: YTColors.actionText
+      , borderRadius: HEIGHT / 2
+    }
+  , primaryButton: {
+      borderRadius: HEIGHT / 2
+      , backgroundColor: '#FCA641'
+    }
+  , icon: {
+      marginRight: 12
+    }
+  , caption: {
+      letterSpacing: 1
+      , fontSize: 15
+      , fontWeight: '600'
+      , fontFamily: BUTTON_FONT
+    }
+  , primaryCaption: {
+      color: '#fff'
+    }
+  , secondaryCaption: {
+      color: YTColors.actionText
+    }
+  , disabled: {
+      opacity: 0.7
+    }
 });
 
 const YTButton = ({ type, icon, caption, buttonStyle, onPress, isDisabled, captionStyle }) => {
