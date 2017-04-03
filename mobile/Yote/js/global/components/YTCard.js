@@ -14,13 +14,12 @@ import YTColors from '../styles/YTColors';
 
 
 var styles = StyleSheet.create({
-
-  card: {
+  body: {
     backgroundColor: 'white'
+    , padding: 8
   }
-  , body: {
+  , card: {
       backgroundColor: 'white'
-      , padding: 8
     }
   , header: {
       fontSize: 16

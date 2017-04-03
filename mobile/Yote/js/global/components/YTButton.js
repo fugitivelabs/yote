@@ -17,27 +17,17 @@ const BUTTON_FONT = Platform.OS === 'android' ? 'sans-serif-condensed' : 'Avenir
 const HEIGHT = 50;
 
 var styles = StyleSheet.create({
-  container: {
-    height: HEIGHT
+  button: {
+    flex: 1
+    , flexDirection: 'row'
+    , alignItems: 'center'
+    , justifyContent: 'center'
+    , paddingHorizontal: 40
   }
-  , button: {
-      flex: 1
-      , flexDirection: 'row'
-      , alignItems: 'center'
-      , justifyContent: 'center'
-      , paddingHorizontal: 40
-    }
   , border: {
       borderWidth: 1
       , borderColor: YTColors.actionText
       , borderRadius: HEIGHT / 2
-    }
-  , primaryButton: {
-      borderRadius: HEIGHT / 2
-      , backgroundColor: '#FCA641'
-    }
-  , icon: {
-      marginRight: 12
     }
   , caption: {
       letterSpacing: 1
@@ -45,14 +35,24 @@ var styles = StyleSheet.create({
       , fontWeight: '600'
       , fontFamily: BUTTON_FONT
     }
+  , container: {
+      height: HEIGHT
+    }
+  , disabled: {
+      opacity: 0.7
+    }
+  , icon: {
+      marginRight: 12
+    }
+  , primaryButton: {
+      borderRadius: HEIGHT / 2
+      , backgroundColor: '#FCA641'
+    }
   , primaryCaption: {
       color: '#fff'
     }
   , secondaryCaption: {
       color: YTColors.actionText
-    }
-  , disabled: {
-      opacity: 0.7
     }
 });
 

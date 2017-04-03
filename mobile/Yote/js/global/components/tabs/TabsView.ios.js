@@ -36,12 +36,6 @@ let styles = StyleSheet.create({
     , justifyContent: 'center'
     , backgroundColor: '#ffffff'
   }
-  , welcome: {
-      fontSize: 20
-      , textAlign: 'center'
-      , color: '#333333'
-      , margin: 10
-    }
   , instructions: {
       textAlign: 'center'
       , color: '#333333'
@@ -49,6 +43,12 @@ let styles = StyleSheet.create({
     }
   , newText: {
       color: 'green'
+    }
+  , welcome: {
+      fontSize: 20
+      , textAlign: 'center'
+      , color: '#333333'
+      , margin: 10
     }
 });
 

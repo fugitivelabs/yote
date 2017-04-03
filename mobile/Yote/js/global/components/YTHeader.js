@@ -26,21 +26,10 @@ const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? 20 : 25;
 const HEADER_HEIGHT = Platform.OS === 'ios' ? 44 + STATUS_BAR_HEIGHT : 56 + STATUS_BAR_HEIGHT;
 const IMAGE_SIZE = 30;
 var styles = StyleSheet.create({
-  toolbarContainer: {
-    paddingTop: STATUS_BAR_HEIGHT
+  centerItem: {
+    flex: 2
+    , alignItems: 'center'
   }
-  , toolbar: {
-      height: HEADER_HEIGHT - STATUS_BAR_HEIGHT
-    }
-  , imageStyle: {
-      height: IMAGE_SIZE
-      , width: IMAGE_SIZE
-      , borderRadius: IMAGE_SIZE * 0.5
-    }
-  , iconStyle: {
-      height: IMAGE_SIZE
-      , width: IMAGE_SIZE
-    }
   , header: {
       backgroundColor: YTColors.primaryHeader
       , paddingTop: STATUS_BAR_HEIGHT
@@ -51,30 +40,41 @@ var styles = StyleSheet.create({
       , justifyContent: 'space-between'
       , alignItems: 'center'
     }
-  , titleText: {
-      color: YTColors.primaryHeaderText
-      , fontWeight: 'bold'
-      , fontSize: 20
+  , iconStyle: {
+      height: IMAGE_SIZE
+      , width: IMAGE_SIZE
     }
-  , leftItem: {
-      flex: 1
-      , alignItems: 'flex-start'
-    }
-  , centerItem: {
-      flex: 2
-      , alignItems: 'center'
-    }
-  , rightItem: {
-      flex: 1
-      , alignItems: 'flex-end'
-    }
-  , itemWrapper: {
-      padding: 8
+  , imageStyle: {
+      height: IMAGE_SIZE
+      , width: IMAGE_SIZE
+      , borderRadius: IMAGE_SIZE * 0.5
     }
   , itemText: {
       letterSpacing: 1
       , fontSize: 12
       , color: 'white'
+    }
+  , itemWrapper: {
+      padding: 8
+    }
+  , leftItem: {
+      flex: 1
+      , alignItems: 'flex-start'
+    }
+  , rightItem: {
+      flex: 1
+      , alignItems: 'flex-end'
+    }
+  , titleText: {
+      color: YTColors.primaryHeaderText
+      , fontWeight: 'bold'
+      , fontSize: 20
+    }
+  , toolbar: {
+      height: HEADER_HEIGHT - STATUS_BAR_HEIGHT
+    }
+  , toolbarContainer: {
+      paddingTop: STATUS_BAR_HEIGHT
     }
 });
 
