@@ -6,6 +6,7 @@ import CheckboxInput from './CheckboxInput.js.jsx';
 import EmailInput from './EmailInput.js.jsx';
 import FileInput from './FileInput.js.jsx';
 import ListComparator from './ListComparator.js.jsx';
+import NewPasswordInput from './NewPasswordInput.js.jsx';
 import NumberInput from './NumberInput.js.jsx';
 import PasswordInput from './PasswordInput.js.jsx';
 import RadioInput from './RadioInput.js.jsx';
@@ -21,6 +22,7 @@ export { CheckboxInput };
 export { EmailInput };
 export { FileInput };
 export { ListComparator };
+export { NewPasswordInput };
 export { NumberInput };
 export { PasswordInput };
 export { RadioInput };
@@ -37,6 +39,7 @@ export default {
   , EmailInput
   , FileInput
   , ListComparator
+  , NewPasswordInput
   , NumberInput
   , PasswordInput
   , RadioInput

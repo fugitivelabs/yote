@@ -24,7 +24,7 @@ function requestLogin(username) {
 
 export const RECEIVE_LOGIN = "RECEIVE_LOGIN"
 function receiveLogin(json) {
-  window.currentUser = json.user || {};
+  console.log(json);
   return {
     type: RECEIVE_LOGIN
     , user: json.user
@@ -54,7 +54,7 @@ function requestRegister(userData) {
 
 export const RECEIVE_REGISTER = "RECEIVE_REGISTER"
 function receiveRegister(json) {
-  // console.log(json); 
+  // console.log(json);
   return {
     type: RECEIVE_REGISTER
     , user: json.user
@@ -82,7 +82,6 @@ function requestLogout() {
 
 export const RECEIVE_LOGOUT = "RECEIVE_LOGOUT"
 function receiveLogout(json) {
-  window.currentUser = {};
   return {
     type: RECEIVE_LOGOUT
     , success: json.success

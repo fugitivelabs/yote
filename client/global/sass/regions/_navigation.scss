@@ -22,14 +22,20 @@ $topbar-height:  $header-height;
   // text-transform: uppercase;
 }
 
-
+a.nav-logo,
 .nav-logo {
-  display: inline-block;
-  // @include large-font;
-  color: $brand-primary;
-  // font-weight: 700;
+  @include display-flex;
+  @include align-items(center);
+  @include large-font;
+
+  color: $text-color;
+  font-weight: 700;
+  height: $header-height;
   svg {
     width: 120px;
+  }
+  img {
+    max-height: 80%;
   }
 }
 
@@ -159,7 +165,7 @@ ul.navigation {
   li {
     margin-left: $gutter;
     a {
-      color: $text-light;
+      // color: $text-light;
       border-bottom: 3px solid transparent;
       &:hover {
         color: $brand-primary;
@@ -199,52 +205,103 @@ ul.navigation {
 }
 
 .topbar {
-  background-color: inherit;
+
+
+  background-color: inherit;;
   height: $topbar-height;
   position: relative;
   @include display-flex;
-  @include align-items(center);
+  @include align-items(stretch);
   @include justify-content(space-between);
+  .menu-icon {
+    @include align-self(stretch);
+    @include display-flex;
+    @include align-items(center);
+    @include justify-content(flex-end);
+    // background-color: $gray-2;
+    border-right: 1px solid $divider-color;
+    padding: 12px;
+    width: $gutter-width;
+    @include MQ(S) {
+      width: 50px;
+      padding: 15px;
+    }
+    color: rgba(0,0,0,0.5);
+    @include transition(all 250ms ease-in-out);
+    i {
+      // @include transition(all 250ms ease-in-out);
+      // margin-right: 5px;
+      @include large-font();
+    }
+    &:hover {
+      color: $black-0;
+      // i { margin-right: 10px;}
+    }
+  }
   .titles {
     @include display-flex;
-    @include align-items(baseline);
-    .subtitle {
+    @include align-items(stretch);
+    .-subtitle {
       margin-left: $gutter;
-      color: rgba(255,255,255, 0.8);
+      color: $muted-text;
       @include base-font;
       font-weight: normal;
     }
+
   }
   .actions {
-    display: none;
+    // display: none;
     // padding: 0 $gutter;
-    @include MQ(M) {
-      @include display-flex;
-      @include justify-content(flex-end);
-      @include align-items(center);
-      @include flex(1);
-    }
-    > .yt-row { width: 100%; }
+    @include display-flex;
+    @include justify-content(flex-end);
+    @include align-items(stretch);
+    @include flex(1);
+    // @include MQ(XS) {
+    // }
+    > .yt-row { width: 100%; height: inherit; }
   }
 
   .navigation {
+    // height: 100%;
     @include display-flex;
     @include justify-content(flex-end);
+    @include align-items(stretch);
+    @include align-self(stretch);
     list-style: none;
     // @extend %calibre-semibold;
     // @include smaller-font;
     // text-transform: uppercase;
+
     li {
+      // height: 100%;
+
       margin-left: $gutter-width;
+      @include display-flex;
+      @include align-items(stretch);
+
+      &.-desktop-only {
+        display: none;
+        @include MQ(S) {
+          @include display-flex;
+
+        }
+      }
       a {
-        color: $text-light;
+        @include display-flex;
+        @include align-items(center);
+        // color: $text-color;
+        color: rgba(0,0,0,0.48);
+        @include transition(all 250ms ease-in-out);
+        padding: 0 5px;
         border-bottom: 3px solid transparent;
         &:hover {
-          color: $brand-primary;
+          color: $black-0;
           // border-bottom: 3px solid $brand-accent;
         }
         &.active {
           color: $brand-primary;
+          border-bottom: 3px solid $brand-accent;
+          background-color: $highlight-color;
         }
       }
     }
@@ -252,7 +309,6 @@ ul.navigation {
       @include flex(1);
       border-right: 1px solid $divider-color;
       padding-right: $gutter;
-      // @extend %calibre-light;
       font-size: 1.25rem;
       line-height: 1;
       @include MQ(XL) {
@@ -261,7 +317,6 @@ ul.navigation {
       }
       text-transform: none;
       .active {
-        // @extend %calibre-semibold;
       }
       li {
         text-align: center;
@@ -281,6 +336,15 @@ ul.navigation {
 
   &._fixed {
     @extend %nav--fixed;
+  }
+  .-profile-pic {
+    height: $topbar-height * 0.46;
+    width: $topbar-height * 0.46;
+    border-radius: 50%;
+    margin-right: 10px;
+    background-image: url('/img/defaults/profile.png');
+    background-position: center;
+    background-size: cover;
   }
 }
 
@@ -323,6 +387,7 @@ ul.navigation {
         width: 100%;
         border-left: 3px solid $sidebar-bg-color;
         display: block;
+        @include transition(all 250ms ease-in-out);
         &:hover {
           color: $link-hover-color;
         }
@@ -340,31 +405,43 @@ ul.navigation {
 }
 
 
-.dropMenu {
-  z-index: 1000;
-  position: absolute;
-  top: 100%;
-  right:10px;
-  left: auto;
-  float: left;
-  min-width: 160px;
-  padding: 5px;
-  margin: 2px 0 0;
-  font-size: 14px;
-  text-align: left;
-  list-style: none;
-  background-color: #fff;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
-  border: 1px solid #ccc;
-  border: 1px solid rgba(0,0,0,.15);
-  border-radius: 4px;
 
-  @include box-shadow(0 6px 12px rgba(0,0,0,0.175));
-  li {
+.main-side-nav {
+  position: fixed;
+  margin-top: $gutter;
+  width: 0;
+  margin-left: -$side-nav-width;
+  min-height: 400px;
+
+  // NOTE: calc can't pass vars, so this is:
+  // calc(100vh - $gutter - $header-height - 40px;)
+  height: calc(100vh - 20px - 84px - 40px);
+
+  border-right: 1px solid $divider-color;
+  @include zIndex-6;
+  @include transition(all 240ms ease-in-out);
+  @include mobile-scroll;
+  @include MQ(M) {
+    margin-left: 0;
+    width: $side-nav-width;
+  };
+  .nav-items {
+    width: 100%;
+    li { width: 100%; }
     a {
-      border: none !important;
-      color: $link-color !important;
+      padding: 9px 18px;
+      color: $lighter-text-color;
+      width: 100%;
+      display: inline-block;;
+      @include transition(all 250ms ease-in-out);
+      &.active {
+        color: $text-color;
+        background-color: $highlight-color;
+        border-right: 3px solid $brand-accent;
+      }
+      &:hover {
+        color: $link-color;
+      }
     }
   }
 }

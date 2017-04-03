@@ -3,8 +3,9 @@
  */
 
 // import primary libararies
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
+import { connect } from 'react-redux';
 
 // import third-party libraries
 import classNames from 'classnames';
@@ -14,7 +15,7 @@ import Base from '../BaseComponent.js.jsx';
 import CloseWrapper from '../helpers/CloseWrapper.js.jsx';
 import DropdownNav from './DropdownNav.js.jsx';
 
-export default class TopNav extends Base {
+class TopNav extends Base {
   constructor(props, context) {
     super(props);
     this.state = {
@@ -101,6 +102,7 @@ export default class TopNav extends Base {
   }
 
   render() {
+    let { user } = this.props;
     let { isTop, scrollingDown, isFixed } = this.state;
     let headerClass = classNames(
       'header'
@@ -110,18 +112,26 @@ export default class TopNav extends Base {
       }
     )
 
+    let pictureUrl = '/img/defaults/profile.png';
+    if(user && user.profilePicUrl) {
+      pictureUrl = user.profilePicUrl;
+    }
+    // console.log(pictureUrl);
+
+    let profileImg = {backgroundImage: `url(${pictureUrl})`};
+
     return(
       <header className={headerClass}>
-        <div className="topbar yt-container">
+        <div className="topbar main-container">
           <CloseWrapper
             isOpen={this.state.isOpen}
             closeAction={this._closeDropdown}
           />
           <div className="titles">
-            <Link to="/">
-              <div className="nav-logo"> Yote
-                <span className="subtitle"> Standard Dev Kit </span>
-              </div>
+            <Link to="/"className="nav-logo" >
+
+              <img src="/img/yote_logo.png"/>
+              <span className="-subtitle"> Standard Yote Dev Kit </span>
             </Link>
           </div>
           <div className="actions">
@@ -130,14 +140,29 @@ export default class TopNav extends Base {
                 <li>
                   <Link to="/products" activeClassName="active">Products</Link>
                 </li>
-                <li className="dropdown">
-                  <a onClick={this._openDropdown}> <i className="fa fa-caret-down"></i></a>
-                </li>
-                <DropdownNav
-                  currentUser={null}
-                  isOpen={this.state.isOpen}
-                />
+                { user.username ?
+                  <li className="dropdown">
+                    <a onClick={this._openDropdown}>
+                      <div className="-profile-pic" style={profileImg} />
+                      <i className="fa fa-caret-down"></i>
+                    </a>
+                    <DropdownNav
+                      isOpen={this.state.isOpen}
+                      />
+                  </li>
+                  :
+                  null
+                }
               </ul>
+              {!user.username ?
+                  <div className="yt-row">
+                    <Link to="/user/login" className="yt-btn small link ">Sign In</Link>
+                    <Link to="/user/register" className="yt-btn small ">Register</Link>
+                  </div>
+
+                :
+                null
+              }
             </div>
           </div>
         </div>
@@ -146,3 +171,17 @@ export default class TopNav extends Base {
   }
 
 }
+
+TopNav.propTypes = {
+  dispatch: PropTypes.func.isRequired
+}
+
+const mapStoreToProps = (store) => {
+  return {
+    user: store.user.loggedIn.user
+  }
+}
+
+export default connect(
+  mapStoreToProps
+)(TopNav);

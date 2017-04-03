@@ -55,7 +55,7 @@ class NumberInput extends Base {
 
     return (
       <div className="input-group">
-        <label htmlFor={name}> {label} </label>
+        <label htmlFor={name}> {label} {required ? <sup className="-required">*</sup> : null}</label>
         <div className="input-add-on">
           {currencyAddon}
           <input
@@ -96,7 +96,7 @@ NumberInput.propTypes = {
 NumberInput.defaultProps = {
   currency: false
   , disabled: false
-  , helpText: null 
+  , helpText: null
   , label: ''
   , max: ''
   , min: ''

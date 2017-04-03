@@ -7,8 +7,8 @@ import { connect } from 'react-redux';
 import * as userActions from '../userActions';
 
 // import global components
-import Base from '../../../global/components/BaseComponent.js.jsx';
 import AlertModal from '../../../global/components/modals/AlertModal.js.jsx';
+import Base from '../../../global/components/BaseComponent.js.jsx';
 
 // import user components
 import AdminUserForm from './AdminUserForm.js.jsx';
@@ -79,7 +79,7 @@ class AdminUpdateUser extends Base {
 
   _confirmDelete() {
     const { dispatch } = this.props;
-    dispatch(singleActions.sendDeleteUser(this.state.newUser._id)).then((result) => {
+    dispatch(userActions.sendDelete(this.state.user._id)).then((result) => {
       if(result.success) {
         this._closeDeleteModal();
         browserHistory.push('/admin/users');

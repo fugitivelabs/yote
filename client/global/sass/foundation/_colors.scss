@@ -3,27 +3,32 @@
 // Brand Palette
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
-$brand-primary:               #5bdffc;
-$brand-secondary:             #352D39;
-$brand-accent:                #ff4081;
+$brand-primary:               #007BA4;
+$brand-secondary:             #00C7CD;
+$brand-accent:                #00BC8B;
+
 
 // UI Palette
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
-$bg-color:                    $blue-gray-9;
+$bg-color:                    $white-1;
+$dark-bg-color:               darken($brand-primary, 20);
 $gray:                        $gray-5;
-$white:                       $white-2;
+$white:                       $white-1;
+
+$highlight-color:             rgba(0,0,0,0.05);
 
 $text-color:                  rgba(0,0,0,0.6);
 $lighter-text-color:          rgba(0,0,0,0.35);
+$muted-text:                  rgba(0,0,0,0.24);
 $text-light:                  rgba(255,255,255,.9);
 $accent-color:                $brand-accent;
 
-$link-color:                  #ff4081;
+$link-color:                  $brand-primary;
 $link-visited-color:          $link-color;
 $link-hover-color:            lighten($link-color, 20);
 
 
-$button-color:                $brand-accent;
+$button-color:                $brand-primary;
 $button-hover-color:          lighten($button-color, 20);
 $button-visited-color:        $button-color;
 
@@ -39,24 +44,25 @@ $black:                       $black-2;
 // Component colors
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 $sidebar-bg-color:               $blue-gray-5;
-$header-bg-color:                $blue-gray-3;
+$header-bg-color:                $white;
 // $topbar-text-color:
 
-$hero-bg-color:                 $blue-gray-1;
-$footer-bg-color:               $blue-gray-0;
+$hero-bg-color:                 $black-3;
+
+$footer-bg-color:               $black-1;
 
 
 // Semantic Colors
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
-$success: #1DE9B6;
+$success: #00BC8B;
 $success-hover: darken($success, 10);
 
-$warning: #e67e22;
+$warning: #ff8a47;
 $warning-hover: darken($warning, 10);
 
 $danger: #e74c3c;
 $danger-hover: darken($danger, 10);
 
-$info: #12B3F5;
+$info: #007BA4;
 $info-hover: darken($info, 10);

@@ -1,6 +1,7 @@
 section, .section {
   width: 100%;
   background-color: #fff;
+  padding: $gutter 0;
   // @extend %top-spacer;
   // @extend %bottom-spacer;
   &.no-spacer {

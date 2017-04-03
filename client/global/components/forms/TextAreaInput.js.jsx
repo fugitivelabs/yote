@@ -31,7 +31,7 @@ class TextAreaInput extends Base {
 
     return (
       <div className="input-group">
-        <label htmlFor={name}> {label} </label>
+        <label htmlFor={name}> {label} {required ? <sup className="-required">*</sup> : null}</label>
         <textarea
           type="text"
           name={name}

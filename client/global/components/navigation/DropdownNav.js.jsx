@@ -4,6 +4,7 @@
 
 // import primary libraries
 import React, { PropTypes } from 'react';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { Link, browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 
@@ -33,32 +34,60 @@ class DropdownNav extends Base {
   }
 
   render() {
-    if(this.props.isOpen) {
+    const { user, isOpen } = this.props;
+    if(isOpen) {
+      let pictureUrl = '/img/defaults/profile.png';
+      if(user && user.profilePicUrl) {
+        pictureUrl = user.profilePicUrl;
+      }
+      // console.log(pictureUrl);
+
+      let profileImg = {backgroundImage: `url(${pictureUrl})`};
       return(
+        <ReactCSSTransitionGroup
+          transitionName="dropdown-anim"
+          transitionAppear={true}
+          transitionLeave={true}
+          transitionEnter={true}
+          transitionAppearTimeout={500}
+          transitionEnterTimeout={500}
+          transitionLeaveTimeout={350}
+        >
         <ul className="dropMenu">
-          { this.props.user.username ?
-            <div>
-              <li className="dropdown-header"> Logged in as {this.props.user.firstName} {this.props.user.lastName}</li>
-              <li><Link to="/profile">Profile</Link></li>
-            { this.props.user.roles && this.props.user.roles.indexOf('admin') > -1 ?
-                <li><Link to="/admin"> Admin </Link></li>
-                :
-                null
-              }
-              <li role="separator" className="divider"><br/></li>
-              <li><a onClick={this._logout}>Logout</a></li>
-            </div>
-            :
-            <div>
-              <li><Link to="/user/login">Log In</Link></li>
-              <li role="separator" className="divider"><br/></li>
-              <li><Link to="/user/register">Register</Link></li>
-            </div>
-          }
+          <div>
+            <li className="-drop-header">
+              <div className="-profile-pic" style={profileImg} />
+              <div className="-profile-info">
+                {user.firstName + " "} {user.lastName}
+                <br/>
+                <small>{user.username}</small>
+              </div>
+            </li>
+            <li><Link to="/profile">My Profile </Link></li>
+
+            { user.roles && user.roles.indexOf('admin') > -1
+              ?
+              <li><Link to="/admin" target="_blank" > Go to Admin <i className="fa fa-external-link"/> </Link></li>
+              : ''
+            }
+            <li role="separator" className="-divider"/>
+            <li><a onClick={this._logout}>Logout</a></li>
+          </div>
         </ul>
+        </ReactCSSTransitionGroup>
       )
     } else {
-      return null;
+      return (
+        <ReactCSSTransitionGroup
+          transitionName="dropdown-anim"
+          transitionAppear={true}
+          transitionLeave={true}
+          transitionEnter={true}
+          transitionAppearTimeout={500}
+          transitionEnterTimeout={500}
+          transitionLeaveTimeout={350}
+        />
+      )
     }
   }
 }
