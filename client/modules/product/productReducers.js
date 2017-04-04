@@ -1,4 +1,4 @@
-™/**
+/**
  * Build the Product store
  *
  * Follows best practices from Redux documentation:
