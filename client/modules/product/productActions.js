@@ -30,13 +30,17 @@ const shouldFetchSingle = (state, id) => {
     // "selected" is already fetching, don't do anything
     // console.log("Y shouldFetch - false: isFetching");
     return false;
-  } else if(!byId[id]) {
+  } else if(!byId[id] && !selected.error) {
     // the id is not in the map, fetch from server
+    // however, if the api returned an error, then it SHOULDN'T be in the map
+    // so re-fetching it will result in an infinite loop
     // console.log("Y shouldFetch - true: not in map");
     return true;
   } else if(new Date().getTime() - selected.lastUpdated > (1000 * 60 * 5)) {
     // it's been longer than 5 minutes since the last fetch, get a new one
     // console.log("Y shouldFetch - true: older than 5 minutes");
+    // also, don't automatically invalidate on server error. if server throws an error, 
+    // that won't change on subsequent requests and we will have an infinite loop
     return true;
   } else {
     // if "selected" is invalidated, fetch a new one, otherwise don't
