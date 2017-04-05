@@ -538,6 +538,19 @@ export function fetchList(...listArgs) {
 /**
  * LIST UTIL METHODS
  */
+
+export const SET_USER_QUERY = "SET_USER_QUERY"
+export function setQuery(query, ...listArgs) {
+  if(listArgs.length === 0) {
+    listArgs = ["all"];
+  }
+  return {
+    type: SET_USER_QUERY
+    , query
+    , listArgs
+  }
+}
+
 export const SET_USER_FILTER = "SET_USER_FILTER"
 export function setFilter(filter, ...listArgs) {
   if(listArgs.length === 0) {
