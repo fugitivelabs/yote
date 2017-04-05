@@ -91,7 +91,7 @@ export const RECEIVE_SINGLE_PRODUCT = "RECEIVE_SINGLE_PRODUCT";
 function receiveSingleProduct(json) {
   return {
     type: RECEIVE_SINGLE_PRODUCT
-    , id: json.product._id || null // to avoid silent error if empty json
+    , id: json.product ? json.product._id : null
     , item: json.product
     , success: json.success
     , error: json.message
@@ -127,7 +127,7 @@ export const RECEIVE_CREATE_PRODUCT = "RECEIVE_CREATE_PRODUCT";
 function receiveCreateProduct(json) {
   return {
     type: RECEIVE_CREATE_PRODUCT
-    , id: json.product._id || null // to avoid silent error if empty json
+    , id: json.product ? json.product._id : null
     , item: json.product
     , success: json.success
     , error: json.message
