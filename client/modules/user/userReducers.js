@@ -33,8 +33,12 @@ function userList(state = {
   , error: null
   , didInvalidate: false
   , lastUpdated: null
-  , pagination: {}
-  , filter: {}
+  , pagination: {
+    page: 1
+    , per: 50
+  }
+  , filter: ''
+  , query: ''
 }, action) {
   // console.log("DEBUG", state, action.listArgs);
   let nextAction = JSON.parse(JSON.stringify(action)); // Only change copy. NOT the original object.
@@ -101,6 +105,11 @@ function userList(state = {
       case Actions.SET_USER_FILTER: {
         return Object.assign({}, state, {
           filter: action.filter
+        })
+      }
+      case Actions.SET_USER_QUERY: {
+        return Object.assign({}, state, {
+          query: action.query
         })
       }
       case Actions.SET_USER_PAGINATION: {
@@ -538,6 +547,7 @@ function user(state = {
     case Actions.INVALIDATE_USER_LIST:
     case Actions.REQUEST_USER_LIST:
     case Actions.SET_USER_FILTER:
+    case Actions.SET_USER_QUERY:
     case Actions.SET_USER_PAGINATION: {
       // forward these actions on to individual list reducer
       let nextLists = Object.assign({}, state.lists, {});
