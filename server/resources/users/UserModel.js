@@ -20,7 +20,7 @@ var userSchema = mongoose.Schema({
   //by default, password and reset fields are hidden from db queries. to return them, you must EXPLICITLY request them in the User.find call.
   , password_salt:  { type: String, required: '{PATH} is required!', select: false }
   , password_hash:  { type: String, required: '{PATH} is required!', select: false }
-  , roles:          [String]
+  , roles:          [{ type: String, enum: ['admin'] }]
     //reset password fields
   , resetPasswordTime:    { type: Date, default: Date.now, select: false }
   , resetPasswordHex:     { type: String, default: Math.floor(Math.random()*16777215).toString(16) + Math.floor(Math.random()*16777215).toString(16), select: false }
@@ -100,27 +100,27 @@ userSchema.statics = {
 
 var User = mongoose.model('User', userSchema);
 
-User.schema.path('roles').validate(function(roles){
-  console.log("checking roles");
-  if(roles.length == 0) {
-    roles.push(null);
-  }
-  console.log(roles);
-  var refs = [null,'admin'];
-  roles.forEach(function(role){
-    console.log("role: " + role);
-    refs.forEach(function(ref){
-      if(ref==role) {
-        valid = true;
-        return;
-      }
-    });
-    if(!valid) {
-      return false;
-    }
-  });
-  return roles.length > 0;
-}, 'roles not valid');
+// User.schema.path('roles').validate(function(roles){
+//   console.log("checking roles");
+//   if(roles.length == 0) {
+//     roles.push(null);
+//   }
+//   console.log(roles);
+//   var refs = [null,'admin'];
+//   roles.forEach(function(role){
+//     console.log("role: " + role);
+//     refs.forEach(function(ref){
+//       if(ref==role) {
+//         valid = true;
+//         return;
+//       }
+//     });
+//     if(!valid) {
+//       return false;
+//     }
+//   });
+//   return roles.length > 0;
+// }, 'roles not valid');
 
 
 //user model methods
