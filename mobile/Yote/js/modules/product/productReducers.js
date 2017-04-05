@@ -224,8 +224,9 @@ function product(state = {
     case Actions.RECEIVE_UPDATE_PRODUCT:
       if(action.success) {
         //add object to map
+        console.log(action.id); 
         let newIdMap = Object.assign({}, state.byId, {});
-        newIdMap[action.id] = action.item;
+        newIdMap[action.id] = action.item;  
         return Object.assign({}, state, {
           byId: newIdMap
           , selected: {

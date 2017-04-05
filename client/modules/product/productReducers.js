@@ -266,7 +266,7 @@ function product(state = {
         }
       })
     }
-    case Actions.RECEIVE_UPDATE_PRODUCT:{
+    case Actions.RECEIVE_UPDATE_PRODUCT: {
       if(action.success) {
         // add received object to map
         let newIdMap = Object.assign({}, state.byId, {});

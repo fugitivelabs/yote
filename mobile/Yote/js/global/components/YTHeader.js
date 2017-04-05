@@ -2,19 +2,21 @@
 
 // import react things
 import React, { PropTypes } from 'react';
-import Base from './BaseComponent';
 import { connect } from 'react-redux';
 
 // import react-native components
-import ListView from 'ListView';
 import Dimensions from 'Dimensions';
+import Image from 'Image';
+import ListView from 'ListView';
 import Platform from 'Platform';
 import StyleSheet from 'StyleSheet';
-import View from 'View';
 import Text from 'Text';
 import TouchableHighlight from 'TouchableHighlight';
 import TouchableOpacity from 'TouchableOpacity';
-import Image from 'Image';
+import View from 'View';
+
+// import global components
+import Base from './BaseComponent';
 
 // import Styles
 import YTColors from '../styles/YTColors';
@@ -24,60 +26,56 @@ const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? 20 : 25;
 const HEADER_HEIGHT = Platform.OS === 'ios' ? 44 + STATUS_BAR_HEIGHT : 56 + STATUS_BAR_HEIGHT;
 const IMAGE_SIZE = 30;
 var styles = StyleSheet.create({
-  toolbarContainer: {
-    paddingTop: STATUS_BAR_HEIGHT,
-  },
-  toolbar: {
-    height: HEADER_HEIGHT - STATUS_BAR_HEIGHT,
-  },
-  imageStyle: {
-    height: IMAGE_SIZE,
-    width: IMAGE_SIZE,
-    borderRadius: IMAGE_SIZE * 0.5,
-  },
-  iconStyle: {
-    height: IMAGE_SIZE,
-    width: IMAGE_SIZE,
-  },
-  header: {
-    backgroundColor: YTColors.primaryHeader,
-    // backgroundColor: "black",
-    paddingTop: STATUS_BAR_HEIGHT,
-    // borderColor: 'red',
-    // borderWidth: 1,
-    borderBottomWidth: 1,
-    borderColor: YTColors.listSeparator,
-    height: HEADER_HEIGHT,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  titleText: {
-    color: YTColors.primaryHeaderText,
-    fontWeight: 'bold',
-    fontSize: 20,
-
-  },
-  leftItem: {
-    flex: 1,
-    alignItems: 'flex-start',
-  },
   centerItem: {
-    flex: 2,
-    alignItems: 'center',
-  },
-  rightItem: {
-    flex: 1,
-    alignItems: 'flex-end',
-  },
-  itemWrapper: {
-    padding: 8,
-  },
-  itemText: {
-    letterSpacing: 1,
-    fontSize: 12,
-    color: 'white',
-  },
+    flex: 2
+    , alignItems: 'center'
+  }
+  , header: {
+      backgroundColor: YTColors.primaryHeader
+      , paddingTop: STATUS_BAR_HEIGHT
+      , borderBottomWidth: 1
+      , borderColor: YTColors.listSeparator
+      , height: HEADER_HEIGHT
+      , flexDirection: 'row'
+      , justifyContent: 'space-between'
+      , alignItems: 'center'
+    }
+  , iconStyle: {
+      height: IMAGE_SIZE
+      , width: IMAGE_SIZE
+    }
+  , imageStyle: {
+      height: IMAGE_SIZE
+      , width: IMAGE_SIZE
+      , borderRadius: IMAGE_SIZE * 0.5
+    }
+  , itemText: {
+      letterSpacing: 1
+      , fontSize: 12
+      , color: 'white'
+    }
+  , itemWrapper: {
+      padding: 8
+    }
+  , leftItem: {
+      flex: 1
+      , alignItems: 'flex-start'
+    }
+  , rightItem: {
+      flex: 1
+      , alignItems: 'flex-end'
+    }
+  , titleText: {
+      color: YTColors.primaryHeaderText
+      , fontWeight: 'bold'
+      , fontSize: 20
+    }
+  , toolbar: {
+      height: HEADER_HEIGHT - STATUS_BAR_HEIGHT
+    }
+  , toolbarContainer: {
+      paddingTop: STATUS_BAR_HEIGHT
+    }
 });
 
 class ItemWrapperIOS extends React.Component {

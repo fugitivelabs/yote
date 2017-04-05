@@ -1,61 +1,65 @@
+/**
+* Global tabs view for android called from MainNavigator
+* Calls custom Drawer Layout component
+*/
 
-// import react things
+// import react libraries
 import React, { PropTypes } from 'react';
-import Base from '../BaseComponent';
 import { connect } from 'react-redux';
 
-
 // import react-native components
-import StatusBar from 'StatusBar';
-import YTDrawerLayout from './YTDrawerLayout.js'; 
-
-
 import Navigator from 'Navigator';
+import StatusBar from 'StatusBar'; 
 import StyleSheet from 'StyleSheet';
 import View from 'View';
 import Text from 'Text';
 import TouchableOpacity from 'TouchableOpacity';
 
-// import components
-import Profile from '../../../modules/user/components/Profile';
+// import global components
+import ActionButton from '../../../global/components/ActionButton';
+import Base from '../BaseComponent';
 import Home from './Home';
-import Product from '../../../modules/product/components/Product'; 
-import Feed from '../../../modules/post/components/Feed';
-import ActionButton from '../../../global/components/ActionButton'; 
+import YTDrawerLayout from './YTDrawerLayout.js';
 
+// import module components
+import Feed from '../../../modules/post/components/Feed';
+import Product from '../../../modules/product/components/Product'; 
+import Profile from '../../../modules/user/components/Profile';
+ 
 // import actions
 
 
 // import styles
 import YTColors from '../../styles/YTColors';
-var styles = StyleSheet.create({
-  drawer: {
-    flex: 1,
-    backgroundColor: 'white',
-  },
+
+let styles = StyleSheet.create({
   content: {
     flex: 1,
-  },
-  header: {
-    padding: 20,
-    justifyContent: 'flex-end',
-  },
-  name: {
-    marginTop: 10,
-    color: 'white',
-    fontSize: 12,
-  },
-  loginPrompt: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    paddingBottom: 10,
-  },
-  loginText: {
-    fontSize: 12,
-    color: YTColors.lightText,
-    textAlign: 'center',
-    marginBottom: 10,
-  },
+  }
+  , drawer: {
+      flex: 1
+      , backgroundColor: 'white'
+    }
+  , header: {
+      padding: 20
+      , justifyContent: 'flex-end'
+    }
+  , loginPrompt: {
+      flex: 1
+      , justifyContent: 'flex-end'
+      , paddingBottom: 10
+    }
+  , loginText: {
+      fontSize: 12
+      , color: YTColors.lightText
+      , textAlign: 'center'
+      , marginBottom: 10
+    }
+  , name: {
+      marginTop: 10
+      , color: 'white'
+      , fontSize: 12
+    },
 });
 
 class TabsView extends Base {

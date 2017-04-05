@@ -1,8 +1,6 @@
 // import react things
 import React, { PropTypes } from 'react';
-import Base from '../../../global/components/BaseComponent';
 import { connect } from 'react-redux';
-
 
 // import react-native components
 import ListView from 'ListView';
@@ -16,12 +14,13 @@ import Image from 'Image';
 import ScrollView from 'ScrollView';
 import TouchableOpacity from 'TouchableOpacity';
 
-// import custom components
-import YTTouchable from '../../../global/components/YTTouchable';
-import YTButton from '../../../global/components/YTButton';
-import YTHeader from '../../../global/components/YTHeader';
+// import global components
+import Base from '../../../global/components/BaseComponent';
 import ScrollContainer from '../../../global/components/ScrollContainer';
+import YTButton from '../../../global/components/YTButton';
 import YTCard from '../../../global/components/YTCard';
+import YTHeader from '../../../global/components/YTHeader';
+import YTTouchable from '../../../global/components/YTTouchable';
 
 // import libraries
 import moment from 'moment';
