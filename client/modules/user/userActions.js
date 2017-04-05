@@ -223,7 +223,7 @@ const shouldFetchSingle = (state, id) => {
     // "selected" is already fetching, don't do anything
     // console.log("shouldFetch - false: isFetching");
     return false;
-  } else if(!byId[id]) {
+  } else if(!byId[id] && !selected.error) {
     // the id is not in the map, fetch from server
     // console.log("shouldFetch - true: not in map");
     return true;
