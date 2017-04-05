@@ -284,7 +284,7 @@ export const RECEIVE_SINGLE_USER = "RECEIVE_SINGLE_USER";
 function receiveSingleUser(json) {
   return {
     type: RECEIVE_SINGLE_USER
-    , id: json.user._id || null // to avoid error if empty json
+    , id: json.user ? json.user._id : null
     , item: json.user
     , success: json.success
     , error: json.message
