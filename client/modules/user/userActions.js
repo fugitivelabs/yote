@@ -219,14 +219,14 @@ const shouldFetchSingle = (state, id) => {
     // the "selected" id changed, so we _should_ fetch
     // console.log("shouldFetch - true: id changed");
     return true;
-  } else if(!byId[id]) {
-    // the id is not in the map, fetch from server
-    // console.log("shouldFetch - true: not in map");
-    return true;
   } else if(selected.isFetching) {
     // "selected" is already fetching, don't do anything
     // console.log("shouldFetch - false: isFetching");
     return false;
+  } else if(!byId[id]) {
+    // the id is not in the map, fetch from server
+    // console.log("shouldFetch - true: not in map");
+    return true;
   } else if(new Date().getTime() - selected.lastUpdated > (1000 * 60 * 5)) {
     // it's been longer than 5 minutes since the last fetch, get a new one
     // console.log("shouldFetch - true: older than 5 minutes");
@@ -425,10 +425,6 @@ const shouldFetchList = (state, listArgs) => {
     // yes, the list we're looking for wasn't found
     // console.log("shouldFetchList - true: list not found");
     return true;
-  } else if(list.items.length < 1) {
-    // yes, the list we're looking for is empty
-    // console.log("shouldFetchList - true: length 0");
-    return true
   } else if(list.isFetching) {
     // no, this list is already fetching
     // console.log("shouldFetchList - false: fetching");
