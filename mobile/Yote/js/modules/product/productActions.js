@@ -143,6 +143,7 @@ export const RECEIVE_UPDATE_PRODUCT = "RECEIVE_UPDATE_PRODUCT";
 function receiveUpdateProduct(json) {
   return {
     type: RECEIVE_UPDATE_PRODUCT
+    , id: json.product._id || null 
     , item: json.product
     , success: json.success
     , error: json.message
@@ -151,10 +152,11 @@ function receiveUpdateProduct(json) {
 }
 
 export function sendUpdateProduct(data) {
+  console.log(data._id); 
   return dispatch => {
     dispatch(requestUpdateProduct(data))
     return callAPI(`/api/products/${data._id}`, 'PUT', data)
-    .then(json => dispatch(receiveUpdateProduct(json)))
+      .then(json => dispatch(receiveUpdateProduct(json))) 
   }
 }
 
@@ -364,7 +366,7 @@ export function setPagination(pagination, ...listArgs) {
 }
 
 export const INVALIDATE_PRODUCT_LIST = "INVALIDATE_PRODUCT_LIST"
-export function invaldiateList(...listArgs) {
+export function invalidateList(...listArgs) {
   if(listArgs.length === 0) {
     listArgs = ["all"];
   }

@@ -1,7 +1,16 @@
+/*
+* Wraps DrawerLayoutAndroid from RN 
+*/
+
+// import react libraries
 import React, { PropTypes } from 'react';
-import Base from '../../../global/components/BaseComponent';
-import DrawerLayoutAndroid from 'DrawerLayoutAndroid';
 import { connect } from 'react-redux';
+
+// import react components
+import DrawerLayoutAndroid from 'DrawerLayoutAndroid';
+
+// import global components
+import Base from '../../../global/components/BaseComponent';
 
 
 class YTDrawerLayout extends Base {

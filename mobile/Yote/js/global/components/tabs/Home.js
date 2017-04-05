@@ -1,7 +1,7 @@
 // import react/redux dependencies
 import React, { PropTypes } from 'react';
-import Base from '../../../global/components/BaseComponent';
 import { connect } from 'react-redux';
+
 // import react-native components & apis
 import View from 'View';
 import Text from 'Text';
@@ -9,108 +9,97 @@ import StyleSheet from 'StyleSheet';
 import TouchableOpacity from 'TouchableOpacity';
 import ScrollView from 'ScrollView'; 
 
-// import custom components
-import YTHeader from '../YTHeader';
+// import global components
+import Base from '../../../global/components/BaseComponent';
+import ScrollContainer from '../ScrollContainer';
 import YTButton from '../YTButton';
 import YTCard from '../YTCard';
-import ScrollContainer from '../ScrollContainer';
 import YTColors from '../../styles/YTColors'; 
+import YTHeader from '../YTHeader';
 
 var styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    // paddingBottom: 50,
-    backgroundColor: YTColors.lightBackground,
-    // backgroundColor: '#572d66',
-    // backgroundColor: '#fff',
-  },
-  caption: {
-    fontSize: 12,
-    color: YTColors.lightText,
-  },
-  cell: {
-    flex: 1,
-    backgroundColor: 'transparent',
-    marginTop: 10,
-    marginBottom: 10,
-  },
-  infoBox: {
-    // backgroundColor: 'white',
-    padding: 8,
-  },
-  header: {
-    fontSize: 16,
-    textAlign: 'center',
-    color: "#fff",
-    padding: 4,
-    color: YTColors.darkText,
-  },
-  emptyMessage: {
-    fontSize: 16,
-    flex: 1,
-    textAlign: 'center',
-    color: "#fff",
-    padding: 4,
-    marginTop: 40,
-    fontStyle: "italic",
-    color: YTColors.lightText,
-  },
-  instructions: {
-    color: YTColors.lightText,
-    textAlign: 'center',
-    marginBottom: 5,
-  },
-  comment: {
-    backgroundColor: '#fff',
-    padding: 10,
-    margin: 5,
-    flex: 0.75,
-    justifyContent: 'space-between', 
-
-  },
-  details: {
-    height: 52,
-    textAlign: 'center',
-    fontWeight: '500',
-    flex: 1,
-    fontSize: 17,
-    paddingTop: 8,
-    paddingBottom: 8,
-    //backgroundColor: 'rgba(255,255,255,0.7)'
-  },
-  input: {
-    height: 80,
-    fontSize: 17,
-    padding: 4,
-    // paddingBottom: 8,
-    backgroundColor: YTColors.listSeparator,
-    // backgroundColor: 'green',
-  },
-  _squadListSeparator: {
-    height: 0,
-  },
   _bannerWrapper: {
-    flex:1,
-
-    // marginLeft: 12,
-    padding: 20,
-    // alignItems: 'center',
-    justifyContent: 'flex-end',
-  },
-  _bannerText: {
-    color: '#fffFFF',
-  },
-  _bannerLabel: {
-    fontSize: 18,
-  },
-  _bannerTitle: {
-    fontSize: 38,
-    fontWeight: "500",
-  },
-  scrollView: {
-    marginBottom: 50
+    flex:1
+    , padding: 20
+    , justifyContent: 'flex-end'
   }
-
+  , _bannerText: {
+      color: '#fffFFF'
+    }
+  , _bannerLabel: {
+      fontSize: 18
+    }
+  , _bannerTitle: {
+      fontSize: 38
+      , fontWeight: "500"
+    }
+  , caption: {
+      fontSize: 12,
+      color: YTColors.lightText
+    }
+  , cell: {
+      flex: 1
+      , backgroundColor: 'transparent'
+      , marginTop: 10
+      , marginBottom: 10
+    }
+  , comment: {
+      backgroundColor: '#fff'
+      , padding: 10
+      , margin: 5
+      , flex: 0.75
+      , justifyContent: 'space-between'
+    }
+  , container: {
+      flex: 1
+      , backgroundColor: YTColors.lightBackground
+    }
+  , details: {
+      height: 52
+      , textAlign: 'center'
+      , fontWeight: '500'
+      , flex: 1
+      , fontSize: 17
+      , paddingTop: 8
+      , paddingBottom: 8
+    }
+  , emptyMessage: {
+      fontSize: 16
+      , flex: 1
+      , textAlign: 'center'
+      , color: "#fff"
+      , padding: 4
+      , marginTop: 40
+      , fontStyle: "italic"
+      , color: YTColors.lightText
+    }
+  , header: {
+      fontSize: 16
+      , textAlign: 'center'
+      , color: "#fff"
+      , padding: 4
+      , color: YTColors.darkText
+    }
+  , infoBox: {
+      padding: 8
+    }
+  , input: {
+      height: 80
+      , fontSize: 17
+      , padding: 4
+      , backgroundColor: YTColors.listSeparator
+    }
+  , instructions: {
+      color: YTColors.lightText
+      , textAlign: 'center'
+      , marginBottom: 5
+    }
+  , _squadListSeparator: {
+      height: 0
+    }
+  , scrollView: {
+      marginBottom: 50
+    }
 });
 
 
