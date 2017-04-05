@@ -85,7 +85,6 @@ function userList(state = {
             items: [] // array of _id's
             , isFetching: false
             , error: action.error
-            , didInvalidate: true
             , lastUpdated: action.receivedAt
           })
         } else {
@@ -407,15 +406,12 @@ function user(state = {
           }
         })
       } else {
-        return Object.assign({}, state, {
-          selected: {
-            id: action.id
-            , isFetching: false
-            , error: action.error
-            , didInvalidate: true
-            , lastUpdated: action.receivedAt
-          }
+        let selected = Object.assign({}, state.selected, {
+          isFetching: false
+          , error: action.error
+          , lastUpdated: action.receivedAt
         })
+        return Object.assign({}, state, selected);
       }
     }
     case Actions.ADD_SINGLE_USER_TO_MAP: {
