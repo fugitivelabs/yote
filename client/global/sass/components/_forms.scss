@@ -6,14 +6,22 @@ $formAccentColor: $link-color;
 $formTextColor: $text-color;
 
 .form-container {
-  // @include box-shadow(0px 5px 6px #ccc);
-  // border-radius: 4px;
-  // background-color: $formContainerColor;
+  border: 1px solid $divider-color;
+  border-radius: 4px;
+  background-color: $formContainerColor;
   // padding: 40px 20px;
+  width: 100%;
+  @include flex(1, 0, 0);
+
   @include display-flex;
   @include flex-direction(column);
   @include justify-content(center);
-  max-width: 600px;
+  @include align-items(center);
+  @include transition(all 250ms ease-in-out);
+
+  &.-slim {
+    max-width: 740px;
+  }
   h2 {
     text-align: center;
   }
@@ -22,11 +30,16 @@ $formTextColor: $text-color;
     display: block;
     margin: 0 auto;
   }
-  form {
+  .action-buttons {
+    margin-top: $gutter-width;
+  }
+  &:hover {
+    @include box-shadow(0px 5px 6px $shadow-color);
   }
 }
 
 form {
+  width: 100%;
   margin: 0 auto;
   padding: $gutter;
 }
@@ -43,6 +56,9 @@ form {
     display: block;
     font-weight: 700;
     overflow-wrap: break-word;
+    .-required {
+      color: $danger;
+    }
   }
 
   a {
@@ -70,6 +86,17 @@ form {
       border-bottom: 2px solid $formAccentColor;
     }
 
+    &.-error {
+      border-color: $danger;
+    }
+
+    &:disabled {
+      opacity: 0.7;
+      &:hover {
+        cursor: not-allowed;
+      }
+    }
+
     &[type="radio"] {
       display: inline-block;
       width: 20px;
@@ -91,6 +118,7 @@ form {
       display: inline-block;
     }
 
+
   }
 
   select {
@@ -100,7 +128,9 @@ form {
     padding: 8px 6px;
     border: 2px solid $gray;
     @include lineHeight-looser;
-
+    &.-error {
+      border-color: $danger;
+    }
     &:focus {
       border: 2px solid $formAccentColor;
     }
@@ -115,11 +145,18 @@ form {
     resize: vertical;
     border: none;
     border-bottom: 2px solid $gray;
-
+    &.-error {
+      border-color: $danger;
+    }
     &:focus {
       background-color: darken($formContainerColor, 4);
       border-color: $formAccentColor;
     }
+  }
+
+  .-error-message {
+    color: $danger;
+    font-weight: 500;
   }
 }
 

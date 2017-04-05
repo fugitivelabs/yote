@@ -1,30 +1,46 @@
-/*****
-SINGLE PRODUCT CRUD ACTIONS GO HERE
-getById, getBySlug example (for products), create, update
-*****/
+/**
+ * All product CRUD actions
+ *
+ * Actions are payloads of information that send data from the application
+ * (i.e. Yote server) to the store. They are the _only_ source of information
+ * for the store.
+ *
+ * NOTE: In Yote, we try to keep actions and reducers dealing with CRUD payloads
+ * in terms of 'item' or 'items'. This keeps the action payloads consistent and
+ * aides various scoping issues with list management in the reducers.
+ */
 
-import { browserHistory } from 'react-router';
-
+// import api utility
 import callAPI from '../../global/utils/api'
-//SINGLE PRODUCT ACTIONS
 
 const shouldFetchSingle = (state, id) => {
-  console.log("shouldFetch single");
+  /**
+   * This is helper method to determine whether we should fetch a new single
+   * user object from the server, or if a valid one already exists in the store
+   *
+   * NOTE: Uncomment console logs to help debugging
+   */
+  // console.log("shouldFetch single");
   const { byId, selected } = state.product;
   if(selected.id !== id) {
-    console.log("Y shouldFetch - true: id changed");
+    // the "selected" id changed, so we _should_ fetch
+    // console.log("Y shouldFetch - true: id changed");
     return true;
   } else if(!byId[id]) {
-    console.log("Y shouldFetch - true: not in map");
+    // the id is not in the map, fetch from server
+    // console.log("Y shouldFetch - true: not in map");
     return true;
   } else if(selected.isFetching) {
-    console.log("Y shouldFetch - false: isFetching");
+    // "selected" is already fetching, don't do anything
+    // console.log("Y shouldFetch - false: isFetching");
     return false;
   } else if(new Date().getTime() - selected.lastUpdated > (1000 * 60 * 5)) {
-    console.log("Y shouldFetch - true: older than 5 minutes");
+    // it's been longer than 5 minutes since the last fetch, get a new one
+    // console.log("Y shouldFetch - true: older than 5 minutes");
     return true;
   } else {
-    console.log("Y shouldFetch - " + selected.didInvalidate + ": didInvalidate");
+    // if "selected" is invalidated, fetch a new one, otherwise don't
+    // console.log("Y shouldFetch - " + selected.didInvalidate + ": didInvalidate");
     return selected.didInvalidate;
   }
 }
@@ -38,20 +54,21 @@ export function invaldiateSelected() {
 
 export const fetchSingleIfNeeded = (id) => (dispatch, getState) => {
   if (shouldFetchSingle(getState(), id)) {
-    console.log("SHOULD FETCH!");
     return dispatch(fetchSingleProductById(id))
   } else {
-    console.log("DON'T NEED TO FETCH");
-    return dispatch(returnSingleProductPromise(id)); //return promise that contains product
+    return dispatch(returnSingleProductPromise(id)); // return promise that contains product
   }
 }
 
 export const returnSingleProductPromise = (id) => (dispatch, getState) => {
-  //for the "fetchIfNeeded" functionality, we need to return a promise object 
-  // EVEN IF we don't need to fetch it. this is because if we have any 
-  // .then()'s in the components, they will fail when we don't need to fetch.
-  // This returns the object from the map so that we can do things with it in the component.
-  console.log("return single without fetching");
+  /**
+   * This returns the object from the map so that we can do things with it in
+   * the component.
+   *
+   * For the "fetchIfNeeded()" functionality, we need to return a promised object
+   * EVEN IF we don't need to fetch it. this is because if we have any .then()'s
+   * in the components, they will fail when we don't need to fetch.
+   */
   return new Promise((resolve, reject) => {
     resolve({
       type: "RETURN_SINGLE_PRODUCT_WITHOUT_FETCHING"
@@ -72,10 +89,9 @@ function requestSingleProduct(id) {
 
 export const RECEIVE_SINGLE_PRODUCT = "RECEIVE_SINGLE_PRODUCT";
 function receiveSingleProduct(json) {
-  console.log("received", json.product._id);
   return {
     type: RECEIVE_SINGLE_PRODUCT
-    , id: json.product._id
+    , id: json.product._id || null // to avoid silent error if empty json
     , item: json.product
     , success: json.success
     , error: json.message
@@ -84,7 +100,6 @@ function receiveSingleProduct(json) {
 }
 
 export function fetchSingleProductById(productId) {
-  console.log("fetching");
   return dispatch => {
     dispatch(requestSingleProduct(productId))
     return callAPI(`/api/products/${productId}`)
@@ -110,11 +125,9 @@ function requestCreateProduct(product) {
 
 export const RECEIVE_CREATE_PRODUCT = "RECEIVE_CREATE_PRODUCT";
 function receiveCreateProduct(json) {
-  console.log("RECEIVE_CREATE_PRODUCT");
-  console.log(json);
   return {
     type: RECEIVE_CREATE_PRODUCT
-    , id: json.product ? json.product._id : null
+    , id: json.product._id || null // to avoid silent error if empty json
     , item: json.product
     , success: json.success
     , error: json.message
@@ -123,7 +136,6 @@ function receiveCreateProduct(json) {
 }
 
 export function sendCreateProduct(data) {
-  console.log("sendCreateProduct")
   return dispatch => {
     dispatch(requestCreateProduct(data))
     return callAPI('/api/products', 'POST', data)
@@ -154,7 +166,7 @@ export function sendUpdateProduct(data) {
   return dispatch => {
     dispatch(requestUpdateProduct(data))
     return callAPI(`/api/products/${data._id}`, 'PUT', data)
-    .then(json => dispatch(receiveUpdateProduct(json)))
+      .then(json => dispatch(receiveUpdateProduct(json)))
   }
 }
 
@@ -180,26 +192,24 @@ export function sendDelete(id) {
   return dispatch => {
     dispatch(requestDeleteProduct(id))
     return callAPI(`/api/products/${id}`, 'DELETE')
-    .then(json => dispatch(receiveDeleteProduct(json)))
-    /*** ACTION-BASED REDIRECT ***/
-    // - use this for Delete by default
-    .then((json) => {
-      if(json.success) {
-        browserHistory.push(`/products`)
-      } else {
-        alert("ERROR");
-      }
-    })
+      .then(json => dispatch(receiveDeleteProduct(json)))
   }
 }
 
-//PRODUCT LIST ACTIONS
+
+/**
+ * PRODUCT LIST ACTIONS
+ */
+
 const findListFromArgs = (state, listArgs) => {
-  //because we are nesting productLists to arbitrary locations depths,
-  // finding the list becomes a little bit harder
-  // helper method to find list from listArgs
-  var list = Object.assign({}, state.product.lists, {});
-  for(var i = 0; i < listArgs.length; i++) {
+  /**
+   * Helper method to find appropriate list from listArgs.
+   *
+   * Because we nest productLists to arbitrary locations/depths,
+   * finding the correct list becomes a little bit harder
+   */
+  let list = Object.assign({}, state.product.lists, {});
+  for(let i = 0; i < listArgs.length; i++) {
     list = list[listArgs[i]];
     if(!list) {
       return false;
@@ -209,36 +219,44 @@ const findListFromArgs = (state, listArgs) => {
 }
 
 const shouldFetchList = (state, listArgs) => {
-  //determine whether to fetch the list or not, from arbitrary listArgs
-  // leaving console logs in here for later help debugging apps
-  // console.log("shouldFetchList", listArgs);
+  /**
+   * Helper method to determine whether to fetch the list or not from arbitrary
+   * listArgs
+   *
+   * NOTE: Uncomment console logs to help debugging
+   */
+  // console.log("shouldFetchList with these args ", listArgs, "?");
   const list = findListFromArgs(state, listArgs);
-  // console.log("LIST", list);
+  // console.log("LIST in question: ", list);
   if(!list || !list.items) {
-    console.log("X shouldFetch - true: list not found");
+    // yes, the list we're looking for wasn't found
+    // console.log("X shouldFetch - true: list not found");
     return true;
   } else if(list.items.length < 1) {
-    console.log("X shouldFetch - true: length 0");
+    // yes, the list we're looking for is empty
+    // console.log("X shouldFetch - true: length 0");
     return true
   } else if(list.isFetching) {
-    console.log("X shouldFetch - false: fetching");
+    // no, this list is already fetching
+    // console.log("X shouldFetch - false: fetching");
     return false
   } else if(new Date().getTime() - list.lastUpdated > (1000 * 60 * 5)) {
-    console.log("X shouldFetch - true: older than 5 minutes");
+    // yes, it's been longer than 5 minutes since the last fetch
+    // console.log("X shouldFetch - true: older than 5 minutes");
     return true;
   } else {
-    console.log("X shouldFetch - " + list.didInvalidate + ": didInvalidate");
+    // maybe, depends on if the list was invalidated
+    // console.log("X shouldFetch - " + list.didInvalidate + ": didInvalidate");
     return list.didInvalidate;
   }
 }
 
-
 export const fetchListIfNeeded = (...listArgs) => (dispatch, getState) => {
-  // console.log("FETCH IF NEEDED", listArgs);
   if(listArgs.length === 0) {
+    // If no arguments passed, make the list we want "all"
     listArgs = ["all"];
   }
-  if (shouldFetchList(getState(), listArgs)) {
+  if(shouldFetchList(getState(), listArgs)) {
     return dispatch(fetchList(...listArgs));
   } else {
     return dispatch(returnProductListPromise(...listArgs));
@@ -246,10 +264,14 @@ export const fetchListIfNeeded = (...listArgs) => (dispatch, getState) => {
 }
 
 export const returnProductListPromise = (...listArgs) => (dispatch, getState) => {
-  //for the "fetchIfNeeded" functionality, we need to return a promise object 
-  // EVEN IF we don't need to fetch it. this is because if we have any 
-  // .then()'s in the components, they will fail when we don't need to fetch.
-  console.log("return list without fetching");
+  /**
+   * This returns the list object from the reducer so that we can do things with it in
+   * the component.
+   *
+   * For the "fetchIfNeeded()" functionality, we need to return a promised object
+   * EVEN IF we don't need to fetch it. This is because if we have any .then()'s
+   * in the components, they will fail when we don't need to fetch.
+   */
   return new Promise((resolve, reject) => {
     resolve({
       type: "RETURN_PRODUCT_LIST_WITHOUT_FETCHING"
@@ -281,21 +303,28 @@ function receiveProductList(json, listArgs) {
 }
 
 export function fetchList(...listArgs) {
-  console.log("FETCH PRODUCT LIST", listArgs);
   return dispatch => {
     if(listArgs.length === 0) {
+      // default to "all" list if we don't pass any listArgs
       listArgs = ["all"];
     }
-    //default to "all" list if we don't pass any listArgs
     dispatch(requestProductList(listArgs))
-    //determine what api route we want to hit
-    //HERE: use listArgs to determine what api call to make.
-    // if listArgs[0] == null or "all", return list
-    // if listArgs has 1 arg, return "/api/products/by[ARG]"
-    // if 2 args, return return "/api/products/by-[ARG1]/[ARG2]". ex: /api/products/by-user/:userId
-    // if more than 2, will require custom checks
+
+    /**
+     * determine what api route we want to hit
+     *
+     * NOTE: use listArgs to determine what api call to make.
+     * if listArgs[0] == null or "all", return list
+     *
+     * if listArgs has 1 arg, return "/api/products/by-[ARG]"
+     *
+     * if 2 args, return return "/api/products/by-[ARG1]/[ARG2]".
+     * ex: /api/products/by-category/:category
+     *
+     * TODO:  make this accept arbitrary number of args. Right now if more
+     * than 2, it requires custom checks
+     */
     let apiTarget = "/api/products";
-    // if(test) {} //override defaults here
     if(listArgs.length == 1 && listArgs[0] !== "all") {
       apiTarget += `/by-${listArgs[0]}`;
     } else if(listArgs.length == 2) {
@@ -312,7 +341,9 @@ export function fetchList(...listArgs) {
   }
 }
 
-//LIST UTIL METHODS
+/**
+ * LIST UTIL METHODS
+ */
 export const SET_PRODUCT_FILTER = "SET_PRODUCT_FILTER"
 export function setFilter(filter, ...listArgs) {
   if(listArgs.length === 0) {

@@ -2,32 +2,20 @@
   padding:0;
 }
 
-.landing-nav {
-  // background: transparent;
-  // transition: opacity 0.3s 0.6s, visibility 0s 0.9s;
-  // @include transition(transform 0.7s - 0.2s);
-  transition: all 500ms ease-in-out;
-  nav {
-    text-transform: uppercase;
-  }
+.header.landing-header {
   &.transparent {
-    .titles {
-      .subtitle {
+    background-color: transparent;
+    border-bottom: none;
+  }
+}
 
-      }
-    }
-    .actions {
-
-    }
-    .top-nav {
-
-      li {
-        a {
-          &:hover {
-          }
-          &.active {
-          }
-        }
+.topbar.landing-nav {
+  &.transparent {
+    color: #fff;
+    a {
+      color: rgba(255,255,255,0.8);
+      &:hover {
+        color: #fff;
       }
     }
   }
@@ -74,17 +62,15 @@
       padding: 0 15px;
       background-color: rgba(255,255,255,0.97);
     }
-
-
     &.get-started {
       background-image: url(/img/work-1-light.png);
       h2, h3 {
         color: rgba(0,0,0,0.7);
       }
       i {
-        @include jumbo-font;
         color: #ff4081;
         @include align-self(center);
+        @include jumbo-font;
       }
       .actions {
         padding-top: 100px;

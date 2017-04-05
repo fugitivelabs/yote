@@ -1,10 +1,19 @@
-/*****
-SINGLE USER CRUD ACTIONS GO HERE
-getById, getBySlug example (for users), create, update
-*****/
+/**
+ * All user CRUD actions
+ *
+ * Actions are payloads of information that send data from the application
+ * (i.e. Yote server) to the store. They are the _only_ source of information
+ * for the store.
+ */
 
+// import api utility
 import callAPI from '../../global/utils/api'
-//LOGGED IN USER ACTIONS
+
+
+/**
+ * LOGGED IN USER ACTIONS
+ */
+
 export const REQUEST_LOGIN = "REQUEST_LOGIN"
 function requestLogin(username) {
   return {
@@ -15,6 +24,7 @@ function requestLogin(username) {
 
 export const RECEIVE_LOGIN = "RECEIVE_LOGIN"
 function receiveLogin(json) {
+  window.currentUser = json.user || {};
   return {
     type: RECEIVE_LOGIN
     , user: json.user
@@ -68,6 +78,7 @@ function requestLogout() {
 
 export const RECEIVE_LOGOUT = "RECEIVE_LOGOUT"
 function receiveLogout(json) {
+  window.currentUser = {};
   return {
     type: RECEIVE_LOGOUT
     , success: json.success
@@ -104,7 +115,7 @@ function receiveForgotPassword(json) {
 export function sendForgotPassword(username) {
   return dispatch => {
     dispatch(requestForgotPassword(username))
-    return callAPI('/api/users/requestpasswordreset', 'POST', { email: username })
+    return callAPI('/api/users/request-password-reset', 'POST', { email: username })
     .then(json => dispatch(receiveForgotPassword(json)))
   }
 }
@@ -132,12 +143,10 @@ function receiveCheckResetHex(json) {
 export function sendCheckResetHex(hex) {
   return dispatch => {
     dispatch(requestCheckResetHex(hex))
-    return callAPI('/api/users/checkresetrequest/' + hex)
+    return callAPI('/api/users/check-reset-request/' + hex)
     .then(json => dispatch(receiveCheckResetHex(json)))
   }
 }
-
-
 
 export const REQUEST_RESET_PASSWORD = "REQUEST_RESET_PASSWORD"
 function requestResetPassword() {
@@ -159,31 +168,72 @@ function receiveResetPassword(json) {
 export function sendResetPassword(resetHex, password) {
   return dispatch => {
     dispatch(requestResetPassword())
-    return callAPI('/api/users/resetpassword', 'POST', { resetHex, newPass: password })
+    return callAPI('/api/users/reset-password', 'POST', { resetHex, newPass: password })
     .then(json => dispatch(receiveResetPassword(json)))
   }
 }
 
 
-//SINGLE USER ACTIONS
+export const REQUEST_UPDATE_PROFILE = "REQUEST_UPDATE_PROFILE"
+function requestUpdateProfile(userData) {
+  return {
+    type: REQUEST_UPDATE_PROFILE
+    , userData: userData
+  }
+}
+
+export const RECEIVE_UPDATE_PROFILE = "RECEIVE_UPDATE_PROFILE"
+function receiveUpdateProfile(json) {
+  return {
+    type: RECEIVE_UPDATE_PROFILE
+    , user: json.user
+    , success: json.success
+    , error: json.message
+    , receivedAt: Date.now()
+  }
+}
+
+export function sendUpdateProfile(userData) {
+  return dispatch => {
+    dispatch(requestUpdateProfile(userData))
+    return callAPI('/api/users/update-profile', 'PUT', userData)
+    .then(json => dispatch(receiveUpdateProfile(json)))
+
+  }
+}
+
+
+/**
+ * SINGLE USER ACTIONS
+ */
 
 const shouldFetchSingle = (state, id) => {
-  console.log("shouldFetch single");
+  /**
+   * This is helper method to determine whether we should fetch a new single
+   * user object from the server, or if a valid one already exists in the store
+   *
+   * NOTE: Uncomment console logs to help debugging
+   */
   const { byId, selected } = state.user;
   if(selected.id !== id) {
-    console.log("Y shouldFetch - true: id changed");
+    // the "selected" id changed, so we _should_ fetch
+    // console.log("shouldFetch - true: id changed");
     return true;
   } else if(!byId[id]) {
-    console.log("Y shouldFetch - true: not in map");
+    // the id is not in the map, fetch from server
+    // console.log("shouldFetch - true: not in map");
     return true;
   } else if(selected.isFetching) {
-    console.log("Y shouldFetch - false: isFetching");
+    // "selected" is already fetching, don't do anything
+    // console.log("shouldFetch - false: isFetching");
     return false;
   } else if(new Date().getTime() - selected.lastUpdated > (1000 * 60 * 5)) {
-    console.log("Y shouldFetch - true: older than 5 minutes");
+    // it's been longer than 5 minutes since the last fetch, get a new one
+    // console.log("shouldFetch - true: older than 5 minutes");
     return true;
   } else {
-    console.log("Y shouldFetch - " + selected.didInvalidate + ": didInvalidate");
+    // if "selected" is invalidated, fetch a new one, otherwise don't
+    // console.log("Y shouldFetch - " + selected.didInvalidate + ": didInvalidate");
     return selected.didInvalidate;
   }
 }
@@ -199,16 +249,19 @@ export const fetchSingleIfNeeded = (id) => (dispatch, getState) => {
   if (shouldFetchSingle(getState(), id)) {
     return dispatch(fetchSingleUserById(id))
   } else {
-    return dispatch(returnSingleUserPromise(id)); //return promise that contains user
+    return dispatch(returnSingleUserPromise(id)); // return promise that contains user
   }
 }
 
 export const returnSingleUserPromise = (id) => (dispatch, getState) => {
-  //for the "fetchIfNeeded" functionality, we need to return a promise object 
-  // EVEN IF we don't need to fetch it. this is because if we have any 
-  // .then()'s in the components, they will fail when we don't need to fetch.
-  // This returns the object from the map so that we can do things with it in the component.
-  console.log("return single without fetching");
+  /**
+   * This returns the object from the map so that we can do things with it in
+   * the component.
+   *
+   * For the "fetchIfNeeded()" functionality, we need to return a promised object
+   * EVEN IF we don't need to fetch it. this is because if we have any .then()'s
+   * in the components, they will fail when we don't need to fetch.
+   */
   return new Promise((resolve, reject) => {
     resolve({
       type: "RETURN_SINGLE_USER_WITHOUT_FETCHING"
@@ -231,7 +284,7 @@ export const RECEIVE_SINGLE_USER = "RECEIVE_SINGLE_USER";
 function receiveSingleUser(json) {
   return {
     type: RECEIVE_SINGLE_USER
-    , id: json.user._id
+    , id: json.user._id || null // to avoid error if empty json
     , item: json.user
     , success: json.success
     , error: json.message
@@ -336,11 +389,18 @@ export function sendDelete(id) { //is this ever called?
   }
 }
 
-//USER LIST ACTIONS
+
+/**
+ * USER LIST ACTIONS
+ */
+
 const findListFromArgs = (state, listArgs) => {
-  //because we are nesting userLists to arbitrary locations depths,
-  // finding the list becomes a little bit harder
-  // helper method to find list from listArgs
+  /**
+   * Helper method to find appropriate list from listArgs.
+   *
+   * Because we nest userLists to arbitrary locations/depths, finding the list
+   * becomes a little bit harder
+   */
   var list = Object.assign({}, state.user.lists, {});
   for(var i = 0; i < listArgs.length; i++) {
     list = list[listArgs[i]];
@@ -352,36 +412,45 @@ const findListFromArgs = (state, listArgs) => {
 }
 
 const shouldFetchList = (state, listArgs) => {
-  //determine whether to fetch the list or not, from arbitrary listArgs
-  // leaving console logs in here for later help debugging apps
-  // console.log("shouldFetchList", listArgs);
+  /**
+   * Helper method to determine whether to fetch the list or not from arbitrary
+   * listArgs
+   *
+   * NOTE: Uncomment console logs to help debugging
+   */
+  // console.log("shouldFetchList with these args ", listArgs, "?");
   const list = findListFromArgs(state, listArgs);
-  // console.log("LIST", list);
+  // console.log("LIST in question: ", list);
   if(!list || !list.items) {
-    console.log("X shouldFetch - true: list not found");
+    // yes, the list we're looking for wasn't found
+    // console.log("shouldFetchList - true: list not found");
     return true;
   } else if(list.items.length < 1) {
-    console.log("X shouldFetch - true: length 0");
+    // yes, the list we're looking for is empty
+    // console.log("shouldFetchList - true: length 0");
     return true
   } else if(list.isFetching) {
-    console.log("X shouldFetch - false: fetching");
+    // no, this list is already fetching
+    // console.log("shouldFetchList - false: fetching");
     return false
   } else if(new Date().getTime() - list.lastUpdated > (1000 * 60 * 5)) {
-    console.log("X shouldFetch - true: older than 5 minutes");
+    // yes, it's been longer than 5 minutes since the last fetch
+    // console.log("shouldFetchList - true: older than 5 minutes");
     return true;
   } else {
-    console.log("X shouldFetch - " + list.didInvalidate + ": didInvalidate");
+    // maybe, depends on if the list was invalidated
+    // console.log("shouldFetchList - " + list.didInvalidate + ": didInvalidate");
     return list.didInvalidate;
   }
 }
 
 
 export const fetchListIfNeeded = (...listArgs) => (dispatch, getState) => {
-  // console.log("FETCH IF NEEDED", listArgs);
   if(listArgs.length === 0) {
+    // If no arguments passed, make the list we want "all"
     listArgs = ["all"];
   }
-  if (shouldFetchList(getState(), listArgs)) {
+  if(shouldFetchList(getState(), listArgs)) {
     return dispatch(fetchList(...listArgs));
   } else {
     return dispatch(returnUserListPromise(...listArgs));
@@ -389,10 +458,14 @@ export const fetchListIfNeeded = (...listArgs) => (dispatch, getState) => {
 }
 
 export const returnUserListPromise = (...listArgs) => (dispatch, getState) => {
-  //for the "fetchIfNeeded" functionality, we need to return a promise object 
-  // EVEN IF we don't need to fetch it. this is because if we have any 
-  // .then()'s in the components, they will fail when we don't need to fetch.
-  console.log("return list without fetching");
+  /**
+   * This returns the list object from the reducer so that we can do things with it in
+   * the component.
+   *
+   * For the "fetchIfNeeded()" functionality, we need to return a promised object
+   * EVEN IF we don't need to fetch it. This is because if we have any .then()'s
+   * in the components, they will fail when we don't need to fetch.
+   */
   return new Promise((resolve, reject) => {
     resolve({
       type: "RETURN_USER_LIST_WITHOUT_FETCHING"
@@ -426,18 +499,26 @@ function receiveUserList(json, listArgs) {
 export function fetchList(...listArgs) {
   return dispatch => {
     if(listArgs.length === 0) {
+      // default to "all" list if we don't pass any listArgs
       listArgs = ["all"];
     }
-    //default to "all" list if we don't pass any listArgs
     dispatch(requestUserList(listArgs))
-    //determine what api route we want to hit
-    //HERE: use listArgs to determine what api call to make.
-    // if listArgs[0] == null or "all", return list
-    // if listArgs has 1 arg, return "/api/users/by[ARG]"
-    // if 2 args, return return "/api/users/by-[ARG1]/[ARG2]". ex: /api/users/by-user/:userId
-    // if more than 2, will require custom checks
+
+    /**
+     * determine what api route we want to hit
+     *
+     * NOTE: use listArgs to determine what api call to make.
+     * if listArgs[0] == null or "all", return list
+     *
+     * if listArgs has 1 arg, return "/api/users/by-[ARG]"
+     *
+     * if 2 args, return return "/api/users/by-[ARG1]/[ARG2]".
+     * ex: /api/users/by-user/:userId
+     *
+     * TODO:  make this accept arbitrary number of args. Right now if more
+     * than 2, it requires custom checks
+     */
     let apiTarget = "/api/users";
-    // if(test) {} //override defaults here
     if(listArgs.length == 1 && listArgs[0] !== "all") {
       apiTarget += `/by-${listArgs[0]}`;
     } else if(listArgs.length == 2) {
@@ -454,7 +535,22 @@ export function fetchList(...listArgs) {
   }
 }
 
-//LIST UTIL METHODS
+/**
+ * LIST UTIL METHODS
+ */
+
+export const SET_USER_QUERY = "SET_USER_QUERY"
+export function setQuery(query, ...listArgs) {
+  if(listArgs.length === 0) {
+    listArgs = ["all"];
+  }
+  return {
+    type: SET_USER_QUERY
+    , query
+    , listArgs
+  }
+}
+
 export const SET_USER_FILTER = "SET_USER_FILTER"
 export function setFilter(filter, ...listArgs) {
   if(listArgs.length === 0) {

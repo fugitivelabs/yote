@@ -1,10 +1,16 @@
+/**
+ * This files dynamically compiles the module routes for the client and
+ * redirects any route that doesn't match to a 'NotFound'/404 page
+ */
+
+// import primary libraries
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 
-//import custom components
-import Root from './global/components/Root.js.jsx';
+// import custom components
 import Landing from './modules/static/components/landing/Landing.js.jsx';
 import NotFound from './modules/static/components/NotFound.js.jsx';
+import Root from './global/components/Root.js.jsx';
 
 const routes =
       <Route path="/" component={Root} >
@@ -17,13 +23,5 @@ const routes =
 ;
 
 export default routes;
-
-// import userRoutes from './modules/user/userRoutes.js.jsx';
-// import postRoutes from './modules/post/postRoutes.js.jsx';
-// import productRoutes from './modules/product/productRoutes.js.jsx';
-// {userRoutes}
-// {postRoutes}
-// {productRoutes}
-
 
 import * as moduleRoutes from './modules/moduleRoutes.js';

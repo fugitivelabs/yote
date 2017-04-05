@@ -1,16 +1,22 @@
+/**
+ * Helper form component for rendering email inputs
+ *
+ * TODO: add arbitrary validators
+ */
+
+// import primary libraries
 import React, { PropTypes } from 'react'
 
+// import components
 import Base from "../BaseComponent.js.jsx";
 
-
 class NumberInput extends Base {
-
-
   constructor(props) {
     super(props);
-    this.state = { theVal: this.props.value ? this.props.value : 0 };
+    this.state = {
+      theVal: this.props.value || 0
+    };
     this._bind('_handleInputChange');
-
   }
 
   componentWillReceiveProps(nextProps) {
@@ -19,10 +25,9 @@ class NumberInput extends Base {
       this.setState({theVal: val});
     }
   }
+
   _handleInputChange(e) {
-    // e.preventDefault();
-    // console.log("handleinputchange");
-    var newEvent = { 
+    var newEvent = {
       target: {
         value: parseFloat(e.target.value)
         , name: e.target.name
@@ -30,14 +35,27 @@ class NumberInput extends Base {
     }
     this.props.change(newEvent);
   }
-  
+
   render() {
-    const { label, placeholder, name, required, min, max, step, disabled , currency, percent } = this.props;
-    var currencyAddon = currency ? <span className="item">$</span> : <span/>;
-    var percentAddon = percent ? <span className="item">%</span> : <span/>;
+    const {
+      currency
+      , disabled
+      , label
+      , helpText
+      , max
+      , min
+      , name
+      , percent
+      , required
+      , step
+    } = this.props;
+
+    let currencyAddon = currency ? <span className="item">$</span> : <span/>;
+    let percentAddon = percent ? <span className="item">%</span> : <span/>;
+
     return (
       <div className="input-group">
-        <label htmlFor={name}> {label} </label>
+        <label htmlFor={name}> {label} {required ? <sup className="-required">*</sup> : null}</label>
         <div className="input-add-on">
           {currencyAddon}
           <input
@@ -54,28 +72,37 @@ class NumberInput extends Base {
           />
           {percentAddon}
         </div>
+        <small className="help-text"><em>{helpText}</em></small>
       </div>
     )
   }
 }
 
 NumberInput.propTypes = {
-  label: PropTypes.string
-  , value: PropTypes.number.isRequired
-  , name: PropTypes.string
-  , required: PropTypes.bool
-  , change: PropTypes.func
-  , min: PropTypes.string
-  , max: PropTypes.string
-  , step: PropTypes.string
-  , disabled: PropTypes.bool
-  , percent: PropTypes.bool
+  change: PropTypes.func.isRequired
   , currency: PropTypes.bool
-  , isFloat: PropTypes.bool
+  , disabled: PropTypes.bool
+  , helpText: PropTypes.any
+  , label: PropTypes.string
+  , max: PropTypes.string
+  , min: PropTypes.string
+  , name: PropTypes.string.isRequired
+  , percent: PropTypes.bool
+  , required: PropTypes.bool
+  , step: PropTypes.string
+  , value: PropTypes.number.isRequired
 }
 
 NumberInput.defaultProps = {
-  step: "any"
+  currency: false
+  , disabled: false
+  , helpText: null
+  , label: ''
+  , max: ''
+  , min: ''
+  , percent: false
+  , required: false
+  , step: 'any'
 }
 
 export default NumberInput;

@@ -1,12 +1,17 @@
-// import React from 'react';
-import React, { PropTypes } from 'react';
-// import Base from './BaseComponent.js.jsx';
-import Base from "../../../global/components/BaseComponent.js.jsx";
-import { bindActionCreators } from 'redux'
+/**
+ * Wrap all admin children in this special admin layout
+ */
 
+// import primary libraries
+import React, { PropTypes } from 'react';
+import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 
-import SideNav from './SideNav.js.jsx';
+// import global components
+import Base from "../../../global/components/BaseComponent.js.jsx";
+
+// import admin components
+import AdminSideNav from './AdminSideNav.js.jsx';
 
 export default class AdminLayout extends Base {
   constructor(props) {
@@ -17,7 +22,7 @@ export default class AdminLayout extends Base {
     return (
       <div className="master-layout admin">
         <div className="admin-layout">
-          <SideNav />
+          <AdminSideNav />
           <div className="admin-main-content">
             {this.props.children}
           </div>
@@ -26,7 +31,3 @@ export default class AdminLayout extends Base {
     )
   }
 }
-
-// AdminLayout.propTypes = {
-//   dispatch: PropTypes.func.isRequired
-// }

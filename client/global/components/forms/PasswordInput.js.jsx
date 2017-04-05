@@ -1,53 +1,83 @@
+/**
+ * Helper form component for rendering password inputs
+ *
+ * TODO: add REGEX validators
+ */
+
+// import primary libraries
 import React, { PropTypes } from 'react'
 
+import classNames from 'classnames';
+
+// import components
 import Base from "../BaseComponent.js.jsx";
 
 class PasswordInput extends Base {
-
   constructor(props) {
     super(props);
-    this.state = this.props;
     this._bind(
       '_handleInputChange'
-      , '_validatePassword'
-    );
+      , '_handleBlur'
 
+    );
   }
 
   _handleInputChange(e) {
     this.props.change(e);
-    this.setState({value: e.target.value});
   }
 
-  _validatePassword(password) {
-    // check password valid here
+  _handleBlur(e) {
+    // TODO: check password valid here
+    this.props.handleBlur(e);
   }
 
   render() {
-    const { label, value, placeholder, name, required } = this.state;
+    const {  errorMessage, helpText, isValid, label, name, required, value } = this.props;
+    let inputClass = classNames({ "-error": !isValid });
+
     return (
       <div className="input-group">
-        <label htmlFor={name}> {label} </label>
+        <label htmlFor={name}> {label} {required ? <sup className="-required">*</sup> : null}</label>
         <input
-          type="password"
+          className={inputClass}
           name={name}
-          placeholder={placeholder}
-          value={value}
+          onBlur={this._handleBlur}
           onChange={this._handleInputChange}
           required={required}
+          type="password"
+          value={value}
         />
+        { !isValid ?
+          <div className="-error-message">{errorMessage}</div>
+          :
+          null
+        }
+        <small className="help-text"><em>{helpText}</em></small>
       </div>
     )
   }
 }
 
 PasswordInput.propTypes = {
-  label: PropTypes.string
-  , value: PropTypes.string
-  , placeholder: PropTypes.string
-  , name: PropTypes.string
+  change: PropTypes.func.isRequired
+  , errorMessage: PropTypes.any
+  , handleBlur: PropTypes.func
+  , helpText: PropTypes.any
+  , isValid: PropTypes.bool
+  , label: PropTypes.string
+  , name: PropTypes.string.isRequired
   , required: PropTypes.bool
-  , change: PropTypes.func
+  , value: PropTypes.string.isRequired
+
+}
+
+PasswordInput.defaultProps = {
+  errorMessage: null
+  , handleBlur: null
+  , helpText: null
+  , isValid: true
+  , label: ''
+  , required: false
 }
 
 export default PasswordInput;

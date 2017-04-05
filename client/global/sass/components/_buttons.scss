@@ -1,51 +1,99 @@
 // Default Button Styling
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
+button {
+
+  &:disabled,
+  &.disabled {
+    &:hover {
+
+      cursor: not-allowed;
+    }
+  }
+  @include Print() {
+    display: none !important;
+  };
+}
+
+.yt-toolbar .yt-tools.space-between button {
+  @media screen and (max-width: 450px) {
+    padding: 8px;
+    width: 150px;
+  }
+}
+
 [yt-btn],
+a.yt-btn,
 .yt-btn {
   @include base-font;
-  background-color: $link-color;
-  border: 1px solid $link-color;
+  background-color: $button-color;
+  border: 1px solid $button-color;
   color: $white;
+  // color: $text-color;
   border: none;
   border-radius: 2px;
   padding: 14px 28px;
   position: relative;
-  transition: all 150ms ease-in-out;
-
+  @include transition(all 250ms ease-in-out);
+  // transition: all 150ms ease-in-out;
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-align: center;
   &:visited { color: $white; }
 
   &:hover {
-    background-color: lighten($link-color, 5); 
-    text-decoration: none; 
-    border-color: lighten($link-color, 5);
+    background-color: lighten($button-color, 5);
+    text-decoration: none;
+    border-color: lighten($button-color, 5);
     @include box-shadow(0px 4px 8px $shadow-color);
     // top: -2px;
   }
 
   &:active {
     @include box-shadow(0px 2px 4px $shadow-color);
-    background-color: darken($link-color, 5);
-    border-color: darken($link-color, 5);
+    background-color: darken($button-color, 5);
+    border-color: darken($button-color, 5);
     // top: 0px;
-    color: $white;
+    color: $text-color;
   }
 
   &.disabled,
-  &[disabled] {
+  &:disabled {
     pointer-events: none;
-    cursor: not-allowed;
-    opacity: 0.65;
+    opacity: 0.45;
     filter: alpha(opacity=65);
     -webkit-box-shadow: none;
             box-shadow: none;
+    &:hover {
+      cursor: not-allowed;
+
+    }
+  }
+  &.-mobile {
+    .-hide {
+      display: none;
+      @include MQ(XS) {
+        display: inline-block;
+      }
+    }
+    .-show {
+      display: inline-block;
+      @include MQ(XS) {
+        display: none;
+      }
+    }
+  }
+  @media screen and (max-width: 450px) {
+    font-size: 0.9rem;
+    padding: 5px 5px;
   }
 }
+
 
 // various button sizes
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
-[yt-btn~="x-large"], 
+[yt-btn~="x-large"],
 .yt-btn.x-large {
   @include larger-font;
   padding: 18px 36px;
@@ -72,7 +120,7 @@
 // Buttons that fill container as block element
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
-[yt-btn~="block"]
+[yt-btn~="block"],
 .yt-btn.block {
   display: block;
   width: 100%;
@@ -81,9 +129,18 @@
 // Buttons with Primary, Accent and Alert colors
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
-[yt-btn~="primary"],
-.yt-btn.primary {
-  background-color: $link-color;
+[yt-btn~="brand-primary"],
+.yt-btn.brand-primary {
+  background-color: $brand-primary;
+  color: $white;
+  &:visited { color: $white; }
+  &:hover {
+    background-color: darken($brand-primary, 10);
+    color: $white;
+  }
+  &:active {
+    color: $white;
+  }
 }
 
 
@@ -93,13 +150,13 @@
 // dark
 [yt-btn~="dark"],
 .yt-btn.dark {
-  background-color: $gray;
-  border-color: $gray;
+  background-color: $black-4;
+  border-color: $black-4;
   color: $white;
 
   &:visited { color: $white; }
   &:hover {
-    background-color: darken($gray, 10);
+    background-color: darken($black-4, 10);
     color: $white;
   }
   &:active {
@@ -112,7 +169,7 @@
 [yt-btn~="success"],
 .yt-btn.success {
   background-color: $success;
-  border-color: $success-hover;
+  // border-color: $success-hover;
   color: $white;
 
   &:visited { color: $white; }
@@ -129,7 +186,7 @@
 [yt-btn~="warning"],
 .yt-btn.warning {
   background-color: $warning;
-  border-color: $warning-hover;
+  // border-color: $warning-hover;
   color: $white;
 
   &:visited { color: $white; }
@@ -146,7 +203,7 @@
 [yt-btn~="danger"],
 .yt-btn.danger {
   background-color: $danger;
-  border-color: $danger-hover;
+  // border-color: $danger-hover;
   color: $white;
 
   &:visited { color: $white; }
@@ -156,9 +213,30 @@
   }
   &:active {
     color: $white;
+    background-color: lighten($danger, 10);
   }
 
 }
+
+// info
+[yt-btn~="info"],
+.yt-btn.info {
+  background-color: $info;
+  // border-color: $info-hover;
+  color: $white;
+
+  &:visited { color: $white; }
+  &:hover {
+    background-color: darken($info, 10);
+    color: $white;
+  }
+  &:active {
+    color: $white;
+    background-color: lighten($info, 10);
+  }
+
+}
+
 
 // for Grant
 [yt-btn~="fowler"],
@@ -192,15 +270,69 @@
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
 [yt-btn~="link"],
+a.yt-btn.link,
 .yt-btn.link {
   background-color: transparent;
   border: none;
-  color: $link-color;
+  color: $text-color;
+  @include transition(all 250ms ease-in-out);
   &:hover {
-    &:visited { color: $link-visited-color; }
-    &:hover {  background-color:$gray-9; }
-    &:active { background-color: $link-hover-color; }
+    &:visited { color: $text-color; }
+    &:hover {  background-color:$gray-9; color: darken($button-color,1); }
+    &:active { background-color: darken($gray-9, 4); }
   }
+  &.light {
+    color: $text-light;
+    &:hover {
+      &:visited { color: lighten($danger, 4); }
+      &:hover {  background-color:$gray-8; color: $text-color; }
+      &:active { background-color: lighten($danger, 20); }
+    }
+  }
+
+  &.danger {
+    color: $danger;
+    &:hover {
+      &:visited { color: lighten($danger, 4); }
+      &:hover {  background-color:$gray-8; color: darken($danger,10); }
+      &:active { background-color: lighten($danger, 20); }
+    }
+  }
+  &.warning {
+    color: $warning;
+    &:hover {
+      &:visited { color: lighten($warning, 4); }
+      &:hover {  background-color:$gray-8; color: darken($warning,10); }
+      &:active { background-color: lighten($warning, 4); }
+    }
+  }
+  &.success {
+    color: $success;
+    &:hover {
+      &:visited { color: lighten($success, 4); }
+      &:hover {  background-color:$gray-8; color: darken($success,10); }
+      &:active { background-color: lighten($success, 4); }
+    }
+  }
+
+  &.info {
+    color: $info;
+    &:hover {
+      &:visited { color: lighten($info, 4); }
+      &:hover {  background-color:$gray-8; color: darken($info,10); }
+
+      &:active { background-color: lighten($info, 4); }
+    }
+  }
+
+  &.muted {
+    color: $text-color;
+    &:hover {
+      &:visited { color: lighten($text-color, 4); }
+      &:active { background-color: lighten($text-color, 4); }
+    }
+  }
+
 }
 
 
@@ -208,5 +340,3 @@
   height: 25px;
   width: 25px;
 }
-
-

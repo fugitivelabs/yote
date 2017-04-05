@@ -3,7 +3,8 @@
 // Layout
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
-$header-height:         80px;
+$side-nav-width:         200px;
+$header-height:         84px;
 
 // %container {
 //   max-width: $container-width;
@@ -27,12 +28,47 @@ $header-height:         80px;
   @include flex-direction(column);
   height: 100%;
   min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.main-container {
+  @include border-box;
+  @include clearfix;
+  background-color: #fff;
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  @include MQ(XS) {
+    max-width: $max-container-width-XS;
+    // padding: 0 ;
+  }
+  @include MQ(S) {
+    max-width: $max-container-width-S;
+  }
+  @include MQ(M) {
+    max-width: $max-container-width-M;
+  }
+  @include MQ(L) {
+    max-width: $max-container-width-L;
+  }
+  @include MQ(XL) {
+    max-width: $max-container-width-XL;
+  }
+}
+
+.main-content {
+  padding-left: 0;
+  padding-top: $gutter;
+  @include transition(all 240ms ease-in-out);
+  @include MQ(M){
+    padding-left: $side-nav-width;
+  };
 }
 
 .admin-layout {
   @include display-flex;
   @include flex(1);
-  background-color: #fff;
+  background-color: #efefef;
 }
 
 .admin-main-content {
@@ -85,7 +121,7 @@ header, .header {
     // height: 0;
   }
   &.dark {
-    background-color: #000;
+    background-color: $brand-primary;
     color: $text-light;
     // @include box-shadow(0 0 1px rgba(255,255,255,0.35));
     border-bottom: 1px solid $light-divider-color;
@@ -108,10 +144,10 @@ header, .header {
 }
 .body {
   @include flex(1 0 auto);
-   padding: var(--space) var(--space) 0;
+  padding: var(--space) var(--space) 0;
   width: 100%;
-  background-color: #fff;
   // @include display-flex;
+  background-color: #fff;
   &.with-header {
     // margin-top: $header-height;
     padding-top: $header-height;
@@ -120,39 +156,11 @@ header, .header {
   &.dark {
     background-color: #000;
   }
+  &.-gray {
+    background-color: #f5f5f5;
+
+  }
   &:after {
 
-  }
-}
-
-
-
-.main {
-  @include display-flex;
-  @include flex-direction(column);
-  @include flex(1);
-  padding: $gutter;
-  &.with-leftbar {
-    // min-height: 100vh;
-    // @include flex(1);
-    padding: 10px;
-    padding-top: 60px;
-
-    @include MQ(S) {
-      padding-top: 10px;
-      padding-left: $sidenav-width+10px;
-
-    }
-  }
-  &.with-topbar {
-    @include column-size(100%);
-
-  }
-  &.with-rightbar {
-    @include flex(1);
-    order: -1;
-  }
-  &.with-bottombar {
-    @include column-size(100%);
   }
 }

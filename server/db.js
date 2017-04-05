@@ -1,9 +1,8 @@
-var mongoose = require('mongoose')
-  , User = require('./resources/users/UserModel')
-  ;
+let mongoose = require('mongoose');
+let User = require('./resources/users/UserModel');
 
 module.exports = function(config) {
-  mongoose.Promise = global.Promise; //mongoose internal Promise library depreciated; use native
+  mongoose.Promise = global.Promise; // mongoose internal Promise library depreciated; use native
   mongoose.connect(config.db);
   var db = mongoose.connection;
   db.on('error', console.error.bind(console, 'mongo connection error'));
@@ -11,11 +10,10 @@ module.exports = function(config) {
     console.log('mongo connection opened');
   });
 
-  //any other initial model calls
+  // any other initial model calls
   User.createDefaults();
-  Post.createDefaults();
+  Product.createDefaults();
 };
 
-// new Mongoose models are defined below
-var Post = require('./resources/posts/PostModel');
-var Product = require('./resources/products/ProductModel');
+// Yote models are defined below
+let Product = require('./resources/products/ProductModel');

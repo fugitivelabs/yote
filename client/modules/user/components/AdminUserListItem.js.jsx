@@ -1,8 +1,13 @@
+// import primary libraries
 import React, { PropTypes } from 'react'
 import { Link, Router } from 'react-router';
-import Base from "../../../global/components/BaseComponent.js.jsx";
-import moment from 'moment';
 import { browserHistory } from 'react-router';
+
+// import other libraries
+import moment from 'moment';
+
+// import global components
+import Base from "../../../global/components/BaseComponent.js.jsx";
 
 class AdminUserListItem extends Base {
   constructor(props) {
@@ -10,12 +15,11 @@ class AdminUserListItem extends Base {
   }
 
   _goToUser(userId) {
-    // console.log("this.context");
-    // console.log(this.context);
     browserHistory.push(`/admin/users/${userId}`)
   }
+
   render() {
-    const {user} = this.props;
+    const { user } = this.props;
     const modified =  moment(user.updated).calendar();
     return (
       <tr className="linkable" onClick={this._goToUser.bind(this, user._id)}>

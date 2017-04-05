@@ -1,10 +1,18 @@
+/**
+ * This is a series of utilities to provide route protection for react-router
+ * before the route is entered.
+ *
+ * TODO: Rework this so the user info is pulled from the store, not 'window'
+ */
+
 const Auth = {
   requireLogin(nextState, replace) {
-    console.log("requireAuth - LOGIN");
-    console.log(window.currentUser);
+    /**
+     * Checks currentUser cookie to see that a logged in user exists for this
+     * session.  If not, it re-routes them to the login page.
+     */
     if (!window.currentUser._id) {
-      console.log("failed check");
-      // console.log(nextState);
+      // Login check failed. Re-route to login page.
       replace({
         pathname: '/user/login',
         state: { nextPathname: nextState.location.pathname }
@@ -12,18 +20,22 @@ const Auth = {
     }
   }
   , requireAdmin(nextState, replace) {
-    console.log("requireAuth - ADMIN");
-    console.log(window.currentUser);
+    /**
+     * Checks currentUser cookie to see that a logged in user exists for this
+     * session AND has a role of 'admin'.  If not, it re-routes them to the
+     * login page.
+     */
     if (window.currentUser._id) {
+      // Login check passed. Check for 'admin' role.
       if(window.currentUser.roles.indexOf('admin') < 0) {
-        console.log("failed check");
+        // 'admin' check failed. Send to login.
         replace({
           pathname: '/user/login',
           state: { nextPathname: nextState.location.pathname }
         })
       }
     } else {
-      // console.log(nextState);
+      // Login check failed. Re-route to login page.
       replace({
         pathname: '/user/login',
         state: { nextPathname: nextState.location.pathname }

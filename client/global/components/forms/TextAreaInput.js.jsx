@@ -1,31 +1,37 @@
+/**
+ * Helper component for rendering textarea inputs
+ */
+
+// import primary libraries
 import React, { PropTypes } from 'react'
 
+// import components
 import Base from "../BaseComponent.js.jsx";
 
-
 class TextAreaInput extends Base {
-
-
   constructor(props) {
     super(props);
     this._bind('_handleInputChange');
+  }
 
-  }
-  // check the props the component receives
-  componentWillReceiveProps(nextProps) {
-    // console.log("TextAreaInput props");
-    // console.log(nextProps);
-  }
   _handleInputChange(e) {
-    // console.log("handleinputchange");
-    // console.log(e);
     this.props.change(e);
   }
+
   render() {
-    const { label, value, placeholder, name, required } = this.props;
+    const {
+      helpText
+      , label
+      , name
+      , placeholder
+      , required
+      , rows
+      , value
+    } = this.props;
+
     return (
       <div className="input-group">
-        <label htmlFor={name}> {label} </label>
+        <label htmlFor={name}> {label} {required ? <sup className="-required">*</sup> : null}</label>
         <textarea
           type="text"
           name={name}
@@ -33,20 +39,32 @@ class TextAreaInput extends Base {
           onChange={this._handleInputChange}
           required={required}
           value={value}
+          rows={rows}
         >
         </textarea>
+        <small className="help-text"><em>{helpText}</em></small>
       </div>
     )
   }
 }
 
 TextAreaInput.propTypes = {
-  label: PropTypes.string
-  , value: PropTypes.string
+  change: PropTypes.func.isRequired
+  , helpText: PropTypes.any
+  , label: PropTypes.string
+  , name: PropTypes.string.isRequired
   , placeholder: PropTypes.string
-  , name: PropTypes.string
   , required: PropTypes.bool
-  , change: PropTypes.func
+  , rows: PropTypes.string
+  , value: PropTypes.string.isRequired
+}
+
+TextAreaInput.defaultProps = {
+  helpText: null
+  , label: ''
+  , placeholder: ''
+  , required: false
+  , rows: '4'
 }
 
 export default TextAreaInput;

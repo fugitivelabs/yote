@@ -1,9 +1,12 @@
-// sets up the .jsx compiler to read .jsx from ./client/
-// and output regular .js to /public/react/
-var path = require('path');
-var webpack = require('webpack');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+/**
+ * sets up the .jsx compiler to read .jsx from ./client/
+ * and output regular .js to /public/react/
+ */
+
+let ExtractTextPlugin = require('extract-text-webpack-plugin');
+let OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+let path = require('path');
+let webpack = require('webpack');
 
 const config = {
   devtool: 'cheap-module-source-map'
@@ -39,7 +42,7 @@ const config = {
     , new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false
-        , screw_ie8: true
+        , screw_ie8: true // yeah, screw IE8
       }
       , comments: false
       , sourceMap: false

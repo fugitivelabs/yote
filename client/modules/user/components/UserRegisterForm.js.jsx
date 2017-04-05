@@ -1,62 +1,67 @@
+// import primary libraries
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router';
 
-import { TextInput, EmailInput, PasswordInput } from '../../../global/components/forms';
+// import form components
+import { TextInput, EmailInput, NewPasswordInput } from '../../../global/components/forms';
 
-const UserRegisterForm = ({ user, handleFormSubmit, handleFormChange }) => {
-  // console.log("register form loading");
+function UserRegisterForm({
+  confirmPassword
+  , handleFormChange
+  , handleFormSubmit
+  , user
+}) {
+  let isDisabled = true;
+  if(user.password && user.username) {
+    isDisabled = false
+  }
   return (
-    <div className="yt-container">
-      <h1> Register Account </h1>
-      <div className="yt-row center-horiz">
-        <div className="form-container">
-          <form name="userForm" className="card user-form" onSubmit={handleFormSubmit}>
-            <EmailInput
-              name="username"
-              label="Email Address"
-              value={user.username}
-              change={handleFormChange}
-              placeholder="Email (required)"
-              required={true}
-            />
-            <PasswordInput
-              name="password"
-              label="Password"
-              value={user.password}
-              change={handleFormChange}
-              required={true}
-              password={true}
-            />
-            <TextInput
-              name="firstName"
-              label="First Name"
-              value={user.firstName}
-              change={handleFormChange}
-              required={true}
-              />
-            <TextInput
-              name="lastName"
-              label="Last Name"
-              value={user.lastName}
-              change={handleFormChange}
-              required={true}
-            />
-            <div className="input-group">
-              <div className="yt-row space-between">
-                <button className="yt-btn " type="submit" > Register </button>
-              </div>
-            </div>
-          </form>
+    <div className="form-container -slim">
+      <form name="userForm" className="user-form" onSubmit={handleFormSubmit}>
+        <h2> Register for Yote</h2>
+        <hr/>
+        <EmailInput
+          change={handleFormChange}
+          label="Email Address"
+          name="username"
+          required={true}
+          value={user.username}
+        />
+        <NewPasswordInput
+          change={handleFormChange}
+          label="Password"
+          name="password"
+          value={user.password}
+        />
+        <TextInput
+          change={handleFormChange}
+          label="First Name"
+          name="firstName"
+          required={false}
+          value={user.firstName}
+          />
+        <TextInput
+          change={handleFormChange}
+          label="Last Name"
+          name="lastName"
+          required={false}
+          value={user.lastName}
+        />
+        <div className="input-group">
+          <div className="yt-row right">
+            <Link to="/user/login" className="yt-btn link">Sign in </Link>
+            <button className="yt-btn " type="submit" disabled={isDisabled}> Register </button>
+          </div>
         </div>
-      </div>
+      </form>
     </div>
   )
 }
 
 UserRegisterForm.propTypes = {
-  user: PropTypes.object.isRequired
+  handleFormChange: PropTypes.func.isRequired
   , handleFormSubmit: PropTypes.func.isRequired
-  , handleFormChange: PropTypes.func.isRequired
+  , user: PropTypes.object.isRequired
 }
 
 export default UserRegisterForm;

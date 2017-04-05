@@ -1,11 +1,18 @@
-import React, { PropTypes } from 'react'
-import Base from "../BaseComponent.js.jsx";
+/**
+ * Helper component that lets you build a simple array of strings
+ *
+ * NOTE: For an example, see the roles builder in
+ * ./modules/user/AdminUserForm.js.jsx
+ */
 
+// import primary libraries
+import React, { PropTypes } from 'react'
+
+// import componets
+import Base from "../BaseComponent.js.jsx";
 import TextInput from './TextInput.js.jsx';
 
 class SimpleArrayEditor extends Base {
-
-
   constructor(props) {
     super(props);
     this.state = {
@@ -13,15 +20,14 @@ class SimpleArrayEditor extends Base {
     }
     this._bind(
       '_handleNewItemChange'
-      // , '_addPillItem'
-      // , '_removePillItem'
+      , '_addPillItem'
+      , '_removePillItem'
     );
 
   }
-  // check the props the component receives
+
+  // check against any new props the component receives
   componentWillReceiveProps(nextProps) {
-    // console.log("SimpleArrayEditor props");
-    // console.log(nextProps);
     if(this.props.arrayType != nextProps.arrayType) {
       if(nextProps.arrayType == "string") {
         this.setState({newItem: ''});
@@ -32,25 +38,23 @@ class SimpleArrayEditor extends Base {
   }
 
   _removePillItem(index) {
-    // console.log('_removePillItem', index);
-    var items = this.props.items;
+    let items = this.props.items;
     items.splice(index, 1);
-    var event = {target: {name: this.props.name, value: this.props.items} };
+    let event = {target: {name: this.props.name, value: this.props.items} };
     this.props.change(event);
   }
 
   _addPillItem(value) {
-    // console.log("_addPillItem", value);
-    var newState = this.state;
+    let newState = this.state;
     if(this.props.arrayType == "string") {
       newState.newItem = "";
     } else {
       newState.newItem = 0;
       value = parseFloat(value);
     }
-    var items = this.props.items;
+    let items = this.props.items;
     items.push(value);
-    var event = {target: {name: this.props.name, value: this.props.items} };
+    let event = {target: {name: this.props.name, value: this.props.items} };
     this.props.change(event);
     this.setState(newState);
   }
@@ -60,12 +64,14 @@ class SimpleArrayEditor extends Base {
   }
 
   render() {
-    const { items, name, label, arrayType } = this.props;
-    var pillItems = items.map((item, index) => {
+    const { items, name, label, arrayType, helpText } = this.props;
+
+    // build the pill items from the newly edited array
+    let pillItems = items.map((item, index) => {
       return (
         <div className="pill-item" key={index}>
           <p>
-            <a onClick={this._removePillItem.bind(this, index)}>
+            <a onClick={() => this._removePillItem(index)}>
               <i className="fa fa-times"></i>
               {item}
             </a>
@@ -73,7 +79,10 @@ class SimpleArrayEditor extends Base {
         </div>
       )
     });
-    var theInput = (arrayType === "string" ?
+
+    let theInput;
+    if(arrayType === "string") {
+      theInput = (
         <input
           type="text"
           name="newItem"
@@ -81,14 +90,18 @@ class SimpleArrayEditor extends Base {
           value={this.state.newItem}
           onChange={this._handleNewItemChange}
         />
-      :
-      <input
-        type="number"
-        name="newItem"
-        value={this.state.newItem}
-        onChange={this._handleNewItemChange}
-      />
-    )
+      );
+    } else {
+      theInput = (
+        <input
+          type="number"
+          name="newItem"
+          value={this.state.newItem}
+          onChange={this._handleNewItemChange}
+        />
+      )
+    }
+
     return (
       <div className="input-group">
         <label htmlFor="newItem"> { label } </label>
@@ -97,27 +110,36 @@ class SimpleArrayEditor extends Base {
         </div>
         <div className="input-add-on">
           {theInput}
-          <button className="item" type="button" onTouchTap={this._addPillItem.bind(this, this.state.newItem)}  disabled={this.state.newItem  ? false : true } >Add {label}</button>
+          <button
+            className="item"
+            type="button"
+            onTouchTap={() => this._addPillItem(this.state.newItem)}
+            disabled={this.state.newItem  ? false : true }
+          > Add {label}</button>
         </div>
+        <small className="help-text"><em>{helpText}</em></small>
       </div>
     )
   }
 }
 
 SimpleArrayEditor.propTypes = {
-  label: PropTypes.string
-  , name: PropTypes.string.isRequired
+  arrayType: PropTypes.oneOf(["string", "number"])
+  , change: PropTypes.func.isRequired
+  , helpText: PropTypes.any
   , items: PropTypes.oneOfType([
       PropTypes.arrayOf(PropTypes.string)
       , PropTypes.arrayOf(PropTypes.number)
     ])
-  , change: PropTypes.func.isRequired
-  , arrayType: PropTypes.oneOf(["string", "number"])
+  , label: PropTypes.string
+  , name: PropTypes.string.isRequired
 }
 
 SimpleArrayEditor.defaultProps = {
-  items: []
-  , arrayType: "string"
+  arrayType: "string"
+  , helpText: null
+  , items: []
+  , label: ''
 }
 
 export default SimpleArrayEditor;

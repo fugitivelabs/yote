@@ -1,19 +1,25 @@
+// import primary libraries
 import React, { PropTypes } from 'react';
-import Base from "../../../global/components/BaseComponent.js.jsx";
-import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
+import { connect } from 'react-redux';
 
-//actions
+// import actions actions
 import * as userActions from '../userActions';
 
-//components
+// import form components
+import AlertModal from '../../../global/components/modals/AlertModal.js.jsx';
+import Base from "../../../global/components/BaseComponent.js.jsx";
+
+// import user components
 import UserLoginForm from './UserLoginForm.js.jsx';
 
 class UserLogin extends Base {
   constructor(props) {
     super(props);
     this.state = {
-      user: {
+      errorMessage: ''
+      , isErrorModalOpen: false
+      , user: {
         username: ''
         , password: ''
       }
@@ -21,6 +27,8 @@ class UserLogin extends Base {
     this._bind(
       '_handleFormChange'
       , '_handleFormSubmit'
+      , '_toggleErrorModal'
+      , '_goToResetPass'
     );
   }
 
@@ -39,25 +47,46 @@ class UserLogin extends Base {
 
   _handleFormSubmit(e) {
     e.preventDefault();
-    this.props.dispatch(userActions.sendLogin(this.state.username, this.state.password)).then((res) => {
-      if(res.success) {
-        //redirect
+    this.props.dispatch(userActions.sendLogin(this.state.username, this.state.password)).then((action) => {
+      if(action.success) {
         browserHistory.push('/');
-        //TODO: handle next params
+        // TODO: handle next params
       } else {
-        alert(res.error);
+        this.setState({errorMessage: action.error});
+        this._toggleErrorModal();
       }
     })
+  }
+
+  _toggleErrorModal() {
+    this.setState({isErrorModalOpen: !this.state.isErrorModalOpen});
+  }
+
+  _goToResetPass() {
+    browserHistory.push('/user/forgot-password')
   }
 
   render() {
     const { user } = this.state;
     return  (
-      <div>
-        <UserLoginForm
-          user={user}
-          handleFormSubmit={this._handleFormSubmit}
-          handleFormChange={this._handleFormChange}
+      <div className="yt-container">
+        <div className="yt-row center-horiz">
+          <UserLoginForm
+            user={user}
+            handleFormSubmit={this._handleFormSubmit}
+            handleFormChange={this._handleFormChange}
+          />
+        </div>
+        <AlertModal
+          alertMessage={this.state.errorMessage}
+          alertTitle="Error with sign in"
+          closeAction={this._toggleErrorModal}
+          confirmAction={this._toggleErrorModal}
+          confirmText="Try again"
+          declineText="Reset Password"
+          declineAction={this._goToResetPass}
+          isOpen={this.state.isErrorModalOpen}
+          type="danger"
         />
       </div>
     )

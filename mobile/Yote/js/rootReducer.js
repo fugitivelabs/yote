@@ -1,26 +1,23 @@
-import { combineReducers } from 'redux';
 
-//individual reducers
-import user from './modules/user/userReducer.js';
-import post from './modules/post/reducers/postReducers.js';
-import product from './modules/product/productReducer.js'
+/**
+ * rootReducer brings all application reducers and combines them as one
+ */
 
+// import primary libraries
+import { combineReducers } from 'redux'
 
-const appReducer = combineReducers({
-  user
-  , post
-  , product
-  // next reducer
-})
+// import all module reducers
+import * as moduleReducers from './modules/moduleReducers.js';
 
-const rootReducer = (state, action) => {
+const appReducer = combineReducers(moduleReducers);
 
-  if (action.type === 'RECEIVE_LOGOUT'){
-    state = undefined
-    console.log("clear store");
+// combine all the reducers
+const rootReducer = (store, action) => {
+  if(action.type === 'RECEIVE_LOGOUT') {
+    // clear the store on logout
+    store = undefined
   }
-
-  return appReducer(state, action)
+  return appReducer(store, action)
 }
 
 export default rootReducer;

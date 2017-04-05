@@ -1,24 +1,31 @@
+// import primary libraries
 import React, { PropTypes } from 'react';
-import Base from "../../../global/components/BaseComponent.js.jsx";
-import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
+import { connect } from 'react-redux';
 
 //actions
 import * as userActions from '../userActions';
 
-//components
+// import global components
+import AlertModal from '../../../global/components/modals/AlertModal.js.jsx';
+import Base from "../../../global/components/BaseComponent.js.jsx";
+
+// import user components
 import UserRegisterForm from './UserRegisterForm.js.jsx';
 
 class UserRegister extends Base {
   constructor(props) {
     super(props);
     this.state = {
-      user: this.props.defaultUser ? JSON.parse(JSON.stringify(this.props.defaultUser)): null
-      //don't want to actually change the store's defaultItem, just use a copy
+      errorMessage: ''
+      , isErrorModalOpen: false
+      , user: this.props.defaultUser ? JSON.parse(JSON.stringify(this.props.defaultUser)): null
+      // NOTE: don't want to actually change the store's defaultItem, just use a copy
     }
     this._bind(
       '_handleFormChange'
       , '_handleFormSubmit'
+      , '_toggleErrorModal'
     );
   }
 
@@ -30,30 +37,53 @@ class UserRegister extends Base {
 
   _handleFormSubmit(e) {
     e.preventDefault();
-    console.log("SUBMIT");
-    console.log(this.state.user);
-    this.props.dispatch(userActions.sendRegister(this.state.user)).then((res) => {
-      if(res.success) {
-        //redirect
+    this.props.dispatch(userActions.sendRegister(this.state.user)).then((action) => {
+      if(action.success) {
         browserHistory.push('/');
       } else {
-        alert(res.error);
+        this.setState({errorMessage: action.error});
+        this._toggleErrorModal();
       }
     })
+  }
+
+  _toggleErrorModal() {
+    this.setState({isErrorModalOpen: !this.state.isErrorModalOpen});
   }
 
   render() {
     const { user } = this.state;
     const isEmpty = !user || (user.username === null || user.username === undefined);
     return  (
-      <div>
-        { isEmpty ? "Loading..." :
-          <UserRegisterForm
-            user={user}
-            handleFormSubmit={this._handleFormSubmit}
-            handleFormChange={this._handleFormChange}
-          />
-        }
+      <div className="yt-container">
+        <div className="yt-row center-horiz">
+          { isEmpty ?
+            "Loading..."
+            :
+            <UserRegisterForm
+              handleFormChange={this._handleFormChange}
+              handleFormSubmit={this._handleFormSubmit}
+              user={user}
+            />
+          }
+        </div>
+        <AlertModal
+          alertMessage={
+            <div>
+              <strong>
+                {this.state.errorMessage}
+              </strong>
+              <br/>
+              <div>Please try again.</div>
+            </div>
+          }
+          alertTitle="Error with registration"
+          closeAction={this._toggleErrorModal}
+          confirmAction={this._toggleErrorModal}
+          confirmText="Try again"
+          isOpen={this.state.isErrorModalOpen}
+          type="danger"
+        />
       </div>
     )
   }

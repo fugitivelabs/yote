@@ -1,31 +1,38 @@
-import React, { PropTypes } from 'react'
-import Base from "../BaseComponent.js.jsx";
+/**
+ * Helper form component for adding/removing things from one list to another
+ *
+ * TODO: Could use an example of how to use
+ */
 
+// import primary libraries
+import React, { PropTypes } from 'react'
+
+// import components
+import Base from "../BaseComponent.js.jsx";
 import TextInput from './TextInput.js.jsx';
 
 class ListComparator extends Base {
-
   constructor(props) {
     super(props);
   }
 
   _removeItem(index) {
-    //remove from "items" list
-    // console.log("REMOVE " + index);
-    var items = this.props.items;
+    // remove from "items" list
+    let items = this.props.items;
     items.splice(index, 1);
-    var event = {target: {name: this.props.name, value: this.props.items} };
+    let event = {target: {name: this.props.name, value: this.props.items} };
     this.props.change(event);
   }
 
   _addItem(index) {
-    //add to "items" list
-    // console.log("ADD " + index);
-    var items = this.props.items;
-    var unselectedItems = [];
-    for(var i = 0; i < this.props.allItems.length; i++) {
-      var selected = false;
-      for(var j = 0; j < items.length; j++) {
+    // add to "items" list
+    let items = this.props.items;
+    let unselectedItems = [];
+
+    // find all of the 'unselected' items in the list
+    for(let i = 0; i < this.props.allItems.length; i++) {
+      let selected = false;
+      for(let j = 0; j < items.length; j++) {
         if(this.props.allItems[i] == items[j]) {
           selected = true;
         }
@@ -35,17 +42,18 @@ class ListComparator extends Base {
       }
     }
     items.push(unselectedItems[index]);
-    var event = {target: {name: this.props.name, value: this.props.items} };
+    let event = {target: {name: this.props.name, value: this.props.items} };
     this.props.change(event);
   }
 
   render() {
     const { items, allItems, name, label } = this.props;
 
-    var unselectedItems = [];
-    for(var i = 0; i < allItems.length; i++) {
-      var selected = false;
-      for(var j = 0; j < items.length; j++) {
+    // find all of the 'unselected' items in the list
+    let unselectedItems = [];
+    for(let i = 0; i < allItems.length; i++) {
+      let selected = false;
+      for(let j = 0; j < items.length; j++) {
         if(allItems[i] == items[j]) {
           selected = true;
         }
@@ -54,8 +62,6 @@ class ListComparator extends Base {
         unselectedItems.push(allItems[i]);
       }
     }
-    // console.log("UNSELECTED ITEMS");
-    // console.log(unselectedItems);
 
     return (
       <div className="input-group">
@@ -63,7 +69,7 @@ class ListComparator extends Base {
         <div className="yt-row">
           <div className="yt-col _50">
             <p>Selected:</p>
-            { items.map((item, i) => 
+            { items.map((item, i) =>
               <div key={i}>
                 <button type="button" onClick={this._removeItem.bind(this, i)} className="yt-btn small danger">
                   {item + "    "}
@@ -72,10 +78,9 @@ class ListComparator extends Base {
               </div>
             )}
           </div>
-
           <div className="yt-col _50">
             <p>Possible:</p>
-            { unselectedItems.map((item, i) => 
+            { unselectedItems.map((item, i) =>
               <div key={i}>
                 <button type="button" onClick={this._addItem.bind(this, i)} className="yt-btn small success">
                   <i className="fa fa-arrow-circle-left"></i>
@@ -91,16 +96,17 @@ class ListComparator extends Base {
 }
 
 ListComparator.propTypes = {
-  label: PropTypes.string
-  , name: PropTypes.string.isRequired
-  , items: PropTypes.arrayOf(PropTypes.string)
-  , allItems: PropTypes.arrayOf(PropTypes.string)
+  allItems: PropTypes.arrayOf(PropTypes.string)
   , change: PropTypes.func.isRequired
+  , items: PropTypes.arrayOf(PropTypes.string)
+  , label: PropTypes.string
+  , name: PropTypes.string.isRequired
 }
 
 ListComparator.defaultProps = {
-  items: []
-  , allItems: []
+  allItems: []
+  , items: []
+  , label: ''
 }
 
 export default ListComparator;
