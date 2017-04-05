@@ -17,14 +17,15 @@ if(env == 'production') {
 
   //if prod, log to file and console
   var logger = new winston.Logger({
-    transports: [
-      new winston.transports.MongoDB({
-        level: 'info'
-        , db: config.db
-        , capped: true
-        , handleExceptions: true
-        , collection: 'logs'
-      })
+    // // these logs get massive on the database end and frankly we never use them.
+    // transports: [
+    //   new winston.transports.MongoDB({
+    //     level: 'info'
+    //     , db: config.db
+    //     , capped: true
+    //     , handleExceptions: true
+    //     , collection: 'logs'
+    //   })
       // NOTE: cannot get this to work on docker instance. it will not write to the linked docker volume for some reason. trying mongodb instead.
       // TODO: figure this out. logging to file would be more useful than to mongo
       // new winston.transports.File({
