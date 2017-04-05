@@ -25,7 +25,6 @@ let userSchema = mongoose.Schema({
     , required: '{PATH} is required!'
     , unique: true
   }
-  , roles:            [String]
 
   /**
    * Password & API token fields
@@ -34,8 +33,9 @@ let userSchema = mongoose.Schema({
    */
 
   // crypto-stored password
-  , password_salt:    { type: String, required: '{PATH} is required!', select: false }
-  , password_hash:    { type: String, required: '{PATH} is required!', select: false }
+  , password_salt:  { type: String, required: '{PATH} is required!', select: false }
+  , password_hash:  { type: String, required: '{PATH} is required!', select: false }
+  , roles:          [{ type: String, enum: ['admin'] }]
 
   // Reset password fields
   , resetPasswordTime:    { type: Date, default: Date.now, select: false }
@@ -117,30 +117,6 @@ userSchema.statics = {
 };
 
 var User = mongoose.model('User', userSchema);
-
-// validations
-User.schema.path('roles').validate(function(roles){
-  logger.info("checking roles");
-  if(roles.length == 0) {
-    roles.push(null);
-  }
-  logger.info(roles);
-  var refs = [null,'admin'];
-  roles.forEach(function(role){
-    logger.debug("role: ", role);
-    refs.forEach(function(ref){
-      if(ref==role) {
-        valid = true;
-        return;
-      }
-    });
-    if(!valid) {
-      return false;
-    }
-  });
-  return roles.length > 0;
-}, 'roles not valid');
-
 
 // user model methods
 function createDefaults() {
