@@ -51,7 +51,7 @@ exports.listByRef = (req, res) => {
   }
   Product.find(query, (err, products) => {
     if(err || !products) {
-      res.send({success: false, message: "Error retrieving products by folder"});
+      res.send({success: false, message: `Error retrieving products by ${req.params.refKey}: ${req.params.refId}` });
     } else {
       res.send({success: true, products})
     }
