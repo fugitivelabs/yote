@@ -448,10 +448,8 @@ function user(state = {
       } else {
         return Object.assign({}, state, {
           selected: {
-            id: action.id
-            , isFetching: false
+            isFetching: false
             , error: action.error
-            , didInvalidate: true
             , lastUpdated: action.receivedAt
           }
         })
@@ -484,10 +482,8 @@ function user(state = {
       } else {
         return Object.assign({}, state, {
           selected: {
-            id: action.id
-            , isFetching: false
+            isFetching: false
             , error: action.error
-            , didInvalidate: true
             , lastUpdated: action.receivedAt
           }
         })
@@ -520,10 +516,8 @@ function user(state = {
       } else {
         return Object.assign({}, state, {
           selected: {
-            id: action.id
-            , isFetching: false
+            isFetching: false
             , error: action.error
-            , didInvalidate: true
             , lastUpdated: action.receivedAt
           }
         })

@@ -30,7 +30,7 @@ const shouldFetchSingle = (state, id) => {
 }
 
 export const INVALIDATE_SELECTED_PRODUCT = "INVALIDATE_SELECTED_PRODUCT"
-export function invaldiateSelected() {
+export function invalidateSelected() {
   return {
     type: INVALIDATE_SELECTED_PRODUCT
   }
