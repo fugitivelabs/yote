@@ -49,11 +49,11 @@ exports.listByRef = (req, res) => {
   let query = {
     ["_" + req.params.refKey]: req.params.refId
   }
-  UserEvent.find(query, (err, userEvents) => {
-    if(err || !userEvents) {
-      res.send({success: false, message: "Error retrieving userEvents by folder"});
+  UserEvent.find(query, (err, products) => {
+    if(err || !products) {
+      res.send({success: false, message: "Error retrieving products by folder"});
     } else {
-      res.send({success: true, userEvents})
+      res.send({success: true, products})
     }
   })
 }
