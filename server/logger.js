@@ -18,7 +18,7 @@ if(env == 'production') {
   //if prod, log to file and console
   var logger = new winston.Logger({
     // // these logs get massive on the database end and frankly we never use them.
-    // transports: [
+    transports: [
     //   new winston.transports.MongoDB({
     //     level: 'info'
     //     , db: config.db
@@ -38,7 +38,7 @@ if(env == 'production') {
       //   , colorize: false
       // })
 
-      , new winston.transports.Console({
+      new winston.transports.Console({
         level: 'debug'
         , handleExceptions: true
         , json: false
