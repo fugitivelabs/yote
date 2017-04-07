@@ -1,22 +1,23 @@
 module.exports = {
-  actionText: '#2555e9',
-  danger: '#e74c3c',
-  inactiveText: '#9B9B9B',
-  darkText: '#1b2330',
-  lightText: '#7b7d7e',
-  lighterText: '#bdbebe',
-  cardBorder: '#cacddf',
-  darkBackground: '#021120',
-  lightBackground: '#f0f0f4',
-  buttonPrimaryBG: '#000000',
-  disabledButton: '#9fc9b9',
-  primaryHeaderText: '#000000',
-  primaryHeader: '#ffffff',
-  modalHeader: '#FFFFFF',
-  listSeparator: '#f0f0f4',
-  subHeader: '#093b41',
-  checkboxEmpty: '#6a858c',
-  checkboxFilled: '#08bdec',
-  underlayColor: '#6a858c',
+  actionText: '#2555e9'
+  , buttonPrimaryBG: '#000000'
+  , cardBorder: '#cacddf'
+  , checkboxEmpty: '#6a858c'
+  , checkboxFilled: '#08bdec'
+  , danger: '#e74c3c'
+  , darkBackground: '#021120'
+  , darkText: '#1b2330'
+  , disabledButton: '#9fc9b9'
+  , inactiveText: '#9B9B9B'
+  , lightText: '#7b7d7e'
+  , lighterText: '#bdbebe'
+  , lightBackground: '#f0f0f4'
+  , listSeparator: '#f0f0f4'
+  , modalHeader: '#FFFFFF'
+  , primaryHeaderText: '#000000'
+  , primaryHeader: '#ffffff'
+  , subHeader: '#093b41'
+  , underlayColor: '#eaeced'
+  , yoteRed: '#E02B3A'
 
 }

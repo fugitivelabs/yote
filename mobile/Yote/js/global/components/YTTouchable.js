@@ -1,10 +1,12 @@
 import React, { PropTypes } from 'react';
-import Base from './BaseComponent';
 import TouchableHighlight from 'TouchableHighlight';
 import TouchableOpacity from 'TouchableOpacity';
 import Platform from 'Platform';
 
+// import global components
+import Base from './BaseComponent';
 
+// import styles
 import YTColors from '../styles/YTColors';
 
 class YTTouchableIOS extends Base {

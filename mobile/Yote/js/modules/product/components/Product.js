@@ -1,31 +1,38 @@
+/**
+* Product component called from TabsView
+* sends productList as props to ProductTitleList component for the ListView datasource
+*/
+
 // import react/redux dependencies
 import React, { PropTypes } from 'react';
-import Base from '../../../global/components/BaseComponent';
 import { connect } from 'react-redux';
+
 // import react-native components & apis
-import View from 'View';
-import Text from 'Text';
 import StyleSheet from 'StyleSheet';
-import TouchableOpacity from 'TouchableOpacity';
 import ScrollView from 'ScrollView';
+import Text from 'Text';
 import TextInput from 'TextInput';
+import TouchableOpacity from 'TouchableOpacity';
+import View from 'View';
 
-// import custom components
-import YTHeader from '../../../global/components/YTHeader';
-import YTButton from '../../../global/components/YTButton';
+// import global components
 import ActionButton from '../../../global/components/ActionButton';
-import YTCard from '../../../global/components/YTCard';
-import ScrollContainer from '../../../global/components/ScrollContainer';
-import YTColors from '../../../global/styles/YTColors';
+import Base from '../../../global/components/BaseComponent';
 import EmptyMessage from '../../../global/components/EmptyMessage';
+import ScrollContainer from '../../../global/components/ScrollContainer';
+import YTButton from '../../../global/components/YTButton';
+import YTCard from '../../../global/components/YTCard';
+import YTColors from '../../../global/styles/YTColors';
+import YTHeader from '../../../global/components/YTHeader';
 
+// import module components
+import ProductList from './ProductList';
 
-
+// import actions
 import * as productActions from '../productActions'
 
 // import styles
 import productStyles from '../productStyles';
-
 
 class Product extends Base {
   constructor(props) {
@@ -90,32 +97,14 @@ class Product extends Base {
           rightItem={rightItem}
         >
         </YTHeader>
+        
         <View style={{flex: 1}}>
-        <ScrollView style={{backgroundColor: '#fff', marginBottom: 50}}>
-        {productList ?
-          <View>
-            {productList.map((productId, i) =>
-              <View key={i} style={{flex: 1, flexDirection: 'row', borderWidth: 1, borderColor: 'black', margin: 5}}>
-                <View style={{flex: 1}}>
-                  <Text style={productStyles.content}>{products.byId[productId].title} </Text>
-                  <Text style={productStyles.caption}>{products.byId[productId].description} </Text>
-                </View>
-                <View style={{paddingHorizontal: 10, justifyContent: 'center'}}>
-                  <YTButton
-                    type="secondary"
-                    caption="Delete"
-                    captionStyle={{color: YTColors.danger}}
-                    onPress={() => this._sendDelete(productId)}
-                  />
-                </View>
-              </View>
-            )}
-          </View>
-        : null
-        }
-
-        </ScrollView>
+          <ProductList 
+            products={productList}
+            navigator={navigator}
+          />
         </View>
+        
       </View>
     )
   }

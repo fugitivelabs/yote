@@ -1,32 +1,35 @@
+/**
+* Allows the current user to update basic information
+* first name, last name, etc (not username)
+*/
+
 // import react things
 import React, { PropTypes } from 'react';
 import ReactNative from 'react-native';
-import Base from '../../../global/components/BaseComponent';
 import { connect } from 'react-redux';
 
-
 // import react-native components
-import ListView from 'ListView';
-import Dimensions from 'Dimensions';
-import Platform from 'Platform';
-import StyleSheet from 'StyleSheet';
-import View from 'View';
-import Text from 'Text';
-import Image from 'Image';
-import ScrollView from 'ScrollView';
-import TouchableOpacity from 'TouchableOpacity';
-import TextInput from 'TextInput';
 import Alert from 'Alert';
+import Dimensions from 'Dimensions';
+import Image from 'Image';
+import ListView from 'ListView';
 import Picker from 'Picker';
+import Platform from 'Platform';
+import ScrollView from 'ScrollView';
+import StyleSheet from 'StyleSheet';
+import Text from 'Text';
+import TextInput from 'TextInput';
+import TouchableOpacity from 'TouchableOpacity';
+import View from 'View';
 
-
-// import custom components
-import YTTouchable from '../../../global/components/YTTouchable';
-import YTButton from '../../../global/components/YTButton';
+// import global components
+import Base from '../../../global/components/BaseComponent';
 import FinishButton from '../../../global/components/FinishButton';
-import YTHeader from '../../../global/components/YTHeader';
 import ScrollContainer from '../../../global/components/ScrollContainer';
+import YTButton from '../../../global/components/YTButton';
 import YTCard from '../../../global/components/YTCard';
+import YTHeader from '../../../global/components/YTHeader';
+import YTTouchable from '../../../global/components/YTTouchable';
 
 // import libraries
 import moment from 'moment';
@@ -268,7 +271,7 @@ class UpdateProfile extends Base {
     const { user, isFetching } = this.props;
     const { newUserData, showPicker } = this.state;
 
-    const profileImg = user.info && user.info.profilePicUrl ? {uri: user.info.profilePicUrl} : require('../../../global/img/green_army_men.jpg');
+    const profileImg = user.info && user.info.profilePicUrl ? {uri: user.info.profilePicUrl} : require('../../../global/img/wile.png');
 
 
     const leftItem = {
