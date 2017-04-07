@@ -50,7 +50,7 @@ const shouldFetchSingle = (state, id) => {
 }
 
 export const INVALIDATE_SELECTED_PRODUCT = "INVALIDATE_SELECTED_PRODUCT"
-export function invaldiateSelected() {
+export function invalidateSelected() {
   return {
     type: INVALIDATE_SELECTED_PRODUCT
   }
@@ -369,7 +369,7 @@ export function setPagination(pagination, ...listArgs) {
 }
 
 export const INVALIDATE_PRODUCT_LIST = "INVALIDATE_PRODUCT_LIST"
-export function invaldiateList(...listArgs) {
+export function invalidateList(...listArgs) {
   if(listArgs.length === 0) {
     listArgs = ["all"];
   }

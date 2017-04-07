@@ -41,7 +41,7 @@ class AdminCreateUser extends Base {
     e.preventDefault();
     this.props.dispatch(userActions.sendCreateUser(this.state.user)).then((action) => {
       if(action.success) {
-        this.props.dispatch(userActions.invaldiateList());
+        this.props.dispatch(userActions.invalidateList());
         browserHistory.push('/admin/users');
       } else {
         // console.log("Response Error:");

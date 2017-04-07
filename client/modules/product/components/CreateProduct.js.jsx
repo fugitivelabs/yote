@@ -47,7 +47,7 @@ class CreateProduct extends Base {
     e.preventDefault();
     this.props.dispatch(productActions.sendCreateProduct(this.state.product)).then((action) => {
       if(action.success) {
-        this.props.dispatch(productActions.invaldiateList());
+        this.props.dispatch(productActions.invalidateList());
         browserHistory.push(`/products/${action.item._id}`)
       } else {
         // console.log("Response Error:");
