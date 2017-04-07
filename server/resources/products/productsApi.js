@@ -15,11 +15,12 @@ module.exports = function(router, requireLogin, requireRole) {
 
   // - Read
   router.get('/api/products'                , products.list);
+  router.get('/api/products/by-:refKey/:refId'   , products.listByRef);
   router.get('/api/products/search'         , products.search);
   router.get('/api/products/:id'            , products.getById);
 
   // - Update
-  router.put('/api/products/:id'            , requireLogin(), products.update); // must login by default 
+  router.put('/api/products/:id'            , requireLogin(), products.update); // must login by default
 
   // - Delete
   router.delete('/api/products/:id'         , requireRole('admin'), products.delete); // must be an 'admin' by default

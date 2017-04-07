@@ -42,6 +42,22 @@ exports.list = (req, res) => {
   }
 }
 
+exports.listByRef = (req, res) => {
+  /**
+   * NOTE: This let's us querey ANY pointer by passing in a refKey and refId
+   */
+  let query = {
+    ["_" + req.params.refKey]: req.params.refId
+  }
+  UserEvent.find(query, (err, userEvents) => {
+    if(err || !userEvents) {
+      res.send({success: false, message: "Error retrieving userEvents by folder"});
+    } else {
+      res.send({success: true, userEvents})
+    }
+  })
+}
+
 exports.search = (req, res) => {
   // search by query parameters
   // NOTE: It's up to the front end to make sure the params match the model
