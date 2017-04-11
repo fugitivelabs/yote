@@ -11,7 +11,6 @@ import ListView from 'ListView';
 import Platform from 'Platform';
 import StyleSheet from 'StyleSheet';
 import Text from 'Text';
-import TouchableHighlight from 'TouchableHighlight';
 import TouchableOpacity from 'TouchableOpacity';
 import View from 'View';
 

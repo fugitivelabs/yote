@@ -3,6 +3,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 // import react-native components & apis
+import Image from 'Image'; 
 import View from 'View';
 import Text from 'Text';
 import StyleSheet from 'StyleSheet';
@@ -130,7 +131,7 @@ class Home extends Base {
       title: 'New',
       onPress: () => this._openNew(),
     };
-    const profileImg = user.info && user.info.profilePicUrl ? {uri: user.info.profilePicUrl} : require('../../../global/img/wile.png');
+    const profileImg = user.info && user.info.profilePicUrl ? {uri: user.info.profilePicUrl} : require('../../../global/img/yote_logo.png');
     const leftItem = {
 
       onPress: () => this._openProfile(),
@@ -145,12 +146,20 @@ class Home extends Base {
           leftItem={leftItem}
         >
         </YTHeader>
-        <ScrollView style={{backgroundColor: '#fff'}}>
-          <View style={{flex: 1, backgroundColor: '#fff', justifyContent: 'center'}}>
-            <Text style={{fontSize: 20, textAlign: 'center'}}> Home page! </Text> 
+        <ScrollView style={{backgroundColor: '#333'}}>
+          <View style={{flex: 1, flexDirection: 'row', backgroundColor: 'transparent', justifyContent: 'center'}}>
+            <Image 
+              source={require('../../../global/img/howler.png')}
+              style={{height: 170, width: 200}}
+              resizeMode={'contain'}
+            />
           </View>
-          <View style={{flex: 1, backgroundColor: '#fff', justifyContent: 'center', padding: 20}}>
-            <Text style={{fontSize: 15, textAlign: 'center'}}> This is Yote. You can use it to make cool stuff </Text> 
+          <View style={{flex: 1, justifyContent: 'center'}}>
+            <Text style={{fontSize: 20, textAlign: 'center', color: '#00BC8B'}}> Home page! </Text> 
+            
+          </View>
+          <View style={{flex: 1, backgroundColor: 'transparent', justifyContent: 'center', padding: 20}}>
+            <Text style={{fontSize: 15, textAlign: 'center', color: '#fff'}}> You can use it to make cool stuff </Text> 
           </View>
         </ScrollView>
       </View>
