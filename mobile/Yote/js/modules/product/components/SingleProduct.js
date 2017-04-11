@@ -90,19 +90,6 @@ class SingleProduct extends Base {
             <Text style={productStyles.description}>Id: {product._id}</Text>
           </View>
         </View>
-        <View style={{padding: 10}}>
-          <YTButton
-            onPress={null}
-            caption={"Yote Button!"}
-          />
-        </View>
-        <View style={{padding: 10}}>
-          <ActionButton
-            onPress={null}
-            caption={"Action Button!"}
-            style={{backgroundColor: '#31ce7c'}}
-          />
-        </View>
       </View>
     )
   }

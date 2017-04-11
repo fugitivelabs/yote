@@ -210,7 +210,7 @@ class Profile extends Base {
     const rightItem = null;
 
     const rightArrow = require("../../../global/img/forward.png");
-    const profileImg = user.info && user.info.profilePicUrl ? {uri: user.info.profilePicUrl} : require('../../../global/img/wile.png');
+    const profileImg = user.info && user.info.profilePicUrl ? {uri: user.info.profilePicUrl} : require('../../../global/img/skull-icon.png');
 
     
 

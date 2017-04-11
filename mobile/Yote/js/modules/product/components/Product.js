@@ -75,7 +75,7 @@ class Product extends Base {
     }
     let productList = products.lists.all ? products.lists.all.items : null;
 
-    const profileImg = user.info && user.info.profilePicUrl ? {uri: user.info.profilePicUrl} : require('../../../global/img/wile.png');
+    const profileImg = user.info && user.info.profilePicUrl ? {uri: user.info.profilePicUrl} : require('../../../global/img/skull-icon.png');
 
     const rightItem = {
       onPress: () => this._openNew()

@@ -17,6 +17,7 @@ import YTButton from '../YTButton';
 import YTCard from '../YTCard';
 import YTColors from '../../styles/YTColors'; 
 import YTHeader from '../YTHeader';
+import Hero from './Hero.js'; 
 
 var styles = StyleSheet.create({
   _bannerWrapper: {
@@ -131,7 +132,7 @@ class Home extends Base {
       title: 'New',
       onPress: () => this._openNew(),
     };
-    const profileImg = user.info && user.info.profilePicUrl ? {uri: user.info.profilePicUrl} : require('../../../global/img/yote_logo.png');
+    const profileImg = user.info && user.info.profilePicUrl ? {uri: user.info.profilePicUrl} : require('../../../global/img/skull-icon.png');
     const leftItem = {
 
       onPress: () => this._openProfile(),
@@ -146,22 +147,29 @@ class Home extends Base {
           leftItem={leftItem}
         >
         </YTHeader>
-        <ScrollView style={{backgroundColor: '#333'}}>
-          <View style={{flex: 1, flexDirection: 'row', backgroundColor: 'transparent', justifyContent: 'center'}}>
-            <Image 
-              source={require('../../../global/img/howler.png')}
-              style={{height: 170, width: 200}}
-              resizeMode={'contain'}
-            />
+        <View style={{flex: 1, backgroundColor: '#333'}} >
+          <View style={{flex: 1, justifyContent: 'center', paddingTop: 20}}>
+            <View style={{flex: 1, flexDirection: 'row', backgroundColor: 'transparent', justifyContent: 'center'}}>
+              <Image 
+                source={require('../../../global/img/howler.png')}
+                style={{height: 170, width: 200}}
+                resizeMode={'contain'}
+              />
+            </View>
           </View>
           <View style={{flex: 1, justifyContent: 'center'}}>
-            <Text style={{fontSize: 20, textAlign: 'center', color: '#00BC8B'}}> Home page! </Text> 
-            
+            <Hero/>
           </View>
-          <View style={{flex: 1, backgroundColor: 'transparent', justifyContent: 'center', padding: 20}}>
-            <Text style={{fontSize: 15, textAlign: 'center', color: '#fff'}}> You can use it to make cool stuff </Text> 
+          <View style={{backgroundColor: YTColors.lightBackground, flex: 1, justifyContent: 'center'}}>
+            <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+              <Text style={{fontSize: 15, color: YTColors.darkText, textAlign: 'center'}}> Check out the docs on </Text>
+              <TouchableOpacity
+                onPress={null}>
+                <Text style={{fontSize: 15, textAlign: 'center', color: YTColors.actionText}}>Github </Text>
+              </TouchableOpacity>
+            </View>
           </View>
-        </ScrollView>
+        </View>
       </View>
     )
   }

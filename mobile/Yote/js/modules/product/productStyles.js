@@ -14,7 +14,7 @@ let productStyles = StyleSheet.create({
     , textAlign: 'center'
     , color: "#fff"
     , padding: 4
-    , backgroundColor: YTColors.yoteRed
+    , backgroundColor: YTColors.yoteDarkBlue
   }
   , cell: {
       padding: 5
@@ -79,13 +79,13 @@ let productStyles = StyleSheet.create({
       , textAlign: 'center'
       , color: "#fff"
       , padding: 4
-      , color: YTColors.actionText
+      , color: YTColors.yoteGreen
     }
   , headerLeft: {
       fontSize: 25
       , color: '#fff'
       , padding: 4
-      , color: YTColors.actionText
+      , color: YTColors.yoteDarkBlue
     }
   , infoBox: {
       backgroundColor: 'white'

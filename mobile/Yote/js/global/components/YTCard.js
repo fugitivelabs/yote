@@ -26,7 +26,7 @@ var styles = StyleSheet.create({
       , textAlign: 'center'
       , color: "#fff"
       , padding: 4
-      , backgroundColor: "#E02B3A"
+      , backgroundColor: YTColors.yoteGreen
     }
 });
 

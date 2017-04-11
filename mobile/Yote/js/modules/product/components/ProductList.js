@@ -82,10 +82,7 @@ class ProductList extends Base {
   }
 
   _renderHeader() {
-    return (
-      <View>
-        <Text style={productStyles.header}> ListView Header! </Text>
-      </View>)
+    
   }
 
   _renderFooter() {
