@@ -219,14 +219,14 @@ const shouldFetchSingle = (state, id) => {
     // the "selected" id changed, so we _should_ fetch
     // console.log("shouldFetch - true: id changed");
     return true;
-  } else if(!byId[id]) {
-    // the id is not in the map, fetch from server
-    // console.log("shouldFetch - true: not in map");
-    return true;
   } else if(selected.isFetching) {
     // "selected" is already fetching, don't do anything
     // console.log("shouldFetch - false: isFetching");
     return false;
+  } else if(!byId[id] && !selected.error) {
+    // the id is not in the map, fetch from server
+    // console.log("shouldFetch - true: not in map");
+    return true;
   } else if(new Date().getTime() - selected.lastUpdated > (1000 * 60 * 5)) {
     // it's been longer than 5 minutes since the last fetch, get a new one
     // console.log("shouldFetch - true: older than 5 minutes");
@@ -239,7 +239,7 @@ const shouldFetchSingle = (state, id) => {
 }
 
 export const INVALIDATE_SELECTED_USER = "INVALIDATE_SELECTED_USER"
-export function invaldiateSelected() {
+export function invalidateSelected() {
   return {
     type: INVALIDATE_SELECTED_USER
   }
@@ -284,7 +284,7 @@ export const RECEIVE_SINGLE_USER = "RECEIVE_SINGLE_USER";
 function receiveSingleUser(json) {
   return {
     type: RECEIVE_SINGLE_USER
-    , id: json.user._id || null // to avoid error if empty json
+    , id: json.user ? json.user._id : null
     , item: json.user
     , success: json.success
     , error: json.message
@@ -425,10 +425,6 @@ const shouldFetchList = (state, listArgs) => {
     // yes, the list we're looking for wasn't found
     // console.log("shouldFetchList - true: list not found");
     return true;
-  } else if(list.items.length < 1) {
-    // yes, the list we're looking for is empty
-    // console.log("shouldFetchList - true: length 0");
-    return true
   } else if(list.isFetching) {
     // no, this list is already fetching
     // console.log("shouldFetchList - false: fetching");
@@ -538,6 +534,19 @@ export function fetchList(...listArgs) {
 /**
  * LIST UTIL METHODS
  */
+
+export const SET_USER_QUERY = "SET_USER_QUERY"
+export function setQuery(query, ...listArgs) {
+  if(listArgs.length === 0) {
+    listArgs = ["all"];
+  }
+  return {
+    type: SET_USER_QUERY
+    , query
+    , listArgs
+  }
+}
+
 export const SET_USER_FILTER = "SET_USER_FILTER"
 export function setFilter(filter, ...listArgs) {
   if(listArgs.length === 0) {
@@ -563,7 +572,7 @@ export function setPagination(pagination, ...listArgs) {
 }
 
 export const INVALIDATE_USER_LIST = "INVALIDATE_USER_LIST"
-export function invaldiateList(...listArgs) {
+export function invalidateList(...listArgs) {
   if(listArgs.length === 0) {
     listArgs = ["all"];
   }

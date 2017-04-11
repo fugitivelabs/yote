@@ -132,14 +132,14 @@ passport.use('local', new LocalStrategy(
 ));
 
 passport.serializeUser(function(user, done) {
-  logger.warn("SERIALIZE USER");
+  // logger.warn("SERIALIZE USER");
   if(user) {
     done(null, user._id);
   }
 });
 
 passport.deserializeUser(function(id, done) {
-  logger.warn("DESERIALIZE USER");
+  // logger.warn("DESERIALIZE USER");
   // NOTE: we want mobile user to have access to their api token, but we don't want it to be select: true
   User.findOne({_id:id}).exec(function(err, user) {
     if(user) {
@@ -157,7 +157,7 @@ if (app.get('env') == 'development') {
 } else if(app.get('env') == 'production') {
   logger.debug("PRODUCTION");
   // log express http requests in production.
-  app.use(require('morgan')({"stream":logger.stream}));
+  // app.use(require('morgan')({"stream":logger.stream}));
 }
 
 // configure server routes
@@ -182,9 +182,9 @@ if(app.get('env') == 'production' && config.useHttps) {
   logger.info("starting production server WITH ssl");
 
   require('https').createServer({
-      key: fs.readFileSync('../projectName/ssl/yourSsl.key') // so it works on server and local
-      , cert: fs.readFileSync('../projectName/ssl/yourCertFile.crt')
-      , ca: [fs.readFileSync('../projectName/ssl/yourCaFile.crt')] // NOTE: GoDaddy splits certs into two
+      key: fs.readFileSync('../server/ssl/yourSsl.key') // so it works on server and local
+      , cert: fs.readFileSync('../server/ssl/yourCertFile.crt')
+      , ca: [fs.readFileSync('../server/ssl/yourCaFile.crt')] // NOTE: GoDaddy splits certs into two
 
   // }, app).listen(9191); // NOTE: uncomment to test HTTPS locally
   }, app).listen(443);

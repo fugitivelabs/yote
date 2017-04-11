@@ -242,7 +242,7 @@ const shouldFetchSingle = (state, id) => {
 }
 
 export const INVALIDATE_SELECTED_USER = "INVALIDATE_SELECTED_USER"
-export function invaldiateSelected() {
+export function invalidateSelected() {
   return {
     type: INVALIDATE_SELECTED_USER
   }
@@ -566,7 +566,7 @@ export function setPagination(pagination, ...listArgs) {
 }
 
 export const INVALIDATE_USER_LIST = "INVALIDATE_USER_LIST"
-export function invaldiateList(...listArgs) {
+export function invalidateList(...listArgs) {
   if(listArgs.length === 0) {
     listArgs = ["all"];
   }

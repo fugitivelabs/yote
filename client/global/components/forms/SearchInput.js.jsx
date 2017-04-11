@@ -19,7 +19,7 @@ class SearchInput extends Base {
   }
 
   render() {
-    const { name, placeholder, value, } = this.props;
+    const { name, placeholder, value } = this.props;
     return (
       <div className="search-input">
         <div className="input-add-on">
@@ -28,7 +28,7 @@ class SearchInput extends Base {
             type="search"
             name={name}
             placeholder={placeholder}
-            value={this.state.theVal}
+            value={value}
             onChange={this._handleInputChange}
           />
         </div>
