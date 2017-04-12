@@ -28,7 +28,7 @@ build/
 .idea
 .gradle
 local.properties
-gradle.properties
+android/gradle.properties
 *.iml
 
 # node.js
