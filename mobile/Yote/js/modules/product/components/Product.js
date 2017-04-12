@@ -14,6 +14,7 @@ import Text from 'Text';
 import TextInput from 'TextInput';
 import TouchableOpacity from 'TouchableOpacity';
 import View from 'View';
+import Platform from 'Platform'; 
 
 // import global components
 import ActionButton from '../../../global/components/ActionButton';
@@ -41,6 +42,7 @@ class Product extends Base {
      '_openProfile'
      , '_openNew'
      , '_sendDelete'
+     , '_handleOpenDrawer'
     );
   }
 
@@ -62,17 +64,14 @@ class Product extends Base {
     })
   }
 
+  _handleOpenDrawer() {
+    this.context.openDrawer();  
+  }
+
   render() {
 
     const {  products, navigator, user } = this.props;
 
-    if(!products.lists.all || products.lists.all.isFetching) {
-      return (
-        <EmptyMessage
-          message="Loading Products..."
-        />
-      )
-    }
     let productList = products.lists.all ? products.lists.all.items : null;
 
     const profileImg = user.info && user.info.profilePicUrl ? {uri: user.info.profilePicUrl} : require('../../../global/img/skull-icon.png');
@@ -83,20 +82,40 @@ class Product extends Base {
       , layout: 'image'
     }
 
-    const leftItem = {
+    const profileItem = {
       onPress: () => this._openProfile(),
       image: profileImg,
       layout: "image",
     };
 
+    const androidDrawerItem = {
+      onPress: this._handleOpenDrawer,
+      icon: require('../../../global/components/img/bulletList.png'),
+      layout: "icon",
+    }
+
+    if(!products.lists.all || products.lists.all.isFetching) {
+      return (
+        <View style={{flex: 1}}>
+          <YTHeader
+            title="Products"
+            leftItem={Platform.OS === 'ios' ? profileItem : androidDrawerItem}
+            rightItem={rightItem}
+          />
+          <EmptyMessage
+            message="Loading Products..."
+          />
+        </View>
+      )
+    }
+
     return (
       <View style={{flex: 1}}>
         <YTHeader
-          title="Yote"
-          leftItem={leftItem}
+          title="Products"
+          leftItem={Platform.OS === 'ios' ? profileItem : androidDrawerItem}
           rightItem={rightItem}
-        >
-        </YTHeader>
+        />
         
         <View style={{flex: 1}}>
           <ProductList 
@@ -112,6 +131,10 @@ class Product extends Base {
 
 Product.propTypes = {
   dispatch: PropTypes.func
+}
+
+Product.contextTypes = {
+  openDrawer: React.PropTypes.func
 }
 
 const mapStoreToProps = (store) => {

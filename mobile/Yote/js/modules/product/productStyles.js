@@ -69,7 +69,6 @@ let productStyles = StyleSheet.create({
   , emptyMessage: {
       fontSize: 12
       , textAlign: 'left'
-      , color: "#fff"
       , padding: 10
       , fontStyle: "italic"
       , color: YTColors.lightText
@@ -87,6 +86,12 @@ let productStyles = StyleSheet.create({
       , padding: 4
       , color: YTColors.yoteDarkBlue
     }
+  , info: {
+    fontSize: 15
+    , textAlign: 'left'
+    , padding: 10
+    , color: YTColors.lightText
+  }
   , infoBox: {
       backgroundColor: 'white'
       , padding: 8

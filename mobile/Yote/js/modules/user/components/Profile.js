@@ -225,9 +225,7 @@ class Profile extends Base {
         />
         <ScrollView  >
           
-          <YTCard
-            header="Profile"
-          >
+          <View style={{padding: 8}}>
             <View style={styles.editImage}>
               <Image
                 style={{width: 200, height: 200}}
@@ -245,8 +243,7 @@ class Profile extends Base {
                 icon={require('../../../global/img/edit.png')}
               />
             </View>
-          </YTCard>
-          
+          </View>
           
           <YTButton
             type="secondary"

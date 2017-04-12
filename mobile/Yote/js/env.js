@@ -11,7 +11,7 @@ let simulator = {
 }
 
 let productionEnv = {
-  url: "http://yote.f-labs.co/"
+  url: "http://yote.f-labs.co"
 }
 
 let erikLocal = {

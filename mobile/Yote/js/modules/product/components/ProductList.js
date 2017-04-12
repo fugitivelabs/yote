@@ -106,10 +106,10 @@ class ProductList extends Base {
   }
 
   _handleRefresh() {
-    this.setState({refreshing: true});
+    // this.setState({refreshing: true});
     this.props.dispatch(productActions.fetchList()).then(() => {
       // console.log("REFRESHED", this.state.refreshing);
-      this.setState({refreshing: false});
+      // this.setState({refreshing: false});
 
     });
   }
@@ -150,6 +150,7 @@ class ProductList extends Base {
          scrollRenderAheadDistance={600}
          refreshControl={ refreshControl }
          removeClippedSubviews={false}
+         automaticallyAdjustContentInsets={false}
        />
 
      </View>

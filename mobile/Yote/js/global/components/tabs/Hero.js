@@ -70,9 +70,9 @@ class Hero extends Base {
     return (
       <View style={{flex: 1}}>
         
-          <Text style={{fontSize: 20, textAlign: 'center', color: '#fff', padding: 10, fontWeight: '500'}}> This is Yote </Text> 
+          <Text style={{fontSize: 20, textAlign: 'center', color: YTColors.lightBackground, padding: 10, fontWeight: '500'}}>This is Yote </Text> 
           <TheCoolThing />
-          <Text style={{fontSize: 15, textAlign: 'center', color: '#fff', padding: 10}}> You can use it to make cool stuff </Text>
+          <Text style={{fontSize: 15, textAlign: 'center', color: YTColors.lightBackground, padding: 10}}>You can use it to make cool stuff </Text>
         
       </View>
     )

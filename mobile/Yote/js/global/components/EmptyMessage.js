@@ -24,7 +24,7 @@ var styles = StyleSheet.create({
     flex: 1
     // , paddingBottom: 50
     // , backgroundColor: '#572d66'
-    , backgroundColor: '#fff'
+    , backgroundColor: YTColors.lightBackground
   },
   emptyMessage: {
     fontSize: 16,

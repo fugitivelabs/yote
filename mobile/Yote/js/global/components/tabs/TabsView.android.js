@@ -14,6 +14,7 @@ import StyleSheet from 'StyleSheet';
 import View from 'View';
 import Text from 'Text';
 import TouchableOpacity from 'TouchableOpacity';
+import Platform from 'Platform'; 
 
 // import global components
 import ActionButton from '../../../global/components/ActionButton';
@@ -22,7 +23,6 @@ import Home from './Home';
 import YTDrawerLayout from './YTDrawerLayout.js';
 
 // import module components
-import Feed from '../../../modules/post/components/Feed';
 import Product from '../../../modules/product/components/Product'; 
 import Profile from '../../../modules/user/components/Profile';
  
@@ -32,6 +32,9 @@ import Profile from '../../../modules/user/components/Profile';
 // import styles
 import YTColors from '../../styles/YTColors';
 
+const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? 20 : 25;
+const HEADER_HEIGHT = Platform.OS === 'ios' ? 44 + STATUS_BAR_HEIGHT : 56 + STATUS_BAR_HEIGHT;
+
 let styles = StyleSheet.create({
   content: {
     flex: 1,
@@ -39,6 +42,7 @@ let styles = StyleSheet.create({
   , drawer: {
       flex: 1
       , backgroundColor: 'white'
+      , paddingTop: 20
     }
   , header: {
       padding: 20
@@ -131,14 +135,12 @@ class TabsView extends Base {
         <ActionButton
           caption="home"
           onPress={this._goToHome}
+          style={{backgroundColor: YTColors.yoteGreen}}
         />
         <ActionButton
           caption="products"
           onPress={this._goToMyProducts}
-        />
-        <ActionButton
-          caption="feed"
-          onPress={this._goToFeed}
+          style={{backgroundColor: YTColors.yoteGreen}}
         />
       </View>
     )

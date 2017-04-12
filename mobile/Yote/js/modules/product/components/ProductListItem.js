@@ -37,7 +37,7 @@ class ProductListItem extends Base {
               <Text style={productStyles.cardHeader}>{product.title} </Text>
               <View style={productStyles.cellRow}>
                 <View style={productStyles.cellColumn}>
-                  <Text style={productStyles.emptyMessage}>{product.description} </Text>
+                  <Text style={productStyles.info}>{product.description} </Text>
                   <Text style={productStyles.emptyMessage}>Created: {moment(product.created).format("MMMM Do YYYY, h:mm a")}</Text>
                 </View>
                 <View style={productStyles.cellForwardImg}>
