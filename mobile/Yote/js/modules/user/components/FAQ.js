@@ -3,16 +3,16 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 // import react-native components
-import ListView from 'ListView';
 import Dimensions from 'Dimensions';
+import Image from 'Image';
+import ListView from 'ListView';
 import Platform from 'Platform';
+import ScrollView from 'ScrollView';
 import StyleSheet from 'StyleSheet';
+import TouchableOpacity from 'TouchableOpacity';
+import Text from 'Text';
 import View from 'View';
 import WebView from 'WebView';
-import Text from 'Text';
-import Image from 'Image';
-import ScrollView from 'ScrollView';
-import TouchableOpacity from 'TouchableOpacity';
 
 // import global components
 import Base from '../../../global/components/BaseComponent';
@@ -28,26 +28,21 @@ import moment from 'moment';
 // import styles
 import YTColors from '../../../global/styles/YTColors';
 
-
 var styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: YTColors.lightBackground
-    // padding: 5
-  },
-
-  instructions: {
-    textAlign: 'center',
-    color: '#222',
-    marginBottom: 5,
-  },
-
-  btnWrapper: {
-    borderTopWidth: 1,
-    borderColor: YTColors.listSeparator,
+    flex: 1
+    , backgroundColor: YTColors.lightBackground
   }
+  , instructions: {
+      textAlign: 'center'
+      , color: '#222'
+      , marginBottom: 5
+    }
+  , btnWrapper: {
+      borderTopWidth: 1
+      , borderColor: YTColors.listSeparator
+    }
 });
-
 
 class FAQ extends Base {
   constructor(props){
@@ -71,11 +66,11 @@ class FAQ extends Base {
     const headerStyle = {
       background: {
         backgroundColor: 'transparent'
-      },
-      title: {
-        color: YTColors.darkText
-      },
-      itemsColor: YTColors.darkText
+      }
+      , title: {
+          color: YTColors.darkText
+        }
+      , itemsColor: YTColors.darkText
     }
     const leftItem = {
       title: 'Close',
@@ -83,7 +78,6 @@ class FAQ extends Base {
     };
 
     return(
-
       <View style={[styles.container ]} >
         <YTHeader
           navigator={navigator}
@@ -95,7 +89,7 @@ class FAQ extends Base {
           ref="webview"
           automaticallyAdjustContentInsets={false}
           style={styles.webView}
-          source={{uri: "http://www.propatient.com/FAQs/"}}
+          source={{uri: "http://yote.f-labs.co"}}
           javaScriptEnabled={true}
           domStorageEnabled={true}
           decelerationRate="normal"
@@ -104,18 +98,10 @@ class FAQ extends Base {
           startInLoadingState={true}
           scalesPageToFit={true}
         />
-
-
       </View>
     )
-
-
-
   }
-
 }
-
-
 
 const mapStoreToProps = (store) => {
   return {

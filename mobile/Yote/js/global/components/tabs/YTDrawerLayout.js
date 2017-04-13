@@ -12,7 +12,6 @@ import DrawerLayoutAndroid from 'DrawerLayoutAndroid';
 // import global components
 import Base from '../../../global/components/BaseComponent';
 
-
 class YTDrawerLayout extends Base {
   _drawer: ?DrawerLayoutAndroid;
   constructor(props, context) {
@@ -51,7 +50,6 @@ class YTDrawerLayout extends Base {
   }
 
   openDrawer() {
-    // console.log("OPEN SEASAMEEEEE");
     this._drawer && this._drawer.openDrawer();
   }
 
@@ -68,8 +66,6 @@ class YTDrawerLayout extends Base {
       />
     );
   }
-
-
 }
 
 YTDrawerLayout.contextTypes = {

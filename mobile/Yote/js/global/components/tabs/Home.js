@@ -207,22 +207,16 @@ Home.contextTypes = {
 
 const mapStoreToProps = (store) => {
   
-
-
   /****
   APPLY  sortBy
   ****/
-
-
 
   /****
   APPLY ANY FILTERS
   ****/
 
-
   return {
     user: store.user
-    
   }
 }
 

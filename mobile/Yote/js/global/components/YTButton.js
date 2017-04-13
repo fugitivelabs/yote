@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 
-
 // import react-native components & apis
 import Image from 'Image';
 import Platform from 'Platform';
@@ -11,7 +10,6 @@ import View from 'View';
 
 // import styles
 import YTColors from '../styles/YTColors';
-
 
 const BUTTON_FONT = Platform.OS === 'android' ? 'sans-serif-condensed' : 'AvenirNextCondensed-DemiBold';
 const HEIGHT = 50;
@@ -89,8 +87,6 @@ const YTButton = ({ type, icon, caption, buttonStyle, onPress, isDisabled, capti
       </View>
     );
   }
-
-
 
   if(isDisabled) {
     return (

@@ -56,11 +56,8 @@ class ProductListItem extends Base {
           </YTTouchable>
         </View>
     }
-
     return cell;
-
   }
-
 }
 
 ProductListItem.propTypes = {

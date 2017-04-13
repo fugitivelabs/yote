@@ -3,12 +3,14 @@ import React, { PropTypes } from 'react';
 import View from 'View';
 import Text from 'Text'; 
 
+// import global components
 import Base from '../../../global/components/BaseComponent';
 import YTColors from '../../../global/styles/YTColors'; 
 
 /**
  * build a temporary component for each "cool thing"
  */
+
 class TheCoolThing extends Base {
   constructor(props){
     super(props);
@@ -46,7 +48,7 @@ class TheCoolThing extends Base {
   }
 
   render() {
-    // console.log(this.state.coolThing); 
+     
     return(
         <Text
           style={{color: YTColors.yoteGreen, fontSize: 25, textAlign: 'center'}}
@@ -69,11 +71,9 @@ class Hero extends Base {
   render(){
     return (
       <View style={{flex: 1}}>
-        
           <Text style={{fontSize: 20, textAlign: 'center', color: YTColors.lightBackground, padding: 10, fontWeight: '500'}}>This is Yote </Text> 
           <TheCoolThing />
           <Text style={{fontSize: 15, textAlign: 'center', color: YTColors.lightBackground, padding: 10}}>You can use it to make cool stuff </Text>
-        
       </View>
     )
   }

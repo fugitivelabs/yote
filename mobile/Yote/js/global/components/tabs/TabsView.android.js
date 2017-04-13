@@ -105,7 +105,6 @@ class TabsView extends Base {
 
   openProfileSettings() {
     this.refs.drawer.closeDrawer();
-    // this.props.navigator.push({shareSettings: true});
   }
 
   _goToFeed() {
@@ -196,15 +195,11 @@ TabsView.propTypes = {
   dispatch: PropTypes.func
   // tab: PropTypes.string
 }
-//
-// QHTabsView.defaultProps = {
-//   tab: 'showings'
-// }
 
 const mapStoreToProps = (store) => {
 
   return {
-    user: store.user.current,
+    user: store.user.current
   }
 }
 

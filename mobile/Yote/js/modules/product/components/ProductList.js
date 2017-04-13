@@ -86,13 +86,11 @@ class ProductList extends Base {
   }
 
   _renderFooter() {
-    // console.log("render Footer");
+
   }
 
   _renderSeparator(sectionID, rowID) {
-    // return (
-    //   <View style={styles.separator} key={rowID} />
-    // )
+  
   }
 
   _renderRow(productId) {
@@ -108,15 +106,13 @@ class ProductList extends Base {
   _handleRefresh() {
     // this.setState({refreshing: true});
     this.props.dispatch(productActions.fetchList()).then(() => {
-      // console.log("REFRESHED", this.state.refreshing);
       // this.setState({refreshing: false});
-
+      // calling setState after this mounts causes the debugger to send warning 
     });
   }
 
   _openProduct(productId) {
     console.log("open product", productId); 
-    // this.props.dispatch(myProductSingleActions.setCurrent(product._id));
     this.props.navigator.push({singleProduct: true, productId: productId}); 
   }
 
@@ -135,7 +131,6 @@ class ProductList extends Base {
 
    return (
      <View style={productStyles.container}>
-
        <ListView
          ref="templateList"
          initialListSize={10}
@@ -152,12 +147,9 @@ class ProductList extends Base {
          removeClippedSubviews={false}
          automaticallyAdjustContentInsets={false}
        />
-
      </View>
    )
   }
-
-
 }
 
 ProductList.propTypes = {
@@ -167,20 +159,18 @@ ProductList.propTypes = {
 }
 
 ProductList.defaultProps = {
-  products: [],
-  contentInset: { top: 0, bottom: 0 },
-  // TODO: This has to be scrollview height + fake header
-  minContentHeight: Dimensions.get('window').height + 20,
-  renderSeparator: (sectionID, rowID) => <View style={styles.separator} key={rowID} />,
+  products: []
+  , contentInset: { top: 0, bottom: 0 }
+    // TODO: This has to be scrollview height + fake header
+  , minContentHeight: Dimensions.get('window').height + 20
+  , renderSeparator: (sectionID, rowID) => <View style={styles.separator} key={rowID} />
 }
-
 
 function cloneWithData(dataSource: ListView.DataSource, data: ?Data) {
   if (!data) {
     return dataSource.cloneWithRows([]);
   }
   if (Array.isArray(data)) {
-    // console.log("RENDER AS ARRAY");
     return dataSource.cloneWithRows(data);
   }
   return dataSource.cloneWithRowsAndSections(data);

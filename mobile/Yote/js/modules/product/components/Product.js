@@ -142,7 +142,6 @@ const mapStoreToProps = (store) => {
   return {
     user: store.user
     , products: store.product
-
   }
 }
 

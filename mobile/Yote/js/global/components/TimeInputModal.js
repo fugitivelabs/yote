@@ -1,27 +1,24 @@
 // import primary components
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import Base from './BaseComponent.js';
 
 // import utilities
 import _ from 'lodash';
 import labelUtils from '../util/labelUtils';
 
-
 // import RN components
-import View from 'View';
-import TextInput from 'TextInput';
+import KeyboardAvoidingView from 'KeyboardAvoidingView';
+import Modal from 'Modal';
 import StyleSheet from 'StyleSheet';
 import Text from 'Text';
-import KeyboardAvoidingView from 'KeyboardAvoidingView';
+import TextInput from 'TextInput';
 import TouchableHighlight from 'TouchableHighlight';
 import TouchableOpacity from 'TouchableOpacity';
-import Modal from 'Modal';
+import View from 'View';
 
-
-// import custom comonents
+// import global comonents
+import Base from './BaseComponent.js';
 import YTButton from './YTButton.js';
-
 
 //import styles;
 import YTColors from '../styles/YTColors';
@@ -29,8 +26,8 @@ import YTFormStyles from '../styles/YTFormStyles';
 import YTMainStyles from '../styles/YTMainStyles';
 import YTModalStyles from '../styles/YTModalStyles';
 
-
 class TimeInputModal extends Base {
+
   /**
   *
   *  This should accept milliseconds and convert to display:
@@ -60,12 +57,10 @@ class TimeInputModal extends Base {
   }
 
   componentDidMount() {
-    // console.log("1 ******************************************************************************");
     this._initTimeFromProps(this.props);
   }
 
   componentWillReceiveProps(nextProps) {
-    // console.log("2 ******************************************************************************");
     this._initTimeFromProps(nextProps);
   }
 
@@ -145,11 +140,9 @@ class TimeInputModal extends Base {
           if(e.nativeEvent.text === '') {
             return this.state.original;
           } else {
-
             return e.nativeEvent.text;
           }
         });
-
         this.setState(newState);
       }
     } else {
@@ -158,7 +151,6 @@ class TimeInputModal extends Base {
   }
 
   _handleInputFocus(e, target) {
-
     if(this.props.clearOnFocus) {
       // console.log("clear on Focus");
       var newState = _.update( this.state, target, function() {
@@ -181,11 +173,9 @@ class TimeInputModal extends Base {
     const { formattedTime, hours, minutes, seconds, milliseconds, time } = this.state;
     // console.log("time input val", value);
 
-
     return(
       <Modal animationType="fade" visible={modalOpen} transparent={true} onRequestClose={() => null}>
         <KeyboardAvoidingView behavior="padding" style={YTModalStyles.modalContainer}>
-
           <View style={YTModalStyles.modalContent}>
             {modalHeader ?
               <View style={YTModalStyles.modalHeader}>
@@ -204,7 +194,6 @@ class TimeInputModal extends Base {
               <View style={YTFormStyles.quarterInput}>
                 <View style={YTFormStyles.inputContainer}>
                   <Text style={[YTFormStyles.label, {textAlign: 'center'}]}>Hours</Text>
-
                   <TextInput
                     ref={"hours"}
                     isRequired={false}
@@ -220,14 +209,12 @@ class TimeInputModal extends Base {
                     placeholder=""
                     placeholderTextColor={YTColors.lightText}
                     selectTextOnFocus={false}
-
                   />
                 </View>
               </View>
               <View style={YTFormStyles.quarterInput}>
                 <View style={YTFormStyles.inputContainer}>
                   <Text style={[YTFormStyles.label, {textAlign: 'center'}]}>Minutes</Text>
-
                   <TextInput
                     ref={"minutes"}
                     isRequired={false}
@@ -243,14 +230,12 @@ class TimeInputModal extends Base {
                     placeholder={label}
                     placeholderTextColor={YTColors.lightText}
                     selectTextOnFocus={false}
-
                   />
                 </View>
               </View>
               <View style={YTFormStyles.quarterInput}>
                 <View style={YTFormStyles.inputContainer}>
                   <Text style={[YTFormStyles.label, {textAlign: 'center'}]}>Seconds</Text>
-
                   <TextInput
                     ref={"seconds"}
                     isRequired={false}
@@ -266,14 +251,12 @@ class TimeInputModal extends Base {
                     placeholder={label}
                     placeholderTextColor={YTColors.lightText}
                     selectTextOnFocus={false}
-
                   />
                 </View>
               </View>
               <View style={YTFormStyles.quarterInput}>
                 <View style={YTFormStyles.inputContainer}>
                   <Text style={[YTFormStyles.label, {textAlign: 'center'}]}>Tenths</Text>
-
                   <TextInput
                     ref={"milliseconds"}
                     isRequired={false}
@@ -289,7 +272,6 @@ class TimeInputModal extends Base {
                     placeholder={label}
                     placeholderTextColor={YTColors.lightText}
                     selectTextOnFocus={false}
-
                   />
                 </View>
               </View>
@@ -300,7 +282,6 @@ class TimeInputModal extends Base {
               caption="Save & Close"
             />
           </View>
-
         </KeyboardAvoidingView>
         <TouchableOpacity
          onPress={() => closeModal()}
@@ -310,10 +291,7 @@ class TimeInputModal extends Base {
       </Modal>
     )
   }
-
-
 }
-
 
 TimeInputModal.propTypes = {
   label: PropTypes.string

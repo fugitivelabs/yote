@@ -3,7 +3,6 @@ import React, { PropTypes } from 'react';
 import Base from './BaseComponent';
 import { connect } from 'react-redux';
 
-
 // import react-native components
 import ListView from 'ListView';
 import Dimensions from 'Dimensions';
@@ -22,19 +21,17 @@ import YTColors from '../styles/YTColors';
 var styles = StyleSheet.create({
   container: {
     flex: 1
-    // , paddingBottom: 50
-    // , backgroundColor: '#572d66'
     , backgroundColor: YTColors.lightBackground
-  },
-  emptyMessage: {
-    fontSize: 16,
-    textAlign: 'center',
-    color: "#fff",
-    padding: 4,
-    marginTop: 40,
-    fontStyle: "italic",
-    color: YTColors.lightText,
-  },
+  }
+  , emptyMessage: {
+      fontSize: 16
+      , textAlign: 'center'
+      , color: "#fff"
+      , padding: 4
+      , marginTop: 40
+      , fontStyle: "italic"
+      , color: YTColors.lightText
+    }
 });
 
 const EmptyMessage = ({message}) => {

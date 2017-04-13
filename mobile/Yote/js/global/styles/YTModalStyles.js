@@ -10,13 +10,16 @@ import YTColors from '../../global/styles/YTColors';
 let screenWidth = Dimensions.get('window').width
 
 let YTModalStyles = StyleSheet.create({
-  modalContainer: {
-    flex: 1
-    , backgroundColor: 'rgba(0,0,0,0.86)'
-    , justifyContent: 'center'
-    , paddingHorizontal: 10
-    , paddingTop: 20
-  }
+  button: {
+      padding: 10
+    }
+  , modalContainer: {
+      flex: 1
+      , backgroundColor: 'rgba(0,0,0,0.86)'
+      , justifyContent: 'center'
+      , paddingHorizontal: 10
+      , paddingTop: 20
+    }
   , modalCloseButton: {
       position: 'absolute'
       , backgroundColor: 'transparent'
@@ -44,9 +47,6 @@ let YTModalStyles = StyleSheet.create({
       , fontSize: 30
       , color: '#fff'
       , padding: 20
-    }
-  , button: {
-      padding: 10
     }
 
 });
