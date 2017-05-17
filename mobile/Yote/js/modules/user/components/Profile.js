@@ -36,68 +36,54 @@ import moment from 'moment';
 // import styles
 import YTColors from '../../../global/styles/YTColors';
 
-
 var styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: YTColors.primaryHeader,
-    // padding: 5
-  },
-
-  instructions: {
-    textAlign: 'center',
-    color: '#222',
-    marginBottom: 5,
-  },
-
-  btnWrapper: {
-    borderTopWidth: 1,
-    borderColor: YTColors.listSeparator,
-  },
-  linkOut: {
-    // paddingTop: 10,
-    flex: 1,
-    // paddingBottom: 10,
-    flexDirection: "row",
-  },
-  linkOutText: {
-
-  },
   bottomBorder: {
-    borderBottomWidth: 1,
-    borderColor: YTColors.listSeparator,
-  },
-  statusBox: {
-    // flex: 0.1,
-    justifyContent: 'center',
-    alignItems: 'flex-end',
-    // backgroundColor: 'green'
-  },
-  details: {
-    justifyContent: 'center',
-    paddingVertical: 15,
-    // paddingLeft: 17,
-    // paddingRight: 9,
-    flexDirection: 'row',
-    flex: 1
-  },
-  titleSection: {
-    // flexDirection: 'row',
-    flex: 1,
-    // alignItems: 'center',
-    // backgroundColor: 'red'
-  },
-  info: {
-    fontSize: 17,
-    padding: 10,
-  },
-  editImage: {
-    flex: 1, 
-    flexDirection: 'row',
-    padding: 2
-  },
-});
+    borderBottomWidth: 1
+    , borderColor: YTColors.listSeparator
+  }
+  , btnWrapper: {
+      borderTopWidth: 1
+      , borderColor: YTColors.listSeparator
+    }
+  , container: {
+      flex: 1
+      , backgroundColor: YTColors.primaryHeader
+    }
+  , details: {
+      justifyContent: 'center'
+      , paddingVertical: 15
+      , flexDirection: 'row'
+      , flex: 1
+    }
+  , editImage: {
+      flex: 1
+      , flexDirection: 'row'
+      , padding: 2
+    }
+  , info: {
+      fontSize: 17
+      , padding: 10
+    }
+  , instructions: {
+      textAlign: 'center'
+      , color: '#222'
+      , marginBottom: 5
+    }
+  , linkOut: {
+      flex: 1
+      , flexDirection: "row"
+    }
+  , linkOutText: {
 
+    }
+  , statusBox: {
+      justifyContent: 'center'
+      , alignItems: 'flex-end'
+    }
+  , titleSection: {
+      flex: 1
+    }
+});
 
 class Profile extends Base {
   constructor(props){
@@ -128,28 +114,25 @@ class Profile extends Base {
   }
 
   _handleLogout() {
-    // console.log("_handleLogout firled");
     this.props.dispatch(singleActions.sendLogout());
   }
 
   _openPrivacy() {
     this.props.navigator.push({privacy: true});
-
   }
+
   _openTeam() {
     this.props.navigator.push({team: true});
-
   }
+
   _openFAQ() {
     this.props.navigator.push({faq: true});
-
   }
 
   _openContact() {
     var url = "erik@fugitivelabs.com";
     Linking.canOpenURL(url).then(supported => {
       if(supported) {
-
         Linking.openURL(url);
       } else {
         this.props.navigator.push({privacy: true});
@@ -160,7 +143,6 @@ class Profile extends Base {
   _openImagePicker() { 
     ImagePicker.showImagePicker((response) => {
       console.log('Response = ', response);
-
       if (response.didCancel) {
         console.log('User cancelled image picker');
       }
@@ -190,11 +172,9 @@ class Profile extends Base {
       }
       let newUser = JSON.parse(JSON.stringify(this.props.user));
       newUser.info.profilePicUrl = this.state.profilePicUrl.uri;
-      // newUser.info._profilePicObject = file._id;
       this.props.dispatch(singleUserActions.sendUpdateProfile(newUser)).then((action)=> {
         console.log(action);
       });
-
     });
   }
 
@@ -210,12 +190,10 @@ class Profile extends Base {
     const rightItem = null;
 
     const rightArrow = require("../../../global/img/forward.png");
-    const profileImg = user.info && user.info.profilePicUrl ? {uri: user.info.profilePicUrl} : require('../../../global/img/wile.png');
 
-    
+    const profileImg = user.info && user.info.profilePicUrl ? {uri: user.info.profilePicUrl} : require('../../../global/img/skull-icon.png');
 
     return(
-
       <View style={[styles.container ]} >
         <YTHeader
           navigator={navigator}
@@ -223,11 +201,8 @@ class Profile extends Base {
           rightItem={rightItem}
           title="Account"
         />
-        <ScrollView  >
-          
-          <YTCard
-            header="Profile"
-          >
+        <ScrollView>
+          <View style={{padding: 8}}>
             <View style={styles.editImage}>
               <Image
                 style={{width: 200, height: 200}}
@@ -236,7 +211,6 @@ class Profile extends Base {
             </View>
             <Text style={styles.info}>{user.firstName} {user.lastName}</Text>
             <Text style={styles.info}>{user.username}</Text>
-
             <View style={styles.btnWrapper}>
               <YTButton
                 type="secondary"
@@ -245,9 +219,7 @@ class Profile extends Base {
                 icon={require('../../../global/img/edit.png')}
               />
             </View>
-          </YTCard>
-          
-          
+          </View>
           <YTButton
             type="secondary"
             caption="Logout"
@@ -257,10 +229,7 @@ class Profile extends Base {
       </View>
     )
   }
-
 }
-
-
 
 const mapStoreToProps = (store) => {
   return {

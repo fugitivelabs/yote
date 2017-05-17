@@ -27,26 +27,21 @@ import * as singleActions from '../userActions.js';
 // import styles
 import YTColors from '../../../global/styles/YTColors';
 
-
 var styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: YTColors.primaryHeader,
-    // padding: 5
-  },
-
-  instructions: {
-    textAlign: 'center',
-    color: '#222',
-    marginBottom: 5,
-  },
-
   btnWrapper: {
-    borderTopWidth: 1,
-    borderColor: YTColors.listSeparator,
+    borderTopWidth: 1
+    , borderColor: YTColors.listSeparator
   }
+  , container: {
+      flex: 1
+      , backgroundColor: YTColors.primaryHeader
+    }
+  , instructions: {
+      textAlign: 'center'
+      , color: '#222'
+      , marginBottom: 5
+    }
 });
-
 
 class Settings extends Base {
   constructor(props){
@@ -67,7 +62,6 @@ class Settings extends Base {
     this.props.dispatch(singleUserActions.sendLogout());
   }
 
-
   render() {
     const { user } = this.props;
 
@@ -78,7 +72,6 @@ class Settings extends Base {
     };
 
     return(
-
       <View style={[styles.container ]} >
         <YTHeader
           navigator={navigator}
@@ -86,46 +79,30 @@ class Settings extends Base {
           title="Settings"
         />
         <ScrollContainer >
-
-          <YTCard
-            header="Account"
-          >
-
+          <YTCard header="Account">
           </YTCard>
-          <YTCard
-            header="About"
-          >
 
+          <YTCard header="About">
           </YTCard>
-          <YTCard
-            header="Support"
-          >
 
+          <YTCard header="Support">
           </YTCard>
+
           <YTButton
             type="secondary"
             caption="Logout"
             onPress={this._handleLogout}
           />
-
         </ScrollContainer>
-
-
       </View>
     )
-
-
-
   }
-
 }
-
-
 
 const mapStoreToProps = (store) => {
   return {
-    user: store.user.current,
-    isFetching: store.user.isFetching,
+    user: store.user.current
+    , isFetching: store.user.isFetching
   }
 }
 

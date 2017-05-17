@@ -17,9 +17,6 @@ import Login from './modules/user/components/Login';
 import Register from './modules/user/components/Register';
 import Privacy from './modules/user/components/Privacy';
 
-
-// styles
-
 let styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -31,7 +28,6 @@ class LoggedOutNavigator extends Base {
   constructor(props) {
     super(props);
     this._handlers = [];
-
     this._bind(
       '_renderScene'
       , '_handleBackButton'
@@ -40,11 +36,9 @@ class LoggedOutNavigator extends Base {
     )
   }
 
-
   componentDidMount() {
     // AppState.addEventListener('change', this._handleAppStateChange);
     BackAndroid.addEventListener('hardwareBackPress', this._handleBackButton);
-
   }
 
   componentWillUnmount() {
@@ -81,7 +75,6 @@ class LoggedOutNavigator extends Base {
   }
 
   _renderScene(route, navigator) {
-
     if(route.register) {
       return (
         <Register
@@ -98,7 +91,6 @@ class LoggedOutNavigator extends Base {
         />
       )
     }
-
     return <Login navigator={navigator} />;
   }
 
@@ -122,9 +114,7 @@ class LoggedOutNavigator extends Base {
       />
     )
   }
-
 }
-
 
 const mapStoreToProps = (store) => {
   return {

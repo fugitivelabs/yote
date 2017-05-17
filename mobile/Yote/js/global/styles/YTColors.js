@@ -1,5 +1,5 @@
 module.exports = {
-  actionText: '#2555e9'
+  actionText: '#007BA4'
   , buttonPrimaryBG: '#000000'
   , cardBorder: '#cacddf'
   , checkboxEmpty: '#6a858c'
@@ -19,5 +19,8 @@ module.exports = {
   , subHeader: '#093b41'
   , underlayColor: '#eaeced'
   , yoteRed: '#E02B3A'
+  , yoteGreen: '#00BC8B'
+  , yoteDarkGrey: '#333'
+  , yoteDarkBlue: '#007BA4'
 
 }

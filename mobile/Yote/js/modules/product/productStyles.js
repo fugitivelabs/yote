@@ -14,7 +14,7 @@ let productStyles = StyleSheet.create({
     , textAlign: 'center'
     , color: "#fff"
     , padding: 4
-    , backgroundColor: YTColors.yoteRed
+    , backgroundColor: YTColors.yoteDarkBlue
   }
   , cell: {
       padding: 5
@@ -69,7 +69,6 @@ let productStyles = StyleSheet.create({
   , emptyMessage: {
       fontSize: 12
       , textAlign: 'left'
-      , color: "#fff"
       , padding: 10
       , fontStyle: "italic"
       , color: YTColors.lightText
@@ -79,14 +78,20 @@ let productStyles = StyleSheet.create({
       , textAlign: 'center'
       , color: "#fff"
       , padding: 4
-      , color: YTColors.actionText
+      , color: YTColors.yoteGreen
     }
   , headerLeft: {
       fontSize: 25
       , color: '#fff'
       , padding: 4
-      , color: YTColors.actionText
+      , color: YTColors.yoteDarkBlue
     }
+  , info: {
+    fontSize: 15
+    , textAlign: 'left'
+    , padding: 10
+    , color: YTColors.lightText
+  }
   , infoBox: {
       backgroundColor: 'white'
       , padding: 8

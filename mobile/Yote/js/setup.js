@@ -30,9 +30,7 @@ function setup(): React.Component {
       );
     }
   }
-
   return Root;
-
 }
 
 module.exports = setup;

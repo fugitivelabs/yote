@@ -1,28 +1,26 @@
 // import react things
 import React, { PropTypes } from 'react';
-import Base from './BaseComponent';
 import { connect } from 'react-redux';
 
-
 // import react-native components
+import Animated from 'Animated';
+import Image from 'Image';
 import StyleSheet from 'StyleSheet';
 import View from 'View';
-import Image from 'Image';
-import Animated from 'Animated';
 
+// import global components
+import Base from './BaseComponent';
+
+// import styles
 import YTColors from '../styles/YTColors';
-
 
 var styles = StyleSheet.create({
   checkBox: {
-    // flex: 1,
     flex: 0.1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    // backgroundColor: '#11b9de'
-  },
+    , justifyContent: 'center'
+    , alignItems: 'center'
+  }
 });
-
 
 class CheckboxEmpty extends Base {
   constructor(props) {
@@ -40,7 +38,6 @@ class CheckboxEmpty extends Base {
   }
 
   render() {
-
 
     return (
       <Animated.Image

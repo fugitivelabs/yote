@@ -1,25 +1,22 @@
 // import react things
 import React, { PropTypes } from 'react';
-import Base from './BaseComponent';
 import { connect } from 'react-redux';
 
-
 // import react-native components
-import ListView from 'ListView';
-import Dimensions from 'Dimensions';
-import Platform from 'Platform';
-import StyleSheet from 'StyleSheet';
-import View from 'View';
-import Text from 'Text';
-import Image from 'Image';
-import ScrollView from 'ScrollView';
-import TouchableOpacity from 'TouchableOpacity';
-import TextInput from 'TextInput';
 import Animated from 'Animated';
+import Dimensions from 'Dimensions';
+import Image from 'Image';
+import ListView from 'ListView';
+import Platform from 'Platform';
+import ScrollView from 'ScrollView';
+import StyleSheet from 'StyleSheet';
+import Text from 'Text';
+import TextInput from 'TextInput';
+import TouchableOpacity from 'TouchableOpacity';
+import View from 'View';
 
-// import custom components
-
-
+// import global components
+import Base from './BaseComponent';
 import CheckboxEmpty from './CheckboxEmpty';
 import CheckboxFilled from './CheckboxFilled';
 
@@ -27,103 +24,75 @@ import CheckboxFilled from './CheckboxFilled';
 import moment from 'moment';
 import _ from 'lodash';
 
-
-
 // import styles
 import YTColors from '../styles/YTColors';
 
 const BUTTON_HEIGHT = 32;
 
 var styles = StyleSheet.create({
-  inputWrapper: {
-    // paddingLeft: 4,
-    // paddingRight:4,
-    backgroundColor: "#fff"
-  },
-  instructions: {
-    color: YTColors.lightText,
-    marginBottom: 5,
-  },
-  details: {
-    // height: 52,
-    flex: 1,
-    // paddingTop: 8,
-    // paddingBottom: 8,
-
-  },
   button: {
-    flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 12,
-    height: BUTTON_HEIGHT,
-    borderRadius: BUTTON_HEIGHT * 0.5,
-    // paddingHorizontal: 40,
-  },
-  icon: {
-    marginBottom: 8,
-    tintColor: YTColors.actionText,
-  },
-  caption: {
-    letterSpacing: 1,
-    fontSize: 14,
-    color: YTColors.lightText,
-  },
-  input: {
-    height: 52,
-    flex: 1,
-    fontSize: 17,
-    paddingLeft: 4,
-
-  },
-  textInputWrapper: {
-    flexDirection: "row",
-
-    backgroundColor: YTColors.listSeparator,
-    borderRadius: 6,
-
-  },
-  notes: {
-    height: 104,
-  },
-  inlineInput: {
-    flexDirection: "row",
-  },
-  quarterInput: {
-    flex: 0.25
-  },
-  checkBoxInputCell: {
-    flexDirection: 'row',
-    // paddingTop: 4,
-    // paddingBottom: 4,
-    // borderTopWidth: 1,
-    // backgroundColor: "#fff",
-    borderColor: YTColors.listSeparator,
-  },
-  checkBox: {
-    // flex: 1,
-    flex: 0.1,
-    justifyContent: 'center',
-    // alignItems: 'center',
-    // backgroundColor: '#11b9de'
-
-  },
-  checkBoxTextWrapper: {
-    justifyContent: 'center',
-    // paddingVertical: 15,
-    paddingLeft: 8,
-    // paddingRight: 9,
-    flex: 1,
-    // flexDirection: "row"
-  },
-
-
+    flex: 1
+    , flexDirection: 'column'
+    , alignItems: 'center'
+    , justifyContent: 'center'
+    , paddingVertical: 12
+    , height: BUTTON_HEIGHT
+    , borderRadius: BUTTON_HEIGHT * 0.5
+  }
+  , caption: {
+      letterSpacing: 1
+      , fontSize: 14
+      , color: YTColors.lightText
+    }
+  , checkBoxInputCell: {
+      flexDirection: 'row'
+      , borderColor: YTColors.listSeparator
+    }
+  , checkBox: {
+      flex: 0.1
+      , justifyContent: 'center'
+    }
+  , checkBoxTextWrapper: {
+      justifyContent: 'center'
+      , paddingLeft: 8
+      , flex: 1
+    }
+  , details: {
+      flex: 1
+    }
+  , icon: {
+      marginBottom: 8
+      , tintColor: YTColors.actionText
+    }
+  , inlineInput: {
+      flexDirection: "row"
+    }
+  , input: {
+      height: 52
+      , flex: 1
+      , fontSize: 17
+      , paddingLeft: 4
+    }
+  , inputWrapper: {
+      backgroundColor: "#fff"
+    }
+  , instructions: {
+      color: YTColors.lightText
+      , marginBottom: 5
+    }
+  , notes: {
+      height: 104
+    }
+  , quarterInput: {
+      flex: 0.25
+    }
+  , textInputWrapper: {
+      flexDirection: "row"
+      , backgroundColor: YTColors.listSeparator
+      , borderRadius: 6
+    }
 });
 
-
-
-// const NewItemInput = ({ item, onPress }) => {
 class NewItemInput extends Base {
   constructor(props) {
     super(props);
@@ -148,8 +117,6 @@ class NewItemInput extends Base {
     );
   }
 
-
-
   componentWillReceiveProps(nextProps) {
     // console.log("componentWillReceiveProps");
 
@@ -159,7 +126,6 @@ class NewItemInput extends Base {
     setTimeout(() => {
       this.props.scrollResponder;
       var scrollResponder = scrollView.getScrollRef();
-      // console.log("on focus called ", refName);
       console.log(this.refs[refName].props.returnKeyType);
       var offset = 130;
       console.log(offset);
@@ -185,12 +151,9 @@ class NewItemInput extends Base {
     if(this.state.isFocused && this.state.newItem.text.length > 0) {
       this._addItem();
     } else {
-
       this.refs['newItem.text'].focus();
     }
     this.setState({isFocused: !this.state.isFocused});
-    // this._triggerFadeOut();
-    // setTimeout(() => this.props.onPress(this.props.item), 750)
   }
 
   _toggleImportance() {
@@ -217,22 +180,17 @@ class NewItemInput extends Base {
           reminderDate: null,
       }
     });
-
   }
 
   render() {
     const { checklist } = this.props;
-    // const { isActive } = this.state;
 
     let selectedCaptionStyle;
     let selectedBackgroundStyle;
     let selectedEssentialStyle;
-
     let isActive = this.state.newItem.text.length > 0 ? true : false;
 
-
     var accessibilityTraits = ['button'];
-
     let starStyle = {tintColor: YTColors.lighterText}
     let starImage = require('../img/star.png');
     if(this.state.newItem.isImportant) {
@@ -240,27 +198,13 @@ class NewItemInput extends Base {
       starImage = require('../img/star_filled.png');
     }
 
-
     return (
-    <View
-      style={[
-        styles.inputWrapper,
-        selectedBackgroundStyle,
-      ]}
-    >
-      <View
-        style={[
-          styles.checkBoxInputCell,
-        ]}
-      >
-
-
+    <View style={[styles.inputWrapper, selectedBackgroundStyle]}>
+      <View style={[styles.checkBoxInputCell]}>
         <View style={styles.checkBoxTextWrapper}>
           <View style={styles.textInputWrapper}>
-
             <TextInput
               ref="newItem.text"
-
               isRequired={true}
               style={styles.input}
               placeholder="+ Add a new item..."
@@ -271,51 +215,12 @@ class NewItemInput extends Base {
               value={this.state.newItem.text}
               onSubmitEditing={this._addItem}
             />
-
           </View>
-
-
-
-
         </View>
-
       </View>
-
     </View>
     )
   }
 }
 
-
-
-
 export default NewItemInput;
-//
-//
-// transform: [{
-//   translateY: this.state.fadeAnim.interpolate({
-//     inputRange: [0, 1],
-//     outputRange: [ 150, 0]
-//   }),
-// }],
-
-
-// STAR IN INPUT
-//
-// <TouchableOpacity
-//   accessibilityTraits={accessibilityTraits}
-//   activeOpacity={0.8}
-//   onPress={this._toggleImportance}
-//   style={[styles.checkBox]}>
-//   <Image source={starImage} style={[styles.plusSign, starStyle]} />
-// </TouchableOpacity>
-
-// PLUS SIGN
-//
-// <TouchableOpacity
-//   accessibilityTraits={accessibilityTraits}
-//   activeOpacity={0.8}
-//   onPress={this._focusNew}
-//   style={[styles.checkBox]}>
-//   <Image source={require('../img/plus.png')} style={[styles.plusSign, {tintColor: YTColors.lighterText}]} />
-// </TouchableOpacity>

@@ -38,88 +38,81 @@ import _ from 'lodash';
 // import actions
 import * as singleActions from '../userActions.js';
 
-
 // import styles
 import YTColors from '../../../global/styles/YTColors';
 
 var styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: YTColors.primaryHeader,
-    // padding: 5
-  },
-  scrollContainer: {
-    flex: 1,
-    backgroundColor: YTColors.lightBackground,
-    padding: 4,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#222',
-    marginBottom: 5,
-  },
-
   btnWrapper: {
-    borderTopWidth: 1,
-    borderColor: YTColors.listSeparator,
-  },
-  inputContainer: {
-    // padding: 10,
-    borderTopWidth: 1,
-    // borderBottomColor: '#CCC',
-    // borderColor: 'transparent'
-    borderColor: YTColors.listSeparator
-  },
-  input: {
-    height: 52,
-    flex: 1,
-    fontSize: 17,
-    paddingTop: 8,
-    paddingBottom: 8,
-    backgroundColor: 'rgba(255,255,255,0.7)'
-  },
-  username: {
-    height: 52,
-    flex: 1,
-    fontSize: 17,
-    paddingTop: 8,
-    paddingBottom: 8,
-  },
-  details: {
-    height: 52,
-    flex: 1,
-    fontSize: 17,
-    paddingTop: 8,
-    paddingBottom: 8,
-    backgroundColor: 'rgba(255,255,255,0.7)'
-  },
-  inlineInput: {
-    flexDirection: "row"
-  },
-  quarterInput: {
-    flex: 0.25
-  },
-  halfInput: {
-    flex: 0.5
-  },
-  notes: {
-    height: 104,
-  },
-  label: {
-    fontSize: 12,
-    marginTop: 4,
-    color: YTColors.lightText,
-  },
-  formWrapper: {
-    marginTop: -8
-  },
-  picker: {
-    width: 150,
-  },
-  pickerText: {
-    fontSize: 20,
-  },
-
+    borderTopWidth: 1
+    , borderColor: YTColors.listSeparator
+  }
+  , container: {
+      flex: 1
+      , backgroundColor: YTColors.primaryHeader
+    }
+  , details: {
+      height: 52
+      , flex: 1
+      , fontSize: 17
+      , paddingTop: 8
+      , paddingBottom: 8
+      , backgroundColor: 'rgba(255,255,255,0.7)'
+    }
+  , formWrapper: {
+      marginTop: -8
+    }
+  , halfInput: {
+      flex: 0.5
+    }
+  , instructions: {
+      textAlign: 'center'
+      , color: '#222'
+      , marginBottom: 5
+    }
+  , inputContainer: {
+      borderTopWidth: 1
+      , borderColor: YTColors.listSeparator
+    }
+  , input: {
+      height: 52
+      , flex: 1
+      , fontSize: 17
+      , paddingTop: 8
+      , paddingBottom: 8
+      , backgroundColor: 'rgba(255,255,255,0.7)'
+    }
+  , inlineInput: {
+      flexDirection: "row"
+    }
+  , label: {
+      fontSize: 12
+      , marginTop: 4
+      , color: YTColors.lightText
+    }
+  , notes: {
+      height: 104
+    }
+  , scrollContainer: {
+      flex: 1
+      , backgroundColor: YTColors.lightBackground
+      , padding: 4
+    }
+  , username: {
+      height: 52
+      , flex: 1
+      , fontSize: 17
+      , paddingTop: 8
+      , paddingBottom: 8
+    }
+  , picker: {
+      width: 150
+    }
+  , pickerText: {
+      fontSize: 20
+    }
+  , quarterInput: {
+      flex: 0.25
+    }
 });
 
 class UpdateProfile extends Base {
@@ -132,9 +125,6 @@ class UpdateProfile extends Base {
         username: this.props.user.username
         , firstName: this.props.user.firstName
         , lastName: this.props.user.lastName
-        // , info: {
-        //   profilePicUrl: this.props.user.info.profilePicUrl
-        // }
       }
     }
     this._bind(
@@ -147,57 +137,31 @@ class UpdateProfile extends Base {
     )
   }
 
-  componentWillReceiveProps(nextProps) {
-    // this.setState({newUserData: nextProps.user});
-
-  }
-
-  componentDidMount() {
-    // console.log("componentDidMount");
-    // console.log(this.props.user);
-    // this.setState({newUserData: this.props.user});
-    // this._checkFormValid();
-  }
-
-  componentWillUnmount() {
-    // console.log("componentWillUnmount");
-    // this.setState({newUserData: null});
-  }
-
   _toggleShowPickerForm() {
     this.setState({showPicker: !this.state.showPicker});
   }
 
   _checkFormValid() {
-
     var requiredInputs = Object.keys(this.refs).filter((ref) => this.refs[ref].props.isRequired);
-
     var isValid = true;
     for(var i = 0; i < requiredInputs.length; i++) {
-
-      // lodash to the rescue
       var theVal = _.get(this.state, requiredInputs[i]);
       if(!theVal || theVal.length < 1) {
         isValid = false;
       }
     }
-
     this.setState({isFormValid: isValid});
   }
-
 
   _handleInputChange(e, target) {
     var newState = _.update( this.state, target, function() {
       return e.nativeEvent.text;
     });
-    // console.log("input changed");
     this.setState(newState);
     this._checkFormValid();
   }
 
   _handleAction() {
-    // console.log("_handleAction fired");
-
     const { dispatch, user } = this.props;
     const { newUserData } = this.state;
     if(!this.state.isFormValid) {
@@ -244,20 +208,15 @@ class UpdateProfile extends Base {
   }
 
   _handleBack() {
-    // console.log("_handleBack fired");
     this.setState({newUserData: this.props.user});
     this.props.navigator.pop();
   }
 
   _scrollToInput(e, refName) {
     setTimeout(() => {
-
       var scrollResponder = this.refs.myScrollView.getScrollResponder();
       // var scrollResponder = scrollView.getScrollRef();
-      // console.log("on focus called ", refName);
-      // console.log(this.refs[refName].props.returnKeyType);
       var offset = 130;
-      // console.log(offset);
       scrollResponder.scrollResponderScrollNativeHandleToKeyboard(
         ReactNative.findNodeHandle(this.refs[refName]),
         offset, // adjust depending on your contentInset
@@ -270,9 +229,7 @@ class UpdateProfile extends Base {
   render() {
     const { user, isFetching } = this.props;
     const { newUserData, showPicker } = this.state;
-
     const profileImg = user.info && user.info.profilePicUrl ? {uri: user.info.profilePicUrl} : require('../../../global/img/wile.png');
-
 
     const leftItem = {
       title: 'Cancel',
@@ -280,7 +237,6 @@ class UpdateProfile extends Base {
     };
 
     return(
-
       <View style={[styles.container ]} >
         <YTHeader
           navigator={navigator}
@@ -292,7 +248,6 @@ class UpdateProfile extends Base {
             header="You"
           >
             <View style={styles.formWrapper}>
-
               <View style={styles.inputContainer}>
                 <Text style={styles.label}>First Name</Text>
                 <TextInput
@@ -313,7 +268,6 @@ class UpdateProfile extends Base {
                 />
               </View>
               <View style={styles.inputContainer}>
-
                 <Text style={styles.label}>Last Name</Text>
                 <TextInput
                   ref="newUserData.lastName"
@@ -333,12 +287,10 @@ class UpdateProfile extends Base {
                 />
               </View>
               <View style={styles.inputContainer}>
-
                 <Text style={styles.label}>Email/Username</Text>
                 <Text style={styles.username}>{this.state.newUserData.username} </Text>
               </View>
             </View>
-
           </YTCard>
           <View style={[styles.buttonWrapper, {paddingVertical: 20}]}>
             <YTButton
@@ -347,20 +299,11 @@ class UpdateProfile extends Base {
               isDisabled={!this.state.isFormValid}
             />
           </View>
-
         </ScrollView>
-
-
       </View>
     )
-
-
-
   }
-
 }
-
-
 
 const mapStoreToProps = (store) => {
   return {

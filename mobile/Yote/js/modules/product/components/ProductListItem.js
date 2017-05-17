@@ -33,34 +33,31 @@ class ProductListItem extends Base {
     let icon = <Image source={require('../../../global/img/breast.png')} />;
 
     var cell =
-            <View style={productStyles.cell}>
-              <View style ={productStyles.cellBackground}>
-                <Text style={productStyles.cardHeader}>{product.title} </Text>
-                <View style={productStyles.cellRow}>
-                  <View style={productStyles.cellColumn}>
-                    <Text style={productStyles.emptyMessage}>{product.description} </Text>
-                    <Text style={productStyles.emptyMessage}>Created: {moment(product.created).format("MMMM Do YYYY, h:mm a")}</Text>
-                  </View>
-                  <View style={productStyles.cellForwardImg}>
-                    <Image
-                      source={require('../../../global/img/forward.png')}
-                    />
-                  </View>
+            <View style ={productStyles.cellBackground}>
+              <Text style={productStyles.cardHeader}>{product.title} </Text>
+              <View style={productStyles.cellRow}>
+                <View style={productStyles.cellColumn}>
+                  <Text style={productStyles.info}>{product.description} </Text>
+                  <Text style={productStyles.emptyMessage}>Created: {moment(product.created).format("MMMM Do YYYY, h:mm a")}</Text>
+                </View>
+                <View style={productStyles.cellForwardImg}>
+                  <Image
+                    source={require('../../../global/img/forward.png')}
+                  />
                 </View>
               </View>
             </View>;
-
+            
     if(this.props.onPress) {
       cell =
-        <YTTouchable onPress={this.props.onPress}>
-          {cell}
-        </YTTouchable>
+        <View style={{padding: 5}}>
+          <YTTouchable onPress={this.props.onPress}>
+            {cell}
+          </YTTouchable>
+        </View>
     }
-
     return cell;
-
   }
-
 }
 
 ProductListItem.propTypes = {

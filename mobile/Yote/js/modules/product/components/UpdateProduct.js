@@ -58,7 +58,6 @@ class UpdateProduct extends Base {
     var isValid = true;
     for(var i = 0; i < requiredInputs.length; i++) {
 
-      // lodash to the rescue
       var theVal = _.get(this.state, requiredInputs[i]);
       if(!theVal || theVal.length < 1) {
         isValid = false;
@@ -81,8 +80,6 @@ class UpdateProduct extends Base {
     dispatch(productActions.sendUpdateProduct(newProductData)).then((res) => {
       dispatch(productActions.invalidateList());
       dispatch(productActions.fetchListIfNeeded()); 
-      // console.log('done');
-      // console.log(res);
       this.props.navigator.pop();
     });
   }
@@ -99,7 +96,6 @@ class UpdateProduct extends Base {
     var newState = _.update( this.state, target, function() {
       return e.nativeEvent.text;
     });
-    // console.log("input changed");
     this.setState(newState);
     this._checkFormValid();
   }
@@ -120,7 +116,6 @@ class UpdateProduct extends Base {
         // false
       );
     }, 150);
-
   }
 
   render() {
@@ -141,7 +136,6 @@ class UpdateProduct extends Base {
         />
         <ScrollView ref="myScrollView" keyboardDismissMode="interactive" style={[productStyles.formWrapper]}>
           <View style={productStyles.cell}>
-
             <Text style={productStyles.newProductHeader}>Product Info</Text>
             <View style={productStyles.infoBox}>
               <View>
@@ -163,7 +157,6 @@ class UpdateProduct extends Base {
               </View>
             </View>
           </View>
-
           <View style={productStyles.cell}>
             <Text style={productStyles.newProductHeader}>Product Description</Text>
             <View style={productStyles.infoBox}>
@@ -185,37 +178,26 @@ class UpdateProduct extends Base {
               </View>
             </View>
           </View>
-
-
           <View style={{padding: 10}}>
             <YTButton
               onPress={this._handleAction}
               caption={isFetching ? "Updating..." : "Update product"}
-
               isDisabled={!isFormValid}
             />
-
           </View>
         </ScrollView>
       </View>
     )
-
-
   }
-
-
 }
-
 
 const mapStoreToProps = (store) => { 
 
   return {
-
-    user: store.user.loggedIn.user,
-    selectedProduct: store.product.selected,
-    productMap: store.product.byId,
-    isFetching: store.product.lists.all.isFetching,
-
+    user: store.user.loggedIn.user
+    , selectedProduct: store.product.selected
+    , productMap: store.product.byId
+    , isFetching: store.product.lists.all.isFetching
   }
 }
 

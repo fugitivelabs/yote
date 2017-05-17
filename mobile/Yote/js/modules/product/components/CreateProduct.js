@@ -51,7 +51,6 @@ class CreateProduct extends Base {
       , '_checkFormValid'
       , '_openLibrary'
     )
-
   }
 
   componentDidMount() {
@@ -65,7 +64,6 @@ class CreateProduct extends Base {
     var isValid = true;
     for(var i = 0; i < requiredInputs.length; i++) {
 
-      // lodash to the rescue
       var theVal = _.get(this.state, requiredInputs[i]);
       if(!theVal || theVal.length < 1) {
         isValid = false;
@@ -86,8 +84,6 @@ class CreateProduct extends Base {
     }
     dispatch(productActions.sendCreateProduct(newProduct)).then((res) => {
       dispatch(productActions.addProductToList(res.item._id)); 
-      // console.log('done');
-      // console.log(res);
       this.props.navigator.pop();
     });
   }
@@ -112,11 +108,8 @@ class CreateProduct extends Base {
 
   _scrollToInput(e, refName) {
     setTimeout(() => {
-
       var scrollResponder = this.refs.myScrollView.getScrollResponder();
       // var scrollResponder = scrollView.getScrollRef();
-      // console.log("on focus called ", refName);
-      // console.log(this.refs[refName].props.returnKeyType);
       var offset = 130;
       // console.log(offset);
       scrollResponder.scrollResponderScrollNativeHandleToKeyboard(
@@ -126,7 +119,6 @@ class CreateProduct extends Base {
         // false
       );
     }, 150);
-
   }
 
   render() {
@@ -202,21 +194,15 @@ class CreateProduct extends Base {
         </ScrollView>
       </View>
     )
-
-
   }
-
-
 }
 
 
 const mapStoreToProps = (store) => {
 
   return {
-
-    user: store.user.loggedIn.user,
-    isFetching: store.product.selected.isFetching,
-
+    user: store.user.loggedIn.user
+    , isFetching: store.product.selected.isFetching
   }
 }
 

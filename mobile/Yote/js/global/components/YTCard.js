@@ -1,8 +1,5 @@
 // import react things
 import React, { PropTypes } from 'react';
-// import Base from './BaseComponent';
-// import { connect } from 'react-redux';
-
 
 // import react-native components
 import StyleSheet from 'StyleSheet';
@@ -11,7 +8,6 @@ import View from 'ScrollView';
 
 // import styles
 import YTColors from '../styles/YTColors';
-
 
 var styles = StyleSheet.create({
   body: {
@@ -26,10 +22,9 @@ var styles = StyleSheet.create({
       , textAlign: 'center'
       , color: "#fff"
       , padding: 4
-      , backgroundColor: "#E02B3A"
+      , backgroundColor: YTColors.actionText
     }
 });
-
 
 const YTCard = ({ header, children}) => {
   return (

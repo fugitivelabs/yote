@@ -78,7 +78,7 @@ class SingleProduct extends Base {
       <View style={productStyles.container}>
         <YTHeader
           leftItem={leftItem}
-          title={product.title}
+          title="Yote"
           rightItem={rightItem}
         />
         <View style={productStyles.cell}>
@@ -86,22 +86,8 @@ class SingleProduct extends Base {
             <Text style={productStyles.headerLeft}>{product.title} </Text>
             <View style={productStyles.listSeparator}/>
             <Text style={productStyles.description}>{product.description}</Text>
-            <Text style={productStyles.description}>Created: {moment(product.created).format("MMMM Do YYYY, h:mm a")}</Text>
-            <Text style={productStyles.description}>Id: {product._id}</Text>
+            <Text style={productStyles.emptyMessage}>Created: {moment(product.created).format("MMMM Do YYYY, h:mm a")}</Text>
           </View>
-        </View>
-        <View style={{padding: 10}}>
-          <YTButton
-            onPress={null}
-            caption={"Yote Button!"}
-          />
-        </View>
-        <View style={{padding: 10}}>
-          <ActionButton
-            onPress={null}
-            caption={"Action Button!"}
-            style={{backgroundColor: '#31ce7c'}}
-          />
         </View>
       </View>
     )

@@ -1,5 +1,3 @@
-
-
 // import react things
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
@@ -11,7 +9,6 @@ import ListView from 'ListView';
 import Platform from 'Platform';
 import StyleSheet from 'StyleSheet';
 import Text from 'Text';
-import TouchableHighlight from 'TouchableHighlight';
 import TouchableOpacity from 'TouchableOpacity';
 import View from 'View';
 
@@ -21,10 +18,10 @@ import Base from './BaseComponent';
 // import Styles
 import YTColors from '../styles/YTColors';
 
-
 const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? 20 : 25;
 const HEADER_HEIGHT = Platform.OS === 'ios' ? 44 + STATUS_BAR_HEIGHT : 56 + STATUS_BAR_HEIGHT;
 const IMAGE_SIZE = 30;
+
 var styles = StyleSheet.create({
   centerItem: {
     flex: 2
@@ -92,8 +89,6 @@ class ItemWrapperIOS extends React.Component {
 
     let content;
     const {title, icon, layout, onPress, image} = item;
-    // console.log("(((((((((((((((((( ICON  ))))))))))))))))))");
-    // console.log(icon);
     if ((layout !== 'icon' || layout !== 'image')  && title) {
       content = (
         <Text style={[styles.itemText, {color}]}>
@@ -122,7 +117,6 @@ class ItemWrapperIOS extends React.Component {
   }
 }
 
-
 class YTHeader extends Base {
   constructor(props) {
     super(props);
@@ -136,6 +130,7 @@ class YTHeader extends Base {
   _handleLeftAction() {
     console.log("_handleLeftAction");
   }
+
   _handleRightAction() {
     console.log("_handleRightAction");
   }
@@ -144,7 +139,6 @@ class YTHeader extends Base {
     const { title, leftItem, rightItem, headerStyle } = this.props;
 
     const titleColor = 'white';
-
 
     let itemsColor = YTColors.darkText;
     let headerBackground;
@@ -156,15 +150,12 @@ class YTHeader extends Base {
     }
 
     return(
-      <View
-        style={[styles.header, headerBackground]}
-      >
+      <View style={[styles.header, headerBackground]}>
         <View style={styles.leftItem}>
           <ItemWrapperIOS
             item={leftItem}
             color={itemsColor}
           />
-
         </View>
         <View
           accessible={true}
@@ -188,15 +179,12 @@ class YTHeader extends Base {
 YTHeader.propTypes = {
   dispatch: PropTypes.func
   , title: PropTypes.string
-  // , leftAction: PropTypes.func
 }
 
 const mapStateToProps = (state) => {
-  // console.log(state);
-  // const { filter } = state.showing.list;
 
   return {
-    // filter: filter
+    
   }
 }
 

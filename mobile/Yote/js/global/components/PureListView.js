@@ -1,6 +1,5 @@
 // import react things
 import React, { PropTypes } from 'react';
-import Base from '../BaseComponent';
 import { connect } from 'react-redux';
 
 // import react-native components
@@ -10,8 +9,8 @@ import Platform from 'Platform';
 import StyleSheet from 'StyleSheet';
 import View from 'View';
 
-// import Styles
-
+// import global components
+import Base from '../BaseComponent';
 
 var styles = StyleSheet.create({
   separator: {
@@ -20,11 +19,9 @@ var styles = StyleSheet.create({
   },
 });
 
-
 // FIXME: Android has a bug when scrolling ListView the view insertions
 // will make it go reverse. Temporary fix - pre-render more rows
 const LIST_VIEW_PAGE_SIZE = Platform.OS === 'android' ? 20 : 1;
-
 
 class PureListView extends Base {
   constructor(props) {
@@ -68,10 +65,8 @@ class PureListView extends Base {
     if (this.state.dataSource.getRowCount() === 0) {
       return this.props.renderEmptyList && this.props.renderEmptyList();
     }
-
     return this.props.renderFooter && this.props.renderFooter();
   }
-
 
   render() {
     const { contentInset } = this.props;
@@ -95,7 +90,6 @@ PureListView.propTypes = {
   data: PropTypes.array
   , contentInset: PropTypes.object
   , minContentHeight: PropTypes.number
-
 }
 
 PureListView.defaultProps = {
@@ -106,7 +100,6 @@ PureListView.defaultProps = {
   renderSeparator: (sectionID, rowID) => <View style={styles.separator} key={rowID} />,
 }
 
-
 function cloneWithData(dataSource: ListView.DataSource, data: ?Data) {
   if (!data) {
     return dataSource.cloneWithRows([]);
@@ -116,6 +109,5 @@ function cloneWithData(dataSource: ListView.DataSource, data: ?Data) {
   }
   return dataSource.cloneWithRowsAndSections(data);
 }
-
 
 export default PureListView;

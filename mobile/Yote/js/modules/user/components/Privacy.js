@@ -28,26 +28,21 @@ import moment from 'moment';
 // import styles
 import YTColors from '../../../global/styles/YTColors';
 
-
 var styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: YTColors.lightBackground
-    // padding: 5
-  },
-
-  instructions: {
-    textAlign: 'center',
-    color: '#222',
-    marginBottom: 5,
-  },
-
   btnWrapper: {
-    borderTopWidth: 1,
-    borderColor: YTColors.listSeparator,
+    borderTopWidth: 1
+    , borderColor: YTColors.listSeparator
   }
+  , container: {
+      flex: 1
+      , backgroundColor: YTColors.lightBackground
+    }
+  , instructions: {
+      textAlign: 'center'
+      , color: '#222'
+      , marginBottom: 5
+    }
 });
-
 
 class Privacy extends Base {
   constructor(props){
@@ -83,7 +78,6 @@ class Privacy extends Base {
     };
 
     return(
-
       <View style={[styles.container ]} >
         <YTHeader
           navigator={navigator}
@@ -104,18 +98,10 @@ class Privacy extends Base {
           startInLoadingState={true}
           scalesPageToFit={true}
         />
-
-
       </View>
     )
-
-
-
   }
-
 }
-
-
 
 const mapStoreToProps = (store) => {
   return {

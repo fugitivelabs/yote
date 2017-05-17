@@ -35,7 +35,6 @@ import SingleProduct from './modules/product/components/SingleProduct';
 import UpdateProduct from './modules/product/components/UpdateProduct'; 
 import UpdateProfile from './modules/user/components/UpdateProfile';
 
-
 // define styles
 let styles = StyleSheet.create({
   container: {
@@ -59,7 +58,6 @@ class MainNavigator extends Base {
   componentDidMount() {
     // setup android back button listener
     BackAndroid.addEventListener('hardwareBackPress', this._handleBackButton);
-
     const { dispatch } = this.props;
 
     // if logged in, call initial actions to load the app
@@ -73,7 +71,6 @@ class MainNavigator extends Base {
     AppState.removeEventListener('change', this._handleAppStateChange);
     BackAndroid.removeEventListener('hardwareBackPress', this._handleBackButton);
   }
-
 
   _addBackButtonListener(listener) {
     this._handlers.push(listener);
@@ -103,7 +100,6 @@ class MainNavigator extends Base {
     }
     return false;
   }
-
 
   _renderScene(route, navigator) {
     if(route.userMembership) {
@@ -203,7 +199,6 @@ class MainNavigator extends Base {
     return (
       <Navigator
         ref="navigator"
-
         configureScene={(route) => {
           if (Platform.OS === 'android') {
             return Navigator.SceneConfigs.FloatFromBottomAndroid;
@@ -221,9 +216,7 @@ class MainNavigator extends Base {
       />
     )
   }
-
 }
-
 
 const mapStoreToProps = (store) => {
   return {

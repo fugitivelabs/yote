@@ -14,6 +14,9 @@ let YTFormStyles = StyleSheet.create({
     flex: 1
     , backgroundColor: YTColors.lightBackground
   }
+  , halfInput: {
+      flex: 0.5
+    }
   , inputContainer: {
       borderTopWidth: 1
       , borderColor: YTColors.listSeparator
@@ -24,25 +27,23 @@ let YTFormStyles = StyleSheet.create({
       , paddingTop: 8
       , backgroundColor: 'rgba(255,255,255,0.7)'
     }
-  , numberInput: {
-      textAlign: 'center'
-    }
-  , inlineInput: {
-      flexDirection: "row"
-    }
-  , quarterInput: {
-      flex: 0.25
-    }
-  , halfInput: {
-      flex: 0.5
-    }
-  , notes: {
-      height: 64
-    }
   , label: {
       fontSize: 12
       , color: YTColors.lightText
     }
+  , inlineInput: {
+      flexDirection: "row"
+    }
+  , notes: {
+      height: 64
+    }
+  , numberInput: {
+      textAlign: 'center'
+    }
+  , quarterInput: {
+      flex: 0.25
+    }
+  
 });
 
 export default YTFormStyles;

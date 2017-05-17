@@ -1,77 +1,65 @@
 // import react things
 import React, { PropTypes } from 'react';
-import Base from './BaseComponent';
 import { connect } from 'react-redux';
 
 // import react-native components
-import ListView from 'ListView';
 import Dimensions from 'Dimensions';
+import Image from 'Image';
+import ListView from 'ListView';
 import Platform from 'Platform';
-import StyleSheet from 'StyleSheet';
-import View from 'View';
-import Text from 'Text';
-import TouchableHighlight from 'TouchableHighlight';
 import RefreshControl from 'RefreshControl';
 import ScrollView from 'ScrollView';
-import Image from 'Image';
+import StyleSheet from 'StyleSheet';
+import Text from 'Text';
+import TouchableHighlight from 'TouchableHighlight';
+import View from 'View';
 
-
-// import custom components
+// import global components
+import Base from './BaseComponent';
 import CheckboxInput from './CheckboxInput';
 
 // import Styles
 import YTColors from '../styles/YTColors';
 
-
-
 var styles = StyleSheet.create({
-  separator: {
-    backgroundColor: YTColors.listSeparator,
-    height: 0,
-  },
-  mainContainer: {
-    flex: 1,
-    backgroundColor: YTColors.lightBackground,
-  },
-  emptyContainer: {
-    position: "absolute",
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
-    // flex: 1,
-    // backgroundColor: YTColors.primaryHeader,
-    backgroundColor: YTColors.lightBackground,
-    padding: 4,
-  },
-  emptyMessage: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    flexDirection: 'column',
-  },
   bigImage: {
-    marginTop: Dimensions.get('window').height * 0.25,
-    marginBottom: 20,
-  },
-  message: {
-    // color: "#fff",
-    color: YTColors.darkText,
-    fontSize: 28,
-    marginBottom: 50,
-  },
-  listWrapper: {
-    flex: 1,
-    backgroundColor: "transparent",
-    // backgroundColor: "#fff",
-    // , marginBottom: 50
-    // , minHeight
-    padding: 4
-  },
-
+    marginTop: Dimensions.get('window').height * 0.25
+    , marginBottom: 20
+  }
+  , emptyContainer: {
+      position: "absolute"
+      , top: 0
+      , bottom: 0
+      , left: 0
+      , right: 0
+      , backgroundColor: YTColors.lightBackground
+      , padding: 4
+    }
+  , emptyMessage: {
+      flex: 1
+      , alignItems: "center"
+      , justifyContent: "center"
+      , flexDirection: 'column'
+    }
+  , listWrapper: {
+      flex: 1
+      , backgroundColor: "transparent"
+      , padding: 4
+    }
+  , mainContainer: {
+      flex: 1
+      , backgroundColor: YTColors.lightBackground
+    }
+  , message: {
+      color: YTCodarkText
+      , fontSize: 28
+      , marginBottom: 50
+    }
+  , separator: {
+      backgroundColor: YTColors.listSeparator
+      , height: 0
+    }
 });
-
-
 
 // FIXME: Android has a bug when scrolling ListView the view insertions
 // will make it go reverse. Temporary fix - pre-render more rows
@@ -99,14 +87,11 @@ class ItemList extends Base {
       , '_renderSeparator'
       , '_handleRefresh'
       , '_renderHeader'
-      // , '_onPress'
     )
   }
 
   componentWillReceiveProps(nextProps) {
-    // console.log("___________________nextProps__________________");
     if(this.props.items !== nextProps.items) {
-      console.log("________________RESET ITEMS __________________");
       let newDataSource = new ListView.DataSource({
         getRowData: (dataBlob, sid, rid) => dataBlob[sid][rid],
         getSectionHeaderData: (dataBlob, sid) => dataBlob[sid],
@@ -117,7 +102,6 @@ class ItemList extends Base {
       this.setState({
         dataSource: newDataSource
       });
-
     }
   }
 
@@ -133,8 +117,6 @@ class ItemList extends Base {
   }
 
   _renderHeader() {
-
-
     return this.props.renderHeader && this.props.renderHeader();
   }
 
@@ -151,33 +133,7 @@ class ItemList extends Base {
     )
   }
 
-  // _onPress(item) {
-  //   return this.props.onPress && this.props.onPress(item);
-  // }
-
   _renderRow(item) {
-    // console.log(item);
-    console.log("^^^^^^^^^^^^^^^^^6        IS EDTING?????");
-    console.log(item.isEditing);
-
-    // let onPress = !this.props.disabled ? this.props.onPress : null;
-    // if(this.props.isEditing) {
-      // return(
-        // <View><Text>EDITING </Text></View>
-      // )
-    // } else {
-    //
-    //   return (
-    //     <CheckboxInput
-    //       item={item}
-    //       onPress={this.props.onPress}
-    //       toggleImportance={this.props.toggleImportance}
-    //       isDisabled={this.props.disabled}
-    //
-    //       removeItem={this.props.removeItem}
-    //       />
-    //   )
-    // }
     return (
       <CheckboxInput
         item={item}
@@ -188,25 +144,16 @@ class ItemList extends Base {
         removeItem={this.props.removeItem}
       />
     )
-    // return this.props.renderRow && this.props.renderRow(item);
-
   }
 
   _handleRefresh() {
     this.setState({refreshing: true});
-
   }
 
-
   render() {
-
-    console.log("I AM RENDERING MOFO");
-    console.log(this.state.dataSource);
-
     const { contentInset, checklistTemplates } = this.props;
     const isEmpty = !checklistTemplates || checklistTemplates.length < 1;
     const bottom = contentInset.bottom + Math.max(0, this.props.minContentHeight - this.state.contentHeight);
-
 
     const refreshControl =
      <RefreshControl
@@ -216,7 +163,6 @@ class ItemList extends Base {
 
    return (
      <View style={styles.mainContainer}>
-
        <ListView
          ref="itemList"
          initialListSize={10}
@@ -231,12 +177,9 @@ class ItemList extends Base {
          onContentSizeChange={this._onContentSizeChange}
          scrollRenderAheadDistance={600}
        />
-
      </View>
    )
   }
-
-
 }
 
 ItemList.propTypes = {
@@ -254,7 +197,6 @@ ItemList.defaultProps = {
   minContentHeight: Dimensions.get('window').height + 20,
   renderSeparator: (sectionID, rowID) => <View style={styles.separator} key={rowID} />,
 }
-
 
 function cloneWithData(dataSource: ListView.DataSource, data: ?Data) {
   if (!data) {
