@@ -54,7 +54,7 @@ class SelectFromObject extends Base{
   }
 
   render() {
-    const { display, label, name, objects, placeholder, value } = this.props;
+    const { display, label, name, objects, placeholder, value, required } = this.props;
 
     // build the items to select from
     let options = objects.map((object, index) => {
