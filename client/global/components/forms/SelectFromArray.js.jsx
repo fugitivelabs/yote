@@ -10,7 +10,7 @@
  *       <SelectFromArray
  *         items={things}
  *         change={this._onSelectChange}
- *         selected={1} //- optional
+ *         value={"Thing One"} //- optional
  *         placeholder="-- Select a Thing -- "
  *       />
  *     </div>
