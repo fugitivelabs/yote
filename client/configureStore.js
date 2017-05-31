@@ -7,7 +7,7 @@ import createLogger from 'redux-logger';
 import thunkMiddleware from 'redux-thunk'
 import { browserHistory } from 'react-router';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
-import { syncHistoryWithStore } from 'react-router-redux';
+// import { syncHistoryWithStore } from 'react-router-redux';
 
 // import main application reducer
 import rootReducer from './rootReducer';

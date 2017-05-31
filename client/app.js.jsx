@@ -12,19 +12,17 @@ require('es5-shim/es5-sham');
 
 // import primary libraries
 import React from 'react';
-import applyRouterMiddleware from 'react-router-apply-middleware';
+// import applyRouterMiddleware from 'react-router-apply-middleware';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import useScroll from 'react-router-scroll';
+// import useScroll from 'react-router-scroll';
 import { Provider } from 'react-redux';
 import { render } from 'react-dom';
 import { Router, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
-import { useRelativeLinks } from 'react-router-relative-links';
-
+// import { useRelativeLinks } from 'react-router-relative-links';
 
 // instantiate tap event plugin
 injectTapEventPlugin();
-
 
 // import scss files.
 // NOTE: Webpack does NOT actually import these as js. Instead it will generate the yote.css file.
@@ -79,7 +77,7 @@ render(
     <Provider store={store}>
       <Router
         history={history}
-        render={applyRouterMiddleware(useRelativeLinks(), useScroll() )}
+        //render={applyRouterMiddleware(useRelativeLinks(), useScroll() )}
         routes={routes}
       />
     </Provider>

@@ -15,9 +15,9 @@ import Root from './global/components/Root.js.jsx';
 const routes =
       <Route path="/" component={Root} >
         <IndexRoute component={Landing} />
-        { Object.keys(moduleRoutes).map((moduleName, i) =>
+        {/*{ Object.keys(moduleRoutes).map((moduleName, i) =>
           moduleRoutes[moduleName]
-        )}
+        )}*/}
         <Route path="/*" component={NotFound} />
       </Route>
 ;

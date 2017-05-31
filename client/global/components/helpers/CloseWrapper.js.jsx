@@ -5,6 +5,7 @@
 
 // import primary libraries
 import React from 'react';
+import PropTypes from 'prop-types';
 
 // import components
 import Base from "../BaseComponent.js.jsx";
@@ -31,8 +32,8 @@ class CloseWrapper extends Base {
 }
 
 CloseWrapper.propTypes = {
-  isOpen: React.PropTypes.bool.isRequired
-  , closeAction: React.PropTypes.func.isRequired
+  isOpen: PropTypes.bool.isRequired
+  , closeAction: PropTypes.func.isRequired
 }
 
 export default CloseWrapper;
