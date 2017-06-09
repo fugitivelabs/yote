@@ -157,6 +157,13 @@ function product(state = {
     , error: null
     , didInvalidate: false
     , lastUpdated: null
+    , getItem: () => {
+      return null
+    }
+
+    , getList: (...listArgs) => {
+      return null
+    }
   }
 
   /**
@@ -172,25 +179,27 @@ function product(state = {
   /**
    * Listen for the actions and respond accordingly.
    */
+  let nextState;
   switch(action.type) {
     /**
      * SINGLE PRODUCT ACTIONS
      */
     case Actions.REQUEST_SINGLE_PRODUCT: {
-      return Object.assign({}, state, {
+      nextState = Object.assign({}, state, {
         selected: {
           id: action.id
           , isFetching: true
           , error: null
         }
       })
+      break;
     }
     case Actions.RECEIVE_SINGLE_PRODUCT: {
       if(action.success) {
         // add received object to map
         let newIdMap = Object.assign({}, state.byId, {});
         newIdMap[action.id] = action.item;
-        return Object.assign({}, state, {
+        nextState = Object.assign({}, state, {
           byId: newIdMap
           , selected: {
             id: action.id
@@ -206,32 +215,35 @@ function product(state = {
           , error: action.error
           , lastUpdated: action.receivedAt
         })
-        return Object.assign({}, state, selected);
+        nextState = Object.assign({}, state, selected);
       }
+      break;
     }
     case Actions.ADD_SINGLE_PRODUCT_TO_MAP: {
       // deliberately add this product to the map
       let newIdMap = Object.assign({}, state.byId, {}); // copy map
       newIdMap[action.item._id] = action.item; // add single
-      return Object.assign({}, state, {
+      nextState = Object.assign({}, state, {
         byId: newIdMap
       })
+      break;
     }
     case Actions.REQUEST_CREATE_PRODUCT: {
-      return Object.assign({}, state, {
+      nextState = Object.assign({}, state, {
         selected: {
           id: null
           , isFetching: true
           , error: null
         }
       })
+      break;
     }
     case Actions.RECEIVE_CREATE_PRODUCT: {
       if(action.success) {
         // add received object to map
         let newIdMap = Object.assign({}, state.byId, {});
         newIdMap[action.id] = action.item;
-        return Object.assign({}, state, {
+        nextState = Object.assign({}, state, {
           byId: newIdMap
           , selected: {
             id: action.id
@@ -242,7 +254,7 @@ function product(state = {
           }
         })
       } else {
-        return Object.assign({}, state, {
+        nextState = Object.assign({}, state, {
           selected: {
             isFetching: false
             , error: action.error
@@ -250,22 +262,24 @@ function product(state = {
           }
         })
       }
+      break;
     }
     case Actions.REQUEST_UPDATE_PRODUCT: {
-      return Object.assign({}, state, {
+      nextState = Object.assign({}, state, {
         selected: {
           id: action.id
           , isFetching: true
           , error: null
         }
       })
+      break;
     }
     case Actions.RECEIVE_UPDATE_PRODUCT: {
       if(action.success) {
         // add received object to map
         let newIdMap = Object.assign({}, state.byId, {});
         newIdMap[action.id] = action.item;
-        return Object.assign({}, state, {
+        nextState = Object.assign({}, state, {
           byId: newIdMap
           , selected: {
             id: action.id
@@ -276,7 +290,7 @@ function product(state = {
           }
         })
       } else {
-        return Object.assign({}, state, {
+        nextState = Object.assign({}, state, {
           selected: {
             isFetching: false
             , error: action.error
@@ -284,22 +298,24 @@ function product(state = {
           }
         })
       }
+      break;
     }
     case Actions.REQUEST_DELETE_PRODUCT: {
-      return Object.assign({}, state, {
+      nextState = Object.assign({}, state, {
         selected: {
           id: action.id
           , isFetching: true
           , error: null
         }
       })
+      break;
     }
     case Actions.RECEIVE_DELETE_PRODUCT: {
       if(action.success) {
         // remove this object from map
         let newIdMap = Object.assign({}, state.byId, {});
         delete newIdMap[action.id]; //remove key
-        return Object.assign({}, state, {
+        nextState = Object.assign({}, state, {
           byId: newIdMap
           , selected: {
             id: null
@@ -310,7 +326,7 @@ function product(state = {
           }
         })
       } else {
-        return Object.assign({}, state, {
+        nextState = Object.assign({}, state, {
           selected: {
             isFetching: false
             , error: action.error
@@ -318,13 +334,15 @@ function product(state = {
           }
         })
       }
+      break;
     }
     case Actions.INVALIDATE_SELECTED_PRODUCT: {
-      return Object.assign({}, state, {
+      nextState = Object.assign({}, state, {
         selected: {
           didInvalidate: true
         }
       })
+      break;
     }
 
     /**
@@ -336,12 +354,13 @@ function product(state = {
     case Actions.SET_PRODUCT_PAGINATION: {
       // forward these actions on to individual list reducer
       let nextLists = Object.assign({}, state.lists, {});
-      return Object.assign({}, state, {
+      nextState = Object.assign({}, state, {
         lists: Object.assign({}, state.lists, {
           // NOTE:  This is a badass line of elegant code right here
           [action.listArgs[0]]: productList(state.lists[action.listArgs[0]] || {}, action)
         })
       })
+      break;
     }
     case Actions.RECEIVE_PRODUCT_LIST: {
       // add items to "byId" before we forward to individual list reducer
@@ -351,17 +370,62 @@ function product(state = {
           newIdMap[item._id] = item;
         }
       }
-      return Object.assign({}, state, {
+      nextState = Object.assign({}, state, {
         byId: newIdMap
         , lists: Object.assign({}, state.lists, {
           [action.listArgs[0]]: productList(state.lists[action.listArgs[0]], action)
         })
       })
+      break;
     }
     default: {
-      return state
+      nextState = state
+      break;
     }
   }
+
+  //set getter method for returning single selected item
+  nextState.selected = Object.assign({}, nextState.selected, {
+    getItem: () => {
+      if(!nextState.selected.id) {
+        return null
+      } else {
+        return nextState.byId[state.selected.id]
+      }
+    }
+  })
+  nextState.getList = (...listArgs) => {
+    /**
+     * utility method for a) determining if a list exists and b) getting those list objects
+     * this can be used in the render function of a component to avoid having to
+     * type: lists.player && lists.player.[id] && lists.player.[id].items
+     * if list doesnt exist yet, it returns null, else returns array of objects
+     * not meant to replace the map and individual list reducers, but to reduce
+     * boiler plate and produce cleaner code in the front end components.
+     */
+    if(listArgs.length === 0) {
+      // If no arguments passed, make the list we want "all"
+      listArgs = ["all"];
+    }
+    let nextList = nextState.lists;
+    for(var i = 0; i < listArgs.length; i++) {
+      if(nextList[listArgs[i]]) {
+        nextList = nextList[listArgs[i]];
+      } else {
+        nextList = null;
+        break;
+      }
+    }
+    if(!nextList) {
+      return null
+    } else {
+      nextList = nextList.items.map((item) => {
+        return nextState.byId[item]
+      })
+      return nextList;
+    }
+  }
+  return nextState;
 }
 
 export default product;

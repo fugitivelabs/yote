@@ -39,10 +39,15 @@ class ProductList extends Base {
   componentDidMount() {
     // fetch a list of your choice
     this.props.dispatch(productActions.fetchListIfNeeded()); // defaults to 'all'
+    this.props.dispatch(productActions.fetchListIfNeeded("player","123"));
+    this.props.dispatch(productActions.fetchListIfNeeded("player","abc"));
   }
 
   render() {
-    const { productList, productMap } = this.props;
+    const { productList, productMap, product } = this.props;
+
+    console.log("TESTING!!!!");
+    product.getList("player","123");
 
     /**
      * NOTE: Regarding isEmpty, when the app loads, all "product lists"
@@ -89,6 +94,7 @@ const mapStoreToProps = (store) => {
   return {
     productList: store.product.lists.all
     , productMap: store.product.byId
+    , product: store.product
   }
 }
 
