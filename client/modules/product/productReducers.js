@@ -419,10 +419,7 @@ function product(state = {
     if(!nextList) {
       return null
     } else {
-      nextList = nextList.items.map((item) => {
-        return nextState.byId[item]
-      })
-      return nextList;
+      return nextList.items.map((item) => nextState.byId[item])
     }
   }
   return nextState;
