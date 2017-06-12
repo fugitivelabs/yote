@@ -18,6 +18,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import { Provider } from 'react-redux';
 import { render } from 'react-dom';
 import { Router, browserHistory } from 'react-router';
+import { createBrowserHistory } from 'history';
 import { syncHistoryWithStore } from 'react-router-redux';
 // import { useRelativeLinks } from 'react-router-relative-links';
 
@@ -64,7 +65,7 @@ if((navigator.userAgent.toLowerCase().indexOf('webkit') == -1) || !window.develo
 
 
 const store = configureStore();
-const history = syncHistoryWithStore(browserHistory, store);
+const history = syncHistoryWithStore(createBrowserHistory(), store);
 
 // // listen to location changes and fire off a google analytics event.
 // history.listen(function (location) {
