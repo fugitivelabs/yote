@@ -11,6 +11,7 @@ import Base from './BaseComponent.js.jsx';
 
 export default class Root extends Base {
   constructor(props) {
+    console.log("root did load");
     super(props);
   }
 

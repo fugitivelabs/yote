@@ -50,6 +50,7 @@
     "react-flexgrid": "^0.7.0",
     "react-redux": "^4.4.6",
     "react-router": "^4.1.1",
+    "react-router-dom": "^4.1.1",
     "react-router-redux": "^4.0.8",
     "react-sticky": "^5.0.0",
     "react-tap-event-plugin": "^2.0.1",

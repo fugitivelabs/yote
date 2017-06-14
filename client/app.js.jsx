@@ -17,7 +17,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 // import useScroll from 'react-router-scroll';
 import { Provider } from 'react-redux';
 import { render } from 'react-dom';
-import { Router, browserHistory } from 'react-router';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 import { syncHistoryWithStore } from 'react-router-redux';
 // import { useRelativeLinks } from 'react-router-relative-links';
