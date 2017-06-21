@@ -215,7 +215,7 @@ function product(state = {
           , error: action.error
           , lastUpdated: action.receivedAt
         })
-        nextState = Object.assign({}, state, selected);
+        nextState = Object.assign({}, state, {selected});
       }
       break;
     }
