@@ -57,14 +57,28 @@ class SelectFromObject extends Base{
     const { display, label, name, objects, placeholder, value, required } = this.props;
 
     // build the items to select from
-    let options = objects.map((object, index) => {
-      return (
-        <option key={index} value={object[value]}>
-          {object[display]}
-        </option>
-      )
-    });
-
+    let options = [];
+    // objects is an array
+    if(typeof(options) == "array") {
+      options = objects.map((object, index) => {
+        return (
+          <option key={index} value={object[value]}>
+            {object[display]}
+          </option>
+        )
+      });
+    } else {
+      // objects is a map {}
+      for(let i in objects) {
+        if(objects.hasOwnProperty(i)) {
+          options.push(
+            <option key={objects[i]._id} value={objects[i][value]}>
+              {objects[i][display]}
+            </option>
+          )
+        }
+      }
+    }
     // render placeholder
     if(placeholder) {
       var placeholderText = <option key="-1" value={''}>{placeholder}</option>;
@@ -93,7 +107,10 @@ SelectFromObject.propTypes = {
   change: PropTypes.func.isRequired
   , display: PropTypes.string.isRequired
   , label: PropTypes.string
-  , objects: PropTypes.array.isRequired
+  , objects: PropTypes.oneOfType([
+    PropTypes.array
+    , PropTypes.object
+  ]).isRequired
   , placeholder: PropTypes.string
   , required: PropTypes.bool
   , selected: PropTypes.string
