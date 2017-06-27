@@ -411,7 +411,7 @@ function user(state = {
           , error: action.error
           , lastUpdated: action.receivedAt
         })
-        return Object.assign({}, state, selected);
+        return Object.assign({}, state, {selected});
       }
     }
     case Actions.ADD_SINGLE_USER_TO_MAP: {
