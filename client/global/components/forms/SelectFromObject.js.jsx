@@ -1,38 +1,31 @@
-/**
- * Helper component that lests users select items from a complex array of objects
- *
- * NOTE: To use -
- * // this example shows how to assign an author to a post
- * render() {
- *   var authors = [
- *     { name: 'Bill', _id: '55XYZ' }
- *     , { name: 'Jenny', _id: '56ABC' }
- *     , { name: 'Steve', _id: '57DEF' }
- *   ];
- *   return (
- *     <div>
- *       <SelectFromObject
- *         name="author"
- *         label="Author"
- *         objects={authors}
- *         display={'name'}
- *         value={'_id'}
- *         selected={post.author}
- *         change={handleFormChange}
- *         placeholder="-- Select an author --"
- *       />
- *     </div>
- *   )
- * }
- */
+import React from 'react';
 
-// import primary libraries
-import React, { PropTypes } from 'react';
-
-// import components
 import Base from "../BaseComponent.js.jsx";
 
 class SelectFromObject extends Base{
+
+  //required fields:
+  //  objects (array of objects to use or map of objects)
+  //  display (string field in the objects to display)
+  //  value (string field in objects to use as value)
+  //optional:
+  //  change callback (returns selected value)
+  //  selected object (string that matches to an object)
+  //  placeholder     (string that shows a default placeholder)
+
+  //example showing how to assiang an author for Post objects:
+  // //- get list of available authors who look liks this { username: '', _id: ''}
+  // <SelectFromObject
+  //   name="author"
+  //   label="Author"
+  //   objects={authors}
+  //   display={'username'}
+  //   value={'_id'}
+  //   selected={post.author}
+  //   change={handleFormChange}
+  //   placeholder="-- Select an author --"
+  // />
+
   constructor(props, context) {
     super(props);
     this.state = {
@@ -41,9 +34,14 @@ class SelectFromObject extends Base{
     this._bind('_handleSelectChange');
   }
 
-  // check agains any new props the component receives
-  componentWillReceiveProps(nextProps) {
-    nextProps.selected ? this.setState({selected: nextProps.selected}) : '';
+  // check the props the component receives
+  componentWillReceiveProps(nextProps, nextState) {
+    // console.log("SelectFromObject props");
+    // console.log(nextProps);
+    if(this.props.selected != nextProps.selected){
+      this.setState({selected: nextProps.selected});
+    }
+
   }
 
   _handleSelectChange(e) {
@@ -54,34 +52,43 @@ class SelectFromObject extends Base{
   }
 
   render() {
-    const { display, label, name, objects, placeholder, value, required } = this.props;
-
-    // build the items to select from
-    let options = objects.map((object, index) => {
-      return (
-        <option key={index} value={object[value]}>
-          {object[display]}
-        </option>
-      )
-    });
-
-    // render placeholder
+    const { objects, value, display, name, label, placeholder, required } = this.props;
+    let options = [];
+    // objects is an array
+    if(typeof(options) == "array") {
+      options = objects.map((object, index) => {
+        return (
+          <option key={index} value={object[value]}>
+            {object[display]}
+          </option>
+        )
+      });
+    } else {
+      // objects is a map {}
+      for(let i in objects) {
+        if(objects.hasOwnProperty(i)) {
+          options.push(
+            <option key={objects[i]._id} value={objects[i][value]}>
+              {objects[i][display]}
+            </option>
+          )
+        }
+      }
+    }
     if(placeholder) {
+      // console.log("has placeholder value");
       var placeholderText = <option key="-1" value={''}>{placeholder}</option>;
       options.unshift(placeholderText);
     }
-
-    const requiredText = required ? "(required)" : "";
-
-    return (
+    return(
       <div className="select-from-object input-group">
-        <label htmlFor={name}>{label} <span className="subhead">{requiredText}</span></label>
+        <label htmlFor={name}> {label} </label>
         <select
           name={name}
           onChange={this._handleSelectChange}
-          required={required}
           value={this.state.selected}
-        >
+          required={required}
+          >
           {options}
         </select>
       </div>
@@ -90,21 +97,17 @@ class SelectFromObject extends Base{
 }
 
 SelectFromObject.propTypes = {
-  change: PropTypes.func.isRequired
-  , display: PropTypes.string.isRequired
-  , label: PropTypes.string
-  , objects: PropTypes.array.isRequired
-  , placeholder: PropTypes.string
-  , required: PropTypes.bool
-  , selected: PropTypes.string
-  , value: PropTypes.string.isRequired
-}
-
-SelectFromObject.defaultProps = {
-  label: ''
-  , placeholder: '-- Select from the following --'
-  , required: false
-  , selected: ''
+  objects: React.PropTypes.oneOfType([
+    React.PropTypes.array
+    , React.PropTypes.object
+  ]).isRequired
+  , display: React.PropTypes.string.isRequired
+  , value: React.PropTypes.string.isRequired
+  , change: React.PropTypes.func.isRequired // should this be required??
+  , selected: React.PropTypes.string
+  , placeholder: React.PropTypes.string
+  , required: React.PropTypes.bool
+  , helpText: React.PropTypes.any
 }
 
 export default SelectFromObject;
