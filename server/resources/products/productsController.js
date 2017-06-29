@@ -48,11 +48,10 @@ exports.listByValues = (req, res) => {
    * 
    * NOTES:
    * 1) looks like the best syntax for this is, "?id=1234&id=4567&id=91011"
-   *    still a GET, and more of less conforms to REST uri's
-   *    additionally, node will parse this into a single array via "req.query.id" if there are multiples
+   *    still a GET, and more or less conforms to REST uri's
+   *    additionally, node will automatically parse this into a single array via "req.query.id"
    * 2) node default max request headers + uri size is 80kb. 
    *    experimentation needed to determie what the max length of a list we can do this way is
-   * 
    * TODO: server side pagination
    */ 
 
@@ -81,7 +80,7 @@ exports.listByValues = (req, res) => {
 
 exports.listByRef = (req, res) => {
   /**
-   * NOTE: This let's us query ANY pointer by passing in a refKey and refId
+   * NOTE: This let's us query by ANY string or pointer key by passing in a refKey and refId
    * TODO: server side pagination
    */
   Product.find({["_" + req.params.refKey]: [req.params.refId]}, (err, products) => {
