@@ -309,7 +309,6 @@ export function fetchList(...listArgs) {
       listArgs = ["all"];
     }
     dispatch(requestProductList(listArgs))
-    console.log(listArgs);
     /**
      * determine what api route we want to hit
      *
@@ -318,11 +317,13 @@ export function fetchList(...listArgs) {
      *
      * if listArgs has 1 arg, return "/api/products/by-[ARG]"
      *
-     * if 2 args, return return "/api/products/by-[ARG1]/[ARG2]".
-     * ex: /api/products/by-category/:category
+     * if 2 args, additional checks required.
+     *  if 2nd arg is a string, return "/api/products/by-[ARG1]/[ARG2]".
+     *    ex: /api/products/by-category/:category
+     *  if 2nd arg is an array, though, return "/api/products/by-[ARG1]-list" with additional query string
      *
      * TODO:  make this accept arbitrary number of args. Right now if more
-     * than 2, it requires custom checks
+     * than 2, it requires custom checks on server
      */
     let apiTarget = "/api/products";
     if(listArgs.length == 1 && listArgs[0] !== "all") {
