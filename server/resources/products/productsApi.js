@@ -15,6 +15,7 @@ module.exports = function(router, requireLogin, requireRole) {
 
   // - Read
   router.get('/api/products'                , products.list);
+  router.get('/api/products/list'           , products.listByIds)
   router.get('/api/products/by-:refKey/:refId'   , products.listByRef);
   router.get('/api/products/search'         , products.search);
   router.get('/api/products/:id'            , products.getById);
