@@ -39,11 +39,13 @@ class ProductList extends Base {
   componentDidMount() {
     // fetch a list of your choice
     this.props.dispatch(productActions.fetchListIfNeeded()); // defaults to 'all'
+    this.props.dispatch(productActions.fetchListIfNeeded("title", "htahtahate"));
+
+    this.props.dispatch(productActions.fetchListIfNeeded("title", ["htahtahate","htahjaetjh"]));
   }
 
   render() {
-    const { productList, productMap } = this.props;
-
+    const { productList, productMap, productTest } = this.props;
     /**
      * NOTE: Regarding isEmpty, when the app loads, all "product lists"
      * are null objects. Lists exist in memory and only after we deliberately
@@ -89,6 +91,7 @@ const mapStoreToProps = (store) => {
   return {
     productList: store.product.lists.all
     , productMap: store.product.byId
+    , productTest: store.product
   }
 }
 

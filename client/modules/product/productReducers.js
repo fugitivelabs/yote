@@ -422,6 +422,30 @@ function product(state = {
       return nextList.items.map((item) => nextState.byId[item])
     }
   }
+
+  nextState.getKeyArrayFromList = (key, ...listArgs) => {
+    /**
+     * notes
+     */
+    if(listArgs.length === 0) {
+      // If no arguments passed, make the list we want "all"
+      listArgs = ["all"];
+    }
+    let nextList = nextState.lists;
+    for(var i = 0; i < listArgs.length; i++) {
+      if(nextList[listArgs[i]]) {
+        nextList = nextList[listArgs[i]];
+      } else {
+        nextList = null;
+        break;
+      }
+    }
+    if(!nextList) {
+      return null
+    } else {
+      return nextList.items.map((item) => nextState.byId[item][key])
+    }
+  }
   return nextState;
 }
 
