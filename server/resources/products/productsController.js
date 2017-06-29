@@ -59,18 +59,25 @@ exports.listByValues = (req, res) => {
     // make sure the correct query params are included
     res.send({success: false, message: `Missing query param(s) specified by the ref: ${req.params.refKey}`});
   } else {
-    // as in listByRef below, attempt to query for matching ObjectId keys first. ie, if "user" is passed, look for key "_user" before key "user"
-    Product.find({["_" + req.params.refKey]: {$in: [].concat(req.query[req.params.refKey]) }}, (err, products) => {
+    // // as in listByRef below, attempt to query for matching ObjectId keys first. ie, if "user" is passed, look for key "_user" before key "user"
+    // Product.find({["_" + req.params.refKey]: {$in: [].concat(req.query[req.params.refKey]) }}, (err, products) => {
+    //     if(err || !products) {
+    //       res.send({success: false, message: `Error querying for products by ${["_" + req.params.refKey]} list`, err});
+    //     } else if(products.length == 0) {
+    //       Product.find({[req.params.refKey]: {$in: [].concat(req.query[req.params.refKey]) }}, (err, products) => {
+    //         if(err || !products) {
+    //           res.send({success: false, message: `Error querying for products by ${[req.params.refKey]} list`, err});
+    //         } else {
+    //           res.send({success: true, products});
+    //         }
+    //       })
+    //     } else  {
+    //       res.send({success: true, products});
+    //     }
+    // })
+    Product.find({[req.params.refKey]: {$in: [].concat(req.query[req.params.refKey]) }}, (err, products) => {
         if(err || !products) {
-          res.send({success: false, message: `Error querying for products by ${["_" + req.params.refKey]} list`, err});
-        } else if(products.length == 0) {
-          Product.find({[req.params.refKey]: {$in: [].concat(req.query[req.params.refKey]) }}, (err, products) => {
-            if(err || !products) {
-              res.send({success: false, message: `Error querying for products by ${[req.params.refKey]} list`, err});
-            } else {
-              res.send({success: true, products});
-            }
-          })
+          res.send({success: false, message: `Error querying for products by ${[req.params.refKey]} list`, err});
         } else  {
           res.send({success: true, products});
         }
@@ -83,22 +90,10 @@ exports.listByRef = (req, res) => {
    * NOTE: This let's us query by ANY string or pointer key by passing in a refKey and refId
    * TODO: server side pagination
    */
-  Product.find({["_" + req.params.refKey]: [req.params.refId]}, (err, products) => {
+  Product.find({[req.params.refKey]: [req.params.refId]}, (err, products) => {
     if(err || !products) {
       res.send({success: false, message: `Error retrieving products by _${req.params.refKey}: ${req.params.refId}` });
-    } else if(products.length == 0) {
-      // experimental: if nothing returned, try querying without the "_"
-      // for example, query for products by "name" or some other non-object field
-      // NOTE: for this to work, we need to make sure that we never give an schema two keys with the same text, ie "key" and "_key", because length == 0 might be correct
-      Product.find({[req.params.refKey]: [req.params.refId]}, (err, products) => {
-        if(err || !products) {
-          res.send({success: false, message: `Error retrieving products by ${req.params.refKey}: ${req.params.refId}` });
-        } else {
-          // if both return length == 0, then it doesnt matter which "products" we return
-          res.send({success: true, products})
-        }
-      })
-    } else {
+    }else {
       res.send({success: true, products})
     }
   })
