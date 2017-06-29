@@ -331,14 +331,11 @@ export function fetchList(...listArgs) {
       // length == 2 has it's own check, specifically if the second param is an array
       // if so, then we need to call the "listByValues" api method instead of the regular "listByRef" call
       // this can be used for querying for a list of products given an array of product id's, among other things
-      console.log("ARGS 1", listArgs[1]);
-      console.log(Array.isArray(listArgs[1]))
       apiTarget += `/by-${listArgs[0]}-list?`;
       // build query string
       for(let i = 0; i < listArgs[1].length; i++) {
         apiTarget += `${listArgs[0]}=${listArgs[1][i]}&`
       }
-      console.log(apiTarget)
     } else if(listArgs.length == 2) {
       // ex: ("author","12345")
       apiTarget += `/by-${listArgs[0]}/${listArgs[1]}`;

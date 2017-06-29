@@ -160,8 +160,13 @@ function product(state = {
     , getItem: () => {
       return null
     }
+  }
 
-    , getList: (...listArgs) => {
+  , util: {
+    getList: (...listArgs) => {
+      return null
+    }
+    , getKeyArrayFromList: (...listArgs) => {
       return null
     }
   }
@@ -394,7 +399,7 @@ function product(state = {
       }
     }
   })
-  nextState.getList = (...listArgs) => {
+  nextState.util.getList = (...listArgs) => {
     /**
      * utility method for a) determining if a list exists and b) getting those list objects
      * this can be used in the render function of a component to avoid having to
@@ -422,10 +427,13 @@ function product(state = {
       return nextList.items.map((item) => nextState.byId[item])
     }
   }
-
-  nextState.getKeyArrayFromList = (key, ...listArgs) => {
+  nextState.util.getKeyArrayFromList = (key, ...listArgs) => {
     /**
-     * notes
+     * utility method for returning an ARRAY of all of the "key" values
+     * for the objects defined in a certain list. for example, if we have 
+     * a list defined by listArgs ("status", "published"), we can return an
+     * array of all that list's author ids by calling:
+     * Reducer.getKeyArrayFromList("_author","status","published")
      */
     if(listArgs.length === 0) {
       // If no arguments passed, make the list we want "all"
