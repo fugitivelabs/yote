@@ -15,20 +15,20 @@ class ListComparator extends Base {
   _removeItem(index) {
     // remove from "items" list
     // console.log("REMOVE " + index);
-    var items = this.props.items;
+    let items = this.props.items;
     items.splice(index, 1);
-    var event = {target: {name: this.props.name, value: this.props.items} };
+    let event = {target: {name: this.props.name, value: this.props.items} };
     this.props.change(event);
   }
 
   _addItem(index) {
     // add to "items" list
     // console.log("ADD " + index);
-    var items = this.props.items;
-    var unselectedItems = [];
-    for(var i = 0; i < this.props.allItems.length; i++) {
-      var selected = false;
-      for(var j = 0; j < items.length; j++) {
+    let items = this.props.items;
+    let unselectedItems = [];
+    for(let i = 0; i < this.props.allItems.length; i++) {
+      let selected = false;
+      for(let j = 0; j < items.length; j++) {
         if(this.props.allItems[i] == items[j]) {
           selected = true;
         }
@@ -38,17 +38,17 @@ class ListComparator extends Base {
       }
     }
     items.push(unselectedItems[index]);
-    var event = {target: {name: this.props.name, value: this.props.items} };
+    let event = {target: {name: this.props.name, value: this.props.items} };
     this.props.change(event);
   }
 
   _moveUp(index) {
     if(index < 1) { return; }
-    var newItems = this.props.items;
-    var moveTarget = newItems[index];
+    let newItems = this.props.items;
+    let moveTarget = newItems[index];
     newItems[index] = newItems[index - 1];
     newItems[index - 1] = moveTarget;
-    var changeEvent = {
+    let changeEvent = {
       target: {
         name: this.props.name
         , value: newItems
@@ -59,11 +59,11 @@ class ListComparator extends Base {
 
   _moveDown(index) {
     if(index > this.props.items.length - 1) { return; }
-    var newItems = this.props.items;
-    var moveTarget = newItems[index];
+    let newItems = this.props.items;
+    let moveTarget = newItems[index];
     newItems[index] = newItems[index + 1];
     newItems[index + 1] = moveTarget;
-    var changeEvent = {
+    let changeEvent = {
       target: {
         name: this.props.name
         , value: newItems
@@ -75,10 +75,10 @@ class ListComparator extends Base {
   render() {
     const { allItems, items, label, name, reorderable } = this.props;
 
-    var unselectedItems = [];
-    for(var i = 0; i < allItems.length; i++) {
-      var selected = false;
-      for(var j = 0; j < items.length; j++) {
+    let unselectedItems = [];
+    for(let i = 0; i < allItems.length; i++) {
+      let selected = false;
+      for(let j = 0; j < items.length; j++) {
         if(allItems[i] == items[j]) {
           selected = true;
         }
