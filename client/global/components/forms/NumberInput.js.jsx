@@ -50,8 +50,8 @@ class NumberInput extends Base {
       , step
     } = this.props;
 
-    let currencyAddon = currency ? <span className="item">$</span> : <span/>;
-    let percentAddon = percent ? <span className="item">%</span> : <span/>;
+    let currencyAddon = currency ? <span className="item">$</span> : null;
+    let percentAddon = percent ? <span className="item">%</span> : null;
 
     return (
       <div className="input-group">
