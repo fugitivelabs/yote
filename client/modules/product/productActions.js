@@ -309,7 +309,6 @@ export function fetchList(...listArgs) {
       listArgs = ["all"];
     }
     dispatch(requestProductList(listArgs))
-
     /**
      * determine what api route we want to hit
      *
@@ -318,16 +317,28 @@ export function fetchList(...listArgs) {
      *
      * if listArgs has 1 arg, return "/api/products/by-[ARG]"
      *
-     * if 2 args, return return "/api/products/by-[ARG1]/[ARG2]".
-     * ex: /api/products/by-category/:category
+     * if 2 args, additional checks required.
+     *  if 2nd arg is a string, return "/api/products/by-[ARG1]/[ARG2]".
+     *    ex: /api/products/by-category/:category
+     *  if 2nd arg is an array, though, return "/api/products/by-[ARG1]-list" with additional query string
      *
      * TODO:  make this accept arbitrary number of args. Right now if more
-     * than 2, it requires custom checks
+     * than 2, it requires custom checks on server
      */
     let apiTarget = "/api/products";
     if(listArgs.length == 1 && listArgs[0] !== "all") {
       apiTarget += `/by-${listArgs[0]}`;
+    } else if(listArgs.length == 2 && Array.isArray(listArgs[1])) {
+      // length == 2 has it's own check, specifically if the second param is an array
+      // if so, then we need to call the "listByValues" api method instead of the regular "listByRef" call
+      // this can be used for querying for a list of products given an array of product id's, among other things
+      apiTarget += `/by-${listArgs[0]}-list?`;
+      // build query string
+      for(let i = 0; i < listArgs[1].length; i++) {
+        apiTarget += `${listArgs[0]}=${listArgs[1][i]}&`
+      }
     } else if(listArgs.length == 2) {
+      // ex: ("author","12345")
       apiTarget += `/by-${listArgs[0]}/${listArgs[1]}`;
     } else if(listArgs.length > 2) {
       apiTarget += `/by-${listArgs[0]}/${listArgs[1]}`;

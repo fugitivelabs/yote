@@ -7,14 +7,14 @@
  * this.props.dispatch(productActions.fetchListIfNeeded()).then((data) => {
  *   console.log("DATA", data);
  * });
- * this.props.dispatch(productActions.fetchListIfNeeded("workout"));
- * this.props.dispatch(productActions.fetchListIfNeeded("section", "1234"));
- * this.props.dispatch(productActions.fetchList("section", "3456", "78910")).then(() => {
- *   this.props.dispatch(productActions.invalidateList("section", "3456", "78910"));
+ * this.props.dispatch(productActions.fetchListIfNeeded("_workout"));
+ * this.props.dispatch(productActions.fetchListIfNeeded("_section", "1234"));
+ * this.props.dispatch(productActions.fetchList("_section", "3456", "78910")).then(() => {
+ *   this.props.dispatch(productActions.invalidateList("_section", "3456", "78910"));
  * });
  * this.props.dispatch(productActions.setFilter({test: 2}));
- * this.props.dispatch(productActions.setFilter({test: 2}, "section", "1234"));
- * this.props.dispatch(productActions.setPagination({test: 1}, "section", "1234"));
+ * this.props.dispatch(productActions.setFilter({test: 2}, "_section", "1234"));
+ * this.props.dispatch(productActions.setPagination({test: 1}, "_section", "1234"));
  */
 
 // import primary libraries
