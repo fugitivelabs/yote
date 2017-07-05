@@ -36,10 +36,10 @@ class CreateProduct extends Base {
     /**
      * This let's us change arbitrarily nested objects with one pass
      */
-    let newState = _.update( this.state.product, e.target.name, function() {
+    let newProductState = _.update( this.state.product, e.target.name, function() {
       return e.target.value;
     });
-    this.setState(newState);
+    this.setState({product: newProductState});
   }
 
 

@@ -48,10 +48,10 @@ class UpdateProduct extends Base {
   }
 
   _handleFormChange(e) {
-    var newState = _.update( this.state.product, e.target.name, function() {
+    var newProductState = _.update( this.state.product, e.target.name, function() {
       return e.target.value;
     });
-    this.setState(newState);
+    this.setState({product: newProductState});
   }
 
   _handleFormSubmit(e) {
