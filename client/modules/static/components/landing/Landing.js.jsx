@@ -46,6 +46,7 @@ class Landing extends Base {
         />
         <Hero />
         <div className="hero sub u-centerText">
+
           <p> Check out the docs on <a href="https://fugitivelabs.github.io/yote/"> GitHub </a></p>
         </div>
         <div style={{height: 900}}></div>
