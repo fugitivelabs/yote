@@ -23,7 +23,7 @@ class UrlInput extends Base {
   constructor(props) {
     super(props);
     this.state = {
-      url: "http://"
+      url: this.props.value || "http://"
       , errorMessage: ""
       , isValid: true
     };
@@ -32,25 +32,34 @@ class UrlInput extends Base {
     );
   }
 
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.value !== this.props.value) {
+      this.setState({
+        url: nextProps.value
+      })
+    }
+  }
+
   _handleInputChange(e) {
     let newState = _.update( this.state, e.target.name, function() {
       return e.target.value;
     });
 
-    // Checks for ____@____.__
+    // Checks for what???
     const re = /^(((ftp|https?):\/\/)((?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[0-9][0-9]|[0-9])\.(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[0-9][0-9]|[0-9])\.)(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[0-9][0-9]|[0-9])\.)(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[0-9][0-9]|[0-9]))|(?:(?:(?:\w+\.){1,2}[\w]{2,3})))(?::(\d+))?((?:\/[\w]+)*)(?:\/|(\/[\w]+\.[\w]{3,4})|(\?(?:([\w]+=[\w]+)&)*([\w]+=[\w]+))?|\?(?:(wsdl|wadl))))$/;
     newState.isValid = re.test(newState.url);
     newState.errorMessage = !newState.isValid ? "Please enter a valid url" : null;
     var event = {
       target: {
         name: this.props.name
-        , value: "" // return empty url by default
+        , value: "http://" // return empty url by default
       }
     };
     if(newState.isValid) {
       event.target.value = newState.url; // return valid url
+      // only tell parent about a change event if the new value is valid
+      this.props.change(event);
     }
-    this.props.change(event);
     this.setState(newState);
   }
 
