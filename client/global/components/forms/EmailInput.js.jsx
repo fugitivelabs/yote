@@ -32,10 +32,11 @@ class EmailInput extends Base {
     );
   }
 
-  componentWillReceiveNextProps(nextProps) {
-    console.log("NEXT PROPS");
+  componentWillReceiveProps(nextProps) {
     if(nextProps.value !== this.props.value) {
-      console.log("VALUE CHANGED");
+      this.setState({
+        email: nextProps.value
+      })
     }
   }
 
