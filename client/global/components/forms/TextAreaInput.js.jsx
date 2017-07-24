@@ -20,8 +20,10 @@ class TextAreaInput extends Base {
 
   render() {
     const {
-      helpText
+      cols
+      , helpText
       , label
+      , maxlength
       , name
       , placeholder
       , required
@@ -33,13 +35,15 @@ class TextAreaInput extends Base {
       <div className="input-group">
         <label htmlFor={name}> {label} {required ? <sup className="-required">*</sup> : null}</label>
         <textarea
-          type="text"
+          cols={cols}
+          maxLength={maxlength}
           name={name}
-          placeholder={placeholder}
           onChange={this._handleInputChange}
+          placeholder={placeholder}
           required={required}
-          value={value}
           rows={rows}
+          type="text"
+          value={value}
         >
         </textarea>
         <small className="help-text"><em>{helpText}</em></small>
@@ -50,12 +54,14 @@ class TextAreaInput extends Base {
 
 TextAreaInput.propTypes = {
   change: PropTypes.func.isRequired
+  , cols: PropTypes.number
   , helpText: PropTypes.any
   , label: PropTypes.string
+  , maxlength: PropTypes.number
   , name: PropTypes.string.isRequired
   , placeholder: PropTypes.string
   , required: PropTypes.bool
-  , rows: PropTypes.string
+  , rows: PropTypes.number
   , value: PropTypes.string.isRequired
 }
 
