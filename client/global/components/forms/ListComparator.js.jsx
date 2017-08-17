@@ -1,14 +1,24 @@
 import React, { PropTypes } from 'react'
 import Base from "../BaseComponent.js.jsx";
 
+// import third-party libraries
+import _ from 'lodash';
+
+// import form components
+import TextInput from './TextInput.js.jsx';
+
 class ListComparator extends Base {
   constructor(props) {
     super(props);
+    this.state = {
+      queryText: ''
+    }
     this._bind(
       '_addItem'
       , '_moveDown'
       , '_moveUp'
       , '_removeItem'
+      , '_handleFormChange'
     )
   }
 
@@ -72,19 +82,46 @@ class ListComparator extends Base {
     this.props.change(changeEvent);
   }
 
+  _handleFormChange(e) {
+    let newState = _.update( this.state, e.target.name, function() {
+      return e.target.value;
+    });
+    this.setState(newState);
+  }
+
   render() {
-    const { allItems, items, label, name, reorderable } = this.props;
+    const {
+      allItems
+      , filterable
+      , items
+      , label
+      , name
+      , reorderable
+    } = this.props;
+    const { queryText } = this.state;
+
+    let newItems = [];
+    if(filterable) {
+      newItems = _.filter(allItems, function(item) {
+        let itemsString = "";
+        itemsString += item;
+        itemsString = itemsString.replace(/[^a-zA-Z0-9]/g, '');
+        return itemsString.toLowerCase().indexOf(queryText.toLowerCase()) > -1;
+      });
+    } else {
+      newItems = allItems;
+    }
 
     let unselectedItems = [];
-    for(let i = 0; i < allItems.length; i++) {
+    for(let i = 0; i < newItems.length; i++) {
       let selected = false;
       for(let j = 0; j < items.length; j++) {
-        if(allItems[i] == items[j]) {
+        if(newItems[i] == items[j]) {
           selected = true;
         }
       }
       if(!selected) {
-        unselectedItems.push(allItems[i]);
+        unselectedItems.push(newItems[i]);
       }
     }
 
@@ -92,6 +129,18 @@ class ListComparator extends Base {
       <div className="input-group">
         <label htmlFor="newItem"> { label } </label>
         <div className="list-comparator-input">
+          <div className="yt-row with-gutters">
+            <div className="yt-col _100">
+              <TextInput
+                name="queryText"
+                label="Filter"
+                value={queryText}
+                change={this._handleFormChange}
+                placeholder="Filter"
+                required={false}
+              />
+            </div>
+          </div>
           <div className="yt-row with-gutters">
             <div className="yt-col _50">
               <div className="-label">Selected:</div>
@@ -155,6 +204,7 @@ class ListComparator extends Base {
 ListComparator.propTypes = {
   allItems: PropTypes.arrayOf(PropTypes.string)
   , change: PropTypes.func.isRequired
+  , filterable: PropTypes.bool
   , items: PropTypes.arrayOf(PropTypes.string)
   , label: PropTypes.string
   , name: PropTypes.string.isRequired
@@ -163,6 +213,7 @@ ListComparator.propTypes = {
 
 ListComparator.defaultProps = {
   allItems: []
+  , filterable: false
   , items: []
   , label: ""
   , reorderable: false
