@@ -100,28 +100,28 @@ class ListComparator extends Base {
     } = this.props;
     const { queryText } = this.state;
 
-    let newItems = [];
+    let filteredItems = [];
     if(filterable) {
-      newItems = _.filter(allItems, function(item) {
+      filteredItems = _.filter(allItems, function(item) {
         let itemsString = "";
         itemsString += item;
         itemsString = itemsString.replace(/[^a-zA-Z0-9]/g, '');
         return itemsString.toLowerCase().indexOf(queryText.toLowerCase()) > -1;
       });
     } else {
-      newItems = allItems;
+      filteredItems = allItems;
     }
 
     let unselectedItems = [];
-    for(let i = 0; i < newItems.length; i++) {
+    for(let i = 0; i < filteredItems.length; i++) {
       let selected = false;
       for(let j = 0; j < items.length; j++) {
-        if(newItems[i] == items[j]) {
+        if(filteredItems[i] == items[j]) {
           selected = true;
         }
       }
       if(!selected) {
-        unselectedItems.push(newItems[i]);
+        unselectedItems.push(filteredItems[i]);
       }
     }
 
