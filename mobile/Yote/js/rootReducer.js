@@ -1,4 +1,3 @@
-
 /**
  * rootReducer brings all application reducers and combines them as one
  */

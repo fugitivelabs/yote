@@ -9,17 +9,23 @@ import YTColors from '../../global/styles/YTColors';
 const IMAGE_HEIGHT = Dimensions.get('window').height * 0.5;
 let screenWidth = Dimensions.get('window').width;
 
-let styles = StyleSheet.create({
+let userStyles = StyleSheet.create({
   bannerWrapper: {
     flex:1
     , padding: 20
     , justifyContent: 'flex-end'
   }
   , container: {
-      flex: 1
-      , backgroundColor: '#C20032'
-      , justifyContent: "center"
-      , flexDirection: 'column'
+      flex: 1,
+      backgroundColor: '#fff'
+    }
+  , editImage: {
+      flex: 1, 
+      alignItems: 'center',
+      padding: 20, 
+      justifyContent: 'center',
+      // backgroundColor: '#5b5b5b'
+      // backgroundColor: 'rgba(0,0,0,0.91)'
     }
   , forgotContainer: {
       alignItems: 'flex-end'
@@ -53,10 +59,45 @@ let styles = StyleSheet.create({
       , padding: 8
       , backgroundColor: '#fff'
     }
+  , instructions: {
+      // fontStyle: 'italic', 
+      fontSize: 12,
+      color: YTColors.lightText,
+      paddingVertical: 10,
+      paddingHorizontal: 5
+    }
+  , infoWrapper: {
+      flex: 1, 
+      flexDirection: 'row', 
+      paddingVertical: 5, 
+      paddingHorizontal: 10
+    }
+  , labelBox: {
+      flex: .2, 
+      justifyContent: 'center',
+      paddingLeft: 10,
+    }
   , label: {
-      fontSize: 12
-      , color: '#fff'
-      , marginBottom: 4
+      fontSize: 15,
+      fontWeight: '500', 
+      // flex: .2,
+    }
+  , infoBox: {
+      flex: .8, 
+      justifyContent: 'center',
+    }
+  , info: {
+      fontSize: 15,
+      paddingVertical: 10,
+    }
+  , profilePic: {
+      width: 275, 
+      height: 275,
+      backgroundColor: Platform.OS === 'ios' ? YTColors.listSeparator : null ,
+      borderRadius: 275 * .5,
+      // borderColor: '#ffd442',
+      borderColor: YTColors.pridePurple,
+      borderWidth: 4,
     }
   , text: {
       color: '#fff'

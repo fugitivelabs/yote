@@ -19,7 +19,7 @@ import Base from './BaseComponent';
 import YTColors from '../styles/YTColors';
 
 const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? 20 : 25;
-const HEADER_HEIGHT = Platform.OS === 'ios' ? 44 + STATUS_BAR_HEIGHT : 56 + STATUS_BAR_HEIGHT;
+const HEADER_HEIGHT = Platform.OS === 'ios' ? 44 + STATUS_BAR_HEIGHT : 44 + STATUS_BAR_HEIGHT;
 const IMAGE_SIZE = 30;
 
 var styles = StyleSheet.create({
@@ -29,7 +29,7 @@ var styles = StyleSheet.create({
   }
   , header: {
       backgroundColor: YTColors.primaryHeader
-      , paddingTop: STATUS_BAR_HEIGHT
+      , paddingTop: Platform.OS == 'ios' ? STATUS_BAR_HEIGHT : 0
       , borderBottomWidth: 1
       , borderColor: YTColors.listSeparator
       , height: HEADER_HEIGHT

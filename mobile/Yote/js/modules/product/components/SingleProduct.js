@@ -45,26 +45,27 @@ class SingleProduct extends Base {
     )
   }
 
-  componentDidMount() {
-    const { productId } = this.props;
+  componentWillMount() {
+    const { productId } = this.props.navigation.state.params; 
     this.props.dispatch(productActions.fetchSingleProductById(productId)); 
   }
 
   _closeModal() {
-    this.props.navigator.pop();
+    this.props.navigation.goBack(); 
   }
 
   _openEdit() {
-    console.log("open update product");
-    this.props.navigator.push({updateProduct: true}); 
+    const { productId } = this.props.navigation.state.params; 
+    this.props.navigation.navigate('UpdateProduct', {productId: productId});  
   }
 
   render() {
-    const { productId, productMap } = this.props; 
+    const { productMap } = this.props; 
+    const { productId } = this.props.navigation.state.params; 
     let product = productMap[productId];  
 
     const leftItem = {
-      icon: require('../../../global/components/img/back.png'),
+      icon: require('../../../global/img/back.png'),
       layout: 'icon',
       onPress: this._closeModal,
     }
@@ -72,23 +73,29 @@ class SingleProduct extends Base {
     const rightItem = {
       title: "Edit",
       onPress: this._openEdit,
-    };
+    }; 
 
     return(
       <View style={productStyles.container}>
         <YTHeader
+          title='Single Product'
           leftItem={leftItem}
-          title="Yote"
           rightItem={rightItem}
         />
-        <View style={productStyles.cell}>
-          <View style={productStyles.infoBox}>
-            <Text style={productStyles.headerLeft}>{product.title} </Text>
-            <View style={productStyles.listSeparator}/>
-            <Text style={productStyles.description}>{product.description}</Text>
-            <Text style={productStyles.emptyMessage}>Created: {moment(product.created).format("MMMM Do YYYY, h:mm a")}</Text>
+        <ScrollView>
+          <View style={productStyles.cell}>
+            <View style={productStyles.infoBox}>
+              <Text style={[productStyles.headerLeft, {paddingBottom: 5}]}>{product.title} </Text>
+              <View style={productStyles.listSeparator}/>
+              <View style={{paddingVertical: 5}}>
+                <View style={{paddingVertical: 10}}>
+                  <Text style={productStyles.description}>{product.description}</Text>
+                </View>
+                <Text style={[productStyles.description, {color: YTColors.actionText}]}>Created: {moment(product.created).format("MMMM Do YYYY, h:mm a")}</Text>
+              </View>
+            </View>
           </View>
-        </View>
+        </ScrollView>
       </View>
     )
   }

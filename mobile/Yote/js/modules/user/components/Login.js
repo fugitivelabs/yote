@@ -21,9 +21,9 @@ import ScrollView from 'ScrollView';
 import StyleSheet from 'StyleSheet';
 import Text from 'Text';
 import TextInput from 'TextInput';
-import TouchableHighlight from 'TouchableHighlight';
 import TouchableOpacity from 'TouchableOpacity';
 import View from 'View';
+import Platform from 'Platform'; 
 
 // import actions
 import * as singleActions from '../userActions.js';
@@ -45,9 +45,10 @@ var styles = StyleSheet.create({
   }
   , container: {
       flex: 1
-      , backgroundColor: '#C20032'
+      , backgroundColor: '#fff'
       , justifyContent: "center"
       , flexDirection: 'column'
+      , paddingTop: 20
     }
   , forgotContainer: {
       alignItems: 'flex-end'
@@ -64,18 +65,21 @@ var styles = StyleSheet.create({
       // , backgroundColor: "#fff"
     }
   , inputContainer: {
-      borderWidth: 1
-      , borderColor: 'transparent'
-      , marginTop: 14
-    }
+    // padding: 10,
+    borderWidth: Platform.OS == 'ios' ? 1 : 0,
+    borderBottomColor: '#CCC',
+    borderColor: 'transparent',
+    marginTop: 14,
+  }
   , input: {
-      height: 52
-      , borderColor: YTColors.primaryHeader
-      , flex: 1
-      , fontSize: 17
-      , padding: 8
-      , backgroundColor: '#fff'
-    }
+    height: 45,
+    // borderWidth: 0.5,
+    // borderColor: YTColors.primaryHeader,
+    flex: 1,
+    fontSize: 17,
+    paddingVertical: 8,
+    backgroundColor: 'rgba(255,255,255,0.7)'
+  }
   , img: {
       width: screenWidth
       , height: IMAGE_HEIGHT
@@ -177,7 +181,7 @@ class Login extends Base {
   }
 
   _openRegister() {
-    this.props.navigator.push({register: true});
+    this.props.navigation.navigate( 'Register' ); 
   }
 
   _scrollToInput(e, refName) {
@@ -203,26 +207,27 @@ class Login extends Base {
   render(){
     const { isFetching } = this.props;
     const { forgotPassword } = this.state;
-    let forgotPassText = forgotPassword ? "Remembered password?" : "Forgot password?";
+    let forgotPassText = forgotPassword ? "Cancel" : "Forgot password?";
     return(
       <View style={styles.container}>
-        <ScrollView ref="myScrollView" keyboardDismissMode="interactive">
-          <Image
-            style={styles.img}
-            source={require('../../../global/img/coyote.jpg')}
-            resizeMode={"cover"}
-          />
+        <ScrollView ref="myScrollView" keyboardDismissMode="interactive" keyboardShouldPersistTaps="handled">
+          <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
+            <Image
+              style={{height: 250, width: 250, tintColor: YTColors.lightText}}
+              source={require('../../../global/img/logo.png')}
+              resizeMode={"contain"}
+            />
+          </View>
           <View style={{paddingHorizontal: 20}}>
             {!forgotPassword ?
               <View style={styles.inputWrapper}>
                 <View style={styles.inputContainer}>
-                  <Text style={styles.label}>Email</Text>
                   <TextInput
                     ref="username"
                     isRequired={true}
                     style={styles.input}
                     autoCapitalize="none"
-                    placeholder=""
+                    placeholder="Email"
                     placeholderTextColor={YTColors.lightText}
                     autoCorrect={false}
                     onChange={ (e) => this._handleInputChange(e, "username") }
@@ -237,12 +242,13 @@ class Login extends Base {
                   />
                 </View>
                 <View style={styles.inputContainer}>
-                  <Text style={styles.label}>Password</Text>
                   <TextInput
                     ref="password"
                     isRequired={true}
                     style={styles.input}
                     autoCapitalize="none"
+                    placeholder="Password"
+                    placeholderTextColor={YTColors.lightText}
                     autoCorrect={false}
                     onChange={ (e) => this._handleInputChange(e, "password") }
                     returnKeyType="go"
@@ -256,13 +262,15 @@ class Login extends Base {
               </View>
               :
               <View style={styles.inputContainer}>
-                <Text style={styles.label}>Email</Text>
+                <View style={{paddingVertical: 15}}>
+                  <Text style={{fontSize: 15, color: YTColors.lightText, textAlign: 'center'}}>Enter your email and we'll send you a link to reset your password! Please note, reset password link is ONLY valid for 24 hours!</Text>
+                </View>
                 <TextInput
                   ref="username"
                   isRequired={true}
                   style={styles.input}
                   autoCapitalize="none"
-                  placeholder=""
+                  placeholder="Email"
                   placeholderTextColor={YTColors.lightText}
                   autoCorrect={false}
                   onChange={ (e) => this._handleInputChange(e, "username") }
@@ -282,31 +290,47 @@ class Login extends Base {
                   onPress={this._toggleForgotPass}
                   activeOpacity={0.8}
                 >
-                  <Text style={[{color: '#fff'}]}>{forgotPassText}</Text>
+                  <Text style={[{color: YTColors.actionText}]}>{forgotPassText}</Text>
                 </TouchableOpacity>
               </View>
               {!forgotPassword ?
                 <View>
-                  <YTButton
-                    type="primary"
-                    caption={isFetching ? "Please wait..." : "Login"}
-                    onPress={this._handleLoginSubmit}
-                    isDisabled={!this.state.isFormValid}
-                  />
-                  <YTButton
-                    type="secondary"
-                    captionStyle={{color: '#FFF'}}
-                    caption="Register"
-                    onPress={this._openRegister}
-                  />
+                  <View style={{paddingVertical: 10}}>
+                    <YTButton
+                      type="primary"
+                      caption={isFetching ? "Please wait..." : "Login"}
+                      onPress={this._handleLoginSubmit}
+                      isDisabled={!this.state.isFormValid}
+                    />
+                  </View>
+                  <View style={{paddingVertical: 10}}>
+                    <Text style={{fontSize: 15, color: YTColors.lightText, textAlign: 'center'}}>Don't have an account? You can register a new account below!</Text>
+                  </View>
+                  <View style={{paddingVertical: 10}}>
+                    <YTButton
+                      type="primary"
+                      buttonStyle={{backgroundColor: YTColors.yoteGreen}}
+                      captionStyle={{color: '#fff'}}
+                      caption="Register"
+                      onPress={this._openRegister}
+                    />
+                  </View>
                 </View>
                 :
-                <YTButton
-                  type="primary"
-                  caption={isFetching ? "Please wait..." : "Reset Password"}
-                  onPress={this._handleResetPasswordSubmit}
-                  isDisabled={!this.state.username}
-                />
+                <View>
+                  <View style={{paddingBottom: 20}}>
+                    <YTButton
+                      type="primary"
+                      caption={isFetching ? "Please wait..." : "Reset Password"}
+                      onPress={this._handleResetPasswordSubmit}
+                      isDisabled={!this.state.username}
+                      buttonStyle={{backgroundColor: YTColors.danger}}
+                    />
+                  </View>
+                  <View style={{paddingVertical: 5}}>
+                    <Text style={{fontSize: 15, color: YTColors.lightText, textAlign: 'center'}}>If you're having trouble resetting your password, please send us an email at help@fugitivelabs.com so that we can help you resolve your issue.</Text>
+                  </View>
+                </View>
               }
             </View>
           </View>
