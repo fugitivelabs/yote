@@ -23,13 +23,21 @@ class EmailInput extends Base {
   constructor(props) {
     super(props);
     this.state = {
-      email: ""
+      email: this.props.value || ""
       , errorMessage: ""
       , isValid: true
     };
     this._bind(
       '_handleInputChange'
     );
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.value !== this.props.value) {
+      this.setState({
+        email: nextProps.value
+      })
+    }
   }
 
   _handleInputChange(e) {
@@ -49,8 +57,9 @@ class EmailInput extends Base {
     };
     if(newState.isValid) {
       event.target.value = newState.email; // return valid email
+      // only tell parent about a change event if the new value is valid
+      this.props.change(event);
     }
-    this.props.change(event);
     this.setState(newState);
   }
 
