@@ -126,7 +126,7 @@ First we need to build and push our local application to your docker instance.
 #### Build and Push new instance from local machine
 On your local machine, run:
 ```
-$ docker built -t ORG_NAME/PROJECT_NAME
+$ docker build -t ORG_NAME/PROJECT_NAME ./path/to/dockerfile
 ```
 Then:
 ```
@@ -143,7 +143,7 @@ On the remote server, run the following images and link them.
 2. Start mongod with flags for smallfiles and local storage
   * ``` $ (sudo) docker run -d -v ~/data:/data/db --name mongodb library/mongo mongod --smallfiles ```
 3. Start yote and link with other containers
-  * ``` $ (sudo) docker run -p 80:3030 -t -i  --link mongodb:mongodb --name PROJECT_NAME --rm ORG_NAME/PROJECT_NAME ```
+  * ``` $ (sudo) docker run -p 80:3030 -t -i  --link mongodb:mongodb --name PROJECT_NAME ORG_NAME/PROJECT_NAME ```
 
 _Note that **PROJECT_NAME** above should be replaced with the project name_
 
@@ -181,7 +181,7 @@ $ (sudo) docker rm [CONTAINER ID]
 Now, simply rerun the application and Docker will use the most recently pulled in container instance.
 
 ```
-$ (sudo) docker run -p 80:3030 -t -i --link mongodb:mongodb --name yote --rm ORG_NAME/PROJECT_NAME
+$ (sudo) docker run -p 80:3030 -t -i --link mongodb:mongodb --name yote ORG_NAME/PROJECT_NAME
 ```
 
 
@@ -226,7 +226,7 @@ production environment can be enabled by running "NODE_ENV=production PORT=xxxx 
 DOCKER DEPLOYMENT
 deployment to a remote instance is easy. it requires running containers for  mongodb. on your local machine, run "docker build -t ORG_NAME/PROJECT_NAME .", then "docker push ORG_NAME/PROJECT_NAME". on the remote instance, run "docker pull ORG_NAME/PROJECT_NAME", then:
 
-"docker run -p 80:3030 -t -i  --link mongodb:mongodb --name yote --rm ORG_NAME/PROJECT_NAME"
+"docker run -p 80:3030 -t -i  --link mongodb:mongodb --name yote ORG_NAME/PROJECT_NAME"
 
 to run the image and link it. more details later.
 
@@ -237,7 +237,7 @@ to run the image and link it. more details later.
 "docker run -d -v ~/data:/data/db --name mongodb library/mongo mongod --smallfiles"
 //in future, change "~/data" to "~/mongo/data". for time being, changing this will cause loss of old data.
 3) start yote and link with other containers
-"docker run -p 80:3030 -t -i --link mongodb:mongodb --name yote --rm fugitivelabs/yote"
+"docker run -p 80:3030 -t -i --link mongodb:mongodb --name yote fugitivelabs/yote"
 
 extras:
 run mongo console on mongo image
