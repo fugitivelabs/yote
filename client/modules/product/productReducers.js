@@ -209,7 +209,6 @@ function product(state = {
     }
     case Actions.RECEIVE_SINGLE_PRODUCT: {
       if(action.success) {
-        console.log("here");
         nextState = {
           ...state
           , byId: {
@@ -224,7 +223,6 @@ function product(state = {
             , lastUpdated: action.receivedAt
           }
         }
-        console.log(nextState.selected);
       } else {
         nextState = {
           ...state
@@ -419,7 +417,7 @@ function product(state = {
   nextState.selected = {
     ...nextState.selected
     , getItem: () => {
-      if(!nextState.selected.id) {
+      if(!nextState.selected.id || nextState.selected.didInvalidate) {
         return null
       } else {
         return nextState.byId[nextState.selected.id]
