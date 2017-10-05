@@ -28,7 +28,7 @@ injectTapEventPlugin();
 
 // import scss files.
 // NOTE: Webpack does NOT actually import these as js. Instead it will generate the yote.css file.
-import './yote.scss';
+import './global/yote.scss';
 
 import routes from './routes.js.jsx';
 

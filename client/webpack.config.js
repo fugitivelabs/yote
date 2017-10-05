@@ -21,7 +21,8 @@ const config = {
       {
         loader: ExtractTextPlugin.extract({
           fallback: 'style-loader'
-          , loader: "css-loader!sass-loader?importLoader=1&modules&localIdentName=[path]___[name]__[local]___[hash:base64:5]",
+          , loader: "css-loader!sass-loader",
+          // , loader: "css-loader!sass-loader?importLoader=1&modules&localIdentName=[path]___[name]__[local]___[hash:base64:5]",
         })
         , test: /\.scss$/
       }
@@ -33,11 +34,11 @@ const config = {
         ],
         test: /\.css$/
       }
-      // , {
-      //   include: path.resolve(__dirname, './')
-      //   , loader: 'style-loader!css-loader!sass-loader?importLoader=1&modules&localIdentName=[path]___[name]__[local]___[hash:base64:5]'
-      //   , test: /\.scss$/
-      // }
+      , {
+        include: path.resolve(__dirname, './modules')
+        , loader: 'style-loader!css-loader!sass-loader?importLoader=1&modules&localIdentName=[path]___[name]__[local]___[hash:base64:5]'
+        , test: /\.scss$/
+      }
       , {
         exclude: /(node_modules|bower_components)/
         , loader: 'babel-loader'
