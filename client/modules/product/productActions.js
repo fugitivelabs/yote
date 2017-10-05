@@ -212,7 +212,8 @@ const findListFromArgs = (state, listArgs) => {
    * Because we nest productLists to arbitrary locations/depths,
    * finding the correct list becomes a little bit harder
    */
-  let list = Object.assign({}, state.product.lists, {});
+  // let list = Object.assign({}, state.product.lists, {});
+  let list = { ...state.product.lists }
   for(let i = 0; i < listArgs.length; i++) {
     list = list[listArgs[i]];
     if(!list) {
