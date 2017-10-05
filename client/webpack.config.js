@@ -3,12 +3,14 @@
  * and output regular .js to /public/react/
  */
 
-let ExtractTextPlugin = require('extract-text-webpack-plugin');
-let path = require('path');
-let webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+// const context = path.resolve(__dirname, 'server/public/js');
+const path = require('path');
+const webpack = require('webpack');
 
 const config = {
-  devtool: 'cheap-source-map'
+  context: path.resolve(__dirname, './')
+  , devtool: 'cheap-source-map'
   , entry: './app.js.jsx'
   , output: {
     path: path.join(__dirname, '../server/public/js')
@@ -17,19 +19,44 @@ const config = {
   , module: {
     loaders: [
       {
-        test: /\.jsx?$/
-        , exclude: /(node_modules|bower_components)/
-        , loader: 'babel-loader'
-        , query: {
-          presets: ['es2015','react', 'stage-0']
-        }
+        loader: ExtractTextPlugin.extract({
+          fallback: 'style-loader'
+          , loader: "css-loader!sass-loader?importLoader=1&modules&localIdentName=[path]___[name]__[local]___[hash:base64:5]",
+        })
+        , test: /\.scss$/
       }
       , {
-        test: /\.scss$/
-        , loader: ExtractTextPlugin.extract({
-          fallback: 'style-loader', loader: "css-loader!sass-loader",
-        })
+        include: path.resolve(__dirname, './'),
+        loaders: [
+          'style-loader',
+          'css-loader?importLoader=1&modules&localIdentName=[path]___[name]__[local]___[hash:base64:5]'
+        ],
+        test: /\.css$/
       }
+      // , {
+      //   include: path.resolve(__dirname, './')
+      //   , loader: 'style-loader!css-loader!sass-loader?importLoader=1&modules&localIdentName=[path]___[name]__[local]___[hash:base64:5]'
+      //   , test: /\.scss$/
+      // }
+      , {
+        exclude: /(node_modules|bower_components)/
+        , loader: 'babel-loader'
+        , query: {
+          plugins: [
+            [ 'react-css-modules', {
+              context: path.resolve(__dirname, './')
+              , filetypes: {
+                ".scss": {
+                  "syntax": "postcss-scss"
+                }
+              }
+            }]
+          ]
+          , presets: ['es2015','react', 'stage-0']
+        }
+        , test: /\.jsx?$/
+      }
+
     ]
   }
   , plugins: [

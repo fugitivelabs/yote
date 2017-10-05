@@ -3,6 +3,9 @@ import React from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { Link } from 'react-router';
 
+import test from './cssModuleTest.scss';
+
+
 /**
  * build a temporary component for each "cool thing"
  */
@@ -71,7 +74,7 @@ class Hero extends React.Component{
 
   render(){
     return (
-      <div className="hero main">
+      <div styleName="test.tester-bg" className="hero main">
         <div className="yt-container">
           <img src="/img/howler.png" />
           <h1>This is Yote</h1>

@@ -10,6 +10,8 @@ import Base from '../../../../global/components/BaseComponent.js.jsx';
 import Hero from './Hero.js.jsx';
 import LandingNav from './LandingNav.js.jsx';
 
+import test from './cssModuleTest.css';
+
 class Landing extends Base {
   constructor(props, context) {
     super(props);
@@ -45,7 +47,7 @@ class Landing extends Base {
           openDialog={this._openDialog}
         />
         <Hero />
-        <div className="hero sub u-centerText">
+        <div styleName="tester-bg" className="hero sub u-centerText">
 
           <p> Check out the docs on <a href="https://fugitivelabs.github.io/yote/"> GitHub </a></p>
         </div>
