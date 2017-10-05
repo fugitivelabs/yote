@@ -66,19 +66,17 @@ var styles = StyleSheet.create({
     }
   , inputContainer: {
     // padding: 10,
-    borderWidth: Platform.OS == 'ios' ? 1 : 0,
-    borderBottomColor: '#CCC',
-    borderColor: 'transparent',
-    marginTop: 14,
+    borderWidth: Platform.OS == 'ios' ? 1 : 0
+    , borderBottomColor: '#CCC'
+    , borderColor: 'transparent'
+    , marginTop: 14
   }
   , input: {
-    height: 45,
-    // borderWidth: 0.5,
-    // borderColor: YTColors.primaryHeader,
-    flex: 1,
-    fontSize: 17,
-    paddingVertical: 8,
-    backgroundColor: 'rgba(255,255,255,0.7)'
+    height: 45
+    , flex: 1
+    , fontSize: 17
+    , paddingVertical: 8
+    , backgroundColor: 'rgba(255,255,255,0.7)'
   }
   , img: {
       width: screenWidth
