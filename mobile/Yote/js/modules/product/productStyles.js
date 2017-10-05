@@ -101,13 +101,11 @@ let productStyles = StyleSheet.create({
       , borderColor: YTColors.listSeparator
     }
   , input: {
-      minHeight: 40,
-      fontSize: 17,
-      padding: 4,
-      flex: 1,
-      // paddingBottom: 8,
-      backgroundColor: '#fff',
-      // backgroundColor: 'green',
+      minHeight: 40
+      , fontSize: 17
+      , padding: 4
+      , flex: 1
+      , backgroundColor: '#fff'
     }
   , label: {
       fontSize: 12

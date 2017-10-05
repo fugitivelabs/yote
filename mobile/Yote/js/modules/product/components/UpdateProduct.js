@@ -133,59 +133,59 @@ class UpdateProduct extends Base {
     return (
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? "padding" : null}
-        style={{flex: 1, backgroundColor: '#fff'}}
         contentContainerStyle={{flex:1}}
+        style={{flex: 1, backgroundColor: '#fff'}}
       >
         <YTHeader
-          navigator={navigator}
           leftItem={leftItem}
+          navigator={navigator}
           title="Update Product"
         />
         <ScrollView ref="myScrollView" keyboardDismissMode="interactive" keyboardShouldPersistTaps="handled" style={[productStyles.formWrapper]}>
           <View>
             <View style={{padding: 5}}>
               <TextInput
-                ref="newProductData.title"
-                onFocus={ (e) => this._scrollToInput(e, 'newProductData.title')}
-                isRequired={true}
-                autoFocus={true}
-                style={productStyles.input}
-                placeholder="Title"
-                placeholderTextColor={YTColors.lightText}
                 autoCorrect={true}
+                autoFocus={true}
+                isRequired={true}
+                onFocus={ (e) => this._scrollToInput(e, 'newProductData.title')}
                 onChange={ (e) => this._handleInputChange(e, "newProductData.title") }
-                underlineColorAndroid={YTColors.anagada}
-                returnKeyType="next"
-                value={this.state.newProductData.title}
                 onSubmitEditing={(event) => {
                   this.refs['newProductData.description'].focus();
                 }}
+                placeholder="Title"
+                placeholderTextColor={YTColors.lightText}
+                ref="newProductData.title"
+                returnKeyType="next"
+                style={productStyles.input}
+                underlineColorAndroid={YTColors.anagada}
+                value={this.state.newProductData.title}
               />
             </View>
             <View style={productStyles.listSeparator}/>
             <View style={{padding: 5}}>
               <TextInput
-                ref="newProductData.description"
+                autoCorrect={true}
                 onFocus={ (e) => this._scrollToInput(e, 'newProductData.description')}
                 isRequired={true}
                 multiline={true}
-                style={[productStyles.input, {minHeight: 90}]}
+                onSubmitEditing={this._handleAction}
+                onChange={ (e) => this._handleInputChange(e, "newProductData.description")}
                 placeholder="Write a description"
                 placeholderTextColor={YTColors.lightText}
-                autoCorrect={true}
-                onChange={ (e) => this._handleInputChange(e, "newProductData.description")}
+                style={[productStyles.input, {minHeight: 90}]}
+                ref="newProductData.description"
                 returnKeyType="go"
                 value={this.state.newProductData.description}
-                onSubmitEditing={this._handleAction}
               />
             </View>
             <View style={productStyles.listSeparator}/>
           </View>
           <View style={{paddingHorizontal: 10, paddingVertical: 20}}>
             <YTButton
-              onPress={this._handleAction}
               caption={isFetching ? "Updating..." : "Update product"}
               isDisabled={!isFormValid || isFetching}
+              onPress={this._handleAction}
             />
           </View>
         </ScrollView>
@@ -197,10 +197,10 @@ class UpdateProduct extends Base {
 const mapStoreToProps = (store) => { 
 
   return {
-    user: store.user.loggedIn.user
-    , selectedProduct: store.product.selected
+    isFetching: store.product.lists.all.isFetching
     , productMap: store.product.byId
-    , isFetching: store.product.lists.all.isFetching
+    , selectedProduct: store.product.selected
+    , user: store.user.loggedIn.user
   }
 }
 

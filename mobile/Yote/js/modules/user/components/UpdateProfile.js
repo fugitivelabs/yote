@@ -45,117 +45,99 @@ import YTColors from '../../../global/styles/YTColors';
 const IMAGE_HEIGHT = 150;
 
 var styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: YTColors.primaryHeader,
-    // padding: 5
-  },
-
-  scrollContainer: {
-    flex: 1,
-    backgroundColor: '#fff',
-    padding: 5,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#222',
-    marginBottom: 5,
-  },
   bottomBorder: {
-    borderBottomWidth: 1,
-    borderColor: YTColors.listSeparator,
-  },
-  btnWrapper: {
-    borderTopWidth: 1,
-    borderColor: YTColors.listSeparator,
-  },
-  inputContainer: {
-    // paddingHorizontal: 5,
-    // borderTopWidth: 1,
-    // // borderBottomColor: '#CCC',
-    // // borderColor: 'transparent'
-    // borderColor: YTColors.listSeparator
-  },
-  input: {
-    height: 40,
-    flex: 1,
-    fontSize: 15,
-    padding: 5,
-    color: YTColors.actionText,
-    backgroundColor: 'rgba(255,255,255,0.7)'
-    // backgroundColor: YTColors.lightBackground
-  },
-  details: {
-    flex: 1,
-    fontSize: 15,
-    paddingTop: 8,
-    paddingBottom: 8,
-    backgroundColor: 'rgba(255,255,255,0.7)'
-  },
-  inlineInput: {
-    flexDirection: "row"
-  },
-  quarterInput: {
-    flex: 0.25
-  },
-  halfInput: {
-    flex: 0.5
-  },
-  notes: {
-    height: 104,
-  },
-  label: {
-    fontSize: 12,
-    marginTop: 4,
-    color: YTColors.lightText,
-  },
-  formWrapper: {
-
-  },
-  picker: {
-    width: Dimensions.get('window').width,
-    height: 200,
-  },
-  pickerText: {
-    fontSize: 20,
-    textAlign: 'center',
-    color: YTColors.actionText
-  },
-  infoWrapper: {
-    flex: 1,
-    flexDirection: 'row',
-    paddingVertical: 5,
-    paddingHorizontal: 10
-  },
-  labelBox: {
-    flex: .2,
-    justifyContent: 'center',
-  },
-  label: {
-    fontSize: 15,
-    fontWeight: '500',
-    // flex: .2,
-  },
-  infoBox: {
-    flex: .8,
-    justifyContent: 'center',
-  },
-  info: {
-    fontSize: 15,
-    paddingVertical: 10,
-  },
-  editImage: {
-    flex: 1,
-    alignItems: 'center',
-    padding: 30,
-    justifyContent: 'center',
-  },
-  profilePic: {
-    width: IMAGE_HEIGHT,
-    height: IMAGE_HEIGHT,
-    backgroundColor: YTColors.listSeparator,
-    borderRadius: Platform.OS === 'ios' ? IMAGE_HEIGHT * .5 : null,
-  },
+      borderBottomWidth: 1
+      , borderColor: YTColors.listSeparator
+  }
+  , btnWrapper: {
+      borderTopWidth: 1
+      , borderColor: YTColors.listSeparator
+  }
+  , container: {
+    backgroundColor: YTColors.primaryHeader
+    , flex: 1
+  }
+  , details: {
+      flex: 1
+      , fontSize: 15
+      , paddingTop: 8
+      , paddingBottom: 8
+      , backgroundColor: 'rgba(255,255,255,0.7)'
+  }
+  , editImage: {
+      alignItems: 'center'
+      , flex: 1
+      , padding: 30
+      , justifyContent: 'center'
+  }
+  , halfInput: {
+      flex: 0.5
+  }
+  , info: {
+      fontSize: 15
+      , paddingVertical: 10
+  }
+  , infoBox: {
+      flex: .8
+      , justifyContent: 'center'
+  }
+  , infoWrapper: {
+      flex: 1
+      , flexDirection: 'row'
+      , paddingHorizontal: 10
+      , paddingVertical: 5
+  }
+  , inlineInput: {
+      flexDirection: "row"
+  }
+  , input: {
+      height: 40
+      , flex: 1
+      , fontSize: 15
+      , padding: 5
+      , color: YTColors.actionText
+      , backgroundColor: 'rgba(255,255,255,0.7)'
+      // backgroundColor: YTColors.lightBackground
+  }
+  , instructions: {
+      textAlign: 'center'
+      , color: '#222'
+      , marginBottom: 5
+  }
+  , label: {
+      fontSize: 15
+      , fontWeight: '500'
+  }
+  , labelBox: {
+      flex: .2
+      , justifyContent: 'center'
+  }
+  , notes: {
+      height: 104
+  }
+  , quarterInput: {
+      flex: 0.25
+  }
+  , picker: {
+      height: 200
+      , width: Dimensions.get('window').width
+  }
+  , pickerText: {
+      color: YTColors.actionText
+      , fontSize: 20
+      , textAlign: 'center'
+  }
+  , profilePic: {
+      backgroundColor: YTColors.listSeparator
+      , width: IMAGE_HEIGHT
+      , height: IMAGE_HEIGHT
+      , borderRadius: Platform.OS === 'ios' ? IMAGE_HEIGHT * .5 : null
+  }
+  , scrollContainer: {
+      flex: 1
+      , backgroundColor: '#fff'
+      , padding: 5
+  }
 });
 
 class UpdateProfile extends Base {
@@ -163,21 +145,21 @@ class UpdateProfile extends Base {
     super(props);
     this.state = {
       isFormValid: false
-      , showPicker: false
       , newProfilePic: null
       , newUserData: {
-        username: this.props.user.username
-        , firstName: this.props.user.firstName
-        , lastName: this.props.user.lastName
-      }
+          firstName: this.props.user.firstName
+          , lastName: this.props.user.lastName
+          , username: this.props.user.username
+        }
+      , showPicker: false
     }
     this._bind(
-      '_handleBack'
+      '_checkFormValid'
+      , '_handleBack'
       , '_handleAction'
       , '_handleInputChange'
-      , '_checkFormValid'
+      , '_openImagePicker'
       , '_toggleShowPickerForm'
-      ,'_openImagePicker'
     )
   }
 
@@ -290,12 +272,12 @@ class UpdateProfile extends Base {
     return(
       <KeyboardAvoidingView
         behavior={"padding"}
-        style={styles.container}
         contentContainerStyle={{flex:1}}
+        style={styles.container}
       >
         <YTHeader
-          title="Edit Profile"
           leftItem={leftItem}
+          title="Edit Profile"
         />
         <ScrollView ref="myScrollView" keyboardDismissMode="interactive" keyboardShouldPersistTaps="handled" style={[styles.scrollContainer]} >
           <View>
@@ -326,16 +308,16 @@ class UpdateProfile extends Base {
                 </View>
                 <View style={{flex: .6, justifyContent: 'center'}}>
                   <TextInput
-                    ref="newUserData.firstName"
-                    onFocus={ (e) => this._scrollToInput(e, 'newUserData.firstName')}
-                    isRequired={true}
-                    style={styles.input}
                     autoCapitalize="words"
+                    autoCorrect={false}
+                    isRequired={true}
+                    onChange={ (e) => this._handleInputChange(e, "newUserData.firstName") }
+                    onFocus={ (e) => this._scrollToInput(e, 'newUserData.firstName')}
                     placeholder=""
                     placeholderTextColor={YTColors.lightText}
-                    autoCorrect={false}
-                    onChange={ (e) => this._handleInputChange(e, "newUserData.firstName") }
+                    ref="newUserData.firstName"
                     returnKeyType="default"
+                    style={styles.input}
                     value={this.state.newUserData.firstName}
                   />
                 </View>
@@ -348,16 +330,16 @@ class UpdateProfile extends Base {
                   </View>
                   <View style={{flex: .6, justifyContent: 'center'}}>
                     <TextInput
-                      ref="newUserData.lastName"
-                      onFocus={ (e) => this._scrollToInput(e, 'newUserData.lastName')}
-                      isRequired={true}
-                      style={styles.input}
                       autoCapitalize="words"
+                      autoCorrect={false}
+                      isRequired={true}
+                      onFocus={ (e) => this._scrollToInput(e, 'newUserData.lastName')}
+                      onChange={ (e) => this._handleInputChange(e, "newUserData.lastName") }
                       placeholder=""
                       placeholderTextColor={YTColors.lightText}
-                      autoCorrect={false}
-                      onChange={ (e) => this._handleInputChange(e, "newUserData.lastName") }
+                      ref="newUserData.lastName"
                       returnKeyType="default"
+                      style={styles.input}
                       value={this.state.newUserData.lastName}
                     />
                   </View>
@@ -371,18 +353,18 @@ class UpdateProfile extends Base {
                   </View>
                   <View style={{flex: .6, justifyContent: 'center'}}>
                     <TextInput
-                      ref="newUserData.username"
-                      onFocus={ (e) => this._scrollToInput(e, 'newUserData.username')}
-                      isRequired={true}
-                      editable={false}
-                      style={styles.input}
                       autoCapitalize="words"
+                      autoCorrect={false}
+                      editable={false}
+                      isRequired={true}
+                      keyboardType="email-address"
+                      onChange={ (e) => this._handleInputChange(e, "newUserData.username") }
+                      onFocus={ (e) => this._scrollToInput(e, 'newUserData.username')}
                       placeholder=""
                       placeholderTextColor={YTColors.lightText}
-                      autoCorrect={false}
-                      onChange={ (e) => this._handleInputChange(e, "newUserData.username") }
-                      keyboardType="email-address"
+                      ref="newUserData.username"
                       returnKeyType="default"
+                      style={styles.input}
                       value={this.state.newUserData.username}
                     />
                   </View>
@@ -392,9 +374,9 @@ class UpdateProfile extends Base {
             </View>
           <View style={[styles.buttonWrapper, {paddingVertical: 20}]}>
             <YTButton
-              onPress={this._handleAction}
               caption={isFetching ? "Please wait..." : "Update my profile"}
               isDisabled={!this.state.isFormValid || isFetching}
+              onPress={this._handleAction}
             />
           </View>
           </View>
@@ -406,8 +388,8 @@ class UpdateProfile extends Base {
 
 const mapStoreToProps = (store) => {
   return {
-    user: store.user.loggedIn.user,
     isFetching: store.user.isFetching
+    , user: store.user.loggedIn.user
   }
 }
 

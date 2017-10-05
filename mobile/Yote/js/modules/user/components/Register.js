@@ -38,84 +38,31 @@ let screenHeight = Dimensions.get('window').height;
 
 var styles = StyleSheet.create({
   container: {
-    flex: 1
-    // , padding: 20
-    // , flexDirection: 'column'
-    , backgroundColor: '#fff'
-  },
-  header: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    flex: 0.5,
-    backgroundColor: 'transparent'
-  },
-
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    color: YTColors.darkText,
-    margin: 10,
-  },
-  inputWrapper: {
-    flex: 0.5,
-    marginBottom: 10,
-    // marginTop: 5,
-  },
-  inputContainer: {
-    // padding: 10,
-    borderWidth: Platform.OS == 'ios' ? 1 : 0,
-    borderBottomColor: '#CCC',
-    borderColor: 'transparent',
-    marginTop: 14,
-  },
-  input: {
-    height: 45,
-    // borderWidth: 0.5,
-    // borderColor: YTColors.primaryHeader,
-    flex: 1,
-    fontSize: 17,
-    paddingVertical: 8,
-    backgroundColor: 'rgba(255,255,255,0.7)'
-  },
-  label: {
-    fontSize: 12,
-    color: YTColors.lightText,
-    marginBottom: 4
-  },
-  privacyContainer: {
-    paddingTop: 10,
-    paddingBottom: 40,
-  },
-  termsWrapper: {
-
-  },
-  termsText: {
-    fontSize: 10,
-    color: YTColors.lightText,
-    // fontStyle: 'italic'
-  },
-  checkBoxInputCell: {
-    flexDirection: 'row',
-    paddingTop: 4,
-    paddingBottom: 4,
-    borderTopWidth: 1,
-    borderColor: YTColors.listSeparator,
-  },
-  checkBox: {
-    // flex: 1,
-    flex: 0.1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    // backgroundColor: '#11b9de'
-
-  },
-  checkBoxTextWrapper: {
-    justifyContent: 'center',
-    paddingVertical: 15,
-    paddingLeft: 17,
-    paddingRight: 9,
-    flex: 1
-  },
+    backgroundColor: '#fff'
+    , flex: 1
+  }
+  , inputWrapper: {
+    flex: 0.5
+    , marginBottom: 10
+  }
+  , inputContainer: {
+      borderBottomColor: '#CCC'
+      , borderWidth: Platform.OS == 'ios' ? 1 : 0
+      , borderColor: 'transparent'
+      , marginTop: 14
+  }
+  , input: {
+      height: 45
+      , flex: 1
+      , fontSize: 17
+      , paddingVertical: 8
+      , backgroundColor: 'rgba(255,255,255,0.7)'
+  }
+  , label: {
+      fontSize: 12
+      , color: YTColors.lightText
+      , marginBottom: 4
+  }
 });
 
 class Register extends Base {
@@ -135,12 +82,12 @@ class Register extends Base {
     }
 
     this._bind(
-      '_handleRegisterSubmit'
-      , '_closeRegister'
+      '_closeRegister'
       , '_checkFormValid'
+      , '_handleAgreeToTerms'
+      , '_handleRegisterSubmit'
       , '_openPrivacy'
       , '_toggleAgreeToTerms'
-      , '_handleAgreeToTerms'
     )
   }
 
@@ -256,12 +203,12 @@ class Register extends Base {
 
           <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? "padding" : null}
-            style={styles.container}
             contentContainerStyle={{flex:1}}
+            style={styles.container}
           >
             <YTHeader
-              navigator={navigator}
               leftItem={leftItem}
+              navigator={navigator}
               title="Register"
             />
             <ScrollView ref="myScrollView" keyboardDismissMode="interactive" keyboardShouldPersistTaps="handled" style={[{flex: 1}]}>
@@ -394,8 +341,8 @@ Register.propTypes = {
 
 const mapStoreToProps = (store) => {
   return {
-    isLoggedIn: store.user.isLoggedIn,
-    isFetching: store.user.isFetching,
+    isFetching: store.user.isFetching
+    , isLoggedIn: store.user.isLoggedIn
   }
 }
 

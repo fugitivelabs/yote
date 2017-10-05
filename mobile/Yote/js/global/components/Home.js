@@ -3,21 +3,21 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 // import react-native components & apis
-import Image from 'Image'; 
-import View from 'View';
-import Text from 'Text';
-import StyleSheet from 'StyleSheet';
-import TouchableOpacity from 'TouchableOpacity';
-import ScrollView from 'ScrollView';
-import Linking from 'Linking';  
 import Dimensions from 'Dimensions'; 
+import Image from 'Image'; 
+import Linking from 'Linking';  
 import Platform from 'Platform'; 
+import ScrollView from 'ScrollView';
+import StyleSheet from 'StyleSheet';
+import Text from 'Text';
+import TouchableOpacity from 'TouchableOpacity';
+import View from 'View';
 
 // import global components
 import Base from './BaseComponent';
+import Hero from './Hero.js'; 
 import YTColors from '../styles/YTColors'; 
 import YTHeader from './YTHeader';
-import Hero from './Hero.js'; 
 
 const screenHeight = Dimensions.get('window').height
 
@@ -161,9 +161,9 @@ class Home extends Base {
             <View style={{height: screenHeight * .66, backgroundColor: 'transparent', justifyContent: 'center', alignItems: 'center'}}>
               <View style={{flexDirection: 'row', justifyContent: 'center'}}>
                 <Image 
+                  resizeMode={'contain'}
                   source={require('../img/logo.png')}
                   style={{height: 170, width: 200}}
-                  resizeMode={'contain'}
                 />
               </View>
               <View style={{flexDirection: 'row', justifyContent: 'center'}}>

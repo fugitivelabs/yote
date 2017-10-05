@@ -15,10 +15,10 @@ import {
 import { StackNavigator } from 'react-navigation';
 
 // import product components
-import Product from './components/Product'; 
-import UpdateProduct from './components/UpdateProduct'; 
-import SingleProduct from './components/SingleProduct'; 
 import CreateProduct from './components/CreateProduct'; 
+import Product from './components/Product'; 
+import SingleProduct from './components/SingleProduct'; 
+import UpdateProduct from './components/UpdateProduct'; 
 
 // horizontal screen transitions
 const CardNavigator = StackNavigator(
