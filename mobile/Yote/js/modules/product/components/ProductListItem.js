@@ -38,18 +38,20 @@ class ProductListItem extends Base {
                   <View style={{flex: 1, padding: 5}}>
                     <Text style={{fontSize: 20, paddingVertical: 5}}>{product.title} </Text>
                     <View style={productStyles.listSeparator}/>
-                    <View style={{flex: 1, justifyContent: 'center', paddingVertical: 5}}>
-                      <View style={{paddingVertical: 10}}>
-                        <Text style={[productStyles.label, {color: YTColors.lightText}]}>{product.description} </Text>
+                    <View style={{flexDirection: 'row'}}>
+                      <View style={{flex: 1, justifyContent: 'center', paddingVertical: 5}}>
+                        <View style={{paddingVertical: 10}}>
+                          <Text style={[productStyles.label, {color: YTColors.lightText}]}>{product.description} </Text>
+                        </View>
+                        <Text style={productStyles.label}>Created: {moment(product.created).format("MMMM Do YYYY, h:mm a")}</Text>
                       </View>
-                      <Text style={productStyles.label}>Created: {moment(product.created).format("MMMM Do YYYY, h:mm a")}</Text>
-                    </View>
-                  </View>
-                  <View style={{flexDirection: 'row', justifyContent: 'flex-end', padding: 10}}>
-                    <View style={{justifyContent: 'center'}}>
-                      <Image
-                        source={require('../../../global/img/forward.png')}
-                      />
+                      <View style={{flexDirection: 'row', justifyContent: 'flex-end', padding: 10}}>
+                        <View style={{justifyContent: 'center'}}>
+                          <Image
+                            source={require('../../../global/img/forward.png')}
+                          />
+                        </View>
+                      </View>
                     </View>
                   </View>
                 </View>
