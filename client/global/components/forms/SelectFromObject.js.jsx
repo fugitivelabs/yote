@@ -71,8 +71,15 @@ class SelectFromObject extends Base{
       // objects is a map {}
       for(let i in objects) {
         if(objects.hasOwnProperty(i)) {
+          /**
+           * if object has an _id, make that the iterator key, otherwise use object[value]
+           * since that is supposed to be unique.
+           */
           options.push(
-            <option key={objects[i]._id} value={objects[i][value]}>
+            <option
+              key={objects[i]._id ? objects[i]._id : objects[i][value]}
+              value={objects[i][value]}
+            >
               {objects[i][display]}
             </option>
           )
