@@ -39,7 +39,7 @@ const shouldFetchSingle = (state, id) => {
   } else if(new Date().getTime() - selected.lastUpdated > (1000 * 60 * 5)) {
     // it's been longer than 5 minutes since the last fetch, get a new one
     // console.log("Y shouldFetch - true: older than 5 minutes");
-    // also, don't automatically invalidate on server error. if server throws an error, 
+    // also, don't automatically invalidate on server error. if server throws an error,
     // that won't change on subsequent requests and we will have an infinite loop
     return true;
   } else {
@@ -75,10 +75,10 @@ export const returnSingleProductPromise = (id) => (dispatch, getState) => {
    */
   return new Promise((resolve, reject) => {
     resolve({
-      type: "RETURN_SINGLE_PRODUCT_WITHOUT_FETCHING"
-      , id: id
+      id: id
       , item: getState().product.byId[id]
       , success: true
+      , type: "RETURN_SINGLE_PRODUCT_WITHOUT_FETCHING"
     })
   });
 }
@@ -86,20 +86,20 @@ export const returnSingleProductPromise = (id) => (dispatch, getState) => {
 export const REQUEST_SINGLE_PRODUCT = "REQUEST_SINGLE_PRODUCT";
 function requestSingleProduct(id) {
   return {
-    type: REQUEST_SINGLE_PRODUCT
-    , id
+    id
+    , type: REQUEST_SINGLE_PRODUCT
   }
 }
 
 export const RECEIVE_SINGLE_PRODUCT = "RECEIVE_SINGLE_PRODUCT";
 function receiveSingleProduct(json) {
   return {
-    type: RECEIVE_SINGLE_PRODUCT
+    error: json.message
     , id: json.product ? json.product._id : null
     , item: json.product
-    , success: json.success
-    , error: json.message
     , receivedAt: Date.now()
+    , success: json.success
+    , type: RECEIVE_SINGLE_PRODUCT
   }
 }
 
@@ -114,28 +114,28 @@ export function fetchSingleProductById(productId) {
 export const ADD_SINGLE_PRODUCT_TO_MAP = "ADD_SINGLE_PRODUCT_TO_MAP";
 export function addSingleProductToMap(item) {
   return {
-    type: ADD_SINGLE_PRODUCT_TO_MAP
-    , item
+    item
+    , type: ADD_SINGLE_PRODUCT_TO_MAP
   }
 }
 
 export const REQUEST_CREATE_PRODUCT = "REQUEST_CREATE_PRODUCT";
 function requestCreateProduct(product) {
   return {
-    type: REQUEST_CREATE_PRODUCT
-    , product
+    product
+    , type: REQUEST_CREATE_PRODUCT
   }
 }
 
 export const RECEIVE_CREATE_PRODUCT = "RECEIVE_CREATE_PRODUCT";
 function receiveCreateProduct(json) {
   return {
-    type: RECEIVE_CREATE_PRODUCT
+    error: json.message
     , id: json.product ? json.product._id : null
     , item: json.product
-    , success: json.success
-    , error: json.message
     , receivedAt: Date.now()
+    , success: json.success
+    , type: RECEIVE_CREATE_PRODUCT
   }
 }
 
@@ -158,11 +158,11 @@ function requestUpdateProduct(product) {
 export const RECEIVE_UPDATE_PRODUCT = "RECEIVE_UPDATE_PRODUCT";
 function receiveUpdateProduct(json) {
   return {
-    type: RECEIVE_UPDATE_PRODUCT
+    error: json.message
     , item: json.product
-    , success: json.success
-    , error: json.message
     , receivedAt: Date.now()
+    , success: json.success
+    , type: RECEIVE_UPDATE_PRODUCT
   }
 }
 
@@ -177,18 +177,18 @@ export function sendUpdateProduct(data) {
 export const REQUEST_DELETE_PRODUCT = "REQUEST_DELETE_PRODUCT";
 function requestDeleteProduct(productId) {
   return {
-    type: REQUEST_DELETE_PRODUCT
-    , productId
+    productId
+    , type: REQUEST_DELETE_PRODUCT
   }
 }
 
 export const RECEIVE_DELETE_PRODUCT = "RECEIVE_DELETE_PRODUCT";
 function receiveDeleteProduct(json) {
   return {
-    type: RECEIVE_DELETE_PRODUCT
-    , success: json.success
-    , error: json.message
+    error: json.message
     , receivedAt: Date.now()
+    , success: json.success
+    , type: RECEIVE_DELETE_PRODUCT
   }
 }
 
@@ -275,10 +275,10 @@ export const returnProductListPromise = (...listArgs) => (dispatch, getState) =>
    */
   return new Promise((resolve, reject) => {
     resolve({
-      type: "RETURN_PRODUCT_LIST_WITHOUT_FETCHING"
+      list: findListFromArgs(getState(), listArgs).items
       , listArgs: listArgs
-      , list: findListFromArgs(getState(), listArgs).items
       , success: true
+      , type: "RETURN_PRODUCT_LIST_WITHOUT_FETCHING"
     })
   });
 }
@@ -286,20 +286,20 @@ export const returnProductListPromise = (...listArgs) => (dispatch, getState) =>
 export const REQUEST_PRODUCT_LIST = "REQUEST_PRODUCT_LIST"
 function requestProductList(listArgs) {
   return {
-    type: REQUEST_PRODUCT_LIST
-    , listArgs
+    listArgs
+    , type: REQUEST_PRODUCT_LIST
   }
 }
 
 export const RECEIVE_PRODUCT_LIST = "RECEIVE_PRODUCT_LIST"
 function receiveProductList(json, listArgs) {
   return {
-    type: RECEIVE_PRODUCT_LIST
-    , listArgs
+    error: json.message
     , list: json.products
-    , success: json.success
-    , error: json.message
+    , listArgs
     , receivedAt: Date.now()
+    , success: json.success
+    , type: RECEIVE_PRODUCT_LIST
   }
 }
 
@@ -362,9 +362,9 @@ export function setFilter(filter, ...listArgs) {
     listArgs = ["all"];
   }
   return {
-    type: SET_PRODUCT_FILTER
-    , filter
+    filter
     , listArgs
+    , type: SET_PRODUCT_FILTER
   }
 }
 
@@ -374,9 +374,9 @@ export function setPagination(pagination, ...listArgs) {
     listArgs = ["all"];
   }
   return {
-    type: SET_PRODUCT_PAGINATION
+    listArgs
     , pagination
-    , listArgs
+    , type: SET_PRODUCT_PAGINATION
   }
 }
 
@@ -386,7 +386,7 @@ export function invalidateList(...listArgs) {
     listArgs = ["all"];
   }
   return {
-    type: INVALIDATE_PRODUCT_LIST
-    , listArgs
+    listArgs
+    , type: INVALIDATE_PRODUCT_LIST
   }
 }
