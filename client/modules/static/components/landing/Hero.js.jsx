@@ -74,7 +74,7 @@ class Hero extends React.Component{
 
   render(){
     return (
-      <div styleName="test.tester-bg" className="hero main">
+      <div styleName="tester2-bg" className="hero main">
         <div className="yt-container">
           <img src="/img/howler.png" />
           <h1>This is Yote</h1>

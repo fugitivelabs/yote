@@ -19,7 +19,8 @@ const config = {
   , module: {
     loaders: [
       {
-        loader: ExtractTextPlugin.extract({
+        include: path.resolve(__dirname, './global')
+        , loader: ExtractTextPlugin.extract({
           fallback: 'style-loader'
           , loader: "css-loader!sass-loader",
           // , loader: "css-loader!sass-loader?importLoader=1&modules&localIdentName=[path]___[name]__[local]___[hash:base64:5]",
