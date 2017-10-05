@@ -395,7 +395,7 @@ function product(state = {
       if(!nextState.selected.id) {
         return null
       } else {
-        return nextState.byId[state.selected.id]
+        return nextState.byId[nextState.selected.id]
       }
     }
   })
