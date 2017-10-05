@@ -6,11 +6,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {
-  Button,
-  Image,
-  Text,
-  TouchableOpacity,
-  View,
+  Button
+  , Image
+  , Text
+  , TouchableOpacity
+  , View
 } from 'react-native';
 import { StackNavigator, TabNavigator } from 'react-navigation';
 
@@ -27,14 +27,16 @@ const LoggedOutNavigator = StackNavigator(
   {
     Login: {
       screen: Login
-    },
-    Register: {
-      screen: Register
     }
-  }, {
-    mode: 'modal',
-    headerMode: 'none',
-});
+    , Register: {
+        screen: Register
+      }
+  }
+  , {
+      mode: 'modal'
+      , headerMode: 'none'
+    }
+);
 
 const mapStoreToProps = (store) => {
 

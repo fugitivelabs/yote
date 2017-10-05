@@ -272,80 +272,80 @@ class Register extends Base {
                 <View style={styles.inputWrapper}>
                   <View style={styles.inputContainer}>
                     <TextInput
-                      ref="user.firstName"
-                      onFocus={ (e) => this._scrollToInput(e, 'user.firstName')}
-                      isRequired={true}
-                      style={styles.input}
                       autoCapitalize="words"
-                      placeholder="First Name"
-                      placeholderTextColor={YTColors.lightText}
                       autoCorrect={false}
-                      onChange={ (e) => this._handleInputChange(e, "firstName") }
-                      underlineColorAndroid='#ccc'
-                      returnKeyType="next"
                       clearButtonMode="while-editing"
-                      value={this.state.user.firstName}
+                      isRequired={true}
+                      onChange={ (e) => this._handleInputChange(e, "firstName") }
+                      onFocus={ (e) => this._scrollToInput(e, 'user.firstName')}
                       onSubmitEditing={(event) => {
                         this.refs['user.lastName'].focus();
                       }}
+                      placeholder="First Name"
+                      placeholderTextColor={YTColors.lightText}
+                      ref="user.firstName"
+                      returnKeyType="next"
+                      style={styles.input}
+                      underlineColorAndroid='#ccc'
+                      value={this.state.user.firstName}
                     />
                   </View>
                   <View style={styles.inputContainer}>
                     <TextInput
-                      ref="user.lastName"
-                      onFocus={ (e) => this._scrollToInput(e, 'user.lastName')}
-                      isRequired={true}
-                      style={styles.input}
                       autoCapitalize="words"
-                      placeholder="Last Name"
-                      placeholderTextColor={YTColors.lightText}
                       autoCorrect={false}
-                      onChange={ (e) => this._handleInputChange(e, "lastName") }
-                      underlineColorAndroid='#ccc'
-                      returnKeyType="next"
                       clearButtonMode="while-editing"
-                      value={this.state.user.lastName}
+                      isRequired={true}
+                      onChange={ (e) => this._handleInputChange(e, "lastName") }
+                      onFocus={ (e) => this._scrollToInput(e, 'user.lastName')}
                       onSubmitEditing={(event) => {
                         this.refs['user.username'].focus();
                       }}
+                      placeholder="Last Name"
+                      placeholderTextColor={YTColors.lightText}
+                      ref="user.lastName"
+                      returnKeyType="next"
+                      style={styles.input}
+                      underlineColorAndroid='#ccc'
+                      value={this.state.user.lastName}
                     />
                   </View>
                   <View style={styles.inputContainer}>
                     <TextInput
-                      ref="user.username"
-                      onFocus={ (e) => this._scrollToInput(e, 'user.username')}
-                      isRequired={true}
-                      style={styles.input}
                       autoCapitalize="none"
-                      placeholder="Email"
-                      placeholderTextColor={YTColors.lightText}
                       autoCorrect={false}
-                      onChange={ (e) => this._handleInputChange(e, "username") }
-                      underlineColorAndroid='#ccc'
-                      keyboardType="email-address"
-                      returnKeyType="next"
-                      value={this.state.user.username}
                       clearButtonMode="while-editing"
+                      isRequired={true}
+                      keyboardType="email-address"
+                      onFocus={ (e) => this._scrollToInput(e, 'user.username')}
+                      onChange={ (e) => this._handleInputChange(e, "username") }
                       onSubmitEditing={(event) => {
                         this.refs['user.password'].focus();
                       }}
+                      placeholder="Email"
+                      placeholderTextColor={YTColors.lightText}
+                      ref="user.username"
+                      returnKeyType="next"
+                      style={styles.input}
+                      underlineColorAndroid='#ccc'
+                      value={this.state.user.username}
                     />
                   </View>
                   <View style={styles.inputContainer}>
                     <TextInput
-                      ref="user.password"
-                      onFocus={ (e) => this._scrollToInput(e, 'user.password')}
-                      isRequired={true}
-                      style={styles.input}
                       autoCapitalize="none"
+                      autoCorrect={false}
+                      clearButtonMode="while-editing"
+                      isRequired={true}
+                      onChange={ (e) => this._handleInputChange(e, "password") }
+                      onFocus={ (e) => this._scrollToInput(e, 'user.password')}
                       placeholder="Password"
                       placeholderTextColor={YTColors.lightText}
-                      autoCorrect={false}
-                      onChange={ (e) => this._handleInputChange(e, "password") }
-                      underlineColorAndroid='#ccc'
+                      ref="user.password"
                       returnKeyType="default"
-                      clearButtonMode="while-editing"
                       secureTextEntry={true}
+                      style={styles.input}
+                      underlineColorAndroid='#ccc'
                       value={this.state.user.password}
                     />
                   </View>
@@ -363,10 +363,10 @@ class Register extends Base {
               }
               <View style={{padding: 15}}>
                 <YTButton
-                  type="primary"
                   caption={isFetching ? "Please wait..." : "Register"}
-                  onPress={this._handleRegisterSubmit}
                   isDisabled={!this.state.isFormValid}
+                  onPress={this._handleRegisterSubmit}
+                  type="primary"
                 />
               </View>
             </ScrollView>
@@ -375,11 +375,11 @@ class Register extends Base {
                 <Text> Accept Terms</Text>
               </View>
               <YTButton
-                type="danger"
                 caption={"I have read and Agree to the Terms and Conditions"}
                 captionStyle={{color: '#fff' ,textAlign:"center"}}
                 buttonStyle={{backgroundColor: YTColors.danger}}
                 onPress={this._handleAgreeToTerms}
+                type="danger"
               />
             </Modal>
           </KeyboardAvoidingView>

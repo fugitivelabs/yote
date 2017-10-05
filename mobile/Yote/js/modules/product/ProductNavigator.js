@@ -6,11 +6,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {
-  Button,
-  Image,
-  Text,
-  TouchableOpacity,
-  View,
+  Button
+  , Image
+  , Text
+  , TouchableOpacity
+  , View
 } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 
@@ -25,29 +25,33 @@ const CardNavigator = StackNavigator(
   {
     Product: {
       screen: Product
-    },
-    SingleProduct: {
-      screen: SingleProduct
-    },
-  }, {
-    headerMode: 'none',
-    initialRouteName: 'Product',
-});
+    }
+    , SingleProduct: {
+        screen: SingleProduct
+      }
+  }
+  , {
+      headerMode: 'none'
+      , initialRouteName: 'Product'
+    }
+);
 
 const ProductNavigator = StackNavigator(
   {
     CardNavigator: {
       screen: CardNavigator
-    },
-    NewProduct: {
-      screen: CreateProduct
-    },
-    UpdateProduct: {
-      screen: UpdateProduct
-    },
-  }, {
-    headerMode: 'none',
-    mode: 'modal' // vertical screen transitions
-}); 
+    }
+    , NewProduct: {
+        screen: CreateProduct
+      }
+    , UpdateProduct: {
+        screen: UpdateProduct
+      }
+  }
+  , {
+      headerMode: 'none'
+      , mode: 'modal' // vertical screen transitions
+    }
+); 
 
 export default ProductNavigator; 

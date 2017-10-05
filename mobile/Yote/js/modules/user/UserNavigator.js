@@ -6,11 +6,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {
-  Button,
-  Image,
-  Text,
-  TouchableOpacity,
-  View,
+  Button
+  , Image
+  , Text
+  , TouchableOpacity
+  , View
 } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 
@@ -23,14 +23,16 @@ const UserNavigator = StackNavigator(
   {
     Profile: {
       screen: Profile
-    },
-    UpdateProfile: {
-      screen: UpdateProfile
-    },
-  }, {
-    initialRouteName: 'Profile',
-    headerMode: 'none',
-    mode: 'modal', // vertical screen (modal) transitions
-});
+    }
+    , UpdateProfile: {
+        screen: UpdateProfile
+    }
+  }
+  , {
+      initialRouteName: 'Profile'
+      , headerMode: 'none'
+      , mode: 'modal' // vertical screen (modal) transitions
+    }
+);
 
 export default UserNavigator; 

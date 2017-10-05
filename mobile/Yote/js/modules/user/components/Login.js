@@ -223,40 +223,40 @@ class Login extends Base {
               <View style={styles.inputWrapper}>
                 <View style={styles.inputContainer}>
                   <TextInput
-                    ref="username"
-                    isRequired={true}
-                    style={styles.input}
                     autoCapitalize="none"
-                    placeholder="Email"
-                    placeholderTextColor={YTColors.lightText}
                     autoCorrect={false}
-                    onChange={ (e) => this._handleInputChange(e, "username") }
-                    returnKeyType="next"
                     autoFocus={false}
-                    value={this.state.username}
                     clearButtonMode="while-editing"
+                    isRequired={true}
                     keyboardType="email-address"
+                    onChange={ (e) => this._handleInputChange(e, "username") }
                     onSubmitEditing={(event) => {
                       this.refs['password'].focus();
                     }}
+                    placeholder="Email"
+                    placeholderTextColor={YTColors.lightText}
+                    ref="username"
+                    returnKeyType="next"
+                    style={styles.input}
+                    value={this.state.username}
                   />
                 </View>
                 <View style={styles.inputContainer}>
                   <TextInput
-                    ref="password"
-                    isRequired={true}
-                    style={styles.input}
                     autoCapitalize="none"
-                    placeholder="Password"
-                    placeholderTextColor={YTColors.lightText}
                     autoCorrect={false}
-                    onChange={ (e) => this._handleInputChange(e, "password") }
-                    returnKeyType="go"
                     autoFocus={false}
-                    secureTextEntry={true}
                     clearButtonMode="while-editing"
-                    value={this.state.password}
+                    isRequired={true}
+                    onChange={ (e) => this._handleInputChange(e, "password") }
                     onSubmitEditing={this._handleLoginSubmit}
+                    placeholderTextColor={YTColors.lightText}
+                    placeholder="Password"
+                    ref="password"
+                    returnKeyType="go"
+                    secureTextEntry={true}
+                    style={styles.input}
+                    value={this.state.password}
                   />
                 </View>
               </View>
@@ -266,20 +266,20 @@ class Login extends Base {
                   <Text style={{fontSize: 15, color: YTColors.lightText, textAlign: 'center'}}>Enter your email and we'll send you a link to reset your password! Please note, reset password link is ONLY valid for 24 hours!</Text>
                 </View>
                 <TextInput
-                  ref="username"
-                  isRequired={true}
-                  style={styles.input}
                   autoCapitalize="none"
-                  placeholder="Email"
-                  placeholderTextColor={YTColors.lightText}
                   autoCorrect={false}
-                  onChange={ (e) => this._handleInputChange(e, "username") }
-                  returnKeyType="go"
                   autoFocus={false}
-                  value={this.state.username}
                   clearButtonMode="while-editing"
+                  isRequired={true}
                   keyboardType="email-address"
                   onSubmitEditing={this._handleResetPasswordSubmit}
+                  onChange={ (e) => this._handleInputChange(e, "username") }
+                  placeholder="Email"
+                  placeholderTextColor={YTColors.lightText}
+                  ref="username"
+                  returnKeyType="go"
+                  style={styles.input}
+                  value={this.state.username}
                 />
               </View>
             }
@@ -287,8 +287,8 @@ class Login extends Base {
               <View style={styles.forgotContainer}>
                 <TouchableOpacity
                   accessibilityTraits="button"
-                  onPress={this._toggleForgotPass}
                   activeOpacity={0.8}
+                  onPress={this._toggleForgotPass}
                 >
                   <Text style={[{color: YTColors.actionText}]}>{forgotPassText}</Text>
                 </TouchableOpacity>
@@ -297,10 +297,10 @@ class Login extends Base {
                 <View>
                   <View style={{paddingVertical: 10}}>
                     <YTButton
-                      type="primary"
                       caption={isFetching ? "Please wait..." : "Login"}
-                      onPress={this._handleLoginSubmit}
                       isDisabled={!this.state.isFormValid}
+                      onPress={this._handleLoginSubmit}
+                      type="primary"
                     />
                   </View>
                   <View style={{paddingVertical: 10}}>
@@ -308,11 +308,11 @@ class Login extends Base {
                   </View>
                   <View style={{paddingVertical: 10}}>
                     <YTButton
-                      type="primary"
-                      buttonStyle={{backgroundColor: YTColors.yoteGreen}}
-                      captionStyle={{color: '#fff'}}
                       caption="Register"
+                      captionStyle={{color: '#fff'}}
+                      buttonStyle={{backgroundColor: YTColors.yoteGreen}}
                       onPress={this._openRegister}
+                      type="primary"
                     />
                   </View>
                 </View>
@@ -320,11 +320,11 @@ class Login extends Base {
                 <View>
                   <View style={{paddingBottom: 20}}>
                     <YTButton
-                      type="primary"
                       caption={isFetching ? "Please wait..." : "Reset Password"}
-                      onPress={this._handleResetPasswordSubmit}
-                      isDisabled={!this.state.username}
                       buttonStyle={{backgroundColor: YTColors.danger}}
+                      isDisabled={!this.state.username}
+                      onPress={this._handleResetPasswordSubmit}
+                      type="primary"
                     />
                   </View>
                   <View style={{paddingVertical: 5}}>

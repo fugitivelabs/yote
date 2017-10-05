@@ -45,7 +45,7 @@ class SingleProduct extends Base {
     )
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const { productId } = this.props.navigation.state.params; 
     this.props.dispatch(productActions.fetchSingleProductById(productId)); 
   }
