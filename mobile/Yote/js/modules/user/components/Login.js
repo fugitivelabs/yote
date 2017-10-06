@@ -211,9 +211,9 @@ class Login extends Base {
         <ScrollView ref="myScrollView" keyboardDismissMode="interactive" keyboardShouldPersistTaps="handled">
           <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
             <Image
-              style={{height: 250, width: 250, tintColor: YTColors.lightText}}
-              source={require('../../../global/img/logo.png')}
               resizeMode={"contain"}
+              source={require('../../../global/img/logo.png')}
+              style={{height: 250, width: 250, tintColor: YTColors.lightText}}
             />
           </View>
           <View style={{paddingHorizontal: 20}}>
@@ -306,9 +306,9 @@ class Login extends Base {
                   </View>
                   <View style={{paddingVertical: 10}}>
                     <YTButton
+                      buttonStyle={{backgroundColor: YTColors.yoteGreen}}
                       caption="Register"
                       captionStyle={{color: '#fff'}}
-                      buttonStyle={{backgroundColor: YTColors.yoteGreen}}
                       onPress={this._openRegister}
                       type="primary"
                     />
@@ -318,8 +318,8 @@ class Login extends Base {
                 <View>
                   <View style={{paddingBottom: 20}}>
                     <YTButton
-                      caption={isFetching ? "Please wait..." : "Reset Password"}
                       buttonStyle={{backgroundColor: YTColors.danger}}
+                      caption={isFetching ? "Please wait..." : "Reset Password"}
                       isDisabled={!this.state.username}
                       onPress={this._handleResetPasswordSubmit}
                       type="primary"
@@ -340,8 +340,8 @@ class Login extends Base {
 
 const mapStoreToProps = (store) => {
   return {
-    isLoggedIn: store.user.loggedIn
-    , isFetching: store.user.loggedIn.isFetching
+    isFetching: store.user.loggedIn.isFetching
+    , isLoggedIn: store.user.loggedIn
   }
 }
 

@@ -25,7 +25,7 @@ const UserNavigator = StackNavigator(
       screen: Profile
     }
     , UpdateProfile: {
-        screen: UpdateProfile
+      screen: UpdateProfile
     }
   }
   , {

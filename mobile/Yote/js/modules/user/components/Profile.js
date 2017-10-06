@@ -61,35 +61,33 @@ var styles = StyleSheet.create({
       , padding: 2
     }
   , instructions: {
-      // fontStyle: 'italic', 
-      fontSize: 12,
-      color: YTColors.lightText,
-      paddingVertical: 10,
-      paddingHorizontal: 5
+      color: YTColors.lightText
+      , fontSize: 12
+      , paddingVertical: 10
+      , paddingHorizontal: 5
     }
   , infoWrapper: {
-      flex: 1, 
-      flexDirection: 'row', 
-      paddingVertical: 5, 
-      paddingHorizontal: 10
+      flex: 1
+      , flexDirection: 'row' 
+      , paddingVertical: 5 
+      , paddingHorizontal: 10
     }
   , labelBox: {
-      flex: .2, 
-      justifyContent: 'center',
-      paddingLeft: 10,
+      flex: .2 
+      , justifyContent: 'center'
+      , paddingLeft: 10
     }
   , label: {
-      fontSize: 15,
-      fontWeight: '500', 
-      // flex: .2,
+      fontSize: 15
+      , fontWeight: '500'
     }
   , infoBox: {
-      flex: .8, 
-      justifyContent: 'center',
+      flex: .8 
+      , justifyContent: 'center'
     }
   , info: {
-      fontSize: 15,
-      paddingVertical: 10,
+      fontSize: 15
+      , paddingVertical: 10
     }
   , linkOut: {
       flex: 1
@@ -111,9 +109,9 @@ class Profile extends Base {
   constructor(props){
     super(props);
     this._bind(
-      '_openEditProfile'
-      , '_closeModal'
+      '_closeModal'
       , '_handleLogout'
+      , '_openEditProfile'
       , '_openImagePicker'
     )
   }
@@ -171,9 +169,9 @@ class Profile extends Base {
   render() {
     const { user } = this.props;
     const rightItem = {
-      icon: require('../../../global/img/delete.png'),
-      layout: "icon", 
-      onPress: () => this._closeModal()
+      icon: require('../../../global/img/delete.png')
+      , layout: "icon" 
+      , onPress: () => this._closeModal()
     };
 
     const rightArrow = require("../../../global/img/forward.png");
@@ -183,8 +181,8 @@ class Profile extends Base {
     return(
       <View style={[styles.container ]}>
         <YTHeader
-          title="Profile"
           rightItem={rightItem}
+          title="Profile"
         />
         <ScrollView>
           <View>
@@ -221,18 +219,18 @@ class Profile extends Base {
             <View style={styles.bottomBorder}/>
             <View style={styles.btnWrapper}>
               <YTButton
-                type="secondary"
                 caption={"Edit Profile"}
-                onPress={this._openEditProfile}
                 icon={require('../../../global/img/edit.png')}
+                onPress={this._openEditProfile}
+                type="secondary"
               />
             </View>
           </View>
           <YTButton
-            type="secondary"
             caption="Logout"
             captionStyle={{color: YTColors.danger}}
             onPress={this._handleLogout}
+            type="secondary"
           />
         </ScrollView>
       </View>
@@ -242,8 +240,8 @@ class Profile extends Base {
 
 const mapStoreToProps = (store) => {
   return {
-    user: store.user.loggedIn.user,
-    isFetching: store.user.loggedIn.isFetching,
+    isFetching: store.user.loggedIn.isFetching
+    , user: store.user.loggedIn.user
   }
 }
 

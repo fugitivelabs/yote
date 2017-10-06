@@ -27,8 +27,8 @@ const CardNavigator = StackNavigator(
       screen: Product
     }
     , SingleProduct: {
-        screen: SingleProduct
-      }
+      screen: SingleProduct
+    }
   }
   , {
       headerMode: 'none'
@@ -42,11 +42,11 @@ const ProductNavigator = StackNavigator(
       screen: CardNavigator
     }
     , NewProduct: {
-        screen: CreateProduct
-      }
+      screen: CreateProduct
+    }
     , UpdateProduct: {
-        screen: UpdateProduct
-      }
+      screen: UpdateProduct
+    }
   }
   , {
       headerMode: 'none'
