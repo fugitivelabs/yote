@@ -12,6 +12,10 @@ import { connect } from 'react-redux';
 import Alert from 'Alert';
 import Dimensions from 'Dimensions';
 import Image from 'Image';
+import ImageBackground from 'ImageBackground'; 
+import ImagePicker from 'react-native-image-picker';
+import KeyboardAvoidingView from 'KeyboardAvoidingView'; 
+import LinearGradient from 'react-native-linear-gradient';
 import ListView from 'ListView';
 import Picker from 'Picker';
 import Platform from 'Platform';
@@ -24,12 +28,9 @@ import View from 'View';
 
 // import global components
 import Base from '../../../global/components/BaseComponent';
-import FinishButton from '../../../global/components/FinishButton';
-import ScrollContainer from '../../../global/components/ScrollContainer';
 import YTButton from '../../../global/components/YTButton';
 import YTCard from '../../../global/components/YTCard';
 import YTHeader from '../../../global/components/YTHeader';
-import YTTouchable from '../../../global/components/YTTouchable';
 
 // import libraries
 import moment from 'moment';
@@ -41,78 +42,102 @@ import * as singleActions from '../userActions.js';
 // import styles
 import YTColors from '../../../global/styles/YTColors';
 
+const IMAGE_HEIGHT = 150;
+
 var styles = StyleSheet.create({
-  btnWrapper: {
-    borderTopWidth: 1
-    , borderColor: YTColors.listSeparator
+  bottomBorder: {
+      borderBottomWidth: 1
+      , borderColor: YTColors.listSeparator
+  }
+  , btnWrapper: {
+      borderTopWidth: 1
+      , borderColor: YTColors.listSeparator
   }
   , container: {
-      flex: 1
-      , backgroundColor: YTColors.primaryHeader
-    }
+    backgroundColor: YTColors.primaryHeader
+    , flex: 1
+  }
   , details: {
-      height: 52
-      , flex: 1
-      , fontSize: 17
+      flex: 1
+      , fontSize: 15
       , paddingTop: 8
       , paddingBottom: 8
       , backgroundColor: 'rgba(255,255,255,0.7)'
-    }
-  , formWrapper: {
-      marginTop: -8
-    }
+  }
+  , editImage: {
+      alignItems: 'center'
+      , flex: 1
+      , padding: 30
+      , justifyContent: 'center'
+  }
   , halfInput: {
       flex: 0.5
-    }
+  }
+  , info: {
+      fontSize: 15
+      , paddingVertical: 10
+  }
+  , infoBox: {
+      flex: .8
+      , justifyContent: 'center'
+  }
+  , infoWrapper: {
+      flex: 1
+      , flexDirection: 'row'
+      , paddingHorizontal: 10
+      , paddingVertical: 5
+  }
+  , inlineInput: {
+      flexDirection: "row"
+  }
+  , input: {
+      height: 40
+      , flex: 1
+      , fontSize: 15
+      , padding: 5
+      , color: YTColors.actionText
+      , backgroundColor: 'rgba(255,255,255,0.7)'
+      // backgroundColor: YTColors.lightBackground
+  }
   , instructions: {
       textAlign: 'center'
       , color: '#222'
       , marginBottom: 5
-    }
-  , inputContainer: {
-      borderTopWidth: 1
-      , borderColor: YTColors.listSeparator
-    }
-  , input: {
-      height: 52
-      , flex: 1
-      , fontSize: 17
-      , paddingTop: 8
-      , paddingBottom: 8
-      , backgroundColor: 'rgba(255,255,255,0.7)'
-    }
-  , inlineInput: {
-      flexDirection: "row"
-    }
+  }
   , label: {
-      fontSize: 12
-      , marginTop: 4
-      , color: YTColors.lightText
-    }
+      fontSize: 15
+      , fontWeight: '500'
+  }
+  , labelBox: {
+      flex: .2
+      , justifyContent: 'center'
+  }
   , notes: {
       height: 104
-    }
-  , scrollContainer: {
-      flex: 1
-      , backgroundColor: YTColors.lightBackground
-      , padding: 4
-    }
-  , username: {
-      height: 52
-      , flex: 1
-      , fontSize: 17
-      , paddingTop: 8
-      , paddingBottom: 8
-    }
-  , picker: {
-      width: 150
-    }
-  , pickerText: {
-      fontSize: 20
-    }
+  }
   , quarterInput: {
       flex: 0.25
-    }
+  }
+  , picker: {
+      height: 200
+      , width: Dimensions.get('window').width
+  }
+  , pickerText: {
+      color: YTColors.actionText
+      , fontSize: 20
+      , textAlign: 'center'
+  }
+  , profilePic: {
+      backgroundColor: YTColors.listSeparator
+      , width: IMAGE_HEIGHT
+      , height: IMAGE_HEIGHT
+      , borderRadius: Platform.OS === 'ios' ? IMAGE_HEIGHT * .5 : null
+  }
+  , scrollContainer: {
+      flex: 1
+      , backgroundColor: '#fff'
+      , padding: 5
+  }
 });
 
 class UpdateProfile extends Base {
@@ -120,20 +145,21 @@ class UpdateProfile extends Base {
     super(props);
     this.state = {
       isFormValid: false
-      , showPicker: false
+      , newProfilePic: null
       , newUserData: {
-        username: this.props.user.username
-        , firstName: this.props.user.firstName
-        , lastName: this.props.user.lastName
-      }
+          firstName: this.props.user.firstName
+          , lastName: this.props.user.lastName
+          , username: this.props.user.username
+        }
+      , showPicker: false
     }
     this._bind(
-      '_handleBack'
+      '_checkFormValid'
+      , '_handleBack'
       , '_handleAction'
       , '_handleInputChange'
-      , '_checkFormValid'
+      , '_openImagePicker'
       , '_toggleShowPickerForm'
-      ,'_openImagePicker'
     )
   }
 
@@ -163,53 +189,60 @@ class UpdateProfile extends Base {
 
   _handleAction() {
     const { dispatch, user } = this.props;
-    const { newUserData } = this.state;
+    const { newUserData, newProfilePic } = this.state;
     if(!this.state.isFormValid) {
       Alert.alert("Whoops", "All fields are required.");
       return;
     }
+
+    // create file for newProfilePic
+    // if(newProfilePic) {
+    //   this.props.dispatch(fileActions.sendCreateFile({imageHexString: newProfilePic.data})).then((response) => {
+    //     newUserData.info.profilePicUrl = response.item.rawUrl; 
+    //     dispatch(singleUserActions.sendUpdateProfile(newUserData)).then((res) => {
+    //       this.props.navigation.goBack();
+    //     });
+    //   });
+    // } else {
+    //   dispatch(singleUserActions.sendUpdateProfile(newUserData)).then((res) => {
+    //     this.props.navigation.goBack();
+    //   });
+    // }
+
     dispatch(singleActions.sendUpdateProfile(newUserData)).then((res) => {
-      this.props.navigator.pop();
+      this.props.navigation.goBack();
     });
   }
 
   _openImagePicker() {
-    ImagePicker.showImagePicker((response) => {
-      // console.log('Response = ', response);
+     var options = {
+      allowsEditing: true
+      , maxWidth: 500
+      , maxHeight: 500
+      , title: 'Select Picture'
+    };
 
+    ImagePicker.showImagePicker(options, (response) => {
       if (response.didCancel) {
-        // console.log('User cancelled image picker');
+        console.log('User cancelled image picker');
       }
       else if (response.error) {
-        // console.log('ImagePicker Error: ', response.error);
+        console.log('ImagePicker Error: ', response.error);
       }
       else if (response.customButton) {
-        // console.log('User tapped custom button: ', response.customButton);
+        console.log('User tapped custom button: ', response.customButton);
       }
       else {
-        let source;
-
-        // You can display the image using either data...
-        source = { uri: 'data:image/jpeg;base64,' + response.data };
-
-        // Or a reference to the platform specific asset location
-        if (Platform.OS === 'android') {
-          source = { uri: response.uri };
-        } else {
-          source = { uri: response.uri.replace('file://', '') };
-        }
-        // console.log(source);
-        this.setState({
-          profilePicUrl: source
-        });
-        // console.log(this.state.profilePicUrl);
+        console.log(response); 
+        this.setState({newProfilePic: response}); 
+        this._checkFormValid(); 
       }
-    });
+    })
   }
 
   _handleBack() {
     this.setState({newUserData: this.props.user});
-    this.props.navigator.pop();
+    this.props.navigation.goBack(); 
   }
 
   _scrollToInput(e, refName) {
@@ -228,8 +261,8 @@ class UpdateProfile extends Base {
 
   render() {
     const { user, isFetching } = this.props;
-    const { newUserData, showPicker } = this.state;
-    const profileImg = user.info && user.info.profilePicUrl ? {uri: user.info.profilePicUrl} : require('../../../global/img/wile.png');
+    const { newProfilePic, newUserData, showPicker } = this.state;
+    const profileImg = user.info && user.info.profilePicUrl ? {uri: user.info.profilePicUrl} : require('../../../global/img/default.png');
 
     const leftItem = {
       title: 'Cancel',
@@ -237,78 +270,126 @@ class UpdateProfile extends Base {
     };
 
     return(
-      <View style={[styles.container ]} >
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? "padding" : null}
+        contentContainerStyle={{flex:1}}
+        style={styles.container}
+      >
         <YTHeader
-          navigator={navigator}
           leftItem={leftItem}
           title="Edit Profile"
         />
-        <ScrollView ref="myScrollView" keyboardDismissMode="interactive" style={[styles.scrollContainer]} >
-          <YTCard
-            header="You"
-          >
+        <ScrollView ref="myScrollView" keyboardDismissMode="interactive" keyboardShouldPersistTaps="handled" style={[styles.scrollContainer]} >
+          <View>
             <View style={styles.formWrapper}>
+              <View style={styles.editImage}>
+                <View style={{flex: 1, borderRadius: IMAGE_HEIGHT * .5}}>
+                  <TouchableOpacity onPress={this._openImagePicker}>
+                    <Image
+                      style={styles.profilePic}
+                      source={newProfilePic ? {uri: newProfilePic.uri} : profileImg}>
+                      <LinearGradient colors={['rgba(0,0,0,0.11)', 'rgba(0,0,0,0.51)', 'rgba(0,0,0,0.81)']} style={{flex: 1}}>
+                        <View style={{flex: 1, justifyContent: 'center'}}>
+                          <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+                            <Image
+                              source={require('../../../global/img/camera3.png')}
+                              style={{opacity: .85}}
+                            />
+                          </View>
+                        </View>
+                      </LinearGradient>
+                    </Image>
+                  </TouchableOpacity>
+                </View>
+              </View>
+              <View style={styles.infoWrapper}>
+                <View style={{flex: .4, justifyContent: 'center', paddingLeft: 10}}>
+                  <Text style={styles.label}>First Name:</Text>
+                </View>
+                <View style={{flex: .6, justifyContent: 'center'}}>
+                  <TextInput
+                    autoCapitalize="words"
+                    autoCorrect={false}
+                    isRequired={true}
+                    onChange={ (e) => this._handleInputChange(e, "newUserData.firstName") }
+                    onFocus={ (e) => this._scrollToInput(e, 'newUserData.firstName')}
+                    placeholder=""
+                    placeholderTextColor={YTColors.lightText}
+                    ref="newUserData.firstName"
+                    returnKeyType="default"
+                    style={styles.input}
+                    value={this.state.newUserData.firstName}
+                  />
+                </View>
+              </View>
+              <View style={styles.bottomBorder}/>
               <View style={styles.inputContainer}>
-                <Text style={styles.label}>First Name</Text>
-                <TextInput
-                  ref="newUserData.firstName"
-                  onFocus={ (e) => this._scrollToInput(e, 'newUserData.firstName')}
-                  isRequired={true}
-                  style={styles.input}
-                  autoCapitalize="words"
-                  placeholder=""
-                  placeholderTextColor={YTColors.lightText}
-                  autoCorrect={false}
-                  onChange={ (e) => this._handleInputChange(e, "newUserData.firstName") }
-                  returnKeyType="next"
-                  value={this.state.newUserData.firstName}
-                  onSubmitEditing={(event) => {
-                    this.refs['newUserData.lastName'].focus();
-                  }}
-                />
+                <View style={styles.infoWrapper}>
+                  <View style={{flex: .4, justifyContent: 'center', paddingLeft: 10}}>
+                    <Text style={styles.label}>Last Name:</Text>
+                  </View>
+                  <View style={{flex: .6, justifyContent: 'center'}}>
+                    <TextInput
+                      autoCapitalize="words"
+                      autoCorrect={false}
+                      isRequired={true}
+                      onFocus={ (e) => this._scrollToInput(e, 'newUserData.lastName')}
+                      onChange={ (e) => this._handleInputChange(e, "newUserData.lastName") }
+                      placeholder=""
+                      placeholderTextColor={YTColors.lightText}
+                      ref="newUserData.lastName"
+                      returnKeyType="default"
+                      style={styles.input}
+                      value={this.state.newUserData.lastName}
+                    />
+                  </View>
+                </View>
+                <View style={styles.bottomBorder}/>
               </View>
               <View style={styles.inputContainer}>
-                <Text style={styles.label}>Last Name</Text>
-                <TextInput
-                  ref="newUserData.lastName"
-                  onFocus={ (e) => this._scrollToInput(e, 'newUserData.lastName')}
-                  isRequired={true}
-                  style={styles.input}
-                  autoCapitalize="words"
-                  placeholder=""
-                  placeholderTextColor={YTColors.lightText}
-                  autoCorrect={false}
-                  onChange={ (e) => this._handleInputChange(e, "newUserData.lastName") }
-                  returnKeyType="next"
-                  value={this.state.newUserData.lastName}
-                  onSubmitEditing={(event) => {
-                    this.refs['newUserData.username'].focus();
-                  }}
-                />
-              </View>
-              <View style={styles.inputContainer}>
-                <Text style={styles.label}>Email/Username</Text>
-                <Text style={styles.username}>{this.state.newUserData.username} </Text>
+                <View style={styles.infoWrapper}>
+                  <View style={{flex: .4, justifyContent: 'center', paddingLeft: 10}}>
+                    <Text style={styles.label}>Email:</Text>
+                  </View>
+                  <View style={{flex: .6, justifyContent: 'center'}}>
+                    <TextInput
+                      autoCapitalize="words"
+                      autoCorrect={false}
+                      editable={false}
+                      isRequired={true}
+                      keyboardType="email-address"
+                      onChange={ (e) => this._handleInputChange(e, "newUserData.username") }
+                      onFocus={ (e) => this._scrollToInput(e, 'newUserData.username')}
+                      placeholder=""
+                      placeholderTextColor={YTColors.lightText}
+                      ref="newUserData.username"
+                      returnKeyType="default"
+                      style={styles.input}
+                      value={this.state.newUserData.username}
+                    />
+                  </View>
+                </View>
+                <View style={styles.bottomBorder}/>
               </View>
             </View>
-          </YTCard>
           <View style={[styles.buttonWrapper, {paddingVertical: 20}]}>
             <YTButton
-              onPress={this._handleAction}
               caption={isFetching ? "Please wait..." : "Update my profile"}
-              isDisabled={!this.state.isFormValid}
+              isDisabled={!this.state.isFormValid || isFetching}
+              onPress={this._handleAction}
             />
           </View>
+          </View>
         </ScrollView>
-      </View>
+      </KeyboardAvoidingView>
     )
   }
 }
 
 const mapStoreToProps = (store) => {
   return {
-    user: store.user.loggedIn.user,
-    isFetching: store.user.loggedIn.isFetching,
+    isFetching: store.user.isFetching
+    , user: store.user.loggedIn.user
   }
 }
 

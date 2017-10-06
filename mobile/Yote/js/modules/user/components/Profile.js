@@ -18,10 +18,10 @@ import StyleSheet from 'StyleSheet';
 import Text from 'Text';
 import TouchableOpacity from 'TouchableOpacity';
 import View from 'View';
+import { NavigationActions } from 'react-navigation'
 
 // import global components
 import Base from '../../../global/components/BaseComponent';
-import ScrollContainer from '../../../global/components/ScrollContainer';
 import YTButton from '../../../global/components/YTButton';
 import YTCard from '../../../global/components/YTCard';
 import YTHeader from '../../../global/components/YTHeader';
@@ -34,6 +34,7 @@ import * as singleActions from '../userActions.js';
 import moment from 'moment';
 
 // import styles
+import userStyles from '../userStyles'; 
 import YTColors from '../../../global/styles/YTColors';
 
 var styles = StyleSheet.create({
@@ -42,12 +43,11 @@ var styles = StyleSheet.create({
     , borderColor: YTColors.listSeparator
   }
   , btnWrapper: {
-      borderTopWidth: 1
-      , borderColor: YTColors.listSeparator
+      paddingTop: 10
     }
   , container: {
       flex: 1
-      , backgroundColor: YTColors.primaryHeader
+      , backgroundColor: '#fff'
     }
   , details: {
       justifyContent: 'center'
@@ -60,14 +60,34 @@ var styles = StyleSheet.create({
       , flexDirection: 'row'
       , padding: 2
     }
-  , info: {
-      fontSize: 17
-      , padding: 10
-    }
   , instructions: {
-      textAlign: 'center'
-      , color: '#222'
-      , marginBottom: 5
+      color: YTColors.lightText
+      , fontSize: 12
+      , paddingVertical: 10
+      , paddingHorizontal: 5
+    }
+  , infoWrapper: {
+      flex: 1
+      , flexDirection: 'row' 
+      , paddingVertical: 5 
+      , paddingHorizontal: 10
+    }
+  , labelBox: {
+      flex: .2 
+      , justifyContent: 'center'
+      , paddingLeft: 10
+    }
+  , label: {
+      fontSize: 15
+      , fontWeight: '500'
+    }
+  , infoBox: {
+      flex: .8 
+      , justifyContent: 'center'
+    }
+  , info: {
+      fontSize: 15
+      , paddingVertical: 10
     }
   , linkOut: {
       flex: 1
@@ -89,55 +109,23 @@ class Profile extends Base {
   constructor(props){
     super(props);
     this._bind(
-      '_openEditProfile'
-      , '_openSettings'
-      , '_closeModal'
+      '_closeModal'
       , '_handleLogout'
-      , '_openPrivacy'
-      , '_openTeam'
-      , '_openFAQ'
-      , '_openContact'
+      , '_openEditProfile'
       , '_openImagePicker'
     )
   }
 
   _openEditProfile() {
-    this.props.navigator.push({editProfile: true});
+    this.props.navigation.navigate('UpdateProfile'); 
   }
 
-  _openSettings() {
-    this.props.navigator.push({settings: true});
-  }
-
-  _closeModal() {
-    this.props.navigator.pop();
+  _closeModal() { 
+    this.props.navigation.dispatch(NavigationActions.back()); 
   }
 
   _handleLogout() {
     this.props.dispatch(singleActions.sendLogout());
-  }
-
-  _openPrivacy() {
-    this.props.navigator.push({privacy: true});
-  }
-
-  _openTeam() {
-    this.props.navigator.push({team: true});
-  }
-
-  _openFAQ() {
-    this.props.navigator.push({faq: true});
-  }
-
-  _openContact() {
-    var url = "erik@fugitivelabs.com";
-    Linking.canOpenURL(url).then(supported => {
-      if(supported) {
-        Linking.openURL(url);
-      } else {
-        this.props.navigator.push({privacy: true});
-      }
-    })
   }
 
   _openImagePicker() { 
@@ -180,50 +168,69 @@ class Profile extends Base {
 
   render() {
     const { user } = this.props;
-
-    const leftItem = {
-      title: 'Close',
-      onPress: () => this._closeModal(),
-      icon: require('../../../global/img/settings.png'),
-      // layout: "icon"
+    const rightItem = {
+      icon: require('../../../global/img/delete.png')
+      , layout: "icon" 
+      , onPress: () => this._closeModal()
     };
-    const rightItem = null;
 
     const rightArrow = require("../../../global/img/forward.png");
 
-    const profileImg = user.info && user.info.profilePicUrl ? {uri: user.info.profilePicUrl} : require('../../../global/img/skull-icon.png');
+    const profileImg = user.info && user.info.profilePicUrl ? {uri: user.info.profilePicUrl} : require('../../../global/img/default.png');
 
     return(
-      <View style={[styles.container ]} >
+      <View style={[styles.container ]}>
         <YTHeader
-          navigator={navigator}
-          leftItem={leftItem}
           rightItem={rightItem}
-          title="Account"
+          title="Profile"
         />
         <ScrollView>
-          <View style={{padding: 8}}>
-            <View style={styles.editImage}>
+          <View>
+            <View style={{flex: 1, alignItems: 'center', padding: 20, justifyContent: 'center',}}>
               <Image
-                style={{width: 200, height: 200}}
+                style={{width: 250, height: 250, borderRadius: 250 * .5, borderColor: YTColors.actionText, borderWidth: 4}}
                 source={profileImg}> 
               </Image>
             </View>
-            <Text style={styles.info}>{user.firstName} {user.lastName}</Text>
-            <Text style={styles.info}>{user.username}</Text>
+            <View style={{flexDirection: 'row', justifyContent: 'center', paddingBottom: 20}}>
+              <Text style={{fontSize: 35, fontWeight: '500'}}> {user.firstName} {user.lastName} </Text>
+            </View>
+            <Text style={styles.instructions}>Personal Information: </Text>
+            <View style={styles.bottomBorder}/>
+            <View>
+              <View style={styles.infoWrapper}>
+                <View style={styles.labelBox}>
+                  <Text style={styles.label}>Name: </Text>
+                </View>
+                <View style={styles.infoBox}>
+                  <Text style={styles.info}>{user.firstName} {user.lastName}</Text>
+                </View>
+              </View>
+            </View>
+            <View style={styles.bottomBorder}/>
+            <View style={styles.infoWrapper}>
+              <View style={styles.labelBox}>
+                <Text style={styles.label}>Email: </Text>
+              </View>
+              <View style={styles.infoBox}>
+                <Text style={styles.info}>{user.username}</Text>
+              </View>
+            </View>
+            <View style={styles.bottomBorder}/>
             <View style={styles.btnWrapper}>
               <YTButton
-                type="secondary"
                 caption={"Edit Profile"}
-                onPress={this._openEditProfile}
                 icon={require('../../../global/img/edit.png')}
+                onPress={this._openEditProfile}
+                type="secondary"
               />
             </View>
           </View>
           <YTButton
-            type="secondary"
             caption="Logout"
+            captionStyle={{color: YTColors.danger}}
             onPress={this._handleLogout}
+            type="secondary"
           />
         </ScrollView>
       </View>
@@ -233,8 +240,8 @@ class Profile extends Base {
 
 const mapStoreToProps = (store) => {
   return {
-    user: store.user.loggedIn.user,
-    isFetching: store.user.loggedIn.isFetching,
+    isFetching: store.user.loggedIn.isFetching
+    , user: store.user.loggedIn.user
   }
 }
 

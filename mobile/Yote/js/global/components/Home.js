@@ -3,24 +3,21 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 // import react-native components & apis
-import Image from 'Image'; 
-import View from 'View';
-import Text from 'Text';
-import StyleSheet from 'StyleSheet';
-import TouchableOpacity from 'TouchableOpacity';
-import ScrollView from 'ScrollView';
-import Linking from 'Linking';  
 import Dimensions from 'Dimensions'; 
+import Image from 'Image'; 
+import Linking from 'Linking';  
 import Platform from 'Platform'; 
+import ScrollView from 'ScrollView';
+import StyleSheet from 'StyleSheet';
+import Text from 'Text';
+import TouchableOpacity from 'TouchableOpacity';
+import View from 'View';
 
 // import global components
-import Base from '../../../global/components/BaseComponent';
-import ScrollContainer from '../ScrollContainer';
-import YTButton from '../YTButton';
-import YTCard from '../YTCard';
-import YTColors from '../../styles/YTColors'; 
-import YTHeader from '../YTHeader';
+import Base from './BaseComponent';
 import Hero from './Hero.js'; 
+import YTColors from '../styles/YTColors'; 
+import YTHeader from './YTHeader';
 
 const screenHeight = Dimensions.get('window').height
 
@@ -121,7 +118,7 @@ class Home extends Base {
   }
 
   _openProfile() {
-    this.props.navigator.push({profile: true});
+    this.props.navigation.navigate('UserNavigator'); 
   }
   
   _handleOpenDrawer() {
@@ -143,13 +140,7 @@ class Home extends Base {
 
     const {  itemList, navigator, user } = this.props;
 
-    const profileImg = user.info && user.info.profilePicUrl ? {uri: user.info.profilePicUrl} : require('../../../global/img/skull-icon.png');
-
-    const androidDrawerItem = {
-      onPress: this._handleOpenDrawer,
-      icon: require('../../../global/components/img/bulletList.png'),
-      layout: "icon",
-    }
+    const profileImg = user.info && user.info.profilePicUrl ? {uri: user.info.profilePicUrl} : require('../img/default.png');
 
     const profileItem = {
       onPress: () => this._openProfile()
@@ -161,10 +152,8 @@ class Home extends Base {
       <View style={styles.container}>
         <YTHeader
           title="Yote"
-          leftItem={Platform.OS === 'ios' ? profileItem : androidDrawerItem}
-          rightItem={Platform.OS === 'ios' ? null : profileItem}
-        >
-        </YTHeader>
+          rightItem={profileItem}
+        />
         <ScrollView 
           automaticallyAdjustContentInsets={false}
         >
@@ -172,9 +161,9 @@ class Home extends Base {
             <View style={{height: screenHeight * .66, backgroundColor: 'transparent', justifyContent: 'center', alignItems: 'center'}}>
               <View style={{flexDirection: 'row', justifyContent: 'center'}}>
                 <Image 
-                  source={require('../../../global/img/howler.png')}
-                  style={{height: 170, width: 200}}
                   resizeMode={'contain'}
+                  source={require('../img/logo.png')}
+                  style={{height: 170, width: 200}}
                 />
               </View>
               <View style={{flexDirection: 'row', justifyContent: 'center'}}>
@@ -223,3 +212,4 @@ const mapStoreToProps = (store) => {
 export default connect(
   mapStoreToProps
 )(Home);
+// export default Home; 

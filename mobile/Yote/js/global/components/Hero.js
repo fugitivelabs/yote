@@ -4,8 +4,8 @@ import View from 'View';
 import Text from 'Text'; 
 
 // import global components
-import Base from '../../../global/components/BaseComponent';
-import YTColors from '../../../global/styles/YTColors'; 
+import Base from './BaseComponent';
+import YTColors from '../styles/YTColors'; 
 
 /**
  * build a temporary component for each "cool thing"

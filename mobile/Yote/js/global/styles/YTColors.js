@@ -1,5 +1,6 @@
 module.exports = {
-  actionText: '#007BA4'
+  actionText: '#08bdec'
+  , button: '#FCA641'
   , buttonPrimaryBG: '#000000'
   , cardBorder: '#cacddf'
   , checkboxEmpty: '#6a858c'

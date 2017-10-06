@@ -44,7 +44,7 @@ var styles = StyleSheet.create({
     }
   , primaryButton: {
       borderRadius: HEIGHT / 2
-      , backgroundColor: '#FCA641'
+      , backgroundColor: YTColors.button
     }
   , primaryCaption: {
       color: '#fff'

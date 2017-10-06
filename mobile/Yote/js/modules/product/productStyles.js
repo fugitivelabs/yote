@@ -11,10 +11,10 @@ import YTColors from '../../global/styles/YTColors';
 let productStyles = StyleSheet.create({
   cardHeader: {
     fontSize: 16
-    , textAlign: 'center'
+    , fontWeight: '500'
     , color: "#fff"
-    , padding: 4
-    , backgroundColor: YTColors.yoteDarkBlue
+    , padding: 8
+    , backgroundColor: YTColors.actionText
   }
   , cell: {
       padding: 5
@@ -55,7 +55,6 @@ let productStyles = StyleSheet.create({
   , description: {
       fontSize: 15
       , color: YTColors.lightText
-      , padding: 8
     }
   , details: {
       height: 52
@@ -69,7 +68,6 @@ let productStyles = StyleSheet.create({
   , emptyMessage: {
       fontSize: 12
       , textAlign: 'left'
-      , padding: 10
       , fontStyle: "italic"
       , color: YTColors.lightText
     }
@@ -82,16 +80,13 @@ let productStyles = StyleSheet.create({
     }
   , headerLeft: {
       fontSize: 25
-      , color: '#fff'
-      , padding: 4
-      , color: YTColors.yoteDarkBlue
     }
   , info: {
-    fontSize: 15
-    , textAlign: 'left'
-    , padding: 10
-    , color: YTColors.lightText
-  }
+      fontSize: 15
+      , textAlign: 'left'
+      , padding: 10
+      , color: YTColors.lightText
+    }
   , infoBox: {
       backgroundColor: 'white'
       , padding: 8
@@ -106,17 +101,15 @@ let productStyles = StyleSheet.create({
       , borderColor: YTColors.listSeparator
     }
   , input: {
-      height: 52
-      , flex: 1
+      minHeight: 40
       , fontSize: 17
-      , paddingTop: 8
-      , paddingBottom: 8
-      , backgroundColor: 'rgba(255,255,255,0.7)'
+      , padding: 4
+      , flex: 1
+      , backgroundColor: '#fff'
     }
   , label: {
       fontSize: 12
-      , marginTop: 4
-      , color: YTColors.lightText
+      , color: YTColors.actionText
     }
   , newProductHeader: {
       fontSize: 16

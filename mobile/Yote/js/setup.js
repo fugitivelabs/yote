@@ -1,5 +1,5 @@
 /**
- * Setup the app with Redux and load the main App file
+ * Setup the store with Redux and load the main App file
  */
 
 // import primary libraries
@@ -8,7 +8,7 @@ import { Provider } from 'react-redux';
 
 // import components
 import configureStore from './store/configureStore';
-import YoteApp from './YoteApp';
+import App from './App'; 
 
 function setup(): React.Component {
   class Root extends React.Component {
@@ -25,12 +25,12 @@ function setup(): React.Component {
       }
       return (
         <Provider store={this.state.store}>
-          <YoteApp />
+          <App/>
         </Provider>
       );
     }
   }
-  return Root;
+  return Root; 
 }
 
-module.exports = setup;
+module.exports = setup; 
