@@ -32,9 +32,9 @@ let mazenLocal = {
   url: "http://10.254.102.101:3030"
 }
 
-let env = simulator;
+// let env = simulator;
 // let env = erikLocal;
-// let env = austinLocal;
+let env = austinLocal;
 // let env = mazenLocal;
 // let env = stagingEnv;
 // let env = productionEnv;

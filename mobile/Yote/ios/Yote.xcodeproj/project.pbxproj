@@ -530,6 +530,7 @@
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* YoteTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
+				B83EE16C1F87CBF200D5CF05 /* Recovered References */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -544,6 +545,15 @@
 				2D02E4901E0B4A5D006451C7 /* Yote-tvOSTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		B83EE16C1F87CBF200D5CF05 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				D2F959A4925D49239419E57A /* libRNImagePicker.a */,
+				D335A31B0E094DAD9D67E2BA /* libBVLinearGradient.a */,
+			);
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		B8E000EA1F5752A8003B30C9 /* Products */ = {

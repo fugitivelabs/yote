@@ -16,6 +16,7 @@ import { StackNavigator, TabNavigator } from 'react-navigation';
 
 // import global components
 import Home from './global/components/Home'; 
+import TabBarComponent from './global/components/TabBarComponent'; 
 
 // import module navigator components
 import UserNavigator from './modules/user/UserNavigator'; 
@@ -59,6 +60,7 @@ const TabsNavigator = TabNavigator(
       }
     }
     , tabBarPosition: 'bottom'
+    , tabBarComponent: TabBarComponent
   }
 );
 

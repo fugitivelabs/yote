@@ -271,7 +271,7 @@ class UpdateProfile extends Base {
 
     return(
       <KeyboardAvoidingView
-        behavior={"padding"}
+        behavior={Platform.OS === 'ios' ? "padding" : null}
         contentContainerStyle={{flex:1}}
         style={styles.container}
       >
