@@ -112,7 +112,7 @@ class Product extends Base {
           title="Products"
           rightItem={rightItem}
         />     
-        <View style={{flex: 1}}>
+        <View style={{flex: 1, padding: 2}}>
           <ProductList 
             products={productList}
             navigation={navigation}

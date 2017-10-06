@@ -92,7 +92,9 @@ class ProductList extends Base {
   }
 
   _renderSeparator(sectionID, rowID) {
-  
+    return (
+        <View style={productStyles.listSeparator} key={rowID} />
+      )
   }
 
   _renderRow(productId) {

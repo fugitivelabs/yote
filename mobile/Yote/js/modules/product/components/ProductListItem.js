@@ -59,7 +59,7 @@ class ProductListItem extends Base {
             
     if(this.props.onPress) {
       cell =
-        <View style={{paddingHorizontal: 5, paddingVertical: 2}}>
+        <View style={{paddingVertical: 1}}>
           <YTTouchable onPress={this.props.onPress}>
             {cell}
           </YTTouchable>

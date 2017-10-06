@@ -107,6 +107,35 @@ function productList(state = {
           }
         }
       }
+      case Actions.ADD_PRODUCT_TO_LIST:
+        let idArray = [...state.items];
+        idArray.indexOf(action.id) === -1 ? idArray.push(action.id) : console.log("Item is already in list"); 
+        return {
+          ...state 
+          , items: idArray
+          , isFetching: false
+          , error: action.error || null
+          , didInvalidate: false
+          , lastUpdated: action.recievedAt 
+        }
+
+      case Actions.REMOVE_PRODUCT_FROM_LIST:
+        idArray = [...state.items]
+        let index = idArray.indexOf(action.id);  
+        if(index != -1) {
+          idArray.splice(index, 1); 
+        } else {
+          console.log("item not in list"); 
+        }
+        return {
+          ...state
+          , items: idArray
+          , isFetching: false
+          , error: action.error || null
+          , didInvalidate: false
+          , lastUpdated: action.receivedAt
+        }
+
       case Actions.SET_PRODUCT_FILTER: {
         return {
           ...state
@@ -386,6 +415,8 @@ function product(state = {
     case Actions.INVALIDATE_PRODUCT_LIST:
     case Actions.REQUEST_PRODUCT_LIST:
     case Actions.SET_PRODUCT_FILTER:
+    case Actions.ADD_PRODUCT_TO_LIST:
+    case Actions.REMOVE_PRODUCT_FROM_LIST:
     case Actions.SET_PRODUCT_PAGINATION: {
       nextState = {
         ...state
