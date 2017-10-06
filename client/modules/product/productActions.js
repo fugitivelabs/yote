@@ -303,6 +303,31 @@ function receiveProductList(json, listArgs) {
   }
 }
 
+export const ADD_PRODUCT_TO_LIST = "ADD_PRODUCT_TO_LIST";
+export function addProductToList(id, ...listArgs) {
+  // console.log("Add product to list", id);
+  if(listArgs.length === 0) {
+    listArgs = ["all"];
+  }
+  return {
+    type: ADD_PRODUCT_TO_LIST
+    , id
+    , listArgs
+  }
+}
+
+export const REMOVE_PRODUCT_FROM_LIST = "REMOVE_PRODUCT_FROM_LIST"
+export function removeProductFromList(id, ...listArgs) {
+  if(listArgs.length === 0) {
+    listArgs = ['all'];
+  }
+  return {
+    type: REMOVE_PRODUCT_FROM_LIST
+    , id
+    , listArgs
+  }
+}
+
 export function fetchList(...listArgs) {
   return dispatch => {
     if(listArgs.length === 0) {
