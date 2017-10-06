@@ -296,7 +296,7 @@ class Login extends Base {
                   <View style={{paddingVertical: 10}}>
                     <YTButton
                       caption={isFetching ? "Please wait..." : "Login"}
-                      isDisabled={!this.state.isFormValid}
+                      isDisabled={!this.state.isFormValid || isFetching}
                       onPress={this._handleLoginSubmit}
                       type="primary"
                     />
