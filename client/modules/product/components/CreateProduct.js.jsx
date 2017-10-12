@@ -23,7 +23,8 @@ class CreateProduct extends Base {
   constructor(props) {
     super(props);
     this.state = {
-      product: JSON.parse(JSON.stringify(this.props.defaultProduct))
+      product: { ...this.props.defaultProduct }
+
       // NOTE: We don't want to actually change the store's defaultItem, just use a copy
     }
     this._bind(
