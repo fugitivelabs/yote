@@ -43,7 +43,7 @@ class UpdateProduct extends Base {
     const { selectedProduct, productMap } = this.props;
     this.state = {
       isFormValid: false
-      , newProductData: productMap[selectedProduct.id] ? JSON.parse(JSON.stringify(productMap[selectedProduct.id])) : {}
+      , newProductData: productMap[selectedProduct.id] ? { ...productMap[selectedProduct.id] } : {}
     }
     this._bind(
       '_closeModal'
