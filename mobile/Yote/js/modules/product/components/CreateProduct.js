@@ -195,8 +195,8 @@ const mapStoreToProps = (store) => {
 
   return {
     defaultProduct: store.product.defaultItem
-    , user: store.user.loggedIn.user
     , isFetching: store.product.selected.isFetching
+    , user: store.user.loggedIn.user
   }
 }
 
