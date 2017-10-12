@@ -19,8 +19,9 @@ import Home from './global/components/Home';
 import TabBarComponent from './global/components/TabBarComponent'; 
 
 // import module navigator components
-import UserNavigator from './modules/user/UserNavigator'; 
 import ProductNavigator from './modules/product/ProductNavigator'; 
+// other routes imported from ./modules/moduleNavigator
+// to add routes to the TABS view, add them to TabNavigator below
 
 // import styles
 import YTColors from './global/styles/YTColors'; 
@@ -39,7 +40,7 @@ const TabsNavigator = TabNavigator(
         )
       }
     }
-    , Products: { 
+    , Products: {
       screen: ProductNavigator
       , navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
@@ -64,15 +65,22 @@ const TabsNavigator = TabNavigator(
   }
 );
 
-const AppNavigator = StackNavigator(
-  {
-    TabsNavigator: {
-      screen: TabsNavigator
-    }
-    , UserNavigator: {
-      screen: UserNavigator
-    }
+
+let appNavigatorConfig = {
+  TabsNavigator: {
+    screen: TabsNavigator
   }
+}
+
+//add individual module routes (other than product and user) here
+Object.keys(moduleNavigators).map((moduleName, i) => {
+  appNavigatorConfig[moduleName] = {
+    screen: moduleNavigators[moduleName]
+  }
+})
+
+const AppNavigator = StackNavigator(
+  appNavigatorConfig
   , {
     mode: 'modal' // vertical screen (modal) transitions
     , headerMode: 'none'
@@ -88,11 +96,7 @@ const AppNavigator = StackNavigator(
 //   headerMode: 'none'
 // });
 
-const mapStoreToProps = (store) => {
 
-  return {
-    user: store.user
-  }
-}
+export default AppNavigator;
 
-export default connect(mapStoreToProps)(AppNavigator);
+import * as moduleNavigators from './modules/moduleNavigators.js';
