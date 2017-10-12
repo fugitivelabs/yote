@@ -128,6 +128,7 @@ module.exports = function(router, requireLogin, requireRole) {
 
   // - Read
   router.get('/api/users'               , requireRole('admin'), users.list); // must be an 'admin' to see the list of users
+  router.get('/api/users/get-logged-in' , requireLogin(), users.getLoggedInUser);
   router.get('/api/users/:id'           , requireRole('admin'), users.getById); // must be an 'admin' to see individual user info
 
   // - Update
