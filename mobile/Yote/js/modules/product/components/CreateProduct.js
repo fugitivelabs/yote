@@ -40,10 +40,7 @@ class CreateProduct extends Base {
     super(props);
     this.state = {
       isFormValid: false
-      , newProduct: {
-        title: ""
-        , description: ""
-      }
+      , newProduct: { ...this.props.defaultProduct }
     }
     this._bind(
       '_closeModal'
@@ -197,8 +194,9 @@ class CreateProduct extends Base {
 const mapStoreToProps = (store) => {
 
   return {
-    user: store.user.loggedIn.user
+    defaultProduct: store.product.defaultItem
     , isFetching: store.product.selected.isFetching
+    , user: store.user.loggedIn.user
   }
 }
 
