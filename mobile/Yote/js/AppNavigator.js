@@ -39,7 +39,7 @@ const TabsNavigator = TabNavigator(
         )
       }
     }
-    , Products: { 
+    , Products: {
       screen: ProductNavigator
       , navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
@@ -64,15 +64,25 @@ const TabsNavigator = TabNavigator(
   }
 );
 
-const AppNavigator = StackNavigator(
-  {
-    TabsNavigator: {
-      screen: TabsNavigator
-    }
-    , UserNavigator: {
-      screen: UserNavigator
-    }
+
+let appNavigatorConfig = {
+  TabsNavigator: {
+    screen: TabsNavigator
   }
+  , UserNavigator: {
+    screen: UserNavigator
+  }
+}
+
+//add individual module routes (other than product and user) here
+Object.keys(moduleNavigators).map((moduleName, i) => {
+  appNavigatorConfig[moduleName] = {
+    screen: moduleNavigators[moduleName]
+  }
+})
+
+const AppNavigator = StackNavigator(
+  appNavigatorConfig
   , {
     mode: 'modal' // vertical screen (modal) transitions
     , headerMode: 'none'
@@ -88,11 +98,15 @@ const AppNavigator = StackNavigator(
 //   headerMode: 'none'
 // });
 
-const mapStoreToProps = (store) => {
+// const mapStoreToProps = (store) => {
 
-  return {
-    user: store.user
-  }
-}
+//   return {
+//     user: store.user
+//   }
+// }
 
-export default connect(mapStoreToProps)(AppNavigator);
+// export default connect(mapStoreToProps)(AppNavigator);
+
+export default AppNavigator;
+
+import * as moduleNavigators from './modules/moduleNavigators.js';
