@@ -10,6 +10,8 @@
 require('es5-shim');
 require('es5-shim/es5-sham');
 
+
+console.log("debug 0 - starting app.js")
 // import primary libraries
 import React from 'react';
 // import applyRouterMiddleware from 'react-router-apply-middleware';
@@ -17,7 +19,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 // import useScroll from 'react-router-scroll';
 import { Provider } from 'react-redux';
 import { render } from 'react-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { Router } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 import { syncHistoryWithStore } from 'react-router-redux';
 // import { useRelativeLinks } from 'react-router-relative-links';
@@ -72,7 +74,7 @@ const history = syncHistoryWithStore(createBrowserHistory(), store);
 //   console.log("GA location firing: " + location.pathname);
 //   window.ga('send', 'pageview', location.pathname);
 // });
-
+console.log("debug 1 - first render in app.js")
 render(
   (
     <Provider store={store}>
