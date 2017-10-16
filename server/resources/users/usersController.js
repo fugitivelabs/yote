@@ -14,6 +14,15 @@ let secrets = require('../../config')[process.env.NODE_ENV].secrets;
 let User = require('mongoose').model('User');
 let utilitiesCtrl = require('../../utilities');
 
+exports.getLoggedInUser = (req, res) => {
+  /**
+   * Check if user is logged in and if so return the user object
+   * Relies on existing "requireLogin" to populate the user
+   * To be used for checking login status and refreshing user on mobile
+   */
+  res.send({success: true, user: req.user})
+}
+
 exports.list = function(req, res) {
   // check if query is paginated.
   if(req.query.page) {
