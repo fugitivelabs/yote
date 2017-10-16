@@ -25,7 +25,7 @@ function requireLogin() {
         if(err || !user) {
           logger.error(err);
           res.status(403);
-          res.send("UNAUTHORIZED - INVALID TOKEN");
+          res.send({success: false, message: "UNAUTHORIZED - INVALID TOKEN"});
         } else {
           logger.debug("found user by header");
 
@@ -33,7 +33,7 @@ function requireLogin() {
           if(User.tokenExpired(user.tokenCreated)) {
             logger.debug("token is expired");
             res.status(403);
-            res.send("UNAUTHORIZED - TOKEN HAS EXPIRED");
+            res.send({success: false, message: "UNAUTHORIZED - TOKEN HAS EXPIRED"});
           } else {
             req.user = user;
             logger.debug("REQ.USER 1");
@@ -51,7 +51,7 @@ function requireLogin() {
       if(!req.isAuthenticated()) {
         logger.warn("UNAUTHORIZED");
         res.status(403);
-        res.send("UNAUTHORIZED - NOT LOGGED IN");
+        res.send({success: false, message: "UNAUTHORIZED - NOT LOGGED IN"});
       } else {  next(); }
     }
   }
@@ -73,7 +73,7 @@ function requireRole(role) {
       logger.debug(req.user.username);
       if(req.user.roles.indexOf(role) === -1) {
         res.status(403);
-        res.send("UNAUTHORIZED - " + role + " PRIVILEDGES REQUIRED");
+        res.send({success: false, message: "UNAUTHORIZED - " + role + " PRIVILEDGES REQUIRED"});
       } else {
         logger.debug("authorized.");
         next();
