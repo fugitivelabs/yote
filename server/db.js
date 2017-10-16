@@ -1,5 +1,5 @@
 let mongoose = require('mongoose');
-let User = require('./resources/users/UserModel');
+let User = require('./resources/user/UserModel');
 
 module.exports = function(config) {
   mongoose.Promise = global.Promise; // mongoose internal Promise library depreciated; use native
@@ -16,4 +16,4 @@ module.exports = function(config) {
 };
 
 // Yote models are defined below
-let Product = require('./resources/products/ProductModel');
+let Product = require('./resources/product/ProductModel');

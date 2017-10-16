@@ -57,7 +57,7 @@ logger.error("ERROR LOG");
 require('./db')(config);
 
 // init User model
-let UserSchema = require('./resources/users/UserModel').User;
+let UserSchema = require('./resources/user/UserModel').User;
 let User = mongoose.model('User');
 
 // use express compression plugin
