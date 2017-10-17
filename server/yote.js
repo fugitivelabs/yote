@@ -19,7 +19,7 @@
 let bodyParser      = require('body-parser');
 let cookieParser    = require('cookie-parser');
 let compress        = require('compression');
-let errorHandler    = require('errorhandler');
+// let errorHandler    = require('errorhandler');
 let express         = require('express');
 let favicon         = require('serve-favicon');
 let fs              = require('fs');
@@ -30,7 +30,7 @@ let path            = require('path');
 let serveStatic     = require('serve-static');
 let session         = require('express-session');
 let timeout         = require('connect-timeout');
-let winston         = require('winston');
+// let winston         = require('winston');
 
 // init MongoStore sessions
 let MongoStore      = require('connect-mongo')(session);
@@ -44,8 +44,10 @@ let env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 let config = require('./config')[env];
 
 // initialize logger
+let logger = require('./logger');
 // NOTE: generally 'global' is not considered "best practices", but this will allow access to the logger object in the entire app
-global.logger = require('./logger');
+global.logger = logger;
+
 
 // logger examples:
 logger.debug("DEBUG LOG");
@@ -57,7 +59,6 @@ logger.error("ERROR LOG");
 require('./db')(config);
 
 // init User model
-let UserSchema = require('./resources/user/UserModel').User;
 let User = mongoose.model('User');
 
 // use express compression plugin
@@ -79,7 +80,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// app.use(favicon(path.join(__dirname, 'public','favicon.ico')));
+app.use(favicon(path.join(__dirname, 'public','favicon.ico')));
 
 // // Uncomment below to allow file uploads
 // app.use(multipart({}));
@@ -190,7 +191,6 @@ if(app.get('env') == 'production' && config.useHttps) {
   }, app).listen(443);
 
   // need to catch for all http requests and redirect to httpS
-  var http = require('http');
   if(config.httpsOptional) {
     require('http').createServer(app).listen(80);
   } else {
