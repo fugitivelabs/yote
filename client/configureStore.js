@@ -1,3 +1,5 @@
+/* global process */
+
 /**
  * configureStore builds the Redux store for the application
  */
