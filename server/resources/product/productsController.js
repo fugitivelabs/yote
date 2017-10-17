@@ -13,7 +13,6 @@ let Product = require('mongoose').model('Product');
 let logger = global.logger;
 
 exports.list = (req, res) => {
-  console.log("THAHAEJHAEU");
   if(req.query.page) {
     // paginate on the server
     var page = req.query.page || 1;
