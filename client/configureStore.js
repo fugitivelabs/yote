@@ -5,14 +5,16 @@
 // import primary libraries
 import createLogger from 'redux-logger';
 import thunkMiddleware from 'redux-thunk'
-import { browserHistory } from 'react-router';
-import { createStore, combineReducers, applyMiddleware } from 'redux';
-import { syncHistoryWithStore } from 'react-router-redux';
+// import { browserHistory } from 'react-router';
+import { createStore, applyMiddleware } from 'redux';
+// import { syncHistoryWithStore } from 'react-router-redux';
 
 // import main application reducer
 import rootReducer from './rootReducer';
 
-export default function configureStore(initialState) {
+// let process = global.process;
+
+export default function configureStore() {
   // console.log("initialState");
   // console.log(initialState);
 

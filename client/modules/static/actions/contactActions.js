@@ -10,7 +10,7 @@ export function setupNewLead() {
 }
 
 export const REQUEST_NEW_LEAD = "REQUEST_NEW_LEAD";
-function requestNewLead() {
+function requestNewLead(lead) {
   return {
     type: REQUEST_NEW_LEAD
     , lead
