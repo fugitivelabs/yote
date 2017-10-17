@@ -2,10 +2,8 @@
  * Configure the API routes
  */
 
-let mongoose = require('mongoose');
-let passport = require('passport');
 let User = require('mongoose').model('User');
-
+let logger = global.logger;
 
 // helper functions
 

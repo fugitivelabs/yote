@@ -9,9 +9,10 @@
 let secrets = require('./config')[process.env.NODE_ENV].secrets;
 
 // import libraries
-let async = require('async');
+// let async = require('async');
 let mandrill = require('mandrill-api/mandrill');
 let mandrill_client = new mandrill.Mandrill(secrets.mandrill);
+let logger = global.logger;
 
 exports.sendEmail = function(targets, subject, content, callback) {
   logger.debug("trying to send email");

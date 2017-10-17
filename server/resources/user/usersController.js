@@ -8,11 +8,12 @@
 // get the appUrl for the current environment
 let appUrl = require('../../config')[process.env.NODE_ENV].appUrl;
 
-// get secrets
-let secrets = require('../../config')[process.env.NODE_ENV].secrets;
+// get secrets if needed
+// let secrets = require('../../config')[process.env.NODE_ENV].secrets;
 
 let User = require('mongoose').model('User');
 let utilitiesCtrl = require('../../utilities');
+let logger = global.logger;
 
 exports.getLoggedInUser = (req, res) => {
   /**
@@ -104,7 +105,7 @@ exports.utilCheckAndSaveUser = function(userData, callback) {
   });
 }
 
-exports.create = function(req, res, next) {
+exports.create = function(req, res) {
   let userData = req.body;
   exports.utilCheckAndSaveUser(userData, function(result) {
     res.send(result);
@@ -238,7 +239,7 @@ exports.changePassword = function(req, res) {
         user.password_salt = newSalt;
         user.password_hash = newHash;
         user.save(function(err, user) {
-          if(err) {
+          if(err || !user) {
             res.send({ success: false, message: "Error updating user password" });
           } else {
             res.send({ success: true, message: "Success! Please login with your new password." });
@@ -297,7 +298,7 @@ exports.requestPasswordReset = function(req, res) {
   });
 }
 
-exports.checkResetRequest = function(req, res, next) {
+exports.checkResetRequest = function(req, res) {
   // use the utility method to check for valid reset request
   exports.utilCheckResetRequest(req.params.resetHex, function(result) {
     if(result.success) {
@@ -369,11 +370,11 @@ exports.resetPassword = function(req, res) {
 }
 
 exports.delete = function(req, res) {
-  console.log("deleting user " + req.param('userId'));
+  logger.debug("deleting user " + req.param('userId'));
 
   User.findById(req.param('userId')).remove(function(err) {
-    console.log("done removing?");
-    console.log(err);
+    logger.debug("done removing?");
+    logger.debug(err);
     if(err) {
       res.send({ success: false, message: err });
     } else {

@@ -10,8 +10,10 @@
  */
 
 let Product = require('mongoose').model('Product');
+let logger = global.logger;
 
 exports.list = (req, res) => {
+  console.log("THAHAEJHAEU");
   if(req.query.page) {
     // paginate on the server
     var page = req.query.page || 1;
@@ -105,7 +107,7 @@ exports.search = (req, res) => {
   let mongoQuery = {};
   let page, per;
 
-  for(key in req.query) {
+  for(const key in req.query) {
     if(req.query.hasOwnProperty(key)) {
       if(key == "page") {
         page = parseInt(req.query.page);

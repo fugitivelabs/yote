@@ -6,6 +6,7 @@
 let passport = require('passport');
 let User = require('mongoose').model('User');
 let users = require('./usersController');
+let logger = global.logger;
 
 module.exports = function(router, requireLogin, requireRole) {
 
@@ -110,7 +111,7 @@ module.exports = function(router, requireLogin, requireRole) {
         if(err) {
           res.send({ success: false, err: err, message: "Error logging user out" });
         } else {
-          console.log("REMOVED SESSION OBJECT");
+          logger.debug("REMOVED SESSION OBJECT");
           res.send({ success: true, message: "User logged out." });
         }
       });

@@ -12,7 +12,7 @@ let tokenSecret = secrets.tokenSecret; // Or generate your own randomized token 
 let crypto = require('crypto');
 let jwt = require('jwt-simple');
 let mongoose = require('mongoose');
-
+let logger = global.logger;
 
 // define the User schema
 let userSchema = mongoose.Schema({
@@ -76,7 +76,7 @@ userSchema.methods = {
     logger.warn("REMOVE TOKEN CALLED");
     this.apiToken = null;
     this.save(function(err, user) {
-      if(err) {
+      if(err || !user) {
         callback(err, null);
       } else {
         logger.info("user token removed.");
@@ -136,6 +136,6 @@ function createDefaults() {
       logger.info("created initial default user w/ username 'admin@admin.com' and password 'admin'");
     }
   });
-};
+}
 
 exports.createDefaults = createDefaults;
