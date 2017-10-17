@@ -3,10 +3,12 @@ var winston = require('winston');
 require('winston-mongodb').MongoDB;
 
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
-var config = require('./config')[env];
+// var config = require('./config')[env];
 
 // adapted from http://tostring.it/2014/06/23/advanced-logging-with-nodejs/
 winston.emitErrs = true;
+
+let logger;
 
 if(env == 'production') {
 
@@ -16,7 +18,7 @@ if(env == 'production') {
 
 
   //if prod, log to file and console
-  var logger = new winston.Logger({
+  logger = new winston.Logger({
     // // these logs get massive on the database end and frankly we never use them.
     transports: [
     //   new winston.transports.MongoDB({
@@ -49,7 +51,7 @@ if(env == 'production') {
   });
 } else {
   //else if dev, just log to console
-  var logger = new winston.Logger({
+  logger = new winston.Logger({
     transports: [
       new winston.transports.Console({
         level: 'debug'
@@ -65,6 +67,6 @@ if(env == 'production') {
 module.exports = logger;
 module.exports.stream = {
     write: function(message, encoding) {
-        logger.info(message);
+        logger.info(message, encoding);
     }
 };

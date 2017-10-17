@@ -2,9 +2,6 @@
  * Configure the application routes
  */
 
-let mongoose = require('mongoose');
-let passport = require('passport');
-
 module.exports = function(router, app) {
 
   // require api routes list

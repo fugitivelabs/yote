@@ -262,7 +262,7 @@ export const returnSingleUserPromise = (id) => (dispatch, getState) => {
    * EVEN IF we don't need to fetch it. this is because if we have any .then()'s
    * in the components, they will fail when we don't need to fetch.
    */
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     resolve({
       type: "RETURN_SINGLE_USER_WITHOUT_FETCHING"
       , id: id
@@ -462,7 +462,7 @@ export const returnUserListPromise = (...listArgs) => (dispatch, getState) => {
    * EVEN IF we don't need to fetch it. This is because if we have any .then()'s
    * in the components, they will fail when we don't need to fetch.
    */
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     resolve({
       type: "RETURN_USER_LIST_WITHOUT_FETCHING"
       , listArgs: listArgs

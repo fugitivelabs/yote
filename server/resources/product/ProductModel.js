@@ -10,7 +10,8 @@
  */
 
 let mongoose = require('mongoose');
-let ObjectId = mongoose.SchemaTypes.ObjectId;
+// let ObjectId = mongoose.SchemaTypes.ObjectId; // use for referencing other resources
+let logger = global.logger;
 
 // define product schema
 const productSchema = mongoose.Schema({

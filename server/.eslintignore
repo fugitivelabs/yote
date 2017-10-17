@@ -1,0 +1,4 @@
+# Ignore compiled javascript bundle
+
+public/js/*
+public/lib/*

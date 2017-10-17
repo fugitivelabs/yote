@@ -25,13 +25,11 @@ function contactReducer(state = {
           , message: ""
         }
       });
-      break;
     }
     case contactActions.REQUEST_NEW_LEAD: {
       return Object.assign({}, state, {
         isSending: true
       })
-      break;
     }
     case contactActions.RECEIVE_NEW_LEAD: {
       if(action.success) {
@@ -49,7 +47,6 @@ function contactReducer(state = {
           , lastUpdated: action.receivedAt
         })
       }
-      break;
     }
     default: {
       return state

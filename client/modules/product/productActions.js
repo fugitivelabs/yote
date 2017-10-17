@@ -73,7 +73,7 @@ export const returnSingleProductPromise = (id) => (dispatch, getState) => {
    * EVEN IF we don't need to fetch it. this is because if we have any .then()'s
    * in the components, they will fail when we don't need to fetch.
    */
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     resolve({
       id: id
       , item: getState().product.byId[id]
@@ -273,7 +273,7 @@ export const returnProductListPromise = (...listArgs) => (dispatch, getState) =>
    * EVEN IF we don't need to fetch it. This is because if we have any .then()'s
    * in the components, they will fail when we don't need to fetch.
    */
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     resolve({
       list: findListFromArgs(getState(), listArgs).items
       , listArgs: listArgs
