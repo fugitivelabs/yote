@@ -14,7 +14,7 @@ import rootReducer from './rootReducer';
 
 // let process = global.process;
 
-export default function configureStore() {
+export default function configureStore(initialState) {
   // console.log("initialState");
   // console.log(initialState);
 
