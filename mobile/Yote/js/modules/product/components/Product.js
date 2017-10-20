@@ -20,7 +20,6 @@ import Platform from 'Platform';
 import ActionButton from '../../../global/components/ActionButton';
 import Base from '../../../global/components/BaseComponent';
 import EmptyMessage from '../../../global/components/EmptyMessage';
-import ScrollContainer from '../../../global/components/ScrollContainer';
 import YTButton from '../../../global/components/YTButton';
 import YTCard from '../../../global/components/YTCard';
 import YTColors from '../../../global/styles/YTColors';
@@ -47,7 +46,7 @@ class Product extends Base {
   }
 
   componentDidMount() {
-    // this.props.dispatch(productActions.fetchListIfNeeded());  
+    this.props.dispatch(productActions.fetchListIfNeeded());  
   }
 
   _openProfile() {
@@ -55,7 +54,7 @@ class Product extends Base {
   }
 
   _openNew() {
-    this.props.navigator.push({newProduct: true});
+    this.props.navigation.navigate('NewProduct');
   }
 
   _sendDelete(id) {
@@ -70,11 +69,11 @@ class Product extends Base {
 
   render() {
 
-    const {  products, navigator, user } = this.props;
+    const {  products, navigation, user } = this.props;
 
     let productList = products.lists.all ? products.lists.all.items : null;
 
-    const profileImg = user.info && user.info.profilePicUrl ? {uri: user.info.profilePicUrl} : require('../../../global/img/skull-icon.png');
+    const profileImg = user.info && user.info.profilePicUrl ? {uri: user.info.profilePicUrl} : require('../../../global/img/default.png');
 
     const rightItem = {
       onPress: () => this._openNew()
@@ -87,19 +86,17 @@ class Product extends Base {
       image: profileImg,
       layout: "image",
     };
-
-    const androidDrawerItem = {
-      onPress: this._handleOpenDrawer,
-      icon: require('../../../global/components/img/bulletList.png'),
-      layout: "icon",
-    }
+    // const androidDrawerItem = {
+    //   onPress: this._handleOpenDrawer,
+    //   icon: require('../../../global/components/img/bulletList.png'),
+    //   layout: "icon",
+    // }
 
     if(!products.lists.all || products.lists.all.isFetching) {
       return (
         <View style={{flex: 1}}>
           <YTHeader
             title="Products"
-            leftItem={Platform.OS === 'ios' ? profileItem : androidDrawerItem}
             rightItem={rightItem}
           />
           <EmptyMessage
@@ -110,17 +107,15 @@ class Product extends Base {
     }
 
     return (
-      <View style={{flex: 1}}>
+      <View style={{flex: 1}}>   
         <YTHeader
           title="Products"
-          leftItem={Platform.OS === 'ios' ? profileItem : androidDrawerItem}
           rightItem={rightItem}
-        />
-        
-        <View style={{flex: 1}}>
+        />     
+        <View style={{flex: 1, padding: 2}}>
           <ProductList 
             products={productList}
-            navigator={navigator}
+            navigation={navigation}
           />
         </View>
         

@@ -44,7 +44,7 @@ function ProductForm({
               value={product.description}
               change={handleFormChange}
               required={false}
-              rows="3"
+              rows={3}
               placeholder="This is where the content goes..."
             />
             <div className="input-group">

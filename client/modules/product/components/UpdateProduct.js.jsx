@@ -25,7 +25,7 @@ class UpdateProduct extends Base {
     super(props);
     const { selectedProduct, productMap } = this.props;
     this.state = {
-      product: productMap[selectedProduct.id] ? JSON.parse(JSON.stringify(productMap[selectedProduct.id])) : {}
+      product: productMap[selectedProduct.id] ? { ...productMap[selectedProduct.id] } : {}
       // NOTE: we don't want to change the store, just make changes to a copy
     }
     this._bind(
@@ -42,7 +42,7 @@ class UpdateProduct extends Base {
   componentWillReceiveProps(nextProps) {
     const { selectedProduct, productMap } = nextProps;
     this.state = {
-      product: productMap[selectedProduct.id] ? JSON.parse(JSON.stringify(productMap[selectedProduct.id])) : {}
+      product: productMap[selectedProduct.id] ? { ...productMap[selectedProduct.id] } : {}
       //we don't want to actually change the store's product, just use a copy
     }
   }

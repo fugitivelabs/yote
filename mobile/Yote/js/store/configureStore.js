@@ -24,6 +24,7 @@
 
 'use strict';
 
+import React from 'React'; 
 import {applyMiddleware, createStore}  from 'redux';
 import thunk  from 'redux-thunk';
 import promise  from './promise';

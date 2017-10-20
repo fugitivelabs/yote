@@ -9,66 +9,102 @@ import YTColors from '../../global/styles/YTColors';
 const IMAGE_HEIGHT = Dimensions.get('window').height * 0.5;
 let screenWidth = Dimensions.get('window').width;
 
-let styles = StyleSheet.create({
+let userStyles = StyleSheet.create({
   bannerWrapper: {
     flex:1
-    , padding: 20
     , justifyContent: 'flex-end'
+    , padding: 20
   }
   , container: {
-      flex: 1
-      , backgroundColor: '#C20032'
-      , justifyContent: "center"
-      , flexDirection: 'column'
-    }
+      backgroundColor: '#fff'
+      , flex: 1
+  }
+  , editImage: {
+      alignItems: 'center'
+      , flex: 1
+      , justifyContent: 'center'
+      , padding: 20 
+  }
   , forgotContainer: {
       alignItems: 'flex-end'
       , padding: 15
-    }
+  }
   , header: {
-      justifyContent: 'center'
-      , alignItems: 'center'
-      , paddingTop: Dimensions.get('window').height * 0.2
+      alignItems: 'center'
       , backgroundColor: 'transparent'
-    }
+      , justifyContent: 'center'
+      , paddingTop: Dimensions.get('window').height * 0.2
+  }
   , img: {
-      width: screenWidth
+      backgroundColor: "transparent"
       , height: IMAGE_HEIGHT
-      , backgroundColor: "transparent"
-    }
+      , width: screenWidth
+  }
   , inputWrapper: {
       // flex: 0.5,
       // backgroundColor: "#fff",
-    }
+  }
   , inputContainer: {
-      borderWidth: 1
-      , borderColor: 'transparent'
+      borderColor: 'transparent'
+      , borderWidth: 1
       , marginTop: 14
-    }
+  }
   , input: {
-      height: 52
+      backgroundColor: '#fff'
       , borderColor: YTColors.primaryHeader
       , flex: 1
       , fontSize: 17
+      , height: 52
       , padding: 8
-      , backgroundColor: '#fff'
-    }
+  }
+  , instructions: {
+      color: YTColors.lightText
+      , fontSize: 12
+      , paddingVertical: 10
+      , paddingHorizontal: 5
+  }
+  , infoWrapper: {
+      flex: 1 
+      , flexDirection: 'row' 
+      , paddingVertical: 5 
+      , paddingHorizontal: 10
+  }
+  , labelBox: {
+      flex: .2
+      , justifyContent: 'center'
+      , paddingLeft: 10
+  }
   , label: {
-      fontSize: 12
-      , color: '#fff'
-      , marginBottom: 4
-    }
+      fontSize: 15
+      , fontWeight: '500' 
+  }
+  , infoBox: {
+      flex: .8 
+      , justifyContent: 'center'
+  }
+  , info: {
+      fontSize: 15
+      , paddingVertical: 10
+  }
+  , profilePic: {
+      backgroundColor: Platform.OS === 'ios' ? YTColors.listSeparator : null 
+      , borderColor: YTColors.pridePurple
+      , borderRadius: 275 * .5
+      , borderWidth: 4
+      , height: 275
+      , width: 275
+  }
   , text: {
       color: '#fff'
-      , marginTop: 20
       , fontSize: 12
+      , marginTop: 20
       , textAlign: 'center'
-    }
+  }
   , welcome: {
-      fontSize: 20
-      , textAlign: 'center'
-      , color: YTColors.darkText
+      color: YTColors.darkText
+      , fontSize: 20
       , margin: 10
-    }
+      , textAlign: 'center'
+  }
 
 });

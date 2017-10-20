@@ -540,7 +540,6 @@ function user(state = {
     case Actions.SET_USER_QUERY:
     case Actions.SET_USER_PAGINATION: {
       // forward these actions on to individual list reducer
-      let nextLists = Object.assign({}, state.lists, {});
       return Object.assign({}, state, {
         lists: Object.assign({}, state.lists, {
           [action.listArgs[0]]: userList(state.lists[action.listArgs[0]] || {}, action)

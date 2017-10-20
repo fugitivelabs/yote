@@ -1,4 +1,3 @@
-
 /**
  * rootReducer brings all application reducers and combines them as one
  */
@@ -15,6 +14,7 @@ const appReducer = combineReducers(moduleReducers);
 const rootReducer = (store, action) => {
   if(action.type === 'RECEIVE_LOGOUT') {
     // clear the store on logout
+    console.log("clear store"); 
     store = undefined
   }
   return appReducer(store, action)

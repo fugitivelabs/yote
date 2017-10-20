@@ -8,16 +8,18 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 // import react-native components
-import Dimensions from 'Dimensions';
-import Image from 'Image';
-import ListView from 'ListView';
-import Platform from 'Platform';
-import RefreshControl from 'RefreshControl';
-import ScrollView from 'ScrollView';
-import StyleSheet from 'StyleSheet';
-import Text from 'Text';
-import TouchableHighlight from 'TouchableHighlight';
-import View from 'View';
+import {
+  Dimensions
+  , Image
+  , ListView
+  , Platform
+  , RefreshControl
+  , ScrollView
+  , StyleSheet
+  , Text
+  , TouchableHighlight
+  , View
+} from 'react-native'; 
 
 // import actions
 import * as productActions from '../productActions';
@@ -90,7 +92,9 @@ class ProductList extends Base {
   }
 
   _renderSeparator(sectionID, rowID) {
-  
+    return (
+        <View style={productStyles.listSeparator} key={rowID} />
+      )
   }
 
   _renderRow(productId) {
@@ -113,7 +117,8 @@ class ProductList extends Base {
 
   _openProduct(productId) {
     console.log("open product", productId); 
-    this.props.navigator.push({singleProduct: true, productId: productId}); 
+    // this.props.navigator.push({singleProduct: true, productId: productId}); 
+    this.props.navigation.navigate('SingleProduct', {productId: productId}); 
   }
 
   render() {

@@ -19,7 +19,7 @@ import Base from './BaseComponent';
 import YTColors from '../styles/YTColors';
 
 const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? 20 : 25;
-const HEADER_HEIGHT = Platform.OS === 'ios' ? 44 + STATUS_BAR_HEIGHT : 56 + STATUS_BAR_HEIGHT;
+const HEADER_HEIGHT = Platform.OS === 'ios' ? 44 + STATUS_BAR_HEIGHT : 44 + STATUS_BAR_HEIGHT;
 const IMAGE_SIZE = 30;
 
 var styles = StyleSheet.create({
@@ -28,14 +28,14 @@ var styles = StyleSheet.create({
     , alignItems: 'center'
   }
   , header: {
-      backgroundColor: YTColors.primaryHeader
-      , paddingTop: STATUS_BAR_HEIGHT
+      alignItems: 'center'
+      , backgroundColor: YTColors.primaryHeader
       , borderBottomWidth: 1
       , borderColor: YTColors.listSeparator
-      , height: HEADER_HEIGHT
       , flexDirection: 'row'
+      , height: HEADER_HEIGHT
       , justifyContent: 'space-between'
-      , alignItems: 'center'
+      , paddingTop: Platform.OS == 'ios' ? STATUS_BAR_HEIGHT : 0
     }
   , iconStyle: {
       height: IMAGE_SIZE
@@ -47,25 +47,25 @@ var styles = StyleSheet.create({
       , borderRadius: IMAGE_SIZE * 0.5
     }
   , itemText: {
-      letterSpacing: 1
+      color: 'white'
       , fontSize: 12
-      , color: 'white'
+      , letterSpacing: 1
     }
   , itemWrapper: {
       padding: 8
     }
   , leftItem: {
-      flex: 1
-      , alignItems: 'flex-start'
+      alignItems: 'flex-start'
+      , flex: 1
     }
   , rightItem: {
-      flex: 1
-      , alignItems: 'flex-end'
+      alignItems: 'flex-end'
+      , flex: 1
     }
   , titleText: {
       color: YTColors.primaryHeaderText
-      , fontWeight: 'bold'
       , fontSize: 20
+      , fontWeight: 'bold'
     }
   , toolbar: {
       height: HEADER_HEIGHT - STATUS_BAR_HEIGHT
@@ -77,8 +77,8 @@ var styles = StyleSheet.create({
 
 class ItemWrapperIOS extends React.Component {
   props: {
-    item: Item;
     color: string;
+    item: Item;
   };
 
   render() {
