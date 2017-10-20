@@ -33,11 +33,6 @@ const config = {
         ],
         test: /\.css$/
       }
-      // , {
-      //   include: path.resolve(__dirname, './')
-      //   , loader: 'style-loader!css-loader!sass-loader?importLoader=1&modules&localIdentName=[path]___[name]__[local]___[hash:base64:5]'
-      //   , test: /\.scss$/
-      // }
       , {
         exclude: /(node_modules|bower_components)/
         , loader: 'babel-loader'
@@ -56,7 +51,6 @@ const config = {
         }
         , test: /\.jsx?$/
       }
-
     ]
   }
   , plugins: [
