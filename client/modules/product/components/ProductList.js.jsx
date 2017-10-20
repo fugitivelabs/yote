@@ -31,6 +31,9 @@ import Base from "../../../global/components/BaseComponent.js.jsx";
 // import product components
 import ProductListItem from './ProductListItem.js.jsx';
 
+// import product css modules
+import productStyles from '../productStyles.css';
+
 class ProductList extends Base {
   constructor(props) {
     super(props);
@@ -56,7 +59,7 @@ class ProductList extends Base {
         <section className="section">
           <div className="yt-container">
             <h1> Product List
-              <Link className="yt-btn small u-pullRight" to={'/products/new'}> NEW PRODUCT </Link>
+              <Link styleName="btn" className="yt-btn small u-pullRight" to={'/products/new'}> NEW PRODUCT </Link>
             </h1>
             <hr/>
             { isEmpty ?

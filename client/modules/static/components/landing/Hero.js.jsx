@@ -3,8 +3,8 @@ import React from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { Link } from 'react-router';
 
-import test from './cssModuleTest.scss';
-
+// import css modules
+import landingStyles from './landingStyles.css';
 
 /**
  * build a temporary component for each "cool thing"
@@ -54,7 +54,7 @@ class TheCoolThing extends React.Component{
         transitionLeave={false}
       >
         <span
-          className="cool-thing"
+          styleName="cool-thing"
           key={this.state.coolThing}
         >
           {this.state.coolThing}
@@ -74,11 +74,11 @@ class Hero extends React.Component{
 
   render(){
     return (
-      <div styleName="test.tester-bg" className="hero main">
+      <div styleName="landingStyles.hero" className="hero">
         <div className="yt-container">
           <img src="/img/howler.png" />
-          <h1>This is Yote</h1>
-          <h2>
+          <h1 styleName="h1">This is Yote</h1>
+          <h2 styleName="h2">
             <TheCoolThing />
           </h2>
           <p> You can use it to make cool stuff </p>

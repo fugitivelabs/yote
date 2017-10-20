@@ -15,6 +15,9 @@ import Base from '../../../../global/components/BaseComponent.js.jsx';
 import CloseWrapper from '../../../../global/components/helpers/CloseWrapper.js.jsx';
 import DropdownNav from '../../../../global/components/navigation/DropdownNav.js.jsx';
 
+// import css modules
+import landingStyles from './landingStyles.css';
+
 class LandingNav extends Base {
   constructor(props) {
     super(props);
@@ -46,10 +49,7 @@ class LandingNav extends Base {
 
 
     let headerClass = classNames(
-      'header landing-header'
-      , 'fixed'
-      , { 'transparent': !isScrolled }
-
+      { 'transparent': !isScrolled }
     )
 
     let topClass = classNames(
@@ -66,7 +66,7 @@ class LandingNav extends Base {
     let profileImg = {backgroundImage: `url(${pictureUrl})`};
 
     return (
-      <header className={headerClass} >
+      <header className="header fixed" styleName={headerClass} >
         <div className={topClass}>
           <CloseWrapper
             isOpen={this.state.isOpen}
