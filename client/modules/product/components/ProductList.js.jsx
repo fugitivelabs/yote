@@ -31,6 +31,9 @@ import Base from "../../../global/components/BaseComponent.js.jsx";
 // import product components
 import ProductListItem from './ProductListItem.js.jsx';
 
+// import product css modules
+import productStyles from '../productModuleStyles.css';
+
 class ProductList extends Base {
   constructor(props) {
     super(props);
@@ -63,7 +66,7 @@ class ProductList extends Base {
               (productList && productList.isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
               :
               <div style={{ opacity: productList.isFetching ? 0.5 : 1 }}>
-                <ul>
+                <ul styleName="product-list">
                   {productList.items.map((id, i) =>
                     <ProductListItem key={id} product={productMap[id]} />
                   )}
