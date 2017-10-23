@@ -9,7 +9,7 @@ import productStyles from '../productModuleStyles.css';
 function ProductListItem({ product }) {
   return (
     <li styleName="list-item">
-      <Link to={`/products/${product._id}`}> {product.title}</Link>
+      <Link className="product-title" to={`/products/${product._id}`}> {product.title}</Link>
       <p><em>{product.description}</em></p>
     </li>
   )
