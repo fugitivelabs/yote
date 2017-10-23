@@ -1,0 +1,20 @@
+/**
+ * Any styles specific to the Product module should live here.  Import as needed.
+ */
+
+.product-list {
+  /*padding: 20px;*/
+}
+
+.list-item {
+  list-style: none;
+  margin: 10px 0;
+  border-bottom: 1px solid #dfefef;
+  padding: 4px 10px;
+  transition: all ease-in-out 250ms;
+
+}
+
+.list-item:hover {
+  box-shadow: 1px 12px 24px rgba(0,0,0,0.15);
+}
