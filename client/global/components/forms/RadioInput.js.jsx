@@ -36,8 +36,12 @@ class RadioInput extends Base {
     )
   }
 
+  componentDidMount() {
+    this.setState({selected: this.props.value});
+  }
+
   componentWillReceiveProps(nextProps) {
-    if(this.props.value != nextProps.value) {
+    if(this.props.value !== nextProps.value) {
       this.setState({selected: nextProps.value});
     }
   }

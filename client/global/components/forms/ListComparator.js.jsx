@@ -32,22 +32,35 @@ class ListComparator extends Base {
   }
 
   _addItem(index) {
+    const { queryText } = this.state;
+    const { allItems, filterable, items } = this.props;
+    // filter items first
+    let filteredItems = [];
+    if(filterable) {
+      filteredItems = _.filter(allItems, function(item) {
+        let itemsString = "";
+        itemsString += item;
+        itemsString = itemsString.replace(/[^a-zA-Z0-9]/g, '');
+        return itemsString.toLowerCase().indexOf(queryText.toLowerCase()) > -1;
+      });
+    } else {
+      filteredItems = allItems;
+    }
     // add to "items" list
-    // console.log("ADD " + index);
-    let items = this.props.items;
+    let itm = items;
     let unselectedItems = [];
-    for(let i = 0; i < this.props.allItems.length; i++) {
+    for(let i = 0; i < filteredItems.length; i++) {
       let selected = false;
-      for(let j = 0; j < items.length; j++) {
-        if(this.props.allItems[i] == items[j]) {
+      for(let j = 0; j < itm.length; j++) {
+        if(filteredItems[i] == itm[j]) {
           selected = true;
         }
       }
       if(!selected) {
-        unselectedItems.push(this.props.allItems[i]);
+        unselectedItems.push(filteredItems[i]);
       }
     }
-    items.push(unselectedItems[index]);
+    itm.push(unselectedItems[index]);
     let event = {target: {name: this.props.name, value: this.props.items} };
     this.props.change(event);
   }

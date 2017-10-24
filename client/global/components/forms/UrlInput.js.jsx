@@ -23,19 +23,30 @@ class UrlInput extends Base {
   constructor(props) {
     super(props);
     this.state = {
-      url: this.props.value || "http://"
-      , errorMessage: ""
-      , isValid: true
+      errorMessage: ""
+      , isFocused: false
+      , isValid: false
+      , url: this.props.value || "http://"
     };
     this._bind(
       '_handleInputChange'
+      , '_handleKeyPress'
+      , '_isUrlValid'
+      , '_toggleFocus'
     );
+  }
+
+  componentDidMount() {
+    this.setState({
+      isValid: this._isUrlValid(this.props.value)
+    })
   }
 
   componentWillReceiveProps(nextProps) {
     if(nextProps.value !== this.props.value) {
       this.setState({
-        url: nextProps.value
+        isValid: this._isUrlValid(nextProps.value)
+        , url: nextProps.value
       })
     }
   }
@@ -45,9 +56,7 @@ class UrlInput extends Base {
       return e.target.value;
     });
 
-    // Checks for what???
-    const re = /^(((ftp|https?):\/\/)((?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[0-9][0-9]|[0-9])\.(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[0-9][0-9]|[0-9])\.)(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[0-9][0-9]|[0-9])\.)(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[0-9][0-9]|[0-9]))|(?:(?:(?:\w+\.){1,2}[\w]{2,3})))(?::(\d+))?((?:\/[\w]+)*)(?:\/|(\/[\w]+\.[\w]{3,4})|(\?(?:([\w]+=[\w]+)&)*([\w]+=[\w]+))?|\?(?:(wsdl|wadl))))$/;
-    newState.isValid = re.test(newState.url);
+    newState.isValid = this._isUrlValid(newState.url);
     newState.errorMessage = !newState.isValid ? "Please enter a valid url" : null;
     var event = {
       target: {
@@ -63,24 +72,72 @@ class UrlInput extends Base {
     this.setState(newState);
   }
 
-  render() {
-    const { disabled, label, value, placeholder, name, required, helpText } = this.props;
-    const { url, errorMessage, isValid } = this.state;
-    let inputClass = classNames({ "-error": !isValid });
+  _toggleFocus() {
+    this.setState({isFocused: !this.state.isFocused});
+  }
 
+  _isUrlValid(url) {
+    // Checks for what???
+    // const re = /^(https?:\/\/)?([\da-z\.-]+\.[a-z\.]{2,6}|[\d\.]+)([\/:?=&#]{1}[\da-z\.-]+)*[\/\?]?$/;
+    const re = /((ftp:\/\/)|(http:\/\/)|(https:\/\/))([\da-z\.-]+\.[a-z\.]{2,6}|[\d\.]+)?(\/([a-zA-Z0-9]+(\.[a-zA-Z]+)?)?)?(\?([a-zA-Z0-9]*=[a-zA-Z0-9]*&?)*)?/;
+    // const re = /((ftp:\/\/)|(http:\/\/)|(https:\/\/))[a-zA-Z0-9]+\.[a-zA-Z]+(\.[a-zA-Z]+)?(\/([a-zA-Z0-9]+(\.[a-zA-Z]+)?)?)?(\?([a-zA-Z0-9]*=[a-zA-Z0-9]*&?)*)?/;
+    // const re = /^(((ftp|https?):\/\/)((?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[0-9][0-9]|[0-9])\.(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[0-9][0-9]|[0-9])\.)(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[0-9][0-9]|[0-9])\.)(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[0-9][0-9]|[0-9]))|(?:(?:(?:\w+\.){1,2}[\w]{2,3})))(?::(\d+))?((?:\/[\w]+)*)(?:\/|(\/[\w]+\.[\w]{3,4})|(\?(?:([\w]+=[\w]+)&)*([\w]+=[\w]+))?|\?(?:(wsdl|wadl))))$/;
+    return re.test(url);
+  }
+
+  _handleKeyPress(e) {
+    if (e.key === 'Enter' && this.state.isValid) {
+      this.props.buttonAction();
+    }
+  }
+
+  render() {
+    const {
+      buttonAction
+      , disabled
+      , glyphiconType
+      , helpText
+      , label
+      , name
+      , placeholder
+      , required
+      , value
+    } = this.props;
+    const {
+      errorMessage
+      , isValid
+      , url
+    } = this.state;
+    let inputClass = classNames(
+      'field'
+      , { "-error": !isValid }
+    );
     return (
       <div className="input-group">
         <label htmlFor={name}> {label} {required ? <sup className="-required">*</sup> : null}</label>
-        <input
-          className={inputClass}
-          disabled={disabled}
-          name="url"
-          onChange={this._handleInputChange}
-          placeholder={placeholder}
-          required={required}
-          type="url"
-          value={url}
-        />
+        <div className="input-add-on">
+          <input
+            className={inputClass}
+            disabled={disabled}
+            name="url"
+            onBlur={this._toggleFocus}
+            onChange={this._handleInputChange}
+            onFocus={this._toggleFocus}
+            onKeyPress={this._handleKeyPress}
+            placeholder={placeholder}
+            required={required}
+            style={{width:"94%"}}
+            type="url"
+            value={url}
+          />
+          { glyphiconType ?
+              <button type="button" className="item" onClick={()=> buttonAction()} disabled={disabled || !this.state.isValid}>
+                <i className={glyphiconType}></i>
+              </button>
+            :
+              null
+          }
+        </div>
         { !isValid ?
           <div className="-error-message">{errorMessage}</div>
           :
@@ -93,7 +150,10 @@ class UrlInput extends Base {
 }
 
 UrlInput.propTypes = {
-  change: PropTypes.func.isRequired
+  buttonAction: PropTypes.func
+  , change: PropTypes.func.isRequired
+  , disabled: PropTypes.bool
+  , glyphiconType: PropTypes.string
   , helpText: PropTypes.any
   , label: PropTypes.string
   , name: PropTypes.string.isRequired
@@ -103,7 +163,8 @@ UrlInput.propTypes = {
 }
 
 UrlInput.defaultProps = {
-  helpText: null
+  disabled: false
+  , helpText: null
   , label: ''
   , placeholder: ''
   , required: false
