@@ -7,7 +7,7 @@ let devUrl = "localhost:3030";
 let prodUrl = "localhost:3030"; // this should match your production instance
 
 // NOTE: this is the name of your Mongo database.  It should ideally match the project name.
-let dbName = "yote";
+let dbName = "planWithMe";
 
 // TODO:  document the remoteDb envirnment variable below
 // option to set database location manually via environment variables
