@@ -1,6 +1,6 @@
 // import primary libraries
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 // import utilities
 import Auth from '../../global/utils/auth';
@@ -14,12 +14,11 @@ import UpdateProduct from './components/UpdateProduct.js.jsx';
 
 // define product routes
 const productRoutes =
-<Route key={Math.floor(Math.random()*1000)} path="products" component={ProductLayout} >
-  <Route path="new" component={CreateProduct} onEnter={Auth.requireLogin} />
-  <Route path=":productId" component={SingleProduct}>
-    <Route path="update" component={UpdateProduct} onEnter={Auth.requireLogin} />
-  </Route>
-</Route>
+  <Route
+    component={ProductLayout}
+    key={Math.floor(Math.random()*100000)}
+    path="/products"
+  />
 ;
 
 export default productRoutes;

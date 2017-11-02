@@ -5,7 +5,7 @@
 // import primary libararies
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 // import third-party libraries
@@ -129,17 +129,17 @@ class TopNav extends Base {
             closeAction={this._closeDropdown}
           />
           <div className="titles">
-            <Link to="/"className="nav-logo" >
+            <NavLink to="/"className="nav-logo" >
 
               <img src="/img/yote_logo.png"/>
               <span className="-subtitle"> Standard Yote Dev Kit </span>
-            </Link>
+            </NavLink>
           </div>
           <div className="actions">
             <div className="yt-row center-vert right">
               <ul className="navigation">
                 <li>
-                  <Link to="/products" activeClassName="active">Products</Link>
+                  <NavLink to="/products" activeClassName="active">Products</NavLink>
                 </li>
                 { user.username ?
                   <li className="dropdown">
@@ -157,8 +157,8 @@ class TopNav extends Base {
               </ul>
               {!user.username ?
                   <div className="yt-row">
-                    <Link to="/user/login" className="yt-btn small link ">Sign In</Link>
-                    <Link to="/user/register" className="yt-btn small ">Register</Link>
+                    <NavLink to="/user/login" className="yt-btn small link ">Sign In</NavLink>
+                    <NavLink to="/user/register" className="yt-btn small ">Register</NavLink>
                   </div>
 
                 :

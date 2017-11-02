@@ -1,7 +1,7 @@
 // import primary libraries
 import React from 'react';
 import PropTypes from 'prop-types';
-import { history } from 'react-router-dom';
+import { Redirect, history, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 // import actions actions
@@ -20,6 +20,7 @@ class UserLogin extends Base {
     this.state = {
       errorMessage: ''
       , isErrorModalOpen: false
+      , redirectToReferrer: false
       , user: {
         username: ''
         , password: ''
@@ -51,12 +52,12 @@ class UserLogin extends Base {
     const { dispatch, location } = this.props;
     dispatch(userActions.sendLogin(this.state.username, this.state.password)).then((action) => {
       if(action.success) {
-        if (location.state && location.state.nextPathname) {
-          history.push(location.state.nextPathname);
-        } else {
-          history.push('/');
-        }
-        // TODO: handle next params
+        // if (location.state && location.state.nextPathname) {
+        //   history.push(location.state.nextPathname);
+        // } else {
+        //   history.push('/');
+        // }
+        this.setState({redirectToReferrer: true});
       } else {
         this.setState({errorMessage: action.error});
         this._toggleErrorModal();
@@ -73,29 +74,38 @@ class UserLogin extends Base {
   }
 
   render() {
-    const { user } = this.state;
-    return  (
-      <div className="yt-container">
-        <div className="yt-row center-horiz">
-          <UserLoginForm
-            user={user}
-            handleFormSubmit={this._handleFormSubmit}
-            handleFormChange={this._handleFormChange}
+    const { from } = this.props.location.state || { from: { pathname: '/' } }
+    const { redirectToReferrer, user } = this.state;
+
+    if(redirectToReferrer) {
+      return (
+        <Redirect to={from} />
+      )
+    } else {
+      return  (
+        <div className="yt-container">
+          <div className="yt-row center-horiz">
+            <UserLoginForm
+              user={user}
+              handleFormSubmit={this._handleFormSubmit}
+              handleFormChange={this._handleFormChange}
+              location={this.props.location}
+            />
+          </div>
+          <AlertModal
+            alertMessage={this.state.errorMessage}
+            alertTitle="Error with sign in"
+            closeAction={this._toggleErrorModal}
+            confirmAction={this._toggleErrorModal}
+            confirmText="Try again"
+            declineText="Reset Password"
+            declineAction={this._goToResetPass}
+            isOpen={this.state.isErrorModalOpen}
+            type="danger"
           />
         </div>
-        <AlertModal
-          alertMessage={this.state.errorMessage}
-          alertTitle="Error with sign in"
-          closeAction={this._toggleErrorModal}
-          confirmAction={this._toggleErrorModal}
-          confirmText="Try again"
-          declineText="Reset Password"
-          declineAction={this._goToResetPass}
-          isOpen={this.state.isErrorModalOpen}
-          type="danger"
-        />
-      </div>
-    )
+      )
+    }
   }
 }
 
@@ -107,6 +117,8 @@ const mapStoreToProps = (store) => {
   return {}
 }
 
-export default connect(
-  mapStoreToProps
-)(UserLogin);
+export default withRouter(
+  connect(
+    mapStoreToProps
+  )(UserLogin)
+);

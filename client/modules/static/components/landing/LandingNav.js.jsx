@@ -5,7 +5,7 @@
 // import primary libraries
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, NavLink, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 // import third-party libraries
@@ -78,7 +78,7 @@ class LandingNav extends Base {
             <div className="yt-row center-vert right">
               <ul className="navigation">
                 <li>
-                  <Link to="/products" activeClassName="active">Products</Link>
+                  <NavLink to="/products" activeClassName="active">Products</NavLink>
                 </li>
                 { user.username ?
                   <li className="dropdown">
@@ -122,6 +122,8 @@ const mapStoreToProps = (store) => {
   }
 }
 
-export default connect(
-  mapStoreToProps
-)(LandingNav);
+export default withRouter(
+  connect(
+    mapStoreToProps
+  )(LandingNav)
+);

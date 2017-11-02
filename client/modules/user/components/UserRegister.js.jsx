@@ -1,7 +1,7 @@
 // import primary libraries
 import React from 'react';
 import PropTypes from 'prop-types';
-import { history } from 'react-router-dom';
+import { Redirect, history, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 //actions
@@ -20,6 +20,7 @@ class UserRegister extends Base {
     this.state = {
       errorMessage: ''
       , isErrorModalOpen: false
+      , redirectToReferrer: false
       , user: this.props.defaultUser ? JSON.parse(JSON.stringify(this.props.defaultUser)): null
       // NOTE: don't want to actually change the store's defaultItem, just use a copy
     }
@@ -40,7 +41,8 @@ class UserRegister extends Base {
     e.preventDefault();
     this.props.dispatch(userActions.sendRegister(this.state.user)).then((action) => {
       if(action.success) {
-        history.push('/');
+        this.setState({redirectToReferrer: true});
+        // history.push('/');
       } else {
         this.setState({errorMessage: action.error});
         this._toggleErrorModal();
@@ -53,40 +55,49 @@ class UserRegister extends Base {
   }
 
   render() {
-    const { user } = this.state;
+    const { redirectToReferrer, user } = this.state;
+    const { from } = this.props.location.state || { from: { pathname: '/' } }
     const isEmpty = !user || (user.username === null || user.username === undefined);
-    return  (
-      <div className="yt-container">
-        <div className="yt-row center-horiz">
-          { isEmpty ?
-            "Loading..."
-            :
-            <UserRegisterForm
-              handleFormChange={this._handleFormChange}
-              handleFormSubmit={this._handleFormSubmit}
-              user={user}
-            />
-          }
+
+    if(redirectToReferrer) {
+      return (
+        <Redirect to={from} />
+      )
+    } else {
+      return  (
+        <div className="yt-container">
+          <div className="yt-row center-horiz">
+            { isEmpty ?
+              "Loading..."
+              :
+              <UserRegisterForm
+                handleFormChange={this._handleFormChange}
+                handleFormSubmit={this._handleFormSubmit}
+                user={user}
+                location={this.props.location}
+              />
+            }
+          </div>
+          <AlertModal
+            alertMessage={
+              <div>
+                <strong>
+                  {this.state.errorMessage}
+                </strong>
+                <br/>
+                <div>Please try again.</div>
+              </div>
+            }
+            alertTitle="Error with registration"
+            closeAction={this._toggleErrorModal}
+            confirmAction={this._toggleErrorModal}
+            confirmText="Try again"
+            isOpen={this.state.isErrorModalOpen}
+            type="danger"
+          />
         </div>
-        <AlertModal
-          alertMessage={
-            <div>
-              <strong>
-                {this.state.errorMessage}
-              </strong>
-              <br/>
-              <div>Please try again.</div>
-            </div>
-          }
-          alertTitle="Error with registration"
-          closeAction={this._toggleErrorModal}
-          confirmAction={this._toggleErrorModal}
-          confirmText="Try again"
-          isOpen={this.state.isErrorModalOpen}
-          type="danger"
-        />
-      </div>
-    )
+      )
+    }
   }
 }
 
@@ -100,6 +111,8 @@ const mapStoreToProps = (store) => {
   }
 }
 
-export default connect(
-  mapStoreToProps
-)(UserRegister);
+export default withRouter(
+  connect(
+    mapStoreToProps
+  )(UserRegister)
+);

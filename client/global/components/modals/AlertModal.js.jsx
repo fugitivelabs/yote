@@ -5,7 +5,7 @@
 // import primary libraries
 import React from 'react';
 import PropTypes from 'prop-types';
-import CSSTransitionGroup from 'react-transition-group';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 // import third-party libraries
 import classNames from 'classnames';
@@ -68,59 +68,47 @@ class AlertModal extends Base {
       document.body.classList.toggle('modal-open', false);
     }
 
-    if(isOpen) {
-      // render the alert modal
-      return (
-        <CSSTransitionGroup
-          transitionAppear={true}
-          transitionAppearTimeout={500}
-          transitionEnter={true}
-          transitionEnterTimeout={500}
-          transitionLeave={true}
-          transitionLeaveTimeout={350}
-          transitionName="modal-anim"
-        >
-          <div className="alert-modal">
-            <div className="yt-col full s_75 m_50 l_33 xl_25">
-              <div className="card">
-                <div className={alertClass}>
-                  {alertTitle}
-                  <button className={closeBtnClass} onClick={()=>closeAction()}>
-                    <i className="fa fa-times" />
-                  </button>
-                </div>
-                <div className="card-body">
-                  {alertMessage}
-                </div>
-                <div className="card-footer">
-                  <div className="yt-row space-between">
-                    { closeAction ?
-                      <button className={linkBtnClass} onClick={()=> closeAction()}>{declineText}</button>
-                      :
-                      <div/>
-                    }
-                    { confirmAction ?
-                      <button className={btnClass} onClick={()=> confirmAction()}>{confirmText}</button>
-                      :
-                      <div/>
-                    }
+    return (
+      <TransitionGroup >
+        {isOpen ?
+          <CSSTransition
+            classNames="modal-anim"
+            timeout={500}
+          >
+            <div className="alert-modal">
+              <div className="yt-col full s_75 m_50 l_33 xl_25">
+                <div className="card">
+                  <div className={alertClass}>
+                    {alertTitle}
+                    <button className={closeBtnClass} onClick={()=>closeAction()}>
+                      <i className="fa fa-times" />
+                    </button>
+                  </div>
+                  <div className="card-body">
+                    {alertMessage}
+                  </div>
+                  <div className="card-footer">
+                    <div className="yt-row space-between">
+                      { closeAction ?
+                        <button className={linkBtnClass} onClick={()=> closeAction()}>{declineText}</button>
+                        :
+                        <div/>
+                      }
+                      { confirmAction ?
+                        <button className={btnClass} onClick={()=> confirmAction()}>{confirmText}</button>
+                        :
+                        <div/>
+                      }
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </CSSTransitionGroup>
-      )
-    } else {
-      // stop rendering modal, but try to animate out
-      return (
-        <CSSTransitionGroup
-          transitionEnterTimeout={500}
-          transitionLeaveTimeout={350}
-          transitionName="modal-anim"
-        />
-      )
-    }
+          </CSSTransition>
+          : null
+        }
+      </TransitionGroup>
+    )
   }
 }
 

@@ -7,12 +7,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Redirect, Route, Switch } from 'react-router-dom';
 
 // import global components
 import Base from "../../../global/components/BaseComponent.js.jsx";
 import DefaultLayout from "../../../global/components/DefaultLayout.js.jsx";
 
-class UserLayout extends Base {
+// import user components
+import UserProfile from './UserProfile.js.jsx';
+
+// import utilities
+import Auth from '../../../global/utils/auth';
+
+class UserProfileLayout extends Base {
   constructor(props) {
     super(props);
   }
@@ -20,10 +27,24 @@ class UserLayout extends Base {
   render() {
     return (
       <DefaultLayout>
-        {this.props.children}
+        <Switch>
+          <Route
+            exact path="/profile"
+            render={() => (
+              Auth.notLoggedIn() ?
+                <Redirect to={{
+                    pathname: "/user/login"
+                    , state: { from: this.props.location }
+                  }}
+                />
+              :
+                <UserProfile />
+            )}
+          />
+        </Switch>
       </DefaultLayout>
     )
   }
 }
 
-export default UserLayout;
+export default UserProfileLayout;

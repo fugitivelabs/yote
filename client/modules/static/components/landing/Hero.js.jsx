@@ -1,6 +1,6 @@
 // import primary libraries
 import React from 'react';
-import CSSTransitionGroup from 'react-transition-group';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { Link } from 'react-router-dom';
 
 // import css modules
@@ -9,7 +9,25 @@ import landingStyles from './landingStyles.css';
 /**
  * build a temporary component for each "cool thing"
  */
-class TheCoolThing extends React.Component{
+
+
+const Fade = ({ children, ...props }) => (
+  <CSSTransition
+    {...props}
+    timeout={{
+     enter: 300,
+     exit: 500,
+    }}
+    classNames="fade"
+  >
+    {children}
+  </CSSTransition>
+);
+
+/**
+ * build and export the landing page Hero banner
+ */
+class Hero extends React.Component{
   constructor(props){
     super(props);
     this.state = {
@@ -45,33 +63,6 @@ class TheCoolThing extends React.Component{
     clearInterval(this.interval);
   }
 
-  render() {
-    return(
-      <CSSTransitionGroup
-        transitionName="fade"
-        transitionEnterTimeout={300}
-        transitionLeaveTimeout={300}
-        transitionLeave={false}
-      >
-        <span
-          styleName="cool-thing"
-          key={this.state.coolThing}
-        >
-          {this.state.coolThing}
-        </span>
-      </CSSTransitionGroup>
-    )
-  }
-}
-
-/**
- * build and export the landing page Hero banner
- */
-class Hero extends React.Component{
-  constructor(props){
-    super(props);
-  }
-
   render(){
     return (
       <div styleName="landingStyles.hero" className="hero">
@@ -79,7 +70,17 @@ class Hero extends React.Component{
           <img src="/img/howler.png" />
           <h1 styleName="h1">This is Yote</h1>
           <h2 styleName="h2">
-            <TheCoolThing />
+            <TransitionGroup
+              exit={false}
+            >
+              <Fade  key={this.state.coolThing}>
+                <span
+                  styleName="cool-thing"
+                >
+                  {this.state.coolThing}
+                </span>
+              </Fade>
+            </TransitionGroup>
           </h2>
           <p> You can use it to make cool stuff </p>
         </div>

@@ -2,7 +2,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import {
+  BrowserRouter as Router
+  , Link
+  , Route
+  , withRouter
+} from 'react-router-dom';
 
 // import global components
 import Base from '../../../../global/components/BaseComponent.js.jsx';
@@ -67,6 +72,8 @@ const mapStoreToProps = (store) => {
   }
 }
 
-export default connect(
-  mapStoreToProps
-)(Landing);
+export default withRouter(
+  connect(
+    mapStoreToProps
+  )(Landing)
+);

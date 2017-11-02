@@ -7,7 +7,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { history } from 'react-router-dom';
+import { history, withRouter } from 'react-router-dom';
 
 // import third-party libraries
 import _ from 'lodash';
@@ -36,16 +36,16 @@ class UpdateProduct extends Base {
   }
 
   componentDidMount() {
-    const { dispatch, params } = this.props;
-    dispatch(productActions.fetchSingleIfNeeded(params.productId))
+    const { dispatch, match } = this.props;
+    dispatch(productActions.fetchSingleIfNeeded(match.params.productId))
   }
 
   componentWillReceiveProps(nextProps) {
     const { selectedProduct, productMap } = nextProps;
-    this.state = {
+    this.setState({
       product: productMap[selectedProduct.id] ? { ...productMap[selectedProduct.id] } : {}
       //we don't want to actually change the store's product, just use a copy
-    }
+    })
   }
 
   _handleFormChange(e) {
@@ -59,7 +59,8 @@ class UpdateProduct extends Base {
     e.preventDefault();
     this.props.dispatch(productActions.sendUpdateProduct(this.state.product)).then((action) => {
       if(action.success) {
-        history.push(`/products/${action.item._id}`)
+        this.props.history.push(`/products/${action.item._id}`)
+        // this.props.history.goBack();
       } else {
         // console.log("Response Error:");
         // console.log(action);
@@ -107,6 +108,8 @@ const mapStoreToProps = (store) => {
   }
 }
 
-export default connect(
-  mapStoreToProps
-)(UpdateProduct);
+export default withRouter(
+  connect(
+    mapStoreToProps
+  )(UpdateProduct)
+);

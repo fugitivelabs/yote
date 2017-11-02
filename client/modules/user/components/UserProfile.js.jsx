@@ -7,7 +7,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 // import third-party libraries
 import classNames from 'classnames';
@@ -137,6 +137,8 @@ const mapStoreToProps = (store) => {
   }
 }
 
-export default connect(
-  mapStoreToProps
-)(UserProfile);
+export default withRouter(
+  connect(
+    mapStoreToProps
+  )(UserProfile)
+);

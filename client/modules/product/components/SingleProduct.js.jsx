@@ -7,7 +7,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 // import actions
 import * as productActions from '../productActions';
@@ -21,8 +21,8 @@ class SingleProduct extends Base {
   }
 
   componentDidMount() {
-    const { dispatch, params } = this.props;
-    dispatch(productActions.fetchSingleIfNeeded(params.productId));
+    const { dispatch, match } = this.props;
+    dispatch(productActions.fetchSingleIfNeeded(match.params.productId));
   }
 
   render() {
@@ -38,7 +38,7 @@ class SingleProduct extends Base {
               :
               <div style={{ opacity: selectedProduct.isFetching ? 0.5 : 1 }}>
                 <h1> { productMap[selectedProduct.id].title }
-                  <Link className="yt-btn small u-pullRight" to={`/products/${productMap[selectedProduct.id]._id}/update`}> UPDATE PRODUCT </Link>
+                  <Link className="yt-btn small u-pullRight" to={`${this.props.match.url}/update`}> UPDATE PRODUCT </Link>
                 </h1>
                 <hr/>
                 <p> {productMap[selectedProduct.id].description }</p>
@@ -66,6 +66,8 @@ const mapStoreToProps = (store) => {
   }
 }
 
-export default connect(
-  mapStoreToProps
-)(SingleProduct);
+export default withRouter(
+  connect(
+    mapStoreToProps
+  )(SingleProduct)
+);

@@ -6,7 +6,13 @@
  */
 
 const Auth = {
-  requireLogin(nextState, replace) {
+  notAdmin() {
+    return window.currentUser._id && window.currentUser.roles.indexOf('admin') < 0;
+  }
+  , notLoggedIn() {
+    return !window.currentUser._id;
+  }
+  , requireLogin(nextState, replace) {
     /**
      * Checks currentUser cookie to see that a logged in user exists for this
      * session.  If not, it re-routes them to the login page.

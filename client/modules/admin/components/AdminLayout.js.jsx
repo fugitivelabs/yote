@@ -5,7 +5,7 @@
 // import primary libraries
 import React from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux'
+import { Redirect, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 // import global components
@@ -13,6 +13,12 @@ import Base from "../../../global/components/BaseComponent.js.jsx";
 
 // import admin components
 import AdminSideNav from './AdminSideNav.js.jsx';
+import AdminDashboard from './AdminDashboard.js.jsx';
+import StyleGuide from './StyleGuide.js.jsx';
+
+// import individual module admin routes
+import adminUserRoutes from '../../user/userAdminRoutes.js.jsx';
+
 
 export default class AdminLayout extends Base {
   constructor(props) {
@@ -25,7 +31,11 @@ export default class AdminLayout extends Base {
         <div className="admin-layout">
           <AdminSideNav />
           <div className="admin-main-content">
-            {this.props.children}
+            <Switch >
+              <Route exact path="/admin" component={AdminDashboard}/>
+              <Route path="/admin/style-guide" component={StyleGuide} />
+              {adminUserRoutes}
+            </Switch>
           </div>
         </div>
       </div>

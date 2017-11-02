@@ -5,7 +5,7 @@
 // import primary libraries
 import React from 'react';
 import PropTypes from 'prop-types';
-import { history } from 'react-router-dom';
+import { history, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 // import third-party libraries
@@ -50,7 +50,7 @@ class CreateProduct extends Base {
     this.props.dispatch(productActions.sendCreateProduct(this.state.product)).then((action) => {
       if(action.success) {
         this.props.dispatch(productActions.invalidateList());
-        history.push(`/products/${action.item._id}`)
+        this.props.history.push(`/products/${action.item._id}`)
       } else {
         // console.log("Response Error:");
         // console.log(action);
@@ -97,6 +97,8 @@ const mapStoreToProps = (store) => {
   }
 }
 
-export default connect(
-  mapStoreToProps
-)(CreateProduct);
+export default withRouter(
+  connect(
+    mapStoreToProps
+  )(CreateProduct)
+);

@@ -10,6 +10,7 @@ function UserRegisterForm({
   confirmPassword
   , handleFormChange
   , handleFormSubmit
+  , location
   , user
 }) {
   let isDisabled = true;
@@ -50,7 +51,15 @@ function UserRegisterForm({
         />
         <div className="input-group">
           <div className="yt-row right">
-            <Link to="/user/login" className="yt-btn link">Sign in </Link>
+            <Link
+              className="yt-btn link"
+              to={{
+                pathname: "/user/login"
+                , state: location.state
+              }}
+            >
+              Sign in
+            </Link>
             <button className="yt-btn " type="submit" disabled={isDisabled}> Register </button>
           </div>
         </div>
@@ -63,6 +72,7 @@ UserRegisterForm.propTypes = {
   handleFormChange: PropTypes.func.isRequired
   , handleFormSubmit: PropTypes.func.isRequired
   , user: PropTypes.object.isRequired
+  , location: PropTypes.object
 }
 
 export default UserRegisterForm;
