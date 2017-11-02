@@ -6,7 +6,7 @@
 // import primary libraries
 import React from 'react';
 
-// import components 
+// import components
 import Base from './BaseComponent.js.jsx';
 
 export default class Root extends Base {
@@ -17,6 +17,7 @@ export default class Root extends Base {
   render() {
     return (
       <div>
+        <h2>Hola, bitches</h2>
         {this.props.children}
       </div>
     )

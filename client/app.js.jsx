@@ -76,9 +76,8 @@ render(
     <Provider store={store}>
       <ConnectedRouter
         history={history}
-        routes={routes}
       >
-        <div><h1>hello world</h1></div>
+        {routes}
       </ConnectedRouter>
     </Provider>
   , document.getElementById('application-main-yote')
