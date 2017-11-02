@@ -1,12 +1,13 @@
 /**
- * Generic modal component. Uses ReactCSSTransitionGroup to animate entry (which
+ * Generic modal component. Uses CSSTransitionGroup to animate entry (which
  * is configurable), and renders a modal header and modal body wrapped in a card
  * of a given size as passed in via props
  */
 
 // import primary libraries
-import React, { PropTypes } from 'react'
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import React from 'react';
+import PropTypes from 'prop-types';
+import CSSTransitionGroup from 'react-transition-group';
 
 // import third-party libraries
 import classNames from 'classnames';
@@ -80,7 +81,7 @@ class Modal extends Base {
     if(isOpen) {
       // render the modal
       return (
-        <ReactCSSTransitionGroup
+        <CSSTransitionGroup
           transitionName="modal-anim"
           transitionAppear={true}
           transitionLeave={true}
@@ -114,12 +115,12 @@ class Modal extends Base {
               </div>
             </div>
           </div>
-        </ReactCSSTransitionGroup>
+        </CSSTransitionGroup>
       )
     } else {
       // stop rendering the modal, but try to animate out
       return (
-        <ReactCSSTransitionGroup
+        <CSSTransitionGroup
           transitionName="modal-anim"
           transitionAppear={true}
           transitionLeave={true}

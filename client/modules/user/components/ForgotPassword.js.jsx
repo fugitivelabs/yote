@@ -1,6 +1,7 @@
 // import primary libraries
-import React, { PropTypes } from 'react';
-import { Link, browserHistory } from 'react-router';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Link, history } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 // import actions
@@ -56,7 +57,7 @@ class ForgotPassword extends Base {
 
   _closeSuccessModal() {
     this.setState({isSuccessModalOpen: false});
-    browserHistory.push('/');
+    history.push('/');
   }
 
   _toggleErrorModal() {

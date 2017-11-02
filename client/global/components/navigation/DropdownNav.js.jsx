@@ -3,9 +3,10 @@
  */
 
 // import primary libraries
-import React, { PropTypes } from 'react';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import { Link, browserHistory } from 'react-router';
+import React from 'react';
+import PropTypes from 'prop-types';
+import CSSTransitionGroup from 'react-transition-group';
+import { Link, history } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 // import actions
@@ -26,7 +27,7 @@ class DropdownNav extends Base {
     this.props.dispatch(userActions.sendLogout()).then((action) => {
       if(action.success) {
         // redirect to index
-        browserHistory.push('/');
+        history.push('/');
       } else {
         alert("ERROR LOGGING OUT - " + action.message);
       }
@@ -44,7 +45,7 @@ class DropdownNav extends Base {
 
       let profileImg = {backgroundImage: `url(${pictureUrl})`};
       return(
-        <ReactCSSTransitionGroup
+        <CSSTransitionGroup
           transitionName="dropdown-anim"
           transitionAppear={true}
           transitionLeave={true}
@@ -74,11 +75,11 @@ class DropdownNav extends Base {
             <li><a onClick={this._logout}>Logout</a></li>
           </div>
         </ul>
-        </ReactCSSTransitionGroup>
+        </CSSTransitionGroup>
       )
     } else {
       return (
-        <ReactCSSTransitionGroup
+        <CSSTransitionGroup
           transitionName="dropdown-anim"
           transitionAppear={true}
           transitionLeave={true}

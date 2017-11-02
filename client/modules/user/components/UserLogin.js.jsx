@@ -1,6 +1,7 @@
 // import primary libraries
-import React, { PropTypes } from 'react';
-import { browserHistory } from 'react-router';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { history } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 // import actions actions
@@ -51,9 +52,9 @@ class UserLogin extends Base {
     dispatch(userActions.sendLogin(this.state.username, this.state.password)).then((action) => {
       if(action.success) {
         if (location.state && location.state.nextPathname) {
-          browserHistory.push(location.state.nextPathname);
+          history.push(location.state.nextPathname);
         } else {
-          browserHistory.push('/');
+          history.push('/');
         }
         // TODO: handle next params
       } else {
@@ -68,7 +69,7 @@ class UserLogin extends Base {
   }
 
   _goToResetPass() {
-    browserHistory.push('/user/forgot-password')
+    history.push('/user/forgot-password')
   }
 
   render() {

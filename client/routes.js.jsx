@@ -5,7 +5,7 @@
 
 // import primary libraries
 import React from 'react';
-import { Route, IndexRoute } from 'react-router';
+import { Route } from 'react-router-dom';
 
 // import custom components
 import Landing from './modules/static/components/landing/Landing.js.jsx';
@@ -14,7 +14,6 @@ import Root from './global/components/Root.js.jsx';
 
 const routes =
       <Route path="/" component={Root} >
-        <IndexRoute component={Landing} />
         { Object.keys(moduleRoutes).map((moduleName, i) =>
           moduleRoutes[moduleName]
         )}
@@ -25,3 +24,9 @@ const routes =
 export default routes;
 
 import * as moduleRoutes from './modules/moduleRoutes.js';
+
+/**
+{ Object.keys(moduleRoutes).map((moduleName, i) =>
+  moduleRoutes[moduleName]
+)}
+*/

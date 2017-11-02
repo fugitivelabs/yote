@@ -1,13 +1,14 @@
 /**
  * Standard modal example that lets the user update their own profile information
  *
- * TODO: add path and methods to change password 
+ * TODO: add path and methods to change password
  */
 
 // import primary libraries
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link, browserHistory } from 'react-router';
+import { Link } from 'react-router-dom';
 
 // import third-party libraries
 import _ from 'lodash';

@@ -1,6 +1,7 @@
 // import primary libraries
-import React, { PropTypes } from 'react';
-import { browserHistory } from 'react-router';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { history } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 // import actions
@@ -55,7 +56,7 @@ class AdminUpdateUser extends Base {
     e.preventDefault();
     this.props.dispatch(userActions.sendUpdateUser(this.state.user)).then((action) => {
       if(action.success) {
-        browserHistory.push('/admin/users')
+        history.push('/admin/users')
       } else {
         alert("ERROR UPDATING USER: ", action.message);
       }
@@ -82,7 +83,7 @@ class AdminUpdateUser extends Base {
     dispatch(userActions.sendDelete(this.state.user._id)).then((result) => {
       if(result.success) {
         this._closeDeleteModal();
-        browserHistory.push('/admin/users');
+        history.push('/admin/users');
       } else {
         alert("There was a problem deleting the user from the server. Please try again.");
       }

@@ -1,5 +1,6 @@
 // import react things
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 // import react-native components
 import StyleSheet from 'StyleSheet';

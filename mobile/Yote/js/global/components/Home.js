@@ -1,5 +1,6 @@
 // import react/redux dependencies
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 // import react-native components & apis
@@ -191,7 +192,7 @@ Home.propTypes = {
 }
 
 Home.contextTypes = {
-  openDrawer: React.PropTypes.func
+  openDrawer: PropTypes.func
 }
 
 const mapStoreToProps = (store) => {

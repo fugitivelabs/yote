@@ -3,8 +3,9 @@
  */
 
 // import primary libraries
-import React, { PropTypes } from 'react';
-import { browserHistory } from 'react-router';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { history } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 // import third-party libraries
@@ -49,7 +50,7 @@ class CreateProduct extends Base {
     this.props.dispatch(productActions.sendCreateProduct(this.state.product)).then((action) => {
       if(action.success) {
         this.props.dispatch(productActions.invalidateList());
-        browserHistory.push(`/products/${action.item._id}`)
+        history.push(`/products/${action.item._id}`)
       } else {
         // console.log("Response Error:");
         // console.log(action);

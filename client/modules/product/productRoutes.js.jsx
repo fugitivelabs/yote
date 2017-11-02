@@ -1,6 +1,6 @@
 // import primary libraries
 import React from 'react';
-import { Route, IndexRoute } from 'react-router';
+import { Route } from 'react-router-dom';
 
 // import utilities
 import Auth from '../../global/utils/auth';
@@ -15,10 +15,8 @@ import UpdateProduct from './components/UpdateProduct.js.jsx';
 // define product routes
 const productRoutes =
 <Route key={Math.floor(Math.random()*1000)} path="products" component={ProductLayout} >
-  <IndexRoute component={ProductList} />
   <Route path="new" component={CreateProduct} onEnter={Auth.requireLogin} />
-  <Route path=":productId">
-    <IndexRoute component={SingleProduct} />
+  <Route path=":productId" component={SingleProduct}>
     <Route path="update" component={UpdateProduct} onEnter={Auth.requireLogin} />
   </Route>
 </Route>

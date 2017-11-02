@@ -1,6 +1,7 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Base from '../../../global/components/BaseComponent.js.jsx';
-import { Router, Route, Link, IndexLink } from 'react-router';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 // import Study from "../StudyHandler";
 // import Site from "../../site/SiteHandler";

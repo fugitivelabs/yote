@@ -3,8 +3,9 @@
  */
 
 // import primary libraries
-import React, { PropTypes } from 'react'
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import React from 'react';
+import PropTypes from 'prop-types';
+import CSSTransitionGroup from 'react-transition-group';
 
 // import third-party libraries
 import classNames from 'classnames';
@@ -70,7 +71,7 @@ class AlertModal extends Base {
     if(isOpen) {
       // render the alert modal
       return (
-        <ReactCSSTransitionGroup
+        <CSSTransitionGroup
           transitionAppear={true}
           transitionAppearTimeout={500}
           transitionEnter={true}
@@ -108,12 +109,12 @@ class AlertModal extends Base {
               </div>
             </div>
           </div>
-        </ReactCSSTransitionGroup>
+        </CSSTransitionGroup>
       )
     } else {
       // stop rendering modal, but try to animate out
       return (
-        <ReactCSSTransitionGroup
+        <CSSTransitionGroup
           transitionEnterTimeout={500}
           transitionLeaveTimeout={350}
           transitionName="modal-anim"

@@ -1,5 +1,6 @@
 // import react/redux dependencies
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import ReactNative from 'react-native';
 import Base from '../../../global/components/BaseComponent';
 import { connect } from 'react-redux';

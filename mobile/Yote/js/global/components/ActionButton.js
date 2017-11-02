@@ -3,7 +3,8 @@
 */
 
 // import react 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 // import react-native components & apis
 import Image from 'Image';

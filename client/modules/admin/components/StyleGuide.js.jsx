@@ -1,13 +1,14 @@
 /**
  * Living style-guide for this Yote application
  *
- * TODO:  This needs a lot of work 
+ * TODO:  This needs a lot of work
  */
 
 // import primary libraries
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 // import global components
 import Base from "../../../global/components/BaseComponent.js.jsx";

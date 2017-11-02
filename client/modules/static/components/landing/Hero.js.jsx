@@ -1,7 +1,7 @@
 // import primary libraries
 import React from 'react';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import { Link } from 'react-router';
+import CSSTransitionGroup from 'react-transition-group';
+import { Link } from 'react-router-dom';
 
 // import css modules
 import landingStyles from './landingStyles.css';
@@ -47,7 +47,7 @@ class TheCoolThing extends React.Component{
 
   render() {
     return(
-      <ReactCSSTransitionGroup
+      <CSSTransitionGroup
         transitionName="fade"
         transitionEnterTimeout={300}
         transitionLeaveTimeout={300}
@@ -59,7 +59,7 @@ class TheCoolThing extends React.Component{
         >
           {this.state.coolThing}
         </span>
-      </ReactCSSTransitionGroup>
+      </CSSTransitionGroup>
     )
   }
 }

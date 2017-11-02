@@ -1,7 +1,8 @@
 // import form components
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link, browserHistory } from 'react-router';
+import { Link, history } from 'react-router-dom';
 
 // import actions
 import * as userActions from '../userActions';
@@ -45,7 +46,7 @@ class ResetPassword extends Base {
     this.props.dispatch(userActions.sendResetPassword(this.props.params.hex, this.state.password)).then((action) =>{
       this.setState({submitting: false});
       if(action.success) {
-        browserHistory.push('/user/login');
+        history.push('/user/login');
       } else {
         this.setState({errorMessage: action.error});
         this._toggleErrorModal();

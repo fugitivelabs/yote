@@ -1,6 +1,7 @@
 // import primary libraries
-import React, { PropTypes } from 'react';
-import { browserHistory } from 'react-router';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { history } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 //actions
@@ -39,7 +40,7 @@ class UserRegister extends Base {
     e.preventDefault();
     this.props.dispatch(userActions.sendRegister(this.state.user)).then((action) => {
       if(action.success) {
-        browserHistory.push('/');
+        history.push('/');
       } else {
         this.setState({errorMessage: action.error});
         this._toggleErrorModal();

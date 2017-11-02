@@ -4,7 +4,7 @@
 
 // import primary libraries
 import React from 'react';
-import { Route, IndexRoute, IndexRedirect } from 'react-router';
+import { Route } from 'react-router-dom';
 
 // import utilities
 import Auth from '../../global/utils/auth';
@@ -19,7 +19,6 @@ import adminUserRoutes from '../user/userAdminRoutes.js.jsx';
 // define routes
 const adminRoutes =
 <Route key={Math.floor(Math.random()*1000)} path="/admin" component={Layout} onEnter={Auth.requireAdmin}>
-  <IndexRedirect to="style-guide" />
   <Route path="style-guide" component={StyleGuide} />
   {adminUserRoutes}
 </Route>

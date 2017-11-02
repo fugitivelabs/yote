@@ -4,9 +4,10 @@
  */
 
 // import primary libraries
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { browserHistory } from 'react-router';
+import { history } from 'react-router-dom';
 
 // import third-party libraries
 import _ from 'lodash';
@@ -58,7 +59,7 @@ class UpdateProduct extends Base {
     e.preventDefault();
     this.props.dispatch(productActions.sendUpdateProduct(this.state.product)).then((action) => {
       if(action.success) {
-        browserHistory.push(`/products/${action.item._id}`)
+        history.push(`/products/${action.item._id}`)
       } else {
         // console.log("Response Error:");
         // console.log(action);

@@ -46,7 +46,7 @@ const config = {
               }
             }]
           ]
-          , presets: ['es2015','react', 'stage-0']
+          , presets: ['env','react', 'stage-0']
         }
         , test: /\.jsx?$/
       }

@@ -240,7 +240,8 @@ In the post show page, notice that you only see the `name` field of the post. We
 In `PostListItem.js.jsx`, let's show the Author's first and last name and the date it was created.  
 
 ```jsx
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Base from "../../../global/components/BaseComponent.js.jsx";
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
