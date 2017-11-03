@@ -1,7 +1,7 @@
 /**
- * Initializes the __PascalName__ routes to point to the __PascalName__Layout
+ * Initializes the Product routes to point to the ProductLayout
  * file. This is done here so we can generate modules via the CLI and cleanly
- * import the routes via the moduleRoutes.js file. 
+ * import the routes via the moduleRoutes.js file.
  */
 
 // import primary libraries
