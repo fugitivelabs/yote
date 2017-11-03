@@ -1,7 +1,7 @@
 {
   "name": "Yote-Client",
-  "license": "MIT",
-  "version": "0.7.0",
+  "license": "ISC",
+  "version": "0.8.0",
   "description": "Find Your Road",
   "main": "yote.js",
   "scripts": {
