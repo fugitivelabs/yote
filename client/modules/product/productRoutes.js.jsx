@@ -5,7 +5,7 @@ import { Route, Switch } from 'react-router-dom';
 // import product layout
 import ProductLayout from './components/ProductLayout.js.jsx';
 
-// initialize product routes
+// initialize product routes here so we can import them via moduleRoutes 
 const productRoutes =
   <Route
     component={ProductLayout}
