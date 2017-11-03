@@ -26,22 +26,33 @@ class SingleProduct extends Base {
   }
 
   render() {
-    const { selectedProduct, productMap } = this.props;
-    const isEmpty = (!selectedProduct.id || !productMap[selectedProduct.id] || productMap[selectedProduct.id].title === undefined || selectedProduct.didInvalidate);
+    const { productStore } = this.props;
+
+    /**
+     * use the selected.getItem() utility to pull the actual product object from the map
+     */
+    const selectedProduct = productStore.selected.getItem();
+
+    const isEmpty = (
+      !selectedProduct
+      || !selectedProduct._id
+      || productStore.selected.didInvalidate
+    );
+
     return (
       <div className="flex">
         <section className="section">
           <div className="yt-container">
             <h3> Single Product </h3>
             {isEmpty ?
-              (selectedProduct.isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
+              (productStore.selected.isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
               :
-              <div style={{ opacity: selectedProduct.isFetching ? 0.5 : 1 }}>
-                <h1> { productMap[selectedProduct.id].title }
+              <div style={{ opacity: productStore.selected.isFetching ? 0.5 : 1 }}>
+                <h1> { selectedProduct.title }
                   <Link className="yt-btn small u-pullRight" to={`${this.props.match.url}/update`}> UPDATE PRODUCT </Link>
                 </h1>
                 <hr/>
-                <p> {productMap[selectedProduct.id].description }</p>
+                <p> {selectedProduct.description }</p>
               </div>
             }
           </div>
@@ -61,8 +72,7 @@ const mapStoreToProps = (store) => {
   * differentiated from the React component's internal state
   */
   return {
-    selectedProduct: store.product.selected
-    , productMap: store.product.byId
+    productStore: store.product
   }
 }
 

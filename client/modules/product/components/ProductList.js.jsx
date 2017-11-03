@@ -46,14 +46,31 @@ class ProductList extends Base {
   }
 
   render() {
-    const { productList, productMap } = this.props;
+    const { productStore } = this.props;
 
     /**
-     * NOTE: Regarding isEmpty, when the app loads, all "product lists"
-     * are null objects. Lists exist in memory and only after we deliberately
-     * create them.
+     * Retrieve the list information and the list items for the component here.
+     *
+     * NOTE: if the list is deeply nested and/or filtered, you'll want to handle
+     * these steps within the mapStoreToProps method prior to delivering the
+     * props to the component.  Othwerwise, the render() action gets convoluted
+     * and potentially severely bogged down.
      */
-    const isEmpty = !productList || !productList.items || productList.items.length === 0 || productList.didInvalidate;
+
+    // get the productList meta info here so we can reference 'isFetching'
+    const productList = productStore.lists ? productStore.lists.all : null;
+
+    /**
+     * use the reducer getList utility to convert the all.items array of ids
+     * to the actual product objetcs
+     */
+    const productListItems = productStore.util.getList("all");
+
+    /**
+     * NOTE: isEmpty is is usefull when the component references more than one
+     * resource list.
+     */
+    const isEmpty = !productListItems || !productList;
 
     return (
       <div className="flex">
@@ -64,12 +81,12 @@ class ProductList extends Base {
             </h1>
             <hr/>
             { isEmpty ?
-              (productList && productList.isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
+              (productListItems && productList && productList.isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
               :
               <div style={{ opacity: productList.isFetching ? 0.5 : 1 }}>
                 <ul styleName="product-list">
-                  {productList.items.map((id, i) =>
-                    <ProductListItem key={id} product={productMap[id]} />
+                  {productListItems.map((product, i) =>
+                    <ProductListItem key={product._id + i} product={product} />
                   )}
                 </ul>
               </div>
@@ -91,8 +108,7 @@ const mapStoreToProps = (store) => {
   * differentiated from the React component's internal state
   */
   return {
-    productList: store.product.lists.all
-    , productMap: store.product.byId
+    productStore: store.product
   }
 }
 

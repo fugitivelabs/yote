@@ -56,11 +56,11 @@ class UpdateProduct extends Base {
   }
 
   _handleFormSubmit(e) {
+    const { dispatch, history } = this.props;
     e.preventDefault();
-    this.props.dispatch(productActions.sendUpdateProduct(this.state.product)).then((action) => {
+    dispatch(productActions.sendUpdateProduct(this.state.product)).then((action) => {
       if(action.success) {
-        this.props.history.push(`/products/${action.item._id}`)
-        // this.props.history.goBack();
+        history.push(`/products/${action.item._id}`)
       } else {
         // console.log("Response Error:");
         // console.log(action);
@@ -80,11 +80,11 @@ class UpdateProduct extends Base {
             ? (selectedProduct.isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
           : <ProductForm
               product={product}
-              formType="update"
-              handleFormSubmit={this._handleFormSubmit}
-              handleFormChange={this._handleFormChange}
               cancelLink={`/products/${product._id}`}
               formTitle="Update Product"
+              formType="update"
+              handleFormChange={this._handleFormChange}
+              handleFormSubmit={this._handleFormSubmit}
             />
           }
         </section>
