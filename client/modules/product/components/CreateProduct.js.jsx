@@ -46,11 +46,12 @@ class CreateProduct extends Base {
 
 
   _handleFormSubmit(e) {
+    const { dispatch, history } = this.props;
     e.preventDefault();
-    this.props.dispatch(productActions.sendCreateProduct(this.state.product)).then((action) => {
+    dispatch(productActions.sendCreateProduct(this.state.product)).then((action) => {
       if(action.success) {
-        this.props.dispatch(productActions.invalidateList());
-        this.props.history.push(`/products/${action.item._id}`)
+        dispatch(productActions.invalidateList());
+        history.push(`/products/${action.item._id}`)
       } else {
         // console.log("Response Error:");
         // console.log(action);
@@ -70,11 +71,11 @@ class CreateProduct extends Base {
             :
             <ProductForm
               product={product}
-              formType="create"
-              handleFormSubmit={this._handleFormSubmit}
-              handleFormChange={this._handleFormChange}
               cancelLink="/products"
               formTitle="Create Product"
+              formType="create"
+              handleFormChange={this._handleFormChange}
+              handleFormSubmit={this._handleFormSubmit}
             />
           }
         </section>

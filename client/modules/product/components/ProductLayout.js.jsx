@@ -1,6 +1,6 @@
 /**
- * Wraps all Product components in a default view wrapper
- * This is a class in case you want some extra special logic...
+ * Wraps all Product components in a default view wrapper and sets up the
+ * routing for all Product CRUD actions.
  */
 
 // import primary libraries
@@ -66,7 +66,3 @@ class ProductLayout extends Base {
 }
 
 export default ProductLayout;
-
-/**
-<Route path="/products/update/:productId" component={UpdateProduct}  />
-*/

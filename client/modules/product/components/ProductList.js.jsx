@@ -21,7 +21,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 // import actions
 import * as productActions from '../productActions';
@@ -96,6 +96,8 @@ const mapStoreToProps = (store) => {
   }
 }
 
-export default connect(
-  mapStoreToProps
-)(ProductList);
+export default withRouter(
+    connect(
+    mapStoreToProps
+  )(ProductList)
+);
