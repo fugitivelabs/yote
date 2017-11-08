@@ -28,8 +28,10 @@ import * as productActions from '../productActions';
 
 // import global components
 import Base from "../../../global/components/BaseComponent.js.jsx";
+import DefaultLayout from "../../../global/components/DefaultLayout.js.jsx";
 
 // import product components
+import ProductLayout from './ProductLayout.js.jsx';
 import ProductListItem from './ProductListItem.js.jsx';
 
 // import product css modules
@@ -73,27 +75,29 @@ class ProductList extends Base {
     const isEmpty = !productListItems || !productList;
 
     return (
-      <div className="flex">
-        <section className="section">
-          <div className="yt-container">
-            <h1> Product List
-              <Link className="yt-btn small u-pullRight" to={'/products/new'}> NEW PRODUCT </Link>
-            </h1>
-            <hr/>
-            { isEmpty ?
-              (productListItems && productList && productList.isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
-              :
-              <div style={{ opacity: productList.isFetching ? 0.5 : 1 }}>
-                <ul styleName="product-list">
-                  {productListItems.map((product, i) =>
-                    <ProductListItem key={product._id + i} product={product} />
-                  )}
-                </ul>
-              </div>
-            }
-          </div>
-        </section>
-      </div>
+      <ProductLayout>
+        <div className="flex">
+          <section className="section">
+            <div className="yt-container">
+              <h1> Product List
+                <Link className="yt-btn small u-pullRight" to={'/products/new'}> NEW PRODUCT </Link>
+              </h1>
+              <hr/>
+              { isEmpty ?
+                (productListItems && productList && productList.isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
+                :
+                <div style={{ opacity: productList.isFetching ? 0.5 : 1 }}>
+                  <ul styleName="product-list">
+                    {productListItems.map((product, i) =>
+                      <ProductListItem key={product._id + i} product={product} />
+                    )}
+                  </ul>
+                </div>
+              }
+            </div>
+          </section>
+        </div>
+      </ProductLayout>
     )
   }
 }

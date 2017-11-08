@@ -9,15 +9,15 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 // import product layout
-import ProductLayout from './components/ProductLayout.js.jsx';
+import ProductRouter from './ProductRouter.js.jsx';
 
 // initialize product routes
-const productRoutes =
+const productPath =
   <Route
-    component={ProductLayout}
+    component={ProductRouter}
     key={Math.floor(Math.random()*100000)}
     path="/products"
   />
 ;
 
-export default productRoutes;
+export default productPath;

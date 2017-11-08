@@ -19,6 +19,7 @@ import * as productActions from '../productActions';
 import Base from "../../../global/components/BaseComponent.js.jsx";
 
 // import module components
+import ProductLayout from './ProductLayout.js.jsx';
 import ProductForm from './ProductForm.js.jsx';
 
 class UpdateProduct extends Base {
@@ -74,21 +75,23 @@ class UpdateProduct extends Base {
     const { product } = this.state;
     const isEmpty = (!product || product.title === null || product.title === undefined);
     return  (
-      <div className="flex">
-        <section className="section">
-          {isEmpty
-            ? (selectedProduct.isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
-          : <ProductForm
-              product={product}
-              cancelLink={`/products/${product._id}`}
-              formTitle="Update Product"
-              formType="update"
-              handleFormChange={this._handleFormChange}
-              handleFormSubmit={this._handleFormSubmit}
-            />
-          }
-        </section>
-      </div>
+      <ProductLayout>
+        <div className="flex">
+          <section className="section">
+            {isEmpty
+              ? (selectedProduct.isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
+            : <ProductForm
+                product={product}
+                cancelLink={`/products/${product._id}`}
+                formTitle="Update Product"
+                formType="update"
+                handleFormChange={this._handleFormChange}
+                handleFormSubmit={this._handleFormSubmit}
+              />
+            }
+          </section>
+        </div>
+    </ProductLayout>
     )
   }
 }

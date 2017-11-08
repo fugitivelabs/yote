@@ -19,6 +19,7 @@ import Base from "../../../global/components/BaseComponent.js.jsx";
 
 // import product components
 import ProductForm from './ProductForm.js.jsx';
+import ProductLayout from './ProductLayout.js.jsx';
 
 class CreateProduct extends Base {
   constructor(props) {
@@ -64,22 +65,24 @@ class CreateProduct extends Base {
     const { product } = this.state;
     const isEmpty = (product.title === null || product.title === undefined);
     return (
-      <div className="flex">
-        <section className="section">
-          {isEmpty ?
-            <h2> Loading...</h2>
-            :
-            <ProductForm
-              product={product}
-              cancelLink="/products"
-              formTitle="Create Product"
-              formType="create"
-              handleFormChange={this._handleFormChange}
-              handleFormSubmit={this._handleFormSubmit}
-            />
-          }
-        </section>
-      </div>
+      <ProductLayout>
+        <div className="flex">
+          <section className="section">
+            {isEmpty ?
+              <h2> Loading...</h2>
+              :
+              <ProductForm
+                product={product}
+                cancelLink="/products"
+                formTitle="Create Product"
+                formType="create"
+                handleFormChange={this._handleFormChange}
+                handleFormSubmit={this._handleFormSubmit}
+              />
+            }
+          </section>
+        </div>
+    </ProductLayout>
     )
   }
 }

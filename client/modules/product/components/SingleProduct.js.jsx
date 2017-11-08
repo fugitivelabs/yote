@@ -15,6 +15,9 @@ import * as productActions from '../productActions';
 // import global components
 import Base from "../../../global/components/BaseComponent.js.jsx";
 
+// import layout
+import ProductLayout from './ProductLayout.js.jsx';
+
 class SingleProduct extends Base {
   constructor(props) {
     super(props);
@@ -40,24 +43,26 @@ class SingleProduct extends Base {
     );
 
     return (
-      <div className="flex">
-        <section className="section">
-          <div className="yt-container">
-            <h3> Single Product </h3>
-            {isEmpty ?
-              (productStore.selected.isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
-              :
-              <div style={{ opacity: productStore.selected.isFetching ? 0.5 : 1 }}>
-                <h1> { selectedProduct.title }
-                  <Link className="yt-btn small u-pullRight" to={`${this.props.match.url}/update`}> UPDATE PRODUCT </Link>
-                </h1>
-                <hr/>
-                <p> {selectedProduct.description }</p>
-              </div>
-            }
-          </div>
-        </section>
-      </div>
+      <ProductLayout>
+        <div className="flex">
+          <section className="section">
+            <div className="yt-container">
+              <h3> Single Product </h3>
+              {isEmpty ?
+                (productStore.selected.isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
+                :
+                <div style={{ opacity: productStore.selected.isFetching ? 0.5 : 1 }}>
+                  <h1> { selectedProduct.title }
+                    <Link className="yt-btn small u-pullRight" to={`${this.props.match.url}/update`}> UPDATE PRODUCT </Link>
+                  </h1>
+                  <hr/>
+                  <p> {selectedProduct.description }</p>
+                </div>
+              }
+            </div>
+          </section>
+        </div>
+    </ProductLayout>
     )
   }
 }
