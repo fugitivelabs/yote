@@ -12,7 +12,7 @@ import AlertModal from '../../../global/components/modals/AlertModal.js.jsx';
 import Base from '../../../global/components/BaseComponent.js.jsx';
 
 // import user components
-import AdminUserForm from './AdminUserForm.js.jsx';
+import AdminUserForm from '../components/AdminUserForm.js.jsx';
 
 class AdminUpdateUser extends Base {
   constructor(props) {

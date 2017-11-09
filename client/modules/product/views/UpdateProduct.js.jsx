@@ -1,4 +1,6 @@
 /**
+ * View component for /products/:productId/update
+ *
  * Updates a single product from a copy of the selcted product
  * as defined in the product reducer
  */
@@ -18,9 +20,9 @@ import * as productActions from '../productActions';
 // import global components
 import Base from "../../../global/components/BaseComponent.js.jsx";
 
-// import module components
-import ProductLayout from './ProductLayout.js.jsx';
-import ProductForm from './ProductForm.js.jsx';
+// import product components
+import ProductLayout from '../components/ProductLayout.js.jsx';
+import ProductForm from '../components/ProductForm.js.jsx';
 
 class UpdateProduct extends Base {
   constructor(props) {

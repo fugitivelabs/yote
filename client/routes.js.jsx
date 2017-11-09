@@ -13,10 +13,12 @@ import Landing from './modules/static/components/landing/Landing.js.jsx';
 import NotFound from './modules/static/components/NotFound.js.jsx';
 import Root from './global/components/Root.js.jsx';
 
-// import ProductRouter from './modules/product/ProductRouter.js.jsx';
+import ProductRouter from './modules/product/ProductRouter.js.jsx';
+import UserRouter from './modules/user/UserRouter.js.jsx';
+import * as moduleRoutes from './modules/moduleRoutes.js';
 
 const routes =
-  <Switch>
+  <div>
     <Route exact path="/" component={Landing} />
     <Route path="/unauthorized" component={Forbidden} />
     { Object.keys(moduleRoutes).map((moduleName, i) =>
@@ -26,12 +28,11 @@ const routes =
       />
     )}
     <Route component={NotFound} />
-  </Switch>
+  </div>
 ;
 
 export default routes;
 
-import * as moduleRoutes from './modules/moduleRoutes.js';
 
 /**
 { Object.keys(moduleRoutes).map((moduleName, i) =>

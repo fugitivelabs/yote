@@ -1,26 +1,20 @@
 /**
- * Wraps all Product components in a default view wrapper and sets up the
- * routing for all Product CRUD actions.
+ * Sets up the routing for all Product views.
  */
 
 // import primary libraries
 import React from 'react';
-import PropTypes from 'prop-types';
-import { Redirect, Route, Switch } from 'react-router-dom';
-
-// import utilities
-import { Auth } from '../../global/utils/auth';
-
-import { LoginRoute, RoleRoute } from '../../global/components/routing';
+import { Route, Redirect, Switch } from 'react-router-dom';
 
 // import global components
 import Base from "../../global/components/BaseComponent.js.jsx";
+import { LoginRoute, RoleRoute } from '../../global/components/routing';
 
-// import product components
-import CreateProduct from './components/CreateProduct.js.jsx';
-import ProductList from './components/ProductList.js.jsx';
-import SingleProduct from './components/SingleProduct.js.jsx';
-import UpdateProduct from './components/UpdateProduct.js.jsx';
+// import product views
+import CreateProduct from './views/CreateProduct.js.jsx';
+import ProductList from './views/ProductList.js.jsx';
+import SingleProduct from './views/SingleProduct.js.jsx';
+import UpdateProduct from './views/UpdateProduct.js.jsx';
 
 
 class ProductRouter extends Base {
@@ -33,8 +27,8 @@ class ProductRouter extends Base {
       <Switch >
         <Route exact path="/products" component={ProductList} />
         <LoginRoute exact path="/products/new" component={CreateProduct} />
-        <RoleRoute role="admin" exact path="/products/:productId" component={SingleProduct}/>
-        <Route exact path="/products/:productId/update" component={UpdateProduct}/>
+        <Route exact path="/products/:productId" component={SingleProduct}/>
+        <RoleRoute exact path="/products/:productId/update" component={UpdateProduct} role="admin"/>
       </Switch>
     )
   }

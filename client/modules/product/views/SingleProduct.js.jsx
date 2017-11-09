@@ -1,4 +1,6 @@
 /**
+ * View component for /products/:productId
+ *
  * Displays a single product from the 'byId' map in the product reducer
  * as defined by the 'selected' property
  */
@@ -15,8 +17,8 @@ import * as productActions from '../productActions';
 // import global components
 import Base from "../../../global/components/BaseComponent.js.jsx";
 
-// import layout
-import ProductLayout from './ProductLayout.js.jsx';
+// import product components
+import ProductLayout from '../components/ProductLayout.js.jsx';
 
 class SingleProduct extends Base {
   constructor(props) {

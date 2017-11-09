@@ -1,6 +1,6 @@
 /**
- * Wraps all Product components in a default view wrapper and sets up the
- * routing for all Product CRUD actions.
+ * Wraps all Product views in a wrapping containter. If you want to give all
+ * product views a sidebar for example, you would set that here. 
  */
 
 // import primary libraries
@@ -22,9 +22,9 @@ class ProductLayout extends Base {
 
   render() {
     return (
-      <div>
+      <DefaultLayout>
         {this.props.children}
-      </div>
+      </DefaultLayout>
     )
   }
 }
