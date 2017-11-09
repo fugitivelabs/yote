@@ -4,7 +4,8 @@
 */
 
 // import react/redux dependencies
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types'; 
 import { connect } from 'react-redux';
 
 // import react-native components & apis
@@ -128,9 +129,9 @@ Product.propTypes = {
   dispatch: PropTypes.func
 }
 
-Product.contextTypes = {
-  openDrawer: React.PropTypes.func
-}
+// Product.contextTypes = {
+//   openDrawer: React.PropTypes.func
+// }
 
 const mapStoreToProps = (store) => {
 
