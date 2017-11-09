@@ -29,19 +29,8 @@ class ProductRouter extends Base {
   render() {
     return (
       <Switch >
-        <Route exact path="/products" component={ProductList} />
-        <Route path="/products/new"
-          render={() => (
-            Auth.notLoggedIn() ?
-              <Redirect to={{
-                  pathname: "/user/login"
-                  , state: { from: this.props.location }
-                }}
-              />
-            :
-              <CreateProduct />
-          )}
-        />
+        <Route exact path="/products" component={ProductList}/>
+        <Route exact path="/products/new" component={CreateProduct}/>
         <Route exact path="/products/:productId" component={SingleProduct}/>
         <Route exact path="/products/:productId/update" component={UpdateProduct}/>
       </Switch>
