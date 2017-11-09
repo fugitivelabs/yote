@@ -129,10 +129,6 @@ Product.propTypes = {
   dispatch: PropTypes.func
 }
 
-// Product.contextTypes = {
-//   openDrawer: React.PropTypes.func
-// }
-
 const mapStoreToProps = (store) => {
 
   return {
