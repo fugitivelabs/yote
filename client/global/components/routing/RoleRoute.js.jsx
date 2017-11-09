@@ -1,5 +1,5 @@
 /**
- * Helper component to create a Link to a login-protected page
+ * Helper component to create a Link to a specific role-protected page (like "admin")
  */
 
 // import primary libraries
@@ -17,10 +17,18 @@ export default class LoginRoute extends React.Component {
   }
 
   render() {
+    const role = this.props.role;
     if(Auth.notLoggedIn()) {
-      return <Redirect to={{
+      return 
+        <Redirect to={{
           pathname: "/user/login"
           , state: { from: this.props.location }
+        }}
+      />
+    } else if(Auth.notRole(role)) {
+      return 
+        <Redirect to={{
+          pathname: "/unauthorized"
         }}
       />
     } else {

@@ -11,6 +11,8 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 // import utilities
 import { Auth } from '../../global/utils/auth';
 
+import { LoginRoute, RoleRoute } from '../../global/components/routing';
+
 // import global components
 import Base from "../../global/components/BaseComponent.js.jsx";
 
@@ -30,19 +32,8 @@ class ProductRouter extends Base {
     return (
       <Switch >
         <Route exact path="/products" component={ProductList} />
-        <Route path="/products/new"
-          render={() => (
-            Auth.notLoggedIn() ?
-              <Redirect to={{
-                  pathname: "/user/login"
-                  , state: { from: this.props.location }
-                }}
-              />
-            :
-              <CreateProduct />
-          )}
-        />
-        <Route exact path="/products/:productId" component={SingleProduct}/>
+        <LoginRoute path="/products/new" component={CreateProduct} />
+        <RoleRoute role="admin" exact path="/products/:productId" component={SingleProduct}/>
         <Route exact path="/products/:productId/update" component={UpdateProduct}/>
       </Switch>
     )
