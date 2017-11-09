@@ -13,12 +13,17 @@ import Landing from './modules/static/components/landing/Landing.js.jsx';
 import NotFound from './modules/static/components/NotFound.js.jsx';
 import Root from './global/components/Root.js.jsx';
 
+// import ProductRouter from './modules/product/ProductRouter.js.jsx';
+
 const routes =
   <Switch>
     <Route exact path="/" component={Landing} />
     <Route path="/unauthorized" component={Forbidden} />
     { Object.keys(moduleRoutes).map((moduleName, i) =>
-      moduleRoutes[moduleName]
+      <Route
+        component={moduleRoutes[moduleName]}
+        key={Math.floor(Math.random()*100000)}
+      />
     )}
     <Route component={NotFound} />
   </Switch>
