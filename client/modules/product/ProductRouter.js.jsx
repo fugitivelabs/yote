@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
 // import utilities
-import Auth from '../../global/utils/auth';
+import { Auth } from '../../global/utils/auth';
 
 // import global components
 import Base from "../../global/components/BaseComponent.js.jsx";
@@ -30,8 +30,7 @@ class ProductRouter extends Base {
     return (
       <Switch >
         <Route exact path="/products" component={ProductList} />
-        <Route
-          path="/products/new"
+        <Route path="/products/new"
           render={() => (
             Auth.notLoggedIn() ?
               <Redirect to={{
@@ -43,20 +42,8 @@ class ProductRouter extends Base {
               <CreateProduct />
           )}
         />
-        <Route
-          path="/products/:productId/update"
-          render={() => (
-            Auth.notLoggedIn() ?
-              <Redirect to={{
-                  pathname: "/user/login"
-                  , state: { from: this.props.location }
-                }}
-              />
-            :
-              <UpdateProduct />
-          )}
-        />
-        <Route path="/products/:productId" component={SingleProduct}/>
+        <Route exact path="/products/:productId" component={SingleProduct}/>
+        <Route exact path="/products/:productId/update" component={UpdateProduct}/>
       </Switch>
     )
   }
