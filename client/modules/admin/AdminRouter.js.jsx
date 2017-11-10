@@ -1,5 +1,9 @@
 /**
  * Sets up the routing for all Admin views.
+ *
+ * NOTE: All imported AdminRouter files must be wrapped in a Route wrapper
+ * inside the switch in order to resolve correctly.  See <UserAdminRouter/>
+ * below as an example. 
  */
 
 // import primary libraries
@@ -31,7 +35,9 @@ class ProductRouter extends Base {
         <Switch>
           <RoleRoute role="admin" exact path="/admin" component={AdminDashboard}/>
           <RoleRoute role="admin" exact path="/admin/style-guide" component={StyleGuide}/>
-          <UserAdminRouter/>
+          <RoleRoute role="admin" path="/admin/users">
+            <UserAdminRouter/>
+          </RoleRoute>
         </Switch>
       </AdminLayout>
     )
