@@ -13,8 +13,7 @@
 
 // import primary libraries
 import React from 'react';
-import PropTypes from 'prop-types';
-import { Route, Redirect, Switch, withRouter } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 // import global components
 import Base from "../../global/components/BaseComponent.js.jsx";
