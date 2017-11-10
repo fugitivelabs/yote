@@ -18,7 +18,7 @@ import UserLogin from './views/UserLogin.js.jsx';
 import UserProfile from './views/UserProfile.js.jsx';
 import UserRegister from './views/UserRegister.js.jsx';
 
-class Routes extends Base {
+class UserRouter extends Base {
   constructor(props) {
     super(props);
   }
@@ -35,7 +35,5 @@ class Routes extends Base {
     )
   }
 }
-
-const UserRouter = <Route key={Math.floor(Math.random()*100000)} path="/user" component={Routes}/>
 
 export default UserRouter;

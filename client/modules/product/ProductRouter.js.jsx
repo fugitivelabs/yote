@@ -18,7 +18,7 @@ import SingleProduct from './views/SingleProduct.js.jsx';
 import UpdateProduct from './views/UpdateProduct.js.jsx';
 
 
-class Routes extends Base {
+class ProductRouter extends Base {
   constructor(props) {
     super(props);
   }
@@ -35,7 +35,7 @@ class Routes extends Base {
   }
 }
 
-const ProductRouter = <Route key={Math.floor(Math.random()*100000)} path="/products" component={Routes}/>
+// const ProductRouter = <Route key={Math.floor(Math.random()*100000)} path="/products" component={Routes}/>
 
 
 export default ProductRouter;

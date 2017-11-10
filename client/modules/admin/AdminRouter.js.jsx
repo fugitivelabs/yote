@@ -14,7 +14,11 @@ import { LoginRoute, RoleRoute } from '../../global/components/routing';
 import AdminDashboard from './views/AdminDashboard.js.jsx';
 import StyleGuide from './views/StyleGuide.js.jsx';
 
+// import admin components 
+import AdminLayout from './components/AdminLayout.js.jsx';
+
 // import other admin routes
+import UserAdminRouter from '../user/UserAdminRouter.js.jsx';
 
 class ProductRouter extends Base {
   constructor(props) {
@@ -23,13 +27,13 @@ class ProductRouter extends Base {
 
   render() {
     return (
-      <div>
-        
+      <AdminLayout>
         <Switch >
-          <RoleRoute exact path="/admin" component={AdminDashboard} role="/admin" />
-          <RoleRoute exact path="/admin" component={StyleGuide} role="/admin" />
+          <RoleRoute exact path="/admin" component={AdminDashboard} role="admin" />
+          <RoleRoute exact path="/admin/style-guide" component={StyleGuide} role="admin" />
+          <UserAdminRouter/>
         </Switch>
-      </div>
+      </AdminLayout>
     )
   }
 }
