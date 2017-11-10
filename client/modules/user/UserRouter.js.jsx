@@ -25,7 +25,7 @@ class UserRouter extends Base {
 
   render() {
     return (
-      <Switch >
+      <Switch>
         <Route exact path="/user/login" component={UserLogin} />
         <Route exact path="/user/register" component={UserRegister} />
         <Route exact path="/user/forgot-password" component={ForgotPassword} />

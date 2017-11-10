@@ -17,7 +17,6 @@ import ProductList from './views/ProductList.js.jsx';
 import SingleProduct from './views/SingleProduct.js.jsx';
 import UpdateProduct from './views/UpdateProduct.js.jsx';
 
-
 class ProductRouter extends Base {
   constructor(props) {
     super(props);
@@ -25,7 +24,7 @@ class ProductRouter extends Base {
 
   render() {
     return (
-      <Switch >
+      <Switch>
         <Route exact path="/products" component={ProductList} />
         <LoginRoute exact path="/products/new" component={CreateProduct} />
         <Route exact path="/products/:productId" component={SingleProduct}/>
@@ -34,8 +33,5 @@ class ProductRouter extends Base {
     )
   }
 }
-
-// const ProductRouter = <Route key={Math.floor(Math.random()*100000)} path="/products" component={Routes}/>
-
 
 export default ProductRouter;

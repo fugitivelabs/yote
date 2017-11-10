@@ -16,7 +16,6 @@ import AdminCreateUser from './views/AdminCreateUser.js.jsx';
 import AdminUpdateUser from './views/AdminUpdateUser.js.jsx';
 import AdminUserList from './views/AdminUserList.js.jsx';
 
-
 class UserAdminRouter extends Base {
   constructor(props) {
     super(props);
@@ -24,7 +23,7 @@ class UserAdminRouter extends Base {
 
   render() {
     return (
-      <Switch >
+      <Switch>
         <RoleRoute exact path="/admin/users" component={AdminUserList} role="admin"/>
         <RoleRoute exact path="/admin/users/new" component={AdminCreateUser} role="admin"/>
         <RoleRoute exact path="/admin/users/:userId" component={AdminUpdateUser} role="admin"/>

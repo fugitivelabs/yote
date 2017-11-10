@@ -54,7 +54,6 @@ class Landing extends Base {
         />
         <LandingHero />
         <div className="hero sub u-centerText">
-
           <p> Check out the docs on <a href="https://fugitivelabs.github.io/yote/"> GitHub </a></p>
         </div>
         <div styleName="tallboy"></div>

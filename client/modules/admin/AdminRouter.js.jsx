@@ -1,5 +1,5 @@
 /**
- * Sets up the routing for all Product views.
+ * Sets up the routing for all Admin views.
  */
 
 // import primary libraries
@@ -14,7 +14,7 @@ import { LoginRoute, RoleRoute } from '../../global/components/routing';
 import AdminDashboard from './views/AdminDashboard.js.jsx';
 import StyleGuide from './views/StyleGuide.js.jsx';
 
-// import admin components 
+// import admin components
 import AdminLayout from './components/AdminLayout.js.jsx';
 
 // import other admin routes
@@ -28,7 +28,7 @@ class ProductRouter extends Base {
   render() {
     return (
       <AdminLayout>
-        <Switch >
+        <Switch>
           <RoleRoute exact path="/admin" component={AdminDashboard} role="admin" />
           <RoleRoute exact path="/admin/style-guide" component={StyleGuide} role="admin" />
           <UserAdminRouter/>
