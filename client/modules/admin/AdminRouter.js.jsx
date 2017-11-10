@@ -29,8 +29,8 @@ class ProductRouter extends Base {
     return (
       <AdminLayout>
         <Switch>
-          <RoleRoute exact path="/admin" component={AdminDashboard} role="admin" />
-          <RoleRoute exact path="/admin/style-guide" component={StyleGuide} role="admin" />
+          <RoleRoute role="admin" exact path="/admin" component={AdminDashboard}/>
+          <RoleRoute role="admin" exact path="/admin/style-guide" component={StyleGuide}/>
           <UserAdminRouter/>
         </Switch>
       </AdminLayout>

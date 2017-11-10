@@ -24,9 +24,9 @@ class UserAdminRouter extends Base {
   render() {
     return (
       <Switch>
-        <RoleRoute exact path="/admin/users" component={AdminUserList} role="admin"/>
-        <RoleRoute exact path="/admin/users/new" component={AdminCreateUser} role="admin"/>
-        <RoleRoute exact path="/admin/users/:userId" component={AdminUpdateUser} role="admin"/>
+        <RoleRoute role="admin" exact path="/admin/users" component={AdminUserList}/>
+        <RoleRoute role="admin" exact path="/admin/users/new" component={AdminCreateUser}/>
+        <RoleRoute role="admin" exact path="/admin/users/:userId" component={AdminUpdateUser}/>
       </Switch>
     )
   }

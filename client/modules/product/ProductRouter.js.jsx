@@ -1,5 +1,14 @@
 /**
  * Sets up the routing for all Product views.
+ *
+ * As an example, we've included two other Route Components that protect a given
+ * path: LoginRoute and RoleRoute
+ *
+ * LoginRoute simply checks if the user is logged in and if NOT, it redirects
+ * them to the login page.
+ *
+ * RoleRoute protects the path to make sure the user is A) logged in and B) has
+ * role matching the path= prop.  
  */
 
 // import primary libraries
@@ -28,7 +37,7 @@ class ProductRouter extends Base {
         <Route exact path="/products" component={ProductList} />
         <LoginRoute exact path="/products/new" component={CreateProduct} />
         <Route exact path="/products/:productId" component={SingleProduct}/>
-        <RoleRoute exact path="/products/:productId/update" component={UpdateProduct} role="admin"/>
+        <RoleRoute role="admin" exact path="/products/:productId/update" component={UpdateProduct}/>
       </Switch>
     )
   }
