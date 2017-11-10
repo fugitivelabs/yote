@@ -16,15 +16,15 @@ import { StackNavigator } from 'react-navigation';
 
 // import product components
 import CreateProduct from './views/CreateProduct';
-import ProductHome from './views/ProductHome'; 
+import ProductRoot from './views/ProductRoot'; 
 import SingleProduct from './views/SingleProduct';
 import UpdateProduct from './views/UpdateProduct';
 
 // horizontal screen transitions
 const CardNavigator = StackNavigator(
   {
-    ProductHome: {
-      screen: ProductHome
+    ProductRoot: {
+      screen: ProductRoot
     }
     , SingleProduct: {
       screen: SingleProduct
@@ -32,7 +32,7 @@ const CardNavigator = StackNavigator(
   }
   , {
       headerMode: 'none'
-      , initialRouteName: 'ProductHome'
+      , initialRouteName: 'ProductRoot'
     }
 );
 

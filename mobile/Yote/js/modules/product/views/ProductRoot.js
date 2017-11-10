@@ -35,7 +35,7 @@ import * as productActions from '../productActions'
 // import styles
 import productStyles from '../productStyles';
 
-class ProductHome extends Base {
+class ProductRoot extends Base {
   constructor(props) {
     super(props);
     this._bind(
@@ -125,7 +125,7 @@ class ProductHome extends Base {
   }
 }
 
-ProductHome.propTypes = {
+ProductRoot.propTypes = {
   dispatch: PropTypes.func
 }
 
@@ -139,4 +139,4 @@ const mapStoreToProps = (store) => {
 
 export default connect(
   mapStoreToProps
-)(ProductHome);
+)(ProductRoot);
