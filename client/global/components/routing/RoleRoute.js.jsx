@@ -10,8 +10,7 @@ import { Redirect, Route } from 'react-router-dom';
 
 import Auth from '../../utils/auth';
 
-export default class LoginRoute extends React.Component {
-
+class RoleRoute extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -19,21 +18,17 @@ export default class LoginRoute extends React.Component {
   render() {
     const role = this.props.role;
     if(Auth.notLoggedIn()) {
-      return 
-        <Redirect to={{
-          pathname: "/user/login"
-          , state: { from: this.props.location }
-        }}
-      />
+      return <Redirect to={{pathname: "/user/login", state: { from: this.props.location }}}/>
     } else if(Auth.notRole(role)) {
-      return 
-        <Redirect to={{
-          pathname: "/unauthorized"
-        }}
-      />
+      return <Redirect to={{pathname: "/unauthorized"}}/>
     } else {
       return <Route {...this.props} />
     }
   }
-
 }
+
+RoleRoute.propTypes = {
+  role: PropTypes.string.isRequired
+}
+
+export default RoleRoute;

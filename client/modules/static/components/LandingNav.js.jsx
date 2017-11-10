@@ -12,12 +12,12 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 
 // import global components
-import Base from '../../../../global/components/BaseComponent.js.jsx';
-import CloseWrapper from '../../../../global/components/helpers/CloseWrapper.js.jsx';
-import DropdownNav from '../../../../global/components/navigation/DropdownNav.js.jsx';
+import Base from '../../../global/components/BaseComponent.js.jsx';
+import CloseWrapper from '../../../global/components/helpers/CloseWrapper.js.jsx';
+import DropdownNav from '../../../global/components/navigation/DropdownNav.js.jsx';
 
 // import css modules
-import landingStyles from './landingStyles.css';
+import landingStyles from '../landingStyles.css';
 
 class LandingNav extends Base {
   constructor(props) {

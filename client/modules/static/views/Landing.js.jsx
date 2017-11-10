@@ -10,13 +10,13 @@ import {
 } from 'react-router-dom';
 
 // import global components
-import Base from '../../../../global/components/BaseComponent.js.jsx';
+import Base from '../../../global/components/BaseComponent.js.jsx';
 
 // import landing page components
-import Hero from './Hero.js.jsx';
-import LandingNav from './LandingNav.js.jsx';
+import LandingHero from '../components/LandingHero.js.jsx';
+import LandingNav from '../components/LandingNav.js.jsx';
 
-import landingStyles from './landingStyles.css';
+import landingStyles from '../landingStyles.css';
 
 class Landing extends Base {
   constructor(props, context) {
@@ -52,7 +52,7 @@ class Landing extends Base {
           isScrolled={this.state.isScrolled}
           openDialog={this._openDialog}
         />
-        <Hero />
+        <LandingHero />
         <div className="hero sub u-centerText">
 
           <p> Check out the docs on <a href="https://fugitivelabs.github.io/yote/"> GitHub </a></p>

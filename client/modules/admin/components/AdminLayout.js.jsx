@@ -13,12 +13,6 @@ import Base from "../../../global/components/BaseComponent.js.jsx";
 
 // import admin components
 import AdminSideNav from './AdminSideNav.js.jsx';
-import AdminDashboard from './AdminDashboard.js.jsx';
-import StyleGuide from './StyleGuide.js.jsx';
-
-// import individual module admin routes
-import adminUserRoutes from '../../user/userAdminRoutes.js.jsx';
-
 
 export default class AdminLayout extends Base {
   constructor(props) {
@@ -31,11 +25,7 @@ export default class AdminLayout extends Base {
         <div className="admin-layout">
           <AdminSideNav />
           <div className="admin-main-content">
-            <Switch >
-              <Route exact path="/admin" component={AdminDashboard}/>
-              <Route path="/admin/style-guide" component={StyleGuide} />
-              {adminUserRoutes}
-            </Switch>
+            {this.props.children}
           </div>
         </div>
       </div>

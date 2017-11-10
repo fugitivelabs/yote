@@ -1,4 +1,6 @@
 /**
+ * View component for /products
+ *
  * Generic product list view. Defaults to 'all' with:
  * this.props.dispatch(productActions.fetchListIfNeeded());
  *
@@ -31,8 +33,8 @@ import Base from "../../../global/components/BaseComponent.js.jsx";
 import DefaultLayout from "../../../global/components/DefaultLayout.js.jsx";
 
 // import product components
-import ProductLayout from './ProductLayout.js.jsx';
-import ProductListItem from './ProductListItem.js.jsx';
+import ProductLayout from '../components/ProductLayout.js.jsx';
+import ProductListItem from '../components/ProductListItem.js.jsx';
 
 // import product css modules
 import productStyles from '../productModuleStyles.css';

@@ -1,3 +1,7 @@
+/**
+ * View component for /user/register
+ */
+
 // import primary libraries
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -12,7 +16,8 @@ import AlertModal from '../../../global/components/modals/AlertModal.js.jsx';
 import Base from "../../../global/components/BaseComponent.js.jsx";
 
 // import user components
-import UserRegisterForm from './UserRegisterForm.js.jsx';
+import UserLayout from '../components/UserLayout.js.jsx';
+import UserRegisterForm from '../components/UserRegisterForm.js.jsx';
 
 class UserRegister extends Base {
   constructor(props) {
@@ -65,37 +70,39 @@ class UserRegister extends Base {
       )
     } else {
       return  (
-        <div className="yt-container">
-          <div className="yt-row center-horiz">
-            { isEmpty ?
-              "Loading..."
-              :
-              <UserRegisterForm
-                handleFormChange={this._handleFormChange}
-                handleFormSubmit={this._handleFormSubmit}
-                user={user}
-                location={this.props.location}
-              />
-            }
+        <UserLayout>
+          <div className="yt-container">
+            <div className="yt-row center-horiz">
+              { isEmpty ?
+                "Loading..."
+                :
+                <UserRegisterForm
+                  handleFormChange={this._handleFormChange}
+                  handleFormSubmit={this._handleFormSubmit}
+                  user={user}
+                  location={this.props.location}
+                />
+              }
+            </div>
+            <AlertModal
+              alertMessage={
+                <div>
+                  <strong>
+                    {this.state.errorMessage}
+                  </strong>
+                  <br/>
+                  <div>Please try again.</div>
+                </div>
+              }
+              alertTitle="Error with registration"
+              closeAction={this._toggleErrorModal}
+              confirmAction={this._toggleErrorModal}
+              confirmText="Try again"
+              isOpen={this.state.isErrorModalOpen}
+              type="danger"
+            />
           </div>
-          <AlertModal
-            alertMessage={
-              <div>
-                <strong>
-                  {this.state.errorMessage}
-                </strong>
-                <br/>
-                <div>Please try again.</div>
-              </div>
-            }
-            alertTitle="Error with registration"
-            closeAction={this._toggleErrorModal}
-            confirmAction={this._toggleErrorModal}
-            confirmText="Try again"
-            isOpen={this.state.isErrorModalOpen}
-            type="danger"
-          />
-        </div>
+        </UserLayout>
       )
     }
   }

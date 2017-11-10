@@ -4,7 +4,7 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { Link } from 'react-router-dom';
 
 // import css modules
-import landingStyles from './landingStyles.css';
+import landingStyles from '../landingStyles.css';
 
 /**
  * build a temporary component for each "cool thing"

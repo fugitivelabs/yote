@@ -14,7 +14,7 @@ import Pagination from "../../../global/components/helpers/Pagination.js.jsx";
 import { SearchInput } from '../../../global/components/forms';
 
 // import user components
-import AdminUserListItem from './AdminUserListItem.js.jsx';
+import AdminUserListItem from '../components/AdminUserListItem.js.jsx';
 
 class AdminUserList extends Base {
   constructor(props) {

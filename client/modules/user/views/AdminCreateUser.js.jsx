@@ -14,7 +14,7 @@ import * as userActions from '../userActions';
 import Base from "../../../global/components/BaseComponent.js.jsx";
 
 // import user components
-import AdminUserForm from './AdminUserForm.js.jsx';
+import AdminUserForm from '../components/AdminUserForm.js.jsx';
 
 class AdminCreateUser extends Base {
   constructor(props) {

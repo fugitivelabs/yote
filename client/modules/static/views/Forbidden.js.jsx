@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 
 // import global components
 import DefaultLayout from "../../../global/components/DefaultLayout.js.jsx";
-import LandingNav from './landing/LandingNav.js.jsx';
 
 function Forbidden({}) {
   return(
