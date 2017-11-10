@@ -34,7 +34,7 @@ import _ from 'lodash';
 import * as productActions from '../productActions';
 
 // import styles
-import productStyles from '../productStyles'; 
+import productStyles from '../productStyles';
 import YTColors from '../../../global/styles/YTColors';
 
 class SingleProduct extends Base {
@@ -47,23 +47,23 @@ class SingleProduct extends Base {
   }
 
   componentDidMount() {
-    const { productId } = this.props.navigation.state.params; 
-    this.props.dispatch(productActions.fetchSingleProductById(productId)); 
+    const { productId } = this.props.navigation.state.params;
+    this.props.dispatch(productActions.fetchSingleProductById(productId));
   }
 
   _closeModal() {
-    this.props.navigation.goBack(); 
+    this.props.navigation.goBack();
   }
 
   _openEdit() {
-    const { productId } = this.props.navigation.state.params; 
-    this.props.navigation.navigate('UpdateProduct', {productId: productId});  
+    const { productId } = this.props.navigation.state.params;
+    this.props.navigation.navigate('UpdateProduct', {productId: productId});
   }
 
   render() {
-    const { productMap } = this.props; 
-    const { productId } = this.props.navigation.state.params; 
-    let product = productMap[productId];  
+    const { productMap } = this.props;
+    const { productId } = this.props.navigation.state.params;
+    let product = productMap[productId];
 
     const leftItem = {
       icon: require('../../../global/img/back.png'),
@@ -74,7 +74,7 @@ class SingleProduct extends Base {
     const rightItem = {
       title: "Edit",
       onPress: this._openEdit,
-    }; 
+    };
 
     return(
       <View style={productStyles.container}>
@@ -107,7 +107,7 @@ SingleProduct.propTypes = {
 }
 
 const mapStoreToProps = (store) => {
-  
+
   return {
     user: store.user.loggedIn.user
     , productMap: store.product.byId
