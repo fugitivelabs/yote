@@ -1,6 +1,6 @@
 /**
-* Will update the name and description of an already existing product
-*/
+ * Will update the name and description of an already existing product
+ */
 
 // import react things
 import React from 'react';
@@ -9,7 +9,7 @@ import ReactNative from 'react-native';
 import { connect } from 'react-redux';
 
 // import react-native components
-import { 
+import {
   Image
   , KeyboardAvoidingView
   , Platform
@@ -18,8 +18,8 @@ import {
   , Text
   , TextInput
   , TouchableOpacity
-  , View 
-} from 'react-native'; 
+  , View
+} from 'react-native';
 
 // import global components
 import Base from '../../../global/components/BaseComponent';
@@ -35,7 +35,7 @@ import _ from 'lodash';
 import * as productActions from '../productActions'
 
 // import styles
-import productStyles from '../productStyles'; 
+import productStyles from '../productStyles';
 import YTColors from '../../../global/styles/YTColors';
 
 class UpdateProduct extends Base {
@@ -76,20 +76,20 @@ class UpdateProduct extends Base {
 
     const { dispatch, user } = this.props;
     const { newProductData } = this.state;
-    console.log(newProductData); 
+    console.log(newProductData);
     if(!this.state.isFormValid) {
       Alert.alert("Whoops", "All fields are required.");
       return;
     }
     dispatch(productActions.sendUpdateProduct(newProductData)).then((res) => {
       dispatch(productActions.invalidateList());
-      dispatch(productActions.fetchListIfNeeded()); 
+      dispatch(productActions.fetchListIfNeeded());
       this.props.navigation.goBack();
     });
   }
 
   _closeModal() {
-    this.props.navigation.goBack(); 
+    this.props.navigation.goBack();
   }
 
   _openLibrary() {
@@ -124,7 +124,7 @@ class UpdateProduct extends Base {
 
   render() {
 
-    const { navigator, isFetching } = this.props; 
+    const { navigator, isFetching } = this.props;
     const { newProductData, isFormValid } = this.state;
     const leftItem = {
       title: 'Cancel',
@@ -195,7 +195,7 @@ class UpdateProduct extends Base {
   }
 }
 
-const mapStoreToProps = (store) => { 
+const mapStoreToProps = (store) => {
 
   return {
     isFetching: store.product.lists.all.isFetching

@@ -1,6 +1,6 @@
 /**
-* Navigator for product components
-*/
+ * Navigator for product components
+ */
 
 // import primary libraries
 import React from 'react';
@@ -16,7 +16,7 @@ import { StackNavigator } from 'react-navigation';
 
 // import product components
 import CreateProduct from './views/CreateProduct';
-import ProductRoot from './views/ProductRoot'; 
+import ProductRoot from './views/ProductRoot';
 import SingleProduct from './views/SingleProduct';
 import UpdateProduct from './views/UpdateProduct';
 

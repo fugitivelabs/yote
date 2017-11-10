@@ -1,6 +1,6 @@
 /**
-* Displays a single product by the productId sent from props and the productMap from store
-*/
+ * Displays a single product by the productId sent from props and the productMap from store
+ */
 
 // import react things
 import React from 'react';

@@ -1,7 +1,7 @@
 /**
-* Product component called from TabsView
-* sends productList as props to ProductTitleList component for the ListView datasource
-*/
+ * Product component called from TabsView
+ * sends productList as props to ProductTitleList component for the ListView datasource
+ */
 
 // import react/redux dependencies
 import React from 'react';

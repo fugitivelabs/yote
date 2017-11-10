@@ -1,6 +1,6 @@
 /**
-* Will create a new product from information in the TextInputs
-*/
+ * Will create a new product from information in the TextInputs
+ */
 
 // import react things
 import React from 'react';
@@ -9,9 +9,9 @@ import ReactNative from 'react-native';
 import { connect } from 'react-redux';
 
 // import react-native components
-import Alert from 'Alert'; 
+import Alert from 'Alert';
 import Image from 'Image';
-import KeyboardAvoidingView from 'KeyboardAvoidingView'; 
+import KeyboardAvoidingView from 'KeyboardAvoidingView';
 import Platform from 'Platform';
 import ScrollView from 'ScrollView';
 import StyleSheet from 'StyleSheet';
@@ -33,7 +33,7 @@ import _ from 'lodash';
 import * as productActions from '../productActions'
 
 // import styles
-import productStyles from '../productStyles'; 
+import productStyles from '../productStyles';
 import YTColors from '../../../global/styles/YTColors';
 
 class CreateProduct extends Base {
@@ -54,7 +54,7 @@ class CreateProduct extends Base {
 
   componentDidMount() {
     this.refs['newProduct.title'].focus();
-    console.log(this.props.navigation); 
+    console.log(this.props.navigation);
   }
 
   _checkFormValid() {
@@ -83,13 +83,13 @@ class CreateProduct extends Base {
       return;
     }
     dispatch(productActions.sendCreateProduct(newProduct)).then((res) => {
-      dispatch(productActions.addProductToList(res.item._id)); 
+      dispatch(productActions.addProductToList(res.item._id));
       this.props.navigation.goBack();
     });
   }
 
   _closeModal() {
-    this.props.navigation.goBack(); 
+    this.props.navigation.goBack();
   }
 
   _openLibrary() {

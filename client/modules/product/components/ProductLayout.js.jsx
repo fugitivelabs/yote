@@ -1,15 +1,11 @@
 /**
  * Wraps all Product views in a wrapping containter. If you want to give all
- * product views a sidebar for example, you would set that here. 
+ * product views a sidebar for example, you would set that here.
  */
 
 // import primary libraries
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Redirect, Route, Switch } from 'react-router-dom';
-
-// import utilities
-import Auth from '../../../global/utils/auth';
 
 // import global components
 import Base from "../../../global/components/BaseComponent.js.jsx";

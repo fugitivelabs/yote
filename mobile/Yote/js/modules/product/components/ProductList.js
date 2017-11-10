@@ -1,7 +1,7 @@
 /**
-* sets up datasource and necessary functions for the ListView call
-* _renderRow is where each productId of the datasource is sent to ProductTitleCard
-*/
+ * sets up datasource and necessary functions for the ListView call
+ * _renderRow is where each productId of the datasource is sent to ProductTitleCard
+ */
 
 // import react things
 import React from 'react';

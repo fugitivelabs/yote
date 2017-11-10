@@ -30,7 +30,6 @@ import * as productActions from '../productActions';
 
 // import global components
 import Base from "../../../global/components/BaseComponent.js.jsx";
-import DefaultLayout from "../../../global/components/DefaultLayout.js.jsx";
 
 // import product components
 import ProductLayout from '../components/ProductLayout.js.jsx';
