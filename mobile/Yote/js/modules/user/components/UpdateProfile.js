@@ -70,6 +70,15 @@ var styles = StyleSheet.create({
       , padding: 30
       , justifyContent: 'center'
   }
+  , gradient: {
+      borderRadius: Platform.OS === 'ios' ? IMAGE_HEIGHT * .5 : null
+      , bottom: 0
+      , flex: 1
+      , left: 0
+      , position: 'absolute'
+      , right: 0
+      , top: 0
+  }
   , halfInput: {
       flex: 0.5
   }
@@ -132,6 +141,7 @@ var styles = StyleSheet.create({
       , width: IMAGE_HEIGHT
       , height: IMAGE_HEIGHT
       , borderRadius: Platform.OS === 'ios' ? IMAGE_HEIGHT * .5 : null
+      // , position: 'absolute'
   }
   , scrollContainer: {
       flex: 1
@@ -288,17 +298,17 @@ class UpdateProfile extends Base {
                     <Image
                       style={styles.profilePic}
                       source={newProfilePic ? {uri: newProfilePic.uri} : profileImg}>
-                      <LinearGradient colors={['rgba(0,0,0,0.11)', 'rgba(0,0,0,0.51)', 'rgba(0,0,0,0.81)']} style={{flex: 1}}>
-                        <View style={{flex: 1, justifyContent: 'center'}}>
-                          <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-                            <Image
-                              source={require('../../../global/img/camera3.png')}
-                              style={{opacity: .85}}
-                            />
-                          </View>
-                        </View>
-                      </LinearGradient>
                     </Image>
+                    <LinearGradient colors={['rgba(0,0,0,0.11)', 'rgba(0,0,0,0.51)', 'rgba(0,0,0,0.81)']} style={styles.gradient}>
+                      <View style={{flex: 1, justifyContent: 'center'}}>
+                        <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+                          <Image
+                            source={require('../../../global/img/camera3.png')}
+                            style={{opacity: .85}}
+                          />
+                        </View>
+                      </View>
+                    </LinearGradient>
                   </TouchableOpacity>
                 </View>
               </View>
