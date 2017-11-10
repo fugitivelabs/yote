@@ -27,7 +27,7 @@ import YTColors from '../../../global/styles/YTColors';
 import YTHeader from '../../../global/components/YTHeader';
 
 // import module components
-import ProductList from './ProductList';
+import ProductList from '../components/ProductList';
 
 // import actions
 import * as productActions from '../productActions'
@@ -35,7 +35,7 @@ import * as productActions from '../productActions'
 // import styles
 import productStyles from '../productStyles';
 
-class ProductLayout extends Base {
+class ProductHome extends Base {
   constructor(props) {
     super(props);
     this._bind(
@@ -125,7 +125,7 @@ class ProductLayout extends Base {
   }
 }
 
-ProductLayout.propTypes = {
+ProductHome.propTypes = {
   dispatch: PropTypes.func
 }
 
@@ -139,4 +139,4 @@ const mapStoreToProps = (store) => {
 
 export default connect(
   mapStoreToProps
-)(ProductLayout);
+)(ProductHome);

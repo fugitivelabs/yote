@@ -15,13 +15,13 @@ import {
 import { StackNavigator, TabNavigator } from 'react-navigation';
 
 // import global components
-import Home from './global/components/Home'; 
-import YTHeader from './global/components/YTHeader'; 
+import Home from './global/components/Home';
+import YTHeader from './global/components/YTHeader';
 
 // import custom components
 // user
-import Login from './modules/user/components/Login'; 
-import Register from './modules/user/components/Register'; 
+import Login from './modules/user/views/Login'; 
+import Register from './modules/user/views/Register'; 
 
 const LoggedOutNavigator = StackNavigator(
   {
