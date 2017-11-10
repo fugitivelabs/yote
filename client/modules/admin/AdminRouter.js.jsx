@@ -1,9 +1,9 @@
 /**
  * Sets up the routing for all Admin views.
  *
- * NOTE: All imported AdminRouter files must be wrapped in a Route wrapper
+ * NOTE: All imported [Module]AdminRouter files must be wrapped in a Route wrapper
  * inside the switch in order to resolve correctly.  See <UserAdminRouter/>
- * below as an example. 
+ * below as an example.
  */
 
 // import primary libraries
