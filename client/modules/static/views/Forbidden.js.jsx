@@ -1,10 +1,9 @@
 // import primary libraries
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 // import global components
 import DefaultLayout from "../../../global/components/DefaultLayout.js.jsx";
-import LandingNav from './landing/LandingNav.js.jsx';
 
 function Forbidden({}) {
   return(

@@ -13,6 +13,9 @@ import { NavLink } from 'react-router-dom';
 // import global components
 import Base from "../../../global/components/BaseComponent.js.jsx";
 
+import adminModuleStyles from '../adminModuleStyles.css';
+
+
 class StyleGuide extends Base {
   constructor(props) {
     super(props);

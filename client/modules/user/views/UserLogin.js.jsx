@@ -12,7 +12,8 @@ import AlertModal from '../../../global/components/modals/AlertModal.js.jsx';
 import Base from "../../../global/components/BaseComponent.js.jsx";
 
 // import user components
-import UserLoginForm from './UserLoginForm.js.jsx';
+import UserLayout from '../components/UserLayout.js.jsx';
+import UserLoginForm from '../components/UserLoginForm.js.jsx';
 
 class UserLogin extends Base {
   constructor(props) {
@@ -83,27 +84,29 @@ class UserLogin extends Base {
       )
     } else {
       return  (
-        <div className="yt-container">
-          <div className="yt-row center-horiz">
-            <UserLoginForm
-              user={user}
-              handleFormSubmit={this._handleFormSubmit}
-              handleFormChange={this._handleFormChange}
-              location={this.props.location}
+        <UserLayout>
+          <div className="yt-container">
+            <div className="yt-row center-horiz">
+              <UserLoginForm
+                user={user}
+                handleFormSubmit={this._handleFormSubmit}
+                handleFormChange={this._handleFormChange}
+                location={this.props.location}
+              />
+            </div>
+            <AlertModal
+              alertMessage={this.state.errorMessage}
+              alertTitle="Error with sign in"
+              closeAction={this._toggleErrorModal}
+              confirmAction={this._toggleErrorModal}
+              confirmText="Try again"
+              declineText="Reset Password"
+              declineAction={this._goToResetPass}
+              isOpen={this.state.isErrorModalOpen}
+              type="danger"
             />
           </div>
-          <AlertModal
-            alertMessage={this.state.errorMessage}
-            alertTitle="Error with sign in"
-            closeAction={this._toggleErrorModal}
-            confirmAction={this._toggleErrorModal}
-            confirmText="Try again"
-            declineText="Reset Password"
-            declineAction={this._goToResetPass}
-            isOpen={this.state.isErrorModalOpen}
-            type="danger"
-          />
-        </div>
+        </UserLayout>
       )
     }
   }

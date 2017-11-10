@@ -13,12 +13,6 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import Base from "../../../global/components/BaseComponent.js.jsx";
 import DefaultLayout from "../../../global/components/DefaultLayout.js.jsx";
 
-// import user components
-import UserProfile from './UserProfile.js.jsx';
-
-// import utilities
-import Auth from '../../../global/utils/auth';
-
 class UserProfileLayout extends Base {
   constructor(props) {
     super(props);
@@ -27,21 +21,7 @@ class UserProfileLayout extends Base {
   render() {
     return (
       <DefaultLayout>
-        <Switch>
-          <Route
-            exact path="/profile"
-            render={() => (
-              Auth.notLoggedIn() ?
-                <Redirect to={{
-                    pathname: "/user/login"
-                    , state: { from: this.props.location }
-                  }}
-                />
-              :
-                <UserProfile />
-            )}
-          />
-        </Switch>
+        {this.props.children}
       </DefaultLayout>
     )
   }

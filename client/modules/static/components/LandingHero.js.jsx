@@ -4,13 +4,9 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { Link } from 'react-router-dom';
 
 // import css modules
-import landingStyles from './landingStyles.css';
+import landingStyles from '../landingStyles.css';
 
-/**
- * build a temporary component for each "cool thing"
- */
-
-
+// build a temporary component for each "cool thing"
 const Fade = ({ children, ...props }) => (
   <CSSTransition
     {...props}
@@ -24,9 +20,7 @@ const Fade = ({ children, ...props }) => (
   </CSSTransition>
 );
 
-/**
- * build and export the landing page Hero banner
- */
+//build and export the landing page Hero banner
 class Hero extends React.Component{
   constructor(props){
     super(props);

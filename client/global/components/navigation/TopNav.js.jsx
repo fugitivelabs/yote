@@ -5,7 +5,7 @@
 // import primary libararies
 import React from 'react';
 import PropTypes from 'prop-types';
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 // import third-party libraries
@@ -129,7 +129,7 @@ class TopNav extends Base {
             closeAction={this._closeDropdown}
           />
           <div className="titles">
-            <NavLink to="/"className="nav-logo" >
+            <NavLink to="/" className="nav-logo" >
 
               <img src="/img/yote_logo.png"/>
               <span className="-subtitle"> Standard Yote Dev Kit </span>
@@ -148,8 +148,9 @@ class TopNav extends Base {
                       <i className="fa fa-caret-down"></i>
                     </a>
                     <DropdownNav
+                      close={this._closeDropdown}
                       isOpen={this.state.isOpen}
-                      />
+                    />
                   </li>
                   :
                   null
@@ -183,6 +184,8 @@ const mapStoreToProps = (store) => {
   }
 }
 
-export default connect(
-  mapStoreToProps
-)(TopNav);
+export default withRouter(
+  connect(
+    mapStoreToProps
+  )(TopNav)
+);

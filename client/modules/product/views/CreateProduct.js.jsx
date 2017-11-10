@@ -1,4 +1,6 @@
 /**
+ * View component for /products/new
+ *
  * Creates a new product from a copy of the defaultItem in the product reducer
  */
 
@@ -18,8 +20,8 @@ import * as productActions from '../productActions';
 import Base from "../../../global/components/BaseComponent.js.jsx";
 
 // import product components
-import ProductForm from './ProductForm.js.jsx';
-import ProductLayout from './ProductLayout.js.jsx';
+import ProductForm from '../components/ProductForm.js.jsx';
+import ProductLayout from '../components/ProductLayout.js.jsx';
 
 class CreateProduct extends Base {
   constructor(props) {

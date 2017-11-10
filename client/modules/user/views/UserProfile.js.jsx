@@ -1,4 +1,6 @@
 /**
+ * View component for /profile
+ *
  * Display logged in user's own profile information and let's them update if
  * they want.
  */
@@ -20,7 +22,8 @@ import * as userActions from '../userActions';
 import Base from "../../../global/components/BaseComponent.js.jsx";
 
 // import user components
-import UpdateProfileModal from './UpdateProfileModal.js.jsx';
+import UserProfileLayout from '../components/UserProfileLayout.js.jsx';
+import UpdateProfileModal from '../components/UpdateProfileModal.js.jsx';
 
 class UserProfile extends Base {
   constructor(props) {
@@ -90,39 +93,41 @@ class UserProfile extends Base {
 
     let isEmpty = !user._id;
     return (
-      <div className="flex ">
-        <section className="section ">
-          <div className="yt-container">
-            <button className="yt-btn small u-pullRight" onClick={this._openUpdateModal}>Update Profile</button>
-            <h1>My Profile </h1>
-            <hr/>
-            { !isEmpty ?
-              <div className="yt-row with-gutters ">
-                <div className="yt-col full l_25">
-                  <img src={pictureUrl} alt="profile pic" />
-                </div>
-                <div className="yt-col full l_50">
-                  <h4>Info</h4>
-                  <p> {user.firstName} {user.lastName}</p>
+      <UserProfileLayout>
+        <div className="flex ">
+          <section className="section ">
+            <div className="yt-container">
+              <button className="yt-btn small u-pullRight" onClick={this._openUpdateModal}>Update Profile</button>
+              <h1>My Profile </h1>
+              <hr/>
+              { !isEmpty ?
+                <div className="yt-row with-gutters ">
+                  <div className="yt-col full l_25">
+                    <img src={pictureUrl} alt="profile pic" />
+                  </div>
+                  <div className="yt-col full l_50">
+                    <h4>Info</h4>
+                    <p> {user.firstName} {user.lastName}</p>
 
-                  <p> {user.username}</p>
+                    <p> {user.username}</p>
 
+                  </div>
                 </div>
-              </div>
-              :
-              null
-            }
-          </div>
-        </section>
-        <UpdateProfileModal
-          newUserData={this.state.newUserData}
-          isModalOpen={this.state.updateModalOpen}
-          closeModal={this._closeUpdateModal}
-          changeCount={this.state.changeCount}
-          handleFormChange={this._handleFormChange}
-          handleFormSubmit={this._handleFormSubmit}
-        />
-      </div>
+                :
+                null
+              }
+            </div>
+          </section>
+          <UpdateProfileModal
+            newUserData={this.state.newUserData}
+            isModalOpen={this.state.updateModalOpen}
+            closeModal={this._closeUpdateModal}
+            changeCount={this.state.changeCount}
+            handleFormChange={this._handleFormChange}
+            handleFormSubmit={this._handleFormSubmit}
+          />
+        </div>
+      </UserProfileLayout>
     )
   }
 }

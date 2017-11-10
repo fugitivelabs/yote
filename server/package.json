@@ -1,6 +1,6 @@
 {
   "name": "Yote-Server",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "Find Your Road",
   "main": "yote.js",
   "scripts": {

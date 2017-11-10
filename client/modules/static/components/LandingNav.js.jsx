@@ -12,12 +12,12 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 
 // import global components
-import Base from '../../../../global/components/BaseComponent.js.jsx';
-import CloseWrapper from '../../../../global/components/helpers/CloseWrapper.js.jsx';
-import DropdownNav from '../../../../global/components/navigation/DropdownNav.js.jsx';
+import Base from '../../../global/components/BaseComponent.js.jsx';
+import CloseWrapper from '../../../global/components/helpers/CloseWrapper.js.jsx';
+import DropdownNav from '../../../global/components/navigation/DropdownNav.js.jsx';
 
 // import css modules
-import landingStyles from './landingStyles.css';
+import landingStyles from '../landingStyles.css';
 
 class LandingNav extends Base {
   constructor(props) {
@@ -48,7 +48,6 @@ class LandingNav extends Base {
     let { user } = this.props;
     let isScrolled = this.props.isScrolled;
 
-
     let headerClass = classNames(
       { 'transparent': !isScrolled }
     )
@@ -62,7 +61,6 @@ class LandingNav extends Base {
     if(user && user.profilePicUrl) {
       pictureUrl = user.profilePicUrl;
     }
-    // console.log(pictureUrl);
 
     let profileImg = {backgroundImage: `url(${pictureUrl})`};
 
@@ -73,7 +71,6 @@ class LandingNav extends Base {
             isOpen={this.state.isOpen}
             closeAction={this._closeDropdown}
           />
-
           <div className="actions">
             <div className="yt-row center-vert right">
               <ul className="navigation">
@@ -88,6 +85,7 @@ class LandingNav extends Base {
                     </a>
                     <DropdownNav
                       isOpen={this.state.isOpen}
+                      close={this._closeDropdown}
                     />
                   </li>
                   :
@@ -113,7 +111,6 @@ class LandingNav extends Base {
 LandingNav.propTypes = {
   isScrolled: PropTypes.bool
   , openDialog: PropTypes.func
-
 }
 
 const mapStoreToProps = (store) => {
