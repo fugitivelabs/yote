@@ -36,7 +36,7 @@ class DropdownNav extends Base {
   }
 
   render() {
-    const { user, isOpen } = this.props;
+    const { close, isOpen, user } = this.props;
 
     let pictureUrl = '/img/defaults/profile.png';
     if(user && user.profilePicUrl) {
@@ -61,11 +61,11 @@ class DropdownNav extends Base {
                   <small>{user.username}</small>
                 </div>
               </li>
-              <li><Link to="/profile">My Profile </Link></li>
+              <li><Link to="/profile" onClick={()=> close()}>My Profile </Link></li>
 
               { user.roles && user.roles.indexOf('admin') > -1
                 ?
-                <li><Link to="/admin" target="_blank" > Go to Admin <i className="fa fa-external-link"/> </Link></li>
+                <li><Link to="/admin" target="_blank" onClick={()=> close()}> Go to Admin <i className="fa fa-external-link"/> </Link></li>
                 : ''
               }
               <li role="separator" className="-divider"/>
@@ -82,7 +82,8 @@ class DropdownNav extends Base {
 }
 
 DropdownNav.propTypes = {
-  dispatch: PropTypes.func.isRequired
+  close: PropTypes.func.isRequired
+  , dispatch: PropTypes.func.isRequired
   , isOpen: PropTypes.bool.isRequired
 }
 

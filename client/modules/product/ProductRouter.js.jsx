@@ -4,7 +4,8 @@
 
 // import primary libraries
 import React from 'react';
-import { Route, Redirect, Switch } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { Route, Redirect, Switch, withRouter } from 'react-router-dom';
 
 // import global components
 import Base from "../../global/components/BaseComponent.js.jsx";
@@ -17,7 +18,7 @@ import SingleProduct from './views/SingleProduct.js.jsx';
 import UpdateProduct from './views/UpdateProduct.js.jsx';
 
 
-class ProductRouter extends Base {
+class Routes extends Base {
   constructor(props) {
     super(props);
   }
@@ -33,5 +34,8 @@ class ProductRouter extends Base {
     )
   }
 }
+
+const ProductRouter = <Route key={Math.floor(Math.random()*100000)} path="/products" component={Routes}/>
+
 
 export default ProductRouter;

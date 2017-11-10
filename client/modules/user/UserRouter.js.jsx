@@ -4,7 +4,8 @@
 
 // import primary libraries
 import React from 'react';
-import { Route, Redirect, Switch } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { Route, Redirect, Switch, withRouter } from 'react-router-dom';
 
 // import global components
 import Base from "../../global/components/BaseComponent.js.jsx";
@@ -17,7 +18,7 @@ import UserLogin from './views/UserLogin.js.jsx';
 import UserProfile from './views/UserProfile.js.jsx';
 import UserRegister from './views/UserRegister.js.jsx';
 
-class UserRouter extends Base {
+class Routes extends Base {
   constructor(props) {
     super(props);
   }
@@ -25,14 +26,16 @@ class UserRouter extends Base {
   render() {
     return (
       <Switch >
-        <Route exact path="/login" component={UserLogin} />
-        <Route exact path="/register" component={UserRegister} />
-        <Route exact path="/forgot-password" component={ForgotPassword} />
-        <Route exact path="/reset-password/:hex" component={ResetPassword} />
-        <LoginRoute exact path="/profile" component={UserProfile} />
+        <Route exact path="/user/login" component={UserLogin} />
+        <Route exact path="/user/register" component={UserRegister} />
+        <Route exact path="/user/forgot-password" component={ForgotPassword} />
+        <Route exact path="/user/reset-password/:hex" component={ResetPassword} />
+        <LoginRoute exact path="/user/profile" component={UserProfile} />
       </Switch>
     )
   }
 }
+
+const UserRouter = <Route key={Math.floor(Math.random()*100000)} path="/user" component={Routes}/>
 
 export default UserRouter;
