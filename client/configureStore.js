@@ -8,13 +8,18 @@
 import { createLogger } from 'redux-logger';
 import thunk from 'redux-thunk'
 // import { browserHistory } from 'react-router';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
 import createHistory from 'history/createBrowserHistory';
 import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-router-redux';
 
+// import main application reducers
+import * as moduleReducers from './modules/moduleReducers.js';
 
-// import main application reducer
-import rootReducer from './rootReducer';
+// combine application reducers with redux routing
+const rootReducer = combineReducers({
+  routing: routerReducer
+  , ...moduleReducers
+});
 
 const history = createHistory();
 
