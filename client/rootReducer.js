@@ -7,9 +7,6 @@
 import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux';
 
-// import static reducer
-import statics from './modules/static/reducers';
-
 // import all other module reducers
 import * as moduleReducers from './modules/moduleReducers.js';
 
@@ -18,7 +15,6 @@ const routesToCombine = Object.assign(
   {}
   , {
     routing: routerReducer
-    , statics
   }
   , moduleReducers
 );
