@@ -9,13 +9,15 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 // import react-native components & apis
-import StyleSheet from 'StyleSheet';
-import ScrollView from 'ScrollView';
-import Text from 'Text';
-import TextInput from 'TextInput';
-import TouchableOpacity from 'TouchableOpacity';
-import View from 'View';
-import Platform from 'Platform';
+import {
+  StyleSheet
+  , ScrollView
+  , Text
+  , TextInput
+  , TouchableOpacity
+  , View
+  , Platform
+} from 'react-native'; 
 
 // import global components
 import ActionButton from '../../../global/components/ActionButton';

@@ -2,12 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // import react-native components & apis
-import Image from 'Image';
-import Platform from 'Platform';
-import StyleSheet from 'StyleSheet';
-import Text from 'Text';
-import TouchableOpacity from 'TouchableOpacity';
-import View from 'View';
+import {
+  Image
+  , Platform
+  , StyleSheet
+  , Text
+  , TouchableOpacity
+  , View
+} from 'react-native'; 
 
 // import styles
 import YTColors from '../styles/YTColors';

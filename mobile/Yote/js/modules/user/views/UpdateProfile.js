@@ -10,22 +10,25 @@ import ReactNative from 'react-native';
 import { connect } from 'react-redux';
 
 // import react-native components
-import Alert from 'Alert';
-import Dimensions from 'Dimensions';
-import Image from 'Image';
-import ImageBackground from 'ImageBackground'; 
+import {
+  Alert
+  , Dimensions
+  , Image
+  , ImageBackground
+  , KeyboardAvoidingView
+  , ListView
+  , Picker
+  , Platform
+  , ScrollView
+  , StyleSheet
+  , Text
+  , TextInput
+  , TouchableOpacity
+  , View
+} from 'react-native'; 
+
 import ImagePicker from 'react-native-image-picker';
-import KeyboardAvoidingView from 'KeyboardAvoidingView'; 
 import LinearGradient from 'react-native-linear-gradient';
-import ListView from 'ListView';
-import Picker from 'Picker';
-import Platform from 'Platform';
-import ScrollView from 'ScrollView';
-import StyleSheet from 'StyleSheet';
-import Text from 'Text';
-import TextInput from 'TextInput';
-import TouchableOpacity from 'TouchableOpacity';
-import View from 'View';
 
 // import global components
 import Base from '../../../global/components/BaseComponent';

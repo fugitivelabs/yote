@@ -8,16 +8,18 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 // import react-native components
-import Alert from 'Alert';
-import Dimensions from 'Dimensions';
-import Image from 'Image';
-import ListView from 'ListView';
-import Platform from 'Platform';
-import ScrollView from 'ScrollView';
-import Text from 'Text';
-import TextInput from 'TextInput';
-import TouchableOpacity from 'TouchableOpacity';
-import View from 'View';
+import {
+  Alert
+  , Dimensions
+  , Image
+  , ListView
+  , Platform
+  , ScrollView
+  , Text
+  , TextInput
+  , TouchableOpacity
+  , View
+} from 'react-native'; 
 
 // import global components
 import ActionButton from '../../../global/components/ActionButton';

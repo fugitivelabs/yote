@@ -4,16 +4,18 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 // import react-native components
-import Dimensions from 'Dimensions';
-import Image from 'Image';
-import ListView from 'ListView';
-import Platform from 'Platform';
-import ScrollView from 'ScrollView';
-import StyleSheet from 'StyleSheet';
-import TouchableOpacity from 'TouchableOpacity';
-import Text from 'Text';
-import View from 'View';
-import WebView from 'WebView';
+import {
+  Dimensions
+  , Image
+  , ListView
+  , Platform
+  , ScrollView
+  , StyleSheet
+  , TouchableOpacity
+  , Text
+  , View
+  , WebView
+} from 'react-native'; 
 
 // import global components
 import Base from '../../../global/components/BaseComponent';
