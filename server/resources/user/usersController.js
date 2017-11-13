@@ -206,7 +206,10 @@ exports.update = function(req, res) {
       user.roles = req.param('roles');
       user.save(function(err, user) {
         if(err || !user) {
-          res.send({ success: false, message: "Error saving user profile" });
+          if(err) {
+            console.log(err);
+          }
+          res.send({ success: false, message: "Error saving user update" });
         } else {
           res.send({ success: true, user: user });
         }

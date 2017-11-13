@@ -1,7 +1,7 @@
 // import primary libraries
 import React from 'react';
 import PropTypes from 'prop-types';
-import { history } from 'react-router-dom';
+import { history, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 // import third-party libraries
@@ -43,7 +43,7 @@ class AdminCreateUser extends Base {
     this.props.dispatch(userActions.sendCreateUser(this.state.user)).then((action) => {
       if(action.success) {
         this.props.dispatch(userActions.invalidateList());
-        history.push('/admin/users');
+        this.props.history.push('/admin/users');
       } else {
         // console.log("Response Error:");
         // console.log(action);
@@ -88,6 +88,6 @@ const mapStoreToProps = (store) => {
   }
 }
 
-export default connect(
+export default withRouter(connect(
   mapStoreToProps
-)(AdminCreateUser);
+)(AdminCreateUser));
