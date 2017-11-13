@@ -1,6 +1,6 @@
 /**
-* Will create a new product from information in the TextInputs
-*/
+ * Will update the name and description of an already existing product
+ */
 
 // import react things
 import React from 'react';
@@ -9,21 +9,23 @@ import ReactNative from 'react-native';
 import { connect } from 'react-redux';
 
 // import react-native components
-import Alert from 'Alert'; 
-import Image from 'Image';
-import KeyboardAvoidingView from 'KeyboardAvoidingView'; 
-import Platform from 'Platform';
-import ScrollView from 'ScrollView';
-import StyleSheet from 'StyleSheet';
-import Text from 'Text';
-import TextInput from 'TextInput';
-import TouchableOpacity from 'TouchableOpacity';
-import View from 'View';
+import {
+  Image
+  , KeyboardAvoidingView
+  , Platform
+  , ScrollView
+  , StyleSheet
+  , Text
+  , TextInput
+  , TouchableOpacity
+  , View
+} from 'react-native';
 
 // import global components
 import Base from '../../../global/components/BaseComponent';
 import YTButton from '../../../global/components/YTButton';
 import YTHeader from '../../../global/components/YTHeader';
+import YTTouchable from '../../../global/components/YTTouchable';
 
 // import libraries
 import moment from 'moment';
@@ -33,15 +35,16 @@ import _ from 'lodash';
 import * as productActions from '../productActions'
 
 // import styles
-import productStyles from '../productStyles'; 
+import productStyles from '../productStyles';
 import YTColors from '../../../global/styles/YTColors';
 
-class CreateProduct extends Base {
+class UpdateProduct extends Base {
   constructor(props) {
     super(props);
+    const { selectedProduct, productMap } = this.props;
     this.state = {
       isFormValid: false
-      , newProduct: { ...this.props.defaultProduct }
+      , newProductData: productMap[selectedProduct.id] ? { ...productMap[selectedProduct.id] } : {}
     }
     this._bind(
       '_closeModal'
@@ -50,11 +53,6 @@ class CreateProduct extends Base {
       , '_checkFormValid'
       , '_openLibrary'
     )
-  }
-
-  componentDidMount() {
-    this.refs['newProduct.title'].focus();
-    console.log(this.props.navigation); 
   }
 
   _checkFormValid() {
@@ -77,41 +75,44 @@ class CreateProduct extends Base {
     console.log("_handleAction fired");
 
     const { dispatch, user } = this.props;
-    const { newProduct } = this.state;
+    const { newProductData } = this.state;
+    console.log(newProductData);
     if(!this.state.isFormValid) {
       Alert.alert("Whoops", "All fields are required.");
       return;
     }
-    dispatch(productActions.sendCreateProduct(newProduct)).then((res) => {
-      dispatch(productActions.addProductToList(res.item._id)); 
+    dispatch(productActions.sendUpdateProduct(newProductData)).then((res) => {
+      dispatch(productActions.invalidateList());
+      dispatch(productActions.fetchListIfNeeded());
       this.props.navigation.goBack();
     });
   }
 
   _closeModal() {
-    this.props.navigation.goBack(); 
+    this.props.navigation.goBack();
   }
 
   _openLibrary() {
-    this.refs['newProduct.title'].blur();
-    this.props.navigator.push({library: true});
+    // this.props.navigator.push({library: true});
   }
 
   _handleInputChange(e, target) {
     var newState = _.update( this.state, target, function() {
       return e.nativeEvent.text;
     });
-    console.log("input changed");
     this.setState(newState);
     this._checkFormValid();
   }
 
   _scrollToInput(e, refName) {
     setTimeout(() => {
+
       var scrollResponder = this.refs.myScrollView.getScrollResponder();
       // var scrollResponder = scrollView.getScrollRef();
+      console.log("on focus called ", refName);
+      console.log(this.refs[refName].props.returnKeyType);
       var offset = 130;
-      // console.log(offset);
+      console.log(offset);
       scrollResponder.scrollResponderScrollNativeHandleToKeyboard(
         ReactNative.findNodeHandle(this.refs[refName]),
         offset, // adjust depending on your contentInset
@@ -124,8 +125,8 @@ class CreateProduct extends Base {
   render() {
 
     const { navigator, isFetching } = this.props;
-    const { newProduct, isFormValid } = this.state;
-    const rightItem = {
+    const { newProductData, isFormValid } = this.state;
+    const leftItem = {
       title: 'Cancel',
       onPress: this._closeModal
     };
@@ -137,51 +138,54 @@ class CreateProduct extends Base {
         style={{flex: 1, backgroundColor: '#fff'}}
       >
         <YTHeader
-          rightItem={rightItem}
-          title="New Product"
+          leftItem={leftItem}
+          navigator={navigator}
+          title="Update Product"
         />
         <ScrollView ref="myScrollView" keyboardDismissMode="interactive" keyboardShouldPersistTaps="handled" style={[productStyles.formWrapper]}>
           <View>
             <View style={{padding: 5}}>
               <TextInput
                 autoCorrect={true}
+                autoFocus={true}
                 isRequired={true}
-                onFocus={ (e) => this._scrollToInput(e, 'newProduct.title')}
-                onChange={ (e) => this._handleInputChange(e, "newProduct.title") }
+                onFocus={ (e) => this._scrollToInput(e, 'newProductData.title')}
+                onChange={ (e) => this._handleInputChange(e, "newProductData.title") }
                 onSubmitEditing={(event) => {
-                  this.refs['newProduct.description'].focus();
+                  this.refs['newProductData.description'].focus();
                 }}
                 placeholder="Title"
                 placeholderTextColor={YTColors.lightText}
-                ref="newProduct.title"
+                ref="newProductData.title"
                 returnKeyType="next"
                 style={productStyles.input}
-                value={this.state.newProduct.title}
+                underlineColorAndroid={YTColors.anagada}
+                value={this.state.newProductData.title}
               />
             </View>
             <View style={productStyles.listSeparator}/>
             <View style={{padding: 5}}>
               <TextInput
                 autoCorrect={true}
+                onFocus={ (e) => this._scrollToInput(e, 'newProductData.description')}
                 isRequired={true}
                 multiline={true}
-                onChange={ (e) => this._handleInputChange(e, "newProduct.description")}
-                onFocus={ (e) => this._scrollToInput(e, 'newProduct.description')}
                 onSubmitEditing={this._handleAction}
-                placeholder="Write a description..."
+                onChange={ (e) => this._handleInputChange(e, "newProductData.description")}
+                placeholder="Write a description"
                 placeholderTextColor={YTColors.lightText}
-                returnKeyType="go"
-                ref="newProduct.description"
                 style={[productStyles.input, {minHeight: 90}]}
-                value={this.state.newProduct.description}
+                ref="newProductData.description"
+                returnKeyType="go"
+                value={this.state.newProductData.description}
               />
             </View>
             <View style={productStyles.listSeparator}/>
           </View>
           <View style={{paddingHorizontal: 10, paddingVertical: 20}}>
             <YTButton
-              caption={isFetching ? "Creating..." : "Create new product"}
-              isDisabled={!isFormValid}
+              caption={isFetching ? "Updating..." : "Update product"}
+              isDisabled={!isFormValid || isFetching}
               onPress={this._handleAction}
             />
           </View>
@@ -191,14 +195,14 @@ class CreateProduct extends Base {
   }
 }
 
-
 const mapStoreToProps = (store) => {
 
   return {
-    defaultProduct: store.product.defaultItem
-    , isFetching: store.product.selected.isFetching
+    isFetching: store.product.lists.all.isFetching
+    , productMap: store.product.byId
+    , selectedProduct: store.product.selected
     , user: store.user.loggedIn.user
   }
 }
 
-export default connect(mapStoreToProps)(CreateProduct);
+export default connect(mapStoreToProps)(UpdateProduct);

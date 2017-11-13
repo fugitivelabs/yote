@@ -21,8 +21,8 @@ import ScrollView from 'ScrollView';
 import Alert from 'Alert';
 import TouchableOpacity from 'TouchableOpacity';
 import KeyboardAvoidingView from 'KeyboardAvoidingView';
-import Platform from 'Platform'; 
-import Dimensions from 'Dimensions'; 
+import Platform from 'Platform';
+import Dimensions from 'Dimensions';
 
 // import actions
 import { singleActions } from '../userActions';
@@ -34,8 +34,8 @@ import YTHeader from '../../../global/components/YTHeader';
 // import styles
 import YTColors from '../../../global/styles/YTColors';
 
-let screenWidth = Dimensions.get('window').width; 
-let screenHeight = Dimensions.get('window').height; 
+let screenWidth = Dimensions.get('window').width;
+let screenHeight = Dimensions.get('window').height;
 
 var styles = StyleSheet.create({
   container: {
@@ -135,16 +135,16 @@ class Register extends Base {
         this.setState({termsModalVisible: true});
         // this.props.dispatch(singleActions.sendRegister(this.state.user)).then((json) => {
         //   if (json.success) {
-        //     this.setState({termsModalVisible: true}); 
+        //     this.setState({termsModalVisible: true});
         //   } else {
         //     Alert.alert("Something went wrong", json.error);
         //   }
         // })
       } else {
-        Alert.alert("Please enter a valid email address"); 
+        Alert.alert("Please enter a valid email address");
       }
     } else {
-      Alert.alert("Whoops", "All fields are required"); 
+      Alert.alert("Whoops", "All fields are required");
     }
   }
 
@@ -177,9 +177,9 @@ class Register extends Base {
 
   _handleAgreeToTerms() {
     const { dispatch } = this.props;
-    console.log("Agree To Terms"); 
+    console.log("Agree To Terms");
     // dispatch(singleActions.sendAgreedToTerms(true)).then((json) => {
-    //   this.setState({termsModalVisible: false});  
+    //   this.setState({termsModalVisible: false});
     //   this.props.navigator.push({welcome: true});
     // });
   }
@@ -196,7 +196,7 @@ class Register extends Base {
       itemsColor: YTColors.darkText
     }
     const leftItem = {
-      title: 'Cancel', 
+      title: 'Cancel',
       onPress: this._closeRegister,
     };
 
@@ -304,7 +304,7 @@ class Register extends Base {
                 <View style={{marginTop: 10}}>
                   <Text style={[styles.label, {textAlign: 'center'}]}>All fields required.</Text>
                 </View>
-                : 
+                :
                 <View style={{marginTop: 10}}>
                   <Text style={[styles.label, {textAlign: 'center'}]}>All fields completed.</Text>
                 </View>

@@ -90,7 +90,7 @@ class Privacy extends Base {
           ref="webview"
           automaticallyAdjustContentInsets={false}
           style={styles.webView}
-          source={{uri: "http://www.propatient.com/privacy-policy.html"}}
+          source={{uri: "http://yote.f-labs.co"}}
           javaScriptEnabled={true}
           domStorageEnabled={true}
           decelerationRate="normal"

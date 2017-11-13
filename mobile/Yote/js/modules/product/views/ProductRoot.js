@@ -1,7 +1,7 @@
 /**
-* Product component called from TabsView
-* sends productList as props to ProductTitleList component for the ListView datasource
-*/
+ * Product component called from TabsView
+ * sends productList as props to ProductTitleList component for the ListView datasource
+ */
 
 // import react/redux dependencies
 import React from 'react';
@@ -15,7 +15,7 @@ import Text from 'Text';
 import TextInput from 'TextInput';
 import TouchableOpacity from 'TouchableOpacity';
 import View from 'View';
-import Platform from 'Platform'; 
+import Platform from 'Platform';
 
 // import global components
 import ActionButton from '../../../global/components/ActionButton';
@@ -27,7 +27,7 @@ import YTColors from '../../../global/styles/YTColors';
 import YTHeader from '../../../global/components/YTHeader';
 
 // import module components
-import ProductList from './ProductList';
+import ProductList from '../components/ProductList';
 
 // import actions
 import * as productActions from '../productActions'
@@ -35,7 +35,7 @@ import * as productActions from '../productActions'
 // import styles
 import productStyles from '../productStyles';
 
-class Product extends Base {
+class ProductRoot extends Base {
   constructor(props) {
     super(props);
     this._bind(
@@ -47,7 +47,7 @@ class Product extends Base {
   }
 
   componentDidMount() {
-    this.props.dispatch(productActions.fetchListIfNeeded());  
+    this.props.dispatch(productActions.fetchListIfNeeded());
   }
 
   _openProfile() {
@@ -65,7 +65,7 @@ class Product extends Base {
   }
 
   _handleOpenDrawer() {
-    this.context.openDrawer();  
+    this.context.openDrawer();
   }
 
   render() {
@@ -108,29 +108,25 @@ class Product extends Base {
     }
 
     return (
-      <View style={{flex: 1}}>   
+      <View style={{flex: 1}}>
         <YTHeader
           title="Products"
           rightItem={rightItem}
-        />     
+        />
         <View style={{flex: 1, padding: 2}}>
-          <ProductList 
+          <ProductList
             products={productList}
             navigation={navigation}
           />
         </View>
-        
+
       </View>
     )
   }
 }
 
-Product.propTypes = {
+ProductRoot.propTypes = {
   dispatch: PropTypes.func
-}
-
-Product.contextTypes = {
-  openDrawer: PropTypes.func
 }
 
 const mapStoreToProps = (store) => {
@@ -143,4 +139,4 @@ const mapStoreToProps = (store) => {
 
 export default connect(
   mapStoreToProps
-)(Product);
+)(ProductRoot);
