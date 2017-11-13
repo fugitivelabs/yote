@@ -5,7 +5,8 @@
  */
 
 // import primary libraries
-import React, { PropTypes } from 'react'
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import classNames from 'classnames';
 
@@ -18,7 +19,6 @@ class PasswordInput extends Base {
     this._bind(
       '_handleInputChange'
       , '_handleBlur'
-
     );
   }
 
@@ -28,7 +28,9 @@ class PasswordInput extends Base {
 
   _handleBlur(e) {
     // TODO: check password valid here
-    this.props.handleBlur(e);
+    if(this.props.handleBlur) {
+      this.props.handleBlur(e);
+    }
   }
 
   render() {

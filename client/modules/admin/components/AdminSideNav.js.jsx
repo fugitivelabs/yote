@@ -1,6 +1,7 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Base from '../../../global/components/BaseComponent.js.jsx';
-import { Router, Route, Link, IndexLink } from 'react-router';
+import { NavLink, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 // import Study from "../StudyHandler";
 // import Site from "../../site/SiteHandler";
@@ -17,11 +18,11 @@ class AdminSideNav extends Base {
   }
 
   _handleLogout() {
-    const { dispatch } = this.props;
+    const { dispatch, history } = this.props;
     dispatch(userActions.sendLogout()).then((res) => {
       if(res.success) {
         //redirect
-        browserHistory.push('/');
+        history.push('/');
       } else {
         alert("ERROR LOGGING OUT - " + res.message);
       }
@@ -31,18 +32,18 @@ class AdminSideNav extends Base {
   render() {
     return(
       <div className="sidebar">
-        <div className="nav-header"> Admin Dashboard </div>
-        <ul className="side-nav">
-          <li>
-            <Link to="/admin/style-guide" activeClassName="active" >Styleguide</Link>
-          </li>
-        </ul>
-        <hr/>
-        <ul className="side-nav">
-          <li>
-            <Link to="/admin/users" activeClassName="active" >Yote Users</Link>
-          </li>
+        <div className="nav-header">Yote Admin </div>
 
+        <ul className="side-nav">
+          <li>
+            <NavLink exact to="/admin" activeClassName="active">Dashboard</NavLink>
+          </li>
+          <li>
+            <NavLink to="/admin/style-guide" activeClassName="active" >Style Guide</NavLink>
+          </li>
+          <li>
+            <NavLink to="/admin/users" activeClassName="active" >Users</NavLink>
+          </li>
         </ul>
         <hr/>
         <ul className="side-nav">
@@ -66,7 +67,9 @@ const mapStoreToProps = (store) => {
   }
 }
 
-export default connect(mapStoreToProps
-, null, null, {
-  pure:false
-})(AdminSideNav);
+export default withRouter(
+  connect(mapStoreToProps
+  , null, null, {
+    pure:false
+  })(AdminSideNav)
+);

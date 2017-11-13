@@ -185,7 +185,7 @@ YTHeader.propTypes = {
 const mapStateToProps = (state) => {
 
   return {
-    
+
   }
 }
 

@@ -1,13 +1,13 @@
 // import react/redux dependencies
 import React from 'react';
-import PropTypes from 'prop-types'; 
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 // import react-native components & apis
-import Dimensions from 'Dimensions'; 
-import Image from 'Image'; 
-import Linking from 'Linking';  
-import Platform from 'Platform'; 
+import Dimensions from 'Dimensions';
+import Image from 'Image';
+import Linking from 'Linking';
+import Platform from 'Platform';
 import ScrollView from 'ScrollView';
 import StyleSheet from 'StyleSheet';
 import Text from 'Text';
@@ -16,8 +16,8 @@ import View from 'View';
 
 // import global components
 import Base from './BaseComponent';
-import Hero from './Hero.js'; 
-import YTColors from '../styles/YTColors'; 
+import Hero from './Hero.js';
+import YTColors from '../styles/YTColors';
 import YTHeader from './YTHeader';
 
 const screenHeight = Dimensions.get('window').height
@@ -119,20 +119,20 @@ class Home extends Base {
   }
 
   _openProfile() {
-    this.props.navigation.navigate('UserNavigator'); 
+    this.props.navigation.navigate('UserNavigator');
   }
-  
+
   _handleOpenDrawer() {
-    this.context.openDrawer();  
+    this.context.openDrawer();
   }
 
   _handleClick() {
-    let url = "https://fugitivelabs.github.io/yote/"; 
+    let url = "https://fugitivelabs.github.io/yote/";
     Linking.canOpenURL(url).then(supported => {
       if(supported) {
-        Linking.openURL(url); 
+        Linking.openURL(url);
       } else {
-        // console.log("Can't open link"); 
+        // console.log("Can't open link");
       }
     })
   }
@@ -155,13 +155,13 @@ class Home extends Base {
           title="Yote"
           rightItem={profileItem}
         />
-        <ScrollView 
+        <ScrollView
           automaticallyAdjustContentInsets={false}
         >
           <View style={{flex: 1, backgroundColor: '#333'}} >
             <View style={{height: screenHeight * .66, backgroundColor: 'transparent', justifyContent: 'center', alignItems: 'center'}}>
               <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-                <Image 
+                <Image
                   resizeMode={'contain'}
                   source={require('../img/logo.png')}
                   style={{height: 170, width: 200}}
@@ -192,7 +192,7 @@ Home.propTypes = {
 }
 
 const mapStoreToProps = (store) => {
-  
+
   /****
   APPLY  sortBy
   ****/
@@ -209,4 +209,4 @@ const mapStoreToProps = (store) => {
 export default connect(
   mapStoreToProps
 )(Home);
-// export default Home; 
+// export default Home;

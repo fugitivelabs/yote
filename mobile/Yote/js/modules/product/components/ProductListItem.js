@@ -1,6 +1,6 @@
 // import react things
 import React from 'react';
-import PropTypes from 'prop-types'; 
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 // import react-native components
@@ -14,14 +14,14 @@ import View from 'View';
 
 // import global components
 import Base from '../../../global/components/BaseComponent';
-import YTButton from '../../../global/components/YTButton'; 
+import YTButton from '../../../global/components/YTButton';
 import YTTouchable from '../../../global/components/YTTouchable';
 
 // import libraries
 import moment from 'moment';
 
 // import styles
-import productStyles from '../productStyles'; 
+import productStyles from '../productStyles';
 import YTColors from '../../../global/styles/YTColors';
 
 class ProductListItem extends Base {
@@ -57,7 +57,7 @@ class ProductListItem extends Base {
                   </View>
                 </View>
               </View>
-            
+
     if(this.props.onPress) {
       cell =
         <View style={{paddingVertical: 1}}>

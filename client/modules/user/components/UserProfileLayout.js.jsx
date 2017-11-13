@@ -4,14 +4,16 @@
  */
 
 // import primary libraries
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Redirect, Route, Switch } from 'react-router-dom';
 
 // import global components
 import Base from "../../../global/components/BaseComponent.js.jsx";
 import DefaultLayout from "../../../global/components/DefaultLayout.js.jsx";
 
-class UserLayout extends Base {
+class UserProfileLayout extends Base {
   constructor(props) {
     super(props);
   }
@@ -25,4 +27,4 @@ class UserLayout extends Base {
   }
 }
 
-export default UserLayout;
+export default UserProfileLayout;

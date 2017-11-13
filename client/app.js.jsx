@@ -12,15 +12,13 @@ require('es5-shim/es5-sham');
 
 // import primary libraries
 import React from 'react';
-import applyRouterMiddleware from 'react-router-apply-middleware';
-import injectTapEventPlugin from 'react-tap-event-plugin';
-import useScroll from 'react-router-scroll';
-import { Provider } from 'react-redux';
 import { render } from 'react-dom';
-import { Router, browserHistory } from 'react-router';
-import { syncHistoryWithStore } from 'react-router-redux';
-import { useRelativeLinks } from 'react-router-relative-links';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+import { Provider } from 'react-redux';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
+import createHistory from 'history/createBrowserHistory';
+import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-router-redux';
 
 // instantiate tap event plugin
 injectTapEventPlugin();
@@ -66,7 +64,7 @@ if((navigator.userAgent.toLowerCase().indexOf('webkit') == -1) || !window.develo
 
 
 const store = configureStore();
-const history = syncHistoryWithStore(browserHistory, store);
+const history = createHistory();
 
 // // listen to location changes and fire off a google analytics event.
 // history.listen(function (location) {
@@ -75,15 +73,12 @@ const history = syncHistoryWithStore(browserHistory, store);
 // });
 
 render(
-  (
     <Provider store={store}>
-      <Router
+      <ConnectedRouter
         history={history}
-        render={applyRouterMiddleware(useRelativeLinks(), useScroll() )}
-        routes={routes}
-      />
+      >
+        {routes}
+      </ConnectedRouter>
     </Provider>
-
-  )
   , document.getElementById('application-main-yote')
 )

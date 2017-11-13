@@ -1,11 +1,11 @@
 /**
-* sets up datasource and necessary functions for the ListView call
-* _renderRow is where each productId of the datasource is sent to ProductTitleCard
-*/
+ * sets up datasource and necessary functions for the ListView call
+ * _renderRow is where each productId of the datasource is sent to ProductTitleCard
+ */
 
 // import react things
 import React from 'react';
-import PropTypes from 'prop-types'; 
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 // import react-native components
@@ -20,7 +20,7 @@ import {
   , Text
   , TouchableHighlight
   , View
-} from 'react-native'; 
+} from 'react-native';
 
 // import actions
 import * as productActions from '../productActions';
@@ -32,7 +32,7 @@ import Base from '../../../global/components/BaseComponent';
 import ProductListItem from './ProductListItem';
 
 // import Styles
-import productStyles from '../productStyles'; 
+import productStyles from '../productStyles';
 import YTColors from '../../../global/styles/YTColors';
 
 // FIXME: Android has a bug when scrolling ListView the view insertions
@@ -85,7 +85,7 @@ class ProductList extends Base {
   }
 
   _renderHeader() {
-    
+
   }
 
   _renderFooter() {
@@ -99,7 +99,7 @@ class ProductList extends Base {
   }
 
   _renderRow(productId) {
-    const { productMap } = this.props; 
+    const { productMap } = this.props;
     return (
       <ProductListItem
         product={productMap[productId]}
@@ -112,14 +112,14 @@ class ProductList extends Base {
     // this.setState({refreshing: true});
     this.props.dispatch(productActions.fetchList()).then(() => {
       // this.setState({refreshing: false});
-      // calling setState after this mounts causes the debugger to send warning 
+      // calling setState after this mounts causes the debugger to send warning
     });
   }
 
   _openProduct(productId) {
-    console.log("open product", productId); 
-    // this.props.navigator.push({singleProduct: true, productId: productId}); 
-    this.props.navigation.navigate('SingleProduct', {productId: productId}); 
+    console.log("open product", productId);
+    // this.props.navigator.push({singleProduct: true, productId: productId});
+    this.props.navigation.navigate('SingleProduct', {productId: productId});
   }
 
   render() {

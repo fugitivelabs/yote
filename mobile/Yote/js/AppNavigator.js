@@ -15,26 +15,26 @@ import {
 import { StackNavigator, TabNavigator } from 'react-navigation';
 
 // import global components
-import Home from './global/components/Home'; 
-import TabBarComponent from './global/components/TabBarComponent'; 
+import Home from './global/components/Home';
+import TabBarComponent from './global/components/TabBarComponent';
 
 // import module navigator components
-import ProductNavigator from './modules/product/ProductNavigator'; 
+import ProductNavigator from './modules/product/ProductNavigator';
 // other routes imported from ./modules/moduleNavigator
 // to add routes to the TABS view, add them to TabNavigator below
 
 // import styles
-import YTColors from './global/styles/YTColors'; 
+import YTColors from './global/styles/YTColors';
 
-// define tabs 
+// define tabs
 const TabsNavigator = TabNavigator(
   {
-    Home: { 
+    Home: {
       screen: Home
       , navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
-          <Image 
-            source={require('./global/img/house.png')} 
+          <Image
+            source={require('./global/img/house.png')}
             style={{height: 30, width: 30, tintColor: tintColor}}
           />
         )
@@ -44,15 +44,15 @@ const TabsNavigator = TabNavigator(
       screen: ProductNavigator
       , navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
-          <Image 
-            source={require('./global/img/shoppingBag.png')} 
+          <Image
+            source={require('./global/img/shoppingBag.png')}
             style={{height: 30, width: 30, tintColor: tintColor}}
           />
         )
       }
     }
   }
-  , { 
+  , {
     tabBarOptions: {
       activeTintColor: YTColors.button
       , inactiveTintColor: 'black'
@@ -72,7 +72,7 @@ let appNavigatorConfig = {
   }
 }
 
-//add individual module routes (other than product and user) here
+// add individual module routes (other than product and user) here
 Object.keys(moduleNavigators).map((moduleName, i) => {
   appNavigatorConfig[moduleName] = {
     screen: moduleNavigators[moduleName]
@@ -89,10 +89,10 @@ const AppNavigator = StackNavigator(
 
 // horizontal screen transitions (replace TabsNavigator with MainCardNavigator in AppNavigator)
 // const MainCardNavigator = StackNavigator({
-//   Root: { 
-//     screen: TabsNavigator 
+//   Root: {
+//     screen: TabsNavigator
 //   },
-// }, { 
+// }, {
 //   headerMode: 'none'
 // });
 

@@ -5,14 +5,18 @@
  */
 
 // import primary libraries
-import createLogger from 'redux-logger';
-import thunkMiddleware from 'redux-thunk'
+import { createLogger } from 'redux-logger';
+import thunk from 'redux-thunk'
 // import { browserHistory } from 'react-router';
 import { createStore, applyMiddleware } from 'redux';
-// import { syncHistoryWithStore } from 'react-router-redux';
+import createHistory from 'history/createBrowserHistory';
+import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-router-redux';
+
 
 // import main application reducer
 import rootReducer from './rootReducer';
+
+const history = createHistory();
 
 // let process = global.process;
 
@@ -29,7 +33,7 @@ export default function configureStore(initialState) {
   //   }
   // };
 
-  const middlewares = [thunkMiddleware];
+  const middlewares = [thunk, routerMiddleware(history)];
 
   if(process.env.NODE_ENV != "production") {
     // don't log redux changes in production
@@ -39,6 +43,7 @@ export default function configureStore(initialState) {
 
   const store = createStore(
     rootReducer
+    , routerReducer
     // , jadeInitialState
     , applyMiddleware(
       ...middlewares
