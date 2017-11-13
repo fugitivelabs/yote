@@ -6,11 +6,14 @@ import { connect } from 'react-redux';
 
 
 // import react-native components
-import StyleSheet from 'StyleSheet';
-import View from 'View';
-import Image from 'Image';
-import Animated from 'Animated';
+import {
+  Animated
+  , Image
+  , StyleSheet
+  , View
+} from 'react-native'; 
 
+// import styles
 import YTColors from '../styles/YTColors';
 
 

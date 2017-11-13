@@ -9,16 +9,18 @@ import ReactNative from 'react-native';
 import { connect } from 'react-redux';
 
 // import react-native components
-import Alert from 'Alert';
-import Image from 'Image';
-import KeyboardAvoidingView from 'KeyboardAvoidingView';
-import Platform from 'Platform';
-import ScrollView from 'ScrollView';
-import StyleSheet from 'StyleSheet';
-import Text from 'Text';
-import TextInput from 'TextInput';
-import TouchableOpacity from 'TouchableOpacity';
-import View from 'View';
+import {
+  Alert
+  , Image
+  , KeyboardAvoidingView
+  , Platform
+  , ScrollView
+  , StyleSheet
+  , Text
+  , TextInput
+  , TouchableOpacity
+  , View
+} from 'react-native'; 
 
 // import global components
 import Base from '../../../global/components/BaseComponent';

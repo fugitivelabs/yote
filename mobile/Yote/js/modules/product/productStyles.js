@@ -1,9 +1,11 @@
 // product styles 
 
 // import react things
-import Dimensions from 'Dimensions'; 
-import Platform from 'Platform'; 
-import StyleSheet from 'StyleSheet'; 
+import {
+  Dimensions
+  , Platform
+  , StyleSheet
+} from 'react-native'; 
 
 // import colors
 import YTColors from '../../global/styles/YTColors'; 

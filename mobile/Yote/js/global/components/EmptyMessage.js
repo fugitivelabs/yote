@@ -5,15 +5,17 @@ import Base from './BaseComponent';
 import { connect } from 'react-redux';
 
 // import react-native components
-import ListView from 'ListView';
-import Dimensions from 'Dimensions';
-import Platform from 'Platform';
-import StyleSheet from 'StyleSheet';
-import View from 'View';
-import Text from 'Text';
-import Image from 'Image';
-import ScrollView from 'ScrollView';
-import TouchableOpacity from 'TouchableOpacity';
+import {
+  Dimensions
+  , ListView
+  , Platform
+  , StyleSheet
+  , View
+  , Text
+  , Image
+  , ScrollView
+  , TouchableOpacity
+} from 'react-native'; 
 
 import moment from 'moment';
 

@@ -5,24 +5,24 @@ import ReactNative from 'react-native';
 import Base from '../../../global/components/BaseComponent';
 import { connect } from 'react-redux';
 
+// import react-native components & apis
+import {
+  Alert
+  , Dimensions
+  , Image
+  , KeyboardAvoidingView
+  , Modal
+  , Platform
+  , ScrollView
+  , StyleSheet
+  , TextInput
+  , TouchableOpacity
+  , Text
+  , View
+} from 'react-native'; 
 
 // import libraries
 import _ from 'lodash';
-
-// import react-native components & apis
-import View from 'View';
-import Text from 'Text';
-import StyleSheet from 'StyleSheet';
-import TextInput from 'TextInput';
-import TouchableHighlight from 'TouchableHighlight';
-import Image from 'Image';
-import Modal from 'Modal';
-import ScrollView from 'ScrollView';
-import Alert from 'Alert';
-import TouchableOpacity from 'TouchableOpacity';
-import KeyboardAvoidingView from 'KeyboardAvoidingView';
-import Platform from 'Platform';
-import Dimensions from 'Dimensions';
 
 // import actions
 import { singleActions } from '../userActions';

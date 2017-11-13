@@ -4,13 +4,15 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 // import react-native components
-import Dimensions from 'Dimensions';
-import Image from 'Image';
-import ListView from 'ListView';
-import Platform from 'Platform';
-import StyleSheet from 'StyleSheet';
-import Text from 'Text';
-import View from 'View';
+import {
+  Dimensions
+  , Image
+  , ListView
+  , Platform
+  , StyleSheet
+  , Text
+  , View
+} from 'react-native'; 
 
 // import global components
 import Base from '../../../global/components/BaseComponent';
@@ -31,7 +33,6 @@ class ProductListItem extends Base {
 
   render() {
     const { product, onPress } = this.props;
-    let icon = <Image source={require('../../../global/img/breast.png')} />;
 
     var cell =
               <View style={productStyles.cellBackground}>

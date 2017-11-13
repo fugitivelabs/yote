@@ -12,24 +12,26 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 
 // import react-native components & apis
-import Alert from 'Alert';
-import Base from '../../../global/components/BaseComponent';
-import Dimensions from 'Dimensions';
-import Image from 'Image';
-import Linking from 'Linking'; 
-import Modal from 'Modal';
-import ScrollView from 'ScrollView';
-import StyleSheet from 'StyleSheet';
-import Text from 'Text';
-import TextInput from 'TextInput';
-import TouchableOpacity from 'TouchableOpacity';
-import View from 'View';
-import Platform from 'Platform'; 
+import {
+  Alert
+  , Dimensions
+  , Image
+  , Linking
+  , Modal
+  , ScrollView
+  , StyleSheet
+  , Text
+  , TextInput
+  , TouchableOpacity
+  , View
+  , Platform
+} from 'react-native'; 
 
 // import actions
 import * as singleActions from '../userActions.js';
 
 // import global components
+import Base from '../../../global/components/BaseComponent';
 import YTButton from '../../../global/components/YTButton';
 
 // import styles

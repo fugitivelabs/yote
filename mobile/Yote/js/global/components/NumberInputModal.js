@@ -8,14 +8,15 @@ import _ from 'lodash';
 import labelUtils from '../util/labelUtils';
 
 // import RN components
-import Modal from 'Modal';
-import KeyboardAvoidingView from 'KeyboardAvoidingView';
-import StyleSheet from 'StyleSheet';
-import Text from 'Text';
-import TextInput from 'TextInput';
-import TouchableHighlight from 'TouchableHighlight';
-import TouchableOpacity from 'TouchableOpacity';
-import View from 'View';
+import {
+  KeyboardAvoidingView
+  , Modal
+  , StyleSheet
+  , Text
+  , TextInput
+  , TouchableOpacity
+  , View
+} from 'react-native'; 
 
 // import custom comonents
 import Base from './BaseComponent.js';

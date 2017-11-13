@@ -12,6 +12,7 @@ import {
   , TouchableOpacity
   , View
 } from 'react-native';
+
 import { StackNavigator } from 'react-navigation';
 
 // import user components
