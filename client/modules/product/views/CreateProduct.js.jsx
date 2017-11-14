@@ -7,8 +7,8 @@
 // import primary libraries
 import React from 'react';
 import PropTypes from 'prop-types';
-import { history, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 // import third-party libraries
 import _ from 'lodash';

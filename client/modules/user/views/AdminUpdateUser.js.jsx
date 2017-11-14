@@ -1,8 +1,14 @@
+/**
+ * View component for /admin/users/:userId
+ *
+ * allows admin users to update and/or delete other users from the system
+ */
+
 // import primary libraries
 import React from 'react';
 import PropTypes from 'prop-types';
-import { history, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 // import actions
 import * as userActions from '../userActions';
@@ -54,9 +60,11 @@ class AdminUpdateUser extends Base {
 
   _handleFormSubmit(e) {
     e.preventDefault();
-    this.props.dispatch(userActions.sendUpdateUser(this.state.user)).then((action) => {
+    const { dispatch, history } = this.props;
+    dispatch(userActions.sendUpdateUser(this.state.user)).then((action) => {
       if(action.success) {
-        this.props.history.push('/admin/users')
+        dispatch(userActions.invalidateList());
+        history.push('/admin/users')
       } else {
         alert("ERROR UPDATING USER: ", action.message);
       }
@@ -79,7 +87,7 @@ class AdminUpdateUser extends Base {
   }
 
   _confirmDelete() {
-    const { dispatch } = this.props;
+    const { dispatch, history } = this.props;
     dispatch(userActions.sendDelete(this.state.user._id)).then((result) => {
       if(result.success) {
         this._closeDeleteModal();
@@ -99,40 +107,42 @@ class AdminUpdateUser extends Base {
     const { user } = this.state;
     const isEmpty = !user || !user.username;
     return  (
-      <div>
-        { isEmpty ?
-          <h2> Loading... </h2>
-          :
-          <AdminUserForm
-            cancelLink={`/admin/users`}
-            formTitle="Update User"
-            formType="update"
-            handleDeleteUser={this._openAlertModal}
-            handleFormChange={this._handleFormChange}
-            handleFormSubmit={this._handleFormSubmit}
-            user={this.state.user}
-          />
-        }
-        <AlertModal
-          alertMessage={<div><strong>STOP!</strong> Are you <em>sure</em> you want to deleted this user? This cannot be undone.</div> }
-          alertTitle="Delete User"
-          closeAction={this._closeDeleteModal}
-          confirmAction={this._confirmDelete}
-          confirmText="Yes, Delete this user"
-          declineAction={this._closeDeleteModal}
-          declineText="Never mind"
-          isOpen={this.state.isDeleteModalOpen}
-          type="danger"
-        />
-        <AlertModal
-          alertMessage="Silly noob, we can't let you delete yourself..."
-          alertTitle="Nope"
-          closeAction={this._closeInfoModal}
-          confirmAction={this._closeInfoModal}
-          confirmText="Gotcha, never mind"
-          isOpen={this.state.isInfoModalOpen}
-          type="info"
-        />
+      <div className="flex">
+        <section className="section transparent-bg">
+            { isEmpty ?
+              <h2> Loading... </h2>
+              :
+              <AdminUserForm
+                cancelLink={`/admin/users`}
+                formTitle="Update User"
+                formType="update"
+                handleDeleteUser={this._openAlertModal}
+                handleFormChange={this._handleFormChange}
+                handleFormSubmit={this._handleFormSubmit}
+                user={this.state.user}
+              />
+            }
+            <AlertModal
+              alertMessage={<div><strong>STOP!</strong> Are you <em>sure</em> you want to deleted this user? This cannot be undone.</div> }
+              alertTitle="Delete User"
+              closeAction={this._closeDeleteModal}
+              confirmAction={this._confirmDelete}
+              confirmText="Yes, Delete this user"
+              declineAction={this._closeDeleteModal}
+              declineText="Never mind"
+              isOpen={this.state.isDeleteModalOpen}
+              type="danger"
+            />
+            <AlertModal
+              alertMessage="Silly noob, we can't let you delete yourself..."
+              alertTitle="Nope"
+              closeAction={this._closeInfoModal}
+              confirmAction={this._closeInfoModal}
+              confirmText="Gotcha, never mind"
+              isOpen={this.state.isInfoModalOpen}
+              type="info"
+            />
+        </section>
       </div>
     )
   }
@@ -150,6 +160,8 @@ const mapStoreToProps = (store) => {
   }
 }
 
-export default withRouter(connect(
-  mapStoreToProps
-)(AdminUpdateUser));
+export default withRouter(
+  connect(
+    mapStoreToProps
+  )(AdminUpdateUser)
+);

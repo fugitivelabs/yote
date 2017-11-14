@@ -1,7 +1,7 @@
 /**
  * View component for /profile
  *
- * Display logged in user's own profile information and let's them update if
+ * Display logged in user's own profile information and lets them update if
  * they want.
  */
 
@@ -108,9 +108,7 @@ class UserProfile extends Base {
                   <div className="yt-col full l_50">
                     <h4>Info</h4>
                     <p> {user.firstName} {user.lastName}</p>
-
                     <p> {user.username}</p>
-
                   </div>
                 </div>
                 :

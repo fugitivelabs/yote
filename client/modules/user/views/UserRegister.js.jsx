@@ -1,12 +1,20 @@
 /**
  * View component for /user/register
+ *
+ * On render cycle this component checks to see if the redirectToReferrer boolean
+ * is true (flipped on successful registration).  If true, send the user back to
+ * the referring page.  If false, show user register form which allows the user
+ * to register with the fields defined in the defaultUser object.
+ *
+ * NOTE: upon reaching this page, user can toggle between /user/login and
+ * /user/register without changing the original referring source route.
  */
 
 // import primary libraries
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Redirect, history, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Redirect, withRouter } from 'react-router-dom';
 
 //actions
 import * as userActions from '../userActions';
@@ -44,7 +52,8 @@ class UserRegister extends Base {
 
   _handleFormSubmit(e) {
     e.preventDefault();
-    this.props.dispatch(userActions.sendRegister(this.state.user)).then((action) => {
+    const { dispatch } = this.props;
+    dispatch(userActions.sendRegister(this.state.user)).then((action) => {
       if(action.success) {
         this.setState({redirectToReferrer: true});
         // history.push('/');
@@ -60,8 +69,9 @@ class UserRegister extends Base {
   }
 
   render() {
-    const { redirectToReferrer, user } = this.state;
     const { from } = this.props.location.state || { from: { pathname: '/' } }
+    const { redirectToReferrer, user } = this.state;
+
     const isEmpty = !user || (user.username === null || user.username === undefined);
 
     if(redirectToReferrer) {

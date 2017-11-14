@@ -7,7 +7,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Redirect, Route, Switch } from 'react-router-dom';
 
 // import global components
 import Base from "../../../global/components/BaseComponent.js.jsx";
