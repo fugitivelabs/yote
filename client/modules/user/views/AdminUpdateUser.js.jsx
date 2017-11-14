@@ -1,7 +1,13 @@
+/**
+ * View component for /admin/users/:userId
+ *
+ * allows admin users to update and/or delete other users from the system
+ */
+
 // import primary libraries
 import React from 'react';
 import PropTypes from 'prop-types';
-import { history, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 // import actions
@@ -54,9 +60,10 @@ class AdminUpdateUser extends Base {
 
   _handleFormSubmit(e) {
     e.preventDefault();
-    this.props.dispatch(userActions.sendUpdateUser(this.state.user)).then((action) => {
+    const { dispatch, history } = this.props;
+    dispatch(userActions.sendUpdateUser(this.state.user)).then((action) => {
       if(action.success) {
-        this.props.history.push('/admin/users')
+        history.push('/admin/users')
       } else {
         alert("ERROR UPDATING USER: ", action.message);
       }
@@ -79,7 +86,7 @@ class AdminUpdateUser extends Base {
   }
 
   _confirmDelete() {
-    const { dispatch } = this.props;
+    const { dispatch, history } = this.props;
     dispatch(userActions.sendDelete(this.state.user._id)).then((result) => {
       if(result.success) {
         this._closeDeleteModal();
@@ -150,6 +157,8 @@ const mapStoreToProps = (store) => {
   }
 }
 
-export default withRouter(connect(
-  mapStoreToProps
-)(AdminUpdateUser));
+export default withRouter(
+  connect(
+    mapStoreToProps
+  )(AdminUpdateUser)
+);

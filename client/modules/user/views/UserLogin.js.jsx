@@ -1,8 +1,19 @@
+/**
+ * View component for /user/login
+ *
+ * On render cycle this component checks to see if the redirectToReferrer boolean
+ * is true (flipped on successful login).  If true, send the user back to the
+ * referring page.  If false, show user login form.
+ *
+ * NOTE: upon reaching this page, user can toggle between /user/login and
+ * /user/register without changing the original referring source route.
+ */
+
 // import primary libraries
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Redirect, history, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Redirect, withRouter } from 'react-router-dom';
 
 // import actions actions
 import * as userActions from '../userActions';
@@ -50,14 +61,9 @@ class UserLogin extends Base {
 
   _handleFormSubmit(e) {
     e.preventDefault();
-    const { dispatch, location } = this.props;
+    const { dispatch } = this.props;
     dispatch(userActions.sendLogin(this.state.username, this.state.password)).then((action) => {
       if(action.success) {
-        // if (location.state && location.state.nextPathname) {
-        //   history.push(location.state.nextPathname);
-        // } else {
-        //   history.push('/');
-        // }
         this.setState({redirectToReferrer: true});
       } else {
         this.setState({errorMessage: action.error});
@@ -71,6 +77,7 @@ class UserLogin extends Base {
   }
 
   _goToResetPass() {
+    const { history } = this.props;
     history.push('/user/forgot-password')
   }
 

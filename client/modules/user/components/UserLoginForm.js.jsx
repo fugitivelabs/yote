@@ -1,7 +1,7 @@
 // import primary libraries
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 // import form components
 import { EmailInput, PasswordInput } from '../../../global/components/forms';
@@ -63,4 +63,4 @@ UserLoginForm.propTypes = {
   , location: PropTypes.object
 }
 
-export default UserLoginForm;
+export default withRouter(UserLoginForm);

@@ -5,7 +5,7 @@
 // import primary libraries
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 // import form components
 import { TextInput, TextAreaInput } from '../../../global/components/forms';
@@ -74,4 +74,4 @@ ProductForm.defaultProps = {
   formTitle: ''
 }
 
-export default ProductForm;
+export default withRouter(ProductForm);

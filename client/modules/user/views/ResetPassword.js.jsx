@@ -1,8 +1,16 @@
+/**
+ * View component for /user/reset-password/:hex
+ *
+ * Reached from a reset password link within an email.  Checks mactch.params.hex
+ * against the reset hex for that user in the database.  If valid, allows the
+ * user to reach the reset-password form.  If not, displays "invalid" message
+ */
+
 // import form components
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link, history } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 // import actions
 import * as userActions from '../userActions';
@@ -34,7 +42,8 @@ class ResetPassword extends Base {
   }
 
   componentDidMount() {
-    this.props.dispatch(userActions.sendCheckResetHex(this.props.params.hex));
+    const { dispatch, match } = this.props;
+    dispatch(userActions.sendCheckResetHex(match.params.hex));
   }
 
   _handleFormChange(e) {
@@ -45,8 +54,9 @@ class ResetPassword extends Base {
 
   _handleFormSubmit(e) {
     e.preventDefault();
+    const { dispatch, history, match } = this.props;
     this.setState({submitting: true});
-    this.props.dispatch(userActions.sendResetPassword(this.props.params.hex, this.state.password)).then((action) =>{
+    dispatch(userActions.sendResetPassword(match.params.hex, this.state.password)).then((action) =>{
       this.setState({submitting: false});
       if(action.success) {
         history.push('/user/login');
@@ -73,7 +83,6 @@ class ResetPassword extends Base {
               <h3>Loading...</h3>
               :
               <div className="form-container -slim">
-
                 { user.resetTokenValid ?
                   <form name="userForm" className="user-form" onSubmit={this._handleFormSubmit}>
                     <h2>Reset Password</h2>
@@ -94,7 +103,6 @@ class ResetPassword extends Base {
                           }
                         </button>
                       </div>
-
                     </div>
                   </form>
                   :
@@ -141,6 +149,8 @@ const mapStoreToProps = (store) => {
   return { user: store.user.loggedIn }
 }
 
-export default connect(
-  mapStoreToProps
-)(ResetPassword);
+export default withRouter(
+  connect(
+    mapStoreToProps
+  )(ResetPassword)
+);

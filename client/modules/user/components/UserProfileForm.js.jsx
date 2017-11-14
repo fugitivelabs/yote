@@ -1,7 +1,7 @@
 // import primary libaries
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 // import form components
 import {
@@ -36,8 +36,6 @@ function UserProfileForm({ handleFormChange, handleFormSubmit, user }) {
               change={handleFormChange}
               required={false}
             />
-
-
           </form>
         </div>
 
@@ -50,4 +48,4 @@ UserProfileForm.propTypes = {
   , user: PropTypes.object.isRequired
 }
 
-export default UserProfileForm;
+export default withRouter(UserProfileForm);

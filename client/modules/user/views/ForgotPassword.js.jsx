@@ -1,7 +1,13 @@
+/**
+ * View component for /user/forgot-password
+ *
+ * allows user to submit a password reset request to their email on record.
+ */
+
 // import primary libraries
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link, history } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 // import actions
@@ -43,7 +49,8 @@ class ForgotPassword extends Base {
 
   _handleFormSubmit(e) {
     e.preventDefault();
-    this.props.dispatch(userActions.sendForgotPassword(this.state.username)).then((action) => {
+    const { dispatch } = this.props;
+    dispatch(userActions.sendForgotPassword(this.state.username)).then((action) => {
       if(action.success) {
         this._openSuccessModal();
       } else {
@@ -59,6 +66,7 @@ class ForgotPassword extends Base {
 
   _closeSuccessModal() {
     this.setState({isSuccessModalOpen: false});
+    const { history } = this.props;
     history.push('/');
   }
 
@@ -138,6 +146,8 @@ const mapStoreToProps = (store) => {
   return { user: store.user.loggedIn }
 }
 
-export default connect(
-  mapStoreToProps
-)(ForgotPassword);
+export default withRouter(
+  connect(
+    mapStoreToProps
+  )(ForgotPassword)
+);

@@ -1,17 +1,25 @@
+/**
+ * View component for /admin/users
+ *
+ * Displays a paginated list of all users in the system.
+ */
+
 // import primary libraries
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Link, withRouter } from 'react-router-dom';
 
 // import actions
 import * as userActions from '../userActions';
 
 // import global components
 import Base from "../../../global/components/BaseComponent.js.jsx";
-import filterUtils from '../../../global/utils/filterUtils';
 import Pagination from "../../../global/components/helpers/Pagination.js.jsx";
 import { SearchInput } from '../../../global/components/forms';
+
+// import utilities
+import filterUtils from '../../../global/utils/filterUtils';
 
 // import user components
 import AdminUserListItem from '../components/AdminUserListItem.js.jsx';
@@ -31,39 +39,44 @@ class AdminUserList extends Base {
     );
   }
   componentDidMount() {
-    this.props.dispatch(userActions.fetchListIfNeeded());
-    this.props.dispatch(userActions.setFilter(''));
-    this.props.dispatch(userActions.setQuery(''));
-    this.props.dispatch(userActions.setPagination({page: 1, per: 50}));
+    const { dispatch } = this.props;
+    dispatch(userActions.fetchListIfNeeded());
+    dispatch(userActions.setFilter(''));
+    dispatch(userActions.setQuery(''));
+    dispatch(userActions.setPagination({page: 1, per: 50}));
   }
 
   _resetPagination() {
-    this.props.dispatch(userActions.setPagination({
+    const { dispatch } = this.props;
+    dispatch(userActions.setPagination({
       page: 1,
       per: parseInt(this.state.perPage)
     }));
   }
 
   _setPerPage(per) {
+    const { dispatch } = this.props;
     var newPagination = this.props.userList.pagination;
     newPagination.per = parseInt(per);
     newPagination.page = 1;
-    this.props.dispatch(userActions.setPagination(newPagination));
+    dispatch(userActions.setPagination(newPagination));
     this.setState({perPage: per});
   }
 
   _handleSetPagination(newPagination) {
-    this.props.dispatch(userActions.setPagination(newPagination));
+    const { dispatch } = this.props;
+    dispatch(userActions.setPagination(newPagination));
   }
 
   _handleQuery(e) {
+    const { dispatch } = this.props;
     // always defaulting the page to page 1 so we can see our results
     var pagination = {};
     pagination.page = 1;
     pagination.per = this.props.userList.pagination.per;
     this._handleSetPagination(pagination);
     // continue query logic
-    this.props.dispatch(userActions.setQuery(e.target.value.toLowerCase()));
+    dispatch(userActions.setQuery(e.target.value.toLowerCase()));
     this.setState({queryText: e.target.value.toLowerCase()});
   }
 
@@ -202,6 +215,8 @@ const mapStoreToProps = (store) => {
   }
 }
 
-export default connect(
-  mapStoreToProps
-)(AdminUserList);
+export default withRouter(
+  connect(
+    mapStoreToProps
+  )(AdminUserList)
+);

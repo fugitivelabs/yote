@@ -1,8 +1,14 @@
+/**
+ * View component for /admin/users/new
+ *
+ * allows admin users to create other users within the system, bypassing register
+ */
+
 // import primary libraries
 import React from 'react';
 import PropTypes from 'prop-types';
-import { history, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 // import third-party libraries
 import _ from 'lodash';
@@ -40,10 +46,11 @@ class AdminCreateUser extends Base {
 
   _handleFormSubmit(e) {
     e.preventDefault();
-    this.props.dispatch(userActions.sendCreateUser(this.state.user)).then((action) => {
+    const { dispatch, history } = this.props;
+    dispatch(userActions.sendCreateUser(this.state.user)).then((action) => {
       if(action.success) {
-        this.props.dispatch(userActions.invalidateList());
-        this.props.history.push('/admin/users');
+        dispatch(userActions.invalidateList());
+        history.push('/admin/users');
       } else {
         // console.log("Response Error:");
         // console.log(action);
@@ -88,6 +95,8 @@ const mapStoreToProps = (store) => {
   }
 }
 
-export default withRouter(connect(
-  mapStoreToProps
-)(AdminCreateUser));
+export default withRouter(
+  connect(
+    mapStoreToProps
+  )(AdminCreateUser)
+);
