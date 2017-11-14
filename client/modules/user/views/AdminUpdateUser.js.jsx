@@ -7,8 +7,8 @@
 // import primary libraries
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 // import actions
 import * as userActions from '../userActions';
@@ -106,40 +106,42 @@ class AdminUpdateUser extends Base {
     const { user } = this.state;
     const isEmpty = !user || !user.username;
     return  (
-      <div>
-        { isEmpty ?
-          <h2> Loading... </h2>
-          :
-          <AdminUserForm
-            cancelLink={`/admin/users`}
-            formTitle="Update User"
-            formType="update"
-            handleDeleteUser={this._openAlertModal}
-            handleFormChange={this._handleFormChange}
-            handleFormSubmit={this._handleFormSubmit}
-            user={this.state.user}
-          />
-        }
-        <AlertModal
-          alertMessage={<div><strong>STOP!</strong> Are you <em>sure</em> you want to deleted this user? This cannot be undone.</div> }
-          alertTitle="Delete User"
-          closeAction={this._closeDeleteModal}
-          confirmAction={this._confirmDelete}
-          confirmText="Yes, Delete this user"
-          declineAction={this._closeDeleteModal}
-          declineText="Never mind"
-          isOpen={this.state.isDeleteModalOpen}
-          type="danger"
-        />
-        <AlertModal
-          alertMessage="Silly noob, we can't let you delete yourself..."
-          alertTitle="Nope"
-          closeAction={this._closeInfoModal}
-          confirmAction={this._closeInfoModal}
-          confirmText="Gotcha, never mind"
-          isOpen={this.state.isInfoModalOpen}
-          type="info"
-        />
+      <div className="flex">
+        <section className="section transparent-bg">
+            { isEmpty ?
+              <h2> Loading... </h2>
+              :
+              <AdminUserForm
+                cancelLink={`/admin/users`}
+                formTitle="Update User"
+                formType="update"
+                handleDeleteUser={this._openAlertModal}
+                handleFormChange={this._handleFormChange}
+                handleFormSubmit={this._handleFormSubmit}
+                user={this.state.user}
+              />
+            }
+            <AlertModal
+              alertMessage={<div><strong>STOP!</strong> Are you <em>sure</em> you want to deleted this user? This cannot be undone.</div> }
+              alertTitle="Delete User"
+              closeAction={this._closeDeleteModal}
+              confirmAction={this._confirmDelete}
+              confirmText="Yes, Delete this user"
+              declineAction={this._closeDeleteModal}
+              declineText="Never mind"
+              isOpen={this.state.isDeleteModalOpen}
+              type="danger"
+            />
+            <AlertModal
+              alertMessage="Silly noob, we can't let you delete yourself..."
+              alertTitle="Nope"
+              closeAction={this._closeInfoModal}
+              confirmAction={this._closeInfoModal}
+              confirmText="Gotcha, never mind"
+              isOpen={this.state.isInfoModalOpen}
+              type="info"
+            />
+        </section>
       </div>
     )
   }

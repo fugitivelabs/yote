@@ -91,77 +91,81 @@ class AdminUserList extends Base {
     const sortedEmpty = sortedList.length === 0;
 
     return (
-      <div className="yt-container">
-        <h3> All Registered Users
-          <Link className="yt-btn small u-pullRight" to={'/admin/users/new'}> NEW USER </Link>
-        </h3>
-        <hr/>
-        <p className="large">Here you can create, edit, and add permissions to users</p>
-        { isEmpty ?
-          (userList && userList.isFetching ? <h5>Loading...</h5> : <h5>Empty.</h5>)
-          :
-          <div style={{ opacity: userList.isFetching ? 0.5 : 1 }}>
-            <div className="yt-toolbar">
-              <div className="yt-tools right">
-                <div className="search">
-                  <SearchInput
-                    name="query"
-                    value={queryText}
-                    change={this._handleQuery}
-                    placeholder="Search..."
-                    required={false}
-                  />
-                </div>
-              </div>
-            </div>
-            <table className="yt-table striped">
-              <caption>
-                { queryText.length > 0 ?
-                  <span>Filtered Users &mdash; {sortedList.length} of {Object.keys(userList.items).length}</span>
-                  :
-                    <span>All Users &mdash; {Object.keys(userList.items).length}</span>
-                }
-                <div className="per-page-select u-pullRight">
-                  <label>Show per page: </label>
-                  <select
-                    name="numPerPage"
-                    onChange={(e) => this._setPerPage(e.target.value)}
-                    value={this.state.perPage}
-                  >
-                    <option value={25}> 25 </option>
-                    <option value={50}> 50 </option>
-                    <option value={100}> 100 </option>
-                  </select>
-                </div>
-              </caption>
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Roles</th>
-                  <th className="numbers">Last Modified</th>
-                </tr>
-              </thead>
-              <tbody>
-                {paginatedList.map((user, i) =>
-                  <AdminUserListItem
-                    key={i}
-                    user={user}
-                  />
-                )}
-              </tbody>
-            </table>
-            { sortedEmpty ?
-                null
+      <div className="flex">
+        <section className="section">
+          <div className="yt-container">
+            <h3> All Registered Users
+              <Link className="yt-btn small u-pullRight" to={'/admin/users/new'}> NEW USER </Link>
+            </h3>
+            <hr/>
+            <p className="large">Here you can create, edit, and add permissions to users</p>
+            { isEmpty ?
+              (userList && userList.isFetching ? <h5>Loading...</h5> : <h5>Empty.</h5>)
               :
-                <Pagination
-                  totalPages={ Math.floor(sortedList.length / userList.pagination.per) + 1}
-                  pagination={userList.pagination}
-                  setPagination={this._handleSetPagination}
-                />
+              <div style={{ opacity: userList.isFetching ? 0.5 : 1 }}>
+                <div className="yt-toolbar">
+                  <div className="yt-tools right">
+                    <div className="search">
+                      <SearchInput
+                        name="query"
+                        value={queryText}
+                        change={this._handleQuery}
+                        placeholder="Search..."
+                        required={false}
+                      />
+                    </div>
+                  </div>
+                </div>
+                <table className="yt-table striped">
+                  <caption>
+                    { queryText.length > 0 ?
+                      <span>Filtered Users &mdash; {sortedList.length} of {Object.keys(userList.items).length}</span>
+                      :
+                        <span>All Users &mdash; {Object.keys(userList.items).length}</span>
+                    }
+                    <div className="per-page-select u-pullRight">
+                      <label>Show per page: </label>
+                      <select
+                        name="numPerPage"
+                        onChange={(e) => this._setPerPage(e.target.value)}
+                        value={this.state.perPage}
+                      >
+                        <option value={25}> 25 </option>
+                        <option value={50}> 50 </option>
+                        <option value={100}> 100 </option>
+                      </select>
+                    </div>
+                  </caption>
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Roles</th>
+                      <th className="numbers">Last Modified</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {paginatedList.map((user, i) =>
+                      <AdminUserListItem
+                        key={i}
+                        user={user}
+                      />
+                    )}
+                  </tbody>
+                </table>
+                { sortedEmpty ?
+                    null
+                  :
+                    <Pagination
+                      totalPages={ Math.floor(sortedList.length / userList.pagination.per) + 1}
+                      pagination={userList.pagination}
+                      setPagination={this._handleSetPagination}
+                    />
+                }
+              </div>
             }
           </div>
-        }
+        </section>
       </div>
     )
   }

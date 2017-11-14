@@ -34,8 +34,8 @@ function AdminUserForm({
   return (
     <div className="yt-container">
       <div className="yt-row center-horiz">
-        <div className="form-container">
-          <form name="userForm" className="card user-form" onSubmit={handleFormSubmit}>
+        <div className="form-container -slim">
+          <form name="userForm" className="user-form" onSubmit={handleFormSubmit}>
             {header}
             <EmailInput
               name="username"
