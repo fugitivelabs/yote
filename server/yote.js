@@ -90,7 +90,7 @@ app.use(favicon(path.join(__dirname, 'public','favicon.ico')));
 app.use(serveStatic(__dirname + '/public'));
 
 // request checks
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
 
   // Allow CORS & mobile access to the node APIs -- ref https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS
   res.header("Access-Control-Allow-Origin", "*");
@@ -120,7 +120,7 @@ passport.use('local', new LocalStrategy(
     var projection = {
       username: 1, password_salt: 1, password_hash: 1, roles: 1
     }
-    User.findOne({username:username}, projection).exec(function(err, user) {
+    User.findOne({username:username}, projection).exec((err, user) => {
       if(user && user.authenticate(password)) {
         logger.debug("authenticated!");
         return done(null, user);
@@ -132,17 +132,17 @@ passport.use('local', new LocalStrategy(
   }
 ));
 
-passport.serializeUser(function(user, done) {
+passport.serializeUser((user, done) => {
   // logger.warn("SERIALIZE USER");
   if(user) {
     done(null, user._id);
   }
 });
 
-passport.deserializeUser(function(id, done) {
+passport.deserializeUser((id, done) => {
   // logger.warn("DESERIALIZE USER");
   // NOTE: we want mobile user to have access to their api token, but we don't want it to be select: true
-  User.findOne({_id:id}).exec(function(err, user) {
+  User.findOne({_id:id}).exec((err, user) => {
     if(user) {
       return done(null, user);
     } else {
@@ -194,7 +194,7 @@ if(app.get('env') == 'production' && config.useHttps) {
   if(config.httpsOptional) {
     require('http').createServer(app).listen(80);
   } else {
-    require('http').createServer(function(req, res) {
+    require('http').createServer((req, res) => {
       logger.info("REDIRECTING TO HTTPS");
       res.writeHead(302, {
         'Location': 'https://YOUR-URL.com:443' + req.url

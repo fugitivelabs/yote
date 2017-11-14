@@ -1,16 +1,19 @@
 // import react things
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types'; 
 import { connect } from 'react-redux';
 
 // import react-native components
-import Dimensions from 'Dimensions';
-import Image from 'Image';
-import ListView from 'ListView';
-import Platform from 'Platform';
-import StyleSheet from 'StyleSheet';
-import Text from 'Text';
-import TouchableOpacity from 'TouchableOpacity';
-import View from 'View';
+import {
+  Dimensions
+  , Image
+  , ListView
+  , Platform
+  , StyleSheet
+  , Text
+  , TouchableOpacity
+  , View
+} from 'react-native'; 
 
 // import global components
 import Base from './BaseComponent';
@@ -184,7 +187,7 @@ YTHeader.propTypes = {
 const mapStateToProps = (state) => {
 
   return {
-    
+
   }
 }
 

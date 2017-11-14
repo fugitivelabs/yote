@@ -6,7 +6,7 @@
 // import primary libraries
 import React from 'react';
 
-// import components 
+// import components
 import Base from './BaseComponent.js.jsx';
 
 export default class Root extends Base {

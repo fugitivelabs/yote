@@ -3,9 +3,10 @@
  */
 
 // import primary libraries
-import React, { PropTypes } from 'react';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import { Link, browserHistory } from 'react-router';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 // import actions
@@ -23,10 +24,11 @@ class DropdownNav extends Base {
   }
 
   _logout(e) {
-    this.props.dispatch(userActions.sendLogout()).then((action) => {
+    const { dispatch, history } = this.props;
+    dispatch(userActions.sendLogout()).then((action) => {
       if(action.success) {
         // redirect to index
-        browserHistory.push('/');
+        history.push('/');
       } else {
         alert("ERROR LOGGING OUT - " + action.message);
       }
@@ -34,66 +36,54 @@ class DropdownNav extends Base {
   }
 
   render() {
-    const { user, isOpen } = this.props;
-    if(isOpen) {
-      let pictureUrl = '/img/defaults/profile.png';
-      if(user && user.profilePicUrl) {
-        pictureUrl = user.profilePicUrl;
-      }
-      // console.log(pictureUrl);
+    const { close, isOpen, user } = this.props;
 
-      let profileImg = {backgroundImage: `url(${pictureUrl})`};
-      return(
-        <ReactCSSTransitionGroup
-          transitionName="dropdown-anim"
-          transitionAppear={true}
-          transitionLeave={true}
-          transitionEnter={true}
-          transitionAppearTimeout={500}
-          transitionEnterTimeout={500}
-          transitionLeaveTimeout={350}
-        >
-        <ul className="dropMenu">
-          <div>
-            <li className="-drop-header">
-              <div className="-profile-pic" style={profileImg} />
-              <div className="-profile-info">
-                {user.firstName + " "} {user.lastName}
-                <br/>
-                <small>{user.username}</small>
-              </div>
-            </li>
-            <li><Link to="/profile">My Profile </Link></li>
-
-            { user.roles && user.roles.indexOf('admin') > -1
-              ?
-              <li><Link to="/admin" target="_blank" > Go to Admin <i className="fa fa-external-link"/> </Link></li>
-              : ''
-            }
-            <li role="separator" className="-divider"/>
-            <li><a onClick={this._logout}>Logout</a></li>
-          </div>
-        </ul>
-        </ReactCSSTransitionGroup>
-      )
-    } else {
-      return (
-        <ReactCSSTransitionGroup
-          transitionName="dropdown-anim"
-          transitionAppear={true}
-          transitionLeave={true}
-          transitionEnter={true}
-          transitionAppearTimeout={500}
-          transitionEnterTimeout={500}
-          transitionLeaveTimeout={350}
-        />
-      )
+    let pictureUrl = '/img/defaults/profile.png';
+    if(user && user.profilePicUrl) {
+      pictureUrl = user.profilePicUrl;
     }
+
+    let profileImg = {backgroundImage: `url(${pictureUrl})`};
+    return(
+      <TransitionGroup >
+        {isOpen ?
+          <CSSTransition
+            classNames="dropdown-anim"
+            timeout={250}
+          >
+          <ul className="dropMenu">
+            <div>
+              <li className="-drop-header">
+                <div className="-profile-pic" style={profileImg} />
+                <div className="-profile-info">
+                  {user.firstName + " "} {user.lastName}
+                  <br/>
+                  <small>{user.username}</small>
+                </div>
+              </li>
+              <li><Link to="/user/profile" onClick={()=> close()}>My Profile </Link></li>
+
+              { user.roles && user.roles.indexOf('admin') > -1
+                ?
+                <li><Link to="/admin" target="_blank" onClick={()=> close()}> Go to Admin <i className="fa fa-external-link"/> </Link></li>
+                : ''
+              }
+              <li role="separator" className="-divider"/>
+              <li><a onClick={this._logout}>Logout</a></li>
+            </div>
+          </ul>
+          </CSSTransition>
+          :
+          null
+        }
+      </TransitionGroup>
+    )
   }
 }
 
 DropdownNav.propTypes = {
-  dispatch: PropTypes.func.isRequired
+  close: PropTypes.func.isRequired
+  , dispatch: PropTypes.func.isRequired
   , isOpen: PropTypes.bool.isRequired
 }
 
@@ -103,6 +93,8 @@ const mapStoreToProps = (store) => {
   }
 }
 
-export default connect(
-  mapStoreToProps
-)(DropdownNav);
+export default withRouter(
+  connect(
+    mapStoreToProps
+  )(DropdownNav)
+);

@@ -1,7 +1,12 @@
 // import primary libraries
-import React, { PropTypes } from 'react';
-import View from 'View';
-import Text from 'Text'; 
+import React from 'react';
+import PropTypes from 'prop-types';
+
+// import react-native components
+import {
+  View
+  , Text
+} from 'react-native'; 
 
 // import global components
 import Base from './BaseComponent';

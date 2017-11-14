@@ -1,5 +1,6 @@
 // import primary components
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 // import utilities
@@ -7,14 +8,15 @@ import _ from 'lodash';
 import labelUtils from '../util/labelUtils';
 
 // import RN components
-import KeyboardAvoidingView from 'KeyboardAvoidingView';
-import Modal from 'Modal';
-import StyleSheet from 'StyleSheet';
-import Text from 'Text';
-import TextInput from 'TextInput';
-import TouchableHighlight from 'TouchableHighlight';
-import TouchableOpacity from 'TouchableOpacity';
-import View from 'View';
+import {
+  KeyboardAvoidingView
+  , Modal
+  , StyleSheet
+  , Text
+  , TextInput
+  , TouchableOpacity
+  , View
+} from 'react-native'; 
 
 // import global comonents
 import Base from './BaseComponent.js';

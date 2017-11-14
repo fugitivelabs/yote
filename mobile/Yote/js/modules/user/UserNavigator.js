@@ -12,12 +12,13 @@ import {
   , TouchableOpacity
   , View
 } from 'react-native';
+
 import { StackNavigator } from 'react-navigation';
 
 // import user components
-import Login from './components/Login'; 
-import Profile from './components/Profile'; 
-import UpdateProfile from './components/UpdateProfile'; 
+import Login from './views/Login'; 
+import Profile from './views/Profile'; 
+import UpdateProfile from './views/UpdateProfile'; 
 
 const UserNavigator = StackNavigator(
   {
@@ -35,4 +36,4 @@ const UserNavigator = StackNavigator(
     }
 );
 
-export default UserNavigator; 
+export default UserNavigator;

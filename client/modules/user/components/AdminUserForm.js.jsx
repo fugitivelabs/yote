@@ -3,8 +3,9 @@
  */
 
 // import primary libraries
-import React, { PropTypes } from 'react'
-import { Link } from 'react-router';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 // import form components
 import {
@@ -28,14 +29,14 @@ function AdminUserForm({
   const buttonText = formType === "create" ? "Create User" : "Update User";
 
   // set the form header
-  const header = formTitle ? <div className="formHeader"><h1> {formTitle} </h1><hr/></div> : <div/>;
+  const header = formTitle ? <div className="formHeader"><h2> {formTitle} </h2><hr/></div> : <div/>;
 
   return (
     <div className="yt-container">
-      {header}
       <div className="yt-row center-horiz">
-        <div className="form-container">
-          <form name="userForm" className="card user-form" onSubmit={handleFormSubmit}>
+        <div className="form-container -slim">
+          <form name="userForm" className="user-form" onSubmit={handleFormSubmit}>
+            {header}
             <EmailInput
               name="username"
               label="Email Address"
@@ -81,7 +82,7 @@ function AdminUserForm({
             <div className="input-group">
               <div className="yt-row space-between">
                 { formType === 'update' ?
-                  <button className="yt-btn link" type="button" onClick={handleDeleteUser}> Delete User </button>
+                  <button className="yt-btn link danger" type="button" onClick={handleDeleteUser}> Delete User </button>
                   :
                   null
                 }

@@ -1,26 +1,29 @@
 // import react things
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 // import react-native components
-import Dimensions from 'Dimensions';
-import Image from 'Image';
-import ListView from 'ListView';
-import Platform from 'Platform';
-import StyleSheet from 'StyleSheet';
-import Text from 'Text';
-import View from 'View';
+import {
+  Dimensions
+  , Image
+  , ListView
+  , Platform
+  , StyleSheet
+  , Text
+  , View
+} from 'react-native'; 
 
 // import global components
 import Base from '../../../global/components/BaseComponent';
-import YTButton from '../../../global/components/YTButton'; 
+import YTButton from '../../../global/components/YTButton';
 import YTTouchable from '../../../global/components/YTTouchable';
 
 // import libraries
 import moment from 'moment';
 
 // import styles
-import productStyles from '../productStyles'; 
+import productStyles from '../productStyles';
 import YTColors from '../../../global/styles/YTColors';
 
 class ProductListItem extends Base {
@@ -30,7 +33,6 @@ class ProductListItem extends Base {
 
   render() {
     const { product, onPress } = this.props;
-    let icon = <Image source={require('../../../global/img/breast.png')} />;
 
     var cell =
               <View style={productStyles.cellBackground}>
@@ -56,7 +58,7 @@ class ProductListItem extends Base {
                   </View>
                 </View>
               </View>
-            
+
     if(this.props.onPress) {
       cell =
         <View style={{paddingVertical: 1}}>

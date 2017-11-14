@@ -1,6 +1,6 @@
 /**
-* Navigator for product components
-*/
+ * Navigator for product components
+ */
 
 // import primary libraries
 import React from 'react';
@@ -15,16 +15,16 @@ import {
 import { StackNavigator } from 'react-navigation';
 
 // import product components
-import CreateProduct from './components/CreateProduct'; 
-import Product from './components/Product'; 
-import SingleProduct from './components/SingleProduct'; 
-import UpdateProduct from './components/UpdateProduct'; 
+import CreateProduct from './views/CreateProduct';
+import ProductRoot from './views/ProductRoot';
+import SingleProduct from './views/SingleProduct';
+import UpdateProduct from './views/UpdateProduct';
 
 // horizontal screen transitions
 const CardNavigator = StackNavigator(
   {
-    Product: {
-      screen: Product
+    ProductRoot: {
+      screen: ProductRoot
     }
     , SingleProduct: {
       screen: SingleProduct
@@ -32,7 +32,7 @@ const CardNavigator = StackNavigator(
   }
   , {
       headerMode: 'none'
-      , initialRouteName: 'Product'
+      , initialRouteName: 'ProductRoot'
     }
 );
 
@@ -52,6 +52,6 @@ const ProductNavigator = StackNavigator(
       headerMode: 'none'
       , mode: 'modal' // vertical screen transitions
     }
-); 
+);
 
-export default ProductNavigator; 
+export default ProductNavigator;

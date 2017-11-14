@@ -4,7 +4,9 @@ let logger = global.logger;
 
 module.exports = function(config) {
   mongoose.Promise = global.Promise; // mongoose internal Promise library depreciated; use native
-  mongoose.connect(config.db);
+  mongoose.connect(config.db, {
+    useMongoClient: true,
+  });
   var db = mongoose.connection;
   db.on('error', logger.error.bind(console, 'mongo connection error'));
   db.once('open', function callback() {

@@ -1,9 +1,12 @@
 // user styles
 
-import Dimensions from 'Dimensions'; 
-import Platform from 'Platform'; 
+// import react things
+import {
+  Dimensions
+  , Platform
+  , StyleSheet 
+} from 'react-native'; 
 
-import StyleSheet from 'StyleSheet'; 
 import YTColors from '../../global/styles/YTColors'; 
 
 const IMAGE_HEIGHT = Dimensions.get('window').height * 0.5;

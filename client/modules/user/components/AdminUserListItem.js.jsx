@@ -1,7 +1,7 @@
 // import primary libraries
-import React, { PropTypes } from 'react'
-import { Link, Router } from 'react-router';
-import { browserHistory } from 'react-router';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Link, withRouter } from 'react-router-dom';
 
 // import other libraries
 import moment from 'moment';
@@ -15,7 +15,7 @@ class AdminUserListItem extends Base {
   }
 
   _goToUser(userId) {
-    browserHistory.push(`/admin/users/${userId}`)
+    this.props.history.push(`/admin/users/${userId}`)
   }
 
   render() {
@@ -36,4 +36,4 @@ AdminUserListItem.propTypes = {
   user: PropTypes.object.isRequired
 }
 
-export default AdminUserListItem;
+export default withRouter(AdminUserListItem);

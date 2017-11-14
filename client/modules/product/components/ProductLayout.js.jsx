@@ -1,15 +1,15 @@
 /**
- * Wraps all Product components in a default view wrapper
- * This is a class in case you want some extra special logic...
+ * Wraps all Product views in a wrapping containter. If you want to give all
+ * product views a sidebar for example, you would set that here.
  */
 
 // import primary libraries
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 // import global components
 import Base from "../../../global/components/BaseComponent.js.jsx";
 import DefaultLayout from "../../../global/components/DefaultLayout.js.jsx";
-
 
 class ProductLayout extends Base {
   constructor(props) {

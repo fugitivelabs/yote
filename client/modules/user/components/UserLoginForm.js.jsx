@@ -1,11 +1,17 @@
 // import primary libraries
-import React, { PropTypes } from 'react'
-import { Link } from 'react-router';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Link, withRouter } from 'react-router-dom';
 
 // import form components
 import { EmailInput, PasswordInput } from '../../../global/components/forms';
 
-function UserLoginForm({ user, handleFormSubmit, handleFormChange }) {
+function UserLoginForm({
+  handleFormChange
+  , handleFormSubmit
+  , location
+  , user
+}) {
   return (
     <div className="form-container -slim">
       <form name="userForm" className="user-form" onSubmit={handleFormSubmit}>
@@ -33,7 +39,15 @@ function UserLoginForm({ user, handleFormSubmit, handleFormChange }) {
         </Link>
         <div className="input-group">
           <div className="yt-row right">
-            <Link to="/user/register" className="yt-btn link">Register</Link>
+            <Link
+              className="yt-btn link"
+              to={{
+                pathname: "/user/register"
+                , state: location.state
+              }}
+            >
+              Register
+            </Link>
             <button className="yt-btn " type="submit" > Sign in </button>
           </div>
         </div>
@@ -46,6 +60,7 @@ UserLoginForm.propTypes = {
   handleFormChange: PropTypes.func.isRequired
   , handleFormSubmit: PropTypes.func.isRequired
   , user: PropTypes.object.isRequired
+  , location: PropTypes.object
 }
 
-export default UserLoginForm;
+export default withRouter(UserLoginForm);

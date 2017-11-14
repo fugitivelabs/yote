@@ -6,4 +6,5 @@
  * NOTE: this facilitates adding navigators via the CLI
  */
 
-export { default as UserNavigator } from './user/UserNavigator'; 
+export { default as ProductNavigator } from './product/ProductNavigator'; 
+export { default as UserNavigator } from './user/UserNavigator';

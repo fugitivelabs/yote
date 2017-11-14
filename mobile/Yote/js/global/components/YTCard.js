@@ -1,10 +1,13 @@
 // import react things
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 // import react-native components
-import StyleSheet from 'StyleSheet';
-import Text from 'Text';
-import View from 'ScrollView';
+import {
+  StyleSheet
+  , Text
+  , View
+} from 'react-native'; 
 
 // import styles
 import YTColors from '../styles/YTColors';
