@@ -63,7 +63,7 @@ class AdminUpdateUser extends Base {
     const { dispatch, history } = this.props;
     dispatch(userActions.sendUpdateUser(this.state.user)).then((action) => {
       if(action.success) {
-        dispatch(userActions.invalidateList('all'));
+        dispatch(userActions.invalidateList());
         history.push('/admin/users')
       } else {
         alert("ERROR UPDATING USER: ", action.message);
