@@ -61,7 +61,7 @@ class DropdownNav extends Base {
                   <small>{user.username}</small>
                 </div>
               </li>
-              <li><Link to="/profile" onClick={()=> close()}>My Profile </Link></li>
+              <li><Link to="/user/profile" onClick={()=> close()}>My Profile </Link></li>
 
               { user.roles && user.roles.indexOf('admin') > -1
                 ?

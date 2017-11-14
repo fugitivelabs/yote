@@ -1,7 +1,7 @@
 // import primary libraries
 import React from 'react';
 import PropTypes from 'prop-types';
-import { history } from 'react-router-dom';
+import { history, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 // import actions
@@ -34,8 +34,8 @@ class AdminUpdateUser extends Base {
   }
 
   componentDidMount() {
-    const { dispatch, params } = this.props;
-    dispatch(userActions.fetchSingleIfNeeded(params.userId));
+    const { dispatch, match } = this.props;
+    dispatch(userActions.fetchSingleIfNeeded(match.params.userId));
   }
 
   componentWillReceiveProps(nextProps) {
@@ -56,7 +56,7 @@ class AdminUpdateUser extends Base {
     e.preventDefault();
     this.props.dispatch(userActions.sendUpdateUser(this.state.user)).then((action) => {
       if(action.success) {
-        history.push('/admin/users')
+        this.props.history.push('/admin/users')
       } else {
         alert("ERROR UPDATING USER: ", action.message);
       }
@@ -150,6 +150,6 @@ const mapStoreToProps = (store) => {
   }
 }
 
-export default connect(
+export default withRouter(connect(
   mapStoreToProps
-)(AdminUpdateUser);
+)(AdminUpdateUser));
