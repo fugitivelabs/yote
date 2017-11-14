@@ -63,19 +63,21 @@ class AdminCreateUser extends Base {
     const { user } = this.state;
     const isEmpty = !user || (user.username === null || user.username === undefined);;
     return (
-      <div>
-        { isEmpty ?
-          <h2> Loading... </h2>
-          :
-          <AdminUserForm
-            user={this.state.user}
-            formType="create"
-            handleFormSubmit={this._handleFormSubmit}
-            handleFormChange={this._handleFormChange}
-            cancelLink={`/admin/users`}
-            formTitle="Create User"
-          />
-        }
+      <div className="flex">
+        <section className="section transparent-bg">
+          { isEmpty ?
+            <h2> Loading... </h2>
+            :
+            <AdminUserForm
+              user={this.state.user}
+              formType="create"
+              handleFormSubmit={this._handleFormSubmit}
+              handleFormChange={this._handleFormChange}
+              cancelLink={`/admin/users`}
+              formTitle="Create User"
+            />
+          }
+        </section>
       </div>
     )
   }
