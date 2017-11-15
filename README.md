@@ -53,7 +53,7 @@ Yote itself is not a framework. It's not even really a library. Our idea is to s
 ## Prerequisites
 ****
 
-We assume at least intermediate-level knowledge of Javascript. For the server you'll need to [MondoDB](https://docs.mongodb.com/master/tutorial/install-mongodb-on-os-x/?_ga=1.204328082.326616756.1489430903) installed and running, and [NodeJS >= v6.9.0](https://nodejs.org/en/). For the web client and mobile, it's best to have at least a basic understanding of [ReactJS](https://reactjs.com/) and [Redux](https://redux.js.org/).  
+We assume at least intermediate-level knowledge of Javascript. For the server you'll need to [MondoDB](https://docs.mongodb.com/master/tutorial/install-mongodb-on-os-x/?_ga=1.204328082.326616756.1489430903) installed and running, and [NodeJS >= v8.9.0](https://nodejs.org/en/). For the web client and mobile, it's best to have at least a basic understanding of [ReactJS](https://reactjs.com/) and [Redux](https://redux.js.org/).  
 > Redux can be a little tricky to wrap your brain around &mdash; particularly the `reducer` mapping. If you want to simply trust us that it works, you can just follow the patterns and you should pick it up eventually.  
 
 

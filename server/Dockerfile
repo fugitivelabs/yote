@@ -1,4 +1,4 @@
-FROM node:6
+FROM node:8
 MAINTAINER grant@fugitivelabs.com
 
 RUN npm install -g forever
