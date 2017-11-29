@@ -24,7 +24,7 @@ import AdminLayout from './components/AdminLayout.js.jsx';
 // import other admin routes
 import UserAdminRouter from '../user/UserAdminRouter.js.jsx';
 
-class ProductRouter extends Base {
+class AdminRouter extends Base {
   constructor(props) {
     super(props);
   }
@@ -44,4 +44,4 @@ class ProductRouter extends Base {
   }
 }
 
-export default ProductRouter;
+export default AdminRouter;
