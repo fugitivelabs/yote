@@ -4,7 +4,6 @@
 $formContainerColor: #fff;
 $formAccentColor: $link-color;
 $formTextColor: $text-color;
-$richFormContainerColor: rgba(255,255,255,0.7);
 
 .form-container {
   border: 1px solid $divider-color;
@@ -276,36 +275,5 @@ form {
         }
       }
     }
-  }
-}
-
-.RichEditor-root {
-  // font-family: 'Helvetica', sans-serif;
-  font-family: $font-sans;
-  background-color: darken($richFormContainerColor, 1);
-  border: 1px solid $divider-color;
-  border-radius: 2px;
-  @include transition(all 250ms ease-in-out);
-  &.hasFocus {
-    background-color: darken($richFormContainerColor, 3);
-    border-color: $formAccentColor;
-  }
-  .RichEditor-controls {
-    display: inline-block;
-    border-left: 1px solid #ddd;
-    padding-left: 10px;
-    font-size: 11px;
-    &:first-child {
-      border-left: none;
-      padding-left: 0;
-    }
-  }
-  .RichEditor-editor {
-    font-family: $font-sans;
-    max-height: 400px;
-    @include mobile-scroll();
-  }
-  .RichEditor-activeButton {
-    color: #fff;
   }
 }
