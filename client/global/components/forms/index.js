@@ -8,6 +8,7 @@ import FileInput from './FileInput.js.jsx';
 import ListComparator from './ListComparator.js.jsx';
 import NewPasswordInput from './NewPasswordInput.js.jsx';
 import NumberInput from './NumberInput.js.jsx';
+import ObjectListComparator from './ObjectListComparator.js.jsx';
 import PasswordInput from './PasswordInput.js.jsx';
 import RadioInput from './RadioInput.js.jsx';
 import SearchInput from './SearchInput.js.jsx';
@@ -24,6 +25,7 @@ export { FileInput };
 export { ListComparator };
 export { NewPasswordInput };
 export { NumberInput };
+export { ObjectListComparator };
 export { PasswordInput };
 export { RadioInput };
 export { SearchInput };
@@ -41,6 +43,7 @@ export default {
   , ListComparator
   , NewPasswordInput
   , NumberInput
+  , ObjectListComparator
   , PasswordInput
   , RadioInput
   , SearchInput
