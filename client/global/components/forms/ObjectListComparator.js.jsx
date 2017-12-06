@@ -16,10 +16,10 @@ class ObjectListComparator extends Base {
     }
     this._bind(
       '_addItem'
+      , '_handleFormChange'
       , '_moveDown'
       , '_moveUp'
       , '_removeItem'
-      , '_handleFormChange'
     )
   }
 
@@ -108,14 +108,14 @@ class ObjectListComparator extends Base {
   render() {
     // console.log("object list comparator rendering");
     const {
-      items
-      , displayKey
+      displayKey
       , filterable
-      , selected
+      , items
       , label
       , name
-      , valueKey
       , reorderable
+      , selected
+      , valueKey
     } = this.props;
     const { queryText } = this.state;
 
@@ -234,23 +234,23 @@ class ObjectListComparator extends Base {
 }
 
 ObjectListComparator.propTypes = {
-  items: PropTypes.oneOfType([
+  change: PropTypes.func.isRequired
+  , displayKey: PropTypes.string.isRequired // key to display on objects
+  , filterable: PropTypes.bool
+  , items: PropTypes.oneOfType([
     PropTypes.array
     , PropTypes.object
   ]).isRequired // all possible items
-  , change: PropTypes.func.isRequired
-  , displayKey: PropTypes.string.isRequired // key to display on objects
-  , filterable: PropTypes.bool
-  , selected: PropTypes.arrayOf(PropTypes.string) // array of [valueKey's]
-  , valueKey: PropTypes.string.isRequired // key to return as selected
   , label: PropTypes.string
   , name: PropTypes.string.isRequired // name of field on parent to update
   , reorderable: PropTypes.bool
+  , selected: PropTypes.arrayOf(PropTypes.string) // array of [valueKey's]
+  , valueKey: PropTypes.string.isRequired // key to return as selected
 }
 
 ObjectListComparator.defaultProps = {
-  items: []
-  , filterable: false
+  filterable: false
+  , items: []
   , label: ""
   , reorderable: false
 }
