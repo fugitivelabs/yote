@@ -103,10 +103,10 @@ function receiveSingleProduct(json) {
   }
 }
 
-export function fetchSingleProductById(productId) {
+export function fetchSingleProductById(id) {
   return dispatch => {
-    dispatch(requestSingleProduct(productId))
-    return callAPI(`/api/products/${productId}`)
+    dispatch(requestSingleProduct(id))
+    return callAPI(`/api/products/${id}`)
       .then(json => dispatch(receiveSingleProduct(json)))
   }
 }
@@ -150,8 +150,9 @@ export function sendCreateProduct(data) {
 export const REQUEST_UPDATE_PRODUCT = "REQUEST_UPDATE_PRODUCT";
 function requestUpdateProduct(product) {
   return {
-    type: REQUEST_UPDATE_PRODUCT
+    id: product ? product._id: null
     , product
+    , type: REQUEST_UPDATE_PRODUCT
   }
 }
 
@@ -159,6 +160,7 @@ export const RECEIVE_UPDATE_PRODUCT = "RECEIVE_UPDATE_PRODUCT";
 function receiveUpdateProduct(json) {
   return {
     error: json.message
+    , id: json.product ? json.product._id : null
     , item: json.product
     , receivedAt: Date.now()
     , success: json.success
@@ -175,17 +177,18 @@ export function sendUpdateProduct(data) {
 }
 
 export const REQUEST_DELETE_PRODUCT = "REQUEST_DELETE_PRODUCT";
-function requestDeleteProduct(productId) {
+function requestDeleteProduct(id) {
   return {
-    productId
+    id
     , type: REQUEST_DELETE_PRODUCT
   }
 }
 
 export const RECEIVE_DELETE_PRODUCT = "RECEIVE_DELETE_PRODUCT";
-function receiveDeleteProduct(json) {
+function receiveDeleteProduct(id, json) {
   return {
     error: json.message
+    , id
     , receivedAt: Date.now()
     , success: json.success
     , type: RECEIVE_DELETE_PRODUCT
@@ -196,7 +199,7 @@ export function sendDelete(id) {
   return dispatch => {
     dispatch(requestDeleteProduct(id))
     return callAPI(`/api/products/${id}`, 'DELETE')
-      .then(json => dispatch(receiveDeleteProduct(json)))
+      .then(json => dispatch(receiveDeleteProduct(id, json)))
   }
 }
 
