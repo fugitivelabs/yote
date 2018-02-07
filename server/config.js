@@ -17,9 +17,9 @@ const stagingDbName = "yote";
 const productionDbName = "yote";
 
 // set database uri's
-let devDbUri = `mongodb://localhost/${devDbName}`
-let stagingDbUri = `mongodb://${envSecrets.mongo_user}:${envSecrets.mongo_pass}@test-cluster-1-shard-00-00-rzbt6.gcp.mongodb.net:27017,test-cluster-1-shard-00-01-rzbt6.gcp.mongodb.net:27017,test-cluster-1-shard-00-02-rzbt6.gcp.mongodb.net:27017/${stagingDbName}?ssl=true&replicaSet=test-cluster-1-shard-0&authSource=admin`;
-let productionDbUri = process.env.REMOTE_DB ? `mongodb://${process.env.REMOTE_DB}/${productionDbName}` : process.env.MONGODB_PORT ? `${process.env.MONGODB_PORT.replace("tcp", "mongodb")}/${productionDbName}` : `mongodb://localhost/${productionDbName}`
+const devDbUri = `mongodb://localhost/${devDbName}`
+const stagingDbUri = `mongodb://${envSecrets.mongo_user}:${envSecrets.mongo_pass}@test-cluster-1-shard-00-00-rzbt6.gcp.mongodb.net:27017,test-cluster-1-shard-00-01-rzbt6.gcp.mongodb.net:27017,test-cluster-1-shard-00-02-rzbt6.gcp.mongodb.net:27017/${stagingDbName}?ssl=true&replicaSet=test-cluster-1-shard-0&authSource=admin`;
+const productionDbUri = process.env.REMOTE_DB ? `mongodb://${process.env.REMOTE_DB}/${productionDbName}` : process.env.MONGODB_PORT ? `${process.env.MONGODB_PORT.replace("tcp", "mongodb")}/${productionDbName}` : `mongodb://localhost/${productionDbName}`
 
 
 // console.log(secrets);

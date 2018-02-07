@@ -50,6 +50,7 @@ global.logger = logger;
 
 
 // logger examples:
+logger.info("NEW TEST 1")
 logger.debug("DEBUG LOG");
 logger.info("INFO LOG");
 logger.warn("WARN LOG");
@@ -91,6 +92,8 @@ app.use(serveStatic(__dirname + '/public'));
 
 // request checks
 app.use((req, res, next) => {
+
+  console.log("DEBUG!", config.db);
 
   // Allow CORS & mobile access to the node APIs -- ref https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS
   res.header("Access-Control-Allow-Origin", "*");

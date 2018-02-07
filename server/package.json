@@ -4,6 +4,7 @@
   "description": "Find Your Road",
   "main": "yote.js",
   "scripts": {
+    "start": "node yote.js",
     "test": "mocha --compilers js:babel-core/register --require ./test/test-helper.js --recursive",
     "watch": "webpack --progress --colors --watch",
     "debug": "webpack -d --progress --colors --watch",

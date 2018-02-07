@@ -1,0 +1,11 @@
+runtime: nodejs
+env: flex
+
+automatic_scaling:
+  min_num_instances: 1
+
+#[START env_variables]
+env_variables:
+  GCLOUD_DATASET_ID: yote-919
+  NODE_ENV: staging
+#[END env_variables]
