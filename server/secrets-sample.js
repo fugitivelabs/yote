@@ -28,11 +28,27 @@
 //EXAMPLE "secrets.js" file below
 
 module.exports = {
-  //randomly generated
+  // randomly generated
   sessionSecret:    "xxxxxxxxxx" //used for cookie session management
   , tokenSecret:    "yyyyyyyyyy" //used for token session management
   //api keys
   , mandrill:       "zzzzzzzzzz"
+
+  // store any environment-specific secrets here
+  , development: {
+    mongo_user:     "n/a"
+    , mongo_pass:   "n/a"
+  }
+
+  , staging: {
+    mongo_user:     "n/a"
+    , mongo_pass:   "n/a"
+  }
+
+  , production: {
+    mongo_user:     "n/a"
+    , mongo_pass:   "n/a"
+  }
 }
 
 //END EXAMPLE
