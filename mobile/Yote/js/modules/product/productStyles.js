@@ -7,20 +7,35 @@ import {
   , StyleSheet
 } from 'react-native'; 
 
+// import common styles
+import common from '../../global/styles/common'; 
+
 // import colors
 import YTColors from '../../global/styles/YTColors'; 
 
-let productStyles = StyleSheet.create({
-  cardHeader: {
+const productStyles = StyleSheet.create({
+
+  // common styles
+  cell: common.cell
+  , container: common.container
+  , header: common.header
+  , header2: common.header2
+  , listSeparator: common.separator
+  , icon: common.icon
+  , input: common.input
+  , shadow: common.shadow
+  , subHeader: common.subHeader
+  , text: common.text
+  , userImg: common.userImg
+
+  // resource specific styles
+  , cardHeader: {
     fontSize: 16
     , fontWeight: '500'
     , color: "#fff"
     , padding: 8
     , backgroundColor: YTColors.actionText
   }
-  , cell: {
-      padding: 5
-    }
   , cellBackground: {
       backgroundColor: 'white'
     }
@@ -97,17 +112,6 @@ let productStyles = StyleSheet.create({
       color: YTColors.lightText
       , textAlign: 'center'
       , marginBottom: 5
-    }
-  , listSeparator: {
-      borderTopWidth: 1
-      , borderColor: YTColors.listSeparator
-    }
-  , input: {
-      minHeight: 40
-      , fontSize: 17
-      , padding: 4
-      , flex: 1
-      , backgroundColor: '#fff'
     }
   , label: {
       fontSize: 12

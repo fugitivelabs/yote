@@ -10,9 +10,9 @@ import {
 import YTColors from '../../global/styles/YTColors'; 
 
 const IMAGE_HEIGHT = Dimensions.get('window').height * 0.5;
-let screenWidth = Dimensions.get('window').width;
+const { height, width } = Dimensions.get('window');
 
-let userStyles = StyleSheet.create({
+const userStyles = StyleSheet.create({
   bannerWrapper: {
     flex:1
     , justifyContent: 'flex-end'
@@ -41,7 +41,7 @@ let userStyles = StyleSheet.create({
   , img: {
       backgroundColor: "transparent"
       , height: IMAGE_HEIGHT
-      , width: screenWidth
+      , width: width
   }
   , inputWrapper: {
       // flex: 0.5,

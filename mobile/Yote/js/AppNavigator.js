@@ -20,11 +20,31 @@ import TabBarComponent from './global/components/TabBarComponent';
 
 // import module navigator components
 import ProductNavigator from './modules/product/ProductNavigator';
-// other routes imported from ./modules/moduleNavigator
-// to add routes to the TABS view, add them to TabNavigator below
+
+// import specific module screens
+import Profile from './modules/user/views/Profile'; 
+import UpdateProfile from './modules/user/views/UpdateProfile'; 
 
 // import styles
 import YTColors from './global/styles/YTColors';
+
+/** Navigator Notes **
+  *
+  * To add routes to the TABS view, add them to TabNavigator below
+  *
+  * For horizontal screen transitions add screens to MainCardNavigator, for modal vertical animations add
+  * screens to AppNavigator. 
+  * 
+  * Modal screens cannot directly transition horizontally (for now) to a new screen
+  * ways around that are just accepting it, or nest more Navigator components (see ProductNavigator).
+  *
+  * However, nesting navigators can become a pain when navigations become more complex
+  * Such as, resetting stack and going to root navigator or specific screen in the stack.
+  *
+  * Because of that, it is easier to add specific routes as you need them that way you can specify
+  * exactly where they go and how they go there.
+  *
+  */
 
 // define tabs
 const TabsNavigator = TabNavigator(
@@ -65,38 +85,30 @@ const TabsNavigator = TabNavigator(
   }
 );
 
-
-let appNavigatorConfig = {
-  TabsNavigator: {
+const MainCardNavigator = StackNavigator({
+  Root: {
     screen: TabsNavigator
   }
-}
+  // add individual module routes here (horizontal transitions)
+}, {
+  headerMode: 'none'
+});
 
-// add individual module routes (other than product and user) here
-Object.keys(moduleNavigators).map((moduleName, i) => {
-  appNavigatorConfig[moduleName] = {
-    screen: moduleNavigators[moduleName]
+
+let AppNavigator = StackNavigator({
+  TabsNavigator: {
+    screen: MainCardNavigator
   }
-})
-
-const AppNavigator = StackNavigator(
-  appNavigatorConfig
-  , {
-    mode: 'modal' // vertical screen (modal) transitions
-    , headerMode: 'none'
+  , Profile: {
+    screen: Profile
   }
-);
-
-// horizontal screen transitions (replace TabsNavigator with MainCardNavigator in AppNavigator)
-// const MainCardNavigator = StackNavigator({
-//   Root: {
-//     screen: TabsNavigator
-//   },
-// }, {
-//   headerMode: 'none'
-// });
-
+  , UpdateProfile: {
+    screen: UpdateProfile
+  }
+  // add individual module routes here (vertical transitions)
+}, {
+  mode: 'modal'
+  , headerMode: 'none'
+});
 
 export default AppNavigator;
-
-import * as moduleNavigators from './modules/moduleNavigators.js';
