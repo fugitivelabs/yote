@@ -121,7 +121,7 @@ class Home extends Base {
   }
 
   _openProfile() {
-    this.props.navigation.navigate('UserNavigator');
+    this.props.navigation.navigate('Profile');
   }
 
   _handleOpenDrawer() {
