@@ -13,7 +13,7 @@ import common from '../../global/styles/common';
 // import colors
 import YTColors from '../../global/styles/YTColors'; 
 
-let productStyles = StyleSheet.create({
+const productStyles = StyleSheet.create({
 
   // common styles
   cell: common.cell

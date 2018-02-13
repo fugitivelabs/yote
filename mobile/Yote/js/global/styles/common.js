@@ -12,7 +12,7 @@ import YTColors from '../../global/styles/YTColors';
 let width = Dimensions.get('window').width
 let height = Dimensions.get('window').height
 
-var common = StyleSheet.flatten({
+const common = StyleSheet.flatten({
   cell: {
     padding: 5
   }
