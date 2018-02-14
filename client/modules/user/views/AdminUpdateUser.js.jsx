@@ -90,6 +90,7 @@ class AdminUpdateUser extends Base {
     const { dispatch, history } = this.props;
     dispatch(userActions.sendDelete(this.state.user._id)).then((result) => {
       if(result.success) {
+        dispatch(userActions.invalidateList());
         this._closeDeleteModal();
         history.push('/admin/users');
       } else {
