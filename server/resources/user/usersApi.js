@@ -129,7 +129,7 @@ module.exports = function(router, requireLogin, requireRole) {
 
   // - Read
   router.get('/api/users'               , requireRole('admin'), users.list); // must be an 'admin' to see the list of users
-  router.get('/api/users/by-:refKey/:refId'  , requireRole('admin'), users.listByRef);
+  router.get('/api/users/by-:refKey/:refId*'  , requireRole('admin'), users.listByRefs);
   router.get('/api/users/by-:refKey-list'    , requireRole('admin'), users.listByValues);
   router.get('/api/users/get-logged-in' , requireLogin(), users.getLoggedInUser);
   router.get('/api/users/:id'           , requireRole('admin'), users.getById); // must be an 'admin' to see individual user info
