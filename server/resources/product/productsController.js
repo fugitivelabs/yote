@@ -86,19 +86,36 @@ exports.listByValues = (req, res) => {
   }
 }
 
-exports.listByRef = (req, res) => {
+exports.listByRefs = (req, res) => {
   /**
    * NOTE: This let's us query by ANY string or pointer key by passing in a refKey and refId
    * TODO: server side pagination
    */
-  const refId = req.params.refId === 'null' ? null : req.params.refId;
-  Product.find({[req.params.refKey]: refId}, (err, products) => {
-    if(err || !products) {
-      res.send({success: false, message: `Error retrieving products by _${req.params.refKey}: ${req.params.refId}` });
-    }else {
-      res.send({success: true, products})
+
+   // build query
+  let query = {
+    [req.params.refKey]: req.params.refId === 'null' ? null : req.params.refId
+  }
+  // test for optional additional parameters
+  const nextParams = req.params['0'];
+  if(nextParams.split("/").length % 2 == 0) {
+    // can't have length be uneven, throw error
+    // ^ annoying because if you lead with the character you are splitting on, it puts an empty string first, so while we want "length == 2" technically we need to check for length == 3
+    res.send({success: false, message: "Invalid parameter length"});
+  } else {
+    if(nextParams.length !== 0) {
+      for(let i = 1; i < nextParams.split("/").length; i+= 2) {
+        query[nextParams.split("/")[i]] = nextParams.split("/")[i+1] === 'null' ? null : nextParams.split("/")[i+1]
+      }
     }
-  })
+    Product.find(query, (err, products) => {
+      if(err || !products) {
+        res.send({success: false, message: `Error retrieving products by ${req.params.refKey}: ${req.params.refId}`});
+      } else {
+        res.send({success: true, products})
+      }
+    })
+  }
 }
 
 exports.search = (req, res) => {
