@@ -273,12 +273,18 @@ export const returnProductListPromise = (...listArgs) => (dispatch, getState) =>
    * EVEN IF we don't need to fetch it. This is because if we have any .then()'s
    * in the components, they will fail when we don't need to fetch.
    */
-  return new Promise((resolve, reject) => {
+  
+  // return the array of objects just like the regular fetch
+  const state = getState();
+  const listItemIds = findListFromArgs(state, listArgs).items
+  const listItems = listItemIds.map(id => state.product.byId[id]);
+
+  return new Promise((resolve) => {
     resolve({
-      type: "RETURN_PRODUCT_LIST_WITHOUT_FETCHING"
+      list: listItems
       , listArgs: listArgs
-      , list: findListFromArgs(getState(), listArgs).items
       , success: true
+      , type: "RETURN_PRODUCT_LIST_WITHOUT_FETCHING"
     })
   });
 }

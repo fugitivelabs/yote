@@ -469,10 +469,16 @@ export const returnUserListPromise = (...listArgs) => (dispatch, getState) => {
    * EVEN IF we don't need to fetch it. This is because if we have any .then()'s
    * in the components, they will fail when we don't need to fetch.
    */
-  return new Promise((resolve, reject) => {
+  
+  // return the array of objects just like the regular fetch
+  const state = getState();
+  const listItemIds = findListFromArgs(state, listArgs).items
+  const listItems = listItemIds.map(id => state.user.byId[id]);
+
+  return new Promise((resolve) => {
     resolve({
       type: "RETURN_USER_LIST_WITHOUT_FETCHING"
-      , listArgs: listArgs
+      , listArgs: listItems
       , list: findListFromArgs(getState(), listArgs).items
       , success: true
     })
