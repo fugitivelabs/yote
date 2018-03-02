@@ -26,7 +26,7 @@ class AdminCreateUser extends Base {
   constructor(props) {
     super(props);
     this.state = {
-      user: JSON.parse(JSON.stringify(props.defaultUser))
+      user: _.cloneDeep(props.defaultUser)
     }
     this._bind(
       '_handleFormChange'

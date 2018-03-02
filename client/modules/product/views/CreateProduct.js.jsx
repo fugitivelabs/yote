@@ -27,7 +27,7 @@ class CreateProduct extends Base {
   constructor(props) {
     super(props);
     this.state = {
-      product: { ...this.props.defaultProduct }
+      product: _.cloneDeep(this.props.defaultProduct)
 
       // NOTE: We don't want to actually change the store's defaultItem, just use a copy
     }
