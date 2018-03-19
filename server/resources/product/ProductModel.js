@@ -33,7 +33,9 @@ const Product = mongoose.model('Product', productSchema);
 // prouct model methods
 function createDefaults() {
   Product.find({}).exec(function(err, products) {
-    if(products.length == 0) {
+    if(err || !products) {
+      logger.error("ERROR finding default products", err);
+    } else if(products.length == 0) {
       Product.create({
         title: "Fugitive Labs Introduces Yote!"
         , description: "A neat-o new product that helps you build apps on the super-stack!"

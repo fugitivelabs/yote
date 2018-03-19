@@ -13,6 +13,11 @@ let Product = require('mongoose').model('Product');
 let logger = global.logger;
 
 exports.list = (req, res) => {
+
+  console.log("DEBUG")
+  console.log(Product.db.host);
+  console.log(Product.db.name);
+
   if(req.query.page) {
     // paginate on the server
     var page = req.query.page || 1;

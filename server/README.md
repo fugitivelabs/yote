@@ -365,3 +365,11 @@ https://cloud.google.com/compute/docs/containers/container_vms
 -NEW TYPE OF CONTAINERS - the "container optimized" ones are now obsolete, so going forward we will use the new gci ones
 -notes - does not require sudo before commands, diff colors and filesystems
 -https://cloud.google.com/container-optimized-os/docs/how-to/create-configure-instance
+
+
+MONGO ATLAS REMOTE DATABASE:
+if not already, upgrade mongo version to 3.6. I had 3.4 installed locally. 
+
+
+COMPUTE ENGINE DEPLOYMENT:
+gcloud app deploy

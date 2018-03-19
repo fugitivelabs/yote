@@ -17,10 +17,13 @@ const stagingDbName = "yote";
 const productionDbName = "yote";
 
 // set database uri's
-const devDbUri = `mongodb://localhost/${devDbName}`
-const stagingDbUri = `mongodb://${envSecrets.mongo_user}:${envSecrets.mongo_pass}@test-cluster-1-shard-00-00-rzbt6.gcp.mongodb.net:27017,test-cluster-1-shard-00-01-rzbt6.gcp.mongodb.net:27017,test-cluster-1-shard-00-02-rzbt6.gcp.mongodb.net:27017/${stagingDbName}?ssl=true&replicaSet=test-cluster-1-shard-0&authSource=admin`;
+const devDbUri = `mongodb://localhost/MY_DATABASE` //${devDbName}`
+//mongodb+srv://fugitivelabs:chunkybutterwalrus@test-cluster-1-rzbt6.gcp.mongodb.net/test
+const stagingDbUri = `mongodb+srv://${envSecrets.mongo_user}:${envSecrets.mongo_pass}@yote-test-2-rzbt6.gcp.mongodb.net/my_database` //${stagingDbName}`
+// const stagingDbUri = `mongodb://${envSecrets.mongo_user}:${envSecrets.mongo_pass}@test-cluster-1-shard-00-00-rzbt6.gcp.mongodb.net:27017,test-cluster-1-shard-00-01-rzbt6.gcp.mongodb.net:27017,test-cluster-1-shard-00-02-rzbt6.gcp.mongodb.net:27017/${stagingDbName}?ssl=true&replicaSet=test-cluster-1-shard-0&authSource=admin`;
 const productionDbUri = process.env.REMOTE_DB ? `mongodb://${process.env.REMOTE_DB}/${productionDbName}` : process.env.MONGODB_PORT ? `${process.env.MONGODB_PORT.replace("tcp", "mongodb")}/${productionDbName}` : `mongodb://localhost/${productionDbName}`
 
+//manual backups: https://cloud.mongodb.com/v2/5a737c2a4e65812b62606818#clusters/commandLineTools/test-cluster-1
 
 // console.log(secrets);
 // console.log(process.env);
@@ -37,6 +40,7 @@ module.exports = {
   development: {
     appUrl: devUrl
     , db: devDbUri
+    , dbName: devDbName
     , httpsOptional: true
     , port: process.env.PORT || 3030
     , rootPath: rootPath
@@ -47,6 +51,7 @@ module.exports = {
   , staging: {
     appUrl: stagingUrl
     , db: stagingDbUri
+    , dbName: stagingDbName
     , httpsOptional: true
     , port: process.env.PORT || 3030
     , rootPath: rootPath
@@ -57,6 +62,7 @@ module.exports = {
   , production: {
     appUrl: prodUrl
     , db: productionDbUri
+    , dbName: productionDbName
     , httpsOptional: true
     , port: process.env.PORT || 80
     , rootPath: rootPath

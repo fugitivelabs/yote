@@ -121,7 +121,9 @@ var User = mongoose.model('User', userSchema);
 // user model methods
 function createDefaults() {
   User.find({}).exec(function(err, users) {
-    if(users.length === 0) {
+    if(err || !users) {
+      logger.error("ERROR finding default users", err);
+    } else if(users.length === 0) {
       var password_salt, password_hash;
       password_salt = User.createPasswordSalt();
       password_hash = User.hashPassword(password_salt, 'admin');
