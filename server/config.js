@@ -18,7 +18,6 @@ const productionDbName = "yote";
 
 // set database uri's
 const devDbUri = `mongodb://localhost/MY_DATABASE` //${devDbName}`
-//mongodb+srv://fugitivelabs:chunkybutterwalrus@test-cluster-1-rzbt6.gcp.mongodb.net/test
 const stagingDbUri = `mongodb+srv://${envSecrets.mongo_user}:${envSecrets.mongo_pass}@yote-test-2-rzbt6.gcp.mongodb.net/my_database` //${stagingDbName}`
 // const stagingDbUri = `mongodb://${envSecrets.mongo_user}:${envSecrets.mongo_pass}@test-cluster-1-shard-00-00-rzbt6.gcp.mongodb.net:27017,test-cluster-1-shard-00-01-rzbt6.gcp.mongodb.net:27017,test-cluster-1-shard-00-02-rzbt6.gcp.mongodb.net:27017/${stagingDbName}?ssl=true&replicaSet=test-cluster-1-shard-0&authSource=admin`;
 const productionDbUri = process.env.REMOTE_DB ? `mongodb://${process.env.REMOTE_DB}/${productionDbName}` : process.env.MONGODB_PORT ? `${process.env.MONGODB_PORT.replace("tcp", "mongodb")}/${productionDbName}` : `mongodb://localhost/${productionDbName}`
@@ -33,8 +32,6 @@ const productionDbUri = process.env.REMOTE_DB ? `mongodb://${process.env.REMOTE_
 // console.log("ENV SECRETS", envSecrets)
 // TODO:  document the remoteDb environment variable below
 // option to set database location manually via environment variables
-// let remoteDb = process.env.REMOTE_DB ? process.env.REMOTE_DB : false;
-// let remoteDb = 'mongodb://fugitivelabs:chunkybutterwalrus@test-cluster-1-shard-00-00-rzbt6.gcp.mongodb.net:27017,test-cluster-1-shard-00-01-rzbt6.gcp.mongodb.net:27017,test-cluster-1-shard-00-02-rzbt6.gcp.mongodb.net:27017/yote?ssl=true&replicaSet=test-cluster-1-shard-0&authSource=admin'
 
 module.exports = {
   development: {

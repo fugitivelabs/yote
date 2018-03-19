@@ -4,7 +4,7 @@ let logger = global.logger;
 
 module.exports = function(config) {
   mongoose.Promise = global.Promise; // mongoose internal Promise library depreciated; use native
-  console.log("DB CONNECTION:", config.db);
+  // console.log("DB CONNECTION:", config.db);
   let connectionOptions = {};
   if(config.db.includes('mongodb+srv')) {
     console.log("USING MONGO+SRV, need to manually set dbName");
