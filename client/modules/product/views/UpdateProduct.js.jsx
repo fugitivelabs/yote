@@ -19,6 +19,7 @@ import * as productActions from '../productActions';
 
 // import global components
 import Base from "../../../global/components/BaseComponent.js.jsx";
+import Breadcrumbs from '../../../global/components/routing/Breadcrumbs.js.jsx';
 
 // import product components
 import ProductLayout from '../components/ProductLayout.js.jsx';
@@ -73,24 +74,27 @@ class UpdateProduct extends Base {
   }
 
   render() {
-    const { selectedProduct, productMap } = this.props;
+    const { location, selectedProduct, productMap } = this.props;
     const { product } = this.state;
     const isEmpty = (!product || product.title === null || product.title === undefined);
     return  (
       <ProductLayout>
         <div className="flex">
           <section className="section">
-            {isEmpty
-              ? (selectedProduct.isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
-            : <ProductForm
-                product={product}
-                cancelLink={`/products/${product._id}`}
-                formTitle="Update Product"
-                formType="update"
-                handleFormChange={this._handleFormChange}
-                handleFormSubmit={this._handleFormSubmit}
-              />
-            }
+            <div className="yt-container">
+              <Breadcrumbs links={location.state.breadcrumbs} />
+              {isEmpty
+                ? (selectedProduct.isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
+              : <ProductForm
+                  product={product}
+                  cancelLink={`/products/${product._id}`}
+                  formTitle="Update Product"
+                  formType="update"
+                  handleFormChange={this._handleFormChange}
+                  handleFormSubmit={this._handleFormSubmit}
+                />
+              }
+            </div>
           </section>
         </div>
     </ProductLayout>

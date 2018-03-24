@@ -15,8 +15,8 @@ import { Link, withRouter } from 'react-router-dom';
 import * as productActions from '../productActions';
 
 // import global components
-import Base from "../../../global/components/BaseComponent.js.jsx";
-
+import Base from '../../../global/components/BaseComponent.js.jsx';
+import Breadcrumbs from '../../../global/components/routing/Breadcrumbs.js.jsx';
 // import product components
 import ProductLayout from '../components/ProductLayout.js.jsx';
 
@@ -31,7 +31,7 @@ class SingleProduct extends Base {
   }
 
   render() {
-    const { productStore } = this.props;
+    const { location, match, productStore } = this.props;
 
     /**
      * use the selected.getItem() utility to pull the actual product object from the map
@@ -43,12 +43,12 @@ class SingleProduct extends Base {
       || !selectedProduct._id
       || productStore.selected.didInvalidate
     );
-
     return (
       <ProductLayout>
         <div className="flex">
           <section className="section">
             <div className="yt-container">
+              <Breadcrumbs links={location.state.breadcrumbs} />
               <h3> Single Product </h3>
               {isEmpty ?
                 (productStore.selected.isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)

@@ -30,6 +30,7 @@ import * as productActions from '../productActions';
 
 // import global components
 import Base from "../../../global/components/BaseComponent.js.jsx";
+import Breadcrumbs from '../../../global/components/routing/Breadcrumbs.js.jsx';
 
 // import product components
 import ProductLayout from '../components/ProductLayout.js.jsx';
@@ -49,7 +50,7 @@ class ProductList extends Base {
   }
 
   render() {
-    const { productStore } = this.props;
+    const { location, productStore } = this.props;
 
     /**
      * Retrieve the list information and the list items for the component here.
@@ -74,12 +75,12 @@ class ProductList extends Base {
      * resource list.
      */
     const isEmpty = !productListItems || !productList;
-
     return (
       <ProductLayout>
         <div className="flex">
           <section className="section">
             <div className="yt-container">
+              <Breadcrumbs links={location.state.breadcrumbs} />
               <h1> Product List
                 <Link className="yt-btn small u-pullRight" to={'/products/new'}> NEW PRODUCT </Link>
               </h1>
