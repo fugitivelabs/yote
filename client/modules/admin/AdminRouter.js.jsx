@@ -12,7 +12,7 @@ import { Route, Redirect, Switch } from 'react-router-dom';
 
 // import global components
 import Base from "../../global/components/BaseComponent.js.jsx";
-import { LoginRoute, RoleRoute } from '../../global/components/routing';
+import YTRoute from '../../global/components/routing/YTRoute.js.jsx';
 
 // import admin views
 import AdminDashboard from './views/AdminDashboard.js.jsx';
@@ -33,11 +33,11 @@ class AdminRouter extends Base {
     return (
       <AdminLayout>
         <Switch>
-          <RoleRoute role="admin" exact path="/admin" component={AdminDashboard}/>
-          <RoleRoute role="admin" exact path="/admin/style-guide" component={StyleGuide}/>
-          <RoleRoute role="admin" path="/admin/users">
+          <YTRoute role="admin" exact path="/admin" component={AdminDashboard}/>
+          <YTRoute role="admin" exact path="/admin/style-guide" component={StyleGuide}/>
+          <YTRoute role="admin" path="/admin/users">
             <UserAdminRouter/>
-          </RoleRoute>
+          </YTRoute>
         </Switch>
       </AdminLayout>
     )

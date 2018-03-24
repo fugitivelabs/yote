@@ -9,7 +9,7 @@ import { Route, Redirect, Switch, withRouter } from 'react-router-dom';
 
 // import global components
 import Base from "../../global/components/BaseComponent.js.jsx";
-import { LoginRoute, RoleRoute } from '../../global/components/routing';
+import YTRoute from '../../global/components/routing/YTRoute.js.jsx';
 
 // import user views
 import ForgotPassword from './views/ForgotPassword.js.jsx';
@@ -26,11 +26,11 @@ class UserRouter extends Base {
   render() {
     return (
       <Switch>
-        <Route exact path="/user/login" component={UserLogin} />
-        <Route exact path="/user/register" component={UserRegister} />
-        <Route exact path="/user/forgot-password" component={ForgotPassword} />
-        <Route exact path="/user/reset-password/:hex" component={ResetPassword} />
-        <LoginRoute exact path="/user/profile" component={UserProfile} />
+        <YTRoute exact path="/user/login" component={UserLogin} />
+        <YTRoute exact path="/user/register" component={UserRegister} />
+        <YTRoute exact path="/user/forgot-password" component={ForgotPassword} />
+        <YTRoute exact path="/user/reset-password/:hex" component={ResetPassword} />
+        <YTRoute login={true} exact path="/user/profile" component={UserProfile} />
       </Switch>
     )
   }

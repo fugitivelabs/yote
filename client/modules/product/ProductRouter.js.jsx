@@ -17,7 +17,6 @@ import { Route, Switch, withRouter } from 'react-router-dom';
 
 // import global components
 import Base from "../../global/components/BaseComponent.js.jsx";
-import { LoginRoute, RoleRoute } from '../../global/components/routing';
 import YTRoute from '../../global/components/routing/YTRoute.js.jsx';
 
 // import product views
