@@ -9,7 +9,7 @@ import { Route, Redirect, Switch, withRouter } from 'react-router-dom';
 
 // import global components
 import Base from "../../global/components/BaseComponent.js.jsx";
-import { RoleRoute } from '../../global/components/routing';
+import YTRoute from '../../global/components/routing/YTRoute.js.jsx';
 
 // import user admin views
 import AdminCreateUser from './views/AdminCreateUser.js.jsx';
@@ -24,9 +24,9 @@ class UserAdminRouter extends Base {
   render() {
     return (
       <Switch>
-        <RoleRoute role="admin" exact path="/admin/users" component={AdminUserList}/>
-        <RoleRoute role="admin" exact path="/admin/users/new" component={AdminCreateUser}/>
-        <RoleRoute role="admin" exact path="/admin/users/:userId" component={AdminUpdateUser}/>
+        <YTRoute role="admin" exact path="/admin/users" component={AdminUserList}/>
+        <YTRoute role="admin" exact path="/admin/users/new" component={AdminCreateUser}/>
+        <YTRoute role="admin" exact path="/admin/users/:userId" component={AdminUpdateUser}/>
       </Switch>
     )
   }

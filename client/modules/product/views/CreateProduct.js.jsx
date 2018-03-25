@@ -18,6 +18,7 @@ import * as productActions from '../productActions';
 
 // import global components
 import Base from "../../../global/components/BaseComponent.js.jsx";
+import Breadcrumbs from '../../../global/components/routing/Breadcrumbs.js.jsx';
 
 // import product components
 import ProductForm from '../components/ProductForm.js.jsx';
@@ -64,24 +65,28 @@ class CreateProduct extends Base {
   }
 
   render() {
+    const { location } = this.props;
     const { product } = this.state;
     const isEmpty = (product.title === null || product.title === undefined);
     return (
       <ProductLayout>
         <div className="flex">
           <section className="section">
-            {isEmpty ?
-              <h2> Loading...</h2>
-              :
-              <ProductForm
-                product={product}
-                cancelLink="/products"
-                formTitle="Create Product"
-                formType="create"
-                handleFormChange={this._handleFormChange}
-                handleFormSubmit={this._handleFormSubmit}
-              />
-            }
+            <div className="yt-container">
+              <Breadcrumbs links={location.state.breadcrumbs} />
+              {isEmpty ?
+                <h2> Loading...</h2>
+                :
+                <ProductForm
+                  product={product}
+                  cancelLink="/products"
+                  formTitle="Create Product"
+                  formType="create"
+                  handleFormChange={this._handleFormChange}
+                  handleFormSubmit={this._handleFormSubmit}
+                />
+              }
+            </div>
           </section>
         </div>
     </ProductLayout>

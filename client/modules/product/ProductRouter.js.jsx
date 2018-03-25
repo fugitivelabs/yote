@@ -13,11 +13,11 @@
 
 // import primary libraries
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 
 // import global components
 import Base from "../../global/components/BaseComponent.js.jsx";
-import { LoginRoute, RoleRoute } from '../../global/components/routing';
+import YTRoute from '../../global/components/routing/YTRoute.js.jsx';
 
 // import product views
 import CreateProduct from './views/CreateProduct.js.jsx';
@@ -31,12 +31,35 @@ class ProductRouter extends Base {
   }
 
   render() {
+    let singleProductPath = _.split(this.props.location.pathname, '/', this.props.location.pathname.split('/').length - 1).join('/');
     return (
       <Switch>
-        <Route exact path="/products" component={ProductList} />
-        <LoginRoute exact path="/products/new" component={CreateProduct} />
-        <Route exact path="/products/:productId" component={SingleProduct}/>
-        <RoleRoute role="admin" exact path="/products/:productId/update" component={UpdateProduct}/>
+        <YTRoute
+          breadcrumbs={[{display: 'All products', path: null }]}
+          component={ProductList}
+          exact
+          path="/products"
+        />
+        <YTRoute
+          breadcrumbs={[{display: 'All products', path: '/products'}, {display: 'New ', path: null}]}
+          component={CreateProduct}
+          login={true}
+          exact
+          path="/products/new"
+        />
+        <YTRoute
+          breadcrumbs={[{display: 'All products', path: '/products'}, {display: 'Product details', path: null}]}
+          component={SingleProduct}
+          exact
+          path="/products/:productId"
+        />
+        <YTRoute
+          breadcrumbs={[{display: 'All products', path: '/products'}, {display: 'Product Details', path: singleProductPath}, {display: 'Update', path: null}]}
+          component={UpdateProduct}
+          exact
+          path="/products/:productId/update"
+          role="admin"
+        />
       </Switch>
     )
   }
