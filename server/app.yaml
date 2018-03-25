@@ -1,5 +1,8 @@
 runtime: nodejs
 env: flex
+service: yote-staging
+
+# https://cloud.google.com/appengine/docs/flexible/nodejs/configuring-your-app-with-app-yaml
 
 automatic_scaling:
   min_num_instances: 1
