@@ -71,7 +71,7 @@ TextAreaInput.defaultProps = {
   , label: ''
   , placeholder: ''
   , required: false
-  , rows: '4'
+  , rows: 4
 }
 
 export default TextAreaInput;
