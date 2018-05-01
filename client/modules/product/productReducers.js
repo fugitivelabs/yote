@@ -284,6 +284,24 @@ function product(state = {
       }
       break;
     }
+    case Actions.SET_SELECTED_PRODUCT: {
+      // add this product to the map and set it as selected
+      nextState = {
+        ...state
+        , byId: {
+          ...state.byId
+          , [action.item._id]: action.item
+        }
+        , selected: {
+          id: action.item._id
+          , isFetching: false
+          , error: null
+          , didInvalidate: false
+          , lastUpdated: new Date()
+        }
+      }
+      break;
+    }
     case Actions.REQUEST_CREATE_PRODUCT: {
       nextState = {
         ...state
