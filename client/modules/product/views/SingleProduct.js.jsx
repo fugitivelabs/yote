@@ -58,7 +58,12 @@ class SingleProduct extends Base {
                     <Link className="yt-btn small u-pullRight" to={`${this.props.match.url}/update`}> UPDATE PRODUCT </Link>
                   </h1>
                   <hr/>
-                  <p> {selectedProduct.description }</p>
+                  <p> {selectedProduct.description}</p>
+                  {selectedProduct.price ?
+                    <p><em> ${selectedProduct.price.toFixed(2)}</em></p>
+                    :
+                    null
+                  }
                 </div>
               }
             </div>

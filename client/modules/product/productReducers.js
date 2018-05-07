@@ -181,6 +181,7 @@ function product(state = {
   , defaultItem: {
     description: ''
     , title: ''
+    , price: 0
   }
 
 

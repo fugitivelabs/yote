@@ -19,6 +19,7 @@ const productSchema = mongoose.Schema({
   , updated:                { type: Date, default: Date.now }
   , title:                  { type: String, required: '{PATH} is required!' }
   , description:            { type: String }
+  , price:                  { type: Number }
 });
 
 // product instance methods go here

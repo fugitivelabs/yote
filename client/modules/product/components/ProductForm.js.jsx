@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 // import form components
-import { TextInput, TextAreaInput } from '../../../global/components/forms';
+import { NumberInput, TextInput, TextAreaInput } from '../../../global/components/forms';
 
 function ProductForm({
   cancelLink
@@ -47,6 +47,14 @@ function ProductForm({
               required={false}
               rows={3}
               placeholder="This is where the content goes..."
+            />
+            <NumberInput
+              name="price"
+              label="Price"
+              currency={true}
+              value={product.price}
+              change={handleFormChange}
+              required={false}
             />
             <div className="input-group">
               <div className="yt-row space-between">
