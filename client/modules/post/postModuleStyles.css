@@ -1,0 +1,27 @@
+/**
+ * To be used with CSS Modules rendered by the webpack.config.
+ * Any styles specific to the Post module should live here.
+ * Import as neede like so:
+ * ...
+ * import postStyles from 'postModuleStyles.css';
+ * ...
+ * render() {
+ *   return(
+ *     <div styleName="post-item">
+ * ...
+ */
+
+
+
+.list-item {
+  list-style: none;
+  margin: 10px 0;
+  border-bottom: 1px solid #dfefef;
+  padding: 4px 10px;
+  transition: all ease-in-out 250ms;
+
+}
+
+.list-item:hover {
+  box-shadow: 1px 12px 24px rgba(0,0,0,0.15);
+}

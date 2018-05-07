@@ -141,6 +141,9 @@ class TopNav extends Base {
                 <li>
                   <NavLink to="/products" activeClassName="active">Products</NavLink>
                 </li>
+                <li>
+                  <NavLink to="/posts" activeClassName="active">Posts</NavLink>
+                </li>
                 { user.username ?
                   <li className="dropdown">
                     <a onClick={this._openDropdown}>
