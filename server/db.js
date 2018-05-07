@@ -20,3 +20,5 @@ module.exports = function(config) {
 
 // Yote models are defined below
 let Product = require('./resources/product/ProductModel');
+
+let Post = require('./resources/post/PostModel');
