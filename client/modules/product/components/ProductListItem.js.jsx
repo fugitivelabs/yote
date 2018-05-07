@@ -12,6 +12,11 @@ function ProductListItem({ product }) {
     <li styleName="list-item">
       <Link className="product-title" to={`/products/${product._id}`}> {product.title}</Link>
       <p><em>{product.description}</em></p>
+      {product.price ?
+        <p><em>${product.price.toFixed(2)}</em></p>
+        :
+        null
+      }
     </li>
   )
 }
