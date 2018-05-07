@@ -11,6 +11,7 @@ function PostListItem({ post }) {
   return (
     <li styleName="list-item">
       <Link className="post-title" to={`/posts/${post._id}`}> {post.title}</Link>
+      <p> By: <Link to={`/users/${post._author._id}`}> {post._author.firstName} {post._author.lastName}</Link></p>
       <p><em>{moment(post.created).calendar()}</em></p>
     </li>
   )

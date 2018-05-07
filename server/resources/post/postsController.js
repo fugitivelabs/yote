@@ -16,7 +16,7 @@ exports.list = (req, res) => {
     // paginate on the server
     var page = req.query.page || 1;
     var per = req.query.per || 20;
-    Post.find({}).skip((page-1)*per).limit(per).exec((err, posts) => {
+    Post.find({}).skip((page - 1) * per).limit(per).populate('_author').exec((err, posts) => {
       if(err || !posts) {
         logger.error("ERROR:");
         logger.info(err);
@@ -34,7 +34,7 @@ exports.list = (req, res) => {
     });
   } else {
     // list all posts
-    Post.find({}).exec((err, posts) => {
+    Post.find({}).populate('_author').exec((err, posts) => {
       if(err || !posts) {
         logger.error("ERROR:");
         logger.info(err);
@@ -152,7 +152,7 @@ exports.search = (req, res) => {
 
 exports.getById = (req, res) => {
   logger.info('get post by id');
-  Post.findById(req.params.id).exec((err, post) => {
+  Post.findById(req.params.id).populate('_author').exec((err, post) => {
     if(err) {
       logger.error("ERROR:");
       logger.info(err);
