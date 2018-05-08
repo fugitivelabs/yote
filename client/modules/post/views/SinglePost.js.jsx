@@ -62,8 +62,7 @@ class SinglePost extends Base {
                   </h1>
                   <hr/>
                   <p><em> { selectedPost.content } </em></p>
-                  <p><em> By: <Link to={`/users/${postMap[postStore.selected.id]._author._id}`}> {postMap[postStore.selected.id]._author.firstName} {postMap[postStore.selected.id]._author.lastName} </Link> </em></p>
-                
+                  <p><em> By: <Link to={`/users/${selectedPost._author._id}`}> {selectedPost._author.firstName} {selectedPost._author.lastName} </Link> </em></p>
                 </div>
               }
             </div>

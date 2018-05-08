@@ -190,6 +190,7 @@ exports.create = (req, res) => {
       res.send({ success: false, message: "Could not create Post." });
     } else {
       logger.info("created new post");
+      // TODO: populate the author details so we can render their name on the new post.
       res.send({ success: true, post: post });
     }
   });
@@ -197,7 +198,7 @@ exports.create = (req, res) => {
 
 exports.update = (req, res) => {
   logger.info('updating post');
-  Post.findById(req.params.id).exec((err, post) => {
+  Post.findById(req.params.id).populate('_author').exec((err, post) => {
     if(err) {
       logger.error("ERROR:");
       logger.info(err);
