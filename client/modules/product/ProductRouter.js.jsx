@@ -16,7 +16,7 @@ import React from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 
 // import global components
-import Base from "../../global/components/BaseComponent.js.jsx";
+import Base from '../../global/components/BaseComponent.js.jsx';
 import YTRoute from '../../global/components/routing/YTRoute.js.jsx';
 
 // import product views
@@ -31,7 +31,7 @@ class ProductRouter extends Base {
   }
 
   render() {
-    let singleProductPath = _.split(this.props.location.pathname, '/', this.props.location.pathname.split('/').length - 1).join('/');
+    let singleProductPath = this.props.location.pathname.replace('/update', '');
     return (
       <Switch>
         <YTRoute
