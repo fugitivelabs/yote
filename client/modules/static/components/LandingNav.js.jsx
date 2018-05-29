@@ -78,6 +78,13 @@ class LandingNav extends Base {
                   <NavLink to="/products" activeClassName="active">Products</NavLink>
                 </li>
                 { user.username ?
+                  <li>
+                    <NavLink to="/posts" activeClassName="active">Posts</NavLink>
+                  </li>
+                  :
+                  null
+                }
+                { user.username ?
                   <li className="dropdown">
                     <a onClick={this._openDropdown}>
                       <div className="-profile-pic" style={profileImg} />

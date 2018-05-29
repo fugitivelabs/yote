@@ -1,5 +1,5 @@
 /**
- * Reusable stateless form component for Product
+ * Reusable stateless form component for Post
  */
 
 // import primary libraries
@@ -8,19 +8,20 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 // import form components
-import { NumberInput, TextInput, TextAreaInput } from '../../../global/components/forms';
+import { TextInput, TextAreaInput } from '../../../global/components/forms';
 
-function ProductForm({
+function PostForm({
   cancelLink
+  , formHelpers
   , formTitle
   , formType
   , handleFormChange
   , handleFormSubmit
-  , product
+  , post
 }) {
 
   // set the button text
-  const buttonText = formType === "create" ? "Create Product" : "Update Product";
+  const buttonText = formType === "create" ? "Create Post" : "Update Post";
 
   // set the form header
   const header = formTitle ? <div className="formHeader"><h2> {formTitle} </h2><hr/></div> : <div/>;
@@ -29,32 +30,24 @@ function ProductForm({
     <div className="yt-container">
       <div className="yt-row center-horiz">
         <div className="form-container -slim">
-          <form name="productForm" className="product-form" onSubmit={handleFormSubmit}>
+          <form name="postForm" className="post-form" onSubmit={handleFormSubmit}>
             {header}
             <TextInput
-              name="title"
-              label="Title"
-              value={product.title}
               change={handleFormChange}
+              label="Title"
+              name="title"
               placeholder="Title (required)"
               required={true}
+              value={post.title}
             />
             <TextAreaInput
-              name="description"
-              label="Description"
-              value={product.description}
+              name="content"
+              label="Content"
+              value={post.content}
               change={handleFormChange}
-              required={false}
+              required={true}
               rows={3}
               placeholder="This is where the content goes..."
-            />
-            <NumberInput
-              name="price"
-              label="Price"
-              currency={true}
-              value={product.price}
-              change={handleFormChange}
-              required={false}
             />
             <div className="input-group">
               <div className="yt-row space-between">
@@ -69,17 +62,19 @@ function ProductForm({
   )
 }
 
-ProductForm.propTypes = {
+PostForm.propTypes = {
   cancelLink: PropTypes.string.isRequired
+  , formHelpers: PropTypes.object
   , formTitle: PropTypes.string
   , formType: PropTypes.string.isRequired
   , handleFormChange: PropTypes.func.isRequired
   , handleFormSubmit: PropTypes.func.isRequired
-  , product: PropTypes.object.isRequired
+  , post: PropTypes.object.isRequired
 }
 
-ProductForm.defaultProps = {
-  formTitle: ''
+PostForm.defaultProps = {
+  formHelpers: {}
+  , formTitle: ''
 }
 
-export default ProductForm;
+export default PostForm;

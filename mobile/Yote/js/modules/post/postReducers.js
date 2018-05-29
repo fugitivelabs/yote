@@ -1,5 +1,5 @@
 /**
- * Build the Product store
+ * Build the Post store
  *
  * Follows best practices from Redux documentation:
  *   - Single source of truth
@@ -14,31 +14,31 @@
  * aides various scoping issues with list management in the reducers.
  */
 
-// import product actions
-import * as Actions from './productActions';
+// import post actions
+import * as Actions from './postActions';
 
 /**
- * productList reducer -
+ * postList reducer -
  *
  * Accepts arbitrary list arguments and recursively builds nested list as needed
  *
- * NOTE: this is never called directly. Only by parent 'product' reducer (defined
+ * NOTE: this is never called directly. Only by parent 'post' reducer (defined
  * below) when dealing with a LIST action
  */
-function productList(state = {
+function postList(state = {
   /**
    * The "items" object defines the default state for a list
    *
    * NOTE: This is for reference only. The list is not actually initialized here.
    * The actual init happens the first time REQUEST_LIST is called.
    */
-  didInvalidate: false
-  , error: null
-  , filter: {}
+  items: [] // array of _id's
   , isFetching: false
-  , items: [] // array of _id's
+  , error: null
+  , didInvalidate: false
   , lastUpdated: null
   , pagination: {}
+  , filter: {}
 
 }, action) {
   // console.log("DEBUG", state, action.listArgs);
@@ -48,48 +48,48 @@ function productList(state = {
   /**
    * Check for nested list --
    * If the action is asking for a nested state, like lists[workout][123ABC],
-   * then recursively return an _additional_ productList reducer.
+   * then recursively return an _additional_ postList reducer.
    *
-   * Otherwise, return the actual product lists' store
+   * Otherwise, return the actual post lists' store
    */
   if(nextAction.listArgs.length > 0) {
     /**
      * The action is asking for a nested state, like lists[workout][123ABC].
-     * Let's nest it by returning an additional productList reducer and trying again.
+     * Let's nest it by returning an additional postList reducer and trying again.
      */
     return {
       ...state
-      , [nextAction.listArgs[0]]: productList(state[nextAction.listArgs[0]] || {}, nextAction)
+      , [nextAction.listArgs[0]]: postList(state[nextAction.listArgs[0]] || {}, nextAction)
     }
   } else {
     /**
      * Stop nesting. Instead listen for the actions and respond accordingly.
      */
     switch(action.type) {
-      case Actions.INVALIDATE_PRODUCT_LIST: {
+      case Actions.INVALIDATE_POST_LIST: {
         return {
           ...state
           , didInvalidate: true
         }
       }
-      case Actions.REQUEST_PRODUCT_LIST: {
+      case Actions.REQUEST_POST_LIST: {
         return {
           ...state
-          , error: null
-          , filter: state.filter || {}
-          , isFetching: true
           , items: [] // array of _id's
+          , isFetching: true
+          , error: null
           , lastUpdated: null
           , pagination: state.pagination || {}
+          , filter: state.filter || {}
         }
       }
-      case Actions.RECEIVE_PRODUCT_LIST: {
+      case Actions.RECEIVE_POST_LIST: {
         if(!action.success) {
           return {
             ...state
-            , error: action.error
-            , isFetching: false
             , items: [] // array of _id's
+            , isFetching: false
+            , error: action.error
             , lastUpdated: action.receivedAt
           }
         } else {
@@ -99,34 +99,33 @@ function productList(state = {
           }
           return {
             ...state
-            , didInvalidate: false
-            , error: action.error || null
-            , isFetching: false
             , items: idArray
+            , isFetching: false
+            , error: action.error || null
+            , didInvalidate: false
             , lastUpdated: action.receivedAt
           }
         }
       }
-      case Actions.ADD_PRODUCT_TO_LIST: {
+      case Actions.ADD_POST_TO_LIST:
         let idArray = [...state.items];
-        idArray.indexOf(action.id) === -1 ? idArray.push(action.id) : console.log("Item is already in list"); 
+        idArray.indexOf(action.id) === -1 ? idArray.push(action.id) : console.log("Item is already in list");
         return {
-          ...state 
+          ...state
           , items: idArray
           , isFetching: false
           , error: action.error || null
           , didInvalidate: false
-          , lastUpdated: action.recievedAt 
+          , lastUpdated: action.recievedAt
         }
-      }
 
-      case Actions.REMOVE_PRODUCT_FROM_LIST: {
-        let idArray = [...state.items]
-        let index = idArray.indexOf(action.id);  
+      case Actions.REMOVE_POST_FROM_LIST:
+        idArray = [...state.items]
+        let index = idArray.indexOf(action.id);
         if(index != -1) {
-          idArray.splice(index, 1); 
+          idArray.splice(index, 1);
         } else {
-          console.log("item not in list"); 
+          console.log("item not in list");
         }
         return {
           ...state
@@ -136,15 +135,14 @@ function productList(state = {
           , didInvalidate: false
           , lastUpdated: action.receivedAt
         }
-      }
 
-      case Actions.SET_PRODUCT_FILTER: {
+      case Actions.SET_POST_FILTER: {
         return {
           ...state
           , filter: action.filter
         }
       }
-      case Actions.SET_PRODUCT_PAGINATION: {
+      case Actions.SET_POST_PAGINATION: {
         return {
           ...state
           , pagination: action.pagination
@@ -157,36 +155,60 @@ function productList(state = {
 }
 
 /**
- * Primary product reducer -
+ * Primary Post reducer -
  *
- * This is the single source of truth for all things 'product' related within the
+ * This is the single source of truth for all things 'post' related within the
  * application. The primary components of the reducer are defined in detail below.
  *
  * The basic idea is that the reducer listens for actions indicating a desired
  * state change and the reducer returns a new _copy_ of the state accordingly.
  */
-function product(state = {
+function post(state = {
 
   /**
-   * "byId" is an object map of all product items in the store. The map's keys are
-   * the Mongo ids of the objects by default
-   */
-  byId: {}
-
-  /**
-   * "defaultItem" defines fields for a _new_ product
-   * any component that creates a new product object should store a copy of this
+   * "defaultItem" defines fields for a _new_ post
+   * any component that creates a new post object should store a copy of this
    * in its state
    */
-  , defaultItem: {
-    description: ''
-    , title: ''
-    , price: 0
+  defaultItem: {
+    title: ''
+    , description: ''
   }
 
+  /**
+   * "byId" is an object map of all post items in the store. The map's keys are
+   * the Mongo ids of the objects by default
+   */
+  , byId: {}
 
   /**
-   * "lists" corresponds to individual instances of the productList reducer as
+   * "selected" is a single _selected_ entity within the store
+   *
+   * For example, when changing the name of a post, the single post
+   * being edited would be defined by "selected"
+   */
+  , selected: {
+    id: null
+    , isFetching: false
+    , error: null
+    , didInvalidate: false
+    , lastUpdated: null
+    , getItem: () => {
+      return null
+    }
+  }
+
+  , util: {
+    getList: (...listArgs) => {
+      return null
+    }
+    , getKeyArrayFromList: (...listArgs) => {
+      return null
+    }
+  }
+
+  /**
+   * "lists" corresponds to individual instances of the postList reducer as
    * defined above.
    *
    * NOTE: when requesting a list, if args are undefined, the lists defaults to
@@ -194,38 +216,6 @@ function product(state = {
    */
   , lists: {}
 
-  /**
-   * "selected" is a single _selected_ entity within the store
-   *
-   * For example, when changing the name of a product, the single product
-   * being edited would be defined by "selected"
-   */
-  , selected: {
-    didInvalidate: false
-    , error: null
-    , getItem: () => {
-      return null
-    }
-    , id: null
-    , isFetching: false
-    , lastUpdated: null
-  }
-
-  /**
-   * utility methods to pull things out of the list dynamically
-   *
-   * For example, when fetching a nested list of products by type and color you
-   * would write something like:
-   * let list = productStore.util.getList('type', 'apparel', 'color', 'black')
-   */
-  , util: {
-    getKeyArrayFromList: () => {
-      return null
-    }
-    , getList: () => {
-      return null
-    }
-  }
 }, action) {
   /**
    * Listen for the actions and respond accordingly.
@@ -233,20 +223,20 @@ function product(state = {
   let nextState;
   switch(action.type) {
     /**
-     * SINGLE PRODUCT ACTIONS
+     * SINGLE POST ACTIONS
      */
-    case Actions.REQUEST_SINGLE_PRODUCT: {
+    case Actions.REQUEST_SINGLE_POST: {
       nextState = {
         ...state
         , selected: {
-          error: null
-          , id: action.id
+          id: action.id
           , isFetching: true
+          , error: null
         }
       }
       break;
     }
-    case Actions.RECEIVE_SINGLE_PRODUCT: {
+    case Actions.RECEIVE_SINGLE_POST: {
       if(action.success) {
         nextState = {
           ...state
@@ -255,10 +245,10 @@ function product(state = {
             , [action.id]: action.item
           }
           , selected: {
-            didInvalidate: false
-            , error: null
-            , id: action.id
+            id: action.id
             , isFetching: false
+            , error: null
+            , didInvalidate: false
             , lastUpdated: action.receivedAt
           }
         }
@@ -266,16 +256,16 @@ function product(state = {
         nextState = {
           ...state
           , selected: {
-            error: action.error
-            , isFetching: false
+            isFetching: false
+            , error: action.error
             , lastUpdated: action.receivedAt
           }
         }
       }
       break;
     }
-    case Actions.ADD_SINGLE_PRODUCT_TO_MAP: {
-      // add this product to the map
+    case Actions.ADD_SINGLE_POST_TO_MAP: {
+      // add this post to the map
       nextState = {
         ...state
         , byId: {
@@ -285,36 +275,18 @@ function product(state = {
       }
       break;
     }
-    case Actions.SET_SELECTED_PRODUCT: {
-      // add this product to the map and set it as selected
+    case Actions.REQUEST_CREATE_POST: {
       nextState = {
         ...state
-        , byId: {
-          ...state.byId
-          , [action.item._id]: action.item
-        }
         , selected: {
-          id: action.item._id
-          , isFetching: false
+          id: null
+          , isFetching: true
           , error: null
-          , didInvalidate: false
-          , lastUpdated: new Date()
         }
       }
       break;
     }
-    case Actions.REQUEST_CREATE_PRODUCT: {
-      nextState = {
-        ...state
-        , selected: {
-          error: null
-          , id: null
-          , isFetching: true
-        }
-      }
-      break;
-    }
-    case Actions.RECEIVE_CREATE_PRODUCT: {
+    case Actions.RECEIVE_CREATE_POST: {
       if(action.success) {
         nextState = {
           ...state
@@ -323,10 +295,10 @@ function product(state = {
             , [action.id]: action.item
           }
           , selected: {
-            didInvalidate: false
-            , error: null
-            , id: action.id
+            id: action.id
             , isFetching: false
+            , error: null
+            , didInvalidate: false
             , lastUpdated: action.receivedAt
           }
         }
@@ -334,26 +306,26 @@ function product(state = {
         nextState = {
           ...state
           , selected: {
-            error: action.error
-            , isFetching: false
+            isFetching: false
+            , error: action.error
             , lastUpdated: action.receivedAt
           }
         }
       }
       break;
     }
-    case Actions.REQUEST_UPDATE_PRODUCT: {
+    case Actions.REQUEST_UPDATE_POST: {
       nextState = {
         ...state
         , selected: {
-          error: null
-          , id: action.id
+          id: action.id
           , isFetching: true
+          , error: null
         }
       }
       break;
     }
-    case Actions.RECEIVE_UPDATE_PRODUCT: {
+    case Actions.RECEIVE_UPDATE_POST: {
       if(action.success) {
         nextState = {
           ...state
@@ -362,10 +334,10 @@ function product(state = {
             , [action.id]: action.item
           }
           , selected: {
-            didInvalidate: false
-            , error: null
-            , id: action.id
+            id: action.id
             , isFetching: false
+            , error: null
+            , didInvalidate: false
             , lastUpdated: action.receivedAt
           }
         }
@@ -373,26 +345,26 @@ function product(state = {
         nextState = {
           ...state
           , selected: {
-            error: action.error
-            , isFetching: false
+            isFetching: false
+            , error: action.error
             , lastUpdated: action.receivedAt
           }
         }
       }
       break;
     }
-    case Actions.REQUEST_DELETE_PRODUCT: {
+    case Actions.REQUEST_DELETE_POST: {
       nextState = {
         ...state
         , selected: {
-          error: null
-          , id: action.id
+          id: action.id
           , isFetching: true
+          , error: null
         }
       }
       break;
     }
-    case Actions.RECEIVE_DELETE_PRODUCT: {
+    case Actions.RECEIVE_DELETE_POST: {
       if(action.success) {
         // remove this object from map
         let newIdMap = { ...state.byId };
@@ -401,10 +373,10 @@ function product(state = {
           ...state
           , byId: newIdMap
           , selected: {
-            didInvalidate: false
-            , error: null
-            , id: null
+            id: null
             , isFetching: false
+            , error: null
+            , didInvalidate: false
             , lastUpdated: action.receivedAt
           }
         }
@@ -412,15 +384,15 @@ function product(state = {
         nextState = {
           ...state
           , selected: {
-            error: action.error
-            , isFetching: false
+            isFetching: false
+            , error: action.error
             , lastUpdated: action.receivedAt
           }
         }
       }
       break;
     }
-    case Actions.INVALIDATE_SELECTED_PRODUCT: {
+    case Actions.INVALIDATE_SELECTED_POST: {
       nextState = {
         ...state
         , selected: {
@@ -433,22 +405,22 @@ function product(state = {
     /**
      * LIST ACTIONS
      */
-    case Actions.INVALIDATE_PRODUCT_LIST:
-    case Actions.REQUEST_PRODUCT_LIST:
-    case Actions.SET_PRODUCT_FILTER:
-    case Actions.ADD_PRODUCT_TO_LIST:
-    case Actions.REMOVE_PRODUCT_FROM_LIST:
-    case Actions.SET_PRODUCT_PAGINATION: {
+    case Actions.INVALIDATE_POST_LIST:
+    case Actions.REQUEST_POST_LIST:
+    case Actions.SET_POST_FILTER:
+    case Actions.ADD_POST_TO_LIST:
+    case Actions.REMOVE_POST_FROM_LIST:
+    case Actions.SET_POST_PAGINATION: {
       nextState = {
         ...state
         , lists: {
           ...state.lists
-          , [action.listArgs[0]]: productList(state.lists[action.listArgs[0]] || {}, action)
+          , [action.listArgs[0]]: postList(state.lists[action.listArgs[0]] || {}, action)
         }
       }
       break;
     }
-    case Actions.RECEIVE_PRODUCT_LIST: {
+    case Actions.RECEIVE_POST_LIST: {
       // add items to "byId" before we forward to individual list reducer
       let newIdMap = { ...state.byId };
       if(action.success) {
@@ -461,7 +433,7 @@ function product(state = {
         , byId: newIdMap
         , lists: {
           ...state.lists
-          , [action.listArgs[0]]: productList(state.lists[action.listArgs[0]], action)
+          , [action.listArgs[0]]: postList(state.lists[action.listArgs[0]], action)
         }
       }
       break;
@@ -505,7 +477,7 @@ function product(state = {
         break;
       }
     }
-    if(!nextList || !nextList.items || nextList.didInvalidate) {
+    if(!nextList || nextList.didInvalidate) {
       return null
     } else {
       return nextList.items.map((item) => nextState.byId[item])
@@ -532,7 +504,7 @@ function product(state = {
         break;
       }
     }
-    if(!nextList || !nextList.items || nextList.didInvalidate) {
+    if(!nextList) {
       return null
     } else {
       return nextList.items.map((item) => nextState.byId[item][key])
@@ -541,4 +513,4 @@ function product(state = {
   return nextState;
 }
 
-export default product;
+export default post;
