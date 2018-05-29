@@ -504,7 +504,7 @@ function product(state = {
         break;
       }
     }
-    if(!nextList) {
+    if(!nextList || !nextList.items || nextList.didInvalidate) {
       return null
     } else {
       return nextList.items.map((item) => nextState.byId[item][key])
