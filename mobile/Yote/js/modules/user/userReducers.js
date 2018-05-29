@@ -33,8 +33,12 @@ function userList(state = {
   , error: null
   , didInvalidate: false
   , lastUpdated: null
-  , pagination: {}
-  , filter: {}
+  , pagination: {
+    page: 1
+    , per: 50
+  }
+  , filter: ''
+  , query: ''
 }, action) {
   // console.log("DEBUG", state, action.listArgs);
   let nextAction = JSON.parse(JSON.stringify(action)); // Only change copy. NOT the original object.
@@ -52,61 +56,73 @@ function userList(state = {
      * The action is asking for a nested state, like lists[workout][123ABC].
      * Let's nest it by returning an additional userList reducer and trying again.
      */
-    return Object.assign({}, state, {
-      [nextAction.listArgs[0]]: userList(state[nextAction.listArgs[0]] || {}, nextAction)
-    })
+    return {
+      ...state
+      , [nextAction.listArgs[0]]: userList(state[nextAction.listArgs[0]] || {}, nextAction)
+    }
   } else {
     /**
      * Stop nesting. Instead listen for the actions and respond accordingly.
      */
     switch(action.type) {
       case Actions.INVALIDATE_USER_LIST: {
-        return Object.assign({}, state, {
-          didInvalidate: true
-        })
+        return {
+          ...state
+          , didInvalidate: true
+        }
       }
       case Actions.REQUEST_USER_LIST: {
-        return Object.assign({}, state, {
-          items: [] // array of _id's
+        return {
+          ...state
+          , items: [] // array of _id's
           , isFetching: true
           , error: null
           , lastUpdated: null
           , pagination: state.pagination || {}
           , filter: state.filter || {}
-        })
+        }
       }
       case Actions.RECEIVE_USER_LIST: {
         if(!action.success) {
-          return Object.assign({}, state, {
-            items: [] // array of _id's
+          return {
+            ...state
+            , items: [] // array of _id's
             , isFetching: false
             , error: action.error
-            , didInvalidate: true
             , lastUpdated: action.receivedAt
-          })
+          }
         } else {
           let idArray = [];
           for(const item of action.list) {
             idArray.push(item._id);
           }
-          return Object.assign({}, state, {
-            items: idArray
+          return {
+            ...state
+            , items: idArray
             , isFetching: false
             , error: action.error || null
             , didInvalidate: false
             , lastUpdated: action.receivedAt
-          })
+          }
         }
       }
       case Actions.SET_USER_FILTER: {
-        return Object.assign({}, state, {
-          filter: action.filter
-        })
+        return {
+          ...state
+          , filter: action.filter
+        }
+      }
+      case Actions.SET_USER_QUERY: {
+        return {
+          ...state
+          , query: action.query
+        }
       }
       case Actions.SET_USER_PAGINATION: {
-        return Object.assign({}, state, {
-          pagination: action.pagination
-        })
+        return {
+          ...state
+          ,pagination: action.pagination
+        }
       }
       default: {
         return state;
@@ -134,6 +150,7 @@ function user(state = {
   defaultItem: {
     username: ""
     , password: ""
+    , password2: ""
     , firstName: ""
     , lastName: ""
     , roles: []
@@ -159,21 +176,6 @@ function user(state = {
     , lastUpdated: null
     , resetUserId: null
     , resetTokenValid: false
-    , apiToken: null 
-  }
-
-  /**
-   * "selected" is a single _selected_ entity within the store
-   *
-   * For example, when assigning roles a single user in /admin, the single user
-   * being edited would be defined by "selected"
-   */
-  , selected: {
-    id: null
-    , isFetching: false
-    , error: null
-    , didInvalidate: false
-    , lastUpdated: null
   }
 
   /**
@@ -185,17 +187,52 @@ function user(state = {
    */
   , lists: {}
 
+  /**
+   * "selected" is a single _selected_ entity within the store
+   *
+   * For example, when assigning roles a single user in /admin, the single user
+   * being edited would be defined by "selected"
+   */
+  , selected: {
+    didInvalidate: false
+    , error: null
+    , getItem: () => {
+      return null
+    }
+    , id: null
+    , isFetching: false
+    , lastUpdated: null
+  }
+
+  /**
+   * utility methods to pull things out of the list dynamically
+   *
+   * For example, when fetching a nested list of products by type and color you
+   * would write something like:
+   * let list = productStore.util.getList('type', 'apparel', 'color', 'black')
+   */
+  , util: {
+    getKeyArrayFromList: () => {
+      return null
+    }
+    , getList: () => {
+      return null
+    }
+  }
+
 }, action) {
   /**
    * Listen for the actions and respond accordingly.
    */
+  let nextState;
   switch(action.type) {
     /**
      * LOGGED IN USER ACTIONS
      */
     case Actions.REQUEST_LOGIN: {
-      return Object.assign({}, state, {
-        loggedIn: {
+      nextState = {
+        ...state
+        , loggedIn: {
           user: {
             username: action.username
           }
@@ -204,88 +241,171 @@ function user(state = {
           , didInvalidate: false
           , lastUpdated: null
         }
-      })
+      }
+      break;
     }
     case Actions.RECEIVE_LOGIN: {
       if(!action.success) {
-        return Object.assign({}, state, {
-          loggedIn: {
+        nextState = {
+          ...state
+          , loggedIn: {
             user: {}
-            , apiToken: null
             , isFetching: false
             , error: action.error
             , didInvalidate: true
-            , apiToken: null
           }
-        })
+        }
+        break;
       } else {
-        return Object.assign({}, state, {
-          loggedIn: {
+        nextState = {
+          ...state
+          , loggedIn: {
             user: action.user
             , isFetching: false
             , error: null
             , didInvalidate: false
             , lastUpdated: action.receivedAt
-            , apiToken: action.apiToken
           }
-        })
+        }
       }
+      break;
     }
     case Actions.REQUEST_REGISTER: {
-      return Object.assign({}, state, {
-        loggedIn: {
+      nextState = {
+        ...state
+        , loggedIn: {
           user: {}
           , isFetching: true
           , error: null
           , didInvalidate: false
           , lastUpdated: null
         }
-      })
+      }
+      break;
     }
     case Actions.RECEIVE_REGISTER: {
       if(!action.success) {
-        return Object.assign({}, state, {
-          loggedIn: {
+        nextState = {
+          ...state
+          , loggedIn: {
             user: {}
             , isFetching: false
             , error: action.error
             , didInvalidate: true
-            , apiToken: null
           }
-        })
+        }
+        break;
       } else {
-        return Object.assign({}, state, {
-          loggedIn: {
+        nextState = {
+          ...state
+          , loggedIn: {
             user: action.user
             , isFetching: false
             , error: null
             , didInvalidate: false
             , lastUpdated: action.receivedAt
-            , apiToken: action.apiToken
           }
-        })
+        }
+        break;
       }
     }
-    case Actions.REQUEST_LOGOUT: {
-      return Object.assign({}, state, {
-        loggedIn: Object.assign({}, state.loggedIn, {
-          isFetching: true
+    case Actions.REQUEST_FORGOT_PASSWORD: {
+      nextState = {
+        ...state
+        , loggedIn: {
+          user: {}
+          , isFetching: true
           , error: null
-        })
-      })
+          , didInvalidate: false
+          , lastUpdated: null
+        }
+      }
+      break;
+    }
+    case Actions.RECEIVE_FORGOT_PASSWORD: {
+      if(!action.success) {
+        nextState = {
+          ...state
+          , loggedIn: {
+            user: {}
+            , isFetching: false
+            , error: action.error
+            , didInvalidate: true
+          }
+        }
+        break;
+      } else {
+        nextState = {
+          ...state
+          , loggedIn: {
+            user: {}
+            , isFetching: false
+            , error: null
+            , didInvalidate: false
+            , lastUpdated: action.receivedAt
+          }
+        }
+        break;
+      }
+    }
+    case Actions.REQUEST_UPDATE_PROFILE: {
+      let newState = { ...state };
+      newState.loggedIn.isFetching = true;
+      nextState = newState;
+      break;
+    }
+    case Actions.RECEIVE_UPDATE_PROFILE: {
+      let newState = { ...state };
+      if(!action.success) {
+        newState.loggedIn.isFetching = false;
+        newState.loggedIn.error = action.error;
+      } else {
+        newState.loggedIn.isFetching = false;
+        newState.loggedIn.user = action.user;
+        newState.loggedIn.lastUpdated = action.receivedAt;
+      }
+      nextState = newState;
+      break;
+    }
+    case Actions.REQUEST_LOGOUT: {
+      nextState = {
+        ...state
+        , loggedIn: {
+          ...state.loggedIn
+          , isFetching: true
+          , error: null
+        }
+      }
+      break;
+      // return Object.assign({}, state, {
+      //   loggedIn: Object.assign({}, state.loggedIn, {
+      //     isFetching: true
+      //     , error: null
+      //   })
+      // })
     }
     case Actions.RECEIVE_LOGOUT: {
       if(!action.success) {
-        return Object.assign({}, state, {
-          loggedIn: Object.assign({}, state.loggedIn, {
-            isFetching: false
+        nextState = {
+          ...state
+          , loggedIn: {
+            ...state.loggedIn
+            , isFetching: false
             , error: action.error
-          })
-        })
+          }
+        }
+        break;
+        // return Object.assign({}, state, {
+        //   loggedIn: Object.assign({}, state.loggedIn, {
+        //     isFetching: false
+        //     , error: action.error
+        //   })
+        // })
       } else {
         window.currentUser = {};
-        return Object.assign({}, state, {
-          loggedIn: {
+        nextState = {
+          ...state
+          , loggedIn: {
             user: {}
             , isFetching: false
             , error: null
@@ -293,14 +413,15 @@ function user(state = {
             , lastUpdated: null
             , resetUserId: null
             , resetTokenValid: false
-            , apiToken: null
           }
-        })
+        }
+        break;
       }
     }
     case Actions.REQUEST_CHECK_RESET_HEX: {
-      return Object.assign({}, state, {
-        loggedIn: {
+      nextState = {
+        ...state
+        , loggedIn: {
           user: {}
           , isFetching: true
           , error: null
@@ -309,42 +430,48 @@ function user(state = {
           , resetUserId: null
           , resetTokenValid: false
         }
-      })
+      }
+      break;
     }
     case Actions.RECEIVE_CHECK_RESET_HEX: {
-      return Object.assign({}, state, {
-        loggedIn: {
+      nextState = {
+        ...state
+        , loggedIn: {
           user: {}
-          , isFetching: true
+          , isFetching: false
           , error: null
           , didInvalidate: false
           , lastUpdated: null
           , resetUserId: action.userId || null
           , resetTokenValid: action.success
         }
-      })
+      }
+      break;
     }
 
     /**
      * SINGLE USER ACTIONS
      */
     case Actions.REQUEST_SINGLE_USER: {
-      return Object.assign({}, state, {
-        selected: {
+      nextState = {
+        ...state
+        , selected: {
           id: action.id
           , isFetching: true
           , error: null
         }
-      })
+      }
+      break;
     }
     case Actions.RECEIVE_SINGLE_USER: {
       if(action.success) {
         // add object to map
         // console.log("Mapping now");
-        let newIdMap = Object.assign({}, state.byId, {});
+        let newIdMap = { ...state.byId };
         newIdMap[action.id] = action.item;
-        return Object.assign({}, state, {
-          byId: newIdMap
+        nextState = {
+          ...state
+          , byId: newIdMap
           , selected: {
             id: action.id
             , isFetching: false
@@ -352,42 +479,47 @@ function user(state = {
             , didInvalidate: false
             , lastUpdated: action.receivedAt
           }
-        })
+        }
+        break;
       } else {
-        return Object.assign({}, state, {
-          selected: {
-            id: action.id
-            , isFetching: false
-            , error: action.error
-            , didInvalidate: true
-            , lastUpdated: action.receivedAt
-          }
-        })
+        let selected = {
+          ...state.selected
+          , isFetching: false
+          , error: action.error
+          , lastUpdated: action.receivedAt
+        }
+        nextState = { ...state, selected };
+        break;
       }
     }
     case Actions.ADD_SINGLE_USER_TO_MAP: {
-      let newIdMap = Object.assign({}, state.byId, {}); // copy map
+      let newIdMap = { ...state.byId }; // copy map
       newIdMap[action.item._id] = action.item; // add single to map
-      return Object.assign({}, state, {
-        byId: newIdMap
-      })
+      nextState = {
+        ...state
+        , byId: newIdMap
+      }
+      break;
     }
     case Actions.REQUEST_CREATE_USER: {
-      return Object.assign({}, state, {
-        selected: {
+      nextState = {
+        ...state
+        , selected: {
           id: null
           , isFetching: true
           , error: null
         }
-      })
+      }
+      break;
     }
     case Actions.RECEIVE_CREATE_USER: {
       if(action.success) {
         // add object to map
-        let newIdMap = Object.assign({}, state.byId, {});
+        let newIdMap = { ...state.byId };
         newIdMap[action.id] = action.item;
-        return Object.assign({}, state, {
-          byId: newIdMap
+        nextState = {
+          ...state
+          , byId: newIdMap
           , selected: {
             id: action.id
             , isFetching: false
@@ -395,62 +527,39 @@ function user(state = {
             , didInvalidate: false
             , lastUpdated: action.receivedAt
           }
-        })
+        }
+        break;
       } else {
-        return Object.assign({}, state, {
-          selected: {
-            id: action.id
-            , isFetching: false
+        nextState = {
+          ...state
+          , selected: {
+            isFetching: false
             , error: action.error
-            , didInvalidate: true
             , lastUpdated: action.receivedAt
           }
-        })
+        }
+        break;
       }
     }
-    case Actions.REQUEST_UPDATE_PROFILE:
-      return Object.assign({}, state, {
-        isFetching: true
-        , error: null
-        , status: null
-      })
-    case Actions.RECEIVE_UPDATE_PROFILE:
-      if(action.success) {
-        let newUser = JSON.parse(JSON.stringify(state.loggedIn));
-        newUser.user.username = action.user.username;
-        newUser.user.firstName = action.user.firstName;
-        newUser.user.lastName = action.user.lastName;
-        // newUser.info.profilePicUrl = action.user.info.profilePicUrl;
-        return Object.assign({}, state, {
-          isFetching: false
-          , loggedIn: newUser
-          , error: action.error
-          , status: null
-        })
-      } else {
-
-        return Object.assign({}, state, {
-          isFetching: false
-          , error: action.error
-          , status: null
-        })
-      }
     case Actions.REQUEST_UPDATE_USER: {
-      return Object.assign({}, state, {
-        selected: {
+      nextState = {
+        ...state
+        , selected: {
           id: action.id
           , isFetching: true
           , error: null
         }
-      })
+      }
+      break;
     }
     case Actions.RECEIVE_UPDATE_USER: {
       if(action.success) {
         // add object to map
-        let newIdMap = Object.assign({}, state.byId, {});
+        let newIdMap = { ...state.byId };
         newIdMap[action.id] = action.item;
-        return Object.assign({}, state, {
-          byId: newIdMap
+        nextState = {
+          ...state
+          , byId: newIdMap
           , selected: {
             id: action.id
             , isFetching: false
@@ -458,35 +567,39 @@ function user(state = {
             , didInvalidate: false
             , lastUpdated: action.receivedAt
           }
-        })
+        }
+        break;
       } else {
-        return Object.assign({}, state, {
-          selected: {
-            id: action.id
-            , isFetching: false
+        nextState = {
+          ...state
+          , selected: {
+            isFetching: false
             , error: action.error
-            , didInvalidate: true
             , lastUpdated: action.receivedAt
           }
-        })
+        }
+        break;
       }
     }
     case Actions.REQUEST_DELETE_USER: {
-      return Object.assign({}, state, {
-        selected: {
+      nextState = {
+        ...state
+        , selected: {
           id: action.id
           , isFetching: true
           , error: null
         }
-      })
+      }
+      break;
     }
     case Actions.RECEIVE_DELETE_USER: {
       if(action.success) {
         // remove object from map
-        let newIdMap = Object.assign({}, state.byId, {});
+        let newIdMap = { ...state.byId };
         delete newIdMap[action.id]; // remove key
-        return Object.assign({}, state, {
-          byId: newIdMap
+        nextState = {
+          ...state
+          , byId: newIdMap
           , selected: {
             id: null
             , isFetching: false
@@ -494,25 +607,28 @@ function user(state = {
             , didInvalidate: false
             , lastUpdated: action.receivedAt
           }
-        })
+        }
+        break;
       } else {
-        return Object.assign({}, state, {
-          selected: {
-            id: action.id
-            , isFetching: false
+        nextState = {
+          ...state
+          , selected: {
+            isFetching: false
             , error: action.error
-            , didInvalidate: true
             , lastUpdated: action.receivedAt
           }
-        })
+        }
+        break;
       }
     }
     case Actions.INVALIDATE_SELECTED_USER: {
-      return Object.assign({}, state, {
-        selected: {
+      nextState = {
+        ...state
+        , selected: {
           didInvalidate: true
         }
-      })
+      }
+      break;
     }
 
     /**
@@ -521,34 +637,112 @@ function user(state = {
     case Actions.INVALIDATE_USER_LIST:
     case Actions.REQUEST_USER_LIST:
     case Actions.SET_USER_FILTER:
+    case Actions.SET_USER_QUERY:
     case Actions.SET_USER_PAGINATION: {
       // forward these actions on to individual list reducer
-      let nextLists = Object.assign({}, state.lists, {});
-      return Object.assign({}, state, {
-        lists: Object.assign({}, state.lists, {
-          [action.listArgs[0]]: userList(state.lists[action.listArgs[0]] || {}, action)
-        })
-      })
+      nextState = {
+        ...state
+        , lists: {
+          ...state.lists
+          , [action.listArgs[0]]: userList(state.lists[action.listArgs[0]] || {}, action)
+        }
+      }
+      break;
     }
     case Actions.RECEIVE_USER_LIST: {
       // add all new items to the "byId" map before we forward to individual list reducer
-      let newIdMap = Object.assign({}, state.byId, {});
+      // add items to "byId" before we forward to individual list reducer
+      let newIdMap = { ...state.byId };
       if(action.success) {
         for(const item of action.list) {
           newIdMap[item._id] = item;
         }
       }
-      return Object.assign({}, state, {
-        byId: newIdMap
-        , lists: Object.assign({}, state.lists, {
-          [action.listArgs[0]]: userList(state.lists[action.listArgs[0]], action)
-        })
-      })
+      nextState = {
+        ...state
+        , byId: newIdMap
+        , lists: {
+          ...state.lists
+          , [action.listArgs[0]]: userList(state.lists[action.listArgs[0]], action)
+        }
+      }
+      break;
     }
     default: {
-      return state
+      return nextState = state
+      break;
     }
   }
+
+  //set getter method for returning single selected item
+  nextState.selected = {
+    ...nextState.selected
+    , getItem: () => {
+      if(!nextState.selected.id || nextState.selected.didInvalidate) {
+        return null
+      } else {
+        return nextState.byId[nextState.selected.id]
+      }
+    }
+  }
+  
+  nextState.util.getList = (...listArgs) => {
+    /**
+     * utility method for a) determining if a list exists and b) getting those list objects
+     * this can be used in the render function of a component to avoid having to
+     * type: lists.player && lists.player.[id] && lists.player.[id].items
+     * if list doesnt exist yet, it returns null, else returns array of objects
+     * not meant to replace the map and individual list reducers, but to reduce
+     * boiler plate and produce cleaner code in the front end components.
+     */
+    if(listArgs.length === 0) {
+      // If no arguments passed, make the list we want "all"
+      listArgs = ["all"];
+    }
+    let nextList = nextState.lists;
+    for(var i = 0; i < listArgs.length; i++) {
+      if(nextList[listArgs[i]]) {
+        nextList = nextList[listArgs[i]];
+      } else {
+        nextList = null;
+        break;
+      }
+    }
+    if(!nextList || !nextList.items || nextList.didInvalidate) {
+      return null
+    } else {
+      return nextList.items.map((item) => nextState.byId[item])
+    }
+  }
+  nextState.util.getKeyArrayFromList = (key, ...listArgs) => {
+    /**
+     * utility method for returning an ARRAY of all of the "key" values
+     * for the objects defined in a certain list. for example, if we have
+     * a list defined by listArgs ("status", "published"), we can return an
+     * array of all that list's author ids by calling:
+     * Reducer.getKeyArrayFromList("_author","status","published")
+     */
+    if(listArgs.length === 0) {
+      // If no arguments passed, make the list we want "all"
+      listArgs = ["all"];
+    }
+    let nextList = nextState.lists;
+    for(var i = 0; i < listArgs.length; i++) {
+      if(nextList[listArgs[i]]) {
+        nextList = nextList[listArgs[i]];
+      } else {
+        nextList = null;
+        break;
+      }
+    }
+    if(!nextList || !nextList.items || nextList.didInvalidate) {
+      return null
+    } else {
+      return nextList.items.map((item) => nextState.byId[item][key])
+    }
+  }
+
+  return nextState
 }
 
 export default user;
