@@ -119,6 +119,15 @@ export function addSingleProductToMap(item) {
   }
 }
 
+export const SET_SELECTED_PRODUCT = "SET_SELECTED_PRODUCT";
+export function setSelectedProduct(item) {
+  return {
+    type: SET_SELECTED_PRODUCT
+    , item
+  }
+}
+
+
 export const REQUEST_CREATE_PRODUCT = "REQUEST_CREATE_PRODUCT";
 function requestCreateProduct(product) {
   return {
