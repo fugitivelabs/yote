@@ -17,7 +17,7 @@ import _ from 'lodash';
 import * as productActions from '../productActions';
 
 // import global components
-import Base from "../../../global/components/BaseComponent.js.jsx";
+import Base from '../../../global/components/BaseComponent.js.jsx';
 import Breadcrumbs from '../../../global/components/routing/Breadcrumbs.js.jsx';
 
 // import product components
