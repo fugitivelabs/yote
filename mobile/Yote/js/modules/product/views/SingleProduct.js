@@ -36,7 +36,7 @@ import _ from 'lodash';
 import * as productActions from '../productActions';
 
 // import styles
-import productStyles from '../productStyles';
+import YTStyles from '../../../global/styles/YTStyles';
 import YTColors from '../../../global/styles/YTColors';
 
 class SingleProduct extends Base {
@@ -73,30 +73,15 @@ class SingleProduct extends Base {
       onPress: this._closeModal,
     }
 
-    const rightItem = {
-      title: "Edit",
-      onPress: this._openEdit,
-    };
-
     return(
-      <View style={productStyles.container}>
+      <View style={YTStyles.container}>
         <YTHeader
           title='Single Product'
           leftItem={leftItem}
-          rightItem={rightItem}
         />
         <ScrollView>
-          <View style={productStyles.cell}>
-            <View style={productStyles.infoBox}>
-              <Text style={[productStyles.headerLeft, {paddingBottom: 5}]}>{product.title} </Text>
-              <View style={productStyles.listSeparator}/>
-              <View style={{paddingVertical: 5}}>
-                <View style={{paddingVertical: 10}}>
-                  <Text style={productStyles.description}>{product.description}</Text>
-                </View>
-                <Text style={[productStyles.description, {color: YTColors.actionText}]}>Created: {moment(product.created).format("MMMM Do YYYY, h:mm a")}</Text>
-              </View>
-            </View>
+          <View style={{padding: 10}}>
+            <Text style={YTStyles.text}>Single Product things go here</Text>
           </View>
         </ScrollView>
       </View>

@@ -12,7 +12,9 @@ import {
   , StyleSheet
   , Text
   , View
-} from 'react-native'; 
+} from 'react-native';
+
+import RNDraftJSRender from 'react-native-draftjs-render'; 
 
 // import global components
 import Base from '../../../global/components/BaseComponent';
@@ -21,45 +23,39 @@ import YTTouchable from '../../../global/components/YTTouchable';
 
 // import libraries
 import moment from 'moment';
+// import { DateTime } from 'luxon'; 
+
+// import actions
 
 // import styles
-import YTStyles from '../../../global/styles/YTStyles';
 import YTColors from '../../../global/styles/YTColors';
+import YTRichStyles from '../../../global/styles/YTRichStyles';
 
-class ProductListItem extends Base {
+class DefaultNewFile extends Base {
   constructor(props){
     super(props);
   }
 
-  render() {
-    const { product, onPress } = this.props;
-
-    var cell =
-              <View style={YTStyles.cell}>
-                <Text style={YTStyles.text}>Product List Item</Text>
-              </View>
-
-    if(this.props.onPress) {
-      cell =
-        <YTTouchable onPress={this.props.onPress}>
-          {cell}
-        </YTTouchable>
-    }
-    return cell;
+  componentDidMount() {
+    
   }
-}
 
-ProductListItem.propTypes = {
-  product: PropTypes.object
-  , onPress: PropTypes.func
+  render() {
+    const { } = this.props;
+
+    return (
+      <View>
+        
+      </View>
+    )
+  }
 }
 
 const mapStoreToProps = (store) => {
-  const user = store.user.loggedIn.user;
 
   return {
-    user: user
+    userStore: store.user
   }
 }
 
-export default connect(mapStoreToProps)(ProductListItem);
+export default connect(mapStoreToProps)(DefaultNewFile);

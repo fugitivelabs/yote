@@ -7,26 +7,26 @@ import {
   , StyleSheet
 } from 'react-native'; 
 
-// import common styles
-import common from '../../global/styles/common'; 
+// import YTStyles styles
+import YTStyles from '../../global/styles/YTStyles'; 
 
 // import colors
 import YTColors from '../../global/styles/YTColors'; 
 
 const productStyles = StyleSheet.create({
 
-  // common styles
-  cell: common.cell
-  , container: common.container
-  , header: common.header
-  , header2: common.header2
-  , listSeparator: common.separator
-  , icon: common.icon
-  , input: common.input
-  , shadow: common.shadow
-  , subHeader: common.subHeader
-  , text: common.text
-  , userImg: common.userImg
+  // YTStyles styles
+  cell: YTStyles.cell
+  , container: YTStyles.container
+  , header: YTStyles.header
+  , header2: YTStyles.header2
+  , listSeparator: YTStyles.separator
+  , icon: YTStyles.icon
+  , input: YTStyles.input
+  , shadow: YTStyles.shadow
+  , subHeader: YTStyles.subHeader
+  , text: YTStyles.text
+  , userImg: YTStyles.userImg
 
   // resource specific styles
   , cardHeader: {

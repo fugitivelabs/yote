@@ -35,7 +35,7 @@ import _ from 'lodash';
 import * as productActions from '../productActions'
 
 // import styles
-import productStyles from '../productStyles';
+import YTStyles from '../../../global/styles/YTStyles';
 import YTColors from '../../../global/styles/YTColors';
 
 class UpdateProduct extends Base {
@@ -142,7 +142,7 @@ class UpdateProduct extends Base {
           navigator={navigator}
           title="Update Product"
         />
-        <ScrollView ref="myScrollView" keyboardDismissMode="interactive" keyboardShouldPersistTaps="handled" style={[productStyles.formWrapper]}>
+        <ScrollView ref="myScrollView" keyboardDismissMode="interactive" keyboardShouldPersistTaps="handled" style={[YTStyles.formWrapper]}>
           <View>
             <View style={{padding: 5}}>
               <TextInput
@@ -158,12 +158,12 @@ class UpdateProduct extends Base {
                 placeholderTextColor={YTColors.lightText}
                 ref="newProductData.title"
                 returnKeyType="next"
-                style={productStyles.input}
+                style={YTStyles.input}
                 underlineColorAndroid={YTColors.anagada}
                 value={this.state.newProductData.title}
               />
             </View>
-            <View style={productStyles.listSeparator}/>
+            <View style={YTStyles.listSeparator}/>
             <View style={{padding: 5}}>
               <TextInput
                 autoCorrect={true}
@@ -174,13 +174,13 @@ class UpdateProduct extends Base {
                 onChange={ (e) => this._handleInputChange(e, "newProductData.description")}
                 placeholder="Write a description"
                 placeholderTextColor={YTColors.lightText}
-                style={[productStyles.input, {minHeight: 90}]}
+                style={[YTStyles.input, {minHeight: 90}]}
                 ref="newProductData.description"
                 returnKeyType="go"
                 value={this.state.newProductData.description}
               />
             </View>
-            <View style={productStyles.listSeparator}/>
+            <View style={YTStyles.listSeparator}/>
           </View>
           <View style={{paddingHorizontal: 10, paddingVertical: 20}}>
             <YTButton

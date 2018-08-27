@@ -21,7 +21,7 @@ import YTColors from '../styles/YTColors';
 
 const BUTTON_FONT = Platform.OS === 'android' ? 'sans-serif-condensed' : 'AvenirNextCondensed-DemiBold';
 
-const HEIGHT = 80;
+const HEIGHT = 70;
 
 let styles = StyleSheet.create({
   actionWrapper: {
@@ -32,10 +32,11 @@ let styles = StyleSheet.create({
       , alignItems: 'center'
       , justifyContent: 'center'
       , paddingHorizontal: 40
-      , backgroundColor: '#12B3F5'
+      , backgroundColor: YTColors.sofleteYellow
     }
   , disabled: {
-      backgroundColor: YTColors.disabledButton
+      opacity: 0.7
+      // backgroundColor: YTColors.disabledButton
     }
   , caption: {
       letterSpacing: 1
@@ -49,7 +50,7 @@ let styles = StyleSheet.create({
     }
 });
 
-const ActionButton = ({ type, icon, caption, style, onPress, isDisabled }) => {
+const ActionButton = ({ type, icon, caption, style, onPress, isDisabled, captionStyle }) => {
   caption = caption.toUpperCase();
 
 
@@ -63,8 +64,8 @@ const ActionButton = ({ type, icon, caption, style, onPress, isDisabled }) => {
   if(isDisabled) {
     return (
       <View style={[styles.actionWrapper]}>
-        <View style={[styles.button, styles.disabled]}>
-          <Text style={[styles.caption]}>{caption}</Text>
+        <View style={[styles.button, styles.disabled, style]}>
+          <Text style={[styles.caption, captionStyle]}>{caption}</Text>
         </View>
       </View>
     )
@@ -78,7 +79,7 @@ const ActionButton = ({ type, icon, caption, style, onPress, isDisabled }) => {
           onPress={onPress}
           activeOpacity={0.8}
           style={[styles.button, style]}>
-          <Text style={[styles.caption]}>{caption}</Text>
+          <Text style={[styles.caption, captionStyle]}>{caption}</Text>
 
         </TouchableOpacity>
       </View>

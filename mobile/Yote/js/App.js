@@ -44,13 +44,13 @@ class App extends Base {
   }
 
   render() {
-    if (!this.props.isLoggedIn) {
-      return (
-        <View style={styles.container}>
-          <LoggedOutNavigator/>
-        </View>
-      );
-    }
+    // if (!this.props.isLoggedIn) {
+    //   return (
+    //     <View style={styles.container}>
+    //       <LoggedOutNavigator/>
+    //     </View>
+    //   );
+    // }
 
     return (
       <View style={styles.container}>
