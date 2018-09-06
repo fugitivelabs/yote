@@ -49,11 +49,6 @@ class ProductListItem extends Base {
   }
 }
 
-ProductListItem.propTypes = {
-  product: PropTypes.object
-  , onPress: PropTypes.func
-}
-
 const mapStoreToProps = (store) => {
   const user = store.user.loggedIn.user;
 

@@ -222,12 +222,15 @@ class Profile extends Base {
               />
             </View>
           </View>
-          <YTButton
-            caption="Logout"
-            captionStyle={{color: YTColors.danger}}
-            onPress={this._handleLogout}
-            type="secondary"
-          />
+          {user._id ? 
+            <YTButton
+              caption="Logout"
+              captionStyle={{color: YTColors.danger}}
+              onPress={this._handleLogout}
+              type="secondary"
+            />
+          : null
+          }
         </ScrollView>
       </View>
     )

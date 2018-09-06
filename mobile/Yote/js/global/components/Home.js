@@ -5,8 +5,7 @@ import { connect } from 'react-redux';
 
 // import react-native components & apis
 import {
-  Animated
-  , Dimensions
+  Dimensions
   , Image
   , Linking
   , Platform
@@ -18,25 +17,105 @@ import {
 } from 'react-native'; 
 
 // import global components
-import AnimatedHeader from './AnimatedHeader'; 
 import Base from './BaseComponent';
 import Hero from './Hero.js';
-import YTStyles from '../styles/YTStyles'; 
 import YTColors from '../styles/YTColors';
 import YTHeader from './YTHeader';
 
-const { height, width } = Dimensions.get('window');
+const screenHeight = Dimensions.get('window').height
+
+var styles = StyleSheet.create({
+  _bannerWrapper: {
+    flex:1
+    , padding: 20
+    , justifyContent: 'flex-end'
+  }
+  , _bannerText: {
+      color: '#fffFFF'
+    }
+  , _bannerLabel: {
+      fontSize: 18
+    }
+  , _bannerTitle: {
+      fontSize: 38
+      , fontWeight: "500"
+    }
+  , caption: {
+      fontSize: 12,
+      color: YTColors.lightText
+    }
+  , cell: {
+      flex: 1
+      , backgroundColor: 'transparent'
+      , marginTop: 10
+      , marginBottom: 10
+    }
+  , comment: {
+      backgroundColor: '#fff'
+      , padding: 10
+      , margin: 5
+      , flex: 0.75
+      , justifyContent: 'space-between'
+    }
+  , container: {
+      flex: 1
+      , backgroundColor: YTColors.lightBackground
+    }
+  , details: {
+      height: 52
+      , textAlign: 'center'
+      , fontWeight: '500'
+      , flex: 1
+      , fontSize: 17
+      , paddingTop: 8
+      , paddingBottom: 8
+    }
+  , emptyMessage: {
+      fontSize: 16
+      , flex: 1
+      , textAlign: 'center'
+      , color: "#fff"
+      , padding: 4
+      , marginTop: 40
+      , fontStyle: "italic"
+      , color: YTColors.lightText
+    }
+  , header: {
+      fontSize: 16
+      , textAlign: 'center'
+      , color: "#fff"
+      , padding: 4
+      , color: YTColors.darkText
+    }
+  , infoBox: {
+      padding: 8
+    }
+  , input: {
+      height: 80
+      , fontSize: 17
+      , padding: 4
+      , backgroundColor: YTColors.listSeparator
+    }
+  , instructions: {
+      color: YTColors.lightText
+      , textAlign: 'center'
+      , marginBottom: 5
+    }
+  , _squadListSeparator: {
+      height: 0
+    }
+  , scrollView: {
+      marginBottom: 50
+    }
+});
+
 
 class Home extends Base {
   constructor(props) {
     super(props);
-    this.state = {
-      isScrolled: false
-      , scrollY: new Animated.Value(0)
-    }
     this._bind(
      '_openProfile'
-     ,'_handleScroll'
+     ,'_handleOpenDrawer'
      , '_handleClick'
     );
   }
@@ -45,12 +124,8 @@ class Home extends Base {
     this.props.navigation.navigate('Profile');
   }
 
-  _handleScroll(event) {
-    if(event.nativeEvent.contentOffset.y > (height / 3) - 15) {
-      this.setState({isScrolled: true});
-    } else {
-      this.setState({isScrolled: false}); 
-    }
+  _handleOpenDrawer() {
+    this.context.openDrawer();
   }
 
   _handleClick() {
@@ -65,66 +140,41 @@ class Home extends Base {
   }
 
   render() {
+
     const {  itemList, navigator, user } = this.props;
 
-    const titleItem = {
-      title: "Yote"
-      , visible: this.state.isScrolled
-    }
-
-    const leftItem = {
-      icon: require('../img/settings.png'),
-      layout: 'icon',
-      onPress: null
-    }
-
-    const rightItem = {
-      icon: require('../img/settings.png'),
-      layout: 'icon',
-
-      onPress: this._closeModal
-    }
-
     return (
-      <View style={YTStyles.container}>
+      <View style={styles.container}>
+        <YTHeader
+          title="Yote"
+        />
         <ScrollView
-          // automaticallyAdjustContentInsets={false}
-          scrollEventThrottle={16} 
-          onScroll={Animated.event(
-            [{nativeEvent: {contentOffset: {y: this.state.scrollY}}}],
-            {listener: (event) => this._handleScroll(event)}
-          )}>
-          <View style={{height: height / 3, width: width}}>
-          </View>
-          <View style={{flex: 1}} >
-            <View style={{height: height / 3, alignItems: 'center'}}>
+          automaticallyAdjustContentInsets={false}
+        >
+          <View style={{flex: 1, backgroundColor: '#333'}} >
+            <View style={{height: screenHeight * .66, backgroundColor: 'transparent', justifyContent: 'center', alignItems: 'center'}}>
+              <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+                <Image
+                  resizeMode={'contain'}
+                  source={require('../img/logo.png')}
+                  style={{height: 170, width: 200}}
+                />
+              </View>
               <View style={{flexDirection: 'row', justifyContent: 'center'}}>
                 <Hero/>
               </View>
             </View>
-            <Text style={{fontSize: 18, textAlign: 'center', color: YTColors.darkText, padding: 10, fontWeight: 'normal', fontFamily: 'AvenirNextCondensed-DemiBold'}}>A product of Fugitive Labs</Text>
-            <View style={{flex: 1, justifyContent: 'center'}}>
+            <View style={{flex: 1, backgroundColor: YTColors.lightBackground, justifyContent: 'center'}}>
               <View style={{flexDirection: 'row', justifyContent: 'center', paddingVertical: 50}}>
-                <Text style={{fontSize: 18, fontWeight: 'normal', color: YTColors.darkText, textAlign: 'center', fontFamily: 'AvenirNextCondensed-DemiBold'}}> Check out the docs on </Text>
+                <Text style={{fontSize: 15, color: YTColors.darkText, textAlign: 'center'}}> Check out the docs on </Text>
                 <TouchableOpacity
                   onPress={this._handleClick}>
-                  <Text style={{fontSize: 18, fontWeight: 'normal', textAlign: 'center', color: YTColors.actionText, fontFamily: 'AvenirNextCondensed-DemiBold'}}>Github </Text>
+                  <Text style={{fontSize: 15, textAlign: 'center', color: YTColors.actionText}}>Github </Text>
                 </TouchableOpacity>
               </View>
             </View>
           </View>
         </ScrollView>
-        <AnimatedHeader
-          image={require('../img/logo2.jpg')}
-          // placeholder={placeholderImg}
-          rightItem={rightItem}
-          leftItem={leftItem}
-          titleItem={titleItem}
-          headerMaxHeight={height / 3}
-          // otherItem={shareItem}
-          scrollY={this.state.scrollY}
-          color={YTColors.yoteRed}
-        />
       </View>
     )
   }

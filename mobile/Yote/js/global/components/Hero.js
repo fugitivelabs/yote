@@ -56,7 +56,7 @@ class TheCoolThing extends Base {
      
     return(
         <Text
-          style={{color: YTColors.yoteRed, fontSize: 25, textAlign: 'center', fontFamily: 'AvenirNextCondensed-DemiBold'}}
+          style={{color: YTColors.yoteGreen, fontSize: 25, textAlign: 'center', fontFamily: 'AvenirNextCondensed-DemiBold'}}
           key={this.state.coolThing}
         >
           {this.state.coolThing}
@@ -76,9 +76,9 @@ class Hero extends Base {
   render(){
     return (
       <View style={{flex: 1}}>
-          <Text style={{fontSize: 30, textAlign: 'center', color: YTColors.darkText, padding: 10, fontWeight: '600', fontFamily: 'AvenirNextCondensed-DemiBold'}}>Yote </Text> 
+          <Text style={{fontSize: 30, textAlign: 'center', color: '#fff', padding: 10, fontWeight: '600', fontFamily: 'AvenirNextCondensed-DemiBold'}}>Yote </Text> 
           <TheCoolThing />
-          <Text style={{fontSize: 18, textAlign: 'center', color: YTColors.darkText, padding: 10, fontWeight: 'normal', fontFamily: 'AvenirNextCondensed-DemiBold'}}>Yote is the best super-stack solution out there for any data driven application.</Text>
+          <Text style={{fontSize: 18, textAlign: 'center', color: '#fff', padding: 10, fontWeight: 'normal', fontFamily: 'AvenirNextCondensed-DemiBold'}}>Yote is the best super-stack solution out there for any data driven application.</Text>
       </View>
     )
   }
