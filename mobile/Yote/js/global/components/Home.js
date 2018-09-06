@@ -166,10 +166,10 @@ class Home extends Base {
             </View>
             <View style={{flex: 1, backgroundColor: YTColors.lightBackground, justifyContent: 'center'}}>
               <View style={{flexDirection: 'row', justifyContent: 'center', paddingVertical: 50}}>
-                <Text style={{fontSize: 15, color: YTColors.darkText, textAlign: 'center'}}> Check out the docs on </Text>
+                <Text style={{fontFamily: 'AvenirNextCondensed-DemiBold', fontWeight: 'normal', fontSize: 15, color: YTColors.darkText, textAlign: 'center'}}> Check out the docs on </Text>
                 <TouchableOpacity
                   onPress={this._handleClick}>
-                  <Text style={{fontSize: 15, textAlign: 'center', color: YTColors.actionText}}>Github </Text>
+                  <Text style={{fontFamily: 'AvenirNextCondensed-DemiBold', fontWeight: 'normal', fontSize: 15, textAlign: 'center', color: YTColors.actionText}}>Github </Text>
                 </TouchableOpacity>
               </View>
             </View>

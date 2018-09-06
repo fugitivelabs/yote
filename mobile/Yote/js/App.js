@@ -44,6 +44,12 @@ class App extends Base {
   }
 
   render() {
+
+    /**
+     * To make app login gated, simply uncomment lines below.
+     * It will look for a valid user token/object in store for access.
+     */
+
     // if (!this.props.isLoggedIn) {
     //   return (
     //     <View style={styles.container}>
