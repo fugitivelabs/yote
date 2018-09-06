@@ -20,6 +20,7 @@ import TabBarComponent from './global/components/TabBarComponent';
 
 // import module navigator components
 import ProductNavigator from './modules/product/ProductNavigator';
+import UserNavigator from './modules/user/UserNavigator'; 
 
 // import specific module screens
 import Profile from './modules/user/views/Profile'; 
@@ -66,6 +67,17 @@ const TabsNavigator = TabNavigator(
         tabBarIcon: ({ tintColor }) => (
           <Image
             source={require('./global/img/shoppingBag.png')}
+            style={{height: 30, width: 30, tintColor: tintColor}}
+          />
+        )
+      }
+    }
+    , Profile: {
+      screen: UserNavigator
+      , navigationOptions: {
+        tabBarIcon: ({ tintColor }) => (
+          <Image
+            source={require('./global/img/user.png')}
             style={{height: 30, width: 30, tintColor: tintColor}}
           />
         )

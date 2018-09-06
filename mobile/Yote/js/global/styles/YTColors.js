@@ -19,7 +19,7 @@ module.exports = {
   , primaryHeader: '#ffffff'
   , subHeader: '#093b41'
   , underlayColor: '#eaeced'
-  , yoteRed: '#E02B3A'
+  , yoteRed: '#CD2727'
   , yoteGreen: '#00BC8B'
   , yoteDarkGrey: '#333'
   , yoteDarkBlue: '#007BA4'

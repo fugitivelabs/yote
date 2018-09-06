@@ -172,20 +172,12 @@ class Profile extends Base {
 
   render() {
     const { user } = this.props;
-    const rightItem = {
-      icon: require('../../../global/img/delete.png')
-      , layout: "icon" 
-      , onPress: () => this._closeModal()
-    };
-
-    const rightArrow = require("../../../global/img/forward.png");
 
     const profileImg = user.info && user.info.profilePicUrl ? {uri: user.info.profilePicUrl} : require('../../../global/img/default.png');
 
     return(
       <View style={[styles.container ]}>
         <YTHeader
-          rightItem={rightItem}
           title="Profile"
         />
         <ScrollView>
@@ -230,12 +222,15 @@ class Profile extends Base {
               />
             </View>
           </View>
-          <YTButton
-            caption="Logout"
-            captionStyle={{color: YTColors.danger}}
-            onPress={this._handleLogout}
-            type="secondary"
-          />
+          {user._id ? 
+            <YTButton
+              caption="Logout"
+              captionStyle={{color: YTColors.danger}}
+              onPress={this._handleLogout}
+              type="secondary"
+            />
+          : null
+          }
         </ScrollView>
       </View>
     )

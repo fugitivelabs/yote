@@ -44,13 +44,19 @@ class App extends Base {
   }
 
   render() {
-    if (!this.props.isLoggedIn) {
-      return (
-        <View style={styles.container}>
-          <LoggedOutNavigator/>
-        </View>
-      );
-    }
+
+    /**
+     * To make app login gated, simply uncomment lines below.
+     * It will look for a valid user token/object in store for access.
+     */
+
+    // if (!this.props.isLoggedIn) {
+    //   return (
+    //     <View style={styles.container}>
+    //       <LoggedOutNavigator/>
+    //     </View>
+    //   );
+    // }
 
     return (
       <View style={styles.container}>

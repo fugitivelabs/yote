@@ -76,24 +76,11 @@ class ProductRoot extends Base {
 
     let productList = products.lists.all ? products.lists.all.items : null;
 
-    const profileImg = user.info && user.info.profilePicUrl ? {uri: user.info.profilePicUrl} : require('../../../global/img/default.png');
-
     const rightItem = {
       onPress: () => this._openNew()
       , icon: require('../../../global/img/plus.png')
       , layout: 'image'
     }
-
-    const profileItem = {
-      onPress: () => this._openProfile(),
-      image: profileImg,
-      layout: "image",
-    };
-    // const androidDrawerItem = {
-    //   onPress: this._handleOpenDrawer,
-    //   icon: require('../../../global/components/img/bulletList.png'),
-    //   layout: "icon",
-    // }
 
     if(!products.lists.all || products.lists.all.isFetching) {
       return (
@@ -115,7 +102,7 @@ class ProductRoot extends Base {
           title="Products"
           rightItem={rightItem}
         />
-        <View style={{flex: 1, padding: 2}}>
+        <View style={{flex: 1}}>
           <ProductList
             products={productList}
             navigation={navigation}

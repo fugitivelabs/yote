@@ -9,10 +9,9 @@ import {
 // colors
 import YTColors from '../../global/styles/YTColors';
 
-let width = Dimensions.get('window').width
-let height = Dimensions.get('window').height
+const { height, width } = Dimensions.get('window');
 
-const common = StyleSheet.flatten({
+const YTStyles = StyleSheet.flatten({
   cell: {
     padding: 5
   }
@@ -71,4 +70,4 @@ const common = StyleSheet.flatten({
   }
 })
 
-export default common; 
+export default YTStyles; 
