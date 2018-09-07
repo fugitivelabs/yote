@@ -6,13 +6,13 @@
  */
 
 // get the appUrl for the current environment
-let appUrl = require('../../config')[process.env.NODE_ENV].appUrl;
+let appUrl = require('../../../config')[process.env.NODE_ENV].appUrl;
 
 // get secrets if needed
 // let secrets = require('../../config')[process.env.NODE_ENV].secrets;
 
 let User = require('mongoose').model('User');
-let utilitiesCtrl = require('../../utilities');
+let emailUtil = require('../../../utilities/email');
 let logger = global.logger;
 
 exports.getLoggedInUser = (req, res) => {
@@ -349,7 +349,7 @@ exports.requestPasswordReset = function(req, res) {
           html += "<p>If you believe you received this email by mistake, please call (919) 414-4801 and ask for Zabajone.</p>";
           html += "<br><p>" + resetUrl + " Reset Yote Password</p>";
 
-          utilitiesCtrl.sendEmail(targets, "Your Password for YOTE", html, function(data) {
+          emailUtil.sendEmail(targets, "Your Password for YOTE", html, function(data) {
             res.send({ success: data.success, message: data.message });
           });
         }

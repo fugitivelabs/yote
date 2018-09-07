@@ -66,7 +66,8 @@ app.use(compress());
 
 // configure express
 app.set('views', __dirname + '/render/views');
-// app.set('view engine', 'pug');
+app.set('view engine', 'pug');
+// app.set('view engine', 'html');
 app.use(timeout(30000)); //upper bound on server connections, in ms.
 app.use(cookieParser());
 app.use(bodyParser.json());

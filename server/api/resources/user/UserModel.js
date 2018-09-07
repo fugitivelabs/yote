@@ -6,7 +6,7 @@
  */
 
 // get application secrets
-let secrets = require('../../config')[process.env.NODE_ENV].secrets;
+let secrets = require('../../../config')[process.env.NODE_ENV].secrets;
 let tokenSecret = secrets.tokenSecret; // Or generate your own randomized token here.
 
 let crypto = require('crypto');

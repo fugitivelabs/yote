@@ -84,12 +84,12 @@ function requireRole(role) {
 let routeFilenames = [];
 module.exports = function(router) {
   /**
-   * 
+   *
    *
    */
   routeFilenames.forEach(function(filename) {
     logger.debug("filename: " + filename);
-    require('../resources/' + filename)(router, requireLogin, requireRole);
+    require('../api/resources/' + filename)(router, requireLogin, requireRole);
   });
 }
 
