@@ -1,0 +1,141 @@
+// Stupid IE
+
+.lt-ie9 article,
+.lt-ie9 aside,
+.lt-ie9 nav,
+.lt-ie9 [yt-row],
+.lt-ie9 .yt-row {
+  display: block;
+}
+
+.lt-ie9 [yt-col],
+.lt-ie9 .yt-col {
+  // float: left;
+  display: inline-block;
+}
+
+.lt-ie10 {
+  .blueGradient {
+    background: #ddd !important;
+    filter: none !important;
+  }
+  [yt-col], .yt-col {
+    // float: left;
+    display: inline-block;
+  }
+  .content {
+    display: block;
+    width: 100%;
+    position: relative;
+  }
+  footer, .footer {
+    width: 100%;
+    height: 300px;
+    position: relative;
+    display: block;
+    [yt-col] {
+      display: inline-block;
+      width: 32%;
+    }
+  }
+
+
+
+
+
+  .topBar {
+    display: block;
+    .content {
+      position: relative;
+      display: block;
+      width: 100%;
+      height: 110px;
+      .navLogo {
+        min-width: 0;
+        position: relative;
+        width: 50%;
+        display: inline-block;
+        img {
+          max-width: 200px;
+          // max-height: 100%;
+          display: inline-block;
+        }
+      }
+      .sessionButtons {
+        position: relative;
+        width: 40%;
+        display: inline-block;
+        padding: $gutter;
+        button {
+          position: absolute;
+          right: $gutter;
+          top: $gutter;
+        }
+        .profileLink {
+          position: absolute;
+          right: $gutter;
+          top: $gutter * 3;
+        }
+      }
+    }
+
+    .burger {
+      display: none;
+    }
+
+    .mobileNav {
+      display: none !important;
+    }
+
+    .normalNav {
+      width: 100%;
+      display: block !important;
+      li {
+        text-align: center;
+        padding: $gutter;
+        // margin-bottom: $gutter;
+        width: 10%;
+        display: inline-block;
+        position: relative;
+        .nav-marker {
+          display: none !important;
+        }
+        .nav-link {
+          font-size: .8em;
+          font-weight: bold;
+          padding-bottom: $gutter;
+        }
+        &.active {
+          .nav-link {
+            border-bottom: 2px solid #fff;
+          }
+        }
+      }
+    }
+  }
+}
+
+.lt-ie10 .main-content .main {
+  float: left;
+  padding: 2em 3%;
+  width: 100%;
+}
+
+.lt-ie10 .main-nav {
+  float: left;
+  padding: 2em 3%;
+  width: 14%;
+}
+
+.lt-ie10 .main-sidebar {
+  float: left;
+  padding: 2em 3%;
+  width: 14%;
+}
+
+
+.lt-ie11 {
+  .yt-container {
+    // background: yellow;
+  }
+}

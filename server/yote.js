@@ -65,8 +65,8 @@ let User = mongoose.model('User');
 app.use(compress());
 
 // configure express
-app.set('views', __dirname + '/views');
-app.set('view engine', 'pug');
+app.set('views', __dirname + '/render/views');
+// app.set('view engine', 'pug');
 app.use(timeout(30000)); //upper bound on server connections, in ms.
 app.use(cookieParser());
 app.use(bodyParser.json());
@@ -80,14 +80,14 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(favicon(path.join(__dirname, 'public','favicon.ico')));
+app.use(favicon(path.join(__dirname, 'render/public','favicon.ico')));
 
 // // Uncomment below to allow file uploads
 // app.use(multipart({}));
 
 
 // serve static assets, incl. react bundle.js
-app.use(serveStatic(__dirname + '/public'));
+app.use(serveStatic(__dirname + '/render/public'));
 
 // request checks
 app.use((req, res, next) => {
@@ -163,7 +163,7 @@ if (app.get('env') == 'development') {
 
 // configure server routes
 let router = express.Router();
-require('./router/server-router')(router, app);
+require('./router')(router, app);
 app.use('/', router);
 // some notes on router: http://scotch.io/tutorials/javascript/learn-to-use-the-new-router-in-expressjs-4
 
