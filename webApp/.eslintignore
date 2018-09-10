@@ -1,3 +1,0 @@
-# Ignore deployment configs
-webpack.config.js
-webpack.prod.config.js

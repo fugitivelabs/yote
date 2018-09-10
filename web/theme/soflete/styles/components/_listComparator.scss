@@ -1,0 +1,74 @@
+
+.list-comparator-input {
+  padding: 8px 6px;
+  // padding: $gutter;
+  background-color: darken($formContainerColor, 1);
+  border: 1px solid $divider-color;
+  border-radius: 2px;
+  // height: 300px;
+
+  .-label {
+    height: 20px;
+    font-weight: 700;
+    // overflow-wrap: break-word;
+    text-transform: uppercase;
+    text-align: center;
+    @include small-font;
+  }
+  .-list-items {
+      background-color: $formContainerColor;
+      border: 1px solid $divider-color;
+      height: 260px;
+      padding: 6px 4px;
+      @include mobile-scroll;
+
+  }
+  .-item {
+    @include display-flex;
+    @include align-items(center);
+    height: 40px;
+    margin: 5px 0;
+    padding: 5px;
+    border: 1px solid $divider-color;
+    border-radius: 4px;
+    @include transition(all 250ms ease-in-out);
+    i {
+      width: 30px;
+      @include transition(all 250ms ease-in-out);
+    }
+    .text {
+      @include flex(1);
+    }
+    &.-right {
+
+      i { color: $divider-color; }
+      &:hover {
+        // background-color: $success;
+        background-color: lighten($info, 30);
+        cursor: pointer;
+        // color: $white-0;
+        i {
+          color: $black-2;
+          // color: $white-0;
+        }
+      }
+    }
+    &.-left {
+      // background-color: $info;
+      background-color: lighten($info, 30);
+      // color: $white-0;
+      // i { text-align: right;}
+      &:hover {
+        // background-color: $danger;
+        // background-color: $info;
+        background-color: lighten($info, 39);
+        // cursor: pointer;
+        // color: $white-0;
+        // i {
+        //   // color: $white-0;
+        // }
+      }
+    }
+
+  }
+}

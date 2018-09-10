@@ -1,0 +1,55 @@
+// Base Styles
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+*, *:after, *:before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  outline: none;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  @include border-box;
+  @include font-smoothing(antialiased);
+  @include base-font;
+  background-color: $bg-color;
+  color: $text-color;
+  font-family: $font-sans;
+  line-height: 1.5rem;
+  position: relative;
+  @include zIndex-5;
+}
+
+.content {
+  margin: 0 auto;
+}
+
+// Base Styles: Tablets
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+@include responsive-break-point($medium-screen) {
+
+}
+
+// Base Styles: Desktop
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+@include responsive-break-point($large-screen) {
+  .content { max-width: 960px; }
+}
+
+
+// Fix: iOS Font Sizing
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+@media screen and (max-device-width: 480px) {
+  html {
+    -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+  }
+}

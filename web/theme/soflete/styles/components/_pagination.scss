@@ -1,0 +1,43 @@
+.pagination {
+  padding: 5px 0;
+  list-style: none;
+  color: $lighter-text-color;
+  li {
+    display: inline-block;
+    margin-left: 3px;
+    &:first-child { margin-left: none; }
+    .current-page {
+      padding: 2px 6px;
+      background-color: $primary;
+      color: $white;
+    }
+    a {
+      color: $lighter-text-color;
+      padding: 2px 6px;
+
+      &.page-num {
+        &:hover {
+          background-color: $gray-8;
+          color: $text-color;
+          cursor: pointer;
+        }
+      }
+      &.prev-page,
+      &.next-page {
+        &:hover {
+          background-color: $gray-8;
+          color: $text-color;
+          cursor: pointer;
+        }
+        &:disabled,
+        &.disabled {
+          color: lighten($text-color, 50);
+          &:hover {
+            background: none;
+            cursor: not-allowed;
+          }
+        }
+      }
+    }
+  }
+}

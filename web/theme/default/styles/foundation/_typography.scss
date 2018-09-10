@@ -1,0 +1,82 @@
+
+
+a {
+  color: $link-color;
+  // margin: -.2rem;
+  // padding: .2rem;
+  text-decoration: none;
+
+  &:visited {
+    color: $link-visited-color;
+  }
+  &:hover {
+    color: $link-hover-color;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  &:active {
+    color: $link-hover-color;
+  }
+}
+
+ul {
+  margin: 0px;
+  padding: 0px;
+}
+
+h1 {
+  @include largest-font;
+}
+
+h2 {
+  @include larger-font;
+}
+
+h3 {
+  @include large-font;
+}
+
+h4 {
+  @include base-font;
+}
+
+h5 {
+  @include small-font;
+}
+
+h6 {
+  @include smaller-font;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: .4em;
+}
+
+small {
+  @include smaller-font;
+}
+
+em {
+  font-style: italic;
+}
+
+p {
+  @include base-font;
+  margin: 0px;
+  margin-bottom: .3em;
+}
+
+u {
+  text-decoration: underline;
+}
+
+strong {
+  font-weight: 700;
+}
+
+hr {
+  border-bottom: none;
+  border-style: solid;
+  border-color: $divider-color;
+  margin: $gutter;
+}

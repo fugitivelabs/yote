@@ -1,0 +1,10 @@
+@charset "UTF-8";
+
+// @import "theme/default/styles/themeStyles.scss";
+@import "theme/soflete/styles/themeStyles.scss";
+
+/**
+ * Modules
+ */
+@import "modules/user/userGlobalStyles";
+@import "modules/product/productGlobalStyles";

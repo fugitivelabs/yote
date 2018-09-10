@@ -1,0 +1,107 @@
+
+$richFormContainerColor: rgba(255,255,255,0.7);
+
+.fa.fa-link.unlink:after {
+  position: absolute;
+  content: "/";
+  color: #000;
+  font-weight: 700;
+  font-size: 1.7em;
+  left: 10px;
+  top: -2px;
+}
+
+.RichEditor-root {
+  background: #fff;
+  border: 1px solid #ddd;
+  font-family: 'Georgia', serif;
+  font-size: 14px;
+  padding: 15px;
+}
+
+.RichEditor-editor {
+  border-top: 1px solid #ddd;
+  cursor: text;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.RichEditor-editor .public-DraftEditorPlaceholder-root,
+.RichEditor-editor .public-DraftEditor-content {
+  margin: 0 -15px -15px;
+  padding: 15px;
+}
+
+.RichEditor-editor .public-DraftEditor-content {
+  min-height: 100px;
+}
+
+.RichEditor-hidePlaceholder .public-DraftEditorPlaceholder-root {
+  display: none;
+}
+
+.RichEditor-editor .RichEditor-blockquote {
+  border-left: 5px solid #eee;
+  color: #666;
+  font-family: 'Hoefler Text', 'Georgia', serif;
+  font-style: italic;
+  margin: 16px 0;
+  padding: 10px 20px;
+}
+
+.RichEditor-editor .public-DraftStyleDefault-pre {
+  background-color: rgba(0, 0, 0, 0.05);
+  font-family: 'Inconsolata', 'Menlo', 'Consolas', monospace;
+  font-size: 16px;
+  padding: 20px;
+}
+
+.RichEditor-controls {
+  font-family: 'Helvetica', sans-serif;
+  font-size: 14px;
+  margin-bottom: 5px;
+  user-select: none;
+}
+
+.RichEditor-styleButton {
+  color: #999;
+  cursor: pointer;
+  margin-right: 16px;
+  padding: 2px 0;
+  display: inline-block;
+}
+
+.RichEditor-activeButton {
+  color: #5890ff;
+}
+
+.RichEditor-root {
+  // font-family: 'Helvetica', sans-serif;
+  font-family: $font-sans;
+  background-color: darken($richFormContainerColor, 1);
+  border: 1px solid $divider-color;
+  border-radius: 2px;
+  @include transition(all 250ms ease-in-out);
+  &.hasFocus {
+    background-color: darken($richFormContainerColor, 3);
+    border-color: $formAccentColor;
+  }
+  .RichEditor-controls {
+    display: inline-block;
+    border-left: 1px solid #ddd;
+    padding-left: 10px;
+    font-size: 11px;
+    &:first-child {
+      border-left: none;
+      padding-left: 0;
+    }
+  }
+  .RichEditor-editor {
+    font-family: $font-sans;
+    max-height: 400px;
+    @include mobile-scroll();
+  }
+  .RichEditor-activeButton {
+    color: #fff;
+  }
+}

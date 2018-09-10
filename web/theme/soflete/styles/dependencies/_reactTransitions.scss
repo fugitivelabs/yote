@@ -1,0 +1,163 @@
+// fade in/out
+.fade-enter {
+  opacity: 0.01;
+}
+
+.fade-enter.fade-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit.fade-exit-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
+}
+
+// .modal-anim-appear {
+//   opacity: 0.00;
+//   @include transform(scale(0.1));
+//   // @include transform-origin(left top);
+//   &.modal-anim-appear-active {
+//     @include transition(all 3500ms ease-in-out);
+//     opacity: 1;
+//     @include transform-origin(center center);
+//     @include scale(1);
+//   }
+// }
+
+.modal-anim-enter {
+  opacity: 0.00;
+  .card {
+    @include transform(scale(0.1));
+    // @include transform-origin(center bottom);
+  }
+  &.modal-anim-enter-active {
+    opacity: 1;
+    @include transition(all 250ms ease-in-out);
+    .card {
+      @include transition(all 250ms ease-in-out);
+      @include transform-origin(center center);
+      @include transform(scale(1));
+    }
+    // @include scale(1);
+  }
+}
+
+.modal-anim-exit {
+  opacity: 1;
+  .card {
+    @include transform(scale(1));
+  }
+  &.modal-anim-exit-active {
+    @include transition(all 250ms ease-in-out);
+    opacity: 0.00;
+    .card {
+      @include transition(all 250ms ease-in-out);
+      @include transform-origin(center center);
+      // @include transform-origin(center bottom);
+      @include transform(scale(0.1));
+    }
+  }
+}
+
+.drawer-anim-enter {
+  opacity: 0.01;
+  &.drawer-anim-enter-active {
+    opacity: 1;
+    transition: opacity 500ms ease-in;
+  }
+}
+
+.drawer-anim-exit {
+  opacity: 1;
+  &.drawer-anim-exit-active {
+    opacity: 0.01;
+    transition: opacity 350ms ease-in;
+  }
+}
+
+// .drawer-anim-appear {
+//   opacity: 0.00;
+//   // @include transform(scale(0.1));
+//   @include transform(scale(1, 1));
+//   @include transform-origin(left center);
+//   // @include transform-origin(left top);
+//   @include transition(all 350ms ease-in-out);
+//   &.drawer-anim-appear-active {
+//     opacity: 1;
+//     // @include transform(scale(1));
+//     @include transform(scale(1,1));
+//     // @include scale(1);
+//   }
+// }
+
+// .drawer-anim-exit.drawer-anim-exit-active {
+//   opacity: 0.00;
+//   @include transform(scale(0.1, 1));
+//   @include transform-origin(right top);
+//   @include transform-origin(left top);
+//   &.drawer-anim-enter-active {
+//     opacity: 1;
+//     @include transition(all 250ms ease-in-out);
+//     @include transform(scale(1,1));
+//     // @include scale(1);
+//   }
+// }
+
+// .drawer-anim-exit {
+//   opacity: 1;
+//   @include transform-origin(right bottom);
+//   @include transform-origin(right top);
+//   @include transform(scale(1, 1));
+//   &.drawer-anim-exit-active {
+//     @include transition(all 250ms ease-in-out);
+//     opacity: 0.00;
+//     // @include transform(scale(0.1));
+//     @include transform(scale(0.1, 1));
+//   }
+// }
+
+// .dropdown-anim-appear {
+//   opacity: 0.00;
+//   // @include transform(scale(0.1));
+//   @include transform(scale(1, 1));
+//   &.dropdown-anim-appear-active {
+//     @include transform-origin(top center);
+//     @include transition(all 350ms ease-in-out);
+//     opacity: 1;
+//     // @include transform(scale(1));
+//     @include transform(scale(1,1));
+//     // @include scale(1);
+//   }
+// }
+
+.dropdown-anim-enter {
+  opacity: 0.00;
+  @include transform(scale(1, 0.1));
+  // @include transform-origin(left top);
+  &.dropdown-anim-enter-active {
+    @include transform-origin(top center);
+    @include transition(all 140ms ease-in-out);
+    opacity: 1;
+    @include transform(scale(1,1));
+    // @include scale(1);
+  }
+}
+
+.dropdown-anim-exit {
+  opacity: 1;
+  // @include transform-origin(left bottom);
+  @include transform(scale(1, 1));
+  &.dropdown-anim-exit-active {
+    @include transform-origin(top center);
+    @include transition(all 140ms ease-in-out);
+    opacity: 0.00;
+    // @include transform(scale(0.1));
+    @include transform(scale(1, 0.1));
+
+  }
+}
