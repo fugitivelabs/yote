@@ -1,5 +1,5 @@
 /**
- * Displays a single product by the productId sent from props and the productMap from store
+ * Displays a single product by the product sent from props
  */
 
 // import react things
@@ -43,34 +43,26 @@ class SingleProduct extends Base {
   constructor(props){
     super(props);
     this._bind(
-      '_closeModal'
-      , '_openEdit'
+      '_goBack'
     )
   }
 
   componentDidMount() {
-    const { productId } = this.props.navigation.state.params;
-    this.props.dispatch(productActions.fetchSingleProductById(productId));
+    const { product } = this.props.navigation.state.params;
+    this.props.dispatch(productActions.fetchSingleProductById(product._id));
   }
 
-  _closeModal() {
+  _goBack() {
     this.props.navigation.goBack();
   }
 
-  _openEdit() {
-    const { productId } = this.props.navigation.state.params;
-    this.props.navigation.navigate('UpdateProduct', {productId: productId});
-  }
-
   render() {
-    const { productMap } = this.props;
-    const { productId } = this.props.navigation.state.params;
-    let product = productMap[productId];
+    const { product } = this.props.navigation.state.params;
 
     const leftItem = {
       icon: require('../../../global/img/back.png'),
       layout: 'icon',
-      onPress: this._closeModal,
+      onPress: this._goBack,
     }
 
     return(
@@ -81,8 +73,9 @@ class SingleProduct extends Base {
         />
         <ScrollView>
           <View style={{padding: 10}}>
-            <Text style={YTStyles.text}>Single Product things go here</Text>
+            <Text style={[YTStyles.header, {color: YTColors.darkText}]}>{product.title}</Text>
           </View>
+          <Text style={[YTStyles.text, {padding: 10}]}>{product.description}</Text>
         </ScrollView>
       </View>
     )
@@ -90,7 +83,7 @@ class SingleProduct extends Base {
 }
 
 SingleProduct.propTypes = {
-  productId: PropTypes.string
+  product: PropTypes.object
 }
 
 const mapStoreToProps = (store) => {

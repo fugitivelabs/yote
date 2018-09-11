@@ -36,74 +36,10 @@ import YTButton from '../../../global/components/YTButton';
 
 // import styles
 import YTColors from '../../../global/styles/YTColors';
+import YTStyles from '../../../global/styles/YTStyles'; 
 
 const IMAGE_HEIGHT = Dimensions.get('window').height * 0.5;
 let screenWidth = Dimensions.get('window').width;
-
-var styles = StyleSheet.create({
-  bannerWrapper: {
-    flex:1
-    , padding: 20
-    , justifyContent: 'flex-end'
-  }
-  , container: {
-      flex: 1
-      , backgroundColor: '#fff'
-      , justifyContent: "center"
-      , flexDirection: 'column'
-      , paddingTop: 20
-    }
-  , forgotContainer: {
-      alignItems: 'flex-end'
-      , padding: 15
-    }
-  , header: {
-      justifyContent: 'center'
-      , alignItems: 'center'
-      , paddingTop: Dimensions.get('window').height * 0.2
-      , backgroundColor: 'transparent'
-    }
-  , inputWrapper: {
-      // flex: 0.5
-      // , backgroundColor: "#fff"
-    }
-  , inputContainer: {
-    // padding: 10,
-    borderWidth: Platform.OS == 'ios' ? 1 : 0
-    , borderBottomColor: '#CCC'
-    , borderColor: 'transparent'
-    , marginTop: 14
-  }
-  , input: {
-    height: 45
-    , flex: 1
-    , fontSize: 17
-    , paddingVertical: 8
-    , backgroundColor: 'rgba(255,255,255,0.7)'
-  }
-  , img: {
-      width: screenWidth
-      , height: IMAGE_HEIGHT
-      , backgroundColor: "transparent"
-    }
-  , label: {
-      fontSize: 12
-      , color: '#fff'
-      , marginBottom: 4
-    }
-  , text: {
-      color: '#fff'
-      , marginTop: 20
-      , fontSize: 12
-      , textAlign: 'center'
-    }
-  , welcome: {
-      fontSize: 20
-      , textAlign: 'center'
-      , color: YTColors.darkText
-      , margin: 10
-    }
-});
 
 class Login extends Base {
   constructor(props) {
@@ -210,9 +146,9 @@ class Login extends Base {
     const { forgotPassword } = this.state;
     let forgotPassText = forgotPassword ? "Cancel" : "Forgot password?";
     return(
-      <View style={styles.container}>
+      <View style={YTStyles.container}>
         <ScrollView ref="myScrollView" keyboardDismissMode="interactive" keyboardShouldPersistTaps="handled">
-          <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
+          <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center', paddingTop: 20}}>
             <Image
               resizeMode={"contain"}
               source={require('../../../global/img/logo.png')}
@@ -221,8 +157,8 @@ class Login extends Base {
           </View>
           <View style={{paddingHorizontal: 20}}>
             {!forgotPassword ?
-              <View style={styles.inputWrapper}>
-                <View style={styles.inputContainer}>
+              <View style={YTStyles.inputWrapper}>
+                <View style={YTStyles.inputContainer}>
                   <TextInput
                     autoCapitalize="none"
                     autoCorrect={false}
@@ -238,11 +174,11 @@ class Login extends Base {
                     placeholderTextColor={YTColors.lightText}
                     ref="username"
                     returnKeyType="next"
-                    style={styles.input}
+                    style={YTStyles.input}
                     value={this.state.username}
                   />
                 </View>
-                <View style={styles.inputContainer}>
+                <View style={YTStyles.inputContainer}>
                   <TextInput
                     autoCapitalize="none"
                     autoCorrect={false}
@@ -256,15 +192,15 @@ class Login extends Base {
                     ref="password"
                     returnKeyType="go"
                     secureTextEntry={true}
-                    style={styles.input}
+                    style={YTStyles.input}
                     value={this.state.password}
                   />
                 </View>
               </View>
               :
-              <View style={styles.inputContainer}>
+              <View style={YTStyles.inputContainer}>
                 <View style={{paddingVertical: 15}}>
-                  <Text style={{fontSize: 15, color: YTColors.lightText, textAlign: 'center'}}>Enter your email and we'll send you a link to reset your password! Please note, reset password link is ONLY valid for 24 hours!</Text>
+                  <Text style={[YTStyles.text, {textAlign: 'center'}]}>Enter your email and we'll send you a link to reset your password! Please note, reset password link is ONLY valid for 24 hours!</Text>
                 </View>
                 <TextInput
                   autoCapitalize="none"
@@ -279,13 +215,13 @@ class Login extends Base {
                   placeholderTextColor={YTColors.lightText}
                   ref="username"
                   returnKeyType="go"
-                  style={styles.input}
+                  style={YTStyles.input}
                   value={this.state.username}
                 />
               </View>
             }
-            <View style={styles.inputWrapper}>
-              <View style={styles.forgotContainer}>
+            <View style={YTStyles.inputWrapper}>
+              <View style={{alignItems: 'flex-end', padding: 15}}>
                 <TouchableOpacity
                   accessibilityTraits="button"
                   activeOpacity={0.8}
@@ -305,7 +241,7 @@ class Login extends Base {
                     />
                   </View>
                   <View style={{paddingVertical: 10}}>
-                    <Text style={{fontSize: 15, color: YTColors.lightText, textAlign: 'center'}}>Don't have an account? You can register a new account below!</Text>
+                    <Text style={[YTStyles.text, {textAlign: 'center'}]}>Don't have an account? You can register a new account below!</Text>
                   </View>
                   <View style={{paddingVertical: 10}}>
                     <YTButton
@@ -329,7 +265,7 @@ class Login extends Base {
                     />
                   </View>
                   <View style={{paddingVertical: 5}}>
-                    <Text style={{fontSize: 15, color: YTColors.lightText, textAlign: 'center'}}>If you're having trouble resetting your password, please send us an email at help@fugitivelabs.com so that we can help you resolve your issue.</Text>
+                    <Text style={[YTStyles.text, {textAlign: 'center'}]}>If you're having trouble resetting your password, please send us an email at help@fugitivelabs.com so that we can help you resolve your issue.</Text>
                   </View>
                 </View>
               }

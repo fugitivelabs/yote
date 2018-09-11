@@ -50,7 +50,7 @@ class App extends Base {
      * It will look for a valid user token/object in store for access.
      */
 
-    if (!this.props.isLoggedIn) {
+    if(!this.props.isLoggedIn) {
       return (
         <View style={styles.container}>
           <LoggedOutNavigator/>

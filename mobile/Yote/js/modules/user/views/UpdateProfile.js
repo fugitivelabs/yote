@@ -45,114 +45,9 @@ import * as singleActions from '../userActions.js';
 
 // import styles
 import YTColors from '../../../global/styles/YTColors';
+import YTStyles from '../../../global/styles/YTStyles'; 
 
 const IMAGE_HEIGHT = 150;
-
-var styles = StyleSheet.create({
-  bottomBorder: {
-      borderBottomWidth: 1
-      , borderColor: YTColors.listSeparator
-  }
-  , btnWrapper: {
-      borderTopWidth: 1
-      , borderColor: YTColors.listSeparator
-  }
-  , container: {
-    backgroundColor: YTColors.primaryHeader
-    , flex: 1
-  }
-  , details: {
-      flex: 1
-      , fontSize: 15
-      , paddingTop: 8
-      , paddingBottom: 8
-      , backgroundColor: 'rgba(255,255,255,0.7)'
-  }
-  , editImage: {
-      alignItems: 'center'
-      , flex: 1
-      , padding: 30
-      , justifyContent: 'center'
-  }
-  , gradient: {
-      borderRadius: Platform.OS === 'ios' ? IMAGE_HEIGHT * .5 : null
-      , bottom: 0
-      , flex: 1
-      , left: 0
-      , position: 'absolute'
-      , right: 0
-      , top: 0
-  }
-  , halfInput: {
-      flex: 0.5
-  }
-  , info: {
-      fontSize: 15
-      , paddingVertical: 10
-  }
-  , infoBox: {
-      flex: .8
-      , justifyContent: 'center'
-  }
-  , infoWrapper: {
-      flex: 1
-      , flexDirection: 'row'
-      , paddingHorizontal: 10
-      , paddingVertical: 5
-  }
-  , inlineInput: {
-      flexDirection: "row"
-  }
-  , input: {
-      height: 40
-      , flex: 1
-      , fontSize: 15
-      , padding: 5
-      , color: YTColors.actionText
-      , backgroundColor: 'rgba(255,255,255,0.7)'
-      // backgroundColor: YTColors.lightBackground
-  }
-  , instructions: {
-      textAlign: 'center'
-      , color: '#222'
-      , marginBottom: 5
-  }
-  , label: {
-      fontSize: 15
-      , fontWeight: '500'
-  }
-  , labelBox: {
-      flex: .2
-      , justifyContent: 'center'
-  }
-  , notes: {
-      height: 104
-  }
-  , quarterInput: {
-      flex: 0.25
-  }
-  , picker: {
-      height: 200
-      , width: Dimensions.get('window').width
-  }
-  , pickerText: {
-      color: YTColors.actionText
-      , fontSize: 20
-      , textAlign: 'center'
-  }
-  , profilePic: {
-      backgroundColor: YTColors.listSeparator
-      , width: IMAGE_HEIGHT
-      , height: IMAGE_HEIGHT
-      , borderRadius: Platform.OS === 'ios' ? IMAGE_HEIGHT * .5 : null
-      // , position: 'absolute'
-  }
-  , scrollContainer: {
-      flex: 1
-      , backgroundColor: '#fff'
-      , padding: 5
-  }
-});
 
 class UpdateProfile extends Base {
   constructor(props){
@@ -287,106 +182,104 @@ class UpdateProfile extends Base {
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? "padding" : null}
         contentContainerStyle={{flex:1}}
-        style={styles.container}
+        style={YTStyles.container}
       >
         <YTHeader
           leftItem={leftItem}
           title="Edit Profile"
         />
-        <ScrollView ref="myScrollView" keyboardDismissMode="interactive" keyboardShouldPersistTaps="handled" style={[styles.scrollContainer]} >
+        <ScrollView ref="myScrollView" keyboardDismissMode="interactive" keyboardShouldPersistTaps="handled" style={[YTStyles.scrollContainer]} >
           <View>
-            <View style={styles.formWrapper}>
-              <View style={styles.editImage}>
-                <View style={{flex: 1, borderRadius: IMAGE_HEIGHT * .5}}>
-                  <TouchableOpacity onPress={this._openImagePicker}>
-                    <Image
-                      style={styles.profilePic}
-                      source={newProfilePic ? {uri: newProfilePic.uri} : profileImg}>
-                    </Image>
-                    <LinearGradient colors={['rgba(0,0,0,0.11)', 'rgba(0,0,0,0.51)', 'rgba(0,0,0,0.81)']} style={styles.gradient}>
-                      <View style={{flex: 1, justifyContent: 'center'}}>
-                        <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-                          <Image
-                            source={require('../../../global/img/camera3.png')}
-                            style={{opacity: .85}}
-                          />
-                        </View>
+            <View style={{alignItems: 'center' , flex: 1 , padding: 30 , justifyContent: 'center'}}>
+              <View style={{flex: 1, borderRadius: IMAGE_HEIGHT * .5}}>
+                <TouchableOpacity onPress={this._openImagePicker}>
+                  <Image
+                    style={{backgroundColor: YTColors.listSeparator, width: IMAGE_HEIGHT, height: IMAGE_HEIGHT, borderRadius: Platform.OS === 'ios' ? IMAGE_HEIGHT * .5 : null}}
+                    source={newProfilePic ? {uri: newProfilePic.uri} : profileImg}
+                  />
+                  <LinearGradient colors={['rgba(0,0,0,0.11)', 'rgba(0,0,0,0.51)', 'rgba(0,0,0,0.81)']} style={{borderRadius: Platform.OS === 'ios' ? IMAGE_HEIGHT * .5 : null, bottom: 0, flex: 1, left: 0, position: 'absolute', right: 0, top: 0}}>
+                    <View style={{flex: 1, justifyContent: 'center'}}>
+                      <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+                        <Image
+                          source={require('../../../global/img/camera3.png')}
+                          style={{opacity: .85}}
+                        />
                       </View>
-                    </LinearGradient>
-                  </TouchableOpacity>
-                </View>
+                    </View>
+                  </LinearGradient>
+                </TouchableOpacity>
               </View>
-              <View style={styles.infoWrapper}>
+            </View>
+            <View style={{flex: 1, flexDirection: 'row', paddingHorizontal: 10, paddingVertical: 5}}>
+              <View style={{flex: .4, justifyContent: 'center', paddingLeft: 10}}>
+                <Text style={YTStyles.text}>First Name:</Text>
+              </View>
+              <View style={{flex: .6, justifyContent: 'center'}}>
+                <TextInput
+                  autoCapitalize="words"
+                  autoCorrect={false}
+                  isRequired={true}
+                  onChange={ (e) => this._handleInputChange(e, "newUserData.firstName") }
+                  onFocus={ (e) => this._scrollToInput(e, 'newUserData.firstName')}
+                  placeholder=""
+                  placeholderTextColor={YTColors.lightText}
+                  ref="newUserData.firstName"
+                  returnKeyType="default"
+                  style={YTStyles.input}
+                  value={this.state.newUserData.firstName}
+                />
+              </View>
+            </View>
+            <View style={YTStyles.separator}/>
+            <View>
+              <View style={{flex: 1, flexDirection: 'row', paddingHorizontal: 10, paddingVertical: 5}}>
                 <View style={{flex: .4, justifyContent: 'center', paddingLeft: 10}}>
-                  <Text style={styles.label}>First Name:</Text>
+                  <Text style={YTStyles.text}>Last Name:</Text>
                 </View>
                 <View style={{flex: .6, justifyContent: 'center'}}>
                   <TextInput
                     autoCapitalize="words"
                     autoCorrect={false}
                     isRequired={true}
-                    onChange={ (e) => this._handleInputChange(e, "newUserData.firstName") }
-                    onFocus={ (e) => this._scrollToInput(e, 'newUserData.firstName')}
+                    onFocus={ (e) => this._scrollToInput(e, 'newUserData.lastName')}
+                    onChange={ (e) => this._handleInputChange(e, "newUserData.lastName") }
                     placeholder=""
                     placeholderTextColor={YTColors.lightText}
-                    ref="newUserData.firstName"
+                    ref="newUserData.lastName"
                     returnKeyType="default"
-                    style={styles.input}
-                    value={this.state.newUserData.firstName}
+                    style={YTStyles.input}
+                    value={this.state.newUserData.lastName}
                   />
                 </View>
               </View>
-              <View style={styles.bottomBorder}/>
-              <View style={styles.inputContainer}>
-                <View style={styles.infoWrapper}>
-                  <View style={{flex: .4, justifyContent: 'center', paddingLeft: 10}}>
-                    <Text style={styles.label}>Last Name:</Text>
-                  </View>
-                  <View style={{flex: .6, justifyContent: 'center'}}>
-                    <TextInput
-                      autoCapitalize="words"
-                      autoCorrect={false}
-                      isRequired={true}
-                      onFocus={ (e) => this._scrollToInput(e, 'newUserData.lastName')}
-                      onChange={ (e) => this._handleInputChange(e, "newUserData.lastName") }
-                      placeholder=""
-                      placeholderTextColor={YTColors.lightText}
-                      ref="newUserData.lastName"
-                      returnKeyType="default"
-                      style={styles.input}
-                      value={this.state.newUserData.lastName}
-                    />
-                  </View>
-                </View>
-                <View style={styles.bottomBorder}/>
-              </View>
-              <View style={styles.inputContainer}>
-                <View style={styles.infoWrapper}>
-                  <View style={{flex: .4, justifyContent: 'center', paddingLeft: 10}}>
-                    <Text style={styles.label}>Email:</Text>
-                  </View>
-                  <View style={{flex: .6, justifyContent: 'center'}}>
-                    <TextInput
-                      autoCapitalize="words"
-                      autoCorrect={false}
-                      editable={false}
-                      isRequired={true}
-                      keyboardType="email-address"
-                      onChange={ (e) => this._handleInputChange(e, "newUserData.username") }
-                      onFocus={ (e) => this._scrollToInput(e, 'newUserData.username')}
-                      placeholder=""
-                      placeholderTextColor={YTColors.lightText}
-                      ref="newUserData.username"
-                      returnKeyType="default"
-                      style={styles.input}
-                      value={this.state.newUserData.username}
-                    />
-                  </View>
-                </View>
-                <View style={styles.bottomBorder}/>
-              </View>
+              <View style={YTStyles.separator}/>
             </View>
-          <View style={[styles.buttonWrapper, {paddingVertical: 20}]}>
+            <View>
+              <View style={{flex: 1, flexDirection: 'row', paddingHorizontal: 10, paddingVertical: 5}}>
+                <View style={{flex: .4, justifyContent: 'center', paddingLeft: 10}}>
+                  <Text style={YTStyles.text}>Email:</Text>
+                </View>
+                <View style={{flex: .6, justifyContent: 'center'}}>
+                  <TextInput
+                    autoCapitalize="words"
+                    autoCorrect={false}
+                    editable={false}
+                    isRequired={true}
+                    keyboardType="email-address"
+                    onChange={ (e) => this._handleInputChange(e, "newUserData.username") }
+                    onFocus={ (e) => this._scrollToInput(e, 'newUserData.username')}
+                    placeholder=""
+                    placeholderTextColor={YTColors.lightText}
+                    ref="newUserData.username"
+                    returnKeyType="default"
+                    style={YTStyles.input}
+                    value={this.state.newUserData.username}
+                  />
+                </View>
+              </View>
+              <View style={YTStyles.separator}/>
+            </View>
+          <View style={{paddingHorizontal: 10, paddingVertical: 20}}>
             <YTButton
               caption={isFetching ? "Please wait..." : "Update my profile"}
               isDisabled={!this.state.isFormValid || isFetching}

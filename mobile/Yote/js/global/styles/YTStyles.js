@@ -11,6 +11,8 @@ import YTColors from '../../global/styles/YTColors';
 
 const { height, width } = Dimensions.get('window');
 
+const FONT = Platform.OS === 'android' ? 'sans-serif-condensed' : 'AvenirNextCondensed-DemiBold';
+
 const YTStyles = StyleSheet.flatten({
   cell: {
     padding: 5
@@ -19,16 +21,23 @@ const YTStyles = StyleSheet.flatten({
       backgroundColor: '#fff'
       , flex: 1
   }
+  , darkText: {
+      color: YTColors.darkText
+      , fontFamily: FONT
+      , fontSize: 18
+      , fontWeight: 'normal'
+    }
   , header: {
       color: YTColors.darkText
+      , fontFamily: FONT
       , fontSize: 30
       , fontWeight: '600'
     }
   , header2: {
       color: YTColors.darkText
+      , fontFamily: FONT
       , fontSize: 20
       , fontWeight: '600'
-      , paddingHorizontal: 5
   }
   , icon: {
       height: 20
@@ -36,11 +45,25 @@ const YTStyles = StyleSheet.flatten({
   }
   , input: {
       minHeight: 40
-      , fontSize: 15
+      , fontFamily: FONT
+      , fontSize: 18
+      , fontWeight: 'normal'
       , padding: 4
       , flex: 1
       , backgroundColor: '#fff'
     }
+  , inputContainer: {
+    // padding: 10,
+    borderWidth: Platform.OS == 'ios' ? 1 : 0
+    , borderBottomColor: '#CCC'
+    , borderColor: 'transparent'
+    , marginTop: 14
+  }
+  , label: {
+      fontSize: 12
+      , color: YTColors.lightText
+      , marginBottom: 4
+  }
   , separator: {
       borderTopWidth: 1
       , borderColor: YTColors.listSeparator
@@ -53,14 +76,16 @@ const YTStyles = StyleSheet.flatten({
   }
   , subHeader: {
       color: YTColors.lightText
+      , fontFamily: FONT
       , fontSize: 18
       , fontWeight: '600'
       , padding: 5
     }
   , text: {
-      fontSize: 18,
-      fontWeight: 'normal',
       color: YTColors.lightText
+      , fontFamily: FONT
+      , fontSize: 18
+      , fontWeight: 'normal'
     }
   , userImg: {
       borderRadius: 50 * .5

@@ -50,9 +50,9 @@ class ProductList extends Base {
     });
   }
 
-  _openProduct(productId) {
-    console.log("open product", productId);
-    this.props.navigation.navigate('SingleProduct', {productId: productId});
+  _openProduct(product) {
+    console.log("open product id", product._id);
+    this.props.navigation.navigate('SingleProduct', {product: product});
   }
 
   _renderSeparator() {
@@ -65,8 +65,8 @@ class ProductList extends Base {
     const { products } = this.props;
     const isEmpty = !products || products.length < 1;
 
-   return (
-     <View style={YTStyles.container}>
+    return (
+      <View style={YTStyles.container}>
         <FlatList
           data={products}
           keyExtractor={(product, index) => index.toString()}
@@ -79,9 +79,10 @@ class ProductList extends Base {
               onPress={() => this._openProduct(product.item)}
             />
           }
+          scrollEnabled={true} // if FlatList is within a ScrollView from parent, it's best to disable scrolling unless it's horizontal
         />
-     </View>
-   )
+      </View>
+    )
   }
 }
 

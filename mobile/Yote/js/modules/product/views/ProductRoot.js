@@ -35,7 +35,7 @@ import ProductList from '../components/ProductList';
 import * as productActions from '../productActions'
 
 // import styles
-import productStyles from '../productStyles';
+import YTStyles from '../../../global/styles/YTStyles'; 
 
 class ProductRoot extends Base {
   constructor(props) {
@@ -49,7 +49,7 @@ class ProductRoot extends Base {
   }
 
   componentDidMount() {
-    this.props.dispatch(productActions.fetchListIfNeeded());
+    this.props.dispatch(productActions.fetchList());
   }
 
   _openProfile() {
@@ -72,9 +72,9 @@ class ProductRoot extends Base {
 
   render() {
 
-    const {  products, navigation, user } = this.props;
+    const {  productStore, navigation, user } = this.props;
 
-    let productList = products.lists.all ? products.lists.all.items : null;
+    let productList = productStore.util && productStore.util.getList ? productStore.util.getList() : null; 
 
     const rightItem = {
       onPress: () => this._openNew()
@@ -82,7 +82,7 @@ class ProductRoot extends Base {
       , layout: 'image'
     }
 
-    if(!products.lists.all || products.lists.all.isFetching) {
+    if(!productList){
       return (
         <View style={{flex: 1}}>
           <YTHeader
@@ -122,7 +122,7 @@ const mapStoreToProps = (store) => {
 
   return {
     user: store.user
-    , products: store.product
+    , productStore: store.product
   }
 }
 

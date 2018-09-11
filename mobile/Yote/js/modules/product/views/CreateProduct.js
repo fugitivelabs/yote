@@ -35,7 +35,7 @@ import _ from 'lodash';
 import * as productActions from '../productActions'
 
 // import styles
-import productStyles from '../productStyles';
+import YTStyles from '../../../global/styles/YTStyles'; 
 import YTColors from '../../../global/styles/YTColors';
 
 class CreateProduct extends Base {
@@ -142,7 +142,7 @@ class CreateProduct extends Base {
           rightItem={rightItem}
           title="New Product"
         />
-        <ScrollView ref="myScrollView" keyboardDismissMode="interactive" keyboardShouldPersistTaps="handled" style={[productStyles.formWrapper]}>
+        <ScrollView ref="myScrollView" keyboardDismissMode="interactive" keyboardShouldPersistTaps="handled" style={[YTStyles.formWrapper]}>
           <View>
             <View style={{padding: 5}}>
               <TextInput
@@ -157,11 +157,11 @@ class CreateProduct extends Base {
                 placeholderTextColor={YTColors.lightText}
                 ref="newProduct.title"
                 returnKeyType="next"
-                style={productStyles.input}
+                style={YTStyles.input}
                 value={this.state.newProduct.title}
               />
             </View>
-            <View style={productStyles.listSeparator}/>
+            <View style={YTStyles.separator}/>
             <View style={{padding: 5}}>
               <TextInput
                 autoCorrect={true}
@@ -174,11 +174,11 @@ class CreateProduct extends Base {
                 placeholderTextColor={YTColors.lightText}
                 returnKeyType="go"
                 ref="newProduct.description"
-                style={[productStyles.input, {minHeight: 90}]}
+                style={[YTStyles.input, {minHeight: 90}]}
                 value={this.state.newProduct.description}
               />
             </View>
-            <View style={productStyles.listSeparator}/>
+            <View style={YTStyles.separator}/>
           </View>
           <View style={{paddingHorizontal: 10, paddingVertical: 20}}>
             <YTButton

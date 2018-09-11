@@ -34,38 +34,10 @@ import YTHeader from '../../../global/components/YTHeader';
 
 // import styles
 import YTColors from '../../../global/styles/YTColors';
+import YTStyles from '../../../global/styles/YTStyles'; 
 
 let screenWidth = Dimensions.get('window').width;
 let screenHeight = Dimensions.get('window').height;
-
-var styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#fff'
-    , flex: 1
-  }
-  , inputWrapper: {
-    flex: 0.5
-    , marginBottom: 10
-  }
-  , inputContainer: {
-      borderBottomColor: '#CCC'
-      , borderWidth: Platform.OS == 'ios' ? 1 : 0
-      , borderColor: 'transparent'
-      , marginTop: 14
-  }
-  , input: {
-      height: 45
-      , flex: 1
-      , fontSize: 17
-      , paddingVertical: 8
-      , backgroundColor: 'rgba(255,255,255,0.7)'
-  }
-  , label: {
-      fontSize: 12
-      , color: YTColors.lightText
-      , marginBottom: 4
-  }
-});
 
 class Register extends Base {
   constructor(props) {
@@ -206,7 +178,7 @@ class Register extends Base {
           <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? "padding" : null}
             contentContainerStyle={{flex:1}}
-            style={styles.container}
+            style={YTStyles.container}
           >
             <YTHeader
               leftItem={leftItem}
@@ -218,8 +190,8 @@ class Register extends Base {
                 <Image source={require('../../../global/img/logo.png')} resizeMode='contain' style={{height: screenHeight / 3, flex: 1, tintColor: YTColors.lightText}}/>
               </View>
               <View style={{flex: 1, paddingHorizontal: 20}}>
-                <View style={styles.inputWrapper}>
-                  <View style={styles.inputContainer}>
+                <View style={{flex: 0.5, marginBottom: 10}}>
+                  <View style={YTStyles.inputContainer}>
                     <TextInput
                       autoCapitalize="words"
                       autoCorrect={false}
@@ -234,12 +206,12 @@ class Register extends Base {
                       placeholderTextColor={YTColors.lightText}
                       ref="user.firstName"
                       returnKeyType="next"
-                      style={styles.input}
+                      style={YTStyles.input}
                       underlineColorAndroid='#ccc'
                       value={this.state.user.firstName}
                     />
                   </View>
-                  <View style={styles.inputContainer}>
+                  <View style={YTStyles.inputContainer}>
                     <TextInput
                       autoCapitalize="words"
                       autoCorrect={false}
@@ -254,12 +226,12 @@ class Register extends Base {
                       placeholderTextColor={YTColors.lightText}
                       ref="user.lastName"
                       returnKeyType="next"
-                      style={styles.input}
+                      style={YTStyles.input}
                       underlineColorAndroid='#ccc'
                       value={this.state.user.lastName}
                     />
                   </View>
-                  <View style={styles.inputContainer}>
+                  <View style={YTStyles.inputContainer}>
                     <TextInput
                       autoCapitalize="none"
                       autoCorrect={false}
@@ -275,12 +247,12 @@ class Register extends Base {
                       placeholderTextColor={YTColors.lightText}
                       ref="user.username"
                       returnKeyType="next"
-                      style={styles.input}
+                      style={YTStyles.input}
                       underlineColorAndroid='#ccc'
                       value={this.state.user.username}
                     />
                   </View>
-                  <View style={styles.inputContainer}>
+                  <View style={YTStyles.inputContainer}>
                     <TextInput
                       autoCapitalize="none"
                       autoCorrect={false}
@@ -293,7 +265,7 @@ class Register extends Base {
                       ref="user.password"
                       returnKeyType="default"
                       secureTextEntry={true}
-                      style={styles.input}
+                      style={YTStyles.input}
                       underlineColorAndroid='#ccc'
                       value={this.state.user.password}
                     />
@@ -303,11 +275,11 @@ class Register extends Base {
               </View>
               {!this.state.isFormValid ?
                 <View style={{marginTop: 10}}>
-                  <Text style={[styles.label, {textAlign: 'center'}]}>All fields required.</Text>
+                  <Text style={[YTStyles.label, {textAlign: 'center'}]}>All fields required.</Text>
                 </View>
                 :
                 <View style={{marginTop: 10}}>
-                  <Text style={[styles.label, {textAlign: 'center'}]}>All fields completed.</Text>
+                  <Text style={[YTStyles.label, {textAlign: 'center'}]}>All fields completed.</Text>
                 </View>
               }
               <View style={{padding: 15}}>

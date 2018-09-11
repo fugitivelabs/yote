@@ -36,7 +36,9 @@ class ProductListItem extends Base {
 
     var cell =
               <View style={YTStyles.cell}>
-                <Text style={YTStyles.text}>Product List Item</Text>
+                <View style={{padding: 10}}>
+                  <Text style={YTStyles.text}>{product.title}</Text>
+                </View>
               </View>
 
     if(this.props.onPress) {

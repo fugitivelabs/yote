@@ -23,7 +23,8 @@ import YTColors from '../styles/YTColors';
 
 const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? 20 : 25;
 const HEADER_HEIGHT = Platform.OS === 'ios' ? 44 + STATUS_BAR_HEIGHT : 44 + STATUS_BAR_HEIGHT;
-const IMAGE_SIZE = 30;
+const IMAGE_SIZE = 25;
+const FONT = Platform.OS === 'android' ? 'sans-serif-condensed' : 'AvenirNextCondensed-DemiBold';
 
 var styles = StyleSheet.create({
   centerItem: {
@@ -51,6 +52,7 @@ var styles = StyleSheet.create({
     }
   , itemText: {
       color: 'white'
+      , fontFamily: FONT
       , fontSize: 12
       , letterSpacing: 1
     }
@@ -67,8 +69,8 @@ var styles = StyleSheet.create({
     }
   , titleText: {
       color: YTColors.primaryHeaderText
+      , fontFamily: FONT
       , fontSize: 20
-      , fontWeight: 'bold'
     }
   , toolbar: {
       height: HEADER_HEIGHT - STATUS_BAR_HEIGHT

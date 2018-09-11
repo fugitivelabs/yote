@@ -37,12 +37,12 @@ import * as singleActions from '../userActions.js';
 // import libraries
 import moment from 'moment';
 
-// import styles
-import userStyles from '../userStyles'; 
+// import YTStyles
 import YTColors from '../../../global/styles/YTColors';
+import YTStyles from '../../../global/styles/YTStyles'; 
 
 var styles = StyleSheet.create({
-  bottomBorder: {
+  separator: {
     borderBottomWidth: 1
     , borderColor: YTColors.listSeparator
   }
@@ -176,7 +176,7 @@ class Profile extends Base {
     const profileImg = user.info && user.info.profilePicUrl ? {uri: user.info.profilePicUrl} : require('../../../global/img/default.png');
 
     return(
-      <View style={[styles.container ]}>
+      <View style={[YTStyles.container]}>
         <YTHeader
           title="Profile"
         />
@@ -184,36 +184,36 @@ class Profile extends Base {
           <View>
             <View style={{flex: 1, alignItems: 'center', padding: 20, justifyContent: 'center',}}>
               <Image
-                style={{width: 250, height: 250, borderRadius: 250 * .5, borderColor: YTColors.actionText, borderWidth: 4}}
+                style={{width: 200, height: 200, borderRadius: 200 * .5, borderColor: YTColors.actionText, borderWidth: 4}}
                 source={profileImg}> 
               </Image>
             </View>
             <View style={{flexDirection: 'row', justifyContent: 'center', paddingBottom: 20}}>
-              <Text style={{fontSize: 35, fontWeight: '500'}}> {user.firstName} {user.lastName} </Text>
+              <Text style={YTStyles.header}> {user.firstName} {user.lastName} </Text>
             </View>
-            <Text style={styles.instructions}>Personal Information: </Text>
-            <View style={styles.bottomBorder}/>
+            <Text style={[YTStyles.text, {fontSize: 16, padding: 5}]}>Personal Information: </Text>
+            <View style={YTStyles.separator}/>
             <View>
-              <View style={styles.infoWrapper}>
-                <View style={styles.labelBox}>
-                  <Text style={styles.label}>Name: </Text>
+              <View style={{flex: 1, flexDirection: 'row', paddingHorizontal: 20, paddingVertical: 15}}>
+                <View style={{flex: 0.2}}>
+                  <Text style={YTStyles.text}>Name: </Text>
                 </View>
-                <View style={styles.infoBox}>
-                  <Text style={styles.info}>{user.firstName} {user.lastName}</Text>
+                <View style={{flex: 0.8}}>
+                  <Text style={YTStyles.darkText}>{user.firstName} {user.lastName}</Text>
                 </View>
               </View>
             </View>
-            <View style={styles.bottomBorder}/>
-            <View style={styles.infoWrapper}>
-              <View style={styles.labelBox}>
-                <Text style={styles.label}>Email: </Text>
+            <View style={YTStyles.separator}/>
+            <View style={{flex: 1, flexDirection: 'row', paddingHorizontal: 20, paddingVertical: 15}}>
+              <View style={{flex: 0.2}}>
+                <Text style={YTStyles.text}>Email: </Text>
               </View>
-              <View style={styles.infoBox}>
-                <Text style={styles.info}>{user.username}</Text>
+              <View style={{flex: 0.8}}>
+                <Text style={YTStyles.darkText}>{user.username}</Text>
               </View>
             </View>
-            <View style={styles.bottomBorder}/>
-            <View style={styles.btnWrapper}>
+            <View style={YTStyles.separator}/>
+            <View style={YTStyles.btnWrapper}>
               <YTButton
                 caption={"Edit Profile"}
                 icon={require('../../../global/img/edit.png')}
