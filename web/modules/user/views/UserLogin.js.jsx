@@ -61,10 +61,14 @@ class UserLogin extends Base {
 
   _handleFormSubmit(e) {
     e.preventDefault();
-    const { dispatch } = this.props;
+    const { dispatch, history, location } = this.props;
     dispatch(userActions.sendLogin(this.state.username, this.state.password)).then((action) => {
       if(action.success) {
-        this.setState({redirectToReferrer: true});
+        if(location.state.from) {
+          this.setState({redirectToReferrer: true});
+        } else {
+          history.push('/');
+        }
       } else {
         this.setState({errorMessage: action.error});
         this._toggleErrorModal();

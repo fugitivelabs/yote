@@ -3,7 +3,7 @@
  * redirects any route that doesn't match to a 'NotFound'/404 page
  *
  * Below we import all module routes and assign them top-level pathnames as the
- * kebab-case version of their moduleName. For example in standardRoutes.js.jsx:
+ * kebab-case version of their moduleName. For example in moduleRoutes.js.jsx:
  * export { default as userWorkouts } ... would become a top-level Route with the
  * path="/user-workouts" and so on.
  */
@@ -25,7 +25,7 @@ import AdminDashboard from './modules/static/views/AdminDashboard.js.jsx';
 
 // import client and admin routes from the modules
 import * as adminRoutes from './modules/admin/adminRoutes.js';
-import * as standardRoutes from './modules/standardRoutes.js';
+import * as moduleRoutes from './modules/moduleRoutes.js';
 
 // import AdminRouter from './modules/admin/AdminRouter.js.jsx';
 
@@ -34,9 +34,9 @@ const routes =
     <Route exact path="/" component={Landing} />
     <Route path="/unauthorized" component={Forbidden} />
     {/*}<AdminRouter/>*/}
-    { Object.keys(standardRoutes).map((moduleName, i) =>
+    { Object.keys(moduleRoutes).map((moduleName, i) =>
       <Route
-        component={standardRoutes[moduleName]}
+        component={moduleRoutes[moduleName]}
         key={Math.floor(Math.random()*100000)}
         path={`/${_.kebabCase(moduleName)}`}
       />

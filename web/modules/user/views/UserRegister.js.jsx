@@ -52,11 +52,14 @@ class UserRegister extends Base {
 
   _handleFormSubmit(e) {
     e.preventDefault();
-    const { dispatch } = this.props;
+    const { dispatch, history, location } = this.props;
     dispatch(userActions.sendRegister(this.state.user)).then((action) => {
       if(action.success) {
-        this.setState({redirectToReferrer: true});
-        // history.push('/');
+        if(location.state.from) {
+          this.setState({redirectToReferrer: true});
+        } else {
+          history.push('/');
+        }
       } else {
         this.setState({errorMessage: action.error});
         this._toggleErrorModal();

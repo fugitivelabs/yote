@@ -11,7 +11,7 @@
  */
 
 // import api utility
-import callAPI from '../../utils/api'
+import apiUtils from '../../utils/api'
 
 // - re
 const shouldFetchSingle = (state, id) => {
@@ -85,33 +85,6 @@ export const returnSingleProductPromise = (id) => (dispatch, getState) => {
   });
 }
 
-
-export const REQUEST_DEFAULT_PRODUCT = "REQUEST_DEFAULT_PRODUCT";
-function requestDefaultProduct(id) {
-  return {
-    type: REQUEST_DEFAULT_PRODUCT
-  }
-}
-
-export const RECEIVE_DEFAULT_PRODUCT = "RECEIVE_DEFAULT_PRODUCT";
-function receiveDefaultProduct(json) {
-  return {
-    error: json.message
-    , item: json.product
-    , receivedAt: Date.now()
-    , success: json.success
-    , type: RECEIVE_DEFAULT_PRODUCT
-  }
-}
-
-export function fetchDefaultProduct() {
-  return dispatch => {
-    dispatch(requestDefaultProduct())
-    return callAPI(`/api/products/default`)
-      .then(json => dispatch(receiveDefaultProduct(json)))
-  }
-}
-
 export const REQUEST_SINGLE_PRODUCT = "REQUEST_SINGLE_PRODUCT";
 function requestSingleProduct(id) {
   return {
@@ -135,7 +108,7 @@ function receiveSingleProduct(json) {
 export function fetchSingleProductById(id) {
   return dispatch => {
     dispatch(requestSingleProduct(id))
-    return callAPI(`/api/products/${id}`)
+    return apiUtils.callAPI(`/api/products/${id}`)
       .then(json => dispatch(receiveSingleProduct(json)))
   }
 }
@@ -156,6 +129,32 @@ export function setSelectedProduct(item) {
   }
 }
 
+
+export const REQUEST_DEFAULT_PRODUCT = "REQUEST_DEFAULT_PRODUCT";
+function requestDefaultProduct(id) {
+  return {
+    type: REQUEST_DEFAULT_PRODUCT
+  }
+}
+
+export const RECEIVE_DEFAULT_PRODUCT = "RECEIVE_DEFAULT_PRODUCT";
+function receiveDefaultProduct(json) {
+  return {
+    error: json.message
+    , schema: json.schema
+    , receivedAt: Date.now()
+    , success: json.success
+    , type: RECEIVE_DEFAULT_PRODUCT
+  }
+}
+
+export function fetchDefaultProduct() {
+  return dispatch => {
+    dispatch(requestDefaultProduct())
+    return apiUtils.callAPI(`/api/products/schema`)
+      .then(json => dispatch(receiveDefaultProduct(json)))
+  }
+}
 
 export const REQUEST_CREATE_PRODUCT = "REQUEST_CREATE_PRODUCT";
 function requestCreateProduct(product) {
@@ -180,7 +179,7 @@ function receiveCreateProduct(json) {
 export function sendCreateProduct(data) {
   return dispatch => {
     dispatch(requestCreateProduct(data))
-    return callAPI('/api/products', 'POST', data)
+    return apiUtils.callAPI('/api/products', 'POST', data)
       .then(json => dispatch(receiveCreateProduct(json)))
   }
 }
@@ -209,7 +208,7 @@ function receiveUpdateProduct(json) {
 export function sendUpdateProduct(data) {
   return dispatch => {
     dispatch(requestUpdateProduct(data))
-    return callAPI(`/api/products/${data._id}`, 'PUT', data)
+    return apiUtils.callAPI(`/api/products/${data._id}`, 'PUT', data)
       .then(json => dispatch(receiveUpdateProduct(json)))
   }
 }
@@ -236,7 +235,7 @@ function receiveDeleteProduct(id, json) {
 export function sendDelete(id) {
   return dispatch => {
     dispatch(requestDeleteProduct(id))
-    return callAPI(`/api/products/${id}`, 'DELETE')
+    return apiUtils.callAPI(`/api/products/${id}`, 'DELETE')
       .then(json => dispatch(receiveDeleteProduct(id, json)))
   }
 }
@@ -419,7 +418,7 @@ export function fetchList(...listArgs) {
         apiTarget += `/${listArgs[i]}`;
       }
     }
-    return callAPI(apiTarget).then(
+    return apiUtils.callAPI(apiTarget).then(
       json => dispatch(receiveProductList(json, listArgs))
     )
   }

@@ -16,6 +16,7 @@
 
 // import product actions
 import * as Actions from './productActions';
+import apiUtils from '../../utils/api'
 
 /**
  * productList reducer -
@@ -178,9 +179,12 @@ function product(state = {
    * any component that creates a new product object should store a copy of this
    * in its state
    */
-  , defaultProduct: {
+  , defaultItem: {
     error: null
-    , item: null
+    , getItem: () => {
+      return null
+    }
+    , schema: null
     , lastUpdated: null
   }
 
@@ -232,6 +236,45 @@ function product(state = {
    */
   let nextState;
   switch(action.type) {
+    /**
+     * DEFAULT PRODUCT ACTIONS
+     */
+    case Actions.REQUEST_DEFAULT_PRODUCT: {
+      nextState = {
+        ...state
+        , defaultItem: {
+          ...state.defaultItem
+          , isFetching: true
+        }
+      }
+      break;
+    }
+    case Actions.RECEIVE_DEFAULT_PRODUCT: {
+      if(action.success) {
+        nextState = {
+          ...state
+          , defaultItem: {
+            ...state.defaultItem
+            , error: null
+            , schema: action.schema
+            , isFetching: false
+            , lastUpdated: action.receivedAt
+          }
+        }
+      } else {
+        nextState = {
+          ...state
+          , defaultItem: {
+            ...state.defaultItem
+            , error: action.error
+            , schema: null
+            , isFetching: false
+            , lastUpdated: action.receivedAt
+          }
+        }
+      }
+      break;
+    }
     /**
      * SINGLE PRODUCT ACTIONS
      */
@@ -480,6 +523,17 @@ function product(state = {
         return null
       } else {
         return nextState.byId[nextState.selected.id]
+      }
+    }
+  }
+  //set getter method for returning default item
+  nextState.defaultItem = {
+    ...nextState.defaultItem
+    , getItem: () => {
+      if(!nextState.defaultItem.schema || nextState.selected.didInvalidate) {
+        return null
+      } else {
+        return apiUtils.defaultFromSchema(nextState.defaultItem.schema)
       }
     }
   }

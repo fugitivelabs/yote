@@ -28,7 +28,7 @@ class CreateProduct extends Base {
   constructor(props) {
     super(props);
     this.state = {
-      product: _.cloneDeep(this.props.defaultProduct)
+      product: _.cloneDeep(this.props.defaultProduct.getItem())
 
       // NOTE: We don't want to actually change the store's defaultItem, just use a copy
     }
@@ -36,6 +36,17 @@ class CreateProduct extends Base {
       '_handleFormChange'
       , '_handleFormSubmit'
     );
+  }
+
+  componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch(productActions.fetchDefaultProduct());
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      product: _.cloneDeep(nextProps.defaultProduct.getItem())
+    })
   }
 
   _handleFormChange(e) {
@@ -67,7 +78,8 @@ class CreateProduct extends Base {
   render() {
     const { location } = this.props;
     const { product } = this.state;
-    const isEmpty = (product.title === null || product.title === undefined);
+    console.log(product);
+    const isEmpty = (!product || product.title === null || product.title === undefined);
     return (
       <ProductLayout>
         <div className="flex">
@@ -89,7 +101,7 @@ class CreateProduct extends Base {
             </div>
           </section>
         </div>
-    </ProductLayout>
+      </ProductLayout>
     )
   }
 }

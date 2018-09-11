@@ -10,15 +10,17 @@
  */
 
 let mongoose = require('mongoose');
-// let ObjectId = mongoose.SchemaTypes.ObjectId; // use for referencing other resources
+let ObjectId = mongoose.SchemaTypes.ObjectId; // use for referencing other resources
 let logger = global.logger;
 
 // define product schema
 const productSchema = mongoose.Schema({
   created:                  { type: Date, default: Date.now }
   , updated:                { type: Date, default: Date.now }
-  , title:                  { type: String, required: '{PATH} is required!' }
+  , title:                  { type: String, required: '{PATH} is required!', unique: true }
   , description:            { type: String }
+  , featured:               { type: Boolean, default: false }
+  , status:                 { type: String, enum: ['published', 'draft', 'archived'], default: 'draft' }
 });
 
 // product instance methods go here
@@ -26,11 +28,20 @@ const productSchema = mongoose.Schema({
 
 // product model static functions go here
 // productSchema.statics.staticFunctionName = function() {};
+productSchema.statics.getSchema = () => {
+  logger.info('return default schema paths');
+  let schema = {}
+  productSchema.eachPath((path, schemaType) => {
+    // console.log(path, schemaType);
+    schema[path] = schemaType;
+  });
+  return schema;
+}
 
 const Product = mongoose.model('Product', productSchema);
 
 
-// prouct model methods
+// product model methods
 function createDefaults() {
   Product.find({}).exec(function(err, products) {
     if(products.length == 0) {

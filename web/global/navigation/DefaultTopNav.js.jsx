@@ -1,5 +1,5 @@
 /**
- * Global TopNav component.
+ * Global DefaultTopNav component.
  */
 
 // import primary libararies
@@ -18,7 +18,7 @@ import ProfileDropdown from './ProfileDropdown.js.jsx';
 
 import { MAIN_NAV_ITEMS } from './navItems.js';
 
-class TopNav extends Base {
+class DefaultTopNav extends Base {
   constructor(props, context) {
     super(props);
     this.state = {
@@ -42,7 +42,7 @@ class TopNav extends Base {
   _handleScroll(e) {
     /**
      * When the page scrolls, check the Y position to determine whether to
-     * hide, show or fade in TopNav.
+     * hide, show or fade in DefaultTopNav.
      *
      * @param e = broswer scroll event
      */
@@ -115,8 +115,8 @@ class TopNav extends Base {
       <header className={headerClass}>
         <div className="topbar main-container">
           <CloseWrapper
-            isOpen={this.state.isOpen}
-            closeAction={this._closeDropdown}
+            isOpen={this.state.profileOpen}
+            closeAction={() => this.setState({profileOpen: false})}
           />
           <div className="titles">
             <NavLink to="/" className="nav-logo" >
@@ -168,14 +168,14 @@ class TopNav extends Base {
 
 }
 
-TopNav.propTypes = {
+DefaultTopNav.propTypes = {
   dispatch: PropTypes.func.isRequired
   , fancyScroll: PropTypes.bool
   , fixed: PropTypes.bool
   , navClasses: PropTypes.string
 }
 
-TopNav.defaultProps = {
+DefaultTopNav.defaultProps = {
   fancyScroll: false
   , fixed: true
   , navClasses: ''
@@ -190,5 +190,5 @@ const mapStoreToProps = (store) => {
 export default withRouter(
   connect(
     mapStoreToProps
-  )(TopNav)
+  )(DefaultTopNav)
 );
