@@ -1,0 +1,6 @@
+.container {
+  padding: $gutter * 0.5;
+  &.-white-bg {
+    background-color: #fff;
+  }
+}

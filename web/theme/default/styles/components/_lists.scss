@@ -1,0 +1,29 @@
+$micro-list-width: 240px;
+
+.micro-list {
+  // @include box-shadow(0 1px 4px $shadow-color);
+  margin-top: $gutter-width;
+  &.-wrapper {
+
+    background-color: darken($formContainerColor, 1);
+    width: $micro-list-width;
+    padding: 10px;
+    @include zIndex-4;
+  }
+  .-header {
+    height: 105px;
+    // background-color: blue;
+    padding-bottom: 5px;
+    border-bottom: 1px solid $divider-color;
+    @include display-flex;
+    @include flex-direction(column);
+    @include justify-content(center);
+    @include align-items(center);
+  }
+
+  .-items {
+    // background-color: red;
+    padding-top: 5px;
+    @include mobile-scroll;
+  }
+}
