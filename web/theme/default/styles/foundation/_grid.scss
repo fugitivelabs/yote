@@ -105,7 +105,7 @@ $gutter: $gutter-width * 0.5;
   // max-width: 100%;
   @include display-flex;
   @include flex-wrap(wrap);
-  // width: 100%;
+  min-width: 100%;
   &.grid-demo {
     // background-color: rgba(245,211,40, 0.5);
     // border: 1px solid black;

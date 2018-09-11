@@ -124,4 +124,9 @@ body {
   @include display-flex;
   @include align-items(center);
   @include justify-content(center);
+  .alert-message {
+    @include display-flex;
+    @include align-items(center);
+    @include justify-content(space-between);
+  }
 }

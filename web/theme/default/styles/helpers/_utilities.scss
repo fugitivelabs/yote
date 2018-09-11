@@ -31,6 +31,10 @@
   text-align: right;
 }
 
+%u-muted {
+  color: $lighter-text-color;
+}
+
 .u-caps {
   @extend %u-caps;
 }
@@ -57,4 +61,20 @@
 
 .u-textRight {
   @extend %u-textRight;
+}
+
+.u-muted {
+  @extend %u-muted;
+}
+
+.u-accent {
+  color: $brand-accent;
+}
+
+.u-danger {
+  color: $danger !important;
+}
+
+.u-fontBrand {
+  font-family: $font-brand;
 }

@@ -4,30 +4,11 @@
 
 $topbar-height:  $header-height;
 
-//header components will override this.  should clean it up in future
-%nav--fixed {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  @include zIndex-8;
-}
-
-
-%navigation {
-  // @extend %calibre-semibold;
-  // @include smaller-font;
-  @include display-flex;
-  list-style: none;
-  // text-transform: uppercase;
-}
-
 a.nav-logo,
 .nav-logo {
   @include display-flex;
   @include align-items(center);
   @include large-font;
-
   color: $text-color;
   font-weight: 700;
   height: $header-height;
@@ -36,6 +17,10 @@ a.nav-logo,
   }
   img {
     max-height: 80%;
+    width: auto;
+    opacity: 0.97;
+    @include transition(opacity 250ms ease-in-out);
+    &:hover { opacity: 1; }
   }
 }
 
@@ -51,162 +36,7 @@ a.nav-logo,
   }
 }
 
-.mobileMenu {
-  @include display-flex;
-  @include zIndex-9;
-
-  height: 0;
-
-  &.open {
-    height: 100vh;
-    overflow: auto;
-  }
-
-  .mobileNavWrapper {
-    width: 100%;
-  }
-
-  nav {
-    @extend %navigation;
-    @include justify-content(flex-start);
-    @include flex-direction(column);
-    @include transform(scale(0,0));
-
-    background-color: #323b4b;
-    opacity: 0;
-    min-height: 100vh;
-    width: 100%;
-    z-index: 900;
-    padding-top: 2 * $gutter;
-
-    &.open {
-      @include transform(scale(1,1));
-      opacity: 1;
-    }
-
-    a {
-      // @extend %calibre-light;
-      display: block;
-      padding-bottom: 30px;
-      width: 100%;
-      color: #fff;
-      opacity: 0.5;
-
-      &.primary {
-        font-size: 1.75rem;
-        text-transform: none;
-      }
-
-      &.secondary {
-        // @extend %calibre-semibold;
-        font-size: 1rem;
-      }
-
-      &.active {
-        // @extend %calibre-semibold;
-        opacity: 1;
-      }
-
-    }
-
-    a:last-child {
-      padding-bottom: 0
-    }
-
-    .linkGroup {
-        padding: $gutter * 2 0;
-        border-bottom: 1px solid rgba(255, 255, 255, .2);
-    }
-
-    .linkGroup:last-child {
-      margin-bottom: 0;
-      border: 0;
-    }
-  }
-}
-
-.iconWrapper {
-  position: relative;
-}
-
-.burger-menu {
-  @include zIndex-10;
-  position: absolute;
-  top: 23px;
-  right: 0;
-  width: 30px;
-  height: 30px;
-
-  .menuSvg, .closeSvg {
-    height: 30px;
-  }
-
-  .closeSvg {
-    display: none;
-  }
-
-  &.closer {
-
-    .menuSvg {
-      display: none;
-    }
-
-    .closeSvg {
-      display: inline-block;
-    }
-  }
-}
-
-
-ul.navigation {
-  @extend %navigation;
-  @include justify-content(flex-end);
-
-  li {
-    margin-left: $gutter;
-    a {
-      // color: $text-light;
-      border-bottom: 3px solid transparent;
-      &:hover {
-        color: $brand-primary;
-        // border-bottom: 3px solid $brand-accent;
-      }
-      &.active {
-        color: $brand-primary;
-      }
-    }
-  }
-
-  &.primary {
-    @include flex(1);
-    border-right: 1px solid $divider-color;
-    padding-right: $gutter;
-    // @extend %calibre-light;
-    font-size: 1.25rem;
-    line-height: 1;
-    @include MQ(XL) {
-      // everything above 1600px
-      font-size: 1.4rem;
-    }
-    text-transform: none;
-    .active {
-      // @extend %calibre-semibold;
-    }
-    li {
-      text-align: center;
-      width: 120px;
-      margin-left: 0;
-      @include MQ(XS) {
-        // everything above 1600px
-        width: 120px;
-      }
-    }
-  }
-}
-
 .topbar {
-
-
   background-color: inherit;;
   height: $topbar-height;
   position: relative;
@@ -243,7 +73,7 @@ ul.navigation {
     @include align-items(stretch);
     .-subtitle {
       margin-left: $gutter;
-      color: $muted-text;
+      color: rgba(255,255,255, 0.8);
       @include base-font;
       font-weight: normal;
     }
@@ -256,6 +86,7 @@ ul.navigation {
     @include justify-content(flex-end);
     @include align-items(stretch);
     @include flex(1);
+    font-family: $font-brand;
     // @include MQ(XS) {
     // }
     > .yt-row { width: 100%; height: inherit; }
@@ -268,10 +99,18 @@ ul.navigation {
     @include align-items(stretch);
     @include align-self(stretch);
     list-style: none;
+    text-align: center;
     // @extend %calibre-semibold;
     // @include smaller-font;
     // text-transform: uppercase;
-
+    &.-left {
+      margin-left: 0;
+      @include justify-content(flex-start);
+      li {
+        margin-left: 0;
+        margin-right: $gutter-width;
+      }
+    }
     li {
       // height: 100%;
 
@@ -286,7 +125,7 @@ ul.navigation {
 
         }
       }
-      a {
+      a, .action-link {
         @include display-flex;
         @include align-items(center);
         // color: $text-color;
@@ -294,6 +133,7 @@ ul.navigation {
         @include transition(all 250ms ease-in-out);
         padding: 0 5px;
         border-bottom: 3px solid transparent;
+        white-space: nowrap;
         &:hover {
           color: $black-0;
           // border-bottom: 3px solid $brand-accent;
@@ -301,7 +141,7 @@ ul.navigation {
         &.active {
           color: $brand-primary;
           border-bottom: 3px solid $brand-accent;
-          background-color: $highlight-color;
+          // background-color: $highlight-color;
         }
       }
     }
@@ -333,18 +173,21 @@ ul.navigation {
     }
   }
 
-
-  &._fixed {
-    @extend %nav--fixed;
-  }
   .-profile-pic {
-    height: $topbar-height * 0.46;
-    width: $topbar-height * 0.46;
+    height: $topbar-height * 0.6;
+    width: $topbar-height * 0.6;
     border-radius: 50%;
     margin-right: 10px;
-    background-image: url('/img/defaults/profile.png');
+    background-image: url('/img/green_army_men.jpg');
     background-position: center;
     background-size: cover;
+  }
+}
+
+.body.with-header .topbar.authoring-nav li {
+  @media screen and (max-width: 450px) {
+    margin-left: 5px !important;
+    width: 20%;
   }
 }
 
@@ -404,8 +247,6 @@ ul.navigation {
   }
 }
 
-
-
 .main-side-nav {
   position: fixed;
   margin-top: $gutter;
@@ -443,5 +284,51 @@ ul.navigation {
         color: $link-color;
       }
     }
+  }
+}
+
+
+.-super-nav {
+  background-color: darken($brand-primary, 30);
+  color: rgba(255,255,255,0.9);
+  @include smaller-font;
+  text-align: right;
+  padding: 4px;
+  height: 32px;
+  a {
+    color: rgba(255,255,255,0.93);
+    border-bottom: 1px dotted rgba(255,255,255,0.93);
+    &:hover {
+      color: #fff;
+      border-color: #fff;
+    }
+  }
+}
+
+.-main-nav {
+  height: $topbar-height;
+}
+
+
+
+.-fixed-subheader {
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  right: 0;
+  top: $header-height;
+}
+
+.-sub-nav {
+  height: 40px;
+  background-color: #f1f1f1;
+  border-bottom: 1px solid $divider-color;
+  position: fixed;
+  width: 100%;
+  z-index: 600;
+  @include transition(all 400ms ease-in-out);
+  @include mobile-scroll-x;
+  &.isTop {
+    margin-top: -60px;
   }
 }

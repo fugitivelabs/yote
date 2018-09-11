@@ -22,14 +22,15 @@ $soflete-light-gray:          #B7B7B7;
 
 // UI Palette
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
-$bg-color:                    $white-0;
+$bg-color:                    $black-0;
 $dark-bg-color:               darken($brand-primary, 20);
 $gray:                        $gray-5;
 $white:                       $white-1;
 
 $highlight-color:             rgba(0,0,0,0.05);
 
-$text-color:                  rgba(0,0,0,0.87);
+// $text-color:                  rgba(0,0,0,0.87);
+$text-color:                  #fff;
 $lighter-text-color:          rgba(0,0,0,0.35);
 $muted-text:                  rgba(0,0,0,0.24);
 $text-light:                  rgba(255,255,255,.9);

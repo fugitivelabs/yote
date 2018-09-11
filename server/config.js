@@ -6,9 +6,9 @@ const secrets = require('./secrets.js');
 /**
  * NOTE: urls should omit http(s)://
  */
-const devUrl = "localhost:3030";
-const prodUrl = "localhost:3030"; // this should match your production instance
-const stagingUrl = "localhost:3030"; // this should match your
+const devUrl = "localhost:3031";
+const prodUrl = "localhost:3031"; // this should match your production instance
+const stagingUrl = "localhost:3031"; // this should match your
 
 // NOTE: this is the name of your Mongo database.  It should ideally match the project name.
 const devDbName = "yote"; //note: removed the capital S
@@ -33,7 +33,7 @@ module.exports = {
     appUrl: devUrl
     , db: remoteDb ? `mongodb://${remoteDb}/${dbName}` : process.env.MONGODB_PORT ? `${process.env.MONGODB_PORT.replace("tcp", "mongodb")}/${dbName}` : devDbUri
     , httpsOptional: true
-    , port: process.env.PORT || 3030
+    , port: process.env.PORT || 3031
     , rootPath: rootPath
     , secrets: secrets || {}
     , useHttps: false
@@ -51,7 +51,7 @@ module.exports = {
     appUrl: stagingUrl
     , db: remoteDb ? `mongodb://${remoteDb}/${dbName}` : process.env.MONGODB_PORT ? `${process.env.MONGODB_PORT.replace("tcp", "mongodb")}/${dbName}` : stagingDbUri
     , httpsOptional: true
-    , port: process.env.PORT || 3030 // so you can still run it locally
+    , port: process.env.PORT || 3031 // so you can still run it locally
     , rootPath: rootPath
     , secrets: secrets || {}
     , useHttps: false

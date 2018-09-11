@@ -33,7 +33,6 @@
     "babel-plugin-react-css-modules": "^3.3.1",
     "classnames": "^2.2.1",
     "es5-shim": "^4.5.11",
-    "eslint-plugin-react": "^7.4.0",
     "history": "^4.7.2",
     "isomorphic-fetch": "^2.2.1",
     "jwt-simple": "^0.5.0",

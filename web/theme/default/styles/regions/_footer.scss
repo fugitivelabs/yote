@@ -1,10 +1,10 @@
 footer, .footer {
   @include flex(none);
-  background-color: $footer-bg-color;
+  background-color: #000;
   color: rgba(255,255,255, 0.9);
-  padding-bottom: $gutter-width;
+  padding: 40px 0px;
 
-  @include zIndex-7;
+  @include zIndex-6;
   hr { margin: 0 }
   a {
     // color: $text-light;

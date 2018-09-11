@@ -1,7 +1,7 @@
 // Cards
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
-$card-padding: $gutter;
+$card-padding: $gutter * 0.5;
 
 
 
@@ -115,18 +115,19 @@ $card-padding: $gutter;
   }
 
 
-  &:hover {
-    @include box-shadow(0 8px 24px $shadow-color);
-    &.linkable {
-      cursor: pointer;
-      img {
-      }
-      .title {
-        // color: $link-color
+  &.-hoverable {
+    &:hover {
+      @include box-shadow(0 8px 24px $shadow-color);
+      &.linkable {
+        cursor: pointer;
+        img {
+        }
+        .title {
+          // color: $link-color
+        }
       }
     }
   }
-
 
 }
 

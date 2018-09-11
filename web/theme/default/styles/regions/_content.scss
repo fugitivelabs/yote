@@ -1,3 +1,28 @@
+.singleTeamHeaderWrapper h1, .singleTeamHeaderWrapper h2, .singleTeamHeaderWrapper h3 {
+  display: inline-block;
+  vertical-align: middle;
+  @media screen and (max-width: 1000px) {
+    display: block;
+  }
+}
+
+.singleTeamHeaderWrapper small {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 29.48px 0px 17.6px 0px;
+  float: right;
+  @media screen and (max-width: 1000px) {
+    float: none;
+    margin: 0px;
+    margin-bottom: 10px;
+  }
+}
+
+.singleTeamHeaderWrapper small:nth-child(3) {
+  float: none;
+  display: block;
+}
+
 img {
   max-width: 100%;
 }

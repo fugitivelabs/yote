@@ -1,5 +1,5 @@
 .hero {
-  padding: 100px 0px;
+  padding-top: 100px;
   @include display-flex;
   @include align-items(center);
   @include justify-content(center);

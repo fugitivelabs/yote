@@ -25,4 +25,8 @@
     background: $info;
     border-color: darken($info, 20);
   }
+  &.primary {
+    background: $primary;
+    border-color: darken($primary, 20);
+  }
 }
