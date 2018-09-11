@@ -21,11 +21,12 @@ import {
   , View
 } from 'react-native'; 
 
+import { displayName } from '../../../../app.json'; 
 // import libraries
 import _ from 'lodash';
 
 // import actions
-import { singleActions } from '../userActions';
+import * as userActions from '../userActions';
 
 // import custom components
 import YTButton from '../../../global/components/YTButton';
@@ -93,7 +94,7 @@ class Register extends Base {
   }
 
   componentDidMount() {
-  // this.props.dispatch(singleActions.setupNewUser());
+  // this.props.dispatch(userActions.setupNewUser());
  }
 
   _checkFormValid() {
@@ -132,14 +133,14 @@ class Register extends Base {
     if (this.state.isFormValid) {
       var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       if (re.test(this.state.user.username)){
-        this.setState({termsModalVisible: true});
-        // this.props.dispatch(singleActions.sendRegister(this.state.user)).then((json) => {
-        //   if (json.success) {
-        //     this.setState({termsModalVisible: true});
-        //   } else {
-        //     Alert.alert("Something went wrong", json.error);
-        //   }
-        // })
+        this.props.dispatch(userActions.sendRegister(this.state.user)).then((json) => {
+          if (json.success) {
+            this.props.dispatch(userActions.sendLogin(this.state.user.username, this.state.user.password)); 
+            Alert.alert("Welcome!", `Thanks for registering with ${displayName}! Enjoy!`, [{text: 'Get Started', onPress: null}]);
+          } else {
+            Alert.alert("Something went wrong", json.error);
+          }
+        })
       } else {
         Alert.alert("Please enter a valid email address");
       }
@@ -178,7 +179,7 @@ class Register extends Base {
   _handleAgreeToTerms() {
     const { dispatch } = this.props;
     console.log("Agree To Terms");
-    // dispatch(singleActions.sendAgreedToTerms(true)).then((json) => {
+    // dispatch(userActions.sendAgreedToTerms(true)).then((json) => {
     //   this.setState({termsModalVisible: false});
     //   this.props.navigator.push({welcome: true});
     // });
