@@ -79,24 +79,19 @@ class UpdateProduct extends Base {
     const isEmpty = (!product || product.title === null || product.title === undefined);
     return  (
       <ProductLayout>
-        <div className="flex">
-          <section className="section">
-            <div className="yt-container">
-              <Breadcrumbs links={location.state.breadcrumbs} />
-              {isEmpty
-                ? (selectedProduct.isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
-              : <ProductForm
-                  product={product}
-                  cancelLink={`/products/${product._id}`}
-                  formTitle="Update Product"
-                  formType="update"
-                  handleFormChange={this._handleFormChange}
-                  handleFormSubmit={this._handleFormSubmit}
-                />
-              }
-            </div>
-          </section>
-        </div>
+        <Breadcrumbs links={location.state.breadcrumbs} />
+        {isEmpty ?
+          (selectedProduct.isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
+          :
+          <ProductForm
+            product={product}
+            cancelLink={`/products/${product._id}`}
+            formTitle="Update Product"
+            formType="update"
+            handleFormChange={this._handleFormChange}
+            handleFormSubmit={this._handleFormSubmit}
+          />
+        }
     </ProductLayout>
     )
   }

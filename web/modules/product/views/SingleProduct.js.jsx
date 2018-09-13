@@ -46,25 +46,19 @@ class SingleProduct extends Base {
     );
     return (
       <ProductLayout>
-        <div className="flex">
-          <section className="section">
-            <div className="yt-container">
-              <Breadcrumbs links={location.state.breadcrumbs} />
-              <h3> Single Product </h3>
-              {isEmpty ?
-                (productStore.selected.isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
-                :
-                <div style={{ opacity: productStore.selected.isFetching ? 0.5 : 1 }}>
-                  <h1> { selectedProduct.title }
-                    <Link className="yt-btn small u-pullRight" to={`${this.props.match.url}/update`}> UPDATE PRODUCT </Link>
-                  </h1>
-                  <hr/>
-                  <p> {selectedProduct.description }</p>
-                </div>
-              }
-            </div>
-          </section>
-        </div>
+        <Breadcrumbs links={location.state.breadcrumbs} />
+        <h3> Single Product </h3>
+        {isEmpty ?
+          (productStore.selected.isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
+          :
+          <div style={{ opacity: productStore.selected.isFetching ? 0.5 : 1 }}>
+            <h1> { selectedProduct.title }
+              <Link to={`${this.props.match.url}/update`}> UPDATE PRODUCT </Link>
+            </h1>
+            <hr/>
+            <p> {selectedProduct.description }</p>
+          </div>
+        }
     </ProductLayout>
     )
   }

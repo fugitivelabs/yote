@@ -78,29 +78,22 @@ class CreateProduct extends Base {
   render() {
     const { location } = this.props;
     const { product } = this.state;
-    console.log(product);
     const isEmpty = (!product || product.title === null || product.title === undefined);
     return (
       <ProductLayout>
-        <div className="flex">
-          <section className="section">
-            <div className="yt-container">
-              <Breadcrumbs links={location.state.breadcrumbs} />
-              {isEmpty ?
-                <h2> Loading...</h2>
-                :
-                <ProductForm
-                  product={product}
-                  cancelLink="/products"
-                  formTitle="Create Product"
-                  formType="create"
-                  handleFormChange={this._handleFormChange}
-                  handleFormSubmit={this._handleFormSubmit}
-                />
-              }
-            </div>
-          </section>
-        </div>
+        <Breadcrumbs links={location.state.breadcrumbs} />
+        {isEmpty ?
+          <h2> Loading...</h2>
+          :
+          <ProductForm
+            product={product}
+            cancelLink="/products"
+            formTitle="Create Product"
+            formType="create"
+            handleFormChange={this._handleFormChange}
+            handleFormSubmit={this._handleFormSubmit}
+          />
+        }
       </ProductLayout>
     )
   }

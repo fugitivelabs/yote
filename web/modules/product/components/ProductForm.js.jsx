@@ -26,37 +26,31 @@ const ProductForm = ({
   const header = formTitle ? <div className="formHeader"><h2> {formTitle} </h2><hr/></div> : <div/>;
 
   return (
-    <div className="yt-container">
-      <div className="yt-row center-horiz">
-        <div className="form-container -slim">
-          <form name="productForm" className="product-form" onSubmit={handleFormSubmit}>
-            {header}
-            <TextInput
-              name="title"
-              label="Title"
-              value={product.title}
-              change={handleFormChange}
-              placeholder="Title (required)"
-              required={true}
-            />
-            <TextAreaInput
-              name="description"
-              label="Description"
-              value={product.description}
-              change={handleFormChange}
-              required={false}
-              rows={3}
-              placeholder="This is where the content goes..."
-            />
-            <div className="input-group">
-              <div className="yt-row space-between">
-                <Link className="yt-btn link" to={cancelLink}>Cancel</Link>
-                <button className="yt-btn " type="submit" > {buttonText} </button>
-              </div>
-            </div>
-          </form>
+    <div className="form-container">
+      <form name="productForm" className="product-form" onSubmit={handleFormSubmit}>
+        {header}
+        <TextInput
+          name="title"
+          label="Title"
+          value={product.title}
+          change={handleFormChange}
+          required={true}
+        />
+        <TextAreaInput
+          name="description"
+          label="Description"
+          value={product.description}
+          change={handleFormChange}
+          required={false}
+          rows={3}
+        />
+        <div className="input-group">
+          <div className="yt-row space-between">
+            <Link className="yt-btn link" to={cancelLink}>Cancel</Link>
+            <button className="yt-btn " type="submit" > {buttonText} </button>
+          </div>
         </div>
-      </div>
+      </form>
     </div>
   )
 }

@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 
 const ProductListItem = ({ product }) => {
   return (
-    <li className="list-item">
-      <Link className="product-title" to={`/products/${product._id}`}> {product.title}</Link>
+    <li>
+      <Link to={`/products/${product._id}`}> {product.title}</Link>
       <p><em>{product.description}</em></p>
     </li>
   )

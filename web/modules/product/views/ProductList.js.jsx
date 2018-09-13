@@ -74,28 +74,22 @@ class ProductList extends Base {
     const isEmpty = !productListItems || !productList;
     return (
       <ProductLayout>
-        <div className="flex">
-          <section className="section">
-            <div className="yt-container">
-              <Breadcrumbs links={location.state.breadcrumbs} />
-              <h1> Product List
-                <Link className="yt-btn small u-pullRight" to={'/products/new'}> NEW PRODUCT </Link>
-              </h1>
-              <hr/>
-              { isEmpty ?
-                (productListItems && productList && productList.isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
-                :
-                <div style={{ opacity: productList.isFetching ? 0.5 : 1 }}>
-                  <ul className="product-list">
-                    {productListItems.map((product, i) =>
-                      <ProductListItem key={product._id + i} product={product} />
-                    )}
-                  </ul>
-                </div>
-              }
-            </div>
-          </section>
-        </div>
+        <Breadcrumbs links={location.state.breadcrumbs} />
+        <h1> Product List
+          <Link to={'/products/new'}> New Product</Link>
+        </h1>
+        <hr/>
+        { isEmpty ?
+          (productListItems && productList && productList.isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
+          :
+          <div style={{ opacity: productList.isFetching ? 0.5 : 1 }}>
+            <ul>
+              {productListItems.map((product, i) =>
+                <ProductListItem key={product._id + i} product={product} />
+              )}
+            </ul>
+          </div>
+        }
       </ProductLayout>
     )
   }
