@@ -1,19 +1,11 @@
-@font-face {
-  font-family: 'Veneer';
-  src:
-        url('/fonts/Veneer.ttf?v=2') format('truetype'),
-        url('/fonts/Veneer.otf?v=2') format('otf')
-        ;
-}
-
 
 // Typography
 // ••••••••••••••••••••••••••••••••••••••••••••••••••
 
-$font-sans: "Roboto Condensed", Helvetica, sans-serif;
+$font-sans:  "Nunito", "Helvetica Neue", Helvetica, sans-serif;
 $font-serif: Georgia, Times, serif;
 
-$font-brand: 'Veneer', 'Oswald', 'Helvetica Neue', sans-serif;
+$font-brand: $font-sans;
 
 // Line Heights
 // ••••••••••••••••••••••••••••••••••••••••••••••••••

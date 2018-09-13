@@ -6,13 +6,13 @@
  */
 
 // get the appUrl for the current environment
-let appUrl = require('../../../config')[process.env.NODE_ENV].appUrl;
+let appUrl = require('../../config')[process.env.NODE_ENV].appUrl;
 
 // get secrets if needed
 // let secrets = require('../../config')[process.env.NODE_ENV].secrets;
 
 let User = require('mongoose').model('User');
-let emailUtil = require('../../../utilities/email');
+let emailUtil = require('../../utilities/email');
 let logger = global.logger;
 
 exports.getLoggedInUser = (req, res) => {

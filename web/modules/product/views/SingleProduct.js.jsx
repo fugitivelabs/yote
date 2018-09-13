@@ -16,7 +16,7 @@ import * as productActions from '../productActions';
 
 // import global components
 import Base from '../../../global/BaseComponent.js.jsx';
-import Breadcrumbs from '../../../global/routing/Breadcrumbs.js.jsx';
+import Breadcrumbs from '../../../global/navigation/Breadcrumbs.js.jsx';
 
 // import product components
 import ProductLayout from '../components/ProductLayout.js.jsx';
@@ -52,11 +52,10 @@ class SingleProduct extends Base {
           (productStore.selected.isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
           :
           <div style={{ opacity: productStore.selected.isFetching ? 0.5 : 1 }}>
-            <h1> { selectedProduct.title }
-              <Link to={`${this.props.match.url}/update`}> UPDATE PRODUCT </Link>
-            </h1>
+            <h1> { selectedProduct.title } </h1>
             <hr/>
             <p> {selectedProduct.description }</p>
+            <Link to={`${this.props.match.url}/update`}> UPDATE PRODUCT </Link>
           </div>
         }
     </ProductLayout>

@@ -14,7 +14,7 @@ const AdminBreadcrumbs = ({ links }) => {
       { links.map((link, i) =>
         <span key={link.path + i}>
           { i < links.length -1 ?
-              <span> <Link to={link.path}>{link.display}</Link> <i className="fa fa-angle-right" /> </span>
+              <span> <Link to={link.path}>{link.display}</Link> :: </span>
             :
               <span> {link.display} </span>
           }

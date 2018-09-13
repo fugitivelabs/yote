@@ -89,7 +89,7 @@ module.exports = function(router) {
    */
   routeFilenames.forEach(function(filename) {
     logger.debug("filename: " + filename);
-    require('../api/resources/' + filename)(router, requireLogin, requireRole);
+    require('../api/' + filename)(router, requireLogin, requireRole);
   });
 }
 

@@ -30,7 +30,7 @@ import * as productActions from '../productActions';
 
 // import global components
 import Base from '../../../global/BaseComponent.js.jsx';
-import Breadcrumbs from '../../../global/routing/Breadcrumbs.js.jsx';
+import Breadcrumbs from '../../../global/navigation/Breadcrumbs.js.jsx';
 
 // import product components
 import ProductLayout from '../components/ProductLayout.js.jsx';
@@ -75,9 +75,8 @@ class ProductList extends Base {
     return (
       <ProductLayout>
         <Breadcrumbs links={location.state.breadcrumbs} />
-        <h1> Product List
-          <Link to={'/products/new'}> New Product</Link>
-        </h1>
+        <h1> Product List</h1>
+        <Link to={'/products/new'}> New Product</Link>
         <hr/>
         { isEmpty ?
           (productListItems && productList && productList.isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)

@@ -18,7 +18,7 @@ import * as productActions from '../productActions';
 
 // import global components
 import Base from '../../../global/BaseComponent.js.jsx';
-import Breadcrumbs from '../../../global/routing/Breadcrumbs.js.jsx';
+import Breadcrumbs from '../../../global/navigation/Breadcrumbs.js.jsx';
 
 // import product components
 import ProductForm from '../components/ProductForm.js.jsx';

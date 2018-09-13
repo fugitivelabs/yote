@@ -32,7 +32,13 @@ export default class DefaultLayout extends Base {
       <div className="master-layout">
         <DefaultTopNav />
         <div className={bodyClass}>
-          {this.props.children}
+          <div className="flex">
+            <section className="section">
+              <div className="yt-container">
+                {this.props.children}
+              </div>
+            </section>
+          </div>
         </div>
         <Footer />
       </div>
