@@ -30,7 +30,9 @@ class AdminUpdateProduct extends Base {
     super(props);
     const { match, productStore } = this.props;
     this.state = {
-      formHelpers: {}
+      formHelpers: {
+        statuses: ['published', 'draft', 'archived']
+      }
       , product: productStore.byId[match.params.productId] ? _.cloneDeep(productStore.byId[match.params.productId]) : {}
       // NOTE: we don't want to change the store, just make changes to a copy
     }

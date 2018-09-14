@@ -28,7 +28,9 @@ class AdminCreateProduct extends Base {
   constructor(props) {
     super(props);
     this.state = {
-      formHelpers: {}
+      formHelpers: {
+        statuses: ['published', 'draft', 'archived']
+      }
       , product: _.cloneDeep(this.props.defaultProduct.getItem())
       // NOTE: We don't want to actually change the store's defaultItem, just use a copy
     }
@@ -77,7 +79,7 @@ class AdminCreateProduct extends Base {
 
   render() {
     const { location } = this.props;
-    const { product } = this.state;
+    const { formHelpers, product } = this.state;
     const isEmpty = (!product || product.title === null || product.title === undefined);
     return (
       <AdminProductLayout>
@@ -88,6 +90,7 @@ class AdminCreateProduct extends Base {
           <AdminProductForm
             product={product}
             cancelLink="/admin/products"
+            formHelpers={formHelpers}
             formTitle="Create Product"
             formType="create"
             handleFormChange={this._handleFormChange}

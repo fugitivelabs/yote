@@ -1,5 +1,9 @@
 /**
- * Reusable stateless form component for Product
+ * Reusable stateless form component for Admin Product
+ *
+ * This shows an example of how the admin forms can differ from standard forms.
+ * In this case, only the admin form controls the product's published status and
+ * whether or not it's a featured product.
  */
 
 // import primary libraries
@@ -8,10 +12,16 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 // import form components
-import { SelectFromArray, TextInput, TextAreaInput } from '../../../../global/forms';
+import {
+  CheckboxInput
+  , SelectFromArray
+  , TextInput
+  , TextAreaInput
+} from '../../../../global/forms';
 
 const AdminProductForm = ({
   cancelLink
+  , formHelpers
   , formTitle
   , formType
   , handleFormChange
@@ -48,6 +58,21 @@ const AdminProductForm = ({
               rows={3}
               placeholder="This is where the content goes..."
             />
+            <SelectFromArray
+              change={handleFormChange}
+              items={formHelpers.statuses}
+              label="Publish Status"
+              name="product.status"
+              required={true}
+              value={product.status}
+            />
+            <CheckboxInput
+              name="product.featured"
+              label="This is a featured product"
+              value={product.featured}
+              change={handleFormChange}
+              checked={product.featured}
+            />
             <div className="input-group">
               <div className="yt-row space-between">
                 <Link className="yt-btn link" to={cancelLink}>Cancel</Link>
@@ -63,6 +88,7 @@ const AdminProductForm = ({
 
 AdminProductForm.propTypes = {
   cancelLink: PropTypes.string.isRequired
+  , formHelpers: PropTypes.object
   , formTitle: PropTypes.string
   , formType: PropTypes.string.isRequired
   , handleFormChange: PropTypes.func.isRequired
@@ -71,7 +97,8 @@ AdminProductForm.propTypes = {
 }
 
 AdminProductForm.defaultProps = {
-  formTitle: ''
+  formHelpers: {}
+  , formTitle: ''
 }
 
 export default AdminProductForm;

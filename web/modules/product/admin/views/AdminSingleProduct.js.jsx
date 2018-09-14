@@ -60,6 +60,8 @@ class AdminSingleProduct extends Base {
             <h1> { selectedProduct.title } </h1>
             <hr/>
             <p> {selectedProduct.description }</p>
+            <p> <strong>Status: </strong> {selectedProduct.status}</p>
+            <p> <strong>Is Featured? </strong> {selectedProduct.featured ? 'yes' : 'no'}</p>
             <Link to={`${this.props.match.url}/update`}> UPDATE PRODUCT </Link>
           </div>
         }
