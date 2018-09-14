@@ -21,10 +21,6 @@ import StyleGuide from './views/StyleGuide.js.jsx';
 // import admin components
 import AdminLayout from './components/AdminLayout.js.jsx';
 
-import * as adminRoutes from './adminRoutes.js';
-
-import UserAdminRouter from '../user/admin/UserAdminRouter.js.jsx';
-
 class AdminRouter extends Base {
   constructor(props) {
     super(props);
@@ -32,15 +28,10 @@ class AdminRouter extends Base {
 
   render() {
     return (
-      <AdminLayout>
-        <Switch>
-          <YTRoute role="admin" exact path="/admin" component={AdminDashboard} />
-          <YTRoute role="admin" exact path="/admin/style-guide" component={StyleGuide} />
-          <YTRoute role="admin" path="/admin/users">
-            <UserAdminRouter />
-          </YTRoute>
-        </Switch>
-      </AdminLayout>
+      <Switch>
+        <YTRoute role="admin" exact path="/admin" component={AdminDashboard} />
+        <YTRoute role="admin" exact path="/admin/style-guide" component={StyleGuide} />
+      </Switch>
     )
   }
 }

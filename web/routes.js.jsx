@@ -23,17 +23,16 @@ import Landing from './modules/static/views/Landing.js.jsx';
 import NotFound from './modules/static/views/NotFound.js.jsx';
 import AdminDashboard from './modules/static/views/AdminDashboard.js.jsx';
 
-// import client and admin routes from the modules
-import * as adminRoutes from './modules/admin/adminRoutes.js';
+// import main client and admin routes from the modules
+import * as adminModuleRoutes from './modules/admin/adminModuleRoutes.js';
 import * as moduleRoutes from './modules/moduleRoutes.js';
 
-// import AdminRouter from './modules/admin/AdminRouter.js.jsx';
+import AdminRouter from './modules/admin/AdminRouter.js.jsx';
 
 const routes =
   <Switch>
     <Route exact path="/" component={Landing} />
     <Route path="/unauthorized" component={Forbidden} />
-    {/*}<AdminRouter/>*/}
     { Object.keys(moduleRoutes).map((moduleName, i) =>
       <Route
         component={moduleRoutes[moduleName]}
@@ -41,14 +40,15 @@ const routes =
         path={`/${_.kebabCase(moduleName)}`}
       />
     )}
-    { Object.keys(adminRoutes).map((moduleName, i) =>
+    { Object.keys(adminModuleRoutes).map((moduleName, i) =>
       <YTRoute
-        component={adminRoutes[moduleName]}
+        component={adminModuleRoutes[moduleName]}
         key={Math.floor(Math.random()*100000)}
         path={`/admin/${_.kebabCase(moduleName)}`}
         role="admin"
       />
     )}
+    <AdminRouter/>
     <Route component={NotFound} />
   </Switch>
 ;

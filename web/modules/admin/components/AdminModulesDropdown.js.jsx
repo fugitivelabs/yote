@@ -14,7 +14,7 @@ import classNames from 'classnames';
 // import components
 import CloseWrapper from '../../../global/helpers/CloseWrapper.js.jsx';
 
-import {ADMIN_NAV_ITEMS} from '../adminNavItems.js';
+import { ADMIN_NAV_ITEMS } from '../adminNavItems.js';
 
 const AdminModulesDropdown = ({close, isOpen}) => {
   return(
@@ -27,7 +27,7 @@ const AdminModulesDropdown = ({close, isOpen}) => {
             <ul className="dropMenu">
               { ADMIN_NAV_ITEMS.map((item, i) =>
                 <li key={i}>
-                  <NavLink to={item.path} activeClassName="active">{item.display}</NavLink>
+                  <NavLink to={item.path} activeClassName="active" onClick={close}>{item.display}</NavLink>
                 </li>
               )}
             </ul>

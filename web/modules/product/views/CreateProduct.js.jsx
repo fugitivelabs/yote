@@ -28,9 +28,9 @@ class CreateProduct extends Base {
   constructor(props) {
     super(props);
     this.state = {
-      product: _.cloneDeep(this.props.defaultProduct.getItem())
-
-      // NOTE: We don't want to actually change the store's defaultItem, just use a copy
+      formHelpers: {}
+      , product: _.cloneDeep(this.props.defaultProduct.getItem())
+      // NOTE: ^ We don't want to actually change the store's defaultItem, just use a copy
     }
     this._bind(
       '_handleFormChange'
@@ -53,10 +53,10 @@ class CreateProduct extends Base {
     /**
      * This let's us change arbitrarily nested objects with one pass
      */
-    let newProductState = _.update( this.state.product, e.target.name, function() {
+    let newState = _.update(this.state, e.target.name, function() {
       return e.target.value;
     });
-    this.setState({product: newProductState});
+    this.setState({newState});
   }
 
 

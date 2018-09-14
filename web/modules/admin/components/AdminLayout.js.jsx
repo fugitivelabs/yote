@@ -24,7 +24,9 @@ export default class AdminLayout extends Base {
       <div className="master-layout admin-layout">
         <AdminTopNav/>
         <div className="body with-header -admin-body">
-          {this.props.children}
+          <div className="yt-container">
+            {this.props.children}
+          </div>
         </div>
       </div>
     )

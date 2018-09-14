@@ -28,10 +28,11 @@ import ProductForm from '../components/ProductForm.js.jsx';
 class UpdateProduct extends Base {
   constructor(props) {
     super(props);
-    const { selectedProduct, productMap } = this.props;
+    const { match, productStore } = this.props;
     this.state = {
-      product: productMap[selectedProduct.id] ? { ...productMap[selectedProduct.id] } : {}
-      // NOTE: we don't want to change the store, just make changes to a copy
+      formHelpers: {}
+      , product: productStore.byId[match.params.productId] ? _.cloneDeep(productStore.byId[match.params.productId]) : {}
+      // NOTE: ^ we don't want to change the store, just make changes to a copy
     }
     this._bind(
       '_handleFormChange'
@@ -47,16 +48,16 @@ class UpdateProduct extends Base {
   componentWillReceiveProps(nextProps) {
     const { selectedProduct, productMap } = nextProps;
     this.setState({
-      product: productMap[selectedProduct.id] ? { ...productMap[selectedProduct.id] } : {}
-      //we don't want to actually change the store's product, just use a copy
+      product: productStore.byId[match.params.productId] ? _.cloneDeep(productStore.byId[match.params.productId]) : {}
+      // NOTE: ^ we don't want to actually change the store's product, just use a copy
     })
   }
 
   _handleFormChange(e) {
-    var newProductState = _.update( this.state.product, e.target.name, function() {
+    var newState = _.update(this.state, e.target.name, function() {
       return e.target.value;
     });
-    this.setState({product: newProductState});
+    this.setState({newState});
   }
 
   _handleFormSubmit(e) {
@@ -74,9 +75,26 @@ class UpdateProduct extends Base {
   }
 
   render() {
-    const { location, selectedProduct, productMap } = this.props;
-    const { product } = this.state;
-    const isEmpty = (!product || product.title === null || product.title === undefined);
+    const {
+      location
+      , match
+      , productStore
+    } = this.props;
+    const { formHelpers, product } = this.state;
+
+    const selectedProduct = productStore.selected.getItem();
+
+    const isEmpty = (
+      !product
+      || !selectedProduct
+      || !selectedProduct._id
+    );
+
+    const isFetching = (
+      !productStore.selected.id
+      || productStore.selected.isFetching
+    )
+
     return  (
       <ProductLayout>
         <Breadcrumbs links={location.state.breadcrumbs} />
@@ -86,13 +104,14 @@ class UpdateProduct extends Base {
           <ProductForm
             product={product}
             cancelLink={`/products/${product._id}`}
+            formHelpers={formHelpers}
             formTitle="Update Product"
             formType="update"
             handleFormChange={this._handleFormChange}
             handleFormSubmit={this._handleFormSubmit}
           />
         }
-    </ProductLayout>
+      </ProductLayout>
     )
   }
 }
@@ -107,8 +126,7 @@ const mapStoreToProps = (store) => {
   * differentiated from the React component's internal state
   */
   return {
-    selectedProduct: store.product.selected
-    , productMap: store.product.byId
+    productStore: store.product
   }
 }
 

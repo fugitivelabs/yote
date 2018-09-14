@@ -12,6 +12,5 @@
  */
 
 
-export { default as admin } from  './admin/AdminRouter.js.jsx';
 export { default as user } from './user/UserRouter.js.jsx';
 export { default as products } from './product/ProductRouter.js.jsx';

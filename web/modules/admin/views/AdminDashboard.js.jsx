@@ -14,6 +14,9 @@ import { Link } from 'react-router-dom';
 import Base from '../../../global/BaseComponent.js.jsx';
 
 // import admin components
+import AdminLayout from '../components/AdminLayout.js.jsx';
+
+import { ADMIN_NAV_ITEMS } from '../adminNavItems.js';
 
 class AdminDashboard extends Base {
   constructor(props) {
@@ -22,14 +25,18 @@ class AdminDashboard extends Base {
 
   render() {
     return  (
-      <div className="flex">
-        <section className="section">
-          <div className="yt-container style-guide">
-            <h3> Admin Dashboard </h3>
-            <div className="content" style={{height:"200vh"}}/>
-          </div>
-        </section>
-      </div>
+      <AdminLayout>
+        <h3> Admin Dashboard </h3>
+        <hr/>
+        Admin modules
+        <ul>
+          { ADMIN_NAV_ITEMS.map((item, i) =>
+            <li key={i}>
+              <Link to={item.path}>{item.display}</Link>
+            </li>
+          )}
+        </ul>
+      </AdminLayout>
     )
   }
 }

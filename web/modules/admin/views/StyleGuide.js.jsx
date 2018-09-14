@@ -13,6 +13,9 @@ import { NavLink } from 'react-router-dom';
 // import global components
 import Base from '../../../global/BaseComponent.js.jsx';
 
+// import module components
+import AdminLayout from '../components/AdminLayout.js.jsx';
+
 class StyleGuide extends Base {
   constructor(props) {
     super(props);
@@ -20,14 +23,14 @@ class StyleGuide extends Base {
 
   render() {
     return  (
-      <div className="flex">
+      <AdminLayout>
         <section className="section">
-          <div className="yt-container style-guide">
+          <div className="style-guide">
             <h3> Style Guide </h3>
             <div className="content">
               <div className="main-copy with-eyebrow">
                 <div className="eyebrow title">
-                Typography
+                  Typography
                 </div>
                 <div className="eyebrow content">
                   <h1>Heading 1</h1>
@@ -85,7 +88,7 @@ class StyleGuide extends Base {
                   <div className="yt-row center-vert">
                     <div className="yt-col primary">
                       <strong>
-                      desert sunset
+                        desert sunset
                       </strong>
                     </div>
                     <div className="yt-col primary">
@@ -98,79 +101,79 @@ class StyleGuide extends Base {
                   <div className="yt-row center-vert">
                     <div className="yt-col light-gray-1">
                       <strong>
-                      Light Gray 1
+                        Light Gray 1
                       </strong>
                     </div>
                     <div className="yt-col light-gray-1">
-                    #f7f7f7
+                      #f7f7f7
                     </div>
                     <div className="yt-col _50">
-                    Background, Input
+                      Background, Input
                     </div>
                   </div>
                   <div className="yt-row center-vert">
                     <div className="yt-col light-gray-2">
                       <strong>
-                      Light Gray 2
+                        Light Gray 2
                       </strong>
                     </div>
                     <div className="yt-col light-gray-2">
-                    #E5E5E5
+                      #E5E5E5
                     </div>
                     <div className="yt-col _50">
-                    Lines, Workspace background
+                      Lines, Workspace background
                     </div>
                   </div>
                   <div className="yt-row center-vert">
                     <div className="yt-col gray-1">
                       <strong>
-                      Gray 1
+                        Gray 1
                       </strong>
                     </div>
                     <div className="yt-col gray-1">
-                    #A1AAB2
+                      #A1AAB2
                     </div>
                     <div className="yt-col _50">
-                    Light Text
+                      Light Text
                     </div>
                   </div>
                   <div className="yt-row center-vert">
                     <div className="yt-col gray-2">
                       <strong>
-                      Gray 2
+                        Gray 2
                       </strong>
                     </div>
                     <div className="yt-col gray-2">
-                    #322B48
+                      #322B48
                     </div>
                     <div className="yt-col _50">
-                    Primary Text, Dark Lines
+                      Primary Text, Dark Lines
                     </div>
                   </div>
                   <div className="yt-row center-vert">
                     <div className="yt-col black">
                       <strong>
-                      Black
+                        Black
                       </strong>
                     </div>
                     <div className="yt-col black">
-                    #1E2126
+                      #1E2126
                     </div>
                     <div className="yt-col _50">
-                    Background, Footer
+                      Background, Footer
                     </div>
                   </div>
                   <div className="yt-row center-vert">
                     <div className="yt-col green">
                       <strong>
-                      Green
+                        Green
                       </strong>
                     </div>
                     <div className="yt-col success">
-                    #37CCA5
+                      #37CCA5
                     </div>
                     <div className="yt-col _50">
-                    Buttons
+                      Buttons
                     </div>
                   </div>
                 </div>
@@ -260,7 +263,7 @@ class StyleGuide extends Base {
             </div>
           </div>
         </section>
-      </div>
+      </AdminLayout>
     )
   }
 }

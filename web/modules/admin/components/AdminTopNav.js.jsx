@@ -57,12 +57,10 @@ class AdminTopNav extends Base {
     let { loggedInUser } = this.props;
     let { profileOpen } = this.state;
 
-
     let pictureUrl = '/img/defaults/profile.png';
     if(loggedInUser && loggedInUser.profilePicUrl) {
       pictureUrl = loggedInUser.profilePicUrl;
     }
-    // console.log(pictureUrl);
 
     let profileImg = {backgroundImage: `url(${pictureUrl})`};
 
@@ -84,31 +82,29 @@ class AdminTopNav extends Base {
                   <NavLink to="/admin" exact={true}>Admin Dashboard</NavLink>
                 </li>
                 <li>
-                  <NavLink to="/admin/api-docs" >StyleGuide</NavLink>
+                  <NavLink to="/admin/style-guide" >Style Guide</NavLink>
                 </li>
-
                 <li className="dropdown">
-                  <span className="action-link" onClick={this._openMore}>Modules <i className="-more-icon fas fa-caret-down"/></span>
+                  <span className="action-link" onClick={this._openMore}>Modules   <i className="-more-icon fas fa-caret-down"/></span>
                   <AdminModulesDropdown
                     close={this._closeDropdowns}
                     isOpen={this.state.moreOpen}
                   />
                 </li>
-
               </ul>
               <ul className="navigation">
                 { loggedInUser.username ?
-                    <li className="dropdown">
-                      <span className="action-link" onClick={this._openProfile}>
-                        <div className="-profile-pic" style={profileImg} />
-                      </span>
-                      <ProfileDropdown
-                        close={this._closeDropdowns}
-                        isOpen={this.state.profileOpen}
-                      />
-                    </li>
+                  <li className="dropdown">
+                    <span className="action-link" onClick={this._openProfile}>
+                      <div className="-profile-pic" style={profileImg} />
+                    </span>
+                    <ProfileDropdown
+                      close={this._closeDropdowns}
+                      isOpen={this.state.profileOpen}
+                    />
+                  </li>
                   :
-                    null
+                  null
                 }
               </ul>
             </div>
