@@ -63,13 +63,11 @@ class CreateProduct extends Base {
   _handleFormSubmit(e) {
     const { dispatch, history } = this.props;
     e.preventDefault();
-    dispatch(productActions.sendCreateProduct(this.state.product)).then((action) => {
-      if(action.success) {
+    dispatch(productActions.sendCreateProduct(this.state.product)).then(productRes => {
+      if(productRes.success) {
         dispatch(productActions.invalidateList());
-        history.push(`/products/${action.item._id}`)
+        history.push(`/products/${productRes.item._id}`)
       } else {
-        // console.log("Response Error:");
-        // console.log(action);
         alert("ERROR - Check logs");
       }
     });

@@ -46,7 +46,7 @@ class UpdateProduct extends Base {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { selectedProduct, productMap } = nextProps;
+    const { match, productStore } = nextProps;
     this.setState({
       product: productStore.byId[match.params.productId] ? _.cloneDeep(productStore.byId[match.params.productId]) : {}
       // NOTE: ^ we don't want to actually change the store's product, just use a copy
