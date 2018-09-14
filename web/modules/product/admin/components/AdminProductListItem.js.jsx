@@ -14,9 +14,9 @@ const AdminProductListItem = ({
 }) => {
   return (
     <tr >
-      <td className="_40"><Link to={`/admin/products/${product._id}`}>{product.title}</Link></td>
-      <td className="_20">{DateTime.fromISO(product.updated).toLocaleString(DateTime.DATE_SHORT)}</td>
-      <td className="-right"><Link to={`/admin/products/${product._id}`}>View</Link> <Link to={`/admin/products/${product._id}/update`}>Update</Link></td>
+      <td><Link to={`/admin/products/${product._id}`}>{product.title}</Link></td>
+      <td>{DateTime.fromISO(product.updated).toLocaleString(DateTime.DATE_SHORT)}</td>
+      <td className="u-textRight"><Link to={`/admin/products/${product._id}/update`}>Update</Link></td>
     </tr>
   )
 }

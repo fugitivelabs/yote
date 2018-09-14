@@ -25,7 +25,7 @@ import AdminProductList from './views/AdminProductList.js.jsx';
 import AdminSingleProduct from './views/AdminSingleProduct.js.jsx';
 import AdminUpdateProduct from './views/AdminUpdateProduct.js.jsx';
 
-class ProductRouter extends Base {
+class ProductAdminRouter extends Base {
   constructor(props) {
     super(props);
   }
@@ -35,28 +35,28 @@ class ProductRouter extends Base {
     return (
       <Switch>
         <YTRoute
-          breadcrumbs={[{display: 'All products', path: null }]}
+          breadcrumbs={[{display: 'Dashboard', path: '/admin'}, {display: 'All products', path: null }]}
           component={AdminProductList}
           exact
           path="/admin/products"
           role="admin"
         />
         <YTRoute
-          breadcrumbs={[{display: 'All products', path: '/admin/products'}, {display: 'New ', path: null}]}
+          breadcrumbs={[{display: 'Dashboard', path: '/admin'}, {display: 'All products', path: '/admin/products'}, {display: 'New ', path: null}]}
           component={AdminCreateProduct}
           exact
           path="/admin/products/new"
           role="admin"
         />
         <YTRoute
-          breadcrumbs={[{display: 'All products', path: '/admin/products'}, {display: 'Product details', path: null}]}
+          breadcrumbs={[{display: 'Dashboard', path: '/admin'}, {display: 'All products', path: '/admin/products'}, {display: 'Product details', path: null}]}
           component={AdminSingleProduct}
           exact
           path="/admin/products/:productId"
           role="admin"
         />
         <YTRoute
-          breadcrumbs={[{display: 'All products', path: '/admin/products'}, {display: 'Product Details', path: singleProductPath}, {display: 'Update', path: null}]}
+          breadcrumbs={[{display: 'Dashboard', path: '/admin'}, {display: 'All products', path: '/admin/products'}, {display: 'Product Details', path: singleProductPath}, {display: 'Update', path: null}]}
           component={AdminUpdateProduct}
           exact
           path="/admin/products/:productId/update"
@@ -67,4 +67,4 @@ class ProductRouter extends Base {
   }
 }
 
-export default ProductRouter;
+export default ProductAdminRouter;
