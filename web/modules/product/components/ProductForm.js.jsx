@@ -30,14 +30,14 @@ const ProductForm = ({
       <form name="productForm" className="product-form" onSubmit={handleFormSubmit}>
         {header}
         <TextInput
-          name="title"
+          name="product.title"
           label="Title"
           value={product.title}
           change={handleFormChange}
           required={true}
         />
         <TextAreaInput
-          name="description"
+          name="product.description"
           label="Description"
           value={product.description}
           change={handleFormChange}

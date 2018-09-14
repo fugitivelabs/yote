@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 // import form components
-import { TextInput, TextAreaInput } from '../../../../global/forms';
+import { SelectFromArray, TextInput, TextAreaInput } from '../../../../global/forms';
 
 const AdminProductForm = ({
   cancelLink
@@ -32,7 +32,7 @@ const AdminProductForm = ({
           <form name="productForm" className="product-form" onSubmit={handleFormSubmit}>
             {header}
             <TextInput
-              name="title"
+              name="product.title"
               label="Title"
               value={product.title}
               change={handleFormChange}
@@ -40,7 +40,7 @@ const AdminProductForm = ({
               required={true}
             />
             <TextAreaInput
-              name="description"
+              name="product.description"
               label="Description"
               value={product.description}
               change={handleFormChange}
