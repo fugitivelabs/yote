@@ -72,6 +72,13 @@ class ProductList extends Base {
      * resource list.
      */
     const isEmpty = !productListItems || !productList;
+
+    const isFetching = (
+      !productListItems
+      || !productList
+      || productList.isFetching
+    )
+
     return (
       <ProductLayout>
         <Breadcrumbs links={location.state.breadcrumbs} />
@@ -79,9 +86,9 @@ class ProductList extends Base {
         <Link to={'/products/new'}> New Product</Link>
         <hr/>
         { isEmpty ?
-          (productListItems && productList && productList.isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
+          (isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
           :
-          <div style={{ opacity: productList.isFetching ? 0.5 : 1 }}>
+          <div style={{ opacity: isFetching ? 0.5 : 1 }}>
             <ul>
               {productListItems.map((product, i) =>
                 <ProductListItem key={product._id + i} product={product} />

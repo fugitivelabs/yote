@@ -99,7 +99,7 @@ class UpdateProduct extends Base {
       <ProductLayout>
         <Breadcrumbs links={location.state.breadcrumbs} />
         {isEmpty ?
-          (selectedProduct.isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
+          (isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
           :
           <ProductForm
             product={product}

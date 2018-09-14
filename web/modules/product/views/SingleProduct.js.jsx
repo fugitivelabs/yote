@@ -43,15 +43,20 @@ class SingleProduct extends Base {
       !selectedProduct
       || !selectedProduct._id
       || productStore.selected.didInvalidate
-    );
+    )
+
+    const isFetching = (
+      productStore.selected.isFetching
+    )
+
     return (
       <ProductLayout>
         <Breadcrumbs links={location.state.breadcrumbs} />
         <h3> Single Product </h3>
         {isEmpty ?
-          (productStore.selected.isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
+          (isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
           :
-          <div style={{ opacity: productStore.selected.isFetching ? 0.5 : 1 }}>
+          <div style={{ opacity: isFetching ? 0.5 : 1 }}>
             <h1> { selectedProduct.title } </h1>
             <hr/>
             <p> {selectedProduct.description }</p>
