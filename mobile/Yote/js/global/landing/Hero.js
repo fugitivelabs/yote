@@ -2,6 +2,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import appKeys from '../../../app.json'; 
+
 // import react-native components
 import {
   View
@@ -76,9 +78,9 @@ class Hero extends Binder {
   render(){
     return (
       <View style={{flex: 1}}>
-          <Text style={{fontSize: 30, textAlign: 'center', color: '#fff', padding: 10, fontWeight: '600', fontFamily: 'AvenirNextCondensed-DemiBold'}}>Yote </Text> 
+          <Text style={{fontSize: 30, textAlign: 'center', color: '#fff', padding: 10, fontWeight: '600', fontFamily: 'AvenirNextCondensed-DemiBold'}}>{appKeys.displayName}</Text> 
           <TheCoolThing />
-          <Text style={{fontSize: 18, textAlign: 'center', color: '#fff', padding: 10, fontWeight: 'normal', fontFamily: 'AvenirNextCondensed-DemiBold'}}>Yote is the best super-stack solution out there for any data driven application.</Text>
+          <Text style={{fontSize: 18, textAlign: 'center', color: '#fff', padding: 10, fontWeight: 'normal', fontFamily: 'AvenirNextCondensed-DemiBold'}}>Powered by Yote</Text>
       </View>
     )
   }

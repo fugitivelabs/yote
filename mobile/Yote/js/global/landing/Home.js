@@ -3,6 +3,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import appKeys from '../../../app.json'; 
+
 // import react-native components & apis
 import {
   Dimensions
@@ -143,10 +145,12 @@ class Home extends Binder {
 
     const {  itemList, navigator, user } = this.props;
 
+    console.log(appKeys); 
+
     return (
       <View style={styles.container}>
         <YTHeader
-          title="Yote"
+          title={appKeys.displayName}
         />
         <ScrollView
           automaticallyAdjustContentInsets={false}

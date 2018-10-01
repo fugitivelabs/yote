@@ -16,11 +16,7 @@ let productionEnv = {
   url: "http://yote.f-labs.co"
 }
 
-let erikLocal = {
-  url: "http://10.254.133.106:3030"
-}
-
-let austinLocal = {
+let devLocal = {
   url: "http://10.254.102.111:3030"
 }
 
@@ -28,14 +24,8 @@ let stagingEnv = {
   url: "http://yote.f-labs.co"
 }
 
-let mazenLocal = {
-  url: "http://10.254.102.101:3030"
-}
-
 let env = simulator;
-// let env = erikLocal;
-// let env = austinLocal;
-// let env = mazenLocal;
+// let env = devLocal;
 // let env = stagingEnv;
 // let env = productionEnv;
 
