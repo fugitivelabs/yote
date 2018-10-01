@@ -10,10 +10,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // import componets
-import Base from "../BaseComponent.js.jsx";
+import Binder from '../Binder.js.jsx';
 import TextInput from './TextInput.js.jsx';
 
-class SimpleArrayEditor extends Base {
+class SimpleArrayEditor extends Binder {
   constructor(props) {
     super(props);
     this.state = {

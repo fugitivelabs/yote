@@ -16,7 +16,7 @@
  *
  * We write:
  *
- * class MyComponent extends Base {
+ * class MyComponent extends Binder {
  *   constructor(props) {
  *     super(props);
  *     this._bind('_openThing', '_closeThing'); // auto-bind these methods

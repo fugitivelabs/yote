@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 import Binder from '../../../global/Binder.js.jsx';
 import DefaultLayout from '../../../global/layouts/DefaultLayout.js.jsx';
 
-class UserProfileLayout extends Base {
+class UserProfileLayout extends Binder {
   constructor(props) {
     super(props);
   }

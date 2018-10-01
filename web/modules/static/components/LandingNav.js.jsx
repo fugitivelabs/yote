@@ -19,7 +19,7 @@ import ProfileDropdown from '../../../global/navigation/ProfileDropdown.js.jsx';
 // import css modules
 import landingStyles from '../landingStyles.css';
 
-class LandingNav extends Base {
+class LandingNav extends Binder {
   constructor(props) {
     super(props);
     this.state = {

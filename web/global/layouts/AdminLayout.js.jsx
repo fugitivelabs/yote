@@ -12,10 +12,10 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 
 // import components
-import Base from '../BaseComponent.js.jsx';
+import Binder from '../Binder.js.jsx';
 import AdminTopNav from '../navigation/AdminTopNav.js.jsx';
 
-export default class AdminLayout extends Base {
+export default class AdminLayout extends Binder {
   constructor(props) {
     super(props);
   }

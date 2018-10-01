@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 // import global components
 import Binder from '../../../global/Binder.js.jsx';
 
-class UserLayout extends Base {
+class UserLayout extends Binder {
   constructor(props) {
     super(props);
   }

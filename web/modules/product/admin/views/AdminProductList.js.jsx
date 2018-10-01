@@ -36,7 +36,7 @@ import Breadcrumbs from '../../../../global/navigation/Breadcrumbs.js.jsx';
 import AdminProductLayout from '../components/AdminProductLayout.js.jsx';
 import AdminProductListItem from '../components/AdminProductListItem.js.jsx';
 
-class ProductList extends Base {
+class ProductList extends Binder {
   constructor(props) {
     super(props);
   }

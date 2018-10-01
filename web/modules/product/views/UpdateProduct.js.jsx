@@ -25,7 +25,7 @@ import Breadcrumbs from '../../../global/navigation/Breadcrumbs.js.jsx';
 import ProductLayout from '../components/ProductLayout.js.jsx';
 import ProductForm from '../components/ProductForm.js.jsx';
 
-class UpdateProduct extends Base {
+class UpdateProduct extends Binder {
   constructor(props) {
     super(props);
     const { match, productStore } = this.props;

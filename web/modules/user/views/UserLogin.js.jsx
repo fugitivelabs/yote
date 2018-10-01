@@ -26,7 +26,7 @@ import Binder from '../../../global/Binder.js.jsx';
 import UserLayout from '../components/UserLayout.js.jsx';
 import UserLoginForm from '../components/UserLoginForm.js.jsx';
 
-class UserLogin extends Base {
+class UserLogin extends Binder {
   constructor(props) {
     super(props);
     this.state = {

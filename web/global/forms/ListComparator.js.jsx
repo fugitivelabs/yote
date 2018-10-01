@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Base from "../BaseComponent.js.jsx";
+import Binder from '../Binder.js.jsx';
 
 // import third-party libraries
 import _ from 'lodash';
@@ -8,7 +8,7 @@ import _ from 'lodash';
 // import form components
 import TextInput from './TextInput.js.jsx';
 
-class ListComparator extends Base {
+class ListComparator extends Binder {
   constructor(props) {
     super(props);
     this.state = {

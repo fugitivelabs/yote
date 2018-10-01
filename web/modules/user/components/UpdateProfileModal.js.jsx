@@ -21,7 +21,7 @@ import Modal from '../../../global/modals/Modal.js.jsx';
 // import module components
 import UserProfileForm from './UserProfileForm.js.jsx';
 
-class UpdateProfileModal extends Base {
+class UpdateProfileModal extends Binder {
   constructor(props) {
     super(props);
     this.state = {};

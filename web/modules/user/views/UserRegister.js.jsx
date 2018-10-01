@@ -27,7 +27,7 @@ import Binder from '../../../global/Binder.js.jsx';
 import UserLayout from '../components/UserLayout.js.jsx';
 import UserRegisterForm from '../components/UserRegisterForm.js.jsx';
 
-class UserRegister extends Base {
+class UserRegister extends Binder {
   constructor(props) {
     super(props);
     this.state = {

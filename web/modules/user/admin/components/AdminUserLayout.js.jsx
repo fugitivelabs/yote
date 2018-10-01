@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 import Binder from '../../../../global/Binder.js.jsx';
 import AdminLayout from '../../../admin/components/AdminLayout.js.jsx';
 
-class AdminUserLayout extends Base {
+class AdminUserLayout extends Binder {
   constructor(props) {
     super(props);
   }

@@ -18,7 +18,7 @@ import AdminLayout from '../components/AdminLayout.js.jsx';
 
 import { ADMIN_NAV_ITEMS } from '../adminNavItems.js';
 
-class AdminDashboard extends Base {
+class AdminDashboard extends Binder {
   constructor(props) {
     super(props);
   }

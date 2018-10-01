@@ -20,7 +20,7 @@ import ProfileDropdown from '../../../global/navigation/ProfileDropdown.js.jsx';
 import AdminModulesDropdown from './AdminModulesDropdown.js.jsx';
 
 
-class AdminTopNav extends Base {
+class AdminTopNav extends Binder {
   constructor(props, context) {
     super(props);
     this.state = {

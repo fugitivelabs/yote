@@ -16,7 +16,7 @@ import AdminCreateUser from './views/AdminCreateUser.js.jsx';
 import AdminUpdateUser from './views/AdminUpdateUser.js.jsx';
 import AdminUserList from './views/AdminUserList.js.jsx';
 
-class UserAdminRouter extends Base {
+class UserAdminRouter extends Binder {
   constructor(props) {
     super(props);
   }

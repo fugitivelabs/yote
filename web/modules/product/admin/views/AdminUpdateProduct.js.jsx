@@ -25,7 +25,7 @@ import Breadcrumbs from '../../../../global/navigation/Breadcrumbs.js.jsx';
 import AdminProductLayout from '../components/AdminProductLayout.js.jsx';
 import AdminProductForm from '../components/AdminProductForm.js.jsx';
 
-class AdminUpdateProduct extends Base {
+class AdminUpdateProduct extends Binder {
   constructor(props) {
     super(props);
     const { match, productStore } = this.props;

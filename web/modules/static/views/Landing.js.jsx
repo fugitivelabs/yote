@@ -17,7 +17,7 @@ import DefaultTopNav from '../../../global/navigation/DefaultTopNav.js.jsx'
 import LandingHero from '../components/LandingHero.js.jsx';
 import LandingNav from '../components/LandingNav.js.jsx';
 
-class Landing extends Base {
+class Landing extends Binder {
   constructor(props, context) {
     super(props);
     this.state = this.props;

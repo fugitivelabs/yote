@@ -9,9 +9,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // import components
-import Base from "../BaseComponent.js.jsx";
+import Binder from '../Binder.js.jsx';
 
-class NumberInput extends Base {
+class NumberInput extends Binder {
   constructor(props) {
     super(props);
     this.state = {

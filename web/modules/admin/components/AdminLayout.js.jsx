@@ -14,7 +14,7 @@ import Binder from '../../../global/Binder.js.jsx';
 // import admin components
 import AdminTopNav from './AdminTopNav.js.jsx';
 
-export default class AdminLayout extends Base {
+export default class AdminLayout extends Binder {
   constructor(props) {
     super(props);
   }

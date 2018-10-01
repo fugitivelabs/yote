@@ -9,7 +9,7 @@ import moment from 'moment';
 // import global components
 import Binder from '../../../../global/Binder.js.jsx';
 
-class AdminUserListItem extends Base {
+class AdminUserListItem extends Binder {
   constructor(props) {
     super(props);
   }

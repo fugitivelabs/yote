@@ -20,7 +20,7 @@ import Binder from '../../../../global/Binder.js.jsx';
 // import user components
 import AdminUserForm from '../components/AdminUserForm.js.jsx';
 
-class AdminUpdateUser extends Base {
+class AdminUpdateUser extends Binder {
   constructor(props) {
     super(props);
     this.state = {

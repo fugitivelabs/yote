@@ -25,7 +25,7 @@ import Binder from '../../../global/Binder.js.jsx';
 import UserProfileLayout from '../components/UserProfileLayout.js.jsx';
 import UpdateProfileModal from '../components/UpdateProfileModal.js.jsx';
 
-class UserProfile extends Base {
+class UserProfile extends Binder {
   constructor(props) {
     super(props);
     this.state = {

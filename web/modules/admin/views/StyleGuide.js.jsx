@@ -16,7 +16,7 @@ import Binder from '../../../global/Binder.js.jsx';
 // import module components
 import AdminLayout from '../components/AdminLayout.js.jsx';
 
-class StyleGuide extends Base {
+class StyleGuide extends Binder {
   constructor(props) {
     super(props);
   }

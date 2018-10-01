@@ -25,7 +25,7 @@ import filterUtils from '../../../../utils/filterUtils';
 import AdminUserLayout from '../components/AdminUserLayout.js.jsx';
 import AdminUserListItem from '../components/AdminUserListItem.js.jsx';
 
-class AdminUserList extends Base {
+class AdminUserList extends Binder {
   constructor(props) {
     super(props);
     this.state = {

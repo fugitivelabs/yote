@@ -25,7 +25,7 @@ import { NewPasswordInput } from '../../../global/forms';
 // import user components
 import UserLayout from '../components/UserLayout.js.jsx';
 
-class ResetPassword extends Base {
+class ResetPassword extends Binder {
   constructor(props) {
     super(props);
     this.state = {

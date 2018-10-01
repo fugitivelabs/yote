@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 import Binder from '../../../global/Binder.js.jsx';
 import DefaultLayout from '../../../global/layouts/DefaultLayout.js.jsx';
 
-class ProductLayout extends Base {
+class ProductLayout extends Binder {
   constructor(props) {
     super(props);
   }

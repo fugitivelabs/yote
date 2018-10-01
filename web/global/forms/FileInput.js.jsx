@@ -13,9 +13,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // import components
-import Base from "../BaseComponent.js.jsx";
+import Binder from '../Binder.js.jsx';
 
-class FileInput extends Base {
+class FileInput extends Binder {
   constructor(props) {
     super(props);
     this.state = {

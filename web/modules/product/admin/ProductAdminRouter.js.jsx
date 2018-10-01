@@ -25,7 +25,7 @@ import AdminProductList from './views/AdminProductList.js.jsx';
 import AdminSingleProduct from './views/AdminSingleProduct.js.jsx';
 import AdminUpdateProduct from './views/AdminUpdateProduct.js.jsx';
 
-class ProductAdminRouter extends Base {
+class ProductAdminRouter extends Binder {
   constructor(props) {
     super(props);
   }

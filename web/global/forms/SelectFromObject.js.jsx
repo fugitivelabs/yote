@@ -31,9 +31,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // import components
-import Base from "../BaseComponent.js.jsx";
+import Binder from '../Binder.js.jsx';
 
-class SelectFromObject extends Base{
+class SelectFromObject extends Binder {
   constructor(props, context) {
     super(props);
     this.state = {

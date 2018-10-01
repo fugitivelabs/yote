@@ -21,7 +21,7 @@ import Breadcrumbs from '../../../../global/navigation/Breadcrumbs.js.jsx';
 // import product components
 import AdminProductLayout from '../components/AdminProductLayout.js.jsx';
 
-class AdminSingleProduct extends Base {
+class AdminSingleProduct extends Binder {
   constructor(props) {
     super(props);
   }

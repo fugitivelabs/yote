@@ -23,7 +23,7 @@ import { EmailInput } from '../../../global/forms';
 // import user components
 import UserLayout from '../components/UserLayout.js.jsx';
 
-class ForgotPassword extends Base {
+class ForgotPassword extends Binder {
   constructor(props) {
     super(props);
     this.state = {

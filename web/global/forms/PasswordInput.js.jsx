@@ -11,9 +11,9 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 // import components
-import Base from "../BaseComponent.js.jsx";
+import Binder from '../Binder.js.jsx';
 
-class PasswordInput extends Base {
+class PasswordInput extends Binder {
   constructor(props) {
     super(props);
     this._bind(

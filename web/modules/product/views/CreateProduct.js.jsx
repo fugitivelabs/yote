@@ -24,7 +24,7 @@ import Breadcrumbs from '../../../global/navigation/Breadcrumbs.js.jsx';
 import ProductForm from '../components/ProductForm.js.jsx';
 import ProductLayout from '../components/ProductLayout.js.jsx';
 
-class CreateProduct extends Base {
+class CreateProduct extends Binder {
   constructor(props) {
     super(props);
     this.state = {
