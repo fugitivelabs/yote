@@ -16,7 +16,7 @@ import React from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 
 // import global components
-import Base from '../../../global/BaseComponent.js.jsx';
+import Binder from '../../../global/Binder.js.jsx';
 import YTRoute from '../../../global/routing/YTRoute.js.jsx';
 
 // import product views

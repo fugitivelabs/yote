@@ -11,7 +11,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 // import global components
-import Base from '../../../global/BaseComponent.js.jsx';
+import Binder from '../../../global/Binder.js.jsx';
 
 // import admin components
 import AdminLayout from '../components/AdminLayout.js.jsx';

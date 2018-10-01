@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 
 // import global components
-import Base from '../../../global/BaseComponent.js.jsx';
+import Binder from '../../../global/Binder.js.jsx';
 import CloseWrapper from '../../../global/helpers/CloseWrapper.js.jsx';
 import ProfileDropdown from '../../../global/navigation/ProfileDropdown.js.jsx';
 

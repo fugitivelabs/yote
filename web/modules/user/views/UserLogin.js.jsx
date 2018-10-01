@@ -20,7 +20,7 @@ import * as userActions from '../userActions';
 
 // import form components
 import AlertModal from '../../../global/modals/AlertModal.js.jsx';
-import Base from '../../../global/BaseComponent.js.jsx';
+import Binder from '../../../global/Binder.js.jsx';
 
 // import user components
 import UserLayout from '../components/UserLayout.js.jsx';

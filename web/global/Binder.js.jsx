@@ -30,7 +30,7 @@
 
 import React from 'react';
 
-class BaseComponent extends React.Component {
+class Binder extends React.Component {
 
   // auto-bind all methods passed into this._bind()
   _bind(...methods) {
@@ -42,4 +42,4 @@ class BaseComponent extends React.Component {
   }
 }
 
-export default BaseComponent;
+export default Binder;

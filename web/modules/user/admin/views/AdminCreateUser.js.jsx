@@ -17,7 +17,7 @@ import _ from 'lodash';
 import * as userActions from '../../userActions';
 
 // import global components
-import Base from '../../../../global/BaseComponent.js.jsx';
+import Binder from '../../../../global/Binder.js.jsx';
 
 // import user components
 import AdminUserForm from '../components/AdminUserForm.js.jsx';

@@ -7,7 +7,7 @@ import { Link, withRouter } from 'react-router-dom';
 import moment from 'moment';
 
 // import global components
-import Base from '../../../../global/BaseComponent.js.jsx';
+import Binder from '../../../../global/Binder.js.jsx';
 
 class AdminUserListItem extends Base {
   constructor(props) {

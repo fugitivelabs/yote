@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 // import global components
-import Base from '../../../global/BaseComponent.js.jsx';
+import Binder from '../../../global/Binder.js.jsx';
 import DefaultLayout from '../../../global/layouts/DefaultLayout.js.jsx';
 
 class UserProfileLayout extends Base {

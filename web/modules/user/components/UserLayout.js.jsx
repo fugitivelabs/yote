@@ -8,7 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // import global components
-import Base from '../../../global/BaseComponent.js.jsx';
+import Binder from '../../../global/Binder.js.jsx';
 
 class UserLayout extends Base {
   constructor(props) {

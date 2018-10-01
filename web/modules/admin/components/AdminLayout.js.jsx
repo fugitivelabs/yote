@@ -9,7 +9,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 // import global components
-import Base from '../../../global/BaseComponent.js.jsx';
+import Binder from '../../../global/Binder.js.jsx';
 
 // import admin components
 import AdminTopNav from './AdminTopNav.js.jsx';

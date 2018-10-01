@@ -7,7 +7,7 @@ import _ from 'lodash';
 import { DateTime } from 'luxon';
 
 // import global components
-import Base from '../../../../global/BaseComponent.js.jsx';
+import Binder from '../../../../global/Binder.js.jsx';
 
 const AdminProductListItem = ({
   product

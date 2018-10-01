@@ -14,7 +14,7 @@ import { Link, withRouter } from 'react-router-dom';
 import * as userActions from '../../userActions';
 
 // import global components
-import Base from '../../../../global/BaseComponent.js.jsx';
+import Binder from '../../../../global/Binder.js.jsx';
 import PageTabber from "../../../../global/pagination/PageTabber.js.jsx";
 import { SearchInput } from '../../../../global/forms';
 

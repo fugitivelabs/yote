@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { Route, Redirect, Switch, withRouter } from 'react-router-dom';
 
 // import global components
-import Base from '../../../global/BaseComponent.js.jsx';
+import Binder from '../../../global/Binder.js.jsx';
 import YTRoute from '../../../global/routing/YTRoute.js.jsx';
 
 // import user admin views

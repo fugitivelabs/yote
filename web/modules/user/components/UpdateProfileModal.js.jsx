@@ -15,7 +15,7 @@ import _ from 'lodash';
 import classNames from 'classnames';
 
 // import global coponents
-import Base from '../../../global/BaseComponent.js.jsx';
+import Binder from '../../../global/Binder.js.jsx';
 import Modal from '../../../global/modals/Modal.js.jsx';
 
 // import module components
