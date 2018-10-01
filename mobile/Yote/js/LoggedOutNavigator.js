@@ -16,7 +16,6 @@ import { StackNavigator, TabNavigator } from 'react-navigation';
 
 // import global components
 import Home from './global/components/Home';
-import YTHeader from './global/components/YTHeader';
 
 // import custom components
 // user

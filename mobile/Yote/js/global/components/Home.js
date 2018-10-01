@@ -20,7 +20,7 @@ import {
 import Base from './BaseComponent';
 import Hero from './Hero.js';
 import YTColors from '../styles/YTColors';
-import YTHeader from './YTHeader';
+import YTHeader from '../headers/YTHeader';
 
 const screenHeight = Dimensions.get('window').height
 

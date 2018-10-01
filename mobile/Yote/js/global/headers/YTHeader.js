@@ -16,7 +16,7 @@ import {
 } from 'react-native'; 
 
 // import global components
-import Base from './BaseComponent';
+import Base from '../components/BaseComponent';
 
 // import Styles
 import YTColors from '../styles/YTColors';

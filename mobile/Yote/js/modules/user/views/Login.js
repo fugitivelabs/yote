@@ -32,7 +32,7 @@ import * as singleActions from '../userActions.js';
 
 // import global components
 import Base from '../../../global/components/BaseComponent';
-import YTButton from '../../../global/components/YTButton';
+import YTButton from '../../../global/buttons/YTButton';
 
 // import styles
 import YTColors from '../../../global/styles/YTColors';

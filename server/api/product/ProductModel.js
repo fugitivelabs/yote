@@ -21,6 +21,7 @@ const productSchema = mongoose.Schema({
   , description:            { type: String }
   , featured:               { type: Boolean, default: false }
   , status:                 { type: String, enum: ['published', 'draft', 'archived'], default: 'draft' }
+  , color:                   {type: String}
 });
 
 // product instance methods go here

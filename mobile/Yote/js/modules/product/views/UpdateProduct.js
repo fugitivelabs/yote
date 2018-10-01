@@ -23,8 +23,8 @@ import {
 
 // import global components
 import Base from '../../../global/components/BaseComponent';
-import YTButton from '../../../global/components/YTButton';
-import YTHeader from '../../../global/components/YTHeader';
+import YTButton from '../../../global/buttons/YTButton';
+import YTHeader from '../../../global/headers/YTHeader';
 import YTTouchable from '../../../global/components/YTTouchable';
 
 // import libraries

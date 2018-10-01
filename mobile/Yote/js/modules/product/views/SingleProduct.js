@@ -22,10 +22,10 @@ import {
 } from 'react-native'; 
 
 // import global components
-import ActionButton from '../../../global/components/ActionButton';
+import ActionButton from '../../../global/buttons/ActionButton';
 import Base from '../../../global/components/BaseComponent';
-import YTButton from '../../../global/components/YTButton';
-import YTHeader from '../../../global/components/YTHeader';
+import YTButton from '../../../global/buttons/YTButton';
+import YTHeader from '../../../global/headers/YTHeader';
 import YTTouchable from '../../../global/components/YTTouchable';
 
 // import libraries

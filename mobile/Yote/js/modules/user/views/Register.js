@@ -30,8 +30,8 @@ import _ from 'lodash';
 import * as userActions from '../userActions';
 
 // import custom components
-import YTButton from '../../../global/components/YTButton';
-import YTHeader from '../../../global/components/YTHeader';
+import YTButton from '../../../global/buttons/YTButton';
+import YTHeader from '../../../global/headers/YTHeader';
 
 // import styles
 import YTColors from '../../../global/styles/YTColors';

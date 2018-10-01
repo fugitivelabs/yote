@@ -16,7 +16,7 @@ import {
 
 // import global components
 import Base from '../../../global/components/BaseComponent';
-import YTButton from '../../../global/components/YTButton';
+import YTButton from '../../../global/buttons/YTButton';
 import YTTouchable from '../../../global/components/YTTouchable';
 
 // import libraries
@@ -35,8 +35,8 @@ class ProductListItem extends Base {
     const { product, onPress } = this.props;
 
     var cell =
-              <View style={YTStyles.cell}>
-                <Text style={YTStyles.text}>Product List Item</Text>
+              <View style={{padding: 10}}>
+                <Text style={YTStyles.text}>{product.title}</Text>
               </View>
 
     if(this.props.onPress) {

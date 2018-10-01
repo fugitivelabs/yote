@@ -14,11 +14,9 @@ import {
   , View
 } from 'react-native';
 
-import RNDraftJSRender from 'react-native-draftjs-render'; 
-
 // import global components
 import Base from '../../../global/components/BaseComponent';
-import YTButton from '../../../global/components/YTButton';
+import YTButton from '../../../global/buttons/YTButton';
 import YTTouchable from '../../../global/components/YTTouchable';
 
 // import libraries
@@ -29,7 +27,6 @@ import moment from 'moment';
 
 // import styles
 import YTColors from '../../../global/styles/YTColors';
-import YTRichStyles from '../../../global/styles/YTRichStyles';
 
 class DefaultNewFile extends Base {
   constructor(props){

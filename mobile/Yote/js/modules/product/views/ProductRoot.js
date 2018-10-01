@@ -10,7 +10,8 @@ import { connect } from 'react-redux';
 
 // import react-native components & apis
 import {
-  StyleSheet
+  ActivityIndicator
+  , StyleSheet
   , ScrollView
   , Text
   , TextInput
@@ -20,13 +21,12 @@ import {
 } from 'react-native'; 
 
 // import global components
-import ActionButton from '../../../global/components/ActionButton';
+import ActionButton from '../../../global/buttons/ActionButton';
 import Base from '../../../global/components/BaseComponent';
-import EmptyMessage from '../../../global/components/EmptyMessage';
-import YTButton from '../../../global/components/YTButton';
+import YTButton from '../../../global/buttons/YTButton';
 import YTCard from '../../../global/components/YTCard';
 import YTColors from '../../../global/styles/YTColors';
-import YTHeader from '../../../global/components/YTHeader';
+import YTHeader from '../../../global/headers/YTHeader';
 
 // import module components
 import ProductList from '../components/ProductList';
@@ -35,7 +35,7 @@ import ProductList from '../components/ProductList';
 import * as productActions from '../productActions'
 
 // import styles
-import productStyles from '../productStyles';
+import YTStyles from '../../../global/styles/YTStyles';
 
 class ProductRoot extends Base {
   constructor(props) {
@@ -49,7 +49,7 @@ class ProductRoot extends Base {
   }
 
   componentDidMount() {
-    this.props.dispatch(productActions.fetchListIfNeeded());
+    this.props.dispatch(productActions.fetchList());
   }
 
   _openProfile() {
@@ -72,28 +72,15 @@ class ProductRoot extends Base {
 
   render() {
 
-    const {  products, navigation, user } = this.props;
+    const { productStore, navigation, user } = this.props;
 
-    let productList = products.lists.all ? products.lists.all.items : null;
+    let productList = productStore.util.getList ? productStore.util.getList('all') : null; 
+    console.log(productList); 
 
     const rightItem = {
       onPress: () => this._openNew()
       , icon: require('../../../global/img/plus.png')
       , layout: 'image'
-    }
-
-    if(!products.lists.all || products.lists.all.isFetching) {
-      return (
-        <View style={{flex: 1}}>
-          <YTHeader
-            title="Products"
-            rightItem={rightItem}
-          />
-          <EmptyMessage
-            message="Loading Products..."
-          />
-        </View>
-      )
     }
 
     return (
@@ -102,11 +89,24 @@ class ProductRoot extends Base {
           title="Products"
           rightItem={rightItem}
         />
+
         <View style={{flex: 1}}>
+        { productList && productList.length > 0 ? 
           <ProductList
             products={productList}
             navigation={navigation}
           />
+        : productList && productList.length == 0 ?
+          <View style={{flex: 1, justifyContent: 'center'}}>
+            <Text style={YTStyles.text}>Empty</Text>
+          </View> 
+        : 
+          <View style={{flex: 1, justifyContent: 'center'}}>
+            <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+              <ActivityIndicator/>
+            </View>
+          </View>
+        }
         </View>
 
       </View>
@@ -122,7 +122,7 @@ const mapStoreToProps = (store) => {
 
   return {
     user: store.user
-    , products: store.product
+    , productStore: store.product
   }
 }
 

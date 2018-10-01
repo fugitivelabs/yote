@@ -32,9 +32,9 @@ import LinearGradient from 'react-native-linear-gradient';
 
 // import global components
 import Base from '../../../global/components/BaseComponent';
-import YTButton from '../../../global/components/YTButton';
+import YTButton from '../../../global/buttons/YTButton';
 import YTCard from '../../../global/components/YTCard';
-import YTHeader from '../../../global/components/YTHeader';
+import YTHeader from '../../../global/headers/YTHeader';
 
 // import libraries
 import moment from 'moment';
