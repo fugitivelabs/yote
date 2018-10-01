@@ -23,7 +23,7 @@ import {
 import * as productActions from '../productActions';
 
 // import global components
-import Base from '../../../global/components/BaseComponent';
+import Binder from '../../../global/Binder';
 
 // import module components
 import ProductListItem from './ProductListItem';
@@ -32,7 +32,7 @@ import ProductListItem from './ProductListItem';
 import YTStyles from '../../../global/styles/YTStyles';
 import YTColors from '../../../global/styles/YTColors';
 
-class ProductList extends Base {
+class ProductList extends Binder {
   constructor(props) {
     super(props);
     this.state = {

@@ -17,7 +17,7 @@ import {
 } from 'react-native'; 
 
 // import global components
-import Base from './BaseComponent';
+import Binder from '../Binder';
 import Hero from './Hero.js';
 import YTColors from '../styles/YTColors';
 import YTHeader from '../headers/YTHeader';
@@ -110,7 +110,7 @@ var styles = StyleSheet.create({
 });
 
 
-class Home extends Base {
+class Home extends Binder {
   constructor(props) {
     super(props);
     this._bind(

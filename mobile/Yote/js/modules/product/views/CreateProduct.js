@@ -23,7 +23,7 @@ import {
 } from 'react-native'; 
 
 // import global components
-import Base from '../../../global/components/BaseComponent';
+import Binder from '../../../global/Binder';
 import YTButton from '../../../global/buttons/YTButton';
 import YTHeader from '../../../global/headers/YTHeader';
 
@@ -38,7 +38,7 @@ import * as productActions from '../productActions'
 import productStyles from '../productStyles';
 import YTColors from '../../../global/styles/YTColors';
 
-class CreateProduct extends Base {
+class CreateProduct extends Binder {
   constructor(props) {
     super(props);
     this.state = {

@@ -21,23 +21,29 @@ const YTStyles = StyleSheet.flatten({
       backgroundColor: '#fff'
       , flex: 1
   }
-  , h: {
+  , darkText: {
       color: YTColors.darkText
+      , fontFamily: FONT
+      , fontSize: 18
+      , fontWeight: 'normal'
+    }
+  , h1: {
+      color: YTColors.darkText
+      , fontFamily: FONT
       , fontSize: 30
       , fontWeight: '600'
-      , fontFamily: FONT
     }
   , h2: {
       color: YTColors.darkText
+      , fontFamily: FONT
       , fontSize: 25
       , fontWeight: '600'
-      , fontFamily: FONT
   }
   , h3: {
       color: YTColors.darkText
+      , fontFamily: FONT
       , fontSize: 20
       , fontWeight: '600'
-      , fontFamily: FONT
   }
   , icon: {
       height: 20
@@ -45,11 +51,25 @@ const YTStyles = StyleSheet.flatten({
   }
   , input: {
       minHeight: 40
-      , fontSize: 15
+      , fontFamily: FONT
+      , fontSize: 18
+      , fontWeight: 'normal'
       , padding: 4
       , flex: 1
       , backgroundColor: '#fff'
     }
+  , inputContainer: {
+    // padding: 10,
+    borderWidth: Platform.OS == 'ios' ? 1 : 0
+    , borderBottomColor: '#CCC'
+    , borderColor: 'transparent'
+    , marginTop: 14
+  }
+  , label: {
+      fontSize: 12
+      , color: YTColors.lightText
+      , marginBottom: 4
+  }
   , separator: {
       borderTopWidth: 1
       , borderColor: YTColors.listSeparator
@@ -60,17 +80,11 @@ const YTStyles = StyleSheet.flatten({
       , shadowOpacity: 0.2
       , shadowRadius: 4
   }
-  , subHeader: {
-      color: YTColors.lightText
-      , fontSize: 18
-      , fontWeight: '600'
-      , padding: 5
-    }
   , text: {
       color: YTColors.lightText
+      , fontFamily: FONT
       , fontSize: 18
       , fontWeight: 'normal'
-      , fontFamily: FONT
     }
   , userImg: {
       borderRadius: 50 * .5

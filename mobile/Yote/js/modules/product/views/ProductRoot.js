@@ -22,9 +22,8 @@ import {
 
 // import global components
 import ActionButton from '../../../global/buttons/ActionButton';
-import Base from '../../../global/components/BaseComponent';
+import Binder from '../../../global/Binder';
 import YTButton from '../../../global/buttons/YTButton';
-import YTCard from '../../../global/components/YTCard';
 import YTColors from '../../../global/styles/YTColors';
 import YTHeader from '../../../global/headers/YTHeader';
 
@@ -37,7 +36,7 @@ import * as productActions from '../productActions'
 // import styles
 import YTStyles from '../../../global/styles/YTStyles';
 
-class ProductRoot extends Base {
+class ProductRoot extends Binder {
   constructor(props) {
     super(props);
     this._bind(

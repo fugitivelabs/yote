@@ -22,10 +22,9 @@ import {
 } from 'react-native';
 
 // import global components
-import Base from '../../../global/components/BaseComponent';
+import Binder from '../../../global/Binder';
 import YTButton from '../../../global/buttons/YTButton';
 import YTHeader from '../../../global/headers/YTHeader';
-import YTTouchable from '../../../global/components/YTTouchable';
 
 // import libraries
 import moment from 'moment';
@@ -38,7 +37,7 @@ import * as productActions from '../productActions'
 import YTStyles from '../../../global/styles/YTStyles';
 import YTColors from '../../../global/styles/YTColors';
 
-class UpdateProduct extends Base {
+class UpdateProduct extends Binder {
   constructor(props) {
     super(props);
     const { selectedProduct, productMap } = this.props;

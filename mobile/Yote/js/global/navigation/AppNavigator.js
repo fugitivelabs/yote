@@ -15,19 +15,19 @@ import {
 import { StackNavigator, TabNavigator } from 'react-navigation';
 
 // import global components
-import Home from './global/components/Home';
-import TabBarComponent from './global/components/TabBarComponent';
+import Home from '../landing/Home';
+import TabBarComponent from './TabBarComponent';
 
 // import module navigator components
-import ProductNavigator from './modules/product/ProductNavigator';
-import UserNavigator from './modules/user/UserNavigator'; 
+import ProductNavigator from '../../modules/product/ProductNavigator';
+import UserNavigator from '../../modules/user/UserNavigator'; 
 
 // import specific module screens
-import Profile from './modules/user/views/Profile'; 
-import UpdateProfile from './modules/user/views/UpdateProfile'; 
+import Profile from '../../modules/user/views/Profile'; 
+import UpdateProfile from '../../modules/user/views/UpdateProfile'; 
 
 // import styles
-import YTColors from './global/styles/YTColors';
+import YTColors from '../styles/YTColors';
 
 /** Navigator Notes **
   *
@@ -55,7 +55,7 @@ const TabsNavigator = TabNavigator(
       , navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <Image
-            source={require('./global/img/house.png')}
+            source={require('../img/house.png')}
             style={{height: 30, width: 30, tintColor: tintColor}}
           />
         )
@@ -66,7 +66,7 @@ const TabsNavigator = TabNavigator(
       , navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <Image
-            source={require('./global/img/shoppingBag.png')}
+            source={require('../img/shoppingBag.png')}
             style={{height: 30, width: 30, tintColor: tintColor}}
           />
         )
@@ -77,7 +77,7 @@ const TabsNavigator = TabNavigator(
       , navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <Image
-            source={require('./global/img/user.png')}
+            source={require('../img/user.png')}
             style={{height: 30, width: 30, tintColor: tintColor}}
           />
         )
@@ -93,7 +93,7 @@ const TabsNavigator = TabNavigator(
       }
     }
     , tabBarPosition: 'bottom'
-    , tabBarComponent: TabBarComponent
+    // , tabBarComponent: TabBarComponent // this might have been for android keyboard issues
   }
 );
 

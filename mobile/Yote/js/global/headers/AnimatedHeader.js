@@ -17,7 +17,7 @@ import {
 
 // import global components
 import Base from './BaseComponent';
-import ProgressiveImage from './ProgressiveImage';
+import ProgressiveImage from '../img/components/ProgressiveImage';
 
 // import Styles
 import YTColors from '../styles/YTColors';

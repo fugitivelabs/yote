@@ -9,14 +9,14 @@ import {
 } from 'react-native'; 
 
 // import global components
-import Base from './BaseComponent';
+import Binder from '../Binder';
 import YTColors from '../styles/YTColors'; 
 
 /**
  * build a temporary component for each "cool thing"
  */
 
-class TheCoolThing extends Base {
+class TheCoolThing extends Binder {
   constructor(props){
     super(props);
     this.state = {
@@ -68,7 +68,7 @@ class TheCoolThing extends Base {
 /**
  * build and export the landing page Hero banner
  */
-class Hero extends Base {
+class Hero extends Binder {
   constructor(props){
     super(props);
   }

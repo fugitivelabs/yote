@@ -4,7 +4,7 @@
 
 // import primary libraries
 import React, { Component } from 'react';
-import Base from './global/components/BaseComponent';
+import Binder from './global/Binder';
 import { connect } from 'react-redux';
 
 // react-native 
@@ -19,10 +19,10 @@ import {
 } from 'react-native'; 
 
 // custom components
-import AppNavigator from './AppNavigator'; 
-import LoggedOutNavigator from './LoggedOutNavigator'; 
+import AppNavigator from './global/navigation/AppNavigator'; 
+import LoggedOutNavigator from './global/navigation/LoggedOutNavigator'; 
 
-class App extends Base {
+class App extends Binder {
   constructor(props) {
     super(props);
     this._bind(

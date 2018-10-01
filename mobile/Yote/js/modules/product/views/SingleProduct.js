@@ -23,10 +23,9 @@ import {
 
 // import global components
 import ActionButton from '../../../global/buttons/ActionButton';
-import Base from '../../../global/components/BaseComponent';
+import Binder from '../../../global/Binder';
 import YTButton from '../../../global/buttons/YTButton';
 import YTHeader from '../../../global/headers/YTHeader';
-import YTTouchable from '../../../global/components/YTTouchable';
 
 // import libraries
 import moment from 'moment';
@@ -39,7 +38,7 @@ import * as productActions from '../productActions';
 import YTStyles from '../../../global/styles/YTStyles';
 import YTColors from '../../../global/styles/YTColors';
 
-class SingleProduct extends Base {
+class SingleProduct extends Binder {
   constructor(props){
     super(props);
     this._bind(
@@ -80,7 +79,7 @@ class SingleProduct extends Base {
         />
         <ScrollView>
           <View style={{padding: 10}}>
-            <Text style={YTStyles.h}>{product.title}</Text>
+            <Text style={YTStyles.h1}>{product.title}</Text>
           </View>
           <View style={{paddingHorizontal: 10}}>
             <Text style={YTStyles.text}>{product.description}</Text>

@@ -11,13 +11,13 @@ import {
   , Platform
   , StyleSheet
   , Text
+  , TouchableHighlight
   , View
 } from 'react-native'; 
 
 // import global components
-import Base from '../../../global/components/BaseComponent';
+import Binder from '../../../global/Binder';
 import YTButton from '../../../global/buttons/YTButton';
-import YTTouchable from '../../../global/components/YTTouchable';
 
 // import libraries
 import moment from 'moment';
@@ -26,7 +26,7 @@ import moment from 'moment';
 import YTStyles from '../../../global/styles/YTStyles';
 import YTColors from '../../../global/styles/YTColors';
 
-class ProductListItem extends Base {
+class ProductListItem extends Binder {
   constructor(props){
     super(props);
   }
@@ -41,9 +41,9 @@ class ProductListItem extends Base {
 
     if(this.props.onPress) {
       cell =
-        <YTTouchable onPress={this.props.onPress}>
+        <TouchableHighlight underlayColor={YTColors.underlayColor} onPress={this.props.onPress}>
           {cell}
-        </YTTouchable>
+        </TouchableHighlight>
     }
     return cell;
   }

@@ -1,6 +1,6 @@
 import React from 'react';
 
-class BaseComponent extends React.Component {
+class Binder extends React.Component {
 
   //source: http://www.newmediacampaigns.com/blog/refactoring-react-components-to-es6-classes
   //todo: add more functionality to this base component
@@ -14,4 +14,4 @@ class BaseComponent extends React.Component {
   }
 }
 
-export default BaseComponent;
+export default Binder;

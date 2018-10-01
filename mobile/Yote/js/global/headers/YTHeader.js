@@ -16,7 +16,7 @@ import {
 } from 'react-native'; 
 
 // import global components
-import Base from '../components/BaseComponent';
+import Binder from '../Binder';
 
 // import Styles
 import YTColors from '../styles/YTColors';
@@ -122,7 +122,7 @@ class ItemWrapperIOS extends React.Component {
   }
 }
 
-class YTHeader extends Base {
+class YTHeader extends Binder {
   constructor(props) {
     super(props);
     this.state;
