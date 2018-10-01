@@ -189,7 +189,7 @@ class Profile extends Base {
               </Image>
             </View>
             <View style={{flexDirection: 'row', justifyContent: 'center', paddingBottom: 20}}>
-              <Text style={YTStyles.header}> {user.firstName} {user.lastName} </Text>
+              <Text style={YTStyles.h1}> {user.firstName} {user.lastName} </Text>
             </View>
             <Text style={[YTStyles.text, {fontSize: 16, padding: 5}]}>Personal Information: </Text>
             <View style={YTStyles.separator}/>

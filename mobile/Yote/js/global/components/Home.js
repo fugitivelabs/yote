@@ -21,6 +21,7 @@ import Base from './BaseComponent';
 import Hero from './Hero.js';
 import YTColors from '../styles/YTColors';
 import YTHeader from './YTHeader';
+import YTStyles from '../styles/YTStyles'; 
 
 const screenHeight = Dimensions.get('window').height
 
@@ -59,7 +60,7 @@ var styles = StyleSheet.create({
     }
   , container: {
       flex: 1
-      , backgroundColor: YTColors.lightBackground
+      , backgroundColor: '#fff'
     }
   , details: {
       height: 52
@@ -144,32 +145,41 @@ class Home extends Base {
     const {  itemList, navigator, user } = this.props;
 
     return (
-      <View style={styles.container}>
-        <YTHeader
-          title="Yote"
-        />
+      <View style={[styles.container]}>
         <ScrollView
           automaticallyAdjustContentInsets={false}
         >
-          <View style={{flex: 1, backgroundColor: '#333'}} >
-            <View style={{height: screenHeight * .66, backgroundColor: 'transparent', justifyContent: 'center', alignItems: 'center'}}>
+          <View style={{flex: 1, backgroundColor: '#fff', paddingTop: 30}} >
+            <View style={{backgroundColor: 'transparent', justifyContent: 'center', alignItems: 'center'}}>
               <View style={{flexDirection: 'row', justifyContent: 'center'}}>
                 <Image
                   resizeMode={'contain'}
                   source={require('../img/logo.png')}
-                  style={{height: 170, width: 200}}
+                  style={{height: 250, width: 250, tintColor: YTColors.yoteDarkBlue}}
                 />
               </View>
               <View style={{flexDirection: 'row', justifyContent: 'center'}}>
                 <Hero/>
               </View>
             </View>
-            <View style={{flex: 1, backgroundColor: YTColors.lightBackground, justifyContent: 'center'}}>
-              <View style={{flexDirection: 'row', justifyContent: 'center', paddingVertical: 50}}>
+            <View style={{flex: 1, justifyContent: 'center', paddingTop: 40}}>
+              <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+                <Text style={YTStyles.darkText}>A product by</Text>
+              </View>
+              <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+                <Image
+                  resizeMode={'contain'}
+                  source={require('../img/flab-banner-logo-red.png')}
+                  style={{height: 35, width: 300}}
+                />
+              </View>
+            </View>
+            <View style={{flex: 1, justifyContent: 'center'}}>
+              <View style={{flexDirection: 'row', justifyContent: 'center', paddingVertical: 40}}>
                 <Text style={{fontFamily: 'AvenirNextCondensed-DemiBold', fontWeight: 'normal', fontSize: 15, color: YTColors.darkText, textAlign: 'center'}}> Check out the docs on </Text>
                 <TouchableOpacity
                   onPress={this._handleClick}>
-                  <Text style={{fontFamily: 'AvenirNextCondensed-DemiBold', fontWeight: 'normal', fontSize: 15, textAlign: 'center', color: YTColors.actionText}}>Github </Text>
+                  <Text style={{fontFamily: 'AvenirNextCondensed-DemiBold', fontWeight: 'normal', fontSize: 15, textAlign: 'center', color: YTColors.yoteDarkBlue}}>Github </Text>
                 </TouchableOpacity>
               </View>
             </View>

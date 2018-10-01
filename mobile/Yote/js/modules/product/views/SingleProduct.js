@@ -73,7 +73,7 @@ class SingleProduct extends Base {
         />
         <ScrollView>
           <View style={{padding: 10}}>
-            <Text style={[YTStyles.header, {color: YTColors.darkText}]}>{product.title}</Text>
+            <Text style={YTStyles.h1}>{product.title}</Text>
           </View>
           <Text style={[YTStyles.text, {padding: 10}]}>{product.description}</Text>
         </ScrollView>

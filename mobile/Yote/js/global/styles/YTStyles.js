@@ -27,13 +27,19 @@ const YTStyles = StyleSheet.flatten({
       , fontSize: 18
       , fontWeight: 'normal'
     }
-  , header: {
+  , h1: {
       color: YTColors.darkText
       , fontFamily: FONT
       , fontSize: 30
       , fontWeight: '600'
     }
-  , header2: {
+  , h2: {
+      color: YTColors.darkText
+      , fontFamily: FONT
+      , fontSize: 25
+      , fontWeight: '600'
+  }
+  , h3: {
       color: YTColors.darkText
       , fontFamily: FONT
       , fontSize: 20
@@ -74,13 +80,6 @@ const YTStyles = StyleSheet.flatten({
       , shadowOpacity: 0.2
       , shadowRadius: 4
   }
-  , subHeader: {
-      color: YTColors.lightText
-      , fontFamily: FONT
-      , fontSize: 18
-      , fontWeight: '600'
-      , padding: 5
-    }
   , text: {
       color: YTColors.lightText
       , fontFamily: FONT
