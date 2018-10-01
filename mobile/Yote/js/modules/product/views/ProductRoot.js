@@ -75,7 +75,6 @@ class ProductRoot extends Base {
     const { productStore, navigation, user } = this.props;
 
     let productList = productStore.util.getList ? productStore.util.getList('all') : null; 
-    console.log(productList); 
 
     const rightItem = {
       onPress: () => this._openNew()

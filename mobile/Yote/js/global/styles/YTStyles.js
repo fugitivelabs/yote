@@ -11,6 +11,8 @@ import YTColors from '../../global/styles/YTColors';
 
 const { height, width } = Dimensions.get('window');
 
+const FONT = Platform.OS === 'android' ? 'sans-serif-condensed' : 'AvenirNextCondensed-DemiBold';
+
 const YTStyles = StyleSheet.flatten({
   cell: {
     padding: 5
@@ -19,16 +21,23 @@ const YTStyles = StyleSheet.flatten({
       backgroundColor: '#fff'
       , flex: 1
   }
-  , header: {
+  , h: {
       color: YTColors.darkText
       , fontSize: 30
       , fontWeight: '600'
+      , fontFamily: FONT
     }
-  , header2: {
+  , h2: {
+      color: YTColors.darkText
+      , fontSize: 25
+      , fontWeight: '600'
+      , fontFamily: FONT
+  }
+  , h3: {
       color: YTColors.darkText
       , fontSize: 20
       , fontWeight: '600'
-      , paddingHorizontal: 5
+      , fontFamily: FONT
   }
   , icon: {
       height: 20
@@ -58,9 +67,10 @@ const YTStyles = StyleSheet.flatten({
       , padding: 5
     }
   , text: {
-      fontSize: 18,
-      fontWeight: 'normal',
       color: YTColors.lightText
+      , fontSize: 18
+      , fontWeight: 'normal'
+      , fontFamily: FONT
     }
   , userImg: {
       borderRadius: 50 * .5

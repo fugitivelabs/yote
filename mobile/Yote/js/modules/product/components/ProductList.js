@@ -50,9 +50,9 @@ class ProductList extends Base {
     });
   }
 
-  _openProduct(productId) {
-    console.log("open product", productId);
-    this.props.navigation.navigate('SingleProduct', {productId: productId});
+  _openProduct(product) {
+    console.log("open product", product);
+    this.props.navigation.navigate('SingleProduct', {product: product});
   }
 
   _renderSeparator() {
