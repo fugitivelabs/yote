@@ -169,7 +169,7 @@ function user(state = {
    * with the "byId" map.
    */
   , loggedIn: {
-    user: window.currentUser || {}
+    user: window.currentUser
     , isFetching: false
     , error: null
     , didInvalidate: false
@@ -260,7 +260,8 @@ function user(state = {
         nextState = {
           ...state
           , loggedIn: {
-            user: action.user
+            apiToken: action.apiToken
+            , user: action.user
             , isFetching: false
             , error: null
             , didInvalidate: false
@@ -685,7 +686,7 @@ function user(state = {
       }
     }
   }
-  
+
   nextState.util.getList = (...listArgs) => {
     /**
      * utility method for a) determining if a list exists and b) getting those list objects

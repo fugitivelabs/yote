@@ -1,0 +1,32 @@
+.alert-message {
+  padding: $gutter;
+  background-color: $brand-primary;
+  color: #fff;
+  text-align: center;
+  // border: 1px solid darken($brand-primary, 20);
+  a {
+    color: rgba(255,255,255,0.8);
+    &:hover {color: #fff;}
+  }
+  &.success {
+    background: $success;
+    border-color: darken($success, 20);
+
+  }
+  &.danger {
+    background: $danger;
+    border-color: darken($danger, 20);
+  }
+  &.warning {
+    background: $warning;
+    border-color: darken($warning, 20);
+  }
+  &.info {
+    background: $info;
+    border-color: darken($info, 20);
+  }
+  &.primary {
+    background: $primary;
+    border-color: darken($primary, 20);
+  }
+}

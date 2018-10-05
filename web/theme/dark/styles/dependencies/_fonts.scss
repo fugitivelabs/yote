@@ -1,0 +1,215 @@
+@font-face {
+  font-family: 'Veneer';
+  src:
+        url('/fonts/Veneer.ttf?v=2') format('truetype'),
+        url('/fonts/Veneer.otf?v=2') format('otf')
+        ;
+}
+
+
+// Typography
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+$font-sans: "Roboto Condensed", Helvetica, sans-serif;
+$font-serif: Georgia, Times, serif;
+
+$font-brand: 'Veneer', 'Oswald', 'Helvetica Neue', sans-serif;
+
+// Line Heights
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+@mixin lineHeight-tightest {
+  line-height: .5;
+}
+@mixin lineHeight-tighter {
+  line-height: .7;
+}
+@mixin lineHeight-tight {
+  line-height: .8;
+}
+@mixin lineHeight-baseSans {
+  line-height: 1;
+}
+@mixin lineHeight-base {
+  line-height: 1;
+}
+@mixin lineHeight-loose {
+  line-height: 1.2;
+}
+@mixin lineHeight-looser {
+  line-height: 1.5
+}
+
+// Letter Spacing
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+@mixin letterSpacing-tightest {
+  letter-spacing: -3px;
+}
+@mixin letterSpacing-tighter {
+  letter-spacing: -2px;
+}
+@mixin letterSpacing-tight {
+  letter-spacing: -1px;
+}
+@mixin letterSpacing-base {
+  letter-spacing: 0px;
+}
+@mixin letterSpacing-loose {
+  letter-spacing: 1px;
+}
+@mixin letterSpacing-looser {
+  letter-spacing: 2px;
+}
+
+// Font Sizing
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+// @mixin micro-font {
+//   font-size: 0.7rem;
+//   line-height: 1;
+// }
+// @mixin smallest-font {
+//   font-size: 0.75rem;
+//   line-height: 1;
+// }
+// @mixin smaller-font {
+//   font-size: 0.8rem;
+//   line-height: 1;
+// }
+// @mixin small-font {
+//   font-size: 0.875rem;
+//   line-height: 1.5;
+// }
+// @mixin base-font {
+//   font-size: 1rem;
+// }
+//
+// @mixin medium-font {
+//   font-size: 1.15rem;
+// }
+//
+// @mixin large-font {
+//   font-size: 2rem;
+// }
+// @mixin larger-font {
+//   font-size: 1.5rem;
+// }
+// @mixin largest-font {
+//   font-size: 1.7rem;
+//   @include lineHeight-loose;
+// }
+// @mixin jumbo-font {
+//   font-size: 3rem;
+//   @include lineHeight-looser;
+// }
+
+// Font Sizing
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+/*
+    fonts are based in rem from initial px value
+    the body which is set in
+    ./client/globals/sass/foundation/_base.scss
+
+    html {
+      height: 100%;
+      font-size: 16px;
+      line-height: 1.5;
+      @include MQ(XL) {
+        font-size: 20px;
+        line-height: 1.4;
+      }
+    }
+*/
+
+@mixin micro-font {
+  font-size: 0.7rem;
+}
+@mixin smallest-font {
+  font-size: 0.75rem;
+}
+@mixin smaller-font {
+  font-size: 0.8rem;
+}
+
+// small, subhead
+@mixin small-font {
+  font-size: 0.875rem;
+  font-size: 1.5;
+}
+
+// body primary
+@mixin base-font {
+  font-size: 1rem;
+  @include MQ(XL) {
+  }
+}
+
+// heading 5
+@mixin medium-font {
+  // everything below 640px
+  font-size: 1.35rem;
+  @include MQ(XS) {
+    // everything above 640px
+    font-size: 1.5rem;
+  }
+  @include MQ(XL) {
+    // everything above 1600px
+    font-size: 1.6rem;
+  }
+}
+
+// heading 4
+@mixin large-font {
+  // everything below 640px
+  font-size: 1.5rem;
+  @include MQ(XS) {
+    // everything above 640px
+    font-size: 2rem;
+  }
+  @include MQ(XL) {
+    // everything above 1600px
+  }
+}
+
+// heading 3
+@mixin larger-font {
+  // everything below 640px
+  font-size: 2rem;
+  line-height: 1;
+  @include MQ(XS) {
+    // everything above 640px
+    font-size: 2.5rem;
+  }
+  @include MQ(XL) {
+    // everything above 1600px
+    font-size: 2.4rem;
+  }
+}
+
+// heading 2
+@mixin largest-font {
+  // everything below 640px
+  font-size: 2.25rem;
+  @include MQ(XS) {
+    // everything above 640px
+    font-size: 2.75rem;
+  }
+  @include MQ(XL) {
+    // everything above 1600px
+    font-size: 3rem;
+  }
+}
+
+// heading 1
+@mixin jumbo-font {
+  // everything below 640px
+  font-size: 3.5rem;
+  line-height: 1;
+  @include MQ(XS) {
+    // everything above 640px
+    font-size: 3.38rem;
+
+  }
+  @include MQ(XL) {
+  //   // everything above 1600px
+  font-size: 4.5rem;
+  }
+}

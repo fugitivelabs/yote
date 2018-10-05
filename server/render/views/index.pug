@@ -1,0 +1,69 @@
+doctype
+<!--[if lt IE 7]><html class="no-js lt-ie10 lt-ie9 lt-ie8 lt-ie7" > <![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie10 lt-ie9 lt-ie8" > <![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie10 lt-ie9" > <![endif]-->
+<!--[if IE 9]><html class="no-js lt-ie10" > <![endif]-->
+<!--[if IE 10]><html class="no-js lt-ie11" > <![endif]-->
+<!--[if gt IE 8]> <html class="no-js" lang="en" > <![endif]-->
+html(lang="en")
+  head
+    
+    //- title should match project name by default
+    title Yote App
+    meta(name="description" content="A cool app made with Yote")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(charset="utf-8")
+    meta(HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8")
+    link(href="/favicon.ico?v=3", rel="shortcut icon", type="image/x-icon")
+    link(href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet")
+    link(href='https://fonts.googleapis.com/css?family=Source+Code+Pro:400,300,700,200,600,500,900' rel='stylesheet' type='text/css')
+    link(rel="stylesheet", href="/css/animate.min.css")
+
+    //- shims for (hopefully) better cross browser support
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-shim.min.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/json3/3.3.2/json3.min.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.34.2/es6-shim.min.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.34.2/es6-sham.min.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js')
+    
+    //- include matchMedia polyfills for ie8-9 support
+    script(src='/lib/matchMedia.js')
+    script(src='/lib/matchMedia.addListener.js')
+
+    //- icons NOTE: fontawesome free used by default 
+    link(rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous")
+
+    //- compiled SASS styles
+    link(rel="stylesheet", href="/css/yote.css")
+
+    //- regular non-SASS styles
+    //- uncomment line below to use
+    //- link(rel="stylesheet", href="/css/style.css")
+
+    //- set current user if it exists. else set to null.
+    if !!currentUser
+      script.
+        window.currentUser = !{JSON.stringify(currentUser)}
+    else
+      script.
+        window.currentUser = {}
+    script.
+      window.development = !{JSON.stringify(development)}
+
+    //- <!-- Google Analytics -->
+    script.
+        //- uncomment if you want to integrate Google Analytics (along with app.js.jsx)
+        //- (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        //- (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        //- m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        //- })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+        //- ga('create', 'UA-CHANGE-ME', 'auto');
+        //- //don't want to double up the first page view
+        //- //- ga('send', 'pageview');
+    //- <!-- End Google Analytics -->
+  body
+    //- load the react container and run the react script
+    #application-main-yote
+
+    script(src='/js/react-bundle.js')

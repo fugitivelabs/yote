@@ -1,0 +1,117 @@
+
+.table-wrapper {
+  overflow-x: auto;
+  padding: $gutter;
+  margin-top: $gutter;
+  background-color: $white-0;
+  // @include box-shadow(0 1px 4px $shadow-color);
+}
+
+table.yt-table,
+.admin table {
+  // border-radius: 4px;
+  border-top: 1px solid #aaa;
+  border-bottom: 1px solid #aaa;
+  background-color: #fff;
+  min-width: 100%;
+  caption {
+    text-align: left;
+    font-weight: 700;
+    font-size: .8em;
+    color: $gray-6;
+  }
+
+  &.striped {
+    tbody {
+      tr {
+        &:nth-child(odd) {
+          background-color: #f9f9f9;
+        }
+      }
+    }
+  }
+
+  &.bordered {
+    border-right: 1px solid #aaa;
+    border-left: 1px solid #aaa;
+    td,
+    th {
+      border-left: 1px solid #aaa;
+    }
+  }
+
+  &.no-borders {
+    td, th, tr {
+      border: none;
+    }
+  }
+
+
+
+  thead {
+    border-bottom: 1px solid #ddd;
+    th {
+      padding: 5px;
+      text-align: left;
+      a {
+        &.active {
+          text-decoration: underline;
+        }
+      }
+      &.sortable {
+        &:hover {
+          color: lighten($text-color, 15);
+          cursor: pointer;
+          text-decoration: underline;
+        }
+        i { margin-left: 5px;}
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      border-bottom: 1px solid #ddd;
+      td {
+        padding: 5px;
+      }
+      &.linkable {
+        @include transition(all 250ms ease-in-out);
+        &:hover {
+          background-color: $gray-1;
+          cursor: pointer;
+          color: $accent-color;
+        }
+      }
+    }
+  }
+  tr {
+    .numbers, .right {
+      text-align: right;
+    }
+  }
+  td, th {
+    &._10 { width: 10%; max-width: 100px; }
+    &._20 { width: 20%; max-width: 200px; }
+    &._25 { width: 25%; max-width: 250px; }
+    &._30 { width: 30%; max-width: 300px; }
+    &._33 { width: 33%; max-width: 330px; }
+    &._40 { width: 40%; max-width: 400px; }
+    &._50 { width: 50%; max-width: 500px; }
+    &._60 { width: 60%; max-width: 600px; }
+    &._66 { width: 66%; max-width: 660px; }
+    &._70 { width: 70%; max-width: 700px; }
+    &._75 { width: 75%; max-width: 750px; }
+    &._80 { width: 80%; max-width: 800px; }
+    &._90 { width: 90%; max-width: 900px; }
+
+  }
+  &.truncate-cells {
+    td {
+      height: 40px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
+}

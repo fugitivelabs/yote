@@ -1,5 +1,5 @@
 let mongoose = require('mongoose');
-let User = require('./resources/user/UserModel');
+let User = require('./api/user/UserModel');
 let logger = global.logger;
 
 module.exports = function(config) {
@@ -19,4 +19,4 @@ module.exports = function(config) {
 };
 
 // Yote models are defined below
-let Product = require('./resources/product/ProductModel');
+let Product = require('./api/product/ProductModel');

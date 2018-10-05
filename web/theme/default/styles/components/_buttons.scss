@@ -1,0 +1,580 @@
+// Default Button Styling
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+button {
+
+  &:disabled,
+  &.disabled {
+    &:hover {
+
+      cursor: not-allowed;
+    }
+  }
+  @include Print() {
+    display: none !important;
+  };
+}
+
+.yt-toolbar .yt-tools.space-between button {
+  @media screen and (max-width: 450px) {
+    padding: 8px;
+    width: 150px;
+  }
+}
+
+[yt-btn],
+a.yt-btn,
+.yt-btn {
+  @include base-font;
+  background-color: $button-color;
+  border: 1px solid $button-color;
+  color: $white;
+  // color: $text-color;
+  border: none;
+  border-radius: 2px;
+  padding: 14px 28px;
+  position: relative;
+  @include transition(all 250ms ease-in-out);
+  // transition: all 150ms ease-in-out;
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-align: center;
+  display: inline-block;
+  // font-family: $font-brand;
+  font-weight: 600;
+  &:visited { color: $white; }
+
+  &:hover {
+    background-color: lighten($button-color, 5);
+    text-decoration: none;
+    border-color: lighten($button-color, 5);
+    @include box-shadow(0px 4px 8px $shadow-color);
+    // top: -2px;
+  }
+
+  &:active {
+    @include box-shadow(0px 2px 4px $shadow-color);
+    background-color: darken($button-color, 5);
+    border-color: darken($button-color, 5);
+    // top: 0px;
+    color: $text-color;
+  }
+
+  &.disabled,
+  &:disabled {
+    pointer-events: none;
+    opacity: 0.45;
+    filter: alpha(opacity=65);
+    -webkit-box-shadow: none;
+            box-shadow: none;
+    &:hover {
+      cursor: not-allowed;
+
+    }
+  }
+  &.-mobile {
+    .-hide {
+      display: none;
+      @include MQ(XS) {
+        display: inline-block;
+      }
+    }
+    .-show {
+      display: inline-block;
+      @include MQ(XS) {
+        display: none;
+      }
+    }
+  }
+  @media screen and (max-width: 450px) {
+    font-size: 0.9rem;
+    padding: 5px 5px;
+  }
+}
+
+
+// various button sizes
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+[yt-btn~="x-large"],
+.yt-btn.x-large {
+  @include larger-font;
+  padding: 18px 36px;
+}
+
+[yt-btn~="large"],
+.yt-btn.large {
+  padding: 16px 32px;
+  @include large-font;
+}
+
+[yt-btn~="small"],
+.yt-btn.small {
+  padding: 8px 16px;
+  @include small-font;
+}
+
+[yt-btn~="x-small"],
+.yt-btn.x-small {
+  padding: 4px 8px;
+  @include smaller-font;
+}
+
+// Buttons that fill container as block element
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+[yt-btn~="block"],
+.yt-btn.block {
+  display: block;
+  width: 100%;
+}
+
+// Buttons with Primary, Accent and Alert colors
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+[yt-btn~="brand-primary"],
+.yt-btn.brand-primary {
+  background-color: $brand-primary;
+  color: $white;
+  &:visited { color: $white; }
+  &:hover {
+    background-color: darken($brand-primary, 10);
+    color: $white;
+  }
+  &:active {
+    color: $white;
+  }
+}
+
+
+// Buttons with semantic colors
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+// dark
+[yt-btn~="dark"],
+.yt-btn.dark {
+  background-color: $black-4;
+  border-color: $black-4;
+  color: $white;
+
+  &:visited { color: $white; }
+  &:hover {
+    background-color: darken($black-4, 10);
+    color: $white;
+  }
+  &:active {
+    color: $white;
+  }
+
+}
+
+// success
+[yt-btn~="success"],
+.yt-btn.success {
+  background-color: $success;
+  // border-color: $success-hover;
+  color: $white;
+
+  &:visited { color: $white; }
+  &:hover {
+    background-color: darken($success, 10);
+    color: $white;
+  }
+  &:active {
+    color: $white;
+  }
+}
+
+// warning
+[yt-btn~="warning"],
+.yt-btn.warning {
+  background-color: $warning;
+  // border-color: $warning-hover;
+  color: $white;
+
+  &:visited { color: $white; }
+  &:hover {
+    background-color: darken($warning, 10);
+    color: $white;
+  }
+  &:active {
+    color: $white;
+  }
+}
+
+// danger
+[yt-btn~="danger"],
+.yt-btn.danger {
+  background-color: $danger;
+  // border-color: $danger-hover;
+  color: $white;
+
+  &:visited { color: $white; }
+  &:hover {
+    background-color: darken($danger, 10);
+    color: $white;
+  }
+  &:active {
+    color: $white;
+    background-color: lighten($danger, 10);
+  }
+
+}
+
+// info
+[yt-btn~="info"],
+.yt-btn.info {
+  background-color: $info;
+  // border-color: $info-hover;
+  color: $white;
+
+  &:visited { color: $white; }
+  &:hover {
+    background-color: darken($info, 10);
+    color: $white;
+  }
+  &:active {
+    color: $white;
+    background-color: lighten($info, 10);
+  }
+
+}
+
+
+
+// sf-blue
+[yt-btn~="sf-blue"],
+.yt-btn.sf-blue {
+  background-color: $soflete-blue;
+  // border-color: $soflete-blue-hover;
+  color: $white;
+
+  &:visited { color: $white; }
+  &:hover {
+    background-color: darken($soflete-blue, 10);
+    color: $white;
+  }
+  &:active {
+    color: $white;
+    background-color: lighten($soflete-blue, 10);
+  }
+
+}
+
+
+// sf-green
+[yt-btn~="sf-green"],
+.yt-btn.sf-green {
+  background-color: $soflete-green;
+  // border-color: $soflete-green-hover;
+  color: $white;
+
+  &:visited { color: $white; }
+  &:hover {
+    background-color: darken($soflete-green, 10);
+    color: $white;
+  }
+  &:active {
+    color: $white;
+    background-color: lighten($soflete-green, 10);
+  }
+
+}
+
+// for Grant
+[yt-btn~="fowler"],
+.yt-btn.fowler {
+  background-color: #2A95E3;
+  border-color: #2A95E3;
+  color: $white;
+
+  &:hover {
+    background-color: darken(#2A95E3, 10);
+    color: $white;
+  }
+  &:active {
+    color: $white;
+  }
+
+}
+
+
+[yt-btn~="flat"],
+.yt-btn.flat {
+  position: static;
+  @include box-shadow(0px 0px 0px transparent);
+  &:hover {
+    &:hover { @include box-shadow(0px 0px 0px transparent); }
+    &:active { @include box-shadow(0px 0px 0px transparent); }
+  }
+}
+
+// white buttons
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+[yt-btn~="white-bg"],
+a.yt-btn.white-bg,
+.yt-btn.white-bg {
+  background-color: #fff;
+  border: none;
+  color: $text-color;
+  @include transition(all 250ms ease-in-out);
+  &:hover {
+    &:visited { color: $text-color; }
+    &:hover {  background-color:$gray-9; color: darken($button-color,1); }
+    &:active { background-color: darken($gray-9, 4); }
+  }
+  &.light {
+    color: $text-light;
+    &:hover {
+      &:visited { color: lighten($danger, 4); }
+      &:hover {  background-color:$gray-8; color: $text-color; }
+      &:active { background-color: lighten($danger, 20); }
+    }
+  }
+
+  &.danger {
+    color: $danger;
+    &:hover {
+      &:visited { color: lighten($danger, 4); }
+      &:hover {  background-color:$gray-8; color: darken($danger,10); }
+      &:active { background-color: lighten($danger, 20); }
+    }
+  }
+  &.warning {
+    color: $warning;
+    &:hover {
+      &:visited { color: lighten($warning, 4); }
+      &:hover {  background-color:$gray-8; color: darken($warning,10); }
+      &:active { background-color: lighten($warning, 4); }
+    }
+  }
+  &.success {
+    color: $success;
+    &:hover {
+      &:visited { color: lighten($success, 4); }
+      &:hover {  background-color:$gray-8; color: darken($success,10); }
+      &:active { background-color: lighten($success, 4); }
+    }
+  }
+
+  &.info {
+    color: $info;
+    &:hover {
+      &:visited { color: lighten($info, 4); }
+      &:hover {  background-color:$gray-8; color: darken($info,10); }
+
+      &:active { background-color: lighten($info, 4); }
+    }
+  }
+
+  &.fowler {
+    color: $soflete-blue;
+    &:hover {
+      &:visited { color: lighten($info, 4); }
+      &:hover {  background-color:$gray-8; color: darken($info,10); }
+
+      &:active { background-color: lighten($soflete-blue, 4); }
+    }
+  }
+
+  &.muted {
+    color: $text-color;
+    &:hover {
+      &:visited { color: lighten($text-color, 4); }
+      &:active { background-color: lighten($text-color, 4); }
+    }
+  }
+
+}
+
+// link buttons
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+[yt-btn~="link"],
+a.yt-btn.link,
+.yt-btn.link {
+  background-color: transparent;
+  border: none;
+  color: $text-color;
+  @include transition(all 250ms ease-in-out);
+  &:hover {
+    &:visited { color: $text-color; }
+    &:hover {  background-color:$gray-9; color: darken($button-color,1); }
+    &:active { background-color: darken($gray-9, 4); }
+  }
+  &.light {
+    color: $text-light;
+    &:hover {
+      &:visited { color: lighten($danger, 4); }
+      &:hover {  background-color:$gray-8; color: $text-color; }
+      &:active { background-color: lighten($danger, 20); }
+    }
+  }
+
+  &.danger {
+    color: $danger;
+    &:hover {
+      &:visited { color: lighten($danger, 4); }
+      &:hover {  background-color:$gray-8; color: darken($danger,10); }
+      &:active { background-color: lighten($danger, 20); }
+    }
+  }
+  &.warning {
+    color: $warning;
+    &:hover {
+      &:visited { color: lighten($warning, 4); }
+      &:hover {  background-color:$gray-8; color: darken($warning,10); }
+      &:active { background-color: lighten($warning, 4); }
+    }
+  }
+  &.success {
+    color: $success;
+    &:hover {
+      &:visited { color: lighten($success, 4); }
+      &:hover {  background-color:$gray-8; color: darken($success,10); }
+      &:active { background-color: lighten($success, 4); }
+    }
+  }
+
+  &.fowler {
+    color: $soflete-blue;
+    &:hover {
+      &:visited { color: lighten($soflete-blue, 4); }
+      &:hover {  background-color:$gray-8; color: darken($soflete-blue,10); }
+      &:active { background-color: lighten($soflete-blue, 4); }
+    }
+  }
+
+  &.info {
+    color: $info;
+    &:hover {
+      &:visited { color: lighten($info, 4); }
+      &:hover {  background-color:$gray-8; color: darken($info,10); }
+
+      &:active { background-color: lighten($info, 4); }
+    }
+  }
+
+  &.muted {
+    color: $text-color;
+    &:hover {
+      &:visited { color: lighten($text-color, 4); }
+      &:active { background-color: lighten($text-color, 4); }
+    }
+  }
+
+
+  &.red {
+    color: $soflete-red;
+    &:hover {
+      &:visited { color: lighten($soflete-red, 4); }
+      &:active { background-color: lighten($soflete-red, 4); }
+    }
+  }
+
+}
+
+// bordered buttons
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+[yt-btn~="bordered"],
+a.yt-btn.bordered,
+.yt-btn.bordered {
+  background-color: #fff;
+  border: 2px solid $button-color;
+  color: $button-color;
+  @include transition(all 250ms ease-in-out);
+  &:hover {
+    &:visited { color: $button-color; }
+    &:hover {  background-color:darken($button-color,1); color: #fff; border-color: darken($button-color,1)}
+    &:active { background-color: darken($button-color,4); border-color: darken($button-color,1)}
+  }
+  &.-clear { background-color: transparent; }
+  &.light {
+    color: $text-light;
+    border-color: $text-light;
+    &:hover {
+      &:visited { color: $text-light; }
+      &:hover {  background-color:darken($text-light,1); color: $text-color; border-color: darken($text-light,1)}
+      &:active { background-color: darken($text-light,4); border-color: darken($text-light,1)}
+    }
+  }
+
+  &.dark {
+    color: $text-color;
+    border-color: $text-color;
+    &:hover {
+      &:visited { color: $text-color; }
+      &:hover {  background-color:darken($text-color,1); color: #fff; border-color: darken($text-color,1)}
+      &:active { background-color: darken($text-color,4); border-color: darken($text-color,1)}
+    }
+  }
+
+  &.danger {
+    color: $danger;
+    border-color: $danger;
+    &:hover {
+      &:visited { color: $danger; }
+      &:hover {  background-color:darken($danger,1); color: #fff; border-color: darken($danger,1)}
+      &:active { background-color: darken($danger,4); border-color: darken($danger,1)}
+    }
+  }
+
+  &.warning {
+    color: $warning;
+    border-color: $warning;
+    &:hover {
+      &:visited { color: $warning; }
+      &:hover {  background-color:darken($warning,1); color: #fff; border-color: darken($warning,1)}
+      &:active { background-color: darken($warning,4); border-color: darken($warning,1)}
+    }
+  }
+  &.success {
+    color: $success;
+    border-color: $success;
+    &:hover {
+      &:visited { color: $success; }
+      &:hover {  background-color:darken($success,1); color: #fff; border-color: darken($success,1)}
+      &:active { background-color: darken($success,4); border-color: darken($success,1)}
+    }
+  }
+
+  &.info {
+    color: $info;
+    border-color: $info;
+    &:hover {
+      &:visited { color: $info; }
+      &:hover {  background-color:darken($info,1); color: #fff; border-color: darken($info,1)}
+      &:active { background-color: darken($info,4); border-color: darken($info,1)}
+    }
+  }
+
+  &.muted {
+    color: $lighter-text-color;
+    border-color: $lighter-text-color;
+    &:hover {
+      &:visited { color: $text-color; }
+      &:hover {  background-color: $text-color; color: #fff; border-color:  $text-color}
+      &:active { background-color: lighten($text-color,4); border-color: lighten($text-color,1)}
+    }
+  }
+
+  &.accent {
+    color: $brand-accent;
+    border-color: $brand-accent;
+    &:hover {
+      &:visited { color: $brand-accent; }
+      &:hover {  background-color:darken($brand-accent,1); color: #fff; border-color: darken($brand-accent,1)}
+      &:active { background-color: darken($brand-accent,4); border-color: darken($brand-accent,1)}
+    }
+  }
+
+}
+
+
+
+.dropdown-btn {
+  height: 25px;
+  width: 25px;
+}

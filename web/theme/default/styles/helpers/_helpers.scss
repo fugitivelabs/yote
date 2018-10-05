@@ -1,0 +1,32 @@
+.close-wrapper {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  @include zIndex-8;
+}
+
+
+.-edit-link-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  color: #fff !important;
+  background-color: rgba(42, 149, 227, 0.6);
+  @include display-flex;
+  @include justify-content(center);
+  @include align-items(center);
+  @include transition(opacity 250ms ease-in-out);
+  opacity: 0;
+  &:hover {
+    opacity: 1;
+    color: #fff !important;
+  }
+  &:visited {
+    color: #fff !important;
+    
+  }
+}

@@ -1,0 +1,528 @@
+// Forms
+//   ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+// @import './node_modules/react-select/dist/react-select.css';
+
+$formContainerColor: #fff;
+$formAccentColor: $link-color;
+$formTextColor: $text-color;
+
+.form-container {
+  border: 1px solid $divider-color;
+  border-radius: 4px;
+  background-color: $formContainerColor;
+  // padding: 40px 20px;
+  width: 100%;
+  @include flex(1, 0, 0);
+
+  @include display-flex;
+  @include flex-direction(column);
+  @include justify-content(center);
+  @include align-items(center);
+  @include transition(all 250ms ease-in-out);
+
+  &.-slim {
+    max-width: 740px;
+  }
+  &.-skinny {
+    max-width: 400px;
+  }
+  h2 {
+    text-align: center;
+  }
+
+  img {
+    display: block;
+    margin: 0 auto;
+  }
+  .action-buttons {
+    margin-top: $gutter-width;
+  }
+  &:hover {
+    @include box-shadow(0px 5px 6px $shadow-color);
+  }
+}
+
+form {
+  width: 100%;
+  margin: 0 auto;
+  padding: $gutter;
+}
+
+.input-group {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  width: 100%;
+  margin-bottom: $gutter;
+  @include base-font;
+
+  label {
+    display: block;
+    font-weight: 700;
+    overflow-wrap: break-word;
+    .-required {
+      color: $danger;
+    }
+  }
+
+  a {
+    &.forgot {
+      position: absolute;
+      @include small-font;
+      top: 0px;
+      right: 0px;
+    }
+  }
+
+  input {
+    // margin-bottom: 1em;
+    width: 100%;
+    padding: 8px 6px;
+    outline: none;
+    // border: none;
+    border: 1px solid $divider-color;
+    background-color: darken($formContainerColor, 2);
+    // border-radius: 4px;
+    transition: all 0.5s ease;
+
+    &:focus {
+      background-color: darken($formContainerColor, 4);
+      border: 1px solid $formAccentColor;
+    }
+
+    &.-error {
+      border-color: $danger;
+    }
+
+    &:disabled {
+      opacity: 0.7;
+      &:hover {
+        cursor: not-allowed;
+      }
+    }
+
+    &[type="radio"] {
+      display: inline-block;
+      width: 20px;
+      margin-right: 3px;
+    }
+
+    &[type="radio"]+label {
+      margin-right: 20px;
+      display: inline-block;
+    }
+    &[type="checkbox"] {
+      display: inline-block;
+      width: 20px;
+      margin-right: 3px;
+    }
+
+    &[type="checkbox"]+label {
+      margin-right: 20px;
+      display: inline-block;
+    }
+
+
+  }
+
+  select {
+    background-color: darken($formContainerColor, 2);
+    width: 100%;
+    margin-bottom: 1em;
+    padding: 8px 6px;
+    border: 1px solid $divider-color;
+    @include lineHeight-looser;
+    &.-error {
+      border-color: $danger;
+    }
+    &:focus {
+      border: 2px solid $formAccentColor;
+    }
+  }
+
+  textarea {
+    background-color: darken($formContainerColor, 2);
+    width: 100%;
+    margin-bottom: 1em;
+    padding: 8px 6px;
+    border-radius: 0;
+    resize: vertical;
+    border: 1px solid $divider-color;
+    &.-error {
+      border-color: $danger;
+    }
+    &:focus {
+      background-color: darken($formContainerColor, 4);
+      border-color: $formAccentColor;
+    }
+  }
+
+  .-error-message {
+    color: $danger;
+    font-weight: 500;
+  }
+}
+
+
+.radio-input {
+  &.inline {
+    display: inline-block;
+    margin-right: $gutter;
+    margin-bottom: $gutter;
+  }
+}
+
+.time-inputs {
+  @include display-flex;
+  @include flex-wrap(no-wrap);
+  @include align-items(center);
+  border: 1px solid $divider-color;
+  border-radius: 2px;
+  input {
+    text-align: center;
+    border: none;
+  }
+  .-wrapper {
+    // background-color: green;
+    position: relative;
+    @include flex(1);
+    @include display-flex;
+    @include flex-direction(column);
+    @include align-items(center);
+    &:after {
+      // content: "h";
+      height: 20px;
+      width: 20px;
+      // position: absolute;
+      position: absolute;
+      margin-left: auto;
+      margin-right: auto;
+      left: 0;
+      right: 0;
+      bottom: -6px;
+      color: $lighter-text-color;
+      opacity: 0.5;
+      @include smallest-font;
+    }
+    &.-hours {
+      &:after {
+        content: "h";
+      }
+    }
+    &.-minutes {
+      &:after {
+        content: "m";
+      }
+    }
+    &.-seconds {
+      &:after {
+        content: "s";
+      }
+    }
+
+  }
+}
+
+// input addons (for icon in a search box for example)
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+
+// see /admin/users for an example of how to use
+.input-add-on {
+  @include display-flex;
+  margin-bottom: 1em;
+
+  .field {
+    @include flex(1);
+
+    // padding: 0.5em 0.75em;
+    &:not(:first-child) {
+      border-left: 0;
+      border-radius: 0;
+    }
+
+    &:not(:last-child) {
+      border-right: 0;
+      border-radius: 0;
+    }
+  }
+
+  .item {
+    background-color: darken($formContainerColor, 3);
+    // color: $gray-7;
+    // padding: 8px 6px;
+    padding: 0.5em 0.75em;
+    font: inherit;
+    font-weight: 700;
+    border: 1px solid $divider-color;
+
+  }
+  button {
+    &.item {
+      // background-color:  lighten(#3A3042, 30);
+      // border-color: lighten(#3A3042, 30);
+      // color: #fff;
+      white-space: nowrap;
+      border: none;
+      &:hover {
+        background-color: darken($formContainerColor, 20);
+        // border-color: lighten(#3A3042, 35)
+      }
+    }
+    &:disabled {
+      color: darken($formContainerColor, 20);
+      &:hover {
+        background-color: darken($formContainerColor, 3);
+      }
+    }
+  }
+  .field,
+  .item {
+    // border: 1px solid $gray-9;
+    // padding: 0.5em 0.75em;
+    &:first-child {
+      border-radius: 2px 0 0 2px;
+    }
+    &:last-child {
+      border-radius: 0 2px 2px 0;
+    }
+  }
+
+}
+
+
+.pill-item {
+  background-color: lighten(#3A3042, 30%);
+  margin-right: 5px;
+  display: inline-block;
+  margin-bottom: 10px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  color: $white;
+
+  p {
+    margin: 0px;
+  }
+
+  a {
+    display: inline-block;
+    margin-right: 4px;
+    color: $white;
+  }
+}
+
+.search-input {
+  .input-add-on {
+    margin-bottom: 0;
+    .item {
+      background: white;
+      border: 1px solid $divider-color;
+      border-right: none;
+      border-radius: 50px 0 0 50px;
+    }
+    input {
+      border: 1px solid $divider-color;
+      border-left: none;
+      border-radius: 0 50px 50px 0;
+      @include transition(all 250ms ease-in-out);
+      width: 200px;
+      @include MQ(M) {
+
+        &:focus {
+          width: 300px;
+        }
+      }
+    }
+  }
+}
+
+
+/* FILES */
+/* ================== */
+
+.files-dropzone-list {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  padding: 10px;
+  border: 1px dashed #D3D3D3;
+  cursor: pointer;
+}
+
+.files-buttons {
+  border-top: 1px solid #D3D3D3;
+  cursor: pointer;
+}
+.files-button-submit {
+  display: inline-block;
+  text-align: center;
+  height: 40px;
+  line-height: 40px;
+  width: 50%;
+  box-sizing: border-box;
+  border-right: 1px solid #D3D3D3;
+}
+.files-button-submit:before {
+  content: "Submit"
+}
+.files-button-clear {
+  display: inline-block;
+  text-align: center;
+  height: 40px;
+  line-height: 40px;
+  width: 50%;
+  box-sizing: border-box;
+}
+.files-button-clear:before {
+  content: "Clear"
+}
+.files-list {
+  width: 300px;
+}
+.files-list ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.files-list li:last-child {
+  border: none;
+}
+.files-list-item {
+  height: 60px;
+  padding: 10px 0px 10px 10px;
+  /*border-bottom: 1px solid #D3D3D3;*/
+}
+.files-list-item-content {
+  float: left;
+  padding-top: 5px;
+  padding-left: 10px;
+  width: calc(100% - 130px);
+}
+.files-list-item-content-item {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.files-list-item-content-item-1 {
+  font-size: 20px;
+  line-height: 30px;
+}
+.files-list-item-content-item-2 {
+  font-size: 16px;
+  line-height: 20px;
+}
+.files-list-item-preview {
+  height: 60px;
+  width: 60px;
+  float: left;
+}
+.files-list-item-preview-image {
+  height: 100%;
+  width: 100%;
+}
+.files-list-item-preview-extension {
+  text-align: center;
+  line-height: 60px;
+  color: #FFF;
+  background-color: #D3D3D3;
+  font-size: 16px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding-left: 5px;
+  padding-right: 5px;
+  box-sizing: border-box;
+}
+.files-list-item-remove {
+  height: 60px;
+  width: 60px;
+  float: right;
+  cursor: pointer;
+  background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDQ4IDQ4IiB3aWR0aD0iNDgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTM4IDEyLjgzbC0yLjgzLTIuODMtMTEuMTcgMTEuMTctMTEuMTctMTEuMTctMi44MyAyLjgzIDExLjE3IDExLjE3LTExLjE3IDExLjE3IDIuODMgMi44MyAxMS4xNy0xMS4xNyAxMS4xNyAxMS4xNyAyLjgzLTIuODMtMTEuMTctMTEuMTd6Ii8+PHBhdGggZD0iTTAgMGg0OHY0OGgtNDh6IiBmaWxsPSJub25lIi8+PC9zdmc+) no-repeat center center;
+  background-size: 30px 30px;
+}
+.files-list-item-remove-image {
+  height: 30px;
+  width: 30px;
+  margin-top: 15px;
+  margin-right: 10px;
+  float: right;
+}
+
+
+
+/* GALLERY */
+/* ================== */
+
+.files-dropzone-gallery {
+  padding: 10px;
+  border: 1px dashed #D3D3D3;
+  min-height: 300px;
+  width: 100%;
+  position: relative;
+  .-drop-zone-instructions {
+    color: $lighter-text-color;
+    padding: $gutter;
+    background-color: #f1f1f1;
+    text-align: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    @include display-flex;
+    @include align-items(center);
+    @include justify-content(center);
+    @include transition(all 250ms ease-in-out);
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  &:hover {
+    .-drop-zone-instructions {
+      background-color: $info;
+      color: #fff;
+    }
+  }
+}
+.files-gallery-item {
+  height: 80px;
+  margin: 5px;
+}
+
+
+.files-dropzone-active {
+  border: 1px solid lightgreen;
+  color: lightgreen;
+}
+
+
+/*  react-select overrides */
+
+.Select-input {
+  width: 100%;
+  input {
+    border: none !important;
+    padding: 0 0 !important;
+  }
+}
+
+
+.-form-step {
+  @include medium-font;
+  font-weight: 600;
+  margin-top: $gutter-width;
+  margin-bottom: $gutter;
+  text-transform: uppercase;
+  border-bottom: 1px solid $divider-color;
+  .-num {
+    padding: 10px 15px;
+    color: #fff;
+    // background-color: $info;
+    background-color: $text-color;
+    font-weight: 600;
+    margin-right: 10px;
+    display: inline-block;
+  }
+}
