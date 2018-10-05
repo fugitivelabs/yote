@@ -180,8 +180,20 @@ exports.getById = (req, res) => {
 }
 
 exports.getSchema = (req, res) => {
-  logger.info('get product default object');
+  /**
+   * This is admin protected and useful for displaying REST api documentation
+   */
+  logger.info('get product schema ');
   res.send({success: true, schema: Product.getSchema()});
+}
+
+exports.getDefault = (req, res) => {
+  /**
+   * This is an open api call by default (see what I did there?) and is used to
+   * return the default object back to the Create components on the client-side.
+   */
+  logger.info('get product default object');
+  res.send({success: true, defaultObj: Product.getDefault()});
 }
 
 exports.create = (req, res) => {

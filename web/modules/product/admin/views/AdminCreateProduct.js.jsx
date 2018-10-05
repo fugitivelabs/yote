@@ -31,7 +31,7 @@ class AdminCreateProduct extends Binder {
       formHelpers: {
         statuses: ['published', 'draft', 'archived']
       }
-      , product: _.cloneDeep(this.props.defaultProduct.getItem())
+      , product: _.cloneDeep(this.props.defaultProduct.obj)
       // NOTE: We don't want to actually change the store's defaultItem, just use a copy
     }
     this._bind(
@@ -47,7 +47,7 @@ class AdminCreateProduct extends Binder {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      product: _.cloneDeep(nextProps.defaultProduct.getItem())
+      product: _.cloneDeep(nextProps.defaultProduct.obj)
     })
   }
 

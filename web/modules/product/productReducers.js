@@ -184,6 +184,7 @@ function product(state = {
     , getItem: () => {
       return null
     }
+    , obj: null
     , schema: null
     , lastUpdated: null
   }
@@ -250,6 +251,42 @@ function product(state = {
       break;
     }
     case Actions.RECEIVE_DEFAULT_PRODUCT: {
+      if(action.success) {
+        nextState = {
+          ...state
+          , defaultItem: {
+            ...state.defaultItem
+            , error: null
+            , obj: action.defaultObj
+            , isFetching: false
+            , lastUpdated: action.receivedAt
+          }
+        }
+      } else {
+        nextState = {
+          ...state
+          , defaultItem: {
+            ...state.defaultItem
+            , error: action.error
+            , obj: null
+            , isFetching: false
+            , lastUpdated: action.receivedAt
+          }
+        }
+      }
+      break;
+    }
+    case Actions.REQUEST_PRODUCT_SCHEMA: {
+      nextState = {
+        ...state
+        , defaultItem: {
+          ...state.defaultItem
+          , isFetching: true
+        }
+      }
+      break;
+    }
+    case Actions.RECEIVE_PRODUCT_SCHEMA: {
       if(action.success) {
         nextState = {
           ...state

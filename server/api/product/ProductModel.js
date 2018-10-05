@@ -9,6 +9,7 @@
  * NOTE: make sure to account for any model changes on the client
  */
 
+const apiUtils = require('../../utilities/api');
 let mongoose = require('mongoose');
 let ObjectId = mongoose.SchemaTypes.ObjectId; // use for referencing other resources
 let logger = global.logger;
@@ -36,6 +37,15 @@ productSchema.statics.getSchema = () => {
     schema[path] = schemaType;
   });
   return schema;
+}
+
+productSchema.statics.getDefault = () => {
+  logger.info('return default schema paths');
+  let defObj = {};
+  productSchema.eachPath((path, schemaType) => {
+    defObj[path] = apiUtils.defaultValueFromSchema(schemaType);
+  });
+  return defObj;
 }
 
 const Product = mongoose.model('Product', productSchema);
