@@ -28,6 +28,7 @@ import UpdateProfile from '../../modules/user/views/UpdateProfile';
 
 // import styles
 import YTColors from '../styles/YTColors';
+import YTStyles from '../styles/YTStyles'; 
 
 /** Navigator Notes **
   *
@@ -86,7 +87,7 @@ const TabsNavigator = TabNavigator(
   }
   , {
     tabBarOptions: {
-      activeTintColor: YTColors.button
+      activeTintColor: YTStyles.colors.secondary
       , inactiveTintColor: 'black'
       , style: {
         backgroundColor: '#fff'

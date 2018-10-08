@@ -51,7 +51,7 @@ class ProductList extends Binder {
   }
 
   _openProduct(product) {
-    console.log("open product", product);
+    // console.log("open product", product);
     this.props.navigation.navigate('SingleProduct', {product: product});
   }
 

@@ -13,6 +13,7 @@ import {
 
 // import styles
 import YTColors from '../styles/YTColors';
+import YTStyles from '../styles/YTStyles';
 
 const BUTTON_FONT = Platform.OS === 'android' ? 'sans-serif-condensed' : 'AvenirNextCondensed-DemiBold';
 const HEIGHT = 50;
@@ -47,13 +48,13 @@ var styles = StyleSheet.create({
     }
   , primaryButton: {
       borderRadius: HEIGHT / 2
-      , backgroundColor: YTColors.button
+      , backgroundColor: YTStyles.colors.primary
     }
   , primaryCaption: {
       color: '#fff'
     }
   , secondaryCaption: {
-      color: YTColors.actionText
+      color: YTStyles.colors.accent
     }
 });
 

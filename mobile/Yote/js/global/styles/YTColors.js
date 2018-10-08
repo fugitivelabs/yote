@@ -23,5 +23,4 @@ module.exports = {
   , yoteGreen: '#00BC8B'
   , yoteDarkGrey: '#333'
   , yoteDarkBlue: '#007BA4'
-
 }

@@ -24,93 +24,10 @@ import Hero from './Hero.js';
 import YTColors from '../styles/YTColors';
 import YTHeader from '../headers/YTHeader';
 
+// import styles
+import YTStyles from '../styles/YTStyles'
+
 const screenHeight = Dimensions.get('window').height
-
-var styles = StyleSheet.create({
-  _bannerWrapper: {
-    flex:1
-    , padding: 20
-    , justifyContent: 'flex-end'
-  }
-  , _bannerText: {
-      color: '#fffFFF'
-    }
-  , _bannerLabel: {
-      fontSize: 18
-    }
-  , _bannerTitle: {
-      fontSize: 38
-      , fontWeight: "500"
-    }
-  , caption: {
-      fontSize: 12,
-      color: YTColors.lightText
-    }
-  , cell: {
-      flex: 1
-      , backgroundColor: 'transparent'
-      , marginTop: 10
-      , marginBottom: 10
-    }
-  , comment: {
-      backgroundColor: '#fff'
-      , padding: 10
-      , margin: 5
-      , flex: 0.75
-      , justifyContent: 'space-between'
-    }
-  , container: {
-      flex: 1
-      , backgroundColor: YTColors.lightBackground
-    }
-  , details: {
-      height: 52
-      , textAlign: 'center'
-      , fontWeight: '500'
-      , flex: 1
-      , fontSize: 17
-      , paddingTop: 8
-      , paddingBottom: 8
-    }
-  , emptyMessage: {
-      fontSize: 16
-      , flex: 1
-      , textAlign: 'center'
-      , color: "#fff"
-      , padding: 4
-      , marginTop: 40
-      , fontStyle: "italic"
-      , color: YTColors.lightText
-    }
-  , header: {
-      fontSize: 16
-      , textAlign: 'center'
-      , color: "#fff"
-      , padding: 4
-      , color: YTColors.darkText
-    }
-  , infoBox: {
-      padding: 8
-    }
-  , input: {
-      height: 80
-      , fontSize: 17
-      , padding: 4
-      , backgroundColor: YTColors.listSeparator
-    }
-  , instructions: {
-      color: YTColors.lightText
-      , textAlign: 'center'
-      , marginBottom: 5
-    }
-  , _squadListSeparator: {
-      height: 0
-    }
-  , scrollView: {
-      marginBottom: 50
-    }
-});
-
 
 class Home extends Binder {
   constructor(props) {
@@ -148,14 +65,14 @@ class Home extends Binder {
     console.log(appKeys); 
 
     return (
-      <View style={styles.container}>
+      <View style={YTStyles.container}>
         <YTHeader
           title={appKeys.displayName}
         />
         <ScrollView
           automaticallyAdjustContentInsets={false}
         >
-          <View style={{flex: 1, backgroundColor: '#333'}} >
+          <View style={YTStyles.brandContainer} >
             <View style={{height: screenHeight * .66, backgroundColor: 'transparent', justifyContent: 'center', alignItems: 'center'}}>
               <View style={{flexDirection: 'row', justifyContent: 'center'}}>
                 <Image
@@ -168,12 +85,12 @@ class Home extends Binder {
                 <Hero/>
               </View>
             </View>
-            <View style={{flex: 1, backgroundColor: YTColors.lightBackground, justifyContent: 'center'}}>
+            <View style={[YTStyles.container, {justifyContent: 'center'}]}>
               <View style={{flexDirection: 'row', justifyContent: 'center', paddingVertical: 50}}>
-                <Text style={{fontFamily: 'AvenirNextCondensed-DemiBold', fontWeight: 'normal', fontSize: 15, color: YTColors.darkText, textAlign: 'center'}}> Check out the docs on </Text>
+                <Text style={[YTStyles.text, {textAlign: 'center'}]}> Check out the docs on </Text>
                 <TouchableOpacity
                   onPress={this._handleClick}>
-                  <Text style={{fontFamily: 'AvenirNextCondensed-DemiBold', fontWeight: 'normal', fontSize: 15, textAlign: 'center', color: YTColors.actionText}}>Github </Text>
+                  <Text style={[YTStyles.text, {textAlign: 'center', color: YTStyles.colors.accent}]}>Github </Text>
                 </TouchableOpacity>
               </View>
             </View>

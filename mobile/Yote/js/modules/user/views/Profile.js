@@ -183,7 +183,7 @@ class Profile extends Binder {
           <View>
             <View style={{flex: 1, alignItems: 'center', padding: 20, justifyContent: 'center',}}>
               <Image
-                style={{width: 200, height: 200, borderRadius: 200 * .5, borderColor: YTColors.actionText, borderWidth: 4}}
+                style={{width: 200, height: 200, borderRadius: 200 * .5, borderColor: YTStyles.colors.primary, borderWidth: 4}}
                 source={profileImg}> 
               </Image>
             </View>
@@ -198,7 +198,7 @@ class Profile extends Binder {
                   <Text style={YTStyles.text}>Name: </Text>
                 </View>
                 <View style={{flex: 0.8}}>
-                  <Text style={YTStyles.darkText}>{user.firstName} {user.lastName}</Text>
+                  <Text style={YTStyles.text}>{user.firstName} {user.lastName}</Text>
                 </View>
               </View>
             </View>
@@ -208,14 +208,14 @@ class Profile extends Binder {
                 <Text style={YTStyles.text}>Email: </Text>
               </View>
               <View style={{flex: 0.8}}>
-                <Text style={YTStyles.darkText}>{user.username}</Text>
+                <Text style={YTStyles.text}>{user.username}</Text>
               </View>
             </View>
             <View style={YTStyles.separator}/>
             <View style={YTStyles.btnWrapper}>
               <YTButton
                 caption={"Edit Profile"}
-                icon={require('../../../global/img/edit.png')}
+                // icon={require('../../../global/img/edit.png')}
                 onPress={this._openEditProfile}
                 type="secondary"
               />
@@ -224,7 +224,7 @@ class Profile extends Binder {
           {user._id ? 
             <YTButton
               caption="Logout"
-              captionStyle={{color: YTColors.danger}}
+              captionStyle={{color: YTStyles.colors.danger}}
               onPress={this._handleLogout}
               type="secondary"
             />

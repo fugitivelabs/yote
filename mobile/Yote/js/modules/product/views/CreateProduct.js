@@ -36,6 +36,7 @@ import * as productActions from '../productActions'
 
 // import styles
 import productStyles from '../productStyles';
+import YTStyles from '../../../global/styles/YTStyles'; 
 import YTColors from '../../../global/styles/YTColors';
 
 class CreateProduct extends Binder {
@@ -136,7 +137,7 @@ class CreateProduct extends Binder {
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? "padding" : null}
         contentContainerStyle={{flex:1}}
-        style={{flex: 1, backgroundColor: '#fff'}}
+        style={YTStyles.container}
       >
         <YTHeader
           rightItem={rightItem}

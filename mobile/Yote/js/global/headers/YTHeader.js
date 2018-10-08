@@ -20,10 +20,11 @@ import Binder from '../Binder';
 
 // import Styles
 import YTColors from '../styles/YTColors';
+import YTStyles from '../styles/YTStyles'; 
 
-const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? 20 : 25;
+const STATUS_BAR_HEIGHT = (Platform.OS === 'ios' && Dimensions.get('window').height === 812) ? 30 : Platform.OS === 'android' ? 10 : 20;
 const HEADER_HEIGHT = Platform.OS === 'ios' ? 44 + STATUS_BAR_HEIGHT : 44 + STATUS_BAR_HEIGHT;
-const IMAGE_SIZE = 30;
+const IMAGE_SIZE = 25;
 const FONT = Platform.OS === 'android' ? 'sans-serif-condensed' : 'AvenirNextCondensed-DemiBold';
 
 var styles = StyleSheet.create({
@@ -33,9 +34,9 @@ var styles = StyleSheet.create({
   }
   , header: {
       alignItems: 'center'
-      , backgroundColor: YTColors.primaryHeader
+      , backgroundColor: YTStyles.colors.header
       , borderBottomWidth: 1
-      , borderColor: YTColors.listSeparator
+      , borderColor: YTStyles.colors.separator
       , flexDirection: 'row'
       , height: HEADER_HEIGHT
       , justifyContent: 'space-between'
@@ -44,6 +45,7 @@ var styles = StyleSheet.create({
   , iconStyle: {
       height: IMAGE_SIZE
       , width: IMAGE_SIZE
+      , tintColor: YTStyles.colors.headerText
     }
   , imageStyle: {
       height: IMAGE_SIZE
@@ -67,7 +69,7 @@ var styles = StyleSheet.create({
       , flex: 1
     }
   , titleText: {
-      color: YTColors.primaryHeaderText
+      color: YTStyles.colors.headerText
       , fontFamily: FONT
       , fontSize: 20
       , fontWeight: '600'
@@ -145,7 +147,7 @@ class YTHeader extends Binder {
 
     const titleColor = 'white';
 
-    let itemsColor = YTColors.darkText;
+    let itemsColor = YTStyles.colors.headerText;
     let headerBackground;
     let titleStyle;
     if(headerStyle) {

@@ -14,6 +14,9 @@ import {
 import Binder from '../Binder';
 import YTColors from '../styles/YTColors'; 
 
+// import styles
+import YTStyles from '../styles/YTStyles'; 
+
 /**
  * build a temporary component for each "cool thing"
  */
@@ -57,12 +60,9 @@ class TheCoolThing extends Binder {
   render() {
      
     return(
-        <Text
-          style={{color: YTColors.yoteGreen, fontSize: 25, textAlign: 'center', fontFamily: 'AvenirNextCondensed-DemiBold'}}
-          key={this.state.coolThing}
-        >
-          {this.state.coolThing}
-        </Text>
+      <Text style={[YTStyles.h2_secondary, {textAlign: 'center'}]} key={this.state.coolThing}>
+        {this.state.coolThing}
+      </Text>
     )
   }
 }
