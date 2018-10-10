@@ -19,4 +19,4 @@ module.exports = function(config) {
 };
 
 // Yote models are defined below
-let Product = require('./api/product/ProductModel');
+let Product = require('./resources/product/ProductModel');

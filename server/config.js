@@ -1,3 +1,9 @@
+/**
+ * NOTE: to @grant maybe we should change this to env.js and have it live in a
+ * top level directory called /config/
+ */ 
+
+
 const path = require('path');
 const rootPath = path.normalize(__dirname + '/../../');
 
