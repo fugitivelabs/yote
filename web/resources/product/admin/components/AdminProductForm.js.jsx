@@ -17,7 +17,7 @@ import {
   , SelectFromArray
   , TextInput
   , TextAreaInput
-} from '../../../../global/forms';
+} from  '../../../../global/components/forms';
 
 const AdminProductForm = ({
   cancelLink

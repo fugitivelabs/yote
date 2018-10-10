@@ -16,7 +16,7 @@
 
 // import product actions
 import * as Actions from './productActions';
-import apiUtils from '../../utils/api'
+import apiUtils from '../../global/utils/api'
 
 /**
  * productList reducer -

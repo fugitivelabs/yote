@@ -13,7 +13,7 @@ import {
   , PasswordInput
   , SimpleArrayEditor
   , TextInput
-} from '../../../../global/forms';
+} from  '../../../../global/components/forms';
 
 const AdminUserForm = ({
   user

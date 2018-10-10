@@ -8,7 +8,7 @@ import {
   EmailInput
   , NewPasswordInput
   , TextInput
-} from '../../../global/forms';
+} from '../../../global/components/forms';
 
 const UserRegisterForm = ({
   confirmPassword

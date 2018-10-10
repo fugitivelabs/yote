@@ -8,10 +8,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // import global components
-import Base from '../../../../global/BaseComponent.js.jsx';
-import AdminLayout from '../../../admin/components/AdminLayout.js.jsx';
+import Binder from '../../../../global/components/Binder.js.jsx';
+import AdminLayout from '../../../../global/admin/components/AdminLayout.js.jsx';
 
-class AdminUserLayout extends Base {
+class AdminUserLayout extends Binder {
   constructor(props) {
     super(props);
   }

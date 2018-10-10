@@ -12,11 +12,11 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 
 // import components
-import Base from '../BaseComponent.js.jsx';
+import Binder from '../Binder.js.jsx';
 import Footer from '../navigation/Footer.js.jsx';
 import DefaultTopNav from '../navigation/DefaultTopNav.js.jsx';
 
-export default class DefaultLayout extends Base {
+export default class DefaultLayout extends Binder {
   constructor(props) {
     super(props);
   }

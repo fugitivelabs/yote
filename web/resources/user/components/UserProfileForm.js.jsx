@@ -7,7 +7,7 @@ import { Link, withRouter } from 'react-router-dom';
 import {
   TextInput
   , EmailInput
-} from '../../../global/forms';
+} from '../../../global/components/forms';
 
 function UserProfileForm({ handleFormChange, handleFormSubmit, user }) {
   return (

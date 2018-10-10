@@ -9,12 +9,12 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 // import global components
-import Base from '../../../global/BaseComponent.js.jsx';
+import Binder from '../../../global/components/Binder.js.jsx';
 
 // import admin components
 import AdminTopNav from './AdminTopNav.js.jsx';
 
-export default class AdminLayout extends Base {
+export default class AdminLayout extends Binder {
   constructor(props) {
     super(props);
   }

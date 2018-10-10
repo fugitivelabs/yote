@@ -12,13 +12,13 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 
 // import components
-import Base from '../BaseComponent.js.jsx';
+import Binder from '../Binder.js.jsx';
 import CloseWrapper from '../helpers/CloseWrapper.js.jsx';
 import ProfileDropdown from './ProfileDropdown.js.jsx';
 
-import { MAIN_NAV_ITEMS } from './navItems.js';
+import { MAIN_NAV_ITEMS } from '../../../config/navItems.js';
 
-class DefaultTopNav extends Base {
+class DefaultTopNav extends Binder {
   constructor(props, context) {
     super(props);
     this.state = {

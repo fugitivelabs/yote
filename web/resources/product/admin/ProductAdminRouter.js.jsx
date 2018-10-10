@@ -16,8 +16,8 @@ import React from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 
 // import global components
-import Base from '../../../global/BaseComponent.js.jsx';
-import YTRoute from '../../../global/routing/YTRoute.js.jsx';
+import Binder from '../../../global/components/Binder.js.jsx';
+import YTRoute from '../../../global/components/routing/YTRoute.js.jsx';
 
 // import product views
 import AdminCreateProduct from './views/AdminCreateProduct.js.jsx';
@@ -25,7 +25,7 @@ import AdminProductList from './views/AdminProductList.js.jsx';
 import AdminSingleProduct from './views/AdminSingleProduct.js.jsx';
 import AdminUpdateProduct from './views/AdminUpdateProduct.js.jsx';
 
-class ProductAdminRouter extends Base {
+class ProductAdminRouter extends Binder {
   constructor(props) {
     super(props);
   }

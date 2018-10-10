@@ -23,9 +23,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // import components
-import Base from "../BaseComponent.js.jsx";
+import Binder from '../Binder.js.jsx';
 
-class SelectFromArray extends Base{
+class SelectFromArray extends Binder {
   constructor(props) {
     super(props);
     this.state = {

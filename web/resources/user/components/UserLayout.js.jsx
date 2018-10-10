@@ -8,9 +8,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // import global components
-import Base from '../../../global/BaseComponent.js.jsx';
+import Binder from '../../../global/components/Binder.js.jsx';
 
-class UserLayout extends Base {
+class UserLayout extends Binder {
   constructor(props) {
     super(props);
   }

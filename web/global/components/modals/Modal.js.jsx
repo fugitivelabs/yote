@@ -13,9 +13,9 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import classNames from 'classnames';
 
 // import components
-import Base from '../BaseComponent.js.jsx';
+import Binder from '../Binder.js.jsx';
 
-class Modal extends Base {
+class Modal extends Binder {
   constructor(props) {
     super(props);
   }

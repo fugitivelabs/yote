@@ -16,13 +16,13 @@ import { Link, withRouter } from 'react-router-dom';
 
 
 // import global components
-import Base from '../../../global/components/BaseComponent.js.jsx';
+import Binder from '../../../global/components/BaseComponent.js.jsx';
 
 
 // import module components
 
 
-class DefaultConnectedView extends Base {
+class DefaultConnectedView extends Binder {
   constructor(props) {
     super(props);
     this.state = {

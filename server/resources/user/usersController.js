@@ -12,7 +12,7 @@ let appUrl = require('../../config')[process.env.NODE_ENV].appUrl;
 // let secrets = require('../../config')[process.env.NODE_ENV].secrets;
 
 let User = require('mongoose').model('User');
-let emailUtil = require('../../utilities/email');
+let emailUtil = require('../../global/utils/email');
 let logger = global.logger;
 
 exports.getLoggedInUser = (req, res) => {

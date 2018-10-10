@@ -18,14 +18,14 @@ import _ from 'lodash';
 import * as productActions from '../productActions';
 
 // import global components
-import Base from '../../../global/BaseComponent.js.jsx';
-import Breadcrumbs from '../../../global/navigation/Breadcrumbs.js.jsx';
+import Binder from '../../../global/components/Binder.js.jsx';
+import Breadcrumbs from '../../../global/components/navigation/Breadcrumbs.js.jsx';
 
 // import product components
 import ProductLayout from '../components/ProductLayout.js.jsx';
 import ProductForm from '../components/ProductForm.js.jsx';
 
-class UpdateProduct extends Base {
+class UpdateProduct extends Binder {
   constructor(props) {
     super(props);
     const { match, productStore } = this.props;

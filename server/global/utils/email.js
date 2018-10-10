@@ -6,7 +6,7 @@
  */
 
 // import secrets
-let secrets = require('../config')[process.env.NODE_ENV].secrets;
+let secrets = require('../../config')[process.env.NODE_ENV].secrets;
 
 // import libraries
 // let async = require('async');

@@ -11,8 +11,8 @@ import React from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
 
 // import global components
-import Base from '../../global/BaseComponent.js.jsx';
-import YTRoute from '../../global/routing/YTRoute.js.jsx';
+import Binder from '../../global/components/Binder.js.jsx';
+import YTRoute from '../../global/components/routing/YTRoute.js.jsx';
 
 // import admin views
 import AdminDashboard from './views/AdminDashboard.js.jsx';
@@ -21,7 +21,7 @@ import StyleGuide from './views/StyleGuide.js.jsx';
 // import admin components
 import AdminLayout from './components/AdminLayout.js.jsx';
 
-class AdminRouter extends Base {
+class AdminRouter extends Binder {
   constructor(props) {
     super(props);
   }

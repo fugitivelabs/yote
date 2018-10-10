@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 // import form components
-import { TextInput, TextAreaInput } from '../../../global/forms';
+import { TextInput, TextAreaInput } from '../../../global/components/forms';
 
 const ProductForm = ({
   cancelLink

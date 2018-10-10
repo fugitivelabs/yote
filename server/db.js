@@ -1,5 +1,5 @@
 let mongoose = require('mongoose');
-let User = require('./api/user/UserModel');
+let User = require('./resources/user/UserModel');
 let logger = global.logger;
 
 module.exports = function(config) {

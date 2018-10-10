@@ -1599,10 +1599,6 @@ a, .action-link {
   font-family: "Nunito", "Helvetica Neue", Helvetica, sans-serif;
   display: block; }
 
-ul {
-  margin: 0px;
-  padding: 0px; }
-
 h1 {
   font-size: 2.25rem;
   line-height: 1; }
@@ -3074,6 +3070,8 @@ a.yt-btn.bordered,
   border: 1px solid #ccc;
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 4px;
+  margin: 0;
+  padding: 0;
   -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
   -moz-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
   -o-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
@@ -4668,7 +4666,9 @@ a.nav-logo,
     -ms-flex-item-align: stretch;
     align-self: stretch;
     list-style: none;
-    text-align: center; }
+    text-align: center;
+    margin: 0;
+    padding: 0; }
     .topbar .navigation.-left {
       margin-left: 0;
       -webkit-box-pack: start;

@@ -18,9 +18,9 @@ import _ from 'lodash';
 import classNames from 'classnames';
 
 // import components
-import Base from "../BaseComponent.js.jsx";
+import Binder from '../Binder.js.jsx';
 
-class UrlInput extends Base {
+class UrlInput extends Binder {
   constructor(props) {
     super(props);
     this.state = {

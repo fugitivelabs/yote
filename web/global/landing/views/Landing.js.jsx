@@ -10,14 +10,14 @@ import {
 } from 'react-router-dom';
 
 // import global components
-import Base from '../../../global/BaseComponent.js.jsx';
-import DefaultTopNav from '../../../global/navigation/DefaultTopNav.js.jsx'
+import Binder from '../../../global/components/Binder.js.jsx';
+import DefaultTopNav from '../../../global/components/navigation/DefaultTopNav.js.jsx'
 
 // import landing page components
 import LandingHero from '../components/LandingHero.js.jsx';
 import LandingNav from '../components/LandingNav.js.jsx';
 
-class Landing extends Base {
+class Landing extends Binder {
   constructor(props, context) {
     super(props);
     this.state = this.props;

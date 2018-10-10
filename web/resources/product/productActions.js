@@ -11,7 +11,7 @@
  */
 
 // import api utility
-import apiUtils from '../../utils/api'
+import apiUtils from '../../global/utils/api'
 
 // - re
 const shouldFetchSingle = (state, id) => {

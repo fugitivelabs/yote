@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 // import global components
-import DefaultLayout from '../../../global/layouts/DefaultLayout.js.jsx';
+import DefaultLayout from '../../../global/components/layouts/DefaultLayout.js.jsx';
 
 const Forbidden = () => {
   return(

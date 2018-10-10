@@ -17,14 +17,14 @@ import _ from 'lodash';
 import * as productActions from '../../productActions';
 
 // import global components
-import Base from '../../../../global/BaseComponent.js.jsx';
-import Breadcrumbs from '../../../../global/navigation/Breadcrumbs.js.jsx';
+import Binder from '../../../../global/components/Binder.js.jsx';
+import Breadcrumbs from '../../../../global/components/navigation/Breadcrumbs.js.jsx';
 
 // import product components
 import AdminProductForm from '../components/AdminProductForm.js.jsx';
 import AdminProductLayout from '../components/AdminProductLayout.js.jsx';
 
-class AdminCreateProduct extends Base {
+class AdminCreateProduct extends Binder {
   constructor(props) {
     super(props);
     this.state = {

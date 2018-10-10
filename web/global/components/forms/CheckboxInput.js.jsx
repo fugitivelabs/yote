@@ -7,9 +7,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // import components
-import Base from "../BaseComponent.js.jsx";
+import Binder from '../Binder.js.jsx';
 
-class CheckboxInput extends Base {
+class CheckboxInput extends Binder {
   constructor(props) {
     super(props);
     this.state = {

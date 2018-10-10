@@ -7,9 +7,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // import components
-import Base from "../BaseComponent.js.jsx";
+import Binder from '../Binder.js.jsx';
 
-class SearchInput extends Base {
+class SearchInput extends Binder {
   constructor(props) {
     super(props);
     this._bind('_handleInputChange');

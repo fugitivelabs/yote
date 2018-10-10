@@ -17,14 +17,14 @@ import _ from 'lodash';
 import * as productActions from '../productActions';
 
 // import global components
-import Base from '../../../global/BaseComponent.js.jsx';
-import Breadcrumbs from '../../../global/navigation/Breadcrumbs.js.jsx';
+import Binder from '../../../global/components/Binder.js.jsx';
+import Breadcrumbs from '../../../global/components/navigation/Breadcrumbs.js.jsx';
 
 // import product components
 import ProductForm from '../components/ProductForm.js.jsx';
 import ProductLayout from '../components/ProductLayout.js.jsx';
 
-class CreateProduct extends Base {
+class CreateProduct extends Binder {
   constructor(props) {
     super(props);
     this.state = {
@@ -79,6 +79,7 @@ class CreateProduct extends Base {
     const isEmpty = (!product || product.title === null || product.title === undefined);
     return (
       <ProductLayout>
+        <h4>Hello?</h4>
         <Breadcrumbs links={location.state.breadcrumbs} />
         {isEmpty ?
           <h2> Loading...</h2>

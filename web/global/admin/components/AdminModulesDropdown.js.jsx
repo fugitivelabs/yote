@@ -12,9 +12,9 @@ import { NavLink, withRouter } from 'react-router-dom';
 import classNames from 'classnames';
 
 // import components
-import CloseWrapper from '../../../global/helpers/CloseWrapper.js.jsx';
+import CloseWrapper from '../../components/helpers/CloseWrapper.js.jsx';
 
-import { ADMIN_NAV_ITEMS } from '../adminNavItems.js';
+import { ADMIN_NAV_ITEMS } from '../../../config/adminNavItems.js';
 
 const AdminModulesDropdown = ({close, isOpen}) => {
   return(

@@ -14,13 +14,13 @@ import { withRouter } from 'react-router-dom';
 import * as userActions from '../../userActions';
 
 // import global components
-import AlertModal from '../../../../global/modals/AlertModal.js.jsx';
-import Base from '../../../../global/BaseComponent.js.jsx';
+import AlertModal from '../../../../global/components/modals/AlertModal.js.jsx';
+import Binder from '../../../../global/components/Binder.js.jsx';
 
 // import user components
 import AdminUserForm from '../components/AdminUserForm.js.jsx';
 
-class AdminUpdateUser extends Base {
+class AdminUpdateUser extends Binder {
   constructor(props) {
     super(props);
     this.state = {

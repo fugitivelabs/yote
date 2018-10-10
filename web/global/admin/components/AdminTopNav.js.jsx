@@ -12,15 +12,15 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 
 // import components
-import Base from '../../../global/BaseComponent.js.jsx';
-import CloseWrapper from '../../../global/helpers/CloseWrapper.js.jsx';
-import ProfileDropdown from '../../../global/navigation/ProfileDropdown.js.jsx';
+import Binder from '../../../global/components/Binder.js.jsx';
+import CloseWrapper from '../../../global/components/helpers/CloseWrapper.js.jsx';
+import ProfileDropdown from '../../../global/components/navigation/ProfileDropdown.js.jsx';
 
 // import module components
 import AdminModulesDropdown from './AdminModulesDropdown.js.jsx';
 
 
-class AdminTopNav extends Base {
+class AdminTopNav extends Binder {
   constructor(props, context) {
     super(props);
     this.state = {

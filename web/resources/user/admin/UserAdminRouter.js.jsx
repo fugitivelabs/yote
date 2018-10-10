@@ -8,15 +8,15 @@ import PropTypes from 'prop-types';
 import { Route, Redirect, Switch, withRouter } from 'react-router-dom';
 
 // import global components
-import Base from '../../../global/BaseComponent.js.jsx';
-import YTRoute from '../../../global/routing/YTRoute.js.jsx';
+import Binder from '../../../global/components/Binder.js.jsx';
+import YTRoute from '../../../global/components/routing/YTRoute.js.jsx';
 
 // import user admin views
 import AdminCreateUser from './views/AdminCreateUser.js.jsx';
 import AdminUpdateUser from './views/AdminUpdateUser.js.jsx';
 import AdminUserList from './views/AdminUserList.js.jsx';
 
-class UserAdminRouter extends Base {
+class UserAdminRouter extends Binder {
   constructor(props) {
     super(props);
   }

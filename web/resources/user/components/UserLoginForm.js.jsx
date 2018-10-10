@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
 
 // import form components
-import { EmailInput, PasswordInput } from '../../../global/forms';
+import { EmailInput, PasswordInput } from '../../../global/components/forms';
 
 const UserLoginForm = ({
   handleFormChange

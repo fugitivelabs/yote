@@ -23,10 +23,10 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 // import components
-import Base from "../BaseComponent.js.jsx";
+import Binder from '../Binder.js.jsx';
 
 
-class RadioInput extends Base {
+class RadioInput extends Binder {
   constructor(props) {
     super(props);
     this.state = {

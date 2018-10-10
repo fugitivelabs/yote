@@ -10,12 +10,12 @@ import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 // import actions
-import * as userActions from '../../modules/user/userActions';
+import * as userActions from '../../../resources/user/userActions';
 
 // import components
-import Base from '../BaseComponent.js.jsx';
+import Binder from '../Binder.js.jsx';
 
-class ProfileDropdown extends Base {
+class ProfileDropdown extends Binder {
   constructor(props) {
     super(props);
     this._bind(

@@ -11,12 +11,12 @@ import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
 // import global components
-import Base from '../../../global/BaseComponent.js.jsx';
+import Binder from '../../../global/components/Binder.js.jsx';
 
 // import module components
 import AdminLayout from '../components/AdminLayout.js.jsx';
 
-class StyleGuide extends Base {
+class StyleGuide extends Binder {
   constructor(props) {
     super(props);
   }

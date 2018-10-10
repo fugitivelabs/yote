@@ -16,8 +16,8 @@ import React from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 
 // import global components
-import Base from '../../global/BaseComponent.js.jsx';
-import YTRoute from '../../global/routing/YTRoute.js.jsx';
+import Binder from '../../global/components/Binder.js.jsx';
+import YTRoute from '../../global/components/routing/YTRoute.js.jsx';
 
 // import product views
 import CreateProduct from './views/CreateProduct.js.jsx';
@@ -25,7 +25,7 @@ import ProductList from './views/ProductList.js.jsx';
 import SingleProduct from './views/SingleProduct.js.jsx';
 import UpdateProduct from './views/UpdateProduct.js.jsx';
 
-class ProductRouter extends Base {
+class ProductRouter extends Binder {
   constructor(props) {
     super(props);
   }

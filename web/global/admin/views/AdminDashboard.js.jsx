@@ -11,14 +11,14 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 // import global components
-import Base from '../../../global/BaseComponent.js.jsx';
+import Binder from '../../../global/components/Binder.js.jsx';
 
 // import admin components
 import AdminLayout from '../components/AdminLayout.js.jsx';
 
-import { ADMIN_NAV_ITEMS } from '../adminNavItems.js';
+import { ADMIN_NAV_ITEMS } from '../../../config/adminNavItems.js';
 
-class AdminDashboard extends Base {
+class AdminDashboard extends Binder {
   constructor(props) {
     super(props);
   }

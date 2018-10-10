@@ -5,7 +5,7 @@
 module.exports = function(router, app) {
 
   // require api routes list
-  require('./api/api-router')(router);
+  require('./api-router')(router);
 
   // catch all other api requests and send 404
   router.all('/api/*', function(req, res) {
@@ -14,7 +14,7 @@ module.exports = function(router, app) {
 
   // render layout
   router.get('*', function(req, res) {
-    res.render('index', {
+    res.render('layout', {
       currentUser: req.user
       , development: app.get('env') == 'development' ? true : false
     });

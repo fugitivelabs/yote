@@ -15,13 +15,13 @@ import { Link, withRouter } from 'react-router-dom';
 import * as productActions from '../productActions';
 
 // import global components
-import Base from '../../../global/BaseComponent.js.jsx';
-import Breadcrumbs from '../../../global/navigation/Breadcrumbs.js.jsx';
+import Binder from '../../../global/components/Binder.js.jsx';
+import Breadcrumbs from '../../../global/components/navigation/Breadcrumbs.js.jsx';
 
 // import product components
 import ProductLayout from '../components/ProductLayout.js.jsx';
 
-class SingleProduct extends Base {
+class SingleProduct extends Binder {
   constructor(props) {
     super(props);
   }

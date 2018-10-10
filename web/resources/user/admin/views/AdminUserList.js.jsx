@@ -14,18 +14,18 @@ import { Link, withRouter } from 'react-router-dom';
 import * as userActions from '../../userActions';
 
 // import global components
-import Base from '../../../../global/BaseComponent.js.jsx';
-import PageTabber from "../../../../global/pagination/PageTabber.js.jsx";
-import { SearchInput } from '../../../../global/forms';
+import Binder from '../../../../global/components/Binder.js.jsx';
+import PageTabber from '../../../../global/components/pagination/PageTabber.js.jsx';
+import { SearchInput } from  '../../../../global/components/forms';
 
 // import utilities
-import filterUtils from '../../../../utils/filterUtils';
+import filterUtils from '../../../../global/utils/filterUtils';
 
 // import user components
 import AdminUserLayout from '../components/AdminUserLayout.js.jsx';
 import AdminUserListItem from '../components/AdminUserListItem.js.jsx';
 
-class AdminUserList extends Base {
+class AdminUserList extends Binder {
   constructor(props) {
     super(props);
     this.state = {

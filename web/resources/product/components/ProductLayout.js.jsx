@@ -8,10 +8,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // import global components
-import Base from '../../../global/BaseComponent.js.jsx';
-import DefaultLayout from '../../../global/layouts/DefaultLayout.js.jsx';
+import Binder from '../../../global/components/Binder.js.jsx';
+import DefaultLayout from '../../../global/components/layouts/DefaultLayout.js.jsx';
 
-class ProductLayout extends Base {
+class ProductLayout extends Binder {
   constructor(props) {
     super(props);
   }

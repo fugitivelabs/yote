@@ -19,13 +19,13 @@ import moment from 'moment';
 import * as userActions from '../userActions';
 
 // import global components
-import Base from '../../../global/BaseComponent.js.jsx';
+import Binder from '../../../global/components/Binder.js.jsx';
 
 // import user components
 import UserProfileLayout from '../components/UserProfileLayout.js.jsx';
 import UpdateProfileModal from '../components/UpdateProfileModal.js.jsx';
 
-class UserProfile extends Base {
+class UserProfile extends Binder {
   constructor(props) {
     super(props);
     this.state = {
