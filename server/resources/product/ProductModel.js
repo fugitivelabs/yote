@@ -9,6 +9,7 @@
  * NOTE: make sure to account for any model changes on the client
  */
 
+const apiUtils = require('../../global/utils/api.js');
 let mongoose = require('mongoose');
 let ObjectId = mongoose.SchemaTypes.ObjectId; // use for referencing other resources
 let logger = global.logger;
@@ -29,13 +30,22 @@ const productSchema = mongoose.Schema({
 // product model static functions go here
 // productSchema.statics.staticFunctionName = function() {};
 productSchema.statics.getSchema = () => {
-  logger.info('return default schema paths');
+  logger.info('return full schema');
   let schema = {}
   productSchema.eachPath((path, schemaType) => {
     // console.log(path, schemaType);
     schema[path] = schemaType;
   });
   return schema;
+}
+
+productSchema.statics.getDefault = () => {
+  logger.info('return default object based on the schema');
+  let defObj = {};
+  productSchema.eachPath((path, schemaType) => {
+    defObj[path] = apiUtils.defaultValueFromSchema(schemaType);
+  });
+  return defObj;
 }
 
 const Product = mongoose.model('Product', productSchema);
