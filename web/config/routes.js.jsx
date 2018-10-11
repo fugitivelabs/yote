@@ -48,7 +48,9 @@ const routes =
         role="admin"
       />
     )}
-    <AdminRouter/>
+    <Route path="/admin">
+      <AdminRouter/>
+    </Route>
     <Route component={NotFound} />
   </Switch>
 ;
