@@ -179,6 +179,11 @@ exports.getById = (req, res) => {
   });
 }
 
+exports.getSchema = (req, res) => {
+  logger.info('get product default object');
+  res.send({success: true, schema: Product.getSchema()});
+}
+
 exports.create = (req, res) => {
   logger.info('creating new product');
   let product = new Product({});

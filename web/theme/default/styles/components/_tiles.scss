@@ -1,0 +1,52 @@
+// Tiles
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+$tile-height:     270px;
+$tile-padding:    5px;
+$tile-bg-color:   #fff;
+
+
+.tile {
+  height: $tile-height;
+  background-color: $tile-bg-color;
+
+  transition: all 150ms ease-in-out;
+  @include display-flex;
+  @include flex-direction(column);
+
+  &.hoverable {
+    &:hover {
+      @include box-shadow(0 4px 12px $shadow-color);
+    }
+  }
+  &.clickable {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .tile-header {  
+    padding: $tile-padding;
+    margin-bottom: $gutter;
+    @include flex(0 0 20%);
+    .title {
+      @include large-font;
+      font-weight: 700;
+    }
+  }
+
+  .tile-body {
+    padding: $tile-padding;
+    @include flex(1);
+    img {
+      margin: -$tile-padding;
+    }
+  }
+
+  .tile-footer {
+    padding: $tile-padding;
+    @include flex(0 0 15%);
+  }
+
+
+}

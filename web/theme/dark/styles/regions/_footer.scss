@@ -1,0 +1,176 @@
+footer, .footer {
+  @include flex(none);
+  background-color: #000;
+  color: rgba(255,255,255, 0.9);
+  padding: 40px 0px;
+
+  @include zIndex-6;
+  hr { margin: 0 }
+  a {
+    // color: $text-light;
+    color: rgba(255,255,255, 0.9);
+    &:hover {
+      // color: lighten($text-light, 2);
+      color: rgba(255,255,255, 0.97);
+    }
+  }
+
+  .footer-nav {
+    padding-top: $gutter-width;
+    border-top: 1px solid $light-divider-color;
+
+    // @extend %calibre-semibold;
+    @include medium-font;
+    display: none;
+    @include MQ(XS) {
+      @include display-flex;
+    }
+    @include MQ(S) {
+      border: none;
+    }
+
+    .nav-link {
+      padding-bottom: 10px;
+    }
+
+  }
+
+  .middle {
+    border-top: 1px solid $light-divider-color;
+    border-bottom: 1px solid $light-divider-color;
+    @include MQ(XS) {
+      padding: $gutter-width 0;
+    }
+  }
+  .sub-links {
+    small {
+      margin-right: $gutter;
+    }
+  }
+}
+
+.footer-logo {
+  padding: $gutter-width 0;
+  border-bottom: 1px solid $light-divider-color;
+  height: 120px;
+  @include MQ(XS) {
+    border: none;
+  }
+  svg {
+    max-width: 160px;
+  }
+}
+
+.tweets {
+  padding: $gutter-width 0;
+
+}
+.tweet-box {
+  // @extend %calibre-light;
+  color: white;
+  // font-size: 2rem;
+  // line-height: 1.2;
+
+  word-wrap: break-word;
+  font-size: 1.86rem;
+  line-height: 1.2;
+  a {
+    @include transition(all 250ms ease-in-out);
+
+    &.contact-link {
+      // text-decoration: underline;
+      &:hover { border-bottom: 1px solid }
+    }
+    &.action-link {
+      @include medium-font;
+
+    }
+  }
+  // .semi { @extend %calibre-semibold; }
+
+  @include MQ(XS) {
+
+  }
+  @include MQ(S) {
+
+    padding-right: $gutter-width;
+  }
+  @include MQ(M) {
+  }
+  @include MQ(L) {
+
+  }
+  @include MQ(XL) {
+    font-size: 2.5rem;
+    line-height: 1;
+  }
+
+}
+
+.sub-footer {
+  padding-top: $gutter-width !important;
+
+}
+
+.social-links {
+  padding: $gutter-width 0;
+  @include display-flex;
+  // border-top: 1px solid $light-divider-color;
+  margin-left: -40px;
+  margin-right: -40px;
+  @include justify-content(space-between);
+  @include MQ(XS) {
+    border: none;
+    @include justify-content(flex-end);
+    margin: 0;
+  }
+  .link-icons {
+    @include display-flex;
+    @include justify-content(space-between);
+    @include MQ(XS) {
+      @include justify-content(flex-end);
+    }
+    @include MQ(S) {
+      @include justify-content(flex-start);
+    }
+  }
+  svg {
+    margin: 0 5px;
+    path {
+      fill: rgba(255,255,255,0.9);
+    }
+    &:hover {
+      path {
+        fill: rgba(255,255,255,0.97);
+      }
+    }
+  }
+  .follow-us {
+    display: none;
+    @include MQ(S) {
+      display: block;
+    }
+  }
+
+  .icon {
+    @include display-flex;
+    @include align-items(center);
+    @include justify-content(center);
+    @include MQ(XS) {
+      @include justify-content(flex-start);
+    }
+  }
+
+  .twitter {
+    border-right: 1px solid $light-divider-color;
+    @include MQ(XS) {
+      border: none;
+    }
+  }
+
+}
+
+
+.newsletter-share {
+  margin-bottom: 60px;
+}

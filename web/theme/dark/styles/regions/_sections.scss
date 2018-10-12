@@ -1,0 +1,52 @@
+section, .section {
+  width: 100%;
+  padding: $gutter 0;
+  // @extend %top-spacer;
+  // @extend %bottom-spacer;
+  &.no-spacer {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  &.top-spacer-only {
+    padding-bottom: 0;
+  }
+  &.bottom-spacer-only {
+    padding-top: 0;
+  }
+  &.transparent-bg {
+    background-color: transparent;
+  }
+  &.gray-bg {
+    background-color: $gray-7;
+  }
+
+  &.black-bg {
+    background-color: $black-2;
+  }
+
+  &.jet-black-bg {
+    background-color: $black-0;
+
+
+  }
+  &.jet-black-bg, &.black-bg{
+
+    color: #fff;
+    hr { background-color: $light-divider-color; }
+    .subhead {
+      color: #fff;
+    }
+    .main-copy {
+      // @include column-size(100%);
+      padding: $gutter 0;
+      &.with-eyebrow {
+        border-top: 1px solid $light-divider-color;
+      }
+      .eyebrow {
+        &.title {
+          color: #fff;
+        }
+      }
+    }
+  }
+}

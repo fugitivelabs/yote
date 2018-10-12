@@ -1,0 +1,164 @@
+
+
+.banner-image {
+  position: relative;
+  height: 300px;
+  background-position: center center;
+  background-size: cover;
+  &:before {
+    content: " ";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    // background: rgba(66,66,66,0.21);
+    // background: -moz-linear-gradient(top, rgba(66,66,66,0.21) 0%, rgba(66,66,66,0.34) 22%, rgba(66,66,66,0.65) 74%, rgba(66,66,66,0.81) 100%);
+    // background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(66,66,66,0.21)), color-stop(22%, rgba(66,66,66,0.34)), color-stop(74%, rgba(66,66,66,0.65)), color-stop(100%, rgba(66,66,66,0.81)));
+    // background: -webkit-linear-gradient(top, rgba(66,66,66,0.21) 0%, rgba(66,66,66,0.34) 22%, rgba(66,66,66,0.65) 74%, rgba(66,66,66,0.81) 100%);
+    // background: -o-linear-gradient(top, rgba(66,66,66,0.21) 0%, rgba(66,66,66,0.34) 22%, rgba(66,66,66,0.65) 74%, rgba(66,66,66,0.81) 100%);
+    // background: -ms-linear-gradient(top, rgba(66,66,66,0.21) 0%, rgba(66,66,66,0.34) 22%, rgba(66,66,66,0.65) 74%, rgba(66,66,66,0.81) 100%);
+    // background: linear-gradient(to bottom, rgba(66,66,66,0.21) 0%, rgba(66,66,66,0.34) 22%, rgba(66,66,66,0.65) 74%, rgba(66,66,66,0.81) 100%);
+    // filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#424242', endColorstr='#424242', GradientType=0 );
+  }
+  .-banner-btns {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    opacity: 0.97;
+  }
+}
+
+.no-banner-yet {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  @include display-flex;
+  @include align-items(center);
+  @include justify-content(center);
+  // height: 100%; // fills it's parent÷
+  // width: 100%;
+  background-color: #c8c9ca;
+  .-instructions {
+    text-align: center;
+  }
+}
+
+
+.gallery-pic {
+  position: relative;
+  height: 250px;
+  width: 250px;
+  background-position: center;
+  background-size: cover;
+}
+
+.post-pic {
+  position: relative;
+  height: 500px;
+
+  background-position: center;
+  background-size: cover;
+}
+
+.profile-image {
+
+  position: relative;
+
+  height: 450px;
+  width: 450px;
+  background-position: center;
+  background-size: cover;
+  border-radius: 50%;
+}
+
+.recipe-image {
+  position: relative;
+  height: 100px;
+  width: 100px;
+  background-position: center;
+}
+
+.single-recipe-image {
+  position: relative;
+  height: 450px;
+  width: 450px;
+  background-position: center;
+}
+
+.text-clamp {
+  width: 100px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.darken-image {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background-color: $black;
+  border-radius: 50%;
+  opacity: 0;
+  &:hover {
+    background-color: rgba($black, 0.6);
+    opacity: 50;
+  }
+}
+
+.camera-icon {
+  position: absolute;
+  top: 40%;
+  left: 40%;
+}
+
+.darken-icon {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background-color: $black;
+  opacity: 0;
+  &:hover {
+    background-color: rgba($black, 0.2);
+    opacity: 50;
+  }
+}
+
+.add-icon {
+  position: relative;
+  height: 250px;
+  width: 250px;
+  background-color: rgba($black, 0.1);
+  background-position: center;
+}
+
+.icon {
+  position: relative;
+  top: 30%;
+  left: 30%;
+}
+
+.program-img {
+  // height: 200px;
+  @include column-size(75%);
+  // background-image: url('/img/do_work.jpg');
+  background-position: center;
+  background-size: cover;
+  position: relative;
+}
+
+.banner {
+    height: 300px;
+    width: 100%;
+    object-fit: cover;
+    // background-image: url('/img/do_work.jpg');
+    // background-position: center;
+    background-size: cover;
+    position: relative;
+  }

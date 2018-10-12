@@ -1,0 +1,661 @@
+
+// Grid
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+//
+// Using flexbox for the grid, inspired by Philip Walton:
+// http://philipwalton.github.io/solved-by-flexbox/demos/grids/
+
+
+// defined in /client/globals/sass/dependencies/_mixins.scss
+// $XS:    640px;
+// $S:     900px;
+// $M:     1020px;
+// $L:     1280px;
+// $XL:    1600px;
+
+$x-small-screen:              $XS; // < $XS == small mobile, > $XS == phablet
+$small-screen:                $S; // < $S == phablet, > $S == tablet
+$medium-screen:               $M; // > 900px == average desktop
+$large-screen:                $L; // > $L == large desktop
+$x-large-screen:              $XL; // > $XL == extra-large desktop
+
+
+$max-container-width-XS:      540px;
+$max-container-width-S:       760px;
+$max-container-width-M:       960px;
+$max-container-width-L:       1160px;
+$max-container-width-XL:      1360px;
+
+
+$gutter-width:          40px;
+
+$gutter: $gutter-width * 0.5;
+
+
+
+.yt-container {
+  @include border-box;
+  @include clearfix;
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  // padding: 0 $gutter * 0.5;
+  padding: 0 $gutter;
+  // &.no-scroll {
+  //   position: fixed;
+  //   top:0;
+  //   bottom:0;
+  //   left: 0;
+  //   right: 0;
+  //   @include zIndex-6;
+  //   overflow-y: hidden;
+  // }
+  &.grid-demo {
+    // background-color: rgba(81, 167, 249, 0.5);
+    // border: 1px solid rgb(81,167,249);
+    // hr { background-color: black; }
+  }
+  @include MQ(XS) {
+    max-width: $max-container-width-XS;
+    padding: 0 $gutter;
+    // padding: 0 ;
+  }
+  @include MQ(S) {
+    max-width: $max-container-width-S;
+    padding: 0 $gutter-width;
+  }
+  @include MQ(M) {
+    max-width: $max-container-width-M;
+  }
+  @include MQ(L) {
+    max-width: $max-container-width-L;
+    &.slim {
+      max-width: $max-container-width-M;
+    }
+  }
+  @include MQ(XL) {
+    max-width: $max-container-width-XL;
+    &.slim {
+      max-width: $max-container-width-XL;
+    }
+  }
+}
+
+
+.yt-container.fluid {
+  max-width: 100%;
+  padding: 0 $gutter-width;
+}
+
+
+.yt-container {
+  &.top-spacer-only {
+    @extend %top-spacer_80 !optional;
+  }
+}
+
+// Rows
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+
+.yt-row {
+  // @include flex(1);
+  // @include column-size(100%);
+  // background-color: rgba(245,211,40, 0.5);
+  // max-width: 100%;
+  @include display-flex;
+  @include flex-wrap(wrap);
+  min-width: 100%;
+  &.grid-demo {
+    // background-color: rgba(245,211,40, 0.5);
+    // border: 1px solid black;
+  }
+}
+
+.yt-row.wrap {
+  @include flex-wrap(wrap);
+}
+
+.yt-row.no-wrap {
+  @include flex-wrap(nowrap);
+}
+
+.yt-row + .yt-row {
+  padding-top: 0;
+}
+
+// Vertically align columns in a row
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+.yt-row.top {
+  @include align-items(flex-start);
+}
+
+.yt-row.bottom {
+  @include align-items(flex-end);
+}
+
+
+.yt-row.center-vert {
+  @include align-items(center);
+}
+
+.yt-row.stretch {
+  @include align-items(stretch);
+}
+
+.yt-row.baseline {
+  @include align-items(baseline);
+}
+
+// Horizontally justify columns in a row
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+// aligns all items to the left edge of the row (also is the default)
+.yt-row.left {
+  @include justify-content(flex-start);
+}
+
+// aligns all items to the right edge of the row
+.yt-row.right {
+  @include justify-content(flex-end);
+}
+
+// align all items to the center of the row
+.yt-row.center-horiz {
+  @include justify-content(center);
+}
+
+// starting with columns justifed to the left and right edges of the row,
+// put an even amount of space between each
+// -- (give this a better name?)
+.yt-row.space-between {
+  @include justify-content(space-between);
+}
+
+// starting with columns justifed to the center, put an even amount of space
+// between each column AND the left and right edges of the row
+// -- (give this a better name?)
+.yt-row.space-around {
+  @include justify-content(space-around);
+}
+
+.yt-row.with-gutters {
+  // margin: -$gutter 0 $gutter -$gutter;
+  margin-top: -$gutter-width;
+  margin-right: 0px;
+  // margin-bottom: $gutter-width;
+  margin-left: -$gutter-width;
+}
+
+.yt-row.with-gutters > .yt-col {
+  padding: $gutter-width 0 0 $gutter-width;
+  @include flex(none);
+  @include Print() { padding-top: 15px; };
+}
+
+// Root Flex-based Columns
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+.yt-col {
+  @include flex(1);
+  // background-color: rgba(178, 108, 187, 0.5);
+  // display: block;
+  // width: 100%;
+  &.grid-demo {
+    // background-color: rgba(178, 108, 187, 0.5);
+    // border: 1px solid black;
+  }
+}
+
+.yt-col.gutter {
+  // padding: $gutter;
+}
+
+.yt-col.stretch-content {
+  // @include display-flex;
+  // @include flex-direction(column);
+}
+
+.yt-col.full {
+  @include column-size(100%);
+}
+
+// Vertically align individual columns
+.yt-col.top {
+  @include align-self(flex-start);
+}
+
+.yt-col.bottom {
+  @include align-self(flex-end);
+}
+
+.yt-col.center {
+  @include align-self(center);
+}
+
+
+// Specific Width Columns: Base ~ these will never collapse
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+.yt-col._50 {
+  @include column-size(50%);
+}
+
+.yt-col._33 {
+  @include column-size(percentage(1/3));
+}
+
+.yt-col._66 {
+  @include column-size(percentage(2/3));
+}
+
+.yt-col._25 {
+  @include column-size(25%);
+}
+
+.yt-col._75 {
+  @include column-size(75%);
+}
+
+.yt-col._20 {
+  @include column-size(20%);
+}
+
+.yt-col._40 {
+  @include column-size(40%);
+}
+
+.yt-col._60 {
+  @include column-size(60%);
+}
+
+.yt-col._80 {
+  @include column-size(80%);
+}
+
+
+.yt-col._16 {
+  @include column-size(percentage(1/6));
+}
+
+.yt-col._14 {
+  @include column-size(percentage(1/7));
+}
+
+.yt-col._83 {
+  @include column-size(percentage(5/6));
+}
+
+
+.yt-col._10 {
+  @include column-size(10%);
+}
+
+.yt-col._30 {
+  @include column-size(30%);
+}
+
+.yt-col._70 {
+  @include column-size(70%);
+}
+
+.yt-col._90 {
+  @include column-size(90%);
+}
+
+// Grid Styles: Phones ~ These will collapse on anything less than $x-small-screen
+// ••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••
+
+@include responsive-break-point($x-small-screen) {
+  .yt-col.xs_50 {
+    @include column-size(50%);
+  }
+
+  .yt-col.xs_33 {
+    @include column-size(percentage(1/3));
+  }
+
+  .yt-col.xs_66 {
+    @include column-size(percentage(2/3));
+  }
+
+  .yt-col.xs_25 {
+    @include column-size(25%);
+  }
+
+  .yt-col.xs_75 {
+    @include column-size(75%);
+  }
+
+  .yt-col.xs_20 {
+    @include column-size(20%);
+  }
+
+  .yt-col.xs_40 {
+    @include column-size(40%);
+  }
+
+  .yt-col.xs_60 {
+    @include column-size(60%);
+  }
+
+  .yt-col.xs_80 {
+    @include column-size(80%);
+  }
+
+
+  .yt-col.xs_16 {
+    @include column-size(percentage(1/6));
+  }
+
+  .yt-col.xs_14 {
+    @include column-size(percentage(1/7));
+  }
+
+  .yt-col.xs_83 {
+    @include column-size(percentage(5/6));
+  }
+
+  .yt-col.xs_10 {
+    @include column-size(10%);
+  }
+
+  .yt-col.xs_30{
+    @include column-size(30%);
+  }
+
+  .yt-col.xs_70 {
+    @include column-size(70%);
+  }
+
+  .yt-col.xs_90 {
+    @include column-size(90%);
+  }
+
+
+}
+
+// Grid Styles: Phones ~ These will collapse on anything less than $small-screen
+// ••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••
+
+@include responsive-break-point($small-screen) {
+  .yt-col.s_50 {
+    @include column-size(50%);
+  }
+
+  .yt-col.s_33 {
+    @include column-size(percentage(1/3));
+  }
+
+  .yt-col.s_66 {
+    @include column-size(percentage(2/3));
+  }
+
+  .yt-col.s_25 {
+    @include column-size(25%);
+  }
+
+  .yt-col.s_75 {
+    @include column-size(75%);
+  }
+
+  .yt-col.s_20 {
+    @include column-size(20%);
+  }
+
+  .yt-col.s_40 {
+    @include column-size(40%);
+  }
+
+  .yt-col.s_60 {
+    @include column-size(60%);
+  }
+
+  .yt-col.s_80 {
+    @include column-size(80%);
+  }
+
+  .yt-col.s_16 {
+    @include column-size(percentage(1/6));
+  }
+
+  .yt-col.s_14 {
+    @include column-size(percentage(1/7));
+  }
+
+  .yt-col.s_83 {
+    @include column-size(percentage(5/6));
+  }
+
+  .yt-col.s_10 {
+    @include column-size(10%);
+  }
+
+  .yt-col.s_30{
+    @include column-size(30%);
+  }
+
+  .yt-col.s_70 {
+    @include column-size(70%);
+  }
+
+  .yt-col.s_90 {
+    @include column-size(90%);
+  }
+
+
+}
+
+// Grid Styles: Medium ~ these will collapse on anything less than $medium-screen
+// ••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••
+
+@include responsive-break-point($medium-screen) {
+
+  .yt-col.m_50 {
+    @include column-size(50%);
+  }
+
+  .yt-col.m_33 {
+    @include column-size(percentage(1/3));
+  }
+
+  .yt-col.m_66 {
+    @include column-size(percentage(2/3));
+  }
+
+  .yt-col.m_25 {
+    @include column-size(25%);
+  }
+
+  .yt-col.m_75 {
+    @include column-size(75%);
+  }
+
+  .yt-col.m_20 {
+    @include column-size(20%);
+  }
+
+  .yt-col.m_40 {
+    @include column-size(40%);
+  }
+
+  .yt-col.m_60 {
+    @include column-size(60%);
+  }
+
+  .yt-col.m_80 {
+    @include column-size(80%);
+  }
+
+  .yt-col.m_16 {
+    @include column-size(percentage(1/6));
+  }
+
+  .yt-col.m_14 {
+    @include column-size(percentage(1/7));
+  }
+
+  .yt-col.m_83 {
+    @include column-size(percentage(5/6));
+  }
+
+  .yt-col.m_10 {
+    @include column-size(10%);
+  }
+
+  .yt-col.m_30 {
+    @include column-size(30%);
+  }
+
+  .yt-col.m_70 {
+    @include column-size(70%);
+  }
+
+  .yt-col.m_90 {
+    @include column-size(90%);
+  }
+
+
+}
+
+// Grid Styles: Large ~ these will collapse on anything less than $large-screen
+// ••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••
+
+@include responsive-break-point($large-screen) {
+
+  .yt-col.l_50 {
+    @include column-size(50%);
+  }
+
+  .yt-col.l_33 {
+    @include column-size(percentage(1/3));
+  }
+
+  .yt-col.l_66 {
+    @include column-size(percentage(2/3));
+  }
+
+  .yt-col.l_25 {
+    @include column-size(25%);
+  }
+
+  .yt-col.l_75 {
+    @include column-size(75%);
+  }
+
+  .yt-col.l_20 {
+    @include column-size(20%);
+  }
+
+  .yt-col.l_40 {
+    @include column-size(40%);
+  }
+
+  .yt-col.l_60 {
+    @include column-size(60%);
+  }
+
+  .yt-col.l_80 {
+    @include column-size(80%);
+  }
+
+  .yt-col.l_16 {
+    @include column-size(percentage(1/6));
+  }
+
+  .yt-col.l_14 {
+    @include column-size(percentage(1/7));
+  }
+
+  .yt-col.l_83 {
+    @include column-size(percentage(5/6));
+  }
+
+  .yt-col.l_10 {
+    @include column-size(10%);
+  }
+
+  .yt-col.l_30 {
+    @include column-size(30%);
+  }
+
+  .yt-col.l_70 {
+    @include column-size(70%);
+  }
+
+  .yt-col.l_90 {
+    @include column-size(90%);
+  }
+
+}
+
+// Grid Styles: X-Large ~ these will collapse on anything less than $x-large-screen
+// ••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••
+
+@include responsive-break-point($x-large-screen) {
+
+  .yt-col.xl_50 {
+    @include column-size(50%);
+  }
+
+  .yt-col.xl_33 {
+    @include column-size(percentage(1/3));
+  }
+
+  .yt-col.xl_66 {
+    @include column-size(percentage(2/3));
+  }
+
+  .yt-col.xl_25 {
+    @include column-size(25%);
+  }
+
+  .yt-col.xl_75 {
+    @include column-size(75%);
+  }
+
+  .yt-col.xl_20 {
+    @include column-size(20%);
+  }
+
+  .yt-col.xl_40 {
+    @include column-size(40%);
+  }
+
+  .yt-col.xl_60 {
+    @include column-size(60%);
+  }
+
+  .yt-col.xl_80 {
+    @include column-size(80%);
+  }
+
+  .yt-col.xl_16 {
+    @include column-size(percentage(1/6));
+  }
+
+  .yt-col.xl_14 {
+    @include column-size(percentage(1/7));
+  }
+
+  .yt-col.xl_83 {
+    @include column-size(percentage(5/6));
+  }
+
+  .yt-col.xl_10 {
+    @include column-size(10%);
+  }
+
+  .yt-col.xl_30 {
+    @include column-size(30%);
+  }
+
+  .yt-col.xl_70 {
+    @include column-size(70%);
+  }
+
+  .yt-col.xl_90 {
+    @include column-size(90%);
+  }
+
+}
