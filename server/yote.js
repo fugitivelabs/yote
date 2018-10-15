@@ -180,16 +180,21 @@ function haltOnTimedout(req, res, next){
  * Yote comes out of the box with https support! Check the docs for instructions on how to use.
  */
 
+ // we need this defined explicitly to pass it into the socket.io handler
+let server;
+
 if(app.get('env') == 'production' && config.useHttps) {
   logger.info("starting production server WITH ssl");
 
-  require('https').createServer({
+  server = require('https').createServer({
       key: fs.readFileSync('../server/ssl/yourSsl.key') // so it works on server and local
       , cert: fs.readFileSync('../server/ssl/yourCertFile.crt')
       , ca: [fs.readFileSync('../server/ssl/yourCaFile.crt')] // NOTE: GoDaddy splits certs into two
 
   // }, app).listen(9191); // NOTE: uncomment to test HTTPS locally
-  }, app).listen(443);
+  }, app)
+  
+  server.listen(443);
 
   // need to catch for all http requests and redirect to httpS
   if(config.httpsOptional) {
@@ -210,10 +215,18 @@ if(app.get('env') == 'production' && config.useHttps) {
 
 } else if(app.get('env') == 'production') {
   logger.info("starting yote production server WITHOUT ssl");
-  require('http').createServer(app).listen(config.port);
+  server = require('http').createServer(app)
+  server.listen(config.port);
   logger.info('Yote is listening on port ' + config.port + '...');
 } else {
   logger.info("starting yote dev server");
-  require('http').createServer(app).listen(config.port);
+  server = require('http').createServer(app)
+  server.listen(config.port);
   logger.info('Yote is listening on port ' + config.port + '...');
 }
+
+// set up socket.io
+let io = require('socket.io')(server);
+ io.on('connection', (socket) => {
+  console.log('a user connected');
+});
