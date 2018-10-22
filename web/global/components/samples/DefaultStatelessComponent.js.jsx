@@ -8,7 +8,7 @@ const DefaultStatelessComponent = ({
 }) => {
   return (
     <div>
-      Default Statless Component
+      Default Stateless Component
     </div>
   )
 }
