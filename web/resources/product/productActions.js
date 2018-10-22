@@ -141,7 +141,7 @@ export const RECEIVE_DEFAULT_PRODUCT = "RECEIVE_DEFAULT_PRODUCT";
 function receiveDefaultProduct(json) {
   return {
     error: json.message
-    , schema: json.schema
+    , defaultObj: json.defaultObj
     , receivedAt: Date.now()
     , success: json.success
     , type: RECEIVE_DEFAULT_PRODUCT
@@ -151,8 +151,32 @@ function receiveDefaultProduct(json) {
 export function fetchDefaultProduct() {
   return dispatch => {
     dispatch(requestDefaultProduct())
-    return apiUtils.callAPI(`/api/products/schema`)
+    return apiUtils.callAPI(`/api/products/default`)
       .then(json => dispatch(receiveDefaultProduct(json)))
+  }
+}
+
+export const REQUEST_PRODUCT_SCHEMA = "REQUEST_PRODUCT_SCHEMA";
+function requestProductSchema(id) {
+  return {
+    type: REQUEST_PRODUCT_SCHEMA
+  }
+}
+ export const RECEIVE_PRODUCT_SCHEMA = "RECEIVE_PRODUCT_SCHEMA";
+function receiveProductSchema(json) {
+  return {
+    error: json.message
+    , schema: json.schema
+    , receivedAt: Date.now()
+    , success: json.success
+    , type: RECEIVE_PRODUCT_SCHEMA
+  }
+}
+ export function fetchProductSchema() {
+  return dispatch => {
+    dispatch(requestProductSchema())
+    return apiUtils.callAPI(`/api/products/schema`)
+      .then(json => dispatch(receiveProductSchema(json)))
   }
 }
 
