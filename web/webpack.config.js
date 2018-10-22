@@ -13,7 +13,7 @@ const config = {
   , devtool: 'cheap-source-map'
   , entry: './app.js.jsx'
   , output: {
-    path: path.join(__dirname, '../server/render/public/js')
+    path: path.join(__dirname, '../server/static/js')
     , filename: 'react-bundle.js'
   }
   , module: {
