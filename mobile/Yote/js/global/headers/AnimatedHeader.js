@@ -20,7 +20,7 @@ import Base from './BaseComponent';
 import ProgressiveImage from '../img/components/ProgressiveImage';
 
 // import Styles
-import YTColors from '../styles/YTColors';
+import YTStyles from '../styles/YTStyles';
 
 const { width, height } = Dimensions.get('window'); 
 
@@ -40,7 +40,7 @@ var styles = StyleSheet.create({
       , width: null
       , height: HEADER_MAX_HEIGHT
       // , resizeMode: 'cover'
-      , backgroundColor: YTColors.lightBackground
+      , backgroundColor: YTStyles.colors.lightBackground
   }
   , bar: {
       marginTop: STATUS_BAR_HEIGHT
@@ -53,7 +53,7 @@ var styles = StyleSheet.create({
       , top: 0
       , left: 0
       , right: 0
-      , backgroundColor: YTColors.sofleteYellow
+      , backgroundColor: YTStyles.colors.primary
       , overflow: 'hidden'
   }
 });
@@ -119,7 +119,7 @@ class AnimatedHeader extends Base {
      */
 
     return (
-      <Animated.View onLayout={(e) => this._onLayout(e)} style={{position: 'absolute', top: 0, left: 0, right: 0, backgroundColor: color ? color : YTColors.sofleteYellow, overflow: 'hidden', height: headerHeight}}>
+      <Animated.View onLayout={(e) => this._onLayout(e)} style={{position: 'absolute', top: 0, left: 0, right: 0, backgroundColor: color ? color : YTStyles.colors.primary, overflow: 'hidden', height: headerHeight}}>
         <Animated.View
           style={[styles.backgroundImage,
             {height: headerMaxHeight ? headerMaxHeight : HEADER_MAX_HEIGHT, opacity: imageOpacity, transform: [{translateY: imageTranslate}]},

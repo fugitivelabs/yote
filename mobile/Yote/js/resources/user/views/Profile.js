@@ -37,13 +37,12 @@ import moment from 'moment';
 
 // import styles
 import userStyles from '../userStyles'; 
-import YTColors from '../../../global/styles/YTColors';
 import YTStyles from '../../../global/styles/YTStyles'; 
 
 var styles = StyleSheet.create({
   bottomBorder: {
     borderBottomWidth: 1
-    , borderColor: YTColors.listSeparator
+    , borderColor: YTStyles.colors.listSeparator
   }
   , btnWrapper: {
       paddingTop: 10
@@ -64,7 +63,7 @@ var styles = StyleSheet.create({
       , padding: 2
     }
   , instructions: {
-      color: YTColors.lightText
+      color: YTStyles.colors.lightText
       , fontSize: 12
       , paddingVertical: 10
       , paddingHorizontal: 5

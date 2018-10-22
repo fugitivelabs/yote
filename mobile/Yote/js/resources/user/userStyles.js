@@ -7,7 +7,7 @@ import {
   , StyleSheet 
 } from 'react-native'; 
 
-import YTColors from '../../global/styles/YTColors'; 
+import YTStyles from '../../global/styles/YTStyles'; 
 
 const IMAGE_HEIGHT = Dimensions.get('window').height * 0.5;
 const { height, width } = Dimensions.get('window');
@@ -54,14 +54,14 @@ const userStyles = StyleSheet.create({
   }
   , input: {
       backgroundColor: '#fff'
-      , borderColor: YTColors.primaryHeader
+      , borderColor: YTStyles.colors.primary
       , flex: 1
       , fontSize: 17
       , height: 52
       , padding: 8
   }
   , instructions: {
-      color: YTColors.lightText
+      color: YTStyles.colors.accentText
       , fontSize: 12
       , paddingVertical: 10
       , paddingHorizontal: 5
@@ -90,8 +90,8 @@ const userStyles = StyleSheet.create({
       , paddingVertical: 10
   }
   , profilePic: {
-      backgroundColor: Platform.OS === 'ios' ? YTColors.listSeparator : null 
-      , borderColor: YTColors.pridePurple
+      backgroundColor: Platform.OS === 'ios' ? YTStyles.colors.separator : null 
+      , borderColor: YTStyles.colors.primary
       , borderRadius: 275 * .5
       , borderWidth: 4
       , height: 275
@@ -104,7 +104,7 @@ const userStyles = StyleSheet.create({
       , textAlign: 'center'
   }
   , welcome: {
-      color: YTColors.darkText
+      color: YTStyles.colors.mainText
       , fontSize: 20
       , margin: 10
       , textAlign: 'center'

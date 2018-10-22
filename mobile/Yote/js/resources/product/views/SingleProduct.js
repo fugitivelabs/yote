@@ -36,7 +36,6 @@ import * as productActions from '../productActions';
 
 // import styles
 import YTStyles from '../../../global/styles/YTStyles';
-import YTColors from '../../../global/styles/YTColors';
 
 class SingleProduct extends Binder {
   constructor(props){

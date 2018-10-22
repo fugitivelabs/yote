@@ -12,7 +12,6 @@ import {
 
 // import global components
 import Binder from '../Binder';
-import YTColors from '../styles/YTColors'; 
 
 // import styles
 import YTStyles from '../styles/YTStyles'; 

@@ -19,7 +19,6 @@ import {
 import Binder from '../Binder';
 
 // import Styles
-import YTColors from '../styles/YTColors';
 import YTStyles from '../styles/YTStyles'; 
 
 const STATUS_BAR_HEIGHT = (Platform.OS === 'ios' && Dimensions.get('window').height === 812) ? 30 : Platform.OS === 'android' ? 10 : 20;

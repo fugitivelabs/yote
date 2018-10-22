@@ -87,8 +87,14 @@ const YTStyles = StyleSheet.flatten({
       , fontSize: 18
       , fontWeight: 'normal'
     }
-  , accentText: {
-      color: theme.mainText
+  , subText: {
+      color: theme.subText
+      , fontFamily: FONT
+      , fontSize: 18
+      , fontWeight: 'normal'
+    }
+  , linkText: {
+      color: theme.accent
       , fontFamily: FONT
       , fontSize: 18
       , fontWeight: 'normal'
@@ -112,7 +118,7 @@ const YTStyles = StyleSheet.flatten({
   // colors
   , colors: {
       accent: theme.accent
-      , accentText: theme.accentText
+      , subText: theme.subText
       , danger: theme.danger
       , header: theme.header
       , headerText: theme.headerText

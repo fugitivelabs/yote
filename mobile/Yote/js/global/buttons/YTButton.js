@@ -12,7 +12,6 @@ import {
 } from 'react-native'; 
 
 // import styles
-import YTColors from '../styles/YTColors';
 import YTStyles from '../styles/YTStyles';
 
 const BUTTON_FONT = Platform.OS === 'android' ? 'sans-serif-condensed' : 'AvenirNextCondensed-DemiBold';
@@ -28,7 +27,7 @@ var styles = StyleSheet.create({
   }
   , border: {
       borderWidth: 1
-      , borderColor: YTColors.actionText
+      , borderColor: YTStyles.colors.accentText
       , borderRadius: HEIGHT / 2
     }
   , caption: {
@@ -62,7 +61,7 @@ const YTButton = ({ type, icon, caption, buttonStyle, onPress, isDisabled, capti
   caption = caption.toUpperCase();
 
   let btnIcon;
-  let iconTint = type === 'primary' ? {tintColor: "#fff"} : {tintColor: YTColors.actionText} ;
+  let iconTint = type === 'primary' ? {tintColor: "#fff"} : {tintColor: YTStyles.colors.accentText} ;
 
   if (icon) {
     btnIcon = <Image source={icon} style={[styles.icon, iconTint]} />;

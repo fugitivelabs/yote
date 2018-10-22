@@ -43,7 +43,6 @@ import _ from 'lodash';
 import * as singleActions from '../userActions.js';
 
 // import styles
-import YTColors from '../../../global/styles/YTColors';
 import YTStyles from '../../../global/styles/YTStyles'; 
 
 const IMAGE_HEIGHT = 150;
@@ -193,7 +192,7 @@ class UpdateProfile extends Binder {
               <View style={{flex: 1, borderRadius: IMAGE_HEIGHT * .5}}>
                 <TouchableOpacity onPress={this._openImagePicker}>
                   <Image
-                    style={{backgroundColor: YTColors.listSeparator, width: IMAGE_HEIGHT, height: IMAGE_HEIGHT, borderRadius: Platform.OS === 'ios' ? IMAGE_HEIGHT * .5 : null}}
+                    style={{backgroundColor: YTStyles.colors.listSeparator, width: IMAGE_HEIGHT, height: IMAGE_HEIGHT, borderRadius: Platform.OS === 'ios' ? IMAGE_HEIGHT * .5 : null}}
                     source={newProfilePic ? {uri: newProfilePic.uri} : profileImg}
                   />
                   <LinearGradient colors={['rgba(0,0,0,0.11)', 'rgba(0,0,0,0.51)', 'rgba(0,0,0,0.81)']} style={{borderRadius: Platform.OS === 'ios' ? IMAGE_HEIGHT * .5 : null, bottom: 0, flex: 1, left: 0, position: 'absolute', right: 0, top: 0}}>
@@ -221,7 +220,7 @@ class UpdateProfile extends Binder {
                   onChange={ (e) => this._handleInputChange(e, "newUserData.firstName") }
                   onFocus={ (e) => this._scrollToInput(e, 'newUserData.firstName')}
                   placeholder=""
-                  placeholderTextColor={YTColors.lightText}
+                  placeholderTextColor={YTStyles.colors.lightText}
                   ref="newUserData.firstName"
                   returnKeyType="default"
                   style={YTStyles.input}
@@ -243,7 +242,7 @@ class UpdateProfile extends Binder {
                     onFocus={ (e) => this._scrollToInput(e, 'newUserData.lastName')}
                     onChange={ (e) => this._handleInputChange(e, "newUserData.lastName") }
                     placeholder=""
-                    placeholderTextColor={YTColors.lightText}
+                    placeholderTextColor={YTStyles.colors.lightText}
                     ref="newUserData.lastName"
                     returnKeyType="default"
                     style={YTStyles.input}
@@ -268,7 +267,7 @@ class UpdateProfile extends Binder {
                     onChange={ (e) => this._handleInputChange(e, "newUserData.username") }
                     onFocus={ (e) => this._scrollToInput(e, 'newUserData.username')}
                     placeholder=""
-                    placeholderTextColor={YTColors.lightText}
+                    placeholderTextColor={YTStyles.colors.lightText}
                     ref="newUserData.username"
                     returnKeyType="default"
                     style={YTStyles.input}

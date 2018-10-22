@@ -3,7 +3,7 @@ module.exports = {
 
   // layout
   background: '#fff'
-  , lightBackground: '#f0f0f4'
+  , lightBackground: "#f0f0f4"
   , separator: '#f0f0f4'
   , header: '#fff'
   , headerText: '#000000'
@@ -20,7 +20,8 @@ module.exports = {
 
   // text
   , mainText: '#1b2330'
-  , accentText: '#7b7d7e'
+  , subText: '#7b7d7e'
+  , linkText: '#08bdec'
 
   // messaging
   , danger: '#e74c3c'

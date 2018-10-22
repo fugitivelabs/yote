@@ -27,9 +27,9 @@ import YTStyles from '../styles/YTStyles';
 
 /** Navigator Notes **
   *
-  * Recommended to read documentation for react-navigation because there is a learning curve. 
+  * Recommended to read documentation for react-navigation, there is a learning curve. 
   *
-  * To add routes to the TABS view, add them under TabNavigator below
+  * To add routes to the TABS view, add them under TabNavigator below.
   *
   * For horizontal screen transitions add routes/screens under MainCardNavigator.
   *

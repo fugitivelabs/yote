@@ -35,7 +35,6 @@ import * as productActions from '../productActions'
 
 // import styles
 import YTStyles from '../../../global/styles/YTStyles';
-import YTColors from '../../../global/styles/YTColors';
 
 class UpdateProduct extends Binder {
   constructor(props) {
@@ -154,11 +153,11 @@ class UpdateProduct extends Binder {
                   this.refs['newProductData.description'].focus();
                 }}
                 placeholder="Title"
-                placeholderTextColor={YTColors.lightText}
+                placeholderTextColor={YTStyles.colors.lightText}
                 ref="newProductData.title"
                 returnKeyType="next"
                 style={YTStyles.input}
-                underlineColorAndroid={YTColors.anagada}
+                underlineColorAndroid={YTStyles.colors.anagada}
                 value={this.state.newProductData.title}
               />
             </View>
@@ -172,7 +171,7 @@ class UpdateProduct extends Binder {
                 onSubmitEditing={this._handleAction}
                 onChange={ (e) => this._handleInputChange(e, "newProductData.description")}
                 placeholder="Write a description"
-                placeholderTextColor={YTColors.lightText}
+                placeholderTextColor={YTStyles.colors.lightText}
                 style={[YTStyles.input, {minHeight: 90}]}
                 ref="newProductData.description"
                 returnKeyType="go"

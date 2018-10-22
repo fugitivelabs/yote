@@ -35,7 +35,6 @@ import Binder from '../../../global/Binder';
 import YTButton from '../../../global/buttons/YTButton';
 
 // import styles
-import YTColors from '../../../global/styles/YTColors';
 import YTStyles from '../../../global/styles/YTStyles'; 
 
 const IMAGE_HEIGHT = Dimensions.get('window').height * 0.5;
@@ -152,7 +151,7 @@ class Login extends Binder {
             <Image
               resizeMode={"contain"}
               source={require('../../../global/img/logo.png')}
-              style={{height: 250, width: 250, tintColor: YTColors.lightText}}
+              style={{height: 250, width: 250, tintColor: YTStyles.colors.secondary}}
             />
           </View>
           <View style={{paddingHorizontal: 20}}>
@@ -171,7 +170,6 @@ class Login extends Binder {
                       this.refs['password'].focus();
                     }}
                     placeholder="Email"
-                    placeholderTextColor={YTColors.lightText}
                     ref="username"
                     returnKeyType="next"
                     style={YTStyles.input}
@@ -187,7 +185,6 @@ class Login extends Binder {
                     isRequired={true}
                     onChange={ (e) => this._handleInputChange(e, "password") }
                     onSubmitEditing={this._handleLoginSubmit}
-                    placeholderTextColor={YTColors.lightText}
                     placeholder="Password"
                     ref="password"
                     returnKeyType="go"
@@ -212,7 +209,7 @@ class Login extends Binder {
                   onSubmitEditing={this._handleResetPasswordSubmit}
                   onChange={ (e) => this._handleInputChange(e, "username") }
                   placeholder="Email"
-                  placeholderTextColor={YTColors.lightText}
+                  placeholderTextColor={YTStyles.colors.lightText}
                   ref="username"
                   returnKeyType="go"
                   style={YTStyles.input}
@@ -227,7 +224,7 @@ class Login extends Binder {
                   activeOpacity={0.8}
                   onPress={this._toggleForgotPass}
                 >
-                  <Text style={[{color: YTColors.actionText}]}>{forgotPassText}</Text>
+                  <Text style={YTStyles.linkText}>{forgotPassText}</Text>
                 </TouchableOpacity>
               </View>
               {!forgotPassword ?
@@ -245,7 +242,7 @@ class Login extends Binder {
                   </View>
                   <View style={{paddingVertical: 10}}>
                     <YTButton
-                      buttonStyle={{backgroundColor: YTColors.yoteGreen}}
+                      buttonStyle={{backgroundColor: YTStyles.colors.yoteGreen}}
                       caption="Register"
                       captionStyle={{color: '#fff'}}
                       onPress={this._openRegister}
@@ -257,7 +254,7 @@ class Login extends Binder {
                 <View>
                   <View style={{paddingBottom: 20}}>
                     <YTButton
-                      buttonStyle={{backgroundColor: YTColors.danger}}
+                      buttonStyle={{backgroundColor: YTStyles.colors.danger}}
                       caption={isFetching ? "Please wait..." : "Reset Password"}
                       isDisabled={!this.state.username}
                       onPress={this._handleResetPasswordSubmit}

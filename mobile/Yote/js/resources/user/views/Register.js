@@ -33,7 +33,6 @@ import YTButton from '../../../global/buttons/YTButton';
 import YTHeader from '../../../global/headers/YTHeader';
 
 // import styles
-import YTColors from '../../../global/styles/YTColors';
 import YTStyles from '../../../global/styles/YTStyles'; 
 
 let screenWidth = Dimensions.get('window').width;
@@ -164,9 +163,9 @@ class Register extends Binder {
         backgroundColor: 'transparent'
       },
       title: {
-        color: YTColors.darkText
+        color: YTStyles.colors.darkText
       },
-      itemsColor: YTColors.darkText
+      itemsColor: YTStyles.colors.darkText
     }
     const leftItem = {
       title: 'Cancel',
@@ -187,7 +186,7 @@ class Register extends Binder {
             />
             <ScrollView ref="myScrollView" keyboardDismissMode="interactive" keyboardShouldPersistTaps="handled" style={[{flex: 1}]}>
               <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-                <Image source={require('../../../global/img/logo.png')} resizeMode='contain' style={{height: screenHeight / 3, flex: 1, tintColor: YTColors.lightText}}/>
+                <Image source={require('../../../global/img/logo.png')} resizeMode='contain' style={{height: screenHeight / 3, flex: 1, tintColor: YTStyles.colors.lightText}}/>
               </View>
               <View style={{flex: 1, paddingHorizontal: 20}}>
                 <View style={{flex: 0.5, marginBottom: 10}}>
@@ -203,7 +202,7 @@ class Register extends Binder {
                         this.refs['user.lastName'].focus();
                       }}
                       placeholder="First Name"
-                      placeholderTextColor={YTColors.lightText}
+                      placeholderTextColor={YTStyles.colors.lightText}
                       ref="user.firstName"
                       returnKeyType="next"
                       style={YTStyles.input}
@@ -223,7 +222,7 @@ class Register extends Binder {
                         this.refs['user.username'].focus();
                       }}
                       placeholder="Last Name"
-                      placeholderTextColor={YTColors.lightText}
+                      placeholderTextColor={YTStyles.colors.lightText}
                       ref="user.lastName"
                       returnKeyType="next"
                       style={YTStyles.input}
@@ -244,7 +243,7 @@ class Register extends Binder {
                         this.refs['user.password'].focus();
                       }}
                       placeholder="Email"
-                      placeholderTextColor={YTColors.lightText}
+                      placeholderTextColor={YTStyles.colors.lightText}
                       ref="user.username"
                       returnKeyType="next"
                       style={YTStyles.input}
@@ -261,7 +260,7 @@ class Register extends Binder {
                       onChange={ (e) => this._handleInputChange(e, "password") }
                       onFocus={ (e) => this._scrollToInput(e, 'user.password')}
                       placeholder="Password"
-                      placeholderTextColor={YTColors.lightText}
+                      placeholderTextColor={YTStyles.colors.lightText}
                       ref="user.password"
                       returnKeyType="default"
                       secureTextEntry={true}
@@ -298,7 +297,7 @@ class Register extends Binder {
               <YTButton
                 caption={"I have read and Agree to the Terms and Conditions"}
                 captionStyle={{color: '#fff' ,textAlign:"center"}}
-                buttonStyle={{backgroundColor: YTColors.danger}}
+                buttonStyle={{backgroundColor: YTStyles.colors.danger}}
                 onPress={this._handleAgreeToTerms}
                 type="danger"
               />

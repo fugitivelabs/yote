@@ -21,7 +21,6 @@ import {
 // import global components
 import Binder from '../Binder';
 import Hero from './Hero.js';
-import YTColors from '../styles/YTColors';
 import YTHeader from '../headers/YTHeader';
 
 // import styles

@@ -24,7 +24,6 @@ import {
 import ActionButton from '../../../global/buttons/ActionButton';
 import Binder from '../../../global/Binder';
 import YTButton from '../../../global/buttons/YTButton';
-import YTColors from '../../../global/styles/YTColors';
 import YTHeader from '../../../global/headers/YTHeader';
 
 // import module components

@@ -17,7 +17,7 @@ import {
 } from 'react-native'; 
 
 // import styles
-import YTColors from '../styles/YTColors';
+import YTStyles from '../styles/YTStyles';
 
 const BUTTON_FONT = Platform.OS === 'android' ? 'sans-serif-condensed' : 'AvenirNextCondensed-DemiBold';
 
@@ -32,11 +32,11 @@ let styles = StyleSheet.create({
       , alignItems: 'center'
       , justifyContent: 'center'
       , paddingHorizontal: 40
-      , backgroundColor: YTColors.sofleteYellow
+      , backgroundColor: YTStyles.colors.primary
     }
   , disabled: {
       opacity: 0.7
-      // backgroundColor: YTColors.disabledButton
+      // backgroundColor: YTStyles.colors.disabledButton
     }
   , caption: {
       letterSpacing: 1
@@ -46,7 +46,7 @@ let styles = StyleSheet.create({
       , fontFamily: BUTTON_FONT
     }
   , secondaryAction: {
-      backgroundColor: YTColors.buttonSecondaryBG
+      backgroundColor: YTStyles.colors.secondary
     }
 });
 
