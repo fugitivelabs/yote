@@ -2,25 +2,27 @@
 
 SETUP ENVIRONTMENT VARIABLES:
 
-__DEV__ never worked very well, so let's just do it manually
-
-NOTE: To get your IP address type ifconfig in terminal. Under en0: find inet
+manually choose which server env app will point to 
 
 **********/
 
-let simulator = {
-  url: "http://localhost:3030" // simulator
+// developer's local IP address to run app on a device
+// NOTE: To get your IP address type ifconfig in terminal. Under en0: find inet
+let devLocal = {
+  url: "http://your-IP-Address:3030"
 }
 
-// will most likely have to be https bc of Apple restrictions
+// production server (should be https)
 let productionEnv = {
   url: "http://yote.f-labs.co"
 }
 
-let devLocal = {
-  url: "http://your-IP-Address:3030" // when running on real device
+// for running on simulator/emulator
+let simulator = {
+  url: "http://localhost:3030" // simulator
 }
 
+// testing server
 let stagingEnv = {
   url: "http://yote.f-labs.co"
 }
