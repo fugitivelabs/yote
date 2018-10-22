@@ -62,7 +62,7 @@ TextAreaInput.propTypes = {
   , name: PropTypes.string.isRequired
   , placeholder: PropTypes.string
   , required: PropTypes.bool
-  , rows: PropTypes.number
+  , rows: PropTypes.string
   , value: PropTypes.string.isRequired
 }
 

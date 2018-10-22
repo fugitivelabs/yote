@@ -50483,7 +50483,7 @@ TextAreaInput.propTypes = {
   name: _propTypes2.default.string.isRequired,
   placeholder: _propTypes2.default.string,
   required: _propTypes2.default.bool,
-  rows: _propTypes2.default.number,
+  rows: _propTypes2.default.string,
   value: _propTypes2.default.string.isRequired
 };
 
