@@ -246,6 +246,9 @@ exports.update = (req, res) => {
         } else if(!product) {
           res.send({ success: false, message: "Could not save product."});
         } else {
+          // emit io update event
+          req.io.emit('product_update', product)
+
           res.send({ success: true, product: product });
         }
       });

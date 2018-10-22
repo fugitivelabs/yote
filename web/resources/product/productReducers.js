@@ -360,7 +360,7 @@ function product(state = {
         ...state
         , byId: {
           ...state.byId
-          , [action.id]: action.item
+          , [action.item._id]: action.item
         }
       }
       break;

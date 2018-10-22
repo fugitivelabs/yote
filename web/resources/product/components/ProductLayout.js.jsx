@@ -6,14 +6,27 @@
 // import primary libraries
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 // import global components
 import Binder from '../../../global/components/Binder.js.jsx';
 import DefaultLayout from '../../../global/components/layouts/DefaultLayout.js.jsx';
 
+import * as productActions from '../productActions';
+
 class ProductLayout extends Binder {
   constructor(props) {
     super(props);
+
+    // register and fire socket.io events
+    const { dispatch } = props;
+    let socket = io();
+
+    // update product
+    socket.on('product_update', product => {
+      this.props.dispatch(productActions.addSingleProductToMap(product))
+    })
+
   }
 
   render() {
@@ -25,4 +38,4 @@ class ProductLayout extends Binder {
   }
 }
 
-export default ProductLayout;
+export default connect()(ProductLayout);

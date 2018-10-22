@@ -165,7 +165,7 @@ if (app.get('env') == 'development') {
 // configure server routes
 let router = express.Router();
 require('./global/routing/router')(router, app);
-app.use('/', router);
+// app.use('/', router);
 // some notes on router: http://scotch.io/tutorials/javascript/learn-to-use-the-new-router-in-expressjs-4
 
 // check for the server timeout. NOTE: this must be last in the middleware stack
@@ -225,8 +225,18 @@ if(app.get('env') == 'production' && config.useHttps) {
   logger.info('Yote is listening on port ' + config.port + '...');
 }
 
-// set up socket.io
+
+// init socketio
 let io = require('socket.io')(server);
- io.on('connection', (socket) => {
+io.on('connection', (socket) => {
   console.log('a user connected');
 });
+
+// inject the socketio handler into the request object so we can use it throughout the rest of the app
+app.use((req, res, next) => {
+  req.io = io;
+  next();
+});
+
+// routes have to come last, but it appears that you can call this after initing the server with the app object
+app.use('/', router);

@@ -47,7 +47,7 @@ class ProductList extends Binder {
   }
 
   render() {
-    const { location, productStore } = this.props;
+    const { location, productStore, productListItems } = this.props;
 
     /**
      * Retrieve the list information and the list items for the component here.
@@ -65,7 +65,7 @@ class ProductList extends Binder {
      * use the reducer getList utility to convert the all.items array of ids
      * to the actual product objetcs
      */
-    const productListItems = productStore.util.getList("all");
+    // const productListItems = productStore.util.getList("all");
 
     /**
      * NOTE: isEmpty is is usefull when the component references more than one
@@ -79,7 +79,9 @@ class ProductList extends Binder {
       || productList.isFetching
     )
 
-    return (
+    console.log("RENDERING");
+
+    return (      
       <ProductLayout>
         <Breadcrumbs links={location.state.breadcrumbs} />
         <h1> Product List</h1>
@@ -110,8 +112,12 @@ const mapStoreToProps = (store) => {
    * NOTE: Yote refer's to the global Redux 'state' as 'store' to keep it mentally
    * differentiated from the React component's internal state
    */
+  const productListItems = store.product.util.getList("all")
+  console.log("items - ", productListItems)
+
   return {
     productStore: store.product
+    , productListItems
   }
 }
 
