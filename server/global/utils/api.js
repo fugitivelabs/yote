@@ -15,12 +15,12 @@ exports.defaultValueFromSchema = (schemaType) => {
         // ignore, these are set on the Model or controller
         break;
       } else {
-        val = new Date()
+        val = null;
         break;
       }
     }
     case "String": {
-      val = schemaType.defaultValue ? schemaType.defaultValue : '';
+      val = schemaType.defaultValue ? schemaType.defaultValue : null;
       break;
     }
     case "ObjectID": {
@@ -37,12 +37,12 @@ exports.defaultValueFromSchema = (schemaType) => {
         // ignore, this is a mongo default;
         break;
       } else {
-        val = schemaType.defaultValue ? schemaType.defaultValue : 0;
+        val = schemaType.defaultValue ? schemaType.defaultValue : null;
         break;
       }
     }
     case "Boolean": {
-      val = schemaType.defaultValue ? schemaType.defaultValue : false;
+      val = schemaType.defaultValue ? schemaType.defaultValue : null;
       break;
     }
     case "Array": {

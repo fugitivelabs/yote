@@ -190,6 +190,9 @@ exports.getSchema = (req, res) => {
   /**
    * This is an open api call by default (see what I did there?) and is used to
    * return the default object back to the Create components on the client-side.
+   *
+   * NOTE: uses /global/utils/api.js to return default values IF defined on the model.
+   * will otherwise return null. 
    */
   logger.info('get product default object');
   res.send({success: true, defaultObj: Product.getDefault()});

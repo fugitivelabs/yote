@@ -19,7 +19,7 @@ module.exports = function(router, requireLogin, requireRole) {
   router.get('/api/products/by-:refKey-list'    , products.listByValues);
   router.get('/api/products/search'         , products.search);
   router.get('/api/products/default'         , products.getDefault);
-  router.get('/api/products/schema'         , requireRole('admin'), products.getSchema);
+  // router.get('/api/products/schema'         , requireRole('admin'), products.getSchema); // NOTE: add if needed 
   router.get('/api/products/:id'            , products.getById);
 
   // - Update
