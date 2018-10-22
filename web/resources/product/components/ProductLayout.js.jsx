@@ -23,8 +23,14 @@ class ProductLayout extends Binder {
     let socket = io();
 
     // update product
-    socket.on('product_update', product => {
+    socket.on('update_product', product => {
       this.props.dispatch(productActions.addSingleProductToMap(product))
+    })
+
+    // new product
+    socket.on('new_product', product => {
+      this.props.dispatch(productActions.addSingleProductToMap(product))
+      this.props.dispatch(productActions.addProductToList(product._id, 'new'))
     })
 
   }
