@@ -17,8 +17,8 @@ import { StackNavigator, TabNavigator } from 'react-navigation';
 // import global components
 
 // import custom components
-import Login from '../../modules/user/views/Login'; 
-import Register from '../../modules/user/views/Register'; 
+import Login from '../../resources/user/views/Login'; 
+import Register from '../../resources/user/views/Register'; 
 
 const LoggedOutNavigator = StackNavigator(
   {

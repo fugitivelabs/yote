@@ -19,8 +19,8 @@ import Home from '../landing/Home';
 import TabBarComponent from './TabBarComponent';
 
 // import module navigator components
-import ProductNavigator from '../../modules/product/ProductNavigator';
-import UserNavigator from '../../modules/user/UserNavigator'; 
+import ProductNavigator from '../../resources/product/ProductNavigator';
+import UserNavigator from '../../resources/user/UserNavigator'; 
 
 // import styles
 import YTStyles from '../styles/YTStyles'; 
