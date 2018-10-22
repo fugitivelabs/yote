@@ -35,9 +35,7 @@ import _ from 'lodash';
 import * as productActions from '../productActions'
 
 // import styles
-import productStyles from '../productStyles';
 import YTStyles from '../../../global/styles/YTStyles'; 
-import YTColors from '../../../global/styles/YTColors';
 
 class CreateProduct extends Binder {
   constructor(props) {
@@ -47,17 +45,15 @@ class CreateProduct extends Binder {
       , newProduct: { ...this.props.defaultProduct }
     }
     this._bind(
-      '_closeModal'
+      '_goBack'
       , '_handleAction'
       , '_handleInputChange'
       , '_checkFormValid'
-      , '_openLibrary'
     )
   }
 
   componentDidMount() {
     this.refs['newProduct.title'].focus();
-    console.log(this.props.navigation);
   }
 
   _checkFormValid() {
@@ -77,34 +73,30 @@ class CreateProduct extends Binder {
   }
 
   _handleAction() {
-    console.log("_handleAction fired");
+    console.log("_handleAction create fired");
 
     const { dispatch, user } = this.props;
     const { newProduct } = this.state;
+
     if(!this.state.isFormValid) {
       Alert.alert("Whoops", "All fields are required.");
       return;
     }
+    
     dispatch(productActions.sendCreateProduct(newProduct)).then((res) => {
       dispatch(productActions.addProductToList(res.item._id));
       this.props.navigation.goBack();
     });
   }
 
-  _closeModal() {
+  _goBack() {
     this.props.navigation.goBack();
-  }
-
-  _openLibrary() {
-    this.refs['newProduct.title'].blur();
-    this.props.navigator.push({library: true});
   }
 
   _handleInputChange(e, target) {
     var newState = _.update( this.state, target, function() {
       return e.nativeEvent.text;
     });
-    console.log("input changed");
     this.setState(newState);
     this._checkFormValid();
   }
@@ -128,22 +120,23 @@ class CreateProduct extends Binder {
 
     const { navigator, isFetching } = this.props;
     const { newProduct, isFormValid } = this.state;
+
     const rightItem = {
       title: 'Cancel',
-      onPress: this._closeModal
+      onPress: this._goBack
     };
 
     return (
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? "padding" : null}
-        contentContainerStyle={{flex:1}}
+        contentContainerStyle={{flex: 1}}
         style={YTStyles.container}
       >
         <YTHeader
           rightItem={rightItem}
           title="New Product"
         />
-        <ScrollView ref="myScrollView" keyboardDismissMode="interactive" keyboardShouldPersistTaps="handled" style={[productStyles.formWrapper]}>
+        <ScrollView ref="myScrollView" keyboardDismissMode="interactive" keyboardShouldPersistTaps="handled" style={[YTStyles.formWrapper]}>
           <View>
             <View style={{padding: 5}}>
               <TextInput
@@ -155,14 +148,14 @@ class CreateProduct extends Binder {
                   this.refs['newProduct.description'].focus();
                 }}
                 placeholder="Title"
-                placeholderTextColor={YTColors.lightText}
+                placeholderTextColor={YTStyles.colors.accentText}
                 ref="newProduct.title"
                 returnKeyType="next"
-                style={productStyles.input}
+                style={YTStyles.input}
                 value={this.state.newProduct.title}
               />
             </View>
-            <View style={productStyles.listSeparator}/>
+            <View style={YTStyles.separator}/>
             <View style={{padding: 5}}>
               <TextInput
                 autoCorrect={true}
@@ -172,14 +165,14 @@ class CreateProduct extends Binder {
                 onFocus={ (e) => this._scrollToInput(e, 'newProduct.description')}
                 onSubmitEditing={this._handleAction}
                 placeholder="Write a description..."
-                placeholderTextColor={YTColors.lightText}
+                placeholderTextColor={YTStyles.colors.accentText}
                 returnKeyType="go"
                 ref="newProduct.description"
-                style={[productStyles.input, {minHeight: 90}]}
+                style={[YTStyles.input, {minHeight: 90}]}
                 value={this.state.newProduct.description}
               />
             </View>
-            <View style={productStyles.listSeparator}/>
+            <View style={YTStyles.separator}/>
           </View>
           <View style={{paddingHorizontal: 10, paddingVertical: 20}}>
             <YTButton

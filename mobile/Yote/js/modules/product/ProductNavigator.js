@@ -41,7 +41,7 @@ const ProductNavigator = StackNavigator(
     CardNavigator: {
       screen: CardNavigator
     }
-    , NewProduct: {
+    , CreateProduct: {
       screen: CreateProduct
     }
     , UpdateProduct: {

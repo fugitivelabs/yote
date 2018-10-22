@@ -12,12 +12,13 @@ let simulator = {
   url: "http://localhost:3030" // simulator
 }
 
+// will most likely have to be https bc of Apple restrictions
 let productionEnv = {
   url: "http://yote.f-labs.co"
 }
 
 let devLocal = {
-  url: "http://10.254.102.111:3030"
+  url: "http://your-IP-Address:3030" // when running on real device
 }
 
 let stagingEnv = {

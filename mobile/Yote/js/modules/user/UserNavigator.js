@@ -32,7 +32,7 @@ const UserNavigator = StackNavigator(
   , {
       initialRouteName: 'Profile'
       , headerMode: 'none'
-      , mode: 'modal' // vertical screen (modal) transitions
+      , mode: 'modal' // vertical screen (modal) transitions, comment out for horizontal
     }
 );
 

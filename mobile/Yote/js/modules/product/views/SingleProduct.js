@@ -43,7 +43,7 @@ class SingleProduct extends Binder {
     super(props);
     this._bind(
       '_closeModal'
-      , '_openEdit'
+      , '_openUpdateProduct'
     )
   }
 
@@ -56,9 +56,9 @@ class SingleProduct extends Binder {
     this.props.navigation.goBack();
   }
 
-  _openEdit() {
-    const { productId } = this.props.navigation.state.params;
-    this.props.navigation.navigate('UpdateProduct', {productId: productId});
+  _openUpdateProduct() {
+    const { product } = this.props.navigation.state.params;
+    this.props.navigation.navigate('UpdateProduct', {product: product});
   }
 
   render() {
@@ -71,11 +71,17 @@ class SingleProduct extends Binder {
       onPress: this._closeModal,
     }
 
+    const rightItem = {
+      title: 'Edit'
+      , onPress: this._openUpdateProduct
+    }
+
     return(
       <View style={YTStyles.container}>
         <YTHeader
           title='Single Product'
           leftItem={leftItem}
+          rightItem={rightItem}
         />
         <ScrollView>
           <View style={{padding: 10}}>

@@ -16,9 +16,7 @@ import { StackNavigator, TabNavigator } from 'react-navigation';
 
 // import global components
 
-
 // import custom components
-// user
 import Login from '../../modules/user/views/Login'; 
 import Register from '../../modules/user/views/Register'; 
 

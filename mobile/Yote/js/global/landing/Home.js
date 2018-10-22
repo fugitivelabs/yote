@@ -27,24 +27,14 @@ import YTHeader from '../headers/YTHeader';
 // import styles
 import YTStyles from '../styles/YTStyles'
 
-const screenHeight = Dimensions.get('window').height
+const height = Dimensions.get('window').height
 
 class Home extends Binder {
   constructor(props) {
     super(props);
     this._bind(
-     '_openProfile'
-     ,'_handleOpenDrawer'
-     , '_handleClick'
+     '_handleClick'
     );
-  }
-
-  _openProfile() {
-    this.props.navigation.navigate('Profile');
-  }
-
-  _handleOpenDrawer() {
-    this.context.openDrawer();
   }
 
   _handleClick() {
@@ -62,8 +52,6 @@ class Home extends Binder {
 
     const {  itemList, navigator, user } = this.props;
 
-    console.log(appKeys); 
-
     return (
       <View style={YTStyles.container}>
         <YTHeader
@@ -73,7 +61,7 @@ class Home extends Binder {
           automaticallyAdjustContentInsets={false}
         >
           <View style={YTStyles.brandContainer} >
-            <View style={{height: screenHeight * .66, backgroundColor: 'transparent', justifyContent: 'center', alignItems: 'center'}}>
+            <View style={{height: height * .66, backgroundColor: 'transparent', justifyContent: 'center', alignItems: 'center'}}>
               <View style={{flexDirection: 'row', justifyContent: 'center'}}>
                 <Image
                   resizeMode={'contain'}

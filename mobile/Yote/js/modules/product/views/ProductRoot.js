@@ -40,43 +40,37 @@ class ProductRoot extends Binder {
   constructor(props) {
     super(props);
     this._bind(
-     '_openProfile'
-     , '_openNew'
+     '_openCreateProduct'
      , '_sendDelete'
-     , '_handleOpenDrawer'
     );
   }
 
   componentDidMount() {
-    this.props.dispatch(productActions.fetchList());
+    this.props.dispatch(productActions.fetchList('all'));
   }
 
-  _openProfile() {
-    this.props.navigator.push({profile: true});
-  }
-
-  _openNew() {
-    this.props.navigation.navigate('NewProduct');
+  _openCreateProduct() {
+    this.props.navigation.navigate('CreateProduct');
   }
 
   _sendDelete(id) {
+    this.props.dispatch(productActions.removeProductFromList(id));
     this.props.dispatch(productActions.sendDelete(id)).then((res) => {
-      this.props.dispatch(productActions.removeProductFromList(id));
+      if(res.success) {
+        console.log('item deleted');
+      } else {
+        console.log('failed to delete item');
+      }
     })
   }
 
-  _handleOpenDrawer() {
-    this.context.openDrawer();
-  }
-
   render() {
-
     const { productStore, navigation, user } = this.props;
 
     let productList = productStore.util.getList ? productStore.util.getList('all') : null; 
 
     const rightItem = {
-      onPress: () => this._openNew()
+      onPress: () => this._openCreateProduct()
       , icon: require('../../../global/img/plus.png')
       , layout: 'image'
     }
@@ -87,26 +81,24 @@ class ProductRoot extends Binder {
           title="Products"
           rightItem={rightItem}
         />
-
         <View style={{flex: 1}}>
-        { productList && productList.length > 0 ? 
-          <ProductList
-            products={productList}
-            navigation={navigation}
-          />
-        : productList && productList.length == 0 ?
-          <View style={{flex: 1, justifyContent: 'center'}}>
-            <Text style={YTStyles.text}>Empty</Text>
-          </View> 
-        : 
-          <View style={{flex: 1, justifyContent: 'center'}}>
-            <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-              <ActivityIndicator/>
+          { productList && productList.length > 0 ? 
+            <ProductList
+              products={productList}
+              navigation={navigation}
+            />
+          : productList && productList.length == 0 ?
+            <View style={{flex: 1, justifyContent: 'center'}}>
+              <Text style={YTStyles.text}>Empty</Text>
+            </View> 
+          : 
+            <View style={{flex: 1, justifyContent: 'center'}}>
+              <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+                <ActivityIndicator/>
+              </View>
             </View>
-          </View>
-        }
+          }
         </View>
-
       </View>
     )
   }

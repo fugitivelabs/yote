@@ -24,7 +24,6 @@ import moment from 'moment';
 
 // import styles
 import YTStyles from '../../../global/styles/YTStyles';
-import YTColors from '../../../global/styles/YTColors';
 
 class ProductListItem extends Binder {
   constructor(props){
@@ -41,7 +40,7 @@ class ProductListItem extends Binder {
 
     if(this.props.onPress) {
       cell =
-        <TouchableHighlight underlayColor={YTColors.underlayColor} onPress={this.props.onPress}>
+        <TouchableHighlight underlayColor={YTStyles.colors.underlay} onPress={this.props.onPress}>
           {cell}
         </TouchableHighlight>
     }

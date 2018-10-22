@@ -40,10 +40,10 @@ import YTColors from '../../../global/styles/YTColors';
 class UpdateProduct extends Binder {
   constructor(props) {
     super(props);
-    const { selectedProduct, productMap } = this.props;
+    const { product } = this.props.navigation.state.params;
     this.state = {
       isFormValid: false
-      , newProductData: productMap[selectedProduct.id] ? { ...productMap[selectedProduct.id] } : {}
+      , newProductData: product ? product : {}
     }
     this._bind(
       '_closeModal'
@@ -75,12 +75,13 @@ class UpdateProduct extends Binder {
 
     const { dispatch, user } = this.props;
     const { newProductData } = this.state;
-    console.log(newProductData);
+
+    let newProduct = _.cloneDeep(newProductData); 
     if(!this.state.isFormValid) {
       Alert.alert("Whoops", "All fields are required.");
       return;
     }
-    dispatch(productActions.sendUpdateProduct(newProductData)).then((res) => {
+    dispatch(productActions.sendUpdateProduct(newProduct)).then((res) => {
       dispatch(productActions.invalidateList());
       dispatch(productActions.fetchListIfNeeded());
       this.props.navigation.goBack();
@@ -108,10 +109,9 @@ class UpdateProduct extends Binder {
 
       var scrollResponder = this.refs.myScrollView.getScrollResponder();
       // var scrollResponder = scrollView.getScrollRef();
-      console.log("on focus called ", refName);
-      console.log(this.refs[refName].props.returnKeyType);
+      // console.log("on focus called ", refName);
       var offset = 130;
-      console.log(offset);
+      // console.log(offset);
       scrollResponder.scrollResponderScrollNativeHandleToKeyboard(
         ReactNative.findNodeHandle(this.refs[refName]),
         offset, // adjust depending on your contentInset

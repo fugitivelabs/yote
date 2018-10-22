@@ -28,9 +28,8 @@ import Binder from '../../../global/Binder';
 // import module components
 import ProductListItem from './ProductListItem';
 
-// import Styles
+// import styles
 import YTStyles from '../../../global/styles/YTStyles';
-import YTColors from '../../../global/styles/YTColors';
 
 class ProductList extends Binder {
   constructor(props) {
@@ -51,7 +50,6 @@ class ProductList extends Binder {
   }
 
   _openProduct(product) {
-    // console.log("open product", product);
     this.props.navigation.navigate('SingleProduct', {product: product});
   }
 

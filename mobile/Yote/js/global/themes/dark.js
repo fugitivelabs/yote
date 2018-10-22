@@ -16,7 +16,7 @@ module.exports = {
   // buttons
   , buttonPrimary: '#FCA641'
   , buttonSecondary: '#000000'
-  , underlayColor: '#eaeced'
+  , underlay: '#eaeced'
 
   // text
   , mainText: '#fff'

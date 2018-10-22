@@ -111,16 +111,17 @@ const YTStyles = StyleSheet.flatten({
 
   // colors
   , colors: {
-      primary: theme.primary
-      , secondary: theme.secondary
-      , accent: theme.accent
-      , header: theme.header
-      , headerText: theme.headerText
-      , separator: theme.separator
-      , mainText: theme.mainText
+      accent: theme.accent
       , accentText: theme.accentText
       , danger: theme.danger
+      , header: theme.header
+      , headerText: theme.headerText
+      , mainText: theme.mainText
+      , primary: theme.primary
+      , secondary: theme.secondary
+      , separator: theme.separator
       , success: theme.success
+      , underlay: theme.underlay
       , warning: theme.warning
   }
 })

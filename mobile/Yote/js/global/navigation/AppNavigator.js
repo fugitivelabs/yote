@@ -1,5 +1,5 @@
 /**
-* Root level navigator after user login
+* Root level navigator for main app/after user login
 */
 
 // import primary libraries
@@ -22,37 +22,29 @@ import TabBarComponent from './TabBarComponent';
 import ProductNavigator from '../../modules/product/ProductNavigator';
 import UserNavigator from '../../modules/user/UserNavigator'; 
 
-// import specific module screens
-import Profile from '../../modules/user/views/Profile'; 
-import UpdateProfile from '../../modules/user/views/UpdateProfile'; 
-
 // import styles
-import YTColors from '../styles/YTColors';
 import YTStyles from '../styles/YTStyles'; 
 
 /** Navigator Notes **
   *
-  * To add routes to the TABS view, add them to TabNavigator below
+  * Recommended to read documentation for react-navigation because there is a learning curve. 
   *
-  * For horizontal screen transitions add screens to MainCardNavigator, for modal vertical animations add
-  * screens to AppNavigator. 
-  * 
-  * Modal screens cannot directly transition horizontally (for now) to a new screen
-  * ways around that are just accepting it, or nest more Navigator components (see ProductNavigator).
+  * To add routes to the TABS view, add them under TabNavigator below
   *
-  * However, nesting navigators can become a pain when navigations become more complex
-  * Such as, resetting stack and going to root navigator or specific screen in the stack.
+  * For horizontal screen transitions add routes/screens under MainCardNavigator.
   *
-  * Because of that, it is easier to add specific routes as you need them that way you can specify
-  * exactly where they go and how they go there.
+  * For vertical screen transitions add routes/screens under AppNavigator, but note they can't navigate horizontally to anything in MainCardNavigator.
+  *
+  * We also recommend each tab you define have it's own navigator as shown below with ProductNavigator and UserNavigator. This keeps things a little more organized.
+  * It's still possible but rarely did we need to access same route from within two different tabs
   *
   */
 
 // define tabs
 const TabsNavigator = TabNavigator(
   {
-    Home: {
-      screen: Home
+    Home: { // route key and tab display name
+      screen: Home // route component
       , navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <Image
@@ -102,6 +94,10 @@ const MainCardNavigator = StackNavigator({
   Root: {
     screen: TabsNavigator
   }
+  // , Example: {
+  //   screen: Example
+  // }
+
   // add individual module routes here (horizontal transitions)
 }, {
   headerMode: 'none'
@@ -112,12 +108,10 @@ let AppNavigator = StackNavigator({
   TabsNavigator: {
     screen: MainCardNavigator
   }
-  , Profile: {
-    screen: Profile
-  }
-  , UpdateProfile: {
-    screen: UpdateProfile
-  }
+  // , Example: {
+  //   screen: Example
+  // }
+
   // add individual module routes here (vertical transitions)
 }, {
   mode: 'modal'
