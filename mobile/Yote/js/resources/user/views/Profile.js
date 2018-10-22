@@ -178,7 +178,7 @@ class Profile extends Binder {
         <YTHeader
           title="Profile"
         />
-        {user ?
+        {user && user.apiToken ?
           <ScrollView>
             <View>
               <View style={{flex: 1, alignItems: 'center', padding: 20, justifyContent: 'center',}}>

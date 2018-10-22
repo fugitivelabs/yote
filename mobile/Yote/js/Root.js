@@ -21,7 +21,7 @@ import {
 import AppNavigator from './global/navigation/AppNavigator'; 
 import LoggedOutNavigator from './global/navigation/LoggedOutNavigator'; 
 
-class App extends Binder {
+class Root extends Binder {
   constructor(props) {
     super(props);
     this._bind(
@@ -80,4 +80,4 @@ const mapStoreToProps = (store) => {
 
 export default connect(
   mapStoreToProps
-)(App);
+)(Root);
