@@ -76,7 +76,7 @@ class CreateProduct extends Binder {
   render() {
     const { location } = this.props;
     const { product } = this.state;
-    const isEmpty = (!product || product.title === null || product.title === undefined);
+    const isEmpty = (!product);
     return (
       <ProductLayout>
         <h4>Hello?</h4>

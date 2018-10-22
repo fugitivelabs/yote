@@ -109,7 +109,11 @@ function productList(state = {
         }
       }
       case Actions.ADD_PRODUCT_TO_LIST: {
-        let idArray = [...state.items];
+        console.log("TEST", state);
+        let idArray = [];
+        if(state && state.items) {
+          idArray = [...state.items];
+        }
         idArray.indexOf(action.id) === -1 ? idArray.push(action.id) : console.log("Item is already in list");
         return {
           ...state
