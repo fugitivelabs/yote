@@ -23100,7 +23100,7 @@ exports.default = {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.INVALIDATE_PRODUCT_LIST = exports.SET_PRODUCT_PAGINATION = exports.SET_PRODUCT_FILTER = exports.REMOVE_PRODUCT_FROM_LIST = exports.ADD_PRODUCT_TO_LIST = exports.RECEIVE_PRODUCT_LIST = exports.REQUEST_PRODUCT_LIST = exports.returnProductListPromise = exports.fetchListIfNeeded = exports.RECEIVE_DELETE_PRODUCT = exports.REQUEST_DELETE_PRODUCT = exports.RECEIVE_UPDATE_PRODUCT = exports.REQUEST_UPDATE_PRODUCT = exports.RECEIVE_CREATE_PRODUCT = exports.REQUEST_CREATE_PRODUCT = exports.RECEIVE_DEFAULT_PRODUCT = exports.REQUEST_DEFAULT_PRODUCT = exports.SET_SELECTED_PRODUCT = exports.ADD_SINGLE_PRODUCT_TO_MAP = exports.RECEIVE_SINGLE_PRODUCT = exports.REQUEST_SINGLE_PRODUCT = exports.returnSingleProductPromise = exports.fetchSingleIfNeeded = exports.INVALIDATE_SELECTED_PRODUCT = undefined;
+exports.INVALIDATE_PRODUCT_LIST = exports.SET_PRODUCT_PAGINATION = exports.SET_PRODUCT_FILTER = exports.REMOVE_PRODUCT_FROM_LIST = exports.ADD_PRODUCT_TO_LIST = exports.RECEIVE_PRODUCT_LIST = exports.REQUEST_PRODUCT_LIST = exports.returnProductListPromise = exports.fetchListIfNeeded = exports.RECEIVE_DELETE_PRODUCT = exports.REQUEST_DELETE_PRODUCT = exports.RECEIVE_UPDATE_PRODUCT = exports.REQUEST_UPDATE_PRODUCT = exports.RECEIVE_CREATE_PRODUCT = exports.REQUEST_CREATE_PRODUCT = exports.RECEIVE_PRODUCT_SCHEMA = exports.REQUEST_PRODUCT_SCHEMA = exports.RECEIVE_DEFAULT_PRODUCT = exports.REQUEST_DEFAULT_PRODUCT = exports.SET_SELECTED_PRODUCT = exports.ADD_SINGLE_PRODUCT_TO_MAP = exports.RECEIVE_SINGLE_PRODUCT = exports.REQUEST_SINGLE_PRODUCT = exports.returnSingleProductPromise = exports.fetchSingleIfNeeded = exports.INVALIDATE_SELECTED_PRODUCT = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; /**
                                                                                                                                                                                                                                                                    * All product CRUD actions
@@ -23122,6 +23122,7 @@ exports.fetchSingleProductById = fetchSingleProductById;
 exports.addSingleProductToMap = addSingleProductToMap;
 exports.setSelectedProduct = setSelectedProduct;
 exports.fetchDefaultProduct = fetchDefaultProduct;
+exports.fetchProductSchema = fetchProductSchema;
 exports.sendCreateProduct = sendCreateProduct;
 exports.sendUpdateProduct = sendUpdateProduct;
 exports.sendDelete = sendDelete;
@@ -23274,7 +23275,7 @@ var RECEIVE_DEFAULT_PRODUCT = exports.RECEIVE_DEFAULT_PRODUCT = "RECEIVE_DEFAULT
 function receiveDefaultProduct(json) {
   return {
     error: json.message,
-    schema: json.schema,
+    defaultObj: json.defaultObj,
     receivedAt: Date.now(),
     success: json.success,
     type: RECEIVE_DEFAULT_PRODUCT
@@ -23284,8 +23285,33 @@ function receiveDefaultProduct(json) {
 function fetchDefaultProduct() {
   return function (dispatch) {
     dispatch(requestDefaultProduct());
-    return _api2.default.callAPI("/api/products/schema").then(function (json) {
+    return _api2.default.callAPI("/api/products/default").then(function (json) {
       return dispatch(receiveDefaultProduct(json));
+    });
+  };
+}
+
+var REQUEST_PRODUCT_SCHEMA = exports.REQUEST_PRODUCT_SCHEMA = "REQUEST_PRODUCT_SCHEMA";
+function requestProductSchema(id) {
+  return {
+    type: REQUEST_PRODUCT_SCHEMA
+  };
+}
+var RECEIVE_PRODUCT_SCHEMA = exports.RECEIVE_PRODUCT_SCHEMA = "RECEIVE_PRODUCT_SCHEMA";
+function receiveProductSchema(json) {
+  return {
+    error: json.message,
+    schema: json.schema,
+    receivedAt: Date.now(),
+    success: json.success,
+    type: RECEIVE_PRODUCT_SCHEMA
+  };
+}
+function fetchProductSchema() {
+  return function (dispatch) {
+    dispatch(requestProductSchema());
+    return _api2.default.callAPI("/api/products/schema").then(function (json) {
+      return dispatch(receiveProductSchema(json));
     });
   };
 }
@@ -43622,7 +43648,11 @@ var routes = _react2.default.createElement(
       role: 'admin'
     });
   }),
-  _react2.default.createElement(_AdminRouterJs2.default, null),
+  _react2.default.createElement(
+    _reactRouterDom.Route,
+    { path: '/admin' },
+    _react2.default.createElement(_AdminRouterJs2.default, null)
+  ),
   _react2.default.createElement(_reactRouterDom.Route, { component: _NotFoundJs2.default })
 );
 
@@ -52365,7 +52395,7 @@ var AdminCreateProduct = function (_Binder) {
       formHelpers: {
         statuses: ['published', 'draft', 'archived']
       },
-      product: _lodash2.default.cloneDeep(_this.props.defaultProduct.getItem())
+      product: _lodash2.default.cloneDeep(_this.props.defaultProduct.obj)
       // NOTE: We don't want to actually change the store's defaultItem, just use a copy
     };
     _this._bind('_handleFormChange', '_handleFormSubmit');
@@ -52383,7 +52413,7 @@ var AdminCreateProduct = function (_Binder) {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(nextProps) {
       this.setState({
-        product: _lodash2.default.cloneDeep(nextProps.defaultProduct.getItem())
+        product: _lodash2.default.cloneDeep(nextProps.defaultProduct.obj)
       });
     }
   }, {
@@ -53357,9 +53387,10 @@ function product() {
      */
     , defaultItem: {
       error: null,
-      getItem: function getItem() {
+      getItemFromSchema: function getItemFromSchema() {
         return null;
       },
+      obj: null,
       schema: null,
       lastUpdated: null
 
@@ -53422,6 +53453,32 @@ function product() {
         break;
       }
     case Actions.RECEIVE_DEFAULT_PRODUCT:
+      {
+        if (action.success) {
+          nextState = _extends({}, state, { defaultItem: _extends({}, state.defaultItem, { error: null,
+              obj: action.defaultObj,
+              isFetching: false,
+              lastUpdated: action.receivedAt
+            })
+          });
+        } else {
+          nextState = _extends({}, state, { defaultItem: _extends({}, state.defaultItem, { error: action.error,
+              obj: null,
+              isFetching: false,
+              lastUpdated: action.receivedAt
+            })
+          });
+        }
+        break;
+      }
+    case Actions.REQUEST_PRODUCT_SCHEMA:
+      {
+        nextState = _extends({}, state, { defaultItem: _extends({}, state.defaultItem, { isFetching: true
+          })
+        });
+        break;
+      }
+    case Actions.RECEIVE_PRODUCT_SCHEMA:
       {
         if (action.success) {
           nextState = _extends({}, state, { defaultItem: _extends({}, state.defaultItem, { error: null,
@@ -53669,7 +53726,7 @@ function product() {
       }
     }
     //set getter method for returning default item
-  });nextState.defaultItem = _extends({}, nextState.defaultItem, { getItem: function getItem() {
+  });nextState.defaultItem = _extends({}, nextState.defaultItem, { getItemFromSchema: function getItemFromSchema() {
       if (!nextState.defaultItem.schema || nextState.selected.didInvalidate) {
         return null;
       } else {
@@ -53837,7 +53894,7 @@ var CreateProduct = function (_Binder) {
 
     _this.state = {
       formHelpers: {},
-      product: _lodash2.default.cloneDeep(_this.props.defaultProduct.getItem())
+      product: _lodash2.default.cloneDeep(_this.props.defaultProduct.obj)
       // NOTE: ^ We don't want to actually change the store's defaultItem, just use a copy
     };
     _this._bind('_handleFormChange', '_handleFormSubmit');
@@ -53855,7 +53912,7 @@ var CreateProduct = function (_Binder) {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(nextProps) {
       this.setState({
-        product: _lodash2.default.cloneDeep(nextProps.defaultProduct.getItem())
+        product: _lodash2.default.cloneDeep(nextProps.defaultProduct.obj)
       });
     }
   }, {
