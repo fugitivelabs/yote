@@ -86,7 +86,7 @@ const TabsNavigator = TabNavigator(
       }
     }
     , tabBarPosition: 'bottom'
-    // , tabBarComponent: TabBarComponent // this might have been for android keyboard issues
+    , tabBarComponent: TabBarComponent // necessary to hide tab bar when using android keyboard
   }
 );
 

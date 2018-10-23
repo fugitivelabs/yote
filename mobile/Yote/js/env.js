@@ -17,7 +17,7 @@ let productionEnv = {
   url: "http://yote.f-labs.co"
 }
 
-// for running on simulator/emulator
+// for running on simulator (android may need to use devLocal)
 let simulator = {
   url: "http://localhost:3030" // simulator
 }
