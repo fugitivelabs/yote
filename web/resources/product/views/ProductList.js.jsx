@@ -46,6 +46,16 @@ class ProductList extends Binder {
     this.props.dispatch(productActions.fetchListIfNeeded()); // defaults to 'all'
   }
 
+  componentDidUpdate(prevProps) {
+    console.log("UPDATE!!!", prevProps, this.props);
+    // componentWillReceiveProps is being depreciated, see https://reactjs.org/docs/react-component.html
+    if(this.props.newProducts && (!prevProps.newProducts || prevProps.newProducts.length < this.props.newProducts.length)) {
+      // newProducts list has changed, now do something with the new items in there
+      // this would be where we add it to a specific list, or filter it, or hit some utils or something
+      this.props.dispatch(productActions.addProductToList(this.props.newProducts[0]._id, "all"))
+    }
+  }
+
   render() {
     const { location, productStore, productListItems } = this.props;
 
@@ -112,12 +122,17 @@ const mapStoreToProps = (store) => {
    * NOTE: Yote refer's to the global Redux 'state' as 'store' to keep it mentally
    * differentiated from the React component's internal state
    */
-  const productListItems = store.product.util.getList("all")
-  console.log("items - ", productListItems)
+
+  // if we want to listen for updates
+  const productListItems = store.product.util.getList('all')
+
+  // if we want to listen for new products
+  const newProducts = store.product.util.getList('new')
 
   return {
     productStore: store.product
     , productListItems
+    , newProducts
   }
 }
 
