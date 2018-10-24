@@ -48,7 +48,7 @@ const TabsNavigator = TabNavigator(
       , navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <Image
-            source={require('../img/house.png')}
+            source={require('../img/home.png')}
             style={{height: 30, width: 30, tintColor: tintColor}}
           />
         )

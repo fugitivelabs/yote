@@ -85,7 +85,7 @@ class UploadNewImage extends Binder {
             <View style={{flex: 1, justifyContent: 'center'}}>
               <View style={{flexDirection: 'row', justifyContent: 'center'}}>
                 <Image
-                  source={require('../camera3.png')}
+                  source={require('../camera.png')}
                   style={{opacity: .85}}
                 />
               </View>

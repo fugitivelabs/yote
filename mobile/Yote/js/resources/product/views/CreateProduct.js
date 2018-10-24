@@ -167,7 +167,7 @@ class CreateProduct extends Binder {
                     this.refs['product.description'].focus();
                   }}
                   placeholder="Title"
-                  placeholderTextColor={YTStyles.colors.mainText}
+                  placeholderTextColor={YTStyles.colors.accentText}
                   ref="product.title"
                   returnKeyType="next"
                   style={YTStyles.input}
@@ -184,7 +184,7 @@ class CreateProduct extends Binder {
                   onFocus={ (e) => this._scrollToInput(e, 'product.description')}
                   onSubmitEditing={this._handleAction}
                   placeholder="Write a description..."
-                  placeholderTextColor={YTStyles.colors.mainText}
+                  placeholderTextColor={YTStyles.colors.accentText}
                   returnKeyType="go"
                   ref="product.description"
                   style={[YTStyles.input, {minHeight: 90}]}
