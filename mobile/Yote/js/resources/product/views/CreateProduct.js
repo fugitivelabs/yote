@@ -57,6 +57,7 @@ class CreateProduct extends Binder {
     dispatch(productActions.fetchDefaultProduct());
   }
 
+  // getting deprecated ??? componentDidUpdate
   componentWillReceiveProps(nextProps) {
     this.setState({
       product: _.cloneDeep(nextProps.defaultProduct.obj)

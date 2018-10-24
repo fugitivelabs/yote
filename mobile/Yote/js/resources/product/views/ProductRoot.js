@@ -69,7 +69,7 @@ class ProductRoot extends Binder {
     let productList = productStore.util.getList ? productStore.util.getList('all') : null; 
 
     const rightItem = {
-      onPress: () => this._openCreateProduct()
+      onPress: this._openCreateProduct
       , icon: require('../../../global/img/plus.png')
       , layout: 'image'
     }

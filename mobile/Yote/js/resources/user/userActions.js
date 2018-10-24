@@ -7,7 +7,7 @@
  */
 
 // import api utility
-import callAPI from '../../global/utils/api';
+import apiUtils from '../../global/utils/api';
 
 
 /**
@@ -39,7 +39,7 @@ function receiveLogin(json) {
 export function sendLogin(username, password) {
   return dispatch => {
     dispatch(requestLogin(username))
-    return callAPI('/api/users/token', 'POST', { username, password })
+    return apiUtils.callAPI('/api/users/token', 'POST', { username, password })
     .then(json => dispatch(receiveLogin(json)))
   }
 }
@@ -68,7 +68,7 @@ function receiveRegister(json) {
 export function sendRegister(userData) {
   return dispatch => {
     dispatch(requestRegister(userData))
-    return callAPI('/api/users/register', 'POST', userData)
+    return apiUtils.callAPI('/api/users/register', 'POST', userData)
     .then(json => dispatch(receiveRegister(json)))
   }
 }
@@ -92,7 +92,7 @@ function receiveLogout(json) {
 export function sendLogout() {
   return dispatch => {
     dispatch(requestLogout())
-    return callAPI('/api/users/logout', 'POST')
+    return apiUtils.callAPI('/api/users/logout', 'POST')
     .then(json => dispatch(receiveLogout(json)))
   }
 }
@@ -118,7 +118,7 @@ function receiveForgotPassword(json) {
 export function sendForgotPassword(username) {
   return dispatch => {
     dispatch(requestForgotPassword(username))
-    return callAPI('/api/users/request-password-reset', 'POST', { email: username })
+    return apiUtils.callAPI('/api/users/request-password-reset', 'POST', { email: username })
     .then(json => dispatch(receiveForgotPassword(json)))
   }
 }
@@ -146,7 +146,7 @@ function receiveCheckResetHex(json) {
 export function sendCheckResetHex(hex) {
   return dispatch => {
     dispatch(requestCheckResetHex(hex))
-    return callAPI('/api/users/check-reset-request/' + hex)
+    return apiUtils.callAPI('/api/users/check-reset-request/' + hex)
     .then(json => dispatch(receiveCheckResetHex(json)))
   }
 }
@@ -171,7 +171,7 @@ function receiveResetPassword(json) {
 export function sendResetPassword(resetHex, password) {
   return dispatch => {
     dispatch(requestResetPassword())
-    return callAPI('/api/users/reset-password', 'POST', { resetHex, newPass: password })
+    return apiUtils.callAPI('/api/users/reset-password', 'POST', { resetHex, newPass: password })
     .then(json => dispatch(receiveResetPassword(json)))
   }
 }
@@ -199,7 +199,7 @@ function receiveUpdateProfile(json) {
 export function sendUpdateProfile(userData) {
   return dispatch => {
     dispatch(requestUpdateProfile(userData))
-    return callAPI('/api/users/update-profile', 'PUT', userData)
+    return apiUtils.callAPI('/api/users/update-profile', 'PUT', userData)
     .then(json => dispatch(receiveUpdateProfile(json)))
 
   }
@@ -298,7 +298,7 @@ function receiveSingleUser(json) {
 export function fetchSingleUserById(userId) {
   return dispatch => {
     dispatch(requestSingleUser(userId))
-    return callAPI(`/api/users/${userId}`)
+    return apiUtils.callAPI(`/api/users/${userId}`)
       .then(json => dispatch(receiveSingleUser(json)))
   }
 }
@@ -334,7 +334,7 @@ function receiveCreateUser(json) {
 export function sendCreateUser(data) {
   return dispatch => {
     dispatch(requestCreateUser(data))
-    return callAPI('/api/users', 'POST', data)
+    return apiUtils.callAPI('/api/users', 'POST', data)
       .then(json => dispatch(receiveCreateUser(json)))
   }
 }
@@ -361,7 +361,7 @@ function receiveUpdateUser(json) {
 export function sendUpdateUser(data) {
   return dispatch => {
     dispatch(requestUpdateUser(data))
-    return callAPI(`/api/users/${data._id}`, 'PUT', data)
+    return apiUtils.callAPI(`/api/users/${data._id}`, 'PUT', data)
     .then(json => dispatch(receiveUpdateUser(json)))
   }
 }
@@ -387,7 +387,7 @@ function receiveDeleteUser(json) {
 export function sendDelete(id) { //is this ever called?
   return dispatch => {
     dispatch(requestDeleteUser(id))
-    return callAPI(`/api/users/${id}`, 'DELETE')
+    return apiUtils.callAPI(`/api/users/${id}`, 'DELETE')
     .then(json => dispatch(receiveDeleteUser(json)))
   }
 }
@@ -538,7 +538,7 @@ export function fetchList(...listArgs) {
         apiTarget += `/${listArgs[i]}`;
       }
     }
-    return callAPI(apiTarget).then(
+    return apiUtils.callAPI(apiTarget).then(
       json => dispatch(receiveUserList(json, listArgs))
     )
   }
