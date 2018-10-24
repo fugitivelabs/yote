@@ -169,7 +169,7 @@ class Profile extends Binder {
   }
 
   render() {
-    const { user } = this.props;
+    const { apiToken, user } = this.props;
 
     const profileImg = user && user.info && user.info.profilePicUrl ? {uri: user.info.profilePicUrl} : require('../../../global/img/default.png');
 
@@ -178,7 +178,7 @@ class Profile extends Binder {
         <YTHeader
           title="Profile"
         />
-        {user && user.apiToken ?
+        {user && apiToken ?
           <ScrollView>
             <View>
               <View style={{flex: 1, alignItems: 'center', padding: 20, justifyContent: 'center',}}>
@@ -245,7 +245,8 @@ class Profile extends Binder {
 
 const mapStoreToProps = (store) => {
   return {
-    isFetching: store.user.loggedIn.isFetching
+    apiToken: store.user.loggedIn.apiToken
+    , isFetching: store.user.loggedIn.isFetching
     , user: store.user.loggedIn.user
   }
 }

@@ -56,13 +56,16 @@ class CreateProduct extends Binder {
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch(productActions.fetchDefaultProduct());
+    if(this.state.product) {
+      this.refs['product.title'].focus();
+    }
   }
 
   // getting deprecated ??? componentDidUpdate
   componentWillReceiveProps(nextProps) {
     this.setState({
       product: _.cloneDeep(nextProps.defaultProduct.obj)
-    })
+    });
   }
 
   _checkFormValid() {
@@ -164,7 +167,7 @@ class CreateProduct extends Binder {
                     this.refs['product.description'].focus();
                   }}
                   placeholder="Title"
-                  placeholderTextColor={YTStyles.colors.accentText}
+                  placeholderTextColor={YTStyles.colors.mainText}
                   ref="product.title"
                   returnKeyType="next"
                   style={YTStyles.input}
@@ -181,7 +184,7 @@ class CreateProduct extends Binder {
                   onFocus={ (e) => this._scrollToInput(e, 'product.description')}
                   onSubmitEditing={this._handleAction}
                   placeholder="Write a description..."
-                  placeholderTextColor={YTStyles.colors.accentText}
+                  placeholderTextColor={YTStyles.colors.mainText}
                   returnKeyType="go"
                   ref="product.description"
                   style={[YTStyles.input, {minHeight: 90}]}

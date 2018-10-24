@@ -27,8 +27,8 @@ import {
   , View
 } from 'react-native'; 
 
-import ImagePicker from 'react-native-image-picker';
-import LinearGradient from 'react-native-linear-gradient';
+// import ImagePicker from 'react-native-image-picker';
+// import LinearGradient from 'react-native-linear-gradient';
 
 // import global components
 import Binder from '../../../global/Binder';
@@ -65,7 +65,6 @@ class UpdateProfile extends Binder {
       , '_handleBack'
       , '_handleAction'
       , '_handleInputChange'
-      , '_openImagePicker'
       , '_toggleShowPickerForm'
     )
   }
@@ -121,32 +120,6 @@ class UpdateProfile extends Binder {
     });
   }
 
-  _openImagePicker() {
-     var options = {
-      allowsEditing: true
-      , maxWidth: 500
-      , maxHeight: 500
-      , title: 'Select Picture'
-    };
-
-    ImagePicker.showImagePicker(options, (response) => {
-      if (response.didCancel) {
-        console.log('User cancelled image picker');
-      }
-      else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
-      }
-      else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
-      }
-      else {
-        console.log(response); 
-        this.setState({newProfilePic: response}); 
-        this._checkFormValid(); 
-      }
-    })
-  }
-
   _handleBack() {
     this.setState({newUserData: this.props.user});
     this.props.navigation.goBack(); 
@@ -190,22 +163,10 @@ class UpdateProfile extends Binder {
           <View>
             <View style={{alignItems: 'center' , flex: 1 , padding: 30 , justifyContent: 'center'}}>
               <View style={{flex: 1, borderRadius: IMAGE_HEIGHT * .5}}>
-                <TouchableOpacity onPress={this._openImagePicker}>
-                  <Image
-                    style={{backgroundColor: YTStyles.colors.listSeparator, width: IMAGE_HEIGHT, height: IMAGE_HEIGHT, borderRadius: Platform.OS === 'ios' ? IMAGE_HEIGHT * .5 : null}}
-                    source={newProfilePic ? {uri: newProfilePic.uri} : profileImg}
-                  />
-                  <LinearGradient colors={['rgba(0,0,0,0.11)', 'rgba(0,0,0,0.51)', 'rgba(0,0,0,0.81)']} style={{borderRadius: Platform.OS === 'ios' ? IMAGE_HEIGHT * .5 : null, bottom: 0, flex: 1, left: 0, position: 'absolute', right: 0, top: 0}}>
-                    <View style={{flex: 1, justifyContent: 'center'}}>
-                      <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-                        <Image
-                          source={require('../../../global/img/camera3.png')}
-                          style={{opacity: .85}}
-                        />
-                      </View>
-                    </View>
-                  </LinearGradient>
-                </TouchableOpacity>
+                <Image
+                  style={{backgroundColor: YTStyles.colors.listSeparator, width: IMAGE_HEIGHT, height: IMAGE_HEIGHT, borderRadius: Platform.OS === 'ios' ? IMAGE_HEIGHT * .5 : null}}
+                  source={newProfilePic ? {uri: newProfilePic.uri} : profileImg}
+                />
               </View>
             </View>
             <View style={{flex: 1, flexDirection: 'row', paddingHorizontal: 10, paddingVertical: 5}}>

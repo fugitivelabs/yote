@@ -11,13 +11,13 @@ import {
   , Platform
   , StyleSheet
   , Text
+  , TouchableOpacity
   , View
 } from 'react-native';
 
 // import global components
-import Base from '../../../global/components/BaseComponent';
+import Binder from '../../../global/Binder';
 import YTButton from '../../../global/buttons/YTButton';
-import YTTouchable from '../../../global/components/YTTouchable';
 
 // import libraries
 import moment from 'moment';
@@ -26,9 +26,9 @@ import moment from 'moment';
 // import actions
 
 // import styles
-import YTColors from '../../../global/styles/YTColors';
+import YTStyles from '../../../global/styles/YTStyles';
 
-class DefaultNewFile extends Base {
+class DefaultNewFile extends Binder {
   constructor(props){
     super(props);
   }
