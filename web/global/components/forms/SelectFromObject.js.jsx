@@ -55,7 +55,7 @@ class SelectFromObject extends Binder {
   }
 
   render() {
-    const { display, label, name, objects, placeholder, value, required } = this.props;
+    const { disabled, display, label, name, objects, placeholder, value, required } = this.props;
 
     // build the items to select from
     let options = [];
@@ -99,6 +99,7 @@ class SelectFromObject extends Binder {
       <div className="select-from-object input-group">
         <label htmlFor={name}>{label} <span className="subhead">{requiredText}</span></label>
         <select
+          disabled
           name={name}
           onChange={this._handleSelectChange}
           required={required}
@@ -113,6 +114,7 @@ class SelectFromObject extends Binder {
 
 SelectFromObject.propTypes = {
   change: PropTypes.func.isRequired
+  , disabled: PropTypes.bool
   , display: PropTypes.string.isRequired
   , label: PropTypes.string
   , objects: PropTypes.oneOfType([
@@ -126,7 +128,8 @@ SelectFromObject.propTypes = {
 }
 
 SelectFromObject.defaultProps = {
-  label: ''
+  disabled: false
+  , label: ''
   , placeholder: '-- Select from the following --'
   , required: false
   , selected: ''
