@@ -42,7 +42,7 @@ class CreateProduct extends Binder {
     super(props);
     this.state = {
       isFormValid: false
-      , newProduct: { ...this.props.defaultProduct }
+      , product: _.cloneDeep(this.props.defaultProduct.obj)
     }
     this._bind(
       '_goBack'
@@ -53,7 +53,14 @@ class CreateProduct extends Binder {
   }
 
   componentDidMount() {
-    this.refs['newProduct.title'].focus();
+    const { dispatch } = this.props;
+    dispatch(productActions.fetchDefaultProduct());
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      product: _.cloneDeep(nextProps.defaultProduct.obj)
+    })
   }
 
   _checkFormValid() {
@@ -76,14 +83,14 @@ class CreateProduct extends Binder {
     console.log("_handleAction create fired");
 
     const { dispatch, user } = this.props;
-    const { newProduct } = this.state;
+    const { product } = this.state;
 
     if(!this.state.isFormValid) {
       Alert.alert("Whoops", "All fields are required.");
       return;
     }
     
-    dispatch(productActions.sendCreateProduct(newProduct)).then((res) => {
+    dispatch(productActions.sendCreateProduct(product)).then((res) => {
       dispatch(productActions.addProductToList(res.item._id));
       this.props.navigation.goBack();
     });
@@ -119,7 +126,7 @@ class CreateProduct extends Binder {
   render() {
 
     const { navigator, isFetching } = this.props;
-    const { newProduct, isFormValid } = this.state;
+    const { product, isFormValid } = this.state;
 
     const rightItem = {
       title: 'Cancel',
@@ -142,17 +149,17 @@ class CreateProduct extends Binder {
               <TextInput
                 autoCorrect={true}
                 isRequired={true}
-                onFocus={ (e) => this._scrollToInput(e, 'newProduct.title')}
-                onChange={ (e) => this._handleInputChange(e, "newProduct.title") }
+                onFocus={ (e) => this._scrollToInput(e, 'product.title')}
+                onChange={ (e) => this._handleInputChange(e, "product.title") }
                 onSubmitEditing={(event) => {
-                  this.refs['newProduct.description'].focus();
+                  this.refs['product.description'].focus();
                 }}
                 placeholder="Title"
                 placeholderTextColor={YTStyles.colors.accentText}
-                ref="newProduct.title"
+                ref="product.title"
                 returnKeyType="next"
                 style={YTStyles.input}
-                value={this.state.newProduct.title}
+                value={this.state.product.title}
               />
             </View>
             <View style={YTStyles.separator}/>
@@ -161,15 +168,15 @@ class CreateProduct extends Binder {
                 autoCorrect={true}
                 isRequired={true}
                 multiline={true}
-                onChange={ (e) => this._handleInputChange(e, "newProduct.description")}
-                onFocus={ (e) => this._scrollToInput(e, 'newProduct.description')}
+                onChange={ (e) => this._handleInputChange(e, "product.description")}
+                onFocus={ (e) => this._scrollToInput(e, 'product.description')}
                 onSubmitEditing={this._handleAction}
                 placeholder="Write a description..."
                 placeholderTextColor={YTStyles.colors.accentText}
                 returnKeyType="go"
-                ref="newProduct.description"
+                ref="product.description"
                 style={[YTStyles.input, {minHeight: 90}]}
-                value={this.state.newProduct.description}
+                value={this.state.product.description}
               />
             </View>
             <View style={YTStyles.separator}/>

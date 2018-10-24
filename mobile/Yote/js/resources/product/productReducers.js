@@ -16,6 +16,7 @@
 
 // import product actions
 import * as Actions from './productActions';
+import apiUtils from '../../global/utils/api'
 
 /**
  * productList reducer -
@@ -109,24 +110,24 @@ function productList(state = {
       }
       case Actions.ADD_PRODUCT_TO_LIST: {
         let idArray = [...state.items];
-        idArray.indexOf(action.id) === -1 ? idArray.push(action.id) : console.log("Item is already in list"); 
+        idArray.indexOf(action.id) === -1 ? idArray.push(action.id) : console.log("Item is already in list");
         return {
-          ...state 
+          ...state
           , items: idArray
           , isFetching: false
           , error: action.error || null
           , didInvalidate: false
-          , lastUpdated: action.recievedAt 
+          , lastUpdated: action.recievedAt
         }
       }
 
       case Actions.REMOVE_PRODUCT_FROM_LIST: {
         let idArray = [...state.items]
-        let index = idArray.indexOf(action.id);  
+        let index = idArray.indexOf(action.id);
         if(index != -1) {
-          idArray.splice(index, 1); 
+          idArray.splice(index, 1);
         } else {
-          console.log("item not in list"); 
+          console.log("item not in list");
         }
         return {
           ...state
@@ -179,8 +180,13 @@ function product(state = {
    * in its state
    */
   , defaultItem: {
-    description: ''
-    , title: ''
+    error: null
+    , getItemFromSchema: () => {
+      return null
+    }
+    , obj: null
+    , schema: null
+    , lastUpdated: null
   }
 
 
@@ -231,6 +237,81 @@ function product(state = {
    */
   let nextState;
   switch(action.type) {
+    /**
+     * DEFAULT PRODUCT ACTIONS
+     */
+    case Actions.REQUEST_DEFAULT_PRODUCT: {
+      nextState = {
+        ...state
+        , defaultItem: {
+          ...state.defaultItem
+          , isFetching: true
+        }
+      }
+      break;
+    }
+    case Actions.RECEIVE_DEFAULT_PRODUCT: {
+      if(action.success) {
+        nextState = {
+          ...state
+          , defaultItem: {
+            ...state.defaultItem
+            , error: null
+            , obj: action.defaultObj
+            , isFetching: false
+            , lastUpdated: action.receivedAt
+          }
+        }
+      } else {
+        nextState = {
+          ...state
+          , defaultItem: {
+            ...state.defaultItem
+            , error: action.error
+            , obj: null
+            , isFetching: false
+            , lastUpdated: action.receivedAt
+          }
+        }
+      }
+      break;
+    }
+    case Actions.REQUEST_PRODUCT_SCHEMA: {
+      nextState = {
+        ...state
+        , defaultItem: {
+          ...state.defaultItem
+          , isFetching: true
+        }
+      }
+      break;
+    }
+    case Actions.RECEIVE_PRODUCT_SCHEMA: {
+      if(action.success) {
+        nextState = {
+          ...state
+          , defaultItem: {
+            ...state.defaultItem
+            , error: null
+            , schema: action.schema
+            , isFetching: false
+            , lastUpdated: action.receivedAt
+          }
+        }
+      } else {
+        nextState = {
+          ...state
+          , defaultItem: {
+            ...state.defaultItem
+            , error: action.error
+            , schema: null
+            , isFetching: false
+            , lastUpdated: action.receivedAt
+          }
+        }
+      }
+      break;
+    }
     /**
      * SINGLE PRODUCT ACTIONS
      */
@@ -479,6 +560,17 @@ function product(state = {
         return null
       } else {
         return nextState.byId[nextState.selected.id]
+      }
+    }
+  }
+  //set getter method for returning default item
+  nextState.defaultItem = {
+    ...nextState.defaultItem
+    , getItemFromSchema: () => {
+      if(!nextState.defaultItem.schema || nextState.selected.didInvalidate) {
+        return null
+      } else {
+        return apiUtils.defaultFromSchema(nextState.defaultItem.schema)
       }
     }
   }

@@ -11,8 +11,9 @@
  */
 
 // import api utility
-import callAPI from '../../global/utils/api'
+import apiUtils from '../../global/utils/api'
 
+// - re
 const shouldFetchSingle = (state, id) => {
   /**
    * This is helper method to determine whether we should fetch a new single
@@ -39,7 +40,7 @@ const shouldFetchSingle = (state, id) => {
   } else if(new Date().getTime() - selected.lastUpdated > (1000 * 60 * 5)) {
     // it's been longer than 5 minutes since the last fetch, get a new one
     // console.log("Y shouldFetch - true: older than 5 minutes");
-    // also, don't automatically invalidate on server error. if server throws an error, 
+    // also, don't automatically invalidate on server error. if server throws an error,
     // that won't change on subsequent requests and we will have an infinite loop
     return true;
   } else {
@@ -64,6 +65,7 @@ export const fetchSingleIfNeeded = (id) => (dispatch, getState) => {
   }
 }
 
+
 export const returnSingleProductPromise = (id) => (dispatch, getState) => {
   /**
    * This returns the object from the map so that we can do things with it in
@@ -73,12 +75,12 @@ export const returnSingleProductPromise = (id) => (dispatch, getState) => {
    * EVEN IF we don't need to fetch it. this is because if we have any .then()'s
    * in the components, they will fail when we don't need to fetch.
    */
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     resolve({
-      type: "RETURN_SINGLE_PRODUCT_WITHOUT_FETCHING"
-      , id: id
+      id: id
       , item: getState().product.byId[id]
       , success: true
+      , type: "RETURN_SINGLE_PRODUCT_WITHOUT_FETCHING"
     })
   });
 }
@@ -86,27 +88,27 @@ export const returnSingleProductPromise = (id) => (dispatch, getState) => {
 export const REQUEST_SINGLE_PRODUCT = "REQUEST_SINGLE_PRODUCT";
 function requestSingleProduct(id) {
   return {
-    type: REQUEST_SINGLE_PRODUCT
-    , id
+    id
+    , type: REQUEST_SINGLE_PRODUCT
   }
 }
 
 export const RECEIVE_SINGLE_PRODUCT = "RECEIVE_SINGLE_PRODUCT";
 function receiveSingleProduct(json) {
   return {
-    type: RECEIVE_SINGLE_PRODUCT
+    error: json.message
     , id: json.product ? json.product._id : null
     , item: json.product
-    , success: json.success
-    , error: json.message
     , receivedAt: Date.now()
+    , success: json.success
+    , type: RECEIVE_SINGLE_PRODUCT
   }
 }
 
-export function fetchSingleProductById(productId) {
+export function fetchSingleProductById(id) {
   return dispatch => {
-    dispatch(requestSingleProduct(productId))
-    return callAPI(`/api/products/${productId}`)
+    dispatch(requestSingleProduct(id))
+    return apiUtils.callAPI(`/api/products/${id}`)
       .then(json => dispatch(receiveSingleProduct(json)))
   }
 }
@@ -114,35 +116,94 @@ export function fetchSingleProductById(productId) {
 export const ADD_SINGLE_PRODUCT_TO_MAP = "ADD_SINGLE_PRODUCT_TO_MAP";
 export function addSingleProductToMap(item) {
   return {
-    type: ADD_SINGLE_PRODUCT_TO_MAP
+    item
+    , type: ADD_SINGLE_PRODUCT_TO_MAP
+  }
+}
+
+export const SET_SELECTED_PRODUCT = "SET_SELECTED_PRODUCT";
+export function setSelectedProduct(item) {
+  return {
+    type: SET_SELECTED_PRODUCT
     , item
+  }
+}
+
+
+export const REQUEST_DEFAULT_PRODUCT = "REQUEST_DEFAULT_PRODUCT";
+function requestDefaultProduct(id) {
+  return {
+    type: REQUEST_DEFAULT_PRODUCT
+  }
+}
+
+export const RECEIVE_DEFAULT_PRODUCT = "RECEIVE_DEFAULT_PRODUCT";
+function receiveDefaultProduct(json) {
+  return {
+    error: json.message
+    , defaultObj: json.defaultObj
+    , receivedAt: Date.now()
+    , success: json.success
+    , type: RECEIVE_DEFAULT_PRODUCT
+  }
+}
+
+export function fetchDefaultProduct() {
+  return dispatch => {
+    dispatch(requestDefaultProduct())
+    return apiUtils.callAPI(`/api/products/default`)
+      .then(json => dispatch(receiveDefaultProduct(json)))
+  }
+}
+
+export const REQUEST_PRODUCT_SCHEMA = "REQUEST_PRODUCT_SCHEMA";
+function requestProductSchema(id) {
+  return {
+    type: REQUEST_PRODUCT_SCHEMA
+  }
+}
+ export const RECEIVE_PRODUCT_SCHEMA = "RECEIVE_PRODUCT_SCHEMA";
+function receiveProductSchema(json) {
+  return {
+    error: json.message
+    , schema: json.schema
+    , receivedAt: Date.now()
+    , success: json.success
+    , type: RECEIVE_PRODUCT_SCHEMA
+  }
+}
+ export function fetchProductSchema() {
+  return dispatch => {
+    dispatch(requestProductSchema())
+    return apiUtils.callAPI(`/api/products/schema`)
+      .then(json => dispatch(receiveProductSchema(json)))
   }
 }
 
 export const REQUEST_CREATE_PRODUCT = "REQUEST_CREATE_PRODUCT";
 function requestCreateProduct(product) {
   return {
-    type: REQUEST_CREATE_PRODUCT
-    , product
+    product
+    , type: REQUEST_CREATE_PRODUCT
   }
 }
 
 export const RECEIVE_CREATE_PRODUCT = "RECEIVE_CREATE_PRODUCT";
 function receiveCreateProduct(json) {
   return {
-    type: RECEIVE_CREATE_PRODUCT
+    error: json.message
     , id: json.product ? json.product._id : null
     , item: json.product
-    , success: json.success
-    , error: json.message
     , receivedAt: Date.now()
+    , success: json.success
+    , type: RECEIVE_CREATE_PRODUCT
   }
 }
 
 export function sendCreateProduct(data) {
   return dispatch => {
     dispatch(requestCreateProduct(data))
-    return callAPI('/api/products', 'POST', data)
+    return apiUtils.callAPI('/api/products', 'POST', data)
       .then(json => dispatch(receiveCreateProduct(json)))
   }
 }
@@ -150,53 +211,56 @@ export function sendCreateProduct(data) {
 export const REQUEST_UPDATE_PRODUCT = "REQUEST_UPDATE_PRODUCT";
 function requestUpdateProduct(product) {
   return {
-    type: REQUEST_UPDATE_PRODUCT
+    id: product ? product._id: null
     , product
+    , type: REQUEST_UPDATE_PRODUCT
   }
 }
 
 export const RECEIVE_UPDATE_PRODUCT = "RECEIVE_UPDATE_PRODUCT";
 function receiveUpdateProduct(json) {
   return {
-    type: RECEIVE_UPDATE_PRODUCT
+    error: json.message
+    , id: json.product ? json.product._id : null
     , item: json.product
-    , success: json.success
-    , error: json.message
     , receivedAt: Date.now()
+    , success: json.success
+    , type: RECEIVE_UPDATE_PRODUCT
   }
 }
 
 export function sendUpdateProduct(data) {
   return dispatch => {
     dispatch(requestUpdateProduct(data))
-    return callAPI(`/api/products/${data._id}`, 'PUT', data)
+    return apiUtils.callAPI(`/api/products/${data._id}`, 'PUT', data)
       .then(json => dispatch(receiveUpdateProduct(json)))
   }
 }
 
 export const REQUEST_DELETE_PRODUCT = "REQUEST_DELETE_PRODUCT";
-function requestDeleteProduct(productId) {
+function requestDeleteProduct(id) {
   return {
-    type: REQUEST_DELETE_PRODUCT
-    , productId
+    id
+    , type: REQUEST_DELETE_PRODUCT
   }
 }
 
 export const RECEIVE_DELETE_PRODUCT = "RECEIVE_DELETE_PRODUCT";
-function receiveDeleteProduct(json) {
+function receiveDeleteProduct(id, json) {
   return {
-    type: RECEIVE_DELETE_PRODUCT
-    , success: json.success
-    , error: json.message
+    error: json.message
+    , id
     , receivedAt: Date.now()
+    , success: json.success
+    , type: RECEIVE_DELETE_PRODUCT
   }
 }
 
 export function sendDelete(id) {
   return dispatch => {
     dispatch(requestDeleteProduct(id))
-    return callAPI(`/api/products/${id}`, 'DELETE')
-      .then(json => dispatch(receiveDeleteProduct(json)))
+    return apiUtils.callAPI(`/api/products/${id}`, 'DELETE')
+      .then(json => dispatch(receiveDeleteProduct(id, json)))
   }
 }
 
@@ -273,7 +337,7 @@ export const returnProductListPromise = (...listArgs) => (dispatch, getState) =>
    * EVEN IF we don't need to fetch it. This is because if we have any .then()'s
    * in the components, they will fail when we don't need to fetch.
    */
-  
+
   // return the array of objects just like the regular fetch
   const state = getState();
   const listItemIds = findListFromArgs(state, listArgs).items
@@ -292,20 +356,20 @@ export const returnProductListPromise = (...listArgs) => (dispatch, getState) =>
 export const REQUEST_PRODUCT_LIST = "REQUEST_PRODUCT_LIST"
 function requestProductList(listArgs) {
   return {
-    type: REQUEST_PRODUCT_LIST
-    , listArgs
+    listArgs
+    , type: REQUEST_PRODUCT_LIST
   }
 }
 
 export const RECEIVE_PRODUCT_LIST = "RECEIVE_PRODUCT_LIST"
 function receiveProductList(json, listArgs) {
   return {
-    type: RECEIVE_PRODUCT_LIST
-    , listArgs
+    error: json.message
     , list: json.products
-    , success: json.success
-    , error: json.message
+    , listArgs
     , receivedAt: Date.now()
+    , success: json.success
+    , type: RECEIVE_PRODUCT_LIST
   }
 }
 
@@ -378,7 +442,7 @@ export function fetchList(...listArgs) {
         apiTarget += `/${listArgs[i]}`;
       }
     }
-    return callAPI(apiTarget).then(
+    return apiUtils.callAPI(apiTarget).then(
       json => dispatch(receiveProductList(json, listArgs))
     )
   }
@@ -393,9 +457,9 @@ export function setFilter(filter, ...listArgs) {
     listArgs = ["all"];
   }
   return {
-    type: SET_PRODUCT_FILTER
-    , filter
+    filter
     , listArgs
+    , type: SET_PRODUCT_FILTER
   }
 }
 
@@ -405,9 +469,9 @@ export function setPagination(pagination, ...listArgs) {
     listArgs = ["all"];
   }
   return {
-    type: SET_PRODUCT_PAGINATION
+    listArgs
     , pagination
-    , listArgs
+    , type: SET_PRODUCT_PAGINATION
   }
 }
 
@@ -417,7 +481,7 @@ export function invalidateList(...listArgs) {
     listArgs = ["all"];
   }
   return {
-    type: INVALIDATE_PRODUCT_LIST
-    , listArgs
+    listArgs
+    , type: INVALIDATE_PRODUCT_LIST
   }
 }
