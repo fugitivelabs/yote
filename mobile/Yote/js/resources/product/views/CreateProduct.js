@@ -10,7 +10,8 @@ import { connect } from 'react-redux';
 
 // import react-native components
 import {
-  Alert
+  ActivityIndicator
+  , Alert
   , Image
   , KeyboardAvoidingView
   , Platform
@@ -129,6 +130,8 @@ class CreateProduct extends Binder {
     const { navigator, isFetching } = this.props;
     const { product, isFormValid } = this.state;
 
+    const isEmpty = !product; 
+
     const rightItem = {
       title: 'Cancel',
       onPress: this._goBack
@@ -144,52 +147,58 @@ class CreateProduct extends Binder {
           rightItem={rightItem}
           title="New Product"
         />
-        <ScrollView ref="myScrollView" keyboardDismissMode="interactive" keyboardShouldPersistTaps="handled" style={[YTStyles.formWrapper]}>
-          <View>
-            <View style={{padding: 5}}>
-              <TextInput
-                autoCorrect={true}
-                isRequired={true}
-                onFocus={ (e) => this._scrollToInput(e, 'product.title')}
-                onChange={ (e) => this._handleInputChange(e, "product.title") }
-                onSubmitEditing={(event) => {
-                  this.refs['product.description'].focus();
-                }}
-                placeholder="Title"
-                placeholderTextColor={YTStyles.colors.accentText}
-                ref="product.title"
-                returnKeyType="next"
-                style={YTStyles.input}
-                value={this.state.product.title}
+        {isEmpty ?
+          <View style={{flex: 1, justifyContent: 'center'}}>
+            <ActivityIndicator/>
+          </View>
+        :
+          <ScrollView ref="myScrollView" keyboardDismissMode="interactive" keyboardShouldPersistTaps="handled" style={[YTStyles.formWrapper]}>
+            <View>
+              <View style={{padding: 5}}>
+                <TextInput
+                  autoCorrect={true}
+                  isRequired={true}
+                  onFocus={ (e) => this._scrollToInput(e, 'product.title')}
+                  onChange={ (e) => this._handleInputChange(e, "product.title") }
+                  onSubmitEditing={(event) => {
+                    this.refs['product.description'].focus();
+                  }}
+                  placeholder="Title"
+                  placeholderTextColor={YTStyles.colors.accentText}
+                  ref="product.title"
+                  returnKeyType="next"
+                  style={YTStyles.input}
+                  value={this.state.product.title}
+                />
+              </View>
+              <View style={YTStyles.separator}/>
+              <View style={{padding: 5}}>
+                <TextInput
+                  autoCorrect={true}
+                  isRequired={true}
+                  multiline={true}
+                  onChange={ (e) => this._handleInputChange(e, "product.description")}
+                  onFocus={ (e) => this._scrollToInput(e, 'product.description')}
+                  onSubmitEditing={this._handleAction}
+                  placeholder="Write a description..."
+                  placeholderTextColor={YTStyles.colors.accentText}
+                  returnKeyType="go"
+                  ref="product.description"
+                  style={[YTStyles.input, {minHeight: 90}]}
+                  value={this.state.product.description}
+                />
+              </View>
+              <View style={YTStyles.separator}/>
+            </View>
+            <View style={{paddingHorizontal: 10, paddingVertical: 20}}>
+              <YTButton
+                caption={isFetching ? "Creating..." : "Create new product"}
+                isDisabled={!isFormValid}
+                onPress={this._handleAction}
               />
             </View>
-            <View style={YTStyles.separator}/>
-            <View style={{padding: 5}}>
-              <TextInput
-                autoCorrect={true}
-                isRequired={true}
-                multiline={true}
-                onChange={ (e) => this._handleInputChange(e, "product.description")}
-                onFocus={ (e) => this._scrollToInput(e, 'product.description')}
-                onSubmitEditing={this._handleAction}
-                placeholder="Write a description..."
-                placeholderTextColor={YTStyles.colors.accentText}
-                returnKeyType="go"
-                ref="product.description"
-                style={[YTStyles.input, {minHeight: 90}]}
-                value={this.state.product.description}
-              />
-            </View>
-            <View style={YTStyles.separator}/>
-          </View>
-          <View style={{paddingHorizontal: 10, paddingVertical: 20}}>
-            <YTButton
-              caption={isFetching ? "Creating..." : "Create new product"}
-              isDisabled={!isFormValid}
-              onPress={this._handleAction}
-            />
-          </View>
-        </ScrollView>
+          </ScrollView>
+        }
       </KeyboardAvoidingView>
     )
   }
