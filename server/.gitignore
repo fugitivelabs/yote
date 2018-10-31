@@ -31,8 +31,10 @@ secrets.js
 
 # Compiled stuff
 static/css/yote.css
+static/css/yote.css.map
 static/js/react-bundle.js
 static/js/react-bundle.js.map
+
 
 
 # SSL Stuff
