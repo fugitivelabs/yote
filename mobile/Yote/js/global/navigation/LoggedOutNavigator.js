@@ -35,11 +35,4 @@ const LoggedOutNavigator = StackNavigator(
     }
 );
 
-const mapStoreToProps = (store) => {
-
-  return {
-    user: store.user
-  }
-}
-
-export default connect(mapStoreToProps)(LoggedOutNavigator);
+export default LoggedOutNavigator;

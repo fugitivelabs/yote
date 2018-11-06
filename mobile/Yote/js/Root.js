@@ -1,6 +1,11 @@
-/**
-* Root component, decides which main navigator to display base on user login
-*/
+/********
+
+Root Component
+
+Manually decide if application will require user authentication and login, 
+and then calls createRootNavigator
+
+********/
 
 // import primary libraries
 import React, { Component } from 'react';
@@ -19,7 +24,7 @@ import {
 
 // custom components
 import AppNavigator from './global/navigation/AppNavigator'; 
-import LoggedOutNavigator from './global/navigation/LoggedOutNavigator'; 
+import { createRootNavigator } from './router'; 
 
 class Root extends Binder {
   constructor(props) {
@@ -43,33 +48,11 @@ class Root extends Binder {
   }
 
   render() {
-
-    /**
-     * To make app login gated, simply uncomment lines below.
-     * It will look for a valid user token/object in store for access.
-     */
-
-    // if (!this.props.isLoggedIn) {
-    //   return (
-    //     <View style={styles.container}>
-    //       <LoggedOutNavigator/>
-    //     </View>
-    //   );
-    // }
-
-    return (
-      <View style={styles.container}>
-        <AppNavigator/>
-      </View>
-    );
+    const requireLogin = true; // Change to true for applications that require user authentication before entry
+    const Layout = createRootNavigator(requireLogin, this.props.isLoggedIn);
+    return <Layout/>;
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  }
-});
 
 
 const mapStoreToProps = (store) => {
