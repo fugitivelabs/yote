@@ -20,17 +20,25 @@ class TextInput extends Binder {
   }
 
   render() {
-    const { label, name, placeholder, required, value } = this.props;
+    const {
+      disabled
+      , label
+      , name
+      , placeholder
+      , required
+      , value
+    } = this.props;
     return (
       <div className="input-group">
         <label htmlFor={name}> {label} {required ? <sup className="-required">*</sup> : null}</label>
         <input
-          type="text"
+          disabled={disabled}
           name={name}
-          placeholder={placeholder}
-          value={value}
           onChange={this._handleInputChange}
+          placeholder={placeholder}
           required={required}
+          type="text"
+          value={value}
         />
       </div>
     )
@@ -39,6 +47,7 @@ class TextInput extends Binder {
 
 TextInput.propTypes = {
   change: PropTypes.func.isRequired
+  , disabled: PropTypes.bool
   , label: PropTypes.string
   , name: PropTypes.string.isRequired
   , placeholder: PropTypes.string
@@ -47,7 +56,8 @@ TextInput.propTypes = {
 }
 
 TextInput.defaultProps = {
-  label: ''
+  disabled: false
+  , label: ''
   , placeholder: ''
   , required: false
 }

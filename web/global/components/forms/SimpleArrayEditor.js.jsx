@@ -65,7 +65,14 @@ class SimpleArrayEditor extends Binder {
   }
 
   render() {
-    const { items, name, label, arrayType, helpText } = this.props;
+    const {
+      arrayType
+      , disabled
+      , helpText
+      , items
+      , label
+      , name
+    } = this.props;
 
     // build the pill items from the newly edited array
     let pillItems = items.map((item, index) => {
@@ -103,6 +110,8 @@ class SimpleArrayEditor extends Binder {
       )
     }
 
+
+
     return (
       <div className="input-group">
         <label htmlFor="newItem"> { label } </label>
@@ -115,7 +124,7 @@ class SimpleArrayEditor extends Binder {
             className="item"
             type="button"
             onTouchTap={() => this._addPillItem(this.state.newItem)}
-            disabled={this.state.newItem  ? false : true }
+            disabled={!this.state.newItem || disabled }
           > Add {label}</button>
         </div>
         <small className="help-text"><em>{helpText}</em></small>
@@ -127,6 +136,7 @@ class SimpleArrayEditor extends Binder {
 SimpleArrayEditor.propTypes = {
   arrayType: PropTypes.oneOf(["string", "number"])
   , change: PropTypes.func.isRequired
+  , disabled: PropTypes.bool
   , helpText: PropTypes.any
   , items: PropTypes.oneOfType([
       PropTypes.arrayOf(PropTypes.string)
@@ -138,6 +148,7 @@ SimpleArrayEditor.propTypes = {
 
 SimpleArrayEditor.defaultProps = {
   arrayType: "string"
+  , disabled: false
   , helpText: null
   , items: []
   , label: ''
