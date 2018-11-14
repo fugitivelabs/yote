@@ -38,13 +38,23 @@ class CheckboxInput extends Binder {
   }
 
   render() {
-    const { label, value, name, checked, helpText } = this.props;
+    const {
+      checked
+      , disabled
+      , helpText
+      , label
+      , name
+      , required
+      , value
+    } = this.props;
     return (
       <div className="input-group">
         <input
           checked={value}
+          disabled={disabled}
           name={name}
           onChange={this._handleInputChange}
+          required={required}
           type="checkbox"
           value={value}
         />
@@ -59,16 +69,20 @@ class CheckboxInput extends Binder {
 CheckboxInput.propTypes = {
   change: PropTypes.func.isRequired
   , checked: PropTypes.bool
+  , disabled: PropTypes.bool
   , helpText: PropTypes.string
   , label: PropTypes.string
   , name: PropTypes.string.isRequired
+  , required: PropTypes.bool
   , value: PropTypes.bool.isRequired
 }
 
 CheckboxInput.defaultProps = {
   checked: false
+  , disabled: false
   , helpText: ''
   , label: ''
+  , required: false 
 }
 
 export default CheckboxInput;
