@@ -1,0 +1,1 @@
+Your certificates for HTTPS, if used should go in these two folders. Then they will need to be set at the bottom of the yote.js file.

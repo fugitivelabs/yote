@@ -180,17 +180,41 @@ function haltOnTimedout(req, res, next){
  * Yote comes out of the box with https support! Check the docs for instructions on how to use.
  */
 
+// Production HTTPS Environment
 if(app.get('env') == 'production' && config.useHttps) {
   logger.info("starting production server WITH ssl");
 
   require('https').createServer({
-      key: fs.readFileSync('../server/ssl/yourSsl.key') // so it works on server and local
-      , cert: fs.readFileSync('../server/ssl/yourCertFile.crt')
-      , ca: [fs.readFileSync('../server/ssl/yourCaFile.crt')] // NOTE: GoDaddy splits certs into two
-
+      key: fs.readFileSync('../server/https/production/yourSsl.key') // so it works on server and local
+      , cert: fs.readFileSync('../server/https/production/yourCertFile.crt')
+      , ca: [fs.readFileSync('../server/https/production/yourCaFile.crt')] // NOTE: GoDaddy splits certs into two
   // }, app).listen(9191); // NOTE: uncomment to test HTTPS locally
   }, app).listen(443);
+  // catch for all http requests and redirect to httpS
+  if(config.httpsOptional) {
+    require('http').createServer(app).listen(80);
+  } else {
+    require('http').createServer((req, res) => {
+      logger.info("REDIRECTING TO HTTPS");
+      res.writeHead(302, {
+        'Location': `https://{config.appUrl}:443` + req.url
+        // 'Location': 'https://localhost:9191' + req.url // NOTE: uncomment to test HTTPS locally
+      });
+      res.end();
+    // }).listen(3030); // NOTE: uncomment to test HTTPS locally
+    }).listen(80);
+  }
+}
+// Staging HTTPS Environment
+else if(app.get('env') == 'staging' && config.useHttps) {
+  logger.info("starting staging server WITH ssl");
 
+  require('https').createServer({
+    key: fs.readFileSync('../server/https/staging/privatekey.key')
+    , cert: fs.readFileSync('../server/https/staging/4f62171c1d3725f5.crt')
+    , ca: [fs.readFileSync('../server/https/staging/gd_bundle-g2-g1.crt')] 
+  // }, app).listen(9191); // NOTE: uncomment to test HTTPS locally
+  }, app).listen(443);
   // need to catch for all http requests and redirect to httpS
   if(config.httpsOptional) {
     require('http').createServer(app).listen(80);
@@ -198,7 +222,7 @@ if(app.get('env') == 'production' && config.useHttps) {
     require('http').createServer((req, res) => {
       logger.info("REDIRECTING TO HTTPS");
       res.writeHead(302, {
-        'Location': 'https://YOUR-URL.com:443' + req.url
+        'Location': `https://{config.appUrl}:443` + req.url
         // 'Location': 'https://localhost:9191' + req.url // NOTE: uncomment to test HTTPS locally
       });
       res.end();
@@ -208,8 +232,13 @@ if(app.get('env') == 'production' && config.useHttps) {
 
   logger.info('Yote is listening on port ' + 80 + ' and ' + 443 + '...');
 
+// non-HTTPS environments
 } else if(app.get('env') == 'production') {
   logger.info("starting yote production server WITHOUT ssl");
+  require('http').createServer(app).listen(config.port);
+  logger.info('Yote is listening on port ' + config.port + '...');
+} else if(app.get('env') == 'staging') {
+  logger.info("starting yote staging server WITHOUT ssl");
   require('http').createServer(app).listen(config.port);
   logger.info('Yote is listening on port ' + config.port + '...');
 } else {
