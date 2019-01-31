@@ -129,7 +129,6 @@ export function setSelectedProduct(item) {
   }
 }
 
-
 export const REQUEST_DEFAULT_PRODUCT = "REQUEST_DEFAULT_PRODUCT";
 function requestDefaultProduct(id) {
   return {
