@@ -165,7 +165,6 @@ if (app.get('env') == 'development') {
 // configure server routes
 let router = express.Router();
 require('./global/routing/router')(router, app);
-app.use('/', router);
 // some notes on router: http://scotch.io/tutorials/javascript/learn-to-use-the-new-router-in-expressjs-4
 
 // check for the server timeout. NOTE: this must be last in the middleware stack
@@ -174,6 +173,9 @@ function haltOnTimedout(req, res, next){
   //http://stackoverflow.com/questions/21708208/express-js-response-timeout
   if (!req.timedout) next();
 }
+
+ // define this here in case we need to pass it in for additional handlers, like socket.io
+ let server;
 
 /*
  * Using HTTPS
@@ -184,12 +186,13 @@ function haltOnTimedout(req, res, next){
 if(app.get('env') == 'production' && config.useHttps) {
   logger.info("starting production server WITH ssl");
 
-  require('https').createServer({
+  server = require('https').createServer({
       key: fs.readFileSync('../server/https/production/yourSsl.key') // so it works on server and local
       , cert: fs.readFileSync('../server/https/production/yourCertFile.crt')
       , ca: [fs.readFileSync('../server/https/production/yourCaFile.crt')] // NOTE: GoDaddy splits certs into two
   // }, app).listen(9191); // NOTE: uncomment to test HTTPS locally
-  }, app).listen(443);
+  }, app)
+  server.listen(443);
   // catch for all http requests and redirect to httpS
   if(config.httpsOptional) {
     require('http').createServer(app).listen(80);
@@ -209,12 +212,13 @@ if(app.get('env') == 'production' && config.useHttps) {
 else if(app.get('env') == 'staging' && config.useHttps) {
   logger.info("starting staging server WITH ssl");
 
-  require('https').createServer({
+  server = require('https').createServer({
     key: fs.readFileSync('../server/https/staging/privatekey.key')
     , cert: fs.readFileSync('../server/https/staging/4f62171c1d3725f5.crt')
     , ca: [fs.readFileSync('../server/https/staging/gd_bundle-g2-g1.crt')] 
   // }, app).listen(9191); // NOTE: uncomment to test HTTPS locally
-  }, app).listen(443);
+  }, app)
+  server.listen(443);
   // need to catch for all http requests and redirect to httpS
   if(config.httpsOptional) {
     require('http').createServer(app).listen(80);
@@ -235,14 +239,22 @@ else if(app.get('env') == 'staging' && config.useHttps) {
 // non-HTTPS environments
 } else if(app.get('env') == 'production') {
   logger.info("starting yote production server WITHOUT ssl");
-  require('http').createServer(app).listen(config.port);
+  server = require('http').createServer(app)
+  server.listen(config.port);
   logger.info('Yote is listening on port ' + config.port + '...');
+  
 } else if(app.get('env') == 'staging') {
   logger.info("starting yote staging server WITHOUT ssl");
-  require('http').createServer(app).listen(config.port);
+  server = require('http').createServer(app)
+  server.listen(config.port);
   logger.info('Yote is listening on port ' + config.port + '...');
+
 } else {
   logger.info("starting yote dev server");
-  require('http').createServer(app).listen(config.port);
+  server = require('http').createServer(app)
+  server.listen(config.port);
   logger.info('Yote is listening on port ' + config.port + '...');
 }
+
+
+app.use('/', router);
