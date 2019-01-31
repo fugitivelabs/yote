@@ -22,6 +22,7 @@ class TextAreaInput extends Binder {
   render() {
     const {
       cols
+      , disabled
       , helpText
       , label
       , maxlength
@@ -37,6 +38,7 @@ class TextAreaInput extends Binder {
         <label htmlFor={name}> {label} {required ? <sup className="-required">*</sup> : null}</label>
         <textarea
           cols={cols}
+          disabled={disabled}
           maxLength={maxlength}
           name={name}
           onChange={this._handleInputChange}
@@ -56,6 +58,7 @@ class TextAreaInput extends Binder {
 TextAreaInput.propTypes = {
   change: PropTypes.func.isRequired
   , cols: PropTypes.number
+  , disabled: PropTypes.bool
   , helpText: PropTypes.any
   , label: PropTypes.string
   , maxlength: PropTypes.number
@@ -67,7 +70,8 @@ TextAreaInput.propTypes = {
 }
 
 TextAreaInput.defaultProps = {
-  helpText: null
+  disabled: false
+  , helpText: null
   , label: ''
   , placeholder: ''
   , required: false

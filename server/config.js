@@ -37,8 +37,7 @@ const productionDbUri = devDbUri;
 module.exports = {
   development: {
     appUrl: devUrl
-    , db: remoteDb ? `mongodb://${remoteDb}/${dbName}` : process.env.MONGODB_PORT ? `${process.env.MONGODB_PORT.replace("tcp", "mongodb")}/${dbName}` : devDbUri
-    , httpsOptional: true
+    , db: remoteDb ? `mongodb://${remoteDb}/${devDbName}` : process.env.MONGODB_PORT ? `${process.env.MONGODB_PORT.replace("tcp", "mongodb")}/${devDbName}` : devDbUri    , httpsOptional: true
     , port: process.env.PORT || 3030
     , rootPath: rootPath
     , secrets: secrets || {}
@@ -46,8 +45,7 @@ module.exports = {
   }
   , production: {
     appUrl: prodUrl
-    , db: remoteDb ? `mongodb://${remoteDb}/${dbName}` : process.env.MONGODB_PORT ? `${process.env.MONGODB_PORT.replace("tcp", "mongodb")}/${dbName}` : productionDbUri
-    , httpsOptional: true
+    , db: remoteDb ? `mongodb://${remoteDb}/${productionDbName}` : process.env.MONGODB_PORT ? `${process.env.MONGODB_PORT.replace("tcp", "mongodb")}/${productionDbName}` : productionDbUri    , httpsOptional: true
     , port: process.env.PORT || 80
     , rootPath: rootPath
     , secrets: secrets || {}
@@ -55,8 +53,7 @@ module.exports = {
   }
   , staging: {
     appUrl: stagingUrl
-    , db: remoteDb ? `mongodb://${remoteDb}/${dbName}` : process.env.MONGODB_PORT ? `${process.env.MONGODB_PORT.replace("tcp", "mongodb")}/${dbName}` : stagingDbUri
-    , httpsOptional: true
+    , db: remoteDb ? `mongodb://${remoteDb}/${stagingDbName}` : process.env.MONGODB_PORT ? `${process.env.MONGODB_PORT.replace("tcp", "mongodb")}/${stagingDbName}` : stagingDbUri    , httpsOptional: true
     , port: process.env.PORT || 3030 // so you can still run it locally
     , rootPath: rootPath
     , secrets: secrets || {}

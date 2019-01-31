@@ -1,6 +1,6 @@
 /**
  * sets up the .jsx compiler to read .jsx from ./client/
- * and output regular .js to /public/react/
+ * and output regular .js to /static/react/
  */
 
 let ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -12,7 +12,7 @@ const config = {
   devtool: 'cheap-module-source-map'
   , entry: ['./app.js.jsx']
   , output: {
-    path: path.join(__dirname, '../server/public/js')
+    path: path.join(__dirname, '../server/static/js')
     , filename: 'react-bundle.js'
   }
   , module: {
