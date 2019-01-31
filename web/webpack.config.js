@@ -1,10 +1,10 @@
 /**
  * sets up the .jsx compiler to read .jsx from ./client/
- * and output regular .js to /public/react/
+ * and output regular .js to /static/react/
  */
 
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-// const context = path.resolve(__dirname, 'server/public/js');
+// const context = path.resolve(__dirname, 'server/static/js');
 const path = require('path');
 const webpack = require('webpack');
 
