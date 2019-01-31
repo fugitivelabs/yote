@@ -308,6 +308,14 @@ export function addSingleUserToMap(item) {
   }
 }
 
+export const SET_SELECTED_USER = "SET_SELECTED_USER";
+export function setSelectedUser(item) {
+  return {
+    type: SET_SELECTED_USER
+    , item
+  }
+}
+
 export const REQUEST_CREATE_USER = "REQUEST_CREATE_USER";
 function requestCreateUser(user) {
   return {

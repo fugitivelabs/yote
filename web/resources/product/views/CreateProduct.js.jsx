@@ -65,7 +65,7 @@ class CreateProduct extends Binder {
     e.preventDefault();
     dispatch(productActions.sendCreateProduct(this.state.product)).then(productRes => {
       if(productRes.success) {
-        dispatch(productActions.invalidateList());
+        dispatch(productActions.invalidateList("all"));
         history.push(`/products/${productRes.item._id}`)
       } else {
         alert("ERROR - Check logs");
@@ -76,10 +76,9 @@ class CreateProduct extends Binder {
   render() {
     const { location } = this.props;
     const { product } = this.state;
-    const isEmpty = (!product || product.title === null || product.title === undefined);
+    const isEmpty = !product;
     return (
       <ProductLayout>
-        <h4>Hello?</h4>
         <Breadcrumbs links={location.state.breadcrumbs} />
         {isEmpty ?
           <h2> Loading...</h2>
