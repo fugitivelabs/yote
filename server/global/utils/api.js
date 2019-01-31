@@ -20,7 +20,7 @@ exports.defaultValueFromSchema = (schemaType) => {
       }
     }
     case "String": {
-      val = schemaType.defaultValue ? schemaType.defaultValue : null;
+      val = typeof schemaType.defaultValue === "string" ? schemaType.defaultValue : null;
       break;
     }
     case "ObjectID": {
@@ -33,16 +33,16 @@ exports.defaultValueFromSchema = (schemaType) => {
       }
     }
     case "Number": {
-      if(schemaType.path === '__v') {
+      if(schemaType.path === "__v") {
         // ignore, this is a mongo default;
         break;
       } else {
-        val = schemaType.defaultValue ? schemaType.defaultValue : null;
+        val = typeof schemaType.defaultValue === "number" ? schemaType.defaultValue : null;
         break;
       }
     }
     case "Boolean": {
-      val = schemaType.defaultValue ? schemaType.defaultValue : null;
+      val = typeof schemaType.defaultValue === "boolean" ? schemaType.defaultValue : null;
       break;
     }
     case "Array": {
