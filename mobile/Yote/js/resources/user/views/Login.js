@@ -147,7 +147,7 @@ class Login extends Binder {
     return(
       <View style={YTStyles.container}>
         <ScrollView ref="myScrollView" keyboardDismissMode="interactive" keyboardShouldPersistTaps="handled">
-          <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center', paddingTop: 20}}>
+          <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center', paddingTop: 50}}>
             <Image
               resizeMode={"contain"}
               source={require('../../../global/img/logo.png')}

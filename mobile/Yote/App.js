@@ -1,6 +1,10 @@
-/**
- * Setup the store with Redux and load the main App file
- */
+/*******
+
+Main App 
+
+Sets up Redux store/state and loads the main Root file
+
+*******/
 
 // import primary libraries
 import React from 'react';
