@@ -13,12 +13,12 @@ import createHistory from 'history/createBrowserHistory';
 import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-router-redux';
 
 // import main application reducers
-import * as reourceReducers from './resourceReducers.js';
+import * as resourceReducers from './resourceReducers.js';
 
 // combine application reducers with redux routing
 const rootReducer = combineReducers({
   routing: routerReducer
-  , ...reourceReducers
+  , ...resourceReducers
 });
 
 const history = createHistory();

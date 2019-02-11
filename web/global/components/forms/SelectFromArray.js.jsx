@@ -56,7 +56,7 @@ class SelectFromArray extends Binder {
   }
 
   render() {
-    const { items, label, name, placeholder, required } = this.props;
+    const { disabled, items, label, name, placeholder, required } = this.props;
 
     // build the items to select from
     let theItems = items.map((item, index) => {
@@ -80,6 +80,7 @@ class SelectFromArray extends Binder {
       <div className="form-group-select input-group">
         <label htmlFor={name}>{label} <span className="subhead">{requiredText}</span></label>
         <select
+          disabled={disabled}
           name={name}
           onChange={this._handleSelectChange}
           required={required}
@@ -94,6 +95,7 @@ class SelectFromArray extends Binder {
 
 SelectFromArray.propTypes = {
   change: PropTypes.func.isRequired
+  , disabled: PropTypes.bool
   , items: PropTypes.array.isRequired
   , label: PropTypes.string
   , placeholder: PropTypes.string
@@ -102,7 +104,8 @@ SelectFromArray.propTypes = {
 }
 
 SelectFromArray.defaultProps = {
-  label: ''
+  disabled: false
+  , label: ''
   , placeholder: '-- Select from the following --'
   , required: false
 }

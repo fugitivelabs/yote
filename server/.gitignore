@@ -37,7 +37,8 @@ static/js/react-bundle.js.map
 
 
 
-# SSL Stuff
-ssl/*
+# HTTPS Stuff
+https/production/*
+https/staging/*
 
 # end of file

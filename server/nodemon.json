@@ -2,8 +2,8 @@
   "verbose": false
   , "ext": "js jade json scss"
   , "ignore": [
-    "client"
-    , "public"
+    "web"
+    , "static"
     , "node_modules"
   ]
 }

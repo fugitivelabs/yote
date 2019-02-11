@@ -129,7 +129,6 @@ export function setSelectedProduct(item) {
   }
 }
 
-
 export const REQUEST_DEFAULT_PRODUCT = "REQUEST_DEFAULT_PRODUCT";
 function requestDefaultProduct(id) {
   return {
@@ -374,15 +373,23 @@ function receiveProductList(json, listArgs) {
 }
 
 export const ADD_PRODUCT_TO_LIST = "ADD_PRODUCT_TO_LIST";
-export function addProductToList(id, ...listArgs) {
-  // console.log("Add product to list", id);
+export function addProductToList(item, ...listArgs) {
   if(listArgs.length === 0) {
     listArgs = ["all"];
   }
-  return {
-    type: ADD_PRODUCT_TO_LIST
-    , id
-    , listArgs
+  // allow user to either send the entire object or just the _id
+  if(typeof(item) === 'string') {
+    return {
+      type: ADD_PRODUCT_TO_LIST
+      , id: item
+      , listArgs
+    }
+  } else {
+    return {
+      type: ADD_PRODUCT_TO_LIST
+      , id: item._id
+      , listArgs
+    }
   }
 }
 
