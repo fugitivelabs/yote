@@ -60,7 +60,7 @@ class ProductList extends Binder {
 
     // get the productList meta info here so we can reference 'isFetching'
     const productList = productStore.util.getListInfo("all");
-    
+
     /**
      * use the reducer getList utility to convert the all.items array of ids
      * to the actual product objetcs
