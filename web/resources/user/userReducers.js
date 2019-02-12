@@ -741,9 +741,9 @@ function user(state = {
      * any list. If the list exists, it returns the whole list object.
      * Otherwise it returns null.
      * Allows us to do something like this:
-     *  const userListInfo = userStore.util.getListInfo(...userListArgs);
-     *  const isFetching = userListInfo ? userListInfo.isFetching : null;
-     *  const userListError = userListInfo ? userListInfo.error : null;
+     *  const userList = userStore.util.getListInfo(...userListArgs);
+     *  const isFetching = !userList || userList.isFetching
+     *  const userListError = userList ? userList.error : null;
      * Instead of something like this:
      *  const isFetching = (
      *    userStore

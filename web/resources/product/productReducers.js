@@ -614,9 +614,9 @@ function product(state = {
      * any list. If the list exists, it returns the whole list object.
      * Otherwise it returns null.
      * Allows us to do something like this:
-     *  const productListInfo = productStore.util.getListInfo(...productListArgs);
-     *  const isFetching = productListInfo ? productListInfo.isFetching : null;
-     *  const productListError = productListInfo ? productListInfo.error : null;
+     *  const productList = productStore.util.getListInfo(...productListArgs);
+     *  const isFetching = !productList || productList.isFetching
+     *  const productListError = productList ? productList.error : null;
      * Instead of something like this:
      *  const isFetching = (
      *    productStore
