@@ -233,6 +233,9 @@ function product(state = {
     , getList: () => {
       return null
     }
+    , getListInfo: () => {
+      return null
+    }
   }
 }, action) {
   /**
@@ -603,6 +606,43 @@ function product(state = {
       return null
     } else {
       return nextList.items.map((item) => nextState.byId[item])
+    }
+  }
+  nextState.util.getListInfo = (...listArgs) => {
+    /**
+     * utility method for determining the fetching or error status of
+     * any list. If the list exists, it returns the whole list object.
+     * Otherwise it returns null.
+     * Allows us to do something like this:
+     *  const productListInfo = productStore.util.getListInfo(...productListArgs);
+     *  const isFetching = productListInfo ? productListInfo.isFetching : null;
+     *  const productListError = productListInfo ? productListInfo.error : null;
+     * Instead of something like this:
+     *  const isFetching = (
+     *    productStore
+     *    && productStore.lists
+     *    && productStore.lists[1stListArg]
+     *    && productStore.lists[1stListArg][2ndListArg]
+     *    && productStore.lists[1stListArg][2ndListArg].isFetching
+     *  );
+     */
+    if(listArgs.length === 0) {
+      // If no arguments passed, make the list we want "all"
+      listArgs = ["all"];
+    }
+    let nextList = nextState.lists;
+    for(var i = 0; i < listArgs.length; i++) {
+      if(nextList[listArgs[i]]) {
+        nextList = nextList[listArgs[i]];
+      } else {
+        nextList = null;
+        break;
+      }
+    }
+    if(nextList) {
+      return nextList
+    } else {
+      return null
     }
   }
   nextState.util.getKeyArrayFromList = (key, ...listArgs) => {
