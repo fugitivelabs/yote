@@ -1,6 +1,12 @@
 /**
  * Configure the application routes
  */
+import React from "react";
+import { renderToString } from "react-dom/server";
+
+// generate re-useable layout function (faster)
+let layout = require('pug').compileFile('layout.pug')
+
 
 module.exports = (router, app) => {
 
@@ -12,12 +18,31 @@ module.exports = (router, app) => {
     res.send(404);
   });
 
+
+
   // render layout
   router.get('*', (req, res) => {
-    res.render('layout', {
-      currentUser: req.user
-      , development: app.get('env') == 'development' ? true : false
-    });
+
+    // const reactDom = htmlTemplate()
+
+    res.writeHead( 200, { "Content-Type": "text/html" } );
+    res.end(generateHtmlTemplate(
+      null
+      , req.user
+      , app.get('env') == 'development' ? true : false
+    ));
+
+    // res.render('layout', {
+    //   currentUser: req.user
+    //   , development: app.get('env') == 'development' ? true : false
+    // });
   });
+
+  function generateHtmlTemplate(reactDom, user, env) {
+    return layout({
+      currentUser: user
+      , development: env
+    })
+  }
 
 }
