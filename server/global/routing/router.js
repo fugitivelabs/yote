@@ -5,7 +5,7 @@ import React from "react";
 import { renderToString } from "react-dom/server";
 
 // generate re-useable layout function (faster)
-let layout = require('pug').compileFile('layout.pug')
+const layout = require('pug').compileFile('layout.pug')
 
 
 module.exports = (router, app) => {
@@ -26,23 +26,15 @@ module.exports = (router, app) => {
     // const reactDom = htmlTemplate()
 
     res.writeHead( 200, { "Content-Type": "text/html" } );
-    res.end(generateHtmlTemplate(
-      null
-      , req.user
-      , app.get('env') == 'development' ? true : false
-    ));
+    res.end(layout({
+      currentUser: req.user
+      , development: app.get('env') == 'development' ? true : false
+    }));
 
     // res.render('layout', {
     //   currentUser: req.user
     //   , development: app.get('env') == 'development' ? true : false
     // });
   });
-
-  function generateHtmlTemplate(reactDom, user, env) {
-    return layout({
-      currentUser: user
-      , development: env
-    })
-  }
 
 }
