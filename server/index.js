@@ -1,4 +1,4 @@
 require("babel-register")({
-  presets: [ "env" ]
+  presets: ["env"]
 });
 require( "./yote" );

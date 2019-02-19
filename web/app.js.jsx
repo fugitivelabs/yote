@@ -39,7 +39,7 @@ import configureStore from './config/configureStore';
  * - instead of checking let's ONLY show console logs if it's chrome
  */
 
-if((navigator.userAgent.toLowerCase().indexOf('webkit') == -1) || !window.development) {
+if((navigator.userAgent.toLowerCase().indexOf('webkit') == -1 && navigator.userAgent.toLowerCase().indexOf('firefox') == -1) || !window.development) {
   window.console = {log: function() {}, error: function(){} };
   /**
    * NOTE: overriding the error function may be dangerous, but IE throws some

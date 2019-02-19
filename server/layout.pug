@@ -50,6 +50,7 @@ html(lang="en")
         window.currentUser = {}
     script.
       window.development = !{JSON.stringify(development)}
+      console.log("TEST!")
 
     //- <!-- Google Analytics -->
     script.
@@ -65,5 +66,6 @@ html(lang="en")
   body
     //- load the react container and run the react script
     #application-main-yote
+      | !{reactDom}
 
-    script(src='/js/react-bundle.js')
+    //- script(src='/js/react-bundle.js')
