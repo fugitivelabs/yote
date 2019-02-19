@@ -29,30 +29,30 @@ import * as resourceRoutes from './resourceRoutes.js';
 
 import AdminRouter from '../global/admin/AdminRouter.js.jsx';
 
-const routes =
-  <Switch>
-    <Route exact path="/" component={Landing} />
-    <Route path="/unauthorized" component={Forbidden} />
-    { Object.keys(resourceRoutes).map((resourceName, i) =>
-      <Route
-        component={resourceRoutes[resourceName]}
-        key={Math.floor(Math.random()*100000)}
-        path={`/${_.kebabCase(resourceName)}`}
-      />
-    )}
-    { Object.keys(adminResourceRoutes).map((resourceName, i) =>
-      <YTRoute
-        component={adminResourceRoutes[resourceName]}
-        key={Math.floor(Math.random()*100000)}
-        path={`/admin/${_.kebabCase(resourceName)}`}
-        role="admin"
-      />
-    )}
-    <Route path="/admin">
-      <AdminRouter/>
-    </Route>
-    <Route component={NotFound} />
-  </Switch>
-;
+const routes = ""
+//   <Switch>
+//     <Route exact path="/" component={Landing} />
+//     <Route path="/unauthorized" component={Forbidden} />
+//     { Object.keys(resourceRoutes).map((resourceName, i) =>
+//       <Route
+//         component={resourceRoutes[resourceName]}
+//         key={Math.floor(Math.random()*100000)}
+//         path={`/${_.kebabCase(resourceName)}`}
+//       />
+//     )}
+//     { Object.keys(adminResourceRoutes).map((resourceName, i) =>
+//       <YTRoute
+//         component={adminResourceRoutes[resourceName]}
+//         key={Math.floor(Math.random()*100000)}
+//         path={`/admin/${_.kebabCase(resourceName)}`}
+//         role="admin"
+//       />
+//     )}
+//     <Route path="/admin">
+//       <AdminRouter/>
+//     </Route>
+//     <Route component={NotFound} />
+//   </Switch>
+// ;
 
 export default routes;

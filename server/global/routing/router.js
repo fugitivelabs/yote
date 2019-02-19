@@ -2,15 +2,18 @@
  * Configure the application routes
  */
 import React from "react";
+import ReactDOM from "react-dom";
 import { renderToString } from "react-dom/server";
 import { StaticRouter } from "react-router-dom";
 
 // import front end components
 //TODO: need some sort of check for if they exist
-// import routes from '../../../web/config/routes.js.jsx';
+// import routes from '../../../web/config/routes.js';
+import ReactLayout from '../../../web/ReactLayout'
+// import ReactLayout from '../../ReactLayout'
 
 // generate re-useable layout function (faster)
-const layout = require('pug').compileFile('layout.pug')
+const htmlLayout = require('pug').compileFile('htmlLayout.pug')
 
 
 module.exports = (router, app) => {
@@ -30,13 +33,20 @@ module.exports = (router, app) => {
     const context = {};
 
 
-    //todo: hydrate
 
-    const jsx = (<h1>TEST</h1>)
-    const reactDom = renderToString(jsx)
+    // const jsx = (<h1>TEST</h1>)
+    // const reactDom = renderToString(jsx)
+    // console.log(TEST)
+    const reactDom = renderToString(<ReactLayout/>)
+
+    console.log("REACT DOM", reactDom)
+
+    // TODO: hydrate
+    // const app = document.getElementById("application-main-yote")
+    // ReactDOM.hydrate(rea)
 
     res.writeHead( 200, { "Content-Type": "text/html" } );
-    res.end(layout({
+    res.end(htmlLayout({
       currentUser: req.user
       , development: app.get('env') == 'development' ? true : false
       , reactDom
