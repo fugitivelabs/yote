@@ -10,7 +10,7 @@ import thunk from 'redux-thunk'
 // import { browserHistory } from 'react-router';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import createHistory from 'history/createBrowserHistory';
-import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-router-redux';
+import { routerReducer, routerMiddleware, push } from 'react-router-redux';
 
 // import main application reducers
 import * as resourceReducers from './resourceReducers.js';

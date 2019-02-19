@@ -9,8 +9,8 @@ import { StaticRouter } from "react-router-dom";
 // import front end components
 //TODO: need some sort of check for if they exist
 // import routes from '../../../web/config/routes.js';
-import ReactLayout from '../../../web/ReactLayout'
-// import ReactLayout from '../../ReactLayout'
+// import ReactLayout from '../../../web/ReactLayout'
+import ReactLayout from '../../ReactLayout'
 
 // generate re-useable layout function (faster)
 const htmlLayout = require('pug').compileFile('htmlLayout.pug')
