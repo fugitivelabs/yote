@@ -32,6 +32,8 @@ import routes from './config/routes.js.jsx';
 
 import configureStore from './config/configureStore';
 
+import * as userActions from './resources/user/userActions'
+
 /**
  * EXPERIMENTAL CROSS BROWSER STUFF
  *
@@ -62,8 +64,13 @@ if((navigator.userAgent.toLowerCase().indexOf('webkit') == -1 && navigator.userA
  * END EXPERIMENTAL CROSS BROWSER STUFF
  */
 
-
+console.log("about to configure store")
 const store = configureStore();
+
+if(window && window.currentUser && window.currentUser.username) {
+  store.dispatch(userActions.initSession(window.currentUser))
+}
+
 const history = createHistory();
 
 // // listen to location changes and fire off a google analytics event.

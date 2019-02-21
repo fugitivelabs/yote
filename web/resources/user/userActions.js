@@ -14,6 +14,15 @@ import apiUtils from '../../global/utils/api'
  * LOGGED IN USER ACTIONS
  */
 
+export const INIT_SESSION = "INIT_SESSION"
+export function initSession(user) {
+  console.log("initing session")
+  return {
+    type: INIT_SESSION
+    , user
+  }
+}
+
 export const REQUEST_LOGIN = "REQUEST_LOGIN"
 function requestLogin(username) {
   return {
@@ -24,7 +33,7 @@ function requestLogin(username) {
 
 export const RECEIVE_LOGIN = "RECEIVE_LOGIN"
 function receiveLogin(json) {
-  window.currentUser = json.user || {};
+  // window.currentUser = json.user || {};
   return {
     type: RECEIVE_LOGIN
     , user: json.user

@@ -169,7 +169,7 @@ function user(state = {
    * with the "byId" map.
    */
   , loggedIn: {
-    user: window.currentUser || {}
+    user: {}
     , isFetching: false
     , error: null
     , didInvalidate: false
@@ -232,6 +232,19 @@ function user(state = {
     /**
      * LOGGED IN USER ACTIONS
      */
+    case Actions.INIT_SESSION: {
+      nextState = {
+        ...state
+        , loggedIn: {
+          user: action.user
+          , isFetching: false
+          , error: null
+          , didInvalidate: false
+          , lastUpdated: new Date()
+        }
+      }
+      break;
+    }
     case Actions.REQUEST_LOGIN: {
       nextState = {
         ...state
@@ -405,7 +418,6 @@ function user(state = {
         //   })
         // })
       } else {
-        window.currentUser = {};
         nextState = {
           ...state
           , loggedIn: {

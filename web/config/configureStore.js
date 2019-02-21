@@ -9,8 +9,10 @@ import { createLogger } from 'redux-logger';
 import thunk from 'redux-thunk'
 // import { browserHistory } from 'react-router';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
-import createHistory from 'history/createBrowserHistory';
 import { routerReducer, routerMiddleware, push } from 'react-router-redux';
+
+// import createHistory from 'history/createBrowserHistory';
+import createHistory from 'history/createMemoryHistory';
 
 // import main application reducers
 import * as resourceReducers from './resourceReducers.js';
@@ -21,13 +23,13 @@ const rootReducer = combineReducers({
   , ...resourceReducers
 });
 
-const history = createHistory();
-
 // let process = global.process;
 
 export default function configureStore(initialState) {
-  // console.log("initialState");
-  // console.log(initialState);
+  console.log("initialState");
+  console.log(initialState);
+
+  const history = createHistory();
 
   /**
    * Setup server rendering by uncommenting below
@@ -52,11 +54,12 @@ export default function configureStore(initialState) {
   const store = createStore(
     rootReducer
     , routerReducer
-    // , jadeInitialState
     , applyMiddleware(
       ...middlewares
     )
+    , initialState
   )
+  console.log("STORE!", store)
 
   // // Allow hot-reloading
   // // TODO: check that this works as intended...

@@ -14,7 +14,7 @@ import Binder from '../../../global/components/Binder.js.jsx';
 import DefaultTopNav from '../../../global/components/navigation/DefaultTopNav.js.jsx'
 
 // import landing page components
-import LandingHero from '../components/LandingHero.js.jsx';
+// import LandingHero from '../components/LandingHero.js.jsx';
 import LandingNav from '../components/LandingNav.js.jsx';
 
 class Landing extends Binder {
@@ -51,7 +51,7 @@ class Landing extends Binder {
           fancyScroll={true}
           fixed={true}
         />
-        <LandingHero />
+        {/* <LandingHero /> */}
         <div className="hero sub u-centerText">
           <p> Check out the docs on <a href="https://fugitivelabs.github.io/yote/"> GitHub </a></p>
         </div>
