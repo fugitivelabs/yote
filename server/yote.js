@@ -66,8 +66,8 @@ let User = mongoose.model('User');
 app.use(compress());
 
 // configure express
-// app.set('views', __dirname);
-// app.set('view engine', 'pug');
+app.set('views', __dirname);
+app.set('view engine', 'pug');
 // app.set('view engine', 'html');
 app.use(timeout(30000)); //upper bound on server connections, in ms.
 app.use(cookieParser());

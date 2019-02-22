@@ -18,7 +18,7 @@ import { Provider } from 'react-redux';
 // import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import createHistory from 'history/createBrowserHistory';
-import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-router-redux';
+import { ConnectedRouter } from 'react-router-redux';
 
 // instantiate tap event plugin
 injectTapEventPlugin();

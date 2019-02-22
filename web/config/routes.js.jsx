@@ -11,6 +11,7 @@
 // import primary libraries
 import React from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import YTRoute from '../global/components/routing/YTRoute.js.jsx';
 

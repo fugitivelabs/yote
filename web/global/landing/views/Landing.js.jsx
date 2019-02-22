@@ -65,8 +65,9 @@ Landing.propTypes = {
   dispatch: PropTypes.func.isRequired
 }
 
-const mapStoreToProps = (store) => {
+const mapStoreToProps = store => {
   return {
+    
   }
 }
 

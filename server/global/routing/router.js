@@ -5,12 +5,16 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { renderToString } from "react-dom/server";
 import { StaticRouter } from "react-router-dom";
+import { ConnectedRouter } from 'react-router-redux';
 
 // import front end components
 //TODO: need some sort of check for if they exist
 // import routes from '../../../web/config/routes.js';
 // import ReactLayout from '../../../web/ReactLayout'
 import ReactLayout from '../../ReactLayout'
+import { Provider } from 'react-redux';
+import routes from '../../../web/config/routes.js.jsx';
+import configureStore from '../../../web/config/configureStore';
 
 // generate re-useable layout function (faster)
 const htmlLayout = require('pug').compileFile('htmlLayout.pug')
@@ -30,14 +34,24 @@ module.exports = (router, app) => {
   // render layout
   router.get('*', (req, res) => {
 
-    const context = {};
+    const store = configureStore();
+    const context = {}
 
 
+    console.log("STORE? ", store.getState())
+    const jsxLayout = (
+      <Provider store={store}>
+        <StaticRouter context={context} location={req.url}>
+          {routes}
+        </StaticRouter>
+      </Provider>
+    )
+    
 
     // const jsx = (<h1>TEST</h1>)
     // const reactDom = renderToString(jsx)
     // console.log(TEST)
-    const reactDom = renderToString(<ReactLayout/>)
+    const reactDom = renderToString(jsxLayout)
 
     console.log("REACT DOM", reactDom)
 
@@ -51,11 +65,14 @@ module.exports = (router, app) => {
       , development: app.get('env') == 'development' ? true : false
       , reactDom
     }));
-
-    // res.render('layout', {
-    //   currentUser: req.user
-    //   , development: app.get('env') == 'development' ? true : false
-    // });
   });
+
+  // router.get('*', (req, res) => {
+
+  //   res.render('htmlLayout', {
+  //     currentUser: req.user
+  //     , development: app.get('env') == 'development' ? true : false
+  //   });
+  // });
 
 }

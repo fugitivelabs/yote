@@ -26,8 +26,8 @@ const rootReducer = combineReducers({
 // let process = global.process;
 
 export default function configureStore(initialState) {
-  console.log("initialState");
-  console.log(initialState);
+  // console.log("initialState");
+  // console.log(initialState);
 
   const history = createHistory();
 
@@ -35,13 +35,6 @@ export default function configureStore(initialState) {
    * Setup server rendering by uncommenting below
    * TODO: get initial state from server and populate
    */
-  // const jadeInitialState = {
-  //   user: {
-  //     loggedIn: {
-  //       user: window.currentUser || {}
-  //     }
-  //   }
-  // };
 
   const middlewares = [thunk, routerMiddleware(history)];
 
@@ -57,9 +50,8 @@ export default function configureStore(initialState) {
     , applyMiddleware(
       ...middlewares
     )
-    , initialState
   )
-  console.log("STORE!", store)
+  // console.log("STORE!", store)
 
   // // Allow hot-reloading
   // // TODO: check that this works as intended...
