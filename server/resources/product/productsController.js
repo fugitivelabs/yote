@@ -9,16 +9,7 @@
  * any model changes on the client
  */
 
-let Product = require('mongoose').model('Product');
-
-const Pool = require('pg').Pool
-const db = new Pool({
-  user: 'me'
-  , host: 'localhost'
-  , database: 'api'
-  , password: 'password'
-  , port: 5432
-})
+// let Product = require('mongoose').model('Product');
 
 
 let logger = global.logger;
@@ -116,6 +107,9 @@ exports.listByValues = (req, res) => {
 }
 
 exports.listByRefs = (req, res) => {
+
+  res.send({success: false, message: "Not implemented for Postgres yet"});
+  return;
   /**
    * NOTE: This let's us query by ANY string or pointer key by passing in a refKey and refId
    * TODO: server side pagination

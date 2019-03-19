@@ -32,9 +32,17 @@ let session         = require('express-session');
 let timeout         = require('connect-timeout');
 // let winston         = require('winston');
 
-// init MongoStore sessions
-let MongoStore      = require('connect-mongo')(session);
+// init Postgres connection
+const Pool = require('pg').Pool
+global.db = new Pool({
+  user: 'grantfowler'
+  , host: 'localhost'
+  , database: 'api'
+  , port: 5432
+})
 
+// init MongoStore sessions
+// let MongoStore      = require('connect-mongo')(session);
 
 // init express
 let app = express();
@@ -73,9 +81,14 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+
+const pgSession = require('connect-pg-simple')(session);
 app.use(session({
-  store: new MongoStore({mongooseConnection: mongoose.connection})
+  // store: new MongoStore({mongooseConnection: mongoose.connection})
+  store: new pgSession({ pool: db })
   , secret: config.secrets.sessionSecret
+  , resave: false
+  , cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 } // 30 days
 }));
 
 app.use(passport.initialize());

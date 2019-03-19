@@ -6,7 +6,7 @@
  * to restrict routes to only admin users, add "requireRole('admin')"
  */
 
-var products = require('./productsController');
+let products = require('./productsController');
 
 module.exports = function(router, requireLogin, requireRole) {
 
