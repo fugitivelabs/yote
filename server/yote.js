@@ -58,8 +58,8 @@ logger.error("ERROR LOG");
 // initialize database
 require('./db')(config);
 
-// // init User model
-// let User = mongoose.model('User');
+// init User model
+let User = mongoose.model('User');
 
 // use express compression plugin
 app.use(compress());
@@ -73,15 +73,15 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// app.use(session({
-//   store: new MongoStore({mongooseConnection: mongoose.connection})
-//   , secret: config.secrets.sessionSecret
-// }));
+app.use(session({
+  store: new MongoStore({mongooseConnection: mongoose.connection})
+  , secret: config.secrets.sessionSecret
+}));
 
-// app.use(passport.initialize());
-// app.use(passport.session());
+app.use(passport.initialize());
+app.use(passport.session());
 
-// app.use(favicon(path.join(__dirname, 'static','favicon.ico')));
+app.use(favicon(path.join(__dirname, 'static','favicon.ico')));
 
 // // Uncomment below to allow file uploads
 // app.use(multipart({}));
@@ -90,81 +90,77 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // serve static assets, incl. react bundle.js
 app.use(serveStatic(__dirname + '/static'));
 
-// BEING COMMENT OUT
+// request checks
+app.use((req, res, next) => {
 
-// // request checks
-// app.use((req, res, next) => {
+  // Allow CORS & mobile access to the node APIs -- ref https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, token");
 
-//   // Allow CORS & mobile access to the node APIs -- ref https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS
-//   res.header("Access-Control-Allow-Origin", "*");
-//   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, token");
+  // test user:
+  logger.info("YOTE USER: " + (req.user ? req.user.username : "none"));
 
-//   // test user:
-//   logger.info("YOTE USER: " + (req.user ? req.user.username : "none"));
+  // check mongo connection
+  if(mongoose.connection.readyState !== 1) {
+    mongoose.connect(config.db);
+    res.send("mongoose error, hold your horses...");
+  }
 
-//   // check mongo connection
-//   if(mongoose.connection.readyState !== 1) {
-//     mongoose.connect(config.db);
-//     res.send("mongoose error, hold your horses...");
-//   }
+  // check for OPTIONS method
+  if(req.method == 'OPTIONS') {
+    res.send(200);
+  } else {
+    next();
+  }
+});
 
-//   // check for OPTIONS method
-//   if(req.method == 'OPTIONS') {
-//     res.send(200);
-//   } else {
-//     next();
-//   }
-// });
+// initialize passport
+passport.use('local', new LocalStrategy(
+  function(username, password, done) {
+    var projection = {
+      username: 1, password_salt: 1, password_hash: 1, roles: 1
+    }
+    User.findOne({username:username}, projection).exec((err, user) => {
+      if(user && user.authenticate(password)) {
+        logger.debug("authenticated!");
+        return done(null, user);
+      } else {
+        logger.debug("NOT authenticated");
+        return done(null, false);
+      }
+    })
+  }
+));
 
-// // initialize passport
-// passport.use('local', new LocalStrategy(
-//   function(username, password, done) {
-//     var projection = {
-//       username: 1, password_salt: 1, password_hash: 1, roles: 1
-//     }
-//     User.findOne({username:username}, projection).exec((err, user) => {
-//       if(user && user.authenticate(password)) {
-//         logger.debug("authenticated!");
-//         return done(null, user);
-//       } else {
-//         logger.debug("NOT authenticated");
-//         return done(null, false);
-//       }
-//     })
-//   }
-// ));
+passport.serializeUser((user, done) => {
+  // logger.warn("SERIALIZE USER");
+  if(user) {
+    done(null, user._id);
+  }
+});
 
-// passport.serializeUser((user, done) => {
-//   // logger.warn("SERIALIZE USER");
-//   if(user) {
-//     done(null, user._id);
-//   }
-// });
+passport.deserializeUser((id, done) => {
+  // logger.warn("DESERIALIZE USER");
+  // NOTE: we want mobile user to have access to their api token, but we don't want it to be select: true
+  User.findOne({_id:id}).exec((err, user) => {
+    if(user) {
+      return done(null, user);
+    } else {
+      return done(null, false);
+    }
+  })
+})
 
-// passport.deserializeUser((id, done) => {
-//   // logger.warn("DESERIALIZE USER");
-//   // NOTE: we want mobile user to have access to their api token, but we don't want it to be select: true
-//   User.findOne({_id:id}).exec((err, user) => {
-//     if(user) {
-//       return done(null, user);
-//     } else {
-//       return done(null, false);
-//     }
-//   })
-// })
-
-// // development only
-// if (app.get('env') == 'development') {
-//   logger.debug("DEVELOPMENT");
-//   // app.use(errorHandler());
-// } else if(app.get('env') == 'production') {
-//   logger.debug("PRODUCTION");
-//   // log express http requests in production.
-//   // app.use(require('morgan')({"stream":logger.stream}));
-// }
-
-// END COMMEND OUT
+// development only
+if (app.get('env') == 'development') {
+  logger.debug("DEVELOPMENT");
+  // app.use(errorHandler());
+} else if(app.get('env') == 'production') {
+  logger.debug("PRODUCTION");
+  // log express http requests in production.
+  // app.use(require('morgan')({"stream":logger.stream}));
+}
 
 // configure server routes
 let router = express.Router();

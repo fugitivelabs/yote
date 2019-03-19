@@ -246,61 +246,129 @@ exports.getSchema = (req, res) => {
 
 exports.create = (req, res) => {
   logger.info('creating new product');
-  let product = new Product({});
 
-  // run through and create all fields on the model
-  for(var k in req.body) {
-    if(req.body.hasOwnProperty(k)) {
-      product[k] = req.body[k];
-    }
-  }
+  let query = 'INSERT INTO products (title, description) VALUES '
+  query += "('" + req.body.title + "','" + req.body.description + "')"
+  query += ' RETURNING *;'
 
-  product.save((err, product) => {
-    if (err) {
-      logger.error("ERROR:");
-      logger.info(err);
-      res.send({ success: false, message: err });
-    } else if(!product) {
-      logger.error("ERROR: Could not create Product")
-      res.send({ success: false, message: "Could not create Product." });
+  console.log(query);
+  // TODO: need a better way to generate these, some sort of query builder
+  db.query(query, (err, result) => {
+    if(err) {
+      console.log("ERROR")
+      console.log(err);
+      res.send({success: false, message: err});
     } else {
-      logger.info("created new product");
-      res.send({ success: true, product: product });
+      // console.log("result");
+      // console.log(result);
+      // console.log(result.rows[0])
+      res.send({success: true, product: result.rows[0]})
     }
-  });
+  })
+
+
+  // DEPREC
+  // let product = new Product({});
+
+  // // run through and create all fields on the model
+  // for(var k in req.body) {
+  //   if(req.body.hasOwnProperty(k)) {
+  //     product[k] = req.body[k];
+  //   }
+  // }
+
+  // product.save((err, product) => {
+  //   if (err) {
+  //     logger.error("ERROR:");
+  //     logger.info(err);
+  //     res.send({ success: false, message: err });
+  //   } else if(!product) {
+  //     logger.error("ERROR: Could not create Product")
+  //     res.send({ success: false, message: "Could not create Product." });
+  //   } else {
+  //     logger.info("created new product");
+  //     res.send({ success: true, product: product });
+  //   }
+  // });
 }
 
 exports.update = (req, res) => {
   logger.info('updating product');
-  Product.findById(req.params.id).exec((err, product) => {
+
+  const productId = parseInt(req.params.id) // has to be an int
+
+  let query = 'UPDATE products'
+  query += " SET title = '" + req.body.title + "'"
+  query += " , description = '" + req.body.description + "'"
+
+  query += " WHERE id = " + productId
+  query += ' RETURNING *;'
+
+  console.log(query);
+  // TODO: need a better way to generate these, some sort of query builder
+  db.query(query, (err, result) => {
     if(err) {
-      res.send({ success: false, message: err });
-    } else if(!product) {
-      res.send({ success: false, message: "Product not found." });
+      console.log("ERROR")
+      console.log(err);
+      res.send({success: false, message: err});
     } else {
-      // run through and update all fields on the model
-      for(var k in req.body) {
-        if(req.body.hasOwnProperty(k)) {
-          product[k] = req.body[k];
-        }
-      }
-      // now edit the 'updated' date
-      product.updated = new Date();
-      product.save((err, product) => {
-        if(err) {
-          res.send({ success: false, message: err });
-        } else if(!product) {
-          res.send({ success: false, message: "Could not save product."});
-        } else {
-          res.send({ success: true, product: product });
-        }
-      });
+      // console.log("result");
+      // console.log(result);
+      // console.log(result.rows[0])
+      res.send({success: true, product: result.rows[0]})
     }
-  });
+  })
+
+
+  // DEPREC
+
+  // Product.findById(req.params.id).exec((err, product) => {
+  //   if(err) {
+  //     res.send({ success: false, message: err });
+  //   } else if(!product) {
+  //     res.send({ success: false, message: "Product not found." });
+  //   } else {
+  //     // run through and update all fields on the model
+  //     for(var k in req.body) {
+  //       if(req.body.hasOwnProperty(k)) {
+  //         product[k] = req.body[k];
+  //       }
+  //     }
+  //     // now edit the 'updated' date
+  //     product.updated = new Date();
+  //     product.save((err, product) => {
+  //       if(err) {
+  //         res.send({ success: false, message: err });
+  //       } else if(!product) {
+  //         res.send({ success: false, message: "Could not save product."});
+  //       } else {
+  //         res.send({ success: true, product: product });
+  //       }
+  //     });
+  //   }
+  // });
 }
 
 exports.delete = (req, res) => {
   logger.warn("deleting product");
+
+  const productId = parseInt(req.params.id) // has to be an int
+
+  let query = 'DELETE FROM products WHERE id = ' + productId + ';'
+
+  console.log(query);
+  db.query(query, (err, result) => {
+    if(err) {
+      console.log("ERROR")
+      console.log(err);
+      res.send({success: false, message: err});
+    } else {
+      res.send({success: true})
+    }
+  })
+
+  // DEPREC 
+
   Product.findById(req.params.id).remove((err) => {
     if(err) {
       res.send({ success: false, message: err });

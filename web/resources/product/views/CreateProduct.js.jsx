@@ -65,8 +65,10 @@ class CreateProduct extends Binder {
     e.preventDefault();
     dispatch(productActions.sendCreateProduct(this.state.product)).then(productRes => {
       if(productRes.success) {
+        console.log("TEST")
+        console.log(productRes)
         dispatch(productActions.invalidateList("all"));
-        history.push(`/products/${productRes.item._id}`)
+        history.push(`/products/${productRes.item.id}`)
       } else {
         alert("ERROR - Check logs");
       }
