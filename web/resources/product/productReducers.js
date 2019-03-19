@@ -37,7 +37,7 @@ function productList(state = {
   , error: null
   , filter: {}
   , isFetching: false
-  , items: [] // array of _id's
+  , items: [] // array of id's
   , lastUpdated: null
   , pagination: {}
 
@@ -79,7 +79,7 @@ function productList(state = {
           , error: null
           , filter: state.filter || {}
           , isFetching: true
-          , items: [] // array of _id's
+          , items: [] // array of id's
           , lastUpdated: null
           , pagination: state.pagination || {}
         }
@@ -90,13 +90,13 @@ function productList(state = {
             ...state
             , error: action.error
             , isFetching: false
-            , items: [] // array of _id's
+            , items: [] // array of id's
             , lastUpdated: action.receivedAt
           }
         } else {
           let idArray = [];
           for(const item of action.list) {
-            idArray.push(item._id);
+            idArray.push(item.id);
           }
           return {
             ...state
@@ -366,7 +366,7 @@ function product(state = {
         ...state
         , byId: {
           ...state.byId
-          , [action.item._id]: action.item
+          , [action.item.id]: action.item
         }
       }
       break;
@@ -377,10 +377,10 @@ function product(state = {
         ...state
         , byId: {
           ...state.byId
-          , [action.item._id]: action.item
+          , [action.item.id]: action.item
         }
         , selected: {
-          id: action.item._id
+          id: action.item.id
           , isFetching: false
           , error: null
           , didInvalidate: false
@@ -539,7 +539,7 @@ function product(state = {
       let newIdMap = { ...state.byId };
       if(action.success) {
         for(const item of action.list) {
-          newIdMap[item._id] = item;
+          newIdMap[item.id] = item;
         }
       }
       nextState = {

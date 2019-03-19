@@ -97,7 +97,7 @@ export const RECEIVE_SINGLE_PRODUCT = "RECEIVE_SINGLE_PRODUCT";
 function receiveSingleProduct(json) {
   return {
     error: json.message
-    , id: json.product ? json.product._id : null
+    , id: json.product ? json.product.id : null
     , item: json.product
     , receivedAt: Date.now()
     , success: json.success
@@ -191,7 +191,7 @@ export const RECEIVE_CREATE_PRODUCT = "RECEIVE_CREATE_PRODUCT";
 function receiveCreateProduct(json) {
   return {
     error: json.message
-    , id: json.product ? json.product._id : null
+    , id: json.product ? json.product.id : null
     , item: json.product
     , receivedAt: Date.now()
     , success: json.success
@@ -210,7 +210,7 @@ export function sendCreateProduct(data) {
 export const REQUEST_UPDATE_PRODUCT = "REQUEST_UPDATE_PRODUCT";
 function requestUpdateProduct(product) {
   return {
-    id: product ? product._id: null
+    id: product ? product.id: null
     , product
     , type: REQUEST_UPDATE_PRODUCT
   }
@@ -220,7 +220,7 @@ export const RECEIVE_UPDATE_PRODUCT = "RECEIVE_UPDATE_PRODUCT";
 function receiveUpdateProduct(json) {
   return {
     error: json.message
-    , id: json.product ? json.product._id : null
+    , id: json.product ? json.product.id : null
     , item: json.product
     , receivedAt: Date.now()
     , success: json.success
@@ -231,7 +231,7 @@ function receiveUpdateProduct(json) {
 export function sendUpdateProduct(data) {
   return dispatch => {
     dispatch(requestUpdateProduct(data))
-    return apiUtils.callAPI(`/api/products/${data._id}`, 'PUT', data)
+    return apiUtils.callAPI(`/api/products/${data.id}`, 'PUT', data)
       .then(json => dispatch(receiveUpdateProduct(json)))
   }
 }
@@ -377,7 +377,7 @@ export function addProductToList(item, ...listArgs) {
   if(listArgs.length === 0) {
     listArgs = ["all"];
   }
-  // allow user to either send the entire object or just the _id
+  // allow user to either send the entire object or just the id
   if(typeof(item) === 'string') {
     return {
       type: ADD_PRODUCT_TO_LIST
@@ -387,7 +387,7 @@ export function addProductToList(item, ...listArgs) {
   } else {
     return {
       type: ADD_PRODUCT_TO_LIST
-      , id: item._id
+      , id: item.id
       , listArgs
     }
   }

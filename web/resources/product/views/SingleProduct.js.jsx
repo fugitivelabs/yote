@@ -41,7 +41,7 @@ class SingleProduct extends Binder {
 
     const isEmpty = (
       !selectedProduct
-      || !selectedProduct._id
+      || !selectedProduct.id
       || productStore.selected.didInvalidate
     )
 

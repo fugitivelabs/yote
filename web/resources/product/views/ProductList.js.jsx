@@ -91,7 +91,7 @@ class ProductList extends Binder {
           <div style={{ opacity: isFetching ? 0.5 : 1 }}>
             <ul>
               {productListItems.map((product, i) =>
-                <ProductListItem key={product._id + i} product={product} />
+                <ProductListItem key={product.id + i} product={product} />
               )}
             </ul>
           </div>
