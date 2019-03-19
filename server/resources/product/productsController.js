@@ -10,40 +10,69 @@
  */
 
 let Product = require('mongoose').model('Product');
+
+const Pool = require('pg').Pool
+const db = new Pool({
+  user: 'me'
+  , host: 'localhost'
+  , database: 'api'
+  , password: 'password'
+  , port: 5432
+})
+
+
 let logger = global.logger;
 
 exports.list = (req, res) => {
-  if(req.query.page) {
-    // paginate on the server
-    var page = req.query.page || 1;
-    var per = req.query.per || 20;
-    Product.find({}).skip((page-1)*per).limit(per).exec((err, products) => {
-      if(err || !products) {
-        res.send({ success: false, message: err });
-      } else {
-        res.send({
-          success: true
-          , products: products
-          , pagination: {
-            per: per
-            , page: page
-          }
-        });
-      }
-    });
-  } else {
-    // list all products
-    Product.find({}).exec((err, products) => {
-      if(err || !products) {
-        res.send({ success: false, message: err });
-      } else {
-        res.send({ success: true, products: products });
-      }
-    });
-  }
+
+  let query = 'SELECT * FROM products;'
+  db.query(query, (err, result) => {
+    if(err) {
+      console.log("ERROR")
+      console.log(err);
+      res.send({success: false, message: err});
+    } else {
+      // console.log("PRODUCTS!");
+      // console.log(products);
+      res.send({success: true, products: result.rows})
+    }
+  })
+
+  // DEPREC
+  // if(req.query.page) {
+  //   // paginate on the server
+  //   var page = req.query.page || 1;
+  //   var per = req.query.per || 20;
+  //   Product.find({}).skip((page-1)*per).limit(per).exec((err, products) => {
+  //     if(err || !products) {
+  //       res.send({ success: false, message: err });
+  //     } else {
+  //       res.send({
+  //         success: true
+  //         , products: products
+  //         , pagination: {
+  //           per: per
+  //           , page: page
+  //         }
+  //       });
+  //     }
+  //   });
+  // } else {
+  //   // list all products
+  //   Product.find({}).exec((err, products) => {
+  //     if(err || !products) {
+  //       res.send({ success: false, message: err });
+  //     } else {
+  //       res.send({ success: true, products: products });
+  //     }
+  //   });
+  // }
 }
 
 exports.listByValues = (req, res) => {
+
+  res.send({success: false, message: "Not implemented for Postgres yet"});
+  return;
   /**
    * returns list of products queried from the array of _id's passed in the query param
    *
@@ -119,6 +148,8 @@ exports.listByRefs = (req, res) => {
 }
 
 exports.search = (req, res) => {
+  res.send({success: false, message: "Not implemented for Postgres yet"});
+  return;
   // search by query parameters
   // NOTE: It's up to the front end to make sure the params match the model
   let mongoQuery = {};
@@ -168,15 +199,30 @@ exports.search = (req, res) => {
 
 exports.getById = (req, res) => {
   logger.info('get product by id');
-  Product.findById(req.params.id).exec((err, product) => {
+
+  let query = 'SELECT * FROM products WHERE id = ' + req.params.id + ';';
+  db.query(query, (err, result) => {
     if(err) {
-      res.send({ success: false, message: err });
-    } else if (!product) {
-      res.send({ success: false, message: "Product not found." });
+      console.log("ERROR")
+      console.log(err);
+      res.send({success: false, message: err});
+    } else if(result.rows && result.rows.length == 1) {
+      res.send({ success: true, product: result.rows[0] })
     } else {
-      res.send({ success: true, product: product });
+      res.send({success: false, message: "Did not match product with id"})
     }
-  });
+  })
+
+  // DEPREC
+  // Product.findById(req.params.id).exec((err, product) => {
+  //   if(err) {
+  //     res.send({ success: false, message: err });
+  //   } else if (!product) {
+  //     res.send({ success: false, message: "Product not found." });
+  //   } else {
+  //     res.send({ success: true, product: product });
+  //   }
+  // });
 }
 
 exports.getSchema = (req, res) => {
