@@ -24,9 +24,10 @@ list roles
 
 
 
+links
 
+setup and simple example commands
+https://blog.logrocket.com/setting-up-a-restful-api-with-node-js-and-postgresql-d96d6fc892d8
 
-
-User sessions:
+sessions, init table
 https://www.npmjs.com/package/connect-pg-simple
-// need to init the sessions table
