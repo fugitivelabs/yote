@@ -30,18 +30,19 @@ let path            = require('path');
 let serveStatic     = require('serve-static');
 let session         = require('express-session');
 let timeout         = require('connect-timeout');
+let knex            = require('knex');
 // let winston         = require('winston');
 
 // init postgres connection via knex
-let knex = require('knex')({
-  client: 'pg'
-  , connection: {
-    user: 'grantfowler'
-    , host: 'localhost'
-    , database: 'api'
-    , port: 5432
-  }
-})
+// let knex = require('knex')({
+//   client: 'pg'
+//   , connection: {
+//     user: 'grantfowler'
+//     , host: 'localhost'
+//     , database: 'api'
+//     , port: 5432
+//   }
+// })
 
 // // init Postgres connection
 // const Pool = require('pg').Pool
@@ -62,6 +63,8 @@ let app = express();
 let env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 let config = require('./config')[env];
 
+// init postgres connection from file
+
 // initialize logger
 let logger = require('./logger');
 // NOTE: generally 'global' is not considered "best practices", but this will allow access to the logger object in the entire app
@@ -75,7 +78,13 @@ logger.warn("WARN LOG");
 logger.error("ERROR LOG");
 
 // initialize database
+
+// old, mongo
 require('./db')(config);
+
+// new, postgres via pg and knex
+//TODO: staging and prod environments
+global.db = knex(config)
 
 // init User model
 let User = mongoose.model('User');

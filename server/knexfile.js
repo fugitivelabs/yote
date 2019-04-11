@@ -1,4 +1,5 @@
-// Update with your config settings.
+// FOR REFERENCE (esp staging and prod)
+// THIS WILL BE ADDED TO THE CONFIG.JS FILE INSTEAD
 
 module.exports = {
 

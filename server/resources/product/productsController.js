@@ -11,23 +11,32 @@
 
 // let Product = require('mongoose').model('Product');
 
+const Product = require('./ProductModel2')
+
+
 
 let logger = global.logger;
 
 exports.list = (req, res) => {
+  // using knex/objection models
+  Product.query()
+    .then(products => {
+      res.send({success: true, products})
+    })
 
-  let query = 'SELECT * FROM products;'
-  db.query(query, (err, result) => {
-    if(err) {
-      console.log("ERROR")
-      console.log(err);
-      res.send({success: false, message: err});
-    } else {
-      // console.log("PRODUCTS!");
-      // console.log(products);
-      res.send({success: true, products: result.rows})
-    }
-  })
+  // // RAW SQL/PG
+  // let query = 'SELECT * FROM products;'
+  // db.query(query, (err, result) => {
+  //   if(err) {
+  //     console.log("ERROR")
+  //     console.log(err);
+  //     res.send({success: false, message: err});
+  //   } else {
+  //     // console.log("PRODUCTS!");
+  //     // console.log(products);
+  //     res.send({success: true, products: result.rows})
+  //   }
+  // })
 
   // DEPREC
   // if(req.query.page) {
@@ -194,18 +203,27 @@ exports.search = (req, res) => {
 exports.getById = (req, res) => {
   logger.info('get product by id');
 
-  let query = 'SELECT * FROM products WHERE id = ' + req.params.id + ';';
-  db.query(query, (err, result) => {
-    if(err) {
-      console.log("ERROR")
-      console.log(err);
-      res.send({success: false, message: err});
-    } else if(result.rows && result.rows.length == 1) {
-      res.send({ success: true, product: result.rows[0] })
-    } else {
-      res.send({success: false, message: "Did not match product with id"})
-    }
-  })
+  Product.query().findById(req.params.id)
+    .then(product => {
+      if(product) {
+        res.send({success: true, product})
+      } else {
+        res.send({success: false, message: "Product not found"})
+      }
+    })
+
+  // let query = 'SELECT * FROM products WHERE id = ' + req.params.id + ';';
+  // db.query(query, (err, result) => {
+  //   if(err) {
+  //     console.log("ERROR")
+  //     console.log(err);
+  //     res.send({success: false, message: err});
+  //   } else if(result.rows && result.rows.length == 1) {
+  //     res.send({ success: true, product: result.rows[0] })
+  //   } else {
+  //     res.send({success: false, message: "Did not match product with id"})
+  //   }
+  // })
 
   // DEPREC
   // Product.findById(req.params.id).exec((err, product) => {
