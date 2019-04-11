@@ -5,7 +5,7 @@ exports.up = function(knex, Promise) {
       table.increments('id').primary()
       table.string('username').unique()
       // table.unique('username')
-      table.string('password_salt')
+      table.string('password_salt', 511) // longer to accomodate 256 bit salt
       table.string('password_hash')
     })
   ])

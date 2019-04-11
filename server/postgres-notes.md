@@ -23,7 +23,6 @@ list roles
 
 
 
-
 links
 
 setup and simple example commands
@@ -31,3 +30,19 @@ https://blog.logrocket.com/setting-up-a-restful-api-with-node-js-and-postgresql-
 
 sessions, init table
 https://www.npmjs.com/package/connect-pg-simple
+
+
+knex
+
+create new migration
+```knex migrate:make create_things
+
+migrate to latest
+```knex migrate:latest
+
+create database seed for things
+```knex seed:make things
+
+create seeds
+```knex seed:run
+
