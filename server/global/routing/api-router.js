@@ -2,7 +2,8 @@
  * Configure the API routes
  */
 
-let User = require('mongoose').model('User');
+// let User = require('mongoose').model('User');
+let User = require('../../resources/user/UserModel2')
 let logger = global.logger;
 
 // helper functions
@@ -18,6 +19,10 @@ function requireLogin() {
       // header has token. Use it.
       logger.debug("LOGIN CHECK HIT - by token");
       logger.debug(req.headers.token);
+
+      res.status(403);
+      res.send({success: false, message: "UNAUTHORIZED - TOKEN AUTHENTICATION NOT ALLOWED YET"});
+      return;
 
       User.findOne({apiToken: req.headers.token}).exec(function(err, user) {
         if(err || !user) {

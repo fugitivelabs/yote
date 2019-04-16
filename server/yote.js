@@ -107,7 +107,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const KnexSessionStore = require('connect-session-knex')(session);
 app.use(session({
   // store: new MongoStore({mongooseConnection: mongoose.connection})
-  store: new KnexSessionStore({knex: db})
+  store: new KnexSessionStore({
+    knex: db
+    , createtable: true
+  })
   , secret: config.secrets.sessionSecret
   , resave: false
   , cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 } // 30 days
