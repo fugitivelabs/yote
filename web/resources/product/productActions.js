@@ -218,7 +218,6 @@ function requestUpdateProduct(product) {
 
 export const RECEIVE_UPDATE_PRODUCT = "RECEIVE_UPDATE_PRODUCT";
 function receiveUpdateProduct(json) {
-  console.log("DEBUG", json)
   return {
     error: json.message
     , id: json.product ? json.product._id : null

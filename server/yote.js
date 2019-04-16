@@ -80,7 +80,7 @@ logger.error("ERROR LOG");
 // initialize database
 
 // old, mongo
-require('./db')(config);
+// require('./db')(config);
 
 // new, postgres via pg and knex
 //TODO: staging and prod environments
@@ -103,14 +103,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-const pgSession = require('connect-pg-simple')(session);
-// app.use(session({
-//   // store: new MongoStore({mongooseConnection: mongoose.connection})
-//   store: new pgSession({ pool: db })
-//   , secret: config.secrets.sessionSecret
-//   , resave: false
-//   , cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 } // 30 days
-// }));
+// const pgSession = require('connect-pg-simple')(session);
+const KnexSessionStore = require('connect-session-knex')(session);
+app.use(session({
+  // store: new MongoStore({mongooseConnection: mongoose.connection})
+  store: new KnexSessionStore({knex: db})
+  , secret: config.secrets.sessionSecret
+  , resave: false
+  , cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 } // 30 days
+}));
 
 app.use(passport.initialize());
 app.use(passport.session());
