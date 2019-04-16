@@ -79,6 +79,8 @@ class ProductList extends Binder {
       || productList.isFetching
     )
 
+    console.log("isEmpty", isEmpty, productListItems)
+
     return (
       <ProductLayout>
         <Breadcrumbs links={location.state.breadcrumbs} />
@@ -91,7 +93,7 @@ class ProductList extends Binder {
           <div style={{ opacity: isFetching ? 0.5 : 1 }}>
             <ul>
               {productListItems.map((product, i) =>
-                <ProductListItem key={product.id + i} product={product} />
+                <ProductListItem key={product._id + i} product={product} />
               )}
             </ul>
           </div>

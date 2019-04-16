@@ -2,7 +2,7 @@
 exports.up = function(knex, Promise) {
   return Promise.all([
     knex.schema.createTable('users', table => {
-      table.increments('id').primary()
+      table.increments('_id').primary()
       table.string('username').unique()
       // table.unique('username')
       table.string('password_salt', 511) // longer to accomodate 256 bit salt

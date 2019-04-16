@@ -68,7 +68,7 @@ class CreateProduct extends Binder {
         console.log("TEST")
         console.log(productRes)
         dispatch(productActions.invalidateList("all"));
-        history.push(`/products/${productRes.item.id}`)
+        history.push(`/products/${productRes.item._id}`)
       } else {
         alert("ERROR - Check logs");
       }

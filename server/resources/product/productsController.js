@@ -11,7 +11,7 @@
 
 // let Product = require('mongoose').model('Product');
 
-const Product = require('./ProductModel2')
+const Product = require('./ProductModel2');
 
 
 
@@ -20,9 +20,9 @@ let logger = global.logger;
 exports.list = (req, res) => {
   // using knex/objection models
   Product.query()
-    .then(products => {
-      res.send({success: true, products})
-    })
+  .then(products => {
+    res.send({success: true, products})
+  })
 
   // // RAW SQL/PG
   // let query = 'SELECT * FROM products;'
@@ -116,9 +116,10 @@ exports.listByValues = (req, res) => {
 }
 
 exports.listByRefs = (req, res) => {
+  console.log("Products - List By Refs")
 
-  res.send({success: false, message: "Not implemented for Postgres yet"});
-  return;
+  // res.send({success: false, message: "Not implemented for Postgres yet"});
+  // return;
   /**
    * NOTE: This let's us query by ANY string or pointer key by passing in a refKey and refId
    * TODO: server side pagination
@@ -140,13 +141,24 @@ exports.listByRefs = (req, res) => {
         query[nextParams.split("/")[i]] = nextParams.split("/")[i+1] === 'null' ? null : nextParams.split("/")[i+1]
       }
     }
-    Product.find(query, (err, products) => {
-      if(err || !products) {
-        res.send({success: false, message: `Error retrieving products by ${req.params.refKey}: ${req.params.refId}`});
-      } else {
-        res.send({success: true, products})
-      }
+
+    // TODO: no idea if this will work with foreign keys or how flexible it will end up being
+  // using knex/objection models
+    Product.query()
+    .where(query)
+    .then(products => {
+      res.send({success: true, products})
     })
+
+    // Product.find(query, (err, products) => {
+    //   if(err || !products) {
+    //     res.send({success: false, message: `Error retrieving products by ${req.params.refKey}: ${req.params.refId}`});
+    //   } else {
+    //     res.send({success: true, products})
+    //   }
+    // })
+
+
   }
 }
 
@@ -203,14 +215,18 @@ exports.search = (req, res) => {
 exports.getById = (req, res) => {
   logger.info('get product by id');
 
+  // console.log(Product.schema())
+  // console.log(Product.test())
+  // console.log(Product.jsonSchema)
+
   Product.query().findById(req.params.id)
-    .then(product => {
-      if(product) {
-        res.send({success: true, product})
-      } else {
-        res.send({success: false, message: "Product not found"})
-      }
-    })
+  .then(product => {
+    if(product) {
+      res.send({success: true, product})
+    } else {
+      res.send({success: false, message: "Product not found"})
+    }
+  })
 
   // let query = 'SELECT * FROM products WHERE id = ' + req.params.id + ';';
   // db.query(query, (err, result) => {
@@ -242,7 +258,7 @@ exports.getSchema = (req, res) => {
    * This is admin protected and useful for displaying REST api documentation
    */
   logger.info('get product schema ');
-  res.send({success: true, schema: Product.getSchema()});
+  res.send({success: true, schema: Product.jsonSchema});
 }
  exports.getDefault = (req, res) => {
   /**
@@ -259,24 +275,34 @@ exports.getSchema = (req, res) => {
 exports.create = (req, res) => {
   logger.info('creating new product');
 
-  let query = 'INSERT INTO products (title, description) VALUES '
-  query += "('" + req.body.title + "','" + req.body.description + "')"
-  query += ' RETURNING *;'
-
-  console.log(query);
-  // TODO: need a better way to generate these, some sort of query builder
-  db.query(query, (err, result) => {
-    if(err) {
-      console.log("ERROR")
-      console.log(err);
-      res.send({success: false, message: err});
+  Product.query().insert(req.body)
+  .then(product => {
+    if(product) {
+      res.send({success: true, product})
     } else {
-      // console.log("result");
-      // console.log(result);
-      // console.log(result.rows[0])
-      res.send({success: true, product: result.rows[0]})
+      // how to catch for sql errors here?
+      res.send({success: false, message: "Could not save Product"})
     }
   })
+
+  // let query = 'INSERT INTO products (title, description) VALUES '
+  // query += "('" + req.body.title + "','" + req.body.description + "')"
+  // query += ' RETURNING *;'
+
+  // console.log(query);
+  // // TODO: need a better way to generate these, some sort of query builder
+  // db.query(query, (err, result) => {
+  //   if(err) {
+  //     console.log("ERROR")
+  //     console.log(err);
+  //     res.send({success: false, message: err});
+  //   } else {
+  //     // console.log("result");
+  //     // console.log(result);
+  //     // console.log(result.rows[0])
+  //     res.send({success: true, product: result.rows[0]})
+  //   }
+  // })
 
 
   // DEPREC
@@ -309,27 +335,37 @@ exports.update = (req, res) => {
 
   const productId = parseInt(req.params.id) // has to be an int
 
-  let query = 'UPDATE products'
-  query += " SET title = '" + req.body.title + "'"
-  query += " , description = '" + req.body.description + "'"
-
-  query += " WHERE id = " + productId
-  query += ' RETURNING *;'
-
-  console.log(query);
-  // TODO: need a better way to generate these, some sort of query builder
-  db.query(query, (err, result) => {
-    if(err) {
-      console.log("ERROR")
-      console.log(err);
-      res.send({success: false, message: err});
-    } else {
-      // console.log("result");
-      // console.log(result);
-      // console.log(result.rows[0])
-      res.send({success: true, product: result.rows[0]})
-    }
+  // using knex/objection models
+  Product.query()
+  .findById(productId)
+  .update(req.body) //valiation? errors??
+  .returning('*') // doesn't do this automatically on an update
+  .then(product => {
+    console.log("PRODUCT", product)
+    res.send({success: true, product})
   })
+
+  // let query = 'UPDATE products'
+  // query += " SET title = '" + req.body.title + "'"
+  // query += " , description = '" + req.body.description + "'"
+
+  // query += " WHERE id = " + productId
+  // query += ' RETURNING *;'
+
+  // console.log(query);
+  // // TODO: need a better way to generate these, some sort of query builder
+  // db.query(query, (err, result) => {
+  //   if(err) {
+  //     console.log("ERROR")
+  //     console.log(err);
+  //     res.send({success: false, message: err});
+  //   } else {
+  //     // console.log("result");
+  //     // console.log(result);
+  //     // console.log(result.rows[0])
+  //     res.send({success: true, product: result.rows[0]})
+  //   }
+  // })
 
 
   // DEPREC

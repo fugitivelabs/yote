@@ -46,3 +46,5 @@ create database seed for things
 create seeds
 ```knex seed:run
 
+BUILDING QUERIES
+https://devhints.io/knex

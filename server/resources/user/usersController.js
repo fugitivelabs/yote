@@ -11,7 +11,9 @@ let appUrl = require('../../config')[process.env.NODE_ENV].appUrl;
 // get secrets if needed
 // let secrets = require('../../config')[process.env.NODE_ENV].secrets;
 
-let User = require('mongoose').model('User');
+// let User = require('mongoose').model('User');
+const User = require('./UserModel2');
+
 let emailUtil = require('../../global/utils/email');
 let logger = global.logger;
 
@@ -24,39 +26,46 @@ exports.getLoggedInUser = (req, res) => {
   res.send({success: true, user: req.user})
 }
 
-exports.list = function(req, res) {
-  // check if query is paginated.
-  if(req.query.page) {
-    logger.debug("listing users with pagination");
-    let page = req.query.page || 1;
-    let per = req.query.per || 20;
-    User.find({}).skip((page-1)*per).limit(per).exec(function(err, users) {
-      if(err || !users) {
-        res.send({ success: false, message: err });
-      } else {
-        res.send({
-          success: true
-          , users: users
-          , pagination: {
-            page: page
-            , per: per
-          }
-        });
-      }
-    });
-  } else {
-    logger.debug("listing users");
-    User.find({}).exec(function(err, users) {
-      if(err || !users) {
-        res.send({ success: false, message: err });
-      } else {
-        res.send({ success: true, users: users });
-      }
-    });
-  }
+exports.list = (req, res) => {
+  User.query()
+  .then(users => {
+    res.send({success: true, users})
+  })
+  // // check if query is paginated.
+  // if(req.query.page) {
+  //   logger.debug("listing users with pagination");
+  //   let page = req.query.page || 1;
+  //   let per = req.query.per || 20;
+  //   User.find({}).skip((page-1)*per).limit(per).exec(function(err, users) {
+  //     if(err || !users) {
+  //       res.send({ success: false, message: err });
+  //     } else {
+  //       res.send({
+  //         success: true
+  //         , users: users
+  //         , pagination: {
+  //           page: page
+  //           , per: per
+  //         }
+  //       });
+  //     }
+  //   });
+  // } else {
+  //   logger.debug("listing users");
+  //   User.find({}).exec(function(err, users) {
+  //     if(err || !users) {
+  //       res.send({ success: false, message: err });
+  //     } else {
+  //       res.send({ success: true, users: users });
+  //     }
+  //   });
+  // }
 }
 
 exports.listByValues = (req, res) => {
+
+  res.send({success: false, message: "Not implemented for Postgres yet"});
+  return;
   /**
    * returns list of users queried from the array of _id's passed in the query param
    *
@@ -103,24 +112,39 @@ exports.listByRefs = (req, res) => {
         query[nextParams.split("/")[i]] = nextParams.split("/")[i+1] === 'null' ? null : nextParams.split("/")[i+1]
       }
     }
-    User.find(query, (err, users) => {
-      if(err || !users) {
-        res.send({success: false, message: `Error retrieving users by ${req.params.refKey}: ${req.params.refId}`});
-      } else {
-        res.send({success: true, users})
-      }
+
+    User.query()
+    .where(query)
+    .then(users => {
+      res.send({success: true, users})
     })
+
+    // User.find(query, (err, users) => {
+    //   if(err || !users) {
+    //     res.send({success: false, message: `Error retrieving users by ${req.params.refKey}: ${req.params.refId}`});
+    //   } else {
+    //     res.send({success: true, users})
+    //   }
+    // })
   }
 }
 
-exports.getById = function(req, res) {
-  User.findById(req.params.id).exec(function(err, user) {
-    if(err || !user) {
-      res.send({ success: false, message: "Error retrieving user", err: err });
+exports.getById = (req, res) => {
+  User.query().findById(req.params.id)
+  .then(user => {
+    if(user) {
+      res.send({success: true, user})
     } else {
-      res.send({ success: true, user: user });
+      res.send({success: false, message: "User not found"})
     }
   })
+  // User.findById(req.params.id).exec(function(err, user) {
+  //   if(err || !user) {
+  //     res.send({ success: false, message: "Error retrieving user", err: err });
+  //   } else {
+  //     res.send({ success: true, user: user });
+  //   }
+  // })
 }
 
 exports.utilCheckAndSaveUser = function(userData, callback) {
@@ -150,21 +174,31 @@ exports.utilCheckAndSaveUser = function(userData, callback) {
   userData.password_salt = User.createPasswordSalt();
   userData.password_hash = User.hashPassword(userData.password_salt, userData.password);
 
-  User.create(userData, function(err, user) {
-    if(err || !user) {
-      if(err.toString().indexOf('E11000') > -1) {
-        err = new Error('Duplicate Username');
-      }
-      callback({ success: false, message: "Username is already in use." });
+  User.query().insert(userData)
+  .then(user => {
+    if(user) {
+      res.send({success: true, user})
     } else {
-      callback({ success: true, user: user });
+      // how to catch for sql errors here?
+      res.send({success: false, message: "Could not save User"})
     }
-  });
+  })
+
+  // User.create(userData, function(err, user) {
+  //   if(err || !user) {
+  //     if(err.toString().indexOf('E11000') > -1) {
+  //       err = new Error('Duplicate Username');
+  //     }
+  //     callback({ success: false, message: "Username is already in use." });
+  //   } else {
+  //     callback({ success: true, user: user });
+  //   }
+  // });
 }
 
 exports.create = function(req, res) {
   let userData = req.body;
-  exports.utilCheckAndSaveUser(userData, function(result) {
+  exports.utilCheckAndSaveUser(userData, result => {
     res.send(result);
   });
 }
@@ -172,7 +206,7 @@ exports.create = function(req, res) {
 exports.register = function(req, res, next) {
   let userData = req.body;
   userData.roles = []; // don't let registering user set their own roles
-  exports.utilCheckAndSaveUser(userData, function(result) {
+  exports.utilCheckAndSaveUser(userData, result => {
     if(!result.success) {
       res.send(result);
     } else {

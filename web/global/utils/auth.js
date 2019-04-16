@@ -7,10 +7,10 @@
 
 const Auth = {
   notAdmin() {
-    return window.currentUser._id && window.currentUser.roles.indexOf('admin') < 0;
+    return window.currentUser._id && window.currentUser.roles && window.currentUser.roles.indexOf('admin') < 0;
   }
   , notRole(role) {
-    return window.currentUser._id && window.currentUser.roles.indexOf(role) < 0;
+    return window.currentUser._id && window.currentUser.roles && window.currentUser.roles.indexOf(role) < 0;
   }
   , notLoggedIn() {
     return !window.currentUser._id;

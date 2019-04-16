@@ -87,7 +87,8 @@ require('./db')(config);
 global.db = knex(config)
 
 // init User model
-let User = mongoose.model('User');
+// let User = mongoose.model('User');
+let User = require('./resources/user/UserModel2');
 
 // use express compression plugin
 app.use(compress());
@@ -134,11 +135,11 @@ app.use((req, res, next) => {
   // test user:
   logger.info("YOTE USER: " + (req.user ? req.user.username : "none"));
 
-  // check mongo connection
-  if(mongoose.connection.readyState !== 1) {
-    mongoose.connect(config.db);
-    res.send("mongoose error, hold your horses...");
-  }
+  // // check mongo connection
+  // if(mongoose.connection.readyState !== 1) {
+  //   mongoose.connect(config.db);
+  //   res.send("mongoose error, hold your horses...");
+  // }
 
   // check for OPTIONS method
   if(req.method == 'OPTIONS') {
@@ -154,15 +155,25 @@ passport.use('local', new LocalStrategy(
     var projection = {
       username: 1, password_salt: 1, password_hash: 1, roles: 1
     }
-    User.findOne({username:username}, projection).exec((err, user) => {
-      if(user && user.authenticate(password)) {
+    User.query().where({username: username}).first()
+    .then(user => {
+      if(user && User.authenticate(user, password)) {
         logger.debug("authenticated!");
-        return done(null, user);
+        return done(null, user)
       } else {
         logger.debug("NOT authenticated");
         return done(null, false);
       }
     })
+    // User.findOne({username:username}, projection).exec((err, user) => {
+    //   if(user && user.authenticate(password)) {
+    //     logger.debug("authenticated!");
+    //     return done(null, user);
+    //   } else {
+    //     logger.debug("NOT authenticated");
+    //     return done(null, false);
+    //   }
+    // })
   }
 ));
 
@@ -176,13 +187,22 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser((id, done) => {
   // logger.warn("DESERIALIZE USER");
   // NOTE: we want mobile user to have access to their api token, but we don't want it to be select: true
-  User.findOne({_id:id}).exec((err, user) => {
+  
+  User.query().findById(id)
+  .then(user => {
     if(user) {
       return done(null, user);
     } else {
       return done(null, false);
     }
   })
+  // User.findOne({_id:id}).exec((err, user) => {
+  //   if(user) {
+  //     return done(null, user);
+  //   } else {
+  //     return done(null, false);
+  //   }
+  // })
 })
 
 // development only

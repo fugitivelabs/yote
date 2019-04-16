@@ -96,7 +96,7 @@ function productList(state = {
         } else {
           let idArray = [];
           for(const item of action.list) {
-            idArray.push(item.id);
+            idArray.push(item._id);
           }
           return {
             ...state
@@ -366,7 +366,7 @@ function product(state = {
         ...state
         , byId: {
           ...state.byId
-          , [action.item.id]: action.item
+          , [action.item._id]: action.item
         }
       }
       break;
@@ -377,10 +377,10 @@ function product(state = {
         ...state
         , byId: {
           ...state.byId
-          , [action.item.id]: action.item
+          , [action.item._id]: action.item
         }
         , selected: {
-          id: action.item.id
+          id: action.item._id
           , isFetching: false
           , error: null
           , didInvalidate: false
@@ -539,7 +539,7 @@ function product(state = {
       let newIdMap = { ...state.byId };
       if(action.success) {
         for(const item of action.list) {
-          newIdMap[item.id] = item;
+          newIdMap[item._id] = item;
         }
       }
       nextState = {

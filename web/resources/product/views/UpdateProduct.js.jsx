@@ -65,7 +65,7 @@ class UpdateProduct extends Binder {
     e.preventDefault();
     dispatch(productActions.sendUpdateProduct(this.state.product)).then((action) => {
       if(action.success) {
-        history.push(`/products/${action.item.id}`)
+        history.push(`/products/${action.item._id}`)
       } else {
         // console.log("Response Error:");
         // console.log(action);
@@ -87,7 +87,7 @@ class UpdateProduct extends Binder {
     const isEmpty = (
       !product
       || !selectedProduct
-      || !selectedProduct.id
+      || !selectedProduct._id
     );
 
     const isFetching = (
@@ -103,7 +103,7 @@ class UpdateProduct extends Binder {
           :
           <ProductForm
             product={product}
-            cancelLink={`/products/${product.id}`}
+            cancelLink={`/products/${product._id}`}
             formHelpers={formHelpers}
             formTitle="Update Product"
             formType="update"

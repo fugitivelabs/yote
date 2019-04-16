@@ -4,7 +4,8 @@
  */
 
 let passport = require('passport');
-let User = require('mongoose').model('User');
+// let User = require('mongoose').model('User');
+let User = require('./UserModel2')
 let users = require('./usersController');
 let logger = global.logger;
 
@@ -23,17 +24,29 @@ module.exports = function(router, requireLogin, requireRole) {
           res.send({ success:false, message: "Matching user not found." });
         } else {
           // User is authenticted. Now get actual user data from the db and log them in
-          User.findById(user._id, (err, user) => {
-            if(err || !user) {
+          User.query().findById(user._id)
+          .then(user => {
+            if(!user) {
               res.send({ success: false, message: "Error logging user in." });
             } else {
-              req.logIn(user, function(err) {
+              req.logIn(user, err => {
                 if(err) { return next(err);}
                 logger.warn(req.user);
-                res.send({ success: true, user: user });
+                res.send({ success: true, user });
               });
             }
           })
+          // User.findById(user._id, (err, user) => {
+          //   if(err || !user) {
+          //     res.send({ success: false, message: "Error logging user in." });
+          //   } else {
+          //     req.logIn(user, function(err) {
+          //       if(err) { return next(err);}
+          //       logger.warn(req.user);
+          //       res.send({ success: true, user: user });
+          //     });
+          //   }
+          // })
         }
       })(req, res, next);
     }
@@ -41,6 +54,9 @@ module.exports = function(router, requireLogin, requireRole) {
 
   // user want to login and use an API token instead of session cookies -- i.e. for mobile
   router.post('/api/users/token', function(req, res, next) {
+    res.send({success: false, message: "NOT IMPLEMENTED IN SQL YET"});
+    return;
+    
     req.body.username = req.body.username.toLowerCase();
     passport.authenticate('local', { session: false }, function(err, user) {
       if(err) {
@@ -75,6 +91,8 @@ module.exports = function(router, requireLogin, requireRole) {
     // logout with token will not affect session status, and vice-versa
     logger.debug("logout");
     if(req.headers.token) {
+      res.send({success: false, message: "NOT IMPLEMENTED IN SQL YET"})
+      return;
       logger.debug("logout with token");
       // remove token object
       User.findOne({ apiToken: req.headers.token }).exec(function(err, user) {

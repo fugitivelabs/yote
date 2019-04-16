@@ -41,13 +41,15 @@ class SingleProduct extends Binder {
 
     const isEmpty = (
       !selectedProduct
-      || !selectedProduct.id
+      || !selectedProduct._id
       || productStore.selected.didInvalidate
     )
 
     const isFetching = (
       productStore.selected.isFetching
     )
+
+    console.log("STORE", selectedProduct)
 
     return (
       <ProductLayout>
