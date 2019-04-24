@@ -101,36 +101,34 @@ class SelectFromObject extends Binder {
     if(Array.isArray(items)) {
       // items is an array
       options = items.map(item => {
+        let option = {}
         // Build each option based on the type of item we have.
         // This allows us to pass an array of objects or an array of strings.
         if(typeof(item) === 'object') {
           if(!display || !value) {
             console.error("ERROR in Select Input! Must supply 'value' and 'display' props when 'items' is an array of objects.")
           } else {
-            let option = {};
             option.value = item[value];
             option.label = _.startCase(item[display]);
             option.name = name;
             return option;
           }
         } else if(typeof(item) === 'string') {
-          let option = {}
           option.value = item;
           option.label = _.startCase(item);
           option.name = name;
-          option.clearableValue = false;
           return option;
         }
       });
     } else {
       /**
-       * NOTE: Techincally this loop can handle objects OR arrays. It is considered bad practice to use a for...in loop on an array
+       * NOTE: Techincally the loop below can handle objects OR arrays. It is considered bad practice to use a for...in loop on an array
        * due to the possibility of some third party library adding to or modifying array.prototype. This issue is mitigated by using
        * hasOwnProperty, since then it ignores the rest of the prototype chain properties. All of that to say that the below loop
        * could, theoretically, stand on it's own and we wouldn't have to care if we provided an array or a map to this component.
        * For now though we are being cautious and dealing with arrays above and objects below.
        */
-      
+
       // items is a map {}
       for(let i in items) {
         if(items.hasOwnProperty(i)) {
@@ -155,7 +153,7 @@ class SelectFromObject extends Binder {
         }
       }
     }
-    
+
     const requiredText = required ? "(required)" : "";
 
     return (
