@@ -84,7 +84,17 @@ class SelectFromObject extends Binder {
   }
 
   render() {
-    const { disabled, display, filterable, items, label, name, placeholder, value, required } = this.props;
+    const {
+      disabled
+      , display
+      , filterable
+      , items
+      , label
+      , name
+      , placeholder
+      , required
+      , value
+    } = this.props;
 
     // build the options to select from.
     let options = []
@@ -113,6 +123,14 @@ class SelectFromObject extends Binder {
         }
       });
     } else {
+      /**
+       * NOTE: Techincally this loop can handle objects OR arrays. It is considered bad practice to use a for...in loop on an array
+       * due to the possibility of some third party library adding to or modifying array.prototype. This issue is mitigated by using
+       * hasOwnProperty, since then it ignores the rest of the prototype chain properties. All of that to say that the below loop
+       * could, theoretically, stand on it's own and we wouldn't have to care if we provided an array or a map to this component.
+       * For now though we are being cautious and dealing with arrays above and objects below.
+       */
+      
       // items is a map {}
       for(let i in items) {
         if(items.hasOwnProperty(i)) {
@@ -139,7 +157,7 @@ class SelectFromObject extends Binder {
     }
     
     const requiredText = required ? "(required)" : "";
-     
+
     return (
       <div className="select-from-object input-group">
         <label htmlFor={name}>{label} <span className="subhead">{requiredText}</span></label>
@@ -162,11 +180,11 @@ SelectFromObject.propTypes = {
   , disabled: PropTypes.bool
   , display: PropTypes.string.isRequired
   , filterable: PropTypes.bool
-  , label: PropTypes.string
   , items: PropTypes.oneOfType([
     PropTypes.array
     , PropTypes.object
   ]).isRequired
+  , label: PropTypes.string
   , placeholder: PropTypes.string
   , required: PropTypes.bool
   , selected: PropTypes.string
