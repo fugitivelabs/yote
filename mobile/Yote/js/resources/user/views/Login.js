@@ -14,6 +14,7 @@ import _ from 'lodash';
 // import react-native components & apis
 import {
   Alert
+  , AsyncStorage
   , Dimensions
   , Image
   , Linking
@@ -91,6 +92,8 @@ class Login extends Binder {
     this.props.dispatch(singleActions.sendLogin(this.state.username, this.state.password)).then((res) => {
       if(!res.success) {
         Alert.alert("Whoops", res.error);
+      } else {
+        this.props.navigation.navigate('App'); 
       }
     });
   }

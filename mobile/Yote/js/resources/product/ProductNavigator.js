@@ -12,7 +12,7 @@ import {
   , TouchableOpacity
   , View
 } from 'react-native';
-import { StackNavigator } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation';
 
 // import product components
 import CreateProduct from './views/CreateProduct';
@@ -21,7 +21,7 @@ import SingleProduct from './views/SingleProduct';
 import UpdateProduct from './views/UpdateProduct';
 
 // horizontal screen transitions
-const CardNavigator = StackNavigator(
+const CardNavigator = createStackNavigator(
   {
     ProductRoot: {
       screen: ProductRoot
@@ -36,7 +36,7 @@ const CardNavigator = StackNavigator(
     }
 );
 
-const ProductNavigator = StackNavigator(
+const ProductNavigator = createStackNavigator(
   {
     CardNavigator: {
       screen: CardNavigator

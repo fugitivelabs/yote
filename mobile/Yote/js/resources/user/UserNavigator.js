@@ -13,14 +13,14 @@ import {
   , View
 } from 'react-native';
 
-import { StackNavigator } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation';
 
 // import user components
 import Login from './views/Login'; 
 import Profile from './views/Profile'; 
 import UpdateProfile from './views/UpdateProfile'; 
 
-const UserNavigator = StackNavigator(
+const UserNavigator = createStackNavigator(
   {
     Profile: {
       screen: Profile

@@ -127,7 +127,11 @@ class Profile extends Binder {
   }
 
   _handleLogout() {
-    this.props.dispatch(singleActions.sendLogout());
+    this.props.dispatch(singleActions.sendLogout()).then((res) => {
+      if(res.success) {
+        this.props.navigation.navigate('Auth'); 
+      }
+    })
   }
 
   _openImagePicker() { 

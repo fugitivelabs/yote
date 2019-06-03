@@ -12,15 +12,15 @@ import {
   , TouchableOpacity
   , View
 } from 'react-native';
-import { StackNavigator, TabNavigator } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation';
 
 // import global components
 
 // import custom components
-import Login from '../../resources/user/views/Login'; 
-import Register from '../../resources/user/views/Register'; 
+import Login from '../resources/user/views/Login'; 
+import Register from '../resources/user/views/Register'; 
 
-const LoggedOutNavigator = StackNavigator(
+const AuthStack = createStackNavigator(
   {
     Login: {
       screen: Login
@@ -35,4 +35,4 @@ const LoggedOutNavigator = StackNavigator(
     }
 );
 
-export default LoggedOutNavigator;
+export default AuthStack;
