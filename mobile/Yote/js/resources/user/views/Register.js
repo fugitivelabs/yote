@@ -106,8 +106,12 @@ class Register extends Binder {
       if (re.test(this.state.user.username)){
         this.props.dispatch(userActions.sendRegister(this.state.user)).then((json) => {
           if (json.success) {
-            this.props.dispatch(userActions.sendLogin(this.state.user.username, this.state.user.password)); 
-            Alert.alert("Welcome!", `Thanks for registering with ${displayName}! Enjoy!`, [{text: 'Get Started', onPress: null}]);
+            this.props.dispatch(userActions.sendLogin(this.state.user.username, this.state.user.password)).then((res) => {
+              if(res.success) {
+                this.props.navigation.navigate('App'); 
+              }
+            })
+            // Alert.alert("Welcome!", `Thanks for registering with ${displayName}! Enjoy!`, [{text: 'Get Started', onPress: null}]);
           } else {
             Alert.alert("Something went wrong", json.error);
           }
@@ -186,7 +190,7 @@ class Register extends Binder {
             />
             <ScrollView ref="myScrollView" keyboardDismissMode="interactive" keyboardShouldPersistTaps="handled" style={[{flex: 1}]}>
               <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-                <Image source={require('../../../global/img/logo.png')} resizeMode='contain' style={{height: screenHeight / 3, flex: 1, tintColor: YTStyles.colors.lightText}}/>
+                <Image source={require('../../../global/img/logo.png')} resizeMode='contain' style={{height: screenHeight / 3, flex: 1, tintColor: YTStyles.colors.accent}}/>
               </View>
               <View style={{flex: 1, paddingHorizontal: 20}}>
                 <View style={{flex: 0.5, marginBottom: 10}}>

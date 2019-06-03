@@ -14,7 +14,6 @@ import _ from 'lodash';
 // import react-native components & apis
 import {
   Alert
-  , AsyncStorage
   , Dimensions
   , Image
   , Linking
@@ -245,7 +244,7 @@ class Login extends Binder {
                   </View>
                   <View style={{paddingVertical: 10}}>
                     <YTButton
-                      buttonStyle={{backgroundColor: YTStyles.colors.yoteGreen}}
+                      buttonStyle={{backgroundColor: YTStyles.colors.accent}}
                       caption="Register"
                       captionStyle={{color: '#fff'}}
                       onPress={this._openRegister}
