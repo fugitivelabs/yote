@@ -6,36 +6,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-// import components
-import Binder from '../Binder.js.jsx';
-
-class SearchInput extends Binder {
-  constructor(props) {
-    super(props);
-    this._bind('_handleInputChange');
-  }
-
-  _handleInputChange(e) {
-    this.props.change(e);
-  }
-
-  render() {
-    const { name, placeholder, value } = this.props;
-    return (
-      <div className="search-input">
-        <div className="input-add-on">
-          <i className="item ion ion-search"/>
-          <input
-            type="search"
-            name={name}
-            placeholder={placeholder}
-            value={value}
-            onChange={this._handleInputChange}
-          />
-        </div>
+const SearchInput = ({
+  change
+  , name
+  , placeholder
+  , value
+}) => {
+  
+  return (
+    <div className="search-input">
+      <div className="input-add-on">
+        <i className="item ion ion-search"/>
+        <input
+          type="search"
+          name={name}
+          placeholder={placeholder}
+          value={value}
+          onChange={change}
+        />
       </div>
-    )
-  }
+    </div>
+  )
 }
 
 SearchInput.propTypes = {
