@@ -70,8 +70,14 @@ const mapStoreToProps = (store) => {
   }
 }
 
-export default withRouter(
+// export default withRouter(
+//   connect(
+//     mapStoreToProps
+//   )(Landing)
+// );
+
+export default 
   connect(
     mapStoreToProps
-  )(Landing)
-);
+  )(Landing);
+

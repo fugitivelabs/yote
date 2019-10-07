@@ -46,7 +46,7 @@ class UserLogin extends Binder {
     );
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState(nextProps);
     if(nextProps.status === "error") {
       alert(nextProps.error.message);

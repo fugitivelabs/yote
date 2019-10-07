@@ -21,6 +21,7 @@ import YTRoute from '../../global/components/routing/YTRoute.js.jsx';
 
 // import product views
 import CreateProduct from './views/CreateProduct.js.jsx';
+import CreateProductHooks from './views/CreateProductHooks.js.jsx';
 import ProductList from './views/ProductList.js.jsx';
 import SingleProduct from './views/SingleProduct.js.jsx';
 import UpdateProduct from './views/UpdateProduct.js.jsx';
@@ -42,7 +43,8 @@ class ProductRouter extends Binder {
         />
         <YTRoute
           breadcrumbs={[{display: 'All products', path: '/products'}, {display: 'New ', path: null}]}
-          component={CreateProduct}
+          // component={CreateProduct}
+          component={CreateProductHooks}
           login={true}
           exact
           path="/products/new"
@@ -53,13 +55,13 @@ class ProductRouter extends Binder {
           exact
           path="/products/:productId"
         />
-        <YTRoute
+        {/* <YTRoute
           breadcrumbs={[{display: 'All products', path: '/products'}, {display: 'Product Details', path: singleProductPath}, {display: 'Update', path: null}]}
           component={UpdateProduct}
           exact
           path="/products/:productId/update"
           role="admin"
-        />
+        /> */}
       </Switch>
     )
   }

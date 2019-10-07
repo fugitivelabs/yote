@@ -43,7 +43,7 @@ class UrlInput extends Binder {
     })
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if(nextProps.value !== this.props.value) {
       this.setState({
         isValid: this._isUrlValid(nextProps.value)

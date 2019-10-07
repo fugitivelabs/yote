@@ -82,8 +82,8 @@ const mapStoreToProps = (store) => {
   }
 }
 
-export default withRouter(
+export default
   connect(
     mapStoreToProps
   )(SingleProduct)
-);
+

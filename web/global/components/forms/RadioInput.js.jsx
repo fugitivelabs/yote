@@ -41,7 +41,7 @@ class RadioInput extends Binder {
     this.setState({selected: this.props.value});
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if(this.props.value !== nextProps.value) {
       this.setState({selected: nextProps.value});
     }

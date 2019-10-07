@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const AdminBreadcrumbs = ({ links }) => {
   return (
@@ -28,4 +28,4 @@ AdminBreadcrumbs.propTypes = {
   links: PropTypes.array.isRequired
 }
 
-export default withRouter(AdminBreadcrumbs);
+export default AdminBreadcrumbs;

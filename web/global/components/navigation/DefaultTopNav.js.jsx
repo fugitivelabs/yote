@@ -5,7 +5,7 @@
 // import primary libararies
 import React from 'react';
 import PropTypes from 'prop-types';
-import { NavLink, withRouter } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 // import third-party libraries
@@ -31,7 +31,7 @@ class DefaultTopNav extends Binder {
     );
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     window.addEventListener('scroll', this._handleScroll);
   }
 
@@ -187,8 +187,7 @@ const mapStoreToProps = (store) => {
   }
 }
 
-export default withRouter(
+export default 
   connect(
     mapStoreToProps
   )(DefaultTopNav)
-);

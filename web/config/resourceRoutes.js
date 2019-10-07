@@ -12,5 +12,5 @@
  */
 
 
-export { default as user } from '../resources/user/UserRouter.js.jsx';
+// export { default as user } from '../resources/user/UserRouter.js.jsx';
 export { default as products } from '../resources/product/ProductRouter.js.jsx';

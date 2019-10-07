@@ -33,7 +33,7 @@ class EmailInput extends Binder {
     );
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if(nextProps.value !== this.props.value) {
       this.setState({
         email: nextProps.value

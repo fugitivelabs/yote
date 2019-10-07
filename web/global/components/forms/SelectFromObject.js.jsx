@@ -67,7 +67,7 @@ class SelectFromObject extends Binder {
   }
 
   // check against any new props the component receives
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     nextProps.selected ? this.setState({selected: nextProps.selected}) : '';
   }
 

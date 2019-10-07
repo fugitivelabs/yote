@@ -38,7 +38,7 @@ class SelectFromArray extends Binder {
   }
 
   // check against any new props the component receives
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if(this.props.value != nextProps.value){
       this.setState({selected: nextProps.value});
     }

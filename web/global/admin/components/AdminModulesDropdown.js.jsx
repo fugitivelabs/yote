@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import { NavLink, withRouter } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 // import third-party libraries
 import classNames from 'classnames';
@@ -44,4 +44,4 @@ AdminModulesDropdown.propTypes = {
   , isOpen: PropTypes.bool.isRequired
 }
 
-export default withRouter(AdminModulesDropdown);
+export default AdminModulesDropdown

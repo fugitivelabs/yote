@@ -10,7 +10,8 @@
 
 // import primary libraries
 import React from 'react';
-import { Route, Switch, withRouter } from 'react-router-dom';
+// import { Route, Switch, withRouter } from 'react-router-dom';
+import { Route, Switch } from 'react-router';
 
 import YTRoute from '../global/components/routing/YTRoute.js.jsx';
 
@@ -40,7 +41,7 @@ const routes =
         path={`/${_.kebabCase(resourceName)}`}
       />
     )}
-    { Object.keys(adminResourceRoutes).map((resourceName, i) =>
+    {/* { Object.keys(adminResourceRoutes).map((resourceName, i) =>
       <YTRoute
         component={adminResourceRoutes[resourceName]}
         key={Math.floor(Math.random()*100000)}
@@ -50,7 +51,7 @@ const routes =
     )}
     <Route path="/admin">
       <AdminRouter/>
-    </Route>
+    </Route> */}
     <Route component={NotFound} />
   </Switch>
 ;

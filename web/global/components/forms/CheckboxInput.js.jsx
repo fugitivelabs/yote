@@ -18,7 +18,7 @@ class CheckboxInput extends Binder {
     this._bind('_handleInputChange');
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if(nextProps.value !== this.state.isChecked) {
       this.setState({isChecked: !this.state.isChecked})
     }

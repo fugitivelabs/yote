@@ -18,10 +18,13 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import createHistory from 'history/createBrowserHistory';
-import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-router-redux';
+// import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-router-redux';
+import { ConnectedRouter } from 'connected-react-router'
+
+
 
 // instantiate tap event plugin
-// injectTapEventPlugin();
+// injectTapEventPlugin(); more info: https://github.com/zilverline/react-tap-event-plugin/issues/121
 
 
 // import scss files.
@@ -74,11 +77,13 @@ const history = createHistory();
 
 render(
     <Provider store={store}>
-      <ConnectedRouter
-        history={history}
-      >
-        {routes}
-      </ConnectedRouter>
+      <Router>
+        <ConnectedRouter
+          history={history}
+        >
+          {routes}
+        </ConnectedRouter>
+      </Router>
     </Provider>
   , document.getElementById('application-main-yote')
 )

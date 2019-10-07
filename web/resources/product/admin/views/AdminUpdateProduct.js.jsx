@@ -47,7 +47,7 @@ class AdminUpdateProduct extends Binder {
     dispatch(productActions.fetchSingleIfNeeded(match.params.productId))
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { match, productStore } = nextProps;
     this.setState({
       product: productStore.byId[match.params.productId] ? _.cloneDeep(productStore.byId[match.params.productId]) : {}
@@ -56,10 +56,10 @@ class AdminUpdateProduct extends Binder {
   }
 
   _handleFormChange(e) {
-    var newState = _.update(this.state, e.target.name, function() {
+    var newState = _.update(_.cloneDeep(this.state), e.target.name, function() {
       return e.target.value;
     });
-    this.setState({newState});
+    this.setState(newState);
   }
 
   _handleFormSubmit(e) {

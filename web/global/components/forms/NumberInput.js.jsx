@@ -20,7 +20,7 @@ class NumberInput extends Binder {
     this._bind('_handleInputChange');
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if(nextProps.value !== this.state.theVal) {
       var val = nextProps.value;
       this.setState({theVal: val});

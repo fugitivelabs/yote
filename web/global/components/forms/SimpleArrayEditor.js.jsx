@@ -28,7 +28,7 @@ class SimpleArrayEditor extends Binder {
   }
 
   // check against any new props the component receives
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if(this.props.arrayType != nextProps.arrayType) {
       if(nextProps.arrayType == "string") {
         this.setState({newItem: ''});

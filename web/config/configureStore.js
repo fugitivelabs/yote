@@ -10,18 +10,21 @@ import thunk from 'redux-thunk'
 // import { browserHistory } from 'react-router';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import createHistory from 'history/createBrowserHistory';
-import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-router-redux';
+// import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-router-redux';
+import { connectRouter, routerMiddleware } from 'connected-react-router'
 
 // import main application reducers
 import * as resourceReducers from './resourceReducers.js';
 
-// combine application reducers with redux routing
-const rootReducer = combineReducers({
-  routing: routerReducer
-  , ...resourceReducers
-});
+
 
 const history = createHistory();
+
+// combine application reducers with redux routing
+const rootReducer = combineReducers({
+  router: connectRouter(history)
+  , ...resourceReducers
+});
 
 // let process = global.process;
 
@@ -51,7 +54,7 @@ export default function configureStore(initialState) {
 
   const store = createStore(
     rootReducer
-    , routerReducer
+    // , routerReducer
     // , jadeInitialState
     , applyMiddleware(
       ...middlewares

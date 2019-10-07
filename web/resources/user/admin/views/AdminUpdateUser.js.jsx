@@ -44,7 +44,7 @@ class AdminUpdateUser extends Binder {
     dispatch(userActions.fetchSingleIfNeeded(match.params.userId));
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { selectedUser, userMap } = nextProps;
     this.setState({
       user: userMap[selectedUser.id] ? JSON.parse(JSON.stringify(userMap[selectedUser.id])) : {test: "a"}

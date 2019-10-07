@@ -5,7 +5,7 @@
 // import primary libararies
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link, NavLink, withRouter } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 // import third-party libraries
@@ -126,8 +126,7 @@ const mapStoreToProps = (store) => {
   }
 }
 
-export default withRouter(
+export default 
   connect(
     mapStoreToProps
   )(AdminTopNav)
-);
