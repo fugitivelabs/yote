@@ -160,6 +160,7 @@ class SelectFromObject extends Binder {
       <div className="select-from-object input-group">
         <label htmlFor={name}>{label} <span className="subhead">{requiredText}</span></label>
         <Select
+          classNamePrefix="-select"
           isDisabled={disabled}
           isSearchable={filterable}
           name={name}

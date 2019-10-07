@@ -508,6 +508,28 @@ form {
   }
 }
 
+// make the react-select component match the look of our other form input components.
+.select-from-object {
+  // z-index: 1000;
+  .-select__value-container {
+    max-height: 37px;
+  }
+  .-select__control {
+    background-color: darken($formContainerColor, 2);
+    border: 1px solid $divider-color;
+    border-radius: 0px;
+    &.-select__control--is-focused {
+      border: 1px solid $formAccentColor;
+      box-shadow: none;
+    }
+    &:disabled {
+      opacity: 0.7;
+      &:hover {
+        cursor: not-allowed;
+      }
+    }
+  }
+}
 
 .-form-step {
   @include medium-font;
