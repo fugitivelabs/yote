@@ -183,8 +183,7 @@ const mapStoreToProps = (store) => {
   let sortedList = [];
   let paginatedList = [];
   let filteredByQuery = [];
-  if (userList) {
-
+  if (userList && userList.items) {
     const pagination = userList.pagination;
     const filter = userList.filter;
     const query = userList.query;
