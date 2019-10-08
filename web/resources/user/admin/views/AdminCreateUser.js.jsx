@@ -61,7 +61,7 @@ class AdminCreateUser extends Binder {
 
   render() {
     const { user } = this.state;
-    const isEmpty = !user || (user.username === null || user.username === undefined);
+    const isEmpty = !user;
     return (
       <div className="flex">
         <section className="section transparent-bg">

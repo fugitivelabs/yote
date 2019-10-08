@@ -65,7 +65,7 @@ class UserProfile extends Binder {
 
   _handleFormSubmit(e) {
     const { dispatch } = this.props;
-    var newState = this.state.newUserData;
+    const newState = this.state.newUserData;
     dispatch(userActions.sendUpdateProfile(newState)).then( action => {
       this._closeUpdateModal();
     });
@@ -75,6 +75,7 @@ class UserProfile extends Binder {
   render() {
     const { user } = this.props;
 
+    // TODO: Drop the default profile image and use the user's first/last initials.
     const pictureUrl = user.profilePicUrl || '/img/defaults/profile.png';
 
     const isEmpty = !user._id;

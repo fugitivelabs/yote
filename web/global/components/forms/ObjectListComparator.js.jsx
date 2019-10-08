@@ -18,11 +18,11 @@ class ObjectListComparator extends Binder {
     this._bind(
       '_addItem'
       , '_addAll'
+      , '_handleFormChange'
       , '_moveDown'
       , '_moveUp'
       , '_removeItem'
       , '_removeAll'
-      , '_handleFormChange'
     )
   }
 
@@ -132,17 +132,16 @@ class ObjectListComparator extends Binder {
     const {
       addLabel
       , addRemoveAll
+      , availableLabel
       , displayKey
       , filterable
-      , tooltipText
       , items
       , label
-      , name
       , removeLabel
       , reorderable
       , selected
       , selectedLabel
-      , availableLabel
+      , tooltipText
       , valueKey
     } = this.props;
     const { queryText } = this.state;
@@ -221,14 +220,14 @@ class ObjectListComparator extends Binder {
           </div>
           <div className="yt-row with-gutters">
             <div className="yt-col _50">
-              <div className="-label">{selectedLabel ? selectedLabel + ':': 'Selected:'}</div>
+              <div className="-label">{selectedLabel + ':'}</div>
               { addRemoveAll ?
                 <button
                   type="button"
                   className="yt-btn link info x-small"
                   onClick={() => this._removeAll()}
                 >
-                  {removeLabel ? removeLabel : "Remove All"}
+                  {removeLabel}
                 </button>
                 : null
               }
@@ -273,7 +272,7 @@ class ObjectListComparator extends Binder {
               </div>
             </div>
             <div className="yt-col _50">
-              <div className="-label">{availableLabel ? availableLabel + ':' : 'Available:'}</div>
+              <div className="-label">{availableLabel + ':'}</div>
               { addRemoveAll ?
                 <button
                   type="button"
@@ -305,7 +304,10 @@ class ObjectListComparator extends Binder {
 }
 
 ObjectListComparator.propTypes = {
-  change: PropTypes.func.isRequired
+  addLabel: PropTypes.string
+  , addRemoveAll: PropTypes.bool
+  , availableLabel: PropTypes.string
+  , change: PropTypes.func.isRequired
   , displayKey: PropTypes.string.isRequired // key to display on objects
   , filterable: PropTypes.bool
   , items: PropTypes.oneOfType([
@@ -314,17 +316,22 @@ ObjectListComparator.propTypes = {
   ]).isRequired // all possible items
   , label: PropTypes.string
   , name: PropTypes.string.isRequired // name of field on parent to update
+  , removeLabel: PropTypes.string
   , reorderable: PropTypes.bool
   , selected: PropTypes.arrayOf(PropTypes.string) // array of [valueKey's]
+  , selectedLabel: PropTypes.string
   , tooltipText: PropTypes.string
   , valueKey: PropTypes.string.isRequired // key to return as selected
 }
 
 ObjectListComparator.defaultProps = {
-  filterable: false
+  availableLabel: "Available"
+  , filterable: false
   , items: []
   , label: ""
+  , removeLabel: "Remove All"
   , reorderable: false
+  , selectedLabel: "Selected"
 }
 
 export default ObjectListComparator;

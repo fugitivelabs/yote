@@ -183,13 +183,13 @@ const mapStoreToProps = (store) => {
   let sortedList = [];
   let paginatedList = [];
   let filteredByQuery = [];
-  if (userList && userList.items) {
+  if(userList && userList.items) {
     const pagination = userList.pagination;
     const filter = userList.filter;
     const query = userList.query;
 
     // FILTER BY QUERY
-    var queryTestString = ("" + query).toLowerCase().trim();
+    let queryTestString = ("" + query).toLowerCase().trim();
     queryTestString = queryTestString.replace(/[^a-zA-Z0-9]/g,''); // replace all non-characters and numbers
     filteredByQuery = userList.items.filter((userId) => {
       return filterUtils.filterUser(queryTestString, userMap[userId]);
@@ -197,13 +197,13 @@ const mapStoreToProps = (store) => {
 
     // SORT THE LIST
     sortedList = filteredByQuery.map((item) => {
-      var newItem = userMap[item];
+      let newItem = userMap[item];
       return newItem;
     });
 
     // apply pagination
-    var start = (pagination.page - 1) * pagination.per;
-    var end = start + pagination.per;
+    let start = (pagination.page - 1) * pagination.per;
+    let end = start + pagination.per;
     paginatedList = _.slice(sortedList, start, end);
 
   }
