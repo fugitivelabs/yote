@@ -52,7 +52,7 @@ class RadioInput extends Binder {
   }
 
   render() {
-    const {  helpText, inLine, label, name, options, selected,  } = this.props;
+    const { helpText, inLine, label, name, options } = this.props;
 
     const inputClass = classNames(
       'radio-input'

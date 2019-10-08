@@ -42,7 +42,7 @@ class EmailInput extends Binder {
   }
 
   _handleInputChange(e) {
-    let newState = _.update( this.state, e.target.name, function() {
+    let newState = _.update(_.cloneDeep(this.state), e.target.name, () => {
       return e.target.value;
     });
 

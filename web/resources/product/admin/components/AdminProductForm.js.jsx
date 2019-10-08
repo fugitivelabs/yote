@@ -14,7 +14,7 @@ import { Link } from 'react-router-dom';
 // import form components
 import {
   CheckboxInput
-  , SelectFromArray
+  , SelectFromObject
   , TextInput
   , TextAreaInput
 } from  '../../../../global/components/forms';
@@ -44,7 +44,7 @@ const AdminProductForm = ({
             <TextInput
               name="product.title"
               label="Title"
-              value={product.title}
+              value={product.title || ""}
               change={handleFormChange}
               placeholder="Title (required)"
               required={true}
@@ -52,13 +52,13 @@ const AdminProductForm = ({
             <TextAreaInput
               name="product.description"
               label="Description"
-              value={product.description}
+              value={product.description || ""}
               change={handleFormChange}
               required={false}
-              rows={3}
+              rows={"3"}
               placeholder="This is where the content goes..."
             />
-            <SelectFromArray
+            <SelectFromObject
               change={handleFormChange}
               items={formHelpers.statuses}
               label="Publish Status"

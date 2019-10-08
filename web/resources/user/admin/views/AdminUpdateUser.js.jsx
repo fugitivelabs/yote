@@ -26,7 +26,7 @@ class AdminUpdateUser extends Binder {
     this.state = {
       isDeleteModalOpen: false
       , isInfoModalOpen: false
-      , user: props.userMap[props.selectedUser.id] ? JSON.parse(JSON.stringify(props.userMap[props.selectedUser.id])) : {}
+      , user: props.userMap[props.selectedUser.id] ? _.cloneDeep(props.userMap[props.selectedUser.id]) : {}
       // NOTE: we don't want to change the store, just make changes to a copy
     }
     this._bind(
@@ -47,15 +47,16 @@ class AdminUpdateUser extends Binder {
   componentWillReceiveProps(nextProps) {
     const { selectedUser, userMap } = nextProps;
     this.setState({
-      user: userMap[selectedUser.id] ? JSON.parse(JSON.stringify(userMap[selectedUser.id])) : {test: "a"}
+      user: userMap[selectedUser.id] ? _.cloneDeep(userMap[selectedUser.id]) : {}
     })
     // NOTE: again, we don't want to change the store, just make changes to a copy
   }
 
   _handleFormChange(e) {
-    let nextState = this.state.user;
-    nextState[e.target.name] = e.target.value;
-    this.setState(nextState);
+    const user = _.update(_.cloneDeep(this.state.user), e.target.name, () => {
+      return e.target.value;
+    });
+    this.setState({user});
   }
 
   _handleFormSubmit(e) {
@@ -104,7 +105,6 @@ class AdminUpdateUser extends Binder {
   }
 
   render() {
-    const { selectedUser, userMap, loggedInUser } = this.props;
     const { user } = this.state;
     const isEmpty = !user || !user.username;
     return  (

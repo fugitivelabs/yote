@@ -32,17 +32,17 @@ const ProductForm = ({
         <TextInput
           name="product.title"
           label="Title"
-          value={product.title}
+          value={product.title || ""}
           change={handleFormChange}
           required={true}
         />
         <TextAreaInput
           name="product.description"
           label="Description"
-          value={product.description}
+          value={product.description || ""}
           change={handleFormChange}
           required={false}
-          rows={3}
+          rows={"3"}
         />
         <div className="input-group">
           <div className="yt-row space-between">
