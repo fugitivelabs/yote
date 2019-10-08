@@ -57,7 +57,7 @@ class UserProfile extends Binder {
   }
 
   _handleFormChange(e) {
-    let newUserData = _.update(_.cloneDeep(this.state.newUserData), e.target.name, () => {
+    const newUserData = _.update(_.cloneDeep(this.state.newUserData), e.target.name, () => {
       return e.target.value;
     });
     this.setState({newUserData});

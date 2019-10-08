@@ -187,37 +187,36 @@ class ObjectListComparator extends Binder {
         <label htmlFor="newItem">
         { label }
         { tooltipText ?
-            <span>
-              <sup><i className="fa fa-info-circle" style={{paddingLeft: '.5em'}} data-tip data-for={tooltipId} /></sup>
-              <ReactTooltip
-                aria-haspopup='true'
-                className="yt-tooltip"
-                id={tooltipId}
-                place="top"
-                type="dark"
-              >
-                <p>{tooltipText}</p>
-              </ReactTooltip>
-            </span>
-          :
-            null
+          <span>
+            <sup><i className="fa fa-info-circle" style={{paddingLeft: '.5em'}} data-tip data-for={tooltipId} /></sup>
+            <ReactTooltip
+              aria-haspopup='true'
+              className="yt-tooltip"
+              id={tooltipId}
+              place="top"
+              type="dark"
+            >
+              <p>{tooltipText}</p>
+            </ReactTooltip>
+          </span>
+          : null
         }
         </label>
         <div className="list-comparator-input">
           <div className="yt-row with-gutters">
             { filterable ?
-                <div className="yt-col _100">
-                  <TextInput
-                    name="queryText"
-                    label="Filter"
-                    value={queryText}
-                    change={this._handleFormChange}
-                    placeholder="Filter"
-                    required={false}
-                  />
-                </div>
+              <div className="yt-col _100">
+                <TextInput
+                  name="queryText"
+                  label="Filter"
+                  value={queryText}
+                  change={this._handleFormChange}
+                  placeholder="Filter"
+                  required={false}
+                />
+              </div>
               :
-                <div className="yt-col _100"></div>
+              <div className="yt-col _100"></div>
             }
           </div>
           <div className="yt-row with-gutters">

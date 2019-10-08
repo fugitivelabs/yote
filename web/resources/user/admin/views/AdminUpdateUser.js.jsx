@@ -53,7 +53,7 @@ class AdminUpdateUser extends Binder {
   }
 
   _handleFormChange(e) {
-    let user = _.update(_.cloneDeep(this.state.user), e.target.name, () => {
+    const user = _.update(_.cloneDeep(this.state.user), e.target.name, () => {
       return e.target.value;
     });
     this.setState({user});

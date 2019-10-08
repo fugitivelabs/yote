@@ -177,7 +177,7 @@ class SelectFromObject extends Binder {
 SelectFromObject.propTypes = {
   change: PropTypes.func.isRequired
   , disabled: PropTypes.bool
-  , display: PropTypes.string.isRequired
+  , display: PropTypes.string // Not required when 'items' is an array.
   , filterable: PropTypes.bool
   , items: PropTypes.oneOfType([
     PropTypes.array
