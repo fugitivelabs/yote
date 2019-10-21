@@ -56,10 +56,10 @@ class AdminUpdateProduct extends Binder {
   }
 
   _handleFormChange(e) {
-    var newState = _.update(this.state, e.target.name, function() {
+    const newState = _.update(_.cloneDeep(this.state), e.target.name, () => {
       return e.target.value;
     });
-    this.setState({newState});
+    this.setState(newState);
   }
 
   _handleFormSubmit(e) {

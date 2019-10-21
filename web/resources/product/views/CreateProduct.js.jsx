@@ -53,10 +53,10 @@ class CreateProduct extends Binder {
     /**
      * This let's us change arbitrarily nested objects with one pass
      */
-    let newState = _.update(this.state, e.target.name, function() {
+    const newState = _.update(_.cloneDeep(this.state), e.target.name, () => {
       return e.target.value;
     });
-    this.setState({newState});
+    this.setState(newState);
   }
 
 

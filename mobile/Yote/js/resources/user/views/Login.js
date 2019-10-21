@@ -91,6 +91,8 @@ class Login extends Binder {
     this.props.dispatch(singleActions.sendLogin(this.state.username, this.state.password)).then((res) => {
       if(!res.success) {
         Alert.alert("Whoops", res.error);
+      } else {
+        this.props.navigation.navigate('App'); 
       }
     });
   }
@@ -242,7 +244,7 @@ class Login extends Binder {
                   </View>
                   <View style={{paddingVertical: 10}}>
                     <YTButton
-                      buttonStyle={{backgroundColor: YTStyles.colors.yoteGreen}}
+                      buttonStyle={{backgroundColor: YTStyles.colors.accent}}
                       caption="Register"
                       captionStyle={{color: '#fff'}}
                       onPress={this._openRegister}

@@ -54,15 +54,16 @@ class UserLogin extends Binder {
   }
 
   _handleFormChange(e) {
-    var nextState = this.state.user;
-    nextState[e.target.name] = e.target.value;
-    this.setState(nextState);
+    let user = _.update(_.cloneDeep(this.state.user), e.target.name, () => {
+      return e.target.value;
+    });
+    this.setState({user});
   }
 
   _handleFormSubmit(e) {
     e.preventDefault();
     const { dispatch, history, location } = this.props;
-    dispatch(userActions.sendLogin(this.state.username, this.state.password)).then((action) => {
+    dispatch(userActions.sendLogin(this.state.user.username, this.state.user.password)).then((action) => {
       if(action.success) {
         if(location.state.from) {
           this.setState({redirectToReferrer: true});
@@ -88,6 +89,8 @@ class UserLogin extends Binder {
   render() {
     const { from } = this.props.location.state || { from: { pathname: '/' } }
     const { redirectToReferrer, user } = this.state;
+    console.log("this.state", this.state);
+    
 
     if(redirectToReferrer) {
       return (
