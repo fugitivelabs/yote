@@ -41,9 +41,13 @@ module.exports = (router, app) => {
     console.log("STORE? ", store.getState())
     const jsxLayout = (
       <Provider store={store}>
-        <StaticRouter context={context} location={req.url}>
+        {/* <h1>Test</h1> */}
+        {/* <StaticRouter context={context} location={req.url}>
           {routes}
-        </StaticRouter>
+        </StaticRouter> */}
+        <ConnectedRouter context={context} location={req.url}>
+          {routes}
+        </ConnectedRouter>
       </Provider>
     )
     
