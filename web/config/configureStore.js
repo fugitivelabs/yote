@@ -12,7 +12,7 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { routerReducer, routerMiddleware, push } from 'react-router-redux';
 
 // import createHistory from 'history/createBrowserHistory';
-import createHistory from 'history/createMemoryHistory';
+import { createHistory }  from 'history';
 
 // import main application reducers
 import * as resourceReducers from './resourceReducers.js';
