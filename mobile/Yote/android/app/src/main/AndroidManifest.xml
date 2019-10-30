@@ -1,23 +1,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-<<<<<<< HEAD
   package="com.yote">
 
     <uses-permission android:name="android.permission.INTERNET" />
-=======
-    package="com.yote">
-
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
->>>>>>> e302b486f24219b4af843583b1c1b6057d8af867
 
     <application
       android:name=".MainApplication"
       android:label="@string/app_name"
       android:icon="@mipmap/ic_launcher"
-<<<<<<< HEAD
       android:roundIcon="@mipmap/ic_launcher_round"
-=======
->>>>>>> e302b486f24219b4af843583b1c1b6057d8af867
       android:allowBackup="false"
       android:theme="@style/AppTheme">
       <activity

@@ -2,30 +2,17 @@
 
 buildscript {
     ext {
-<<<<<<< HEAD
         buildToolsVersion = "28.0.3"
         minSdkVersion = 16
         compileSdkVersion = 28
         targetSdkVersion = 28
-=======
-        buildToolsVersion = "27.0.3"
-        minSdkVersion = 16
-        compileSdkVersion = 27
-        targetSdkVersion = 26
-        supportLibVersion = "27.1.1"
->>>>>>> e302b486f24219b4af843583b1c1b6057d8af867
     }
     repositories {
         google()
         jcenter()
-        google()
     }
     dependencies {
-<<<<<<< HEAD
         classpath("com.android.tools.build:gradle:3.4.2")
-=======
-        classpath 'com.android.tools.build:gradle:3.1.4'
->>>>>>> e302b486f24219b4af843583b1c1b6057d8af867
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -43,20 +30,9 @@ allprojects {
             // Android JSC is installed from npm
             url("$rootDir/../node_modules/jsc-android/dist")
         }
-<<<<<<< HEAD
 
         google()
         jcenter()
         maven { url 'https://jitpack.io' }
-=======
-        google()
-        jcenter()
->>>>>>> e302b486f24219b4af843583b1c1b6057d8af867
     }
-}
-
-
-task wrapper(type: Wrapper) {
-    gradleVersion = '4.4'
-    distributionUrl = distributionUrl.replace("bin", "all")
 }

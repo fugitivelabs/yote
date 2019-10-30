@@ -4,13 +4,6 @@ import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
-<<<<<<< HEAD
-import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
-=======
-import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
-import com.BV.LinearGradient.LinearGradientPackage;
-import com.imagepicker.ImagePickerPackage;
->>>>>>> e302b486f24219b4af843583b1c1b6057d8af867
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
@@ -26,7 +19,6 @@ public class MainApplication extends Application implements ReactApplication {
           return BuildConfig.DEBUG;
         }
 
-<<<<<<< HEAD
         @Override
         protected List<ReactPackage> getPackages() {
           @SuppressWarnings("UnnecessaryLocalVariable")
@@ -35,17 +27,6 @@ public class MainApplication extends Application implements ReactApplication {
           // packages.add(new MyReactNativePackage());
           return packages;
         }
-=======
-    @Override
-    protected List<ReactPackage> getPackages() {
-      return Arrays.<ReactPackage>asList(
-          new MainReactPackage(),
-            new RNGestureHandlerPackage(),
-            new LinearGradientPackage(),
-            new ImagePickerPackage()
-      );
-    }
->>>>>>> e302b486f24219b4af843583b1c1b6057d8af867
 
         @Override
         protected String getJSMainModuleName() {
