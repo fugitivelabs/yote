@@ -6,8 +6,8 @@ import Home from './global/landing/Home';
 import Login from './resources/user/views/Login'; 
 import ProductRoot from './resources/product/views/ProductRoot'; 
 import AuthLoadingScreen from './AuthLoadingScreen'; 
-// Implementation of HomeScreen, OtherScreen, SignInScreen, AuthLoadingScreen
-// goes here.
+import TabNavigator from './TabNavigator'; 
+import DrawerNavigator from './DrawerNavigator'; 
 
 const AppStack = createStackNavigator({ Home: Home, Product: ProductRoot });
 const AuthStack = createStackNavigator({ SignIn: Login });
@@ -16,7 +16,7 @@ const AppContainer = createAppContainer(
   createSwitchNavigator(
     {
       AuthLoading: AuthLoadingScreen,
-      App: AppStack,
+      App: TabNavigator, // could also use regular stack or DrawerNavigator
       Auth: AuthStack,
     },
     {

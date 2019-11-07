@@ -25,8 +25,8 @@ let productionEnv = {
   url: "http://yote.f-labs.co"
 }
 
-// let env = simulator;
-let env = localIP;
+let env = simulator;
+// let env = localIP;
 // let env = stagingEnv;
 // let env = productionEnv;
 

@@ -1,9 +1,14 @@
+import React from 'react';
+import { StyleSheet, Button, Image } from 'react-native';
+import { createAppContainer } from 'react-navigation';
+import { createDrawerNavigator } from 'react-navigation-drawer'; 
+
 class MyHomeScreen extends React.Component {
     static navigationOptions = {
       drawerLabel: 'Home',
       drawerIcon: ({ tintColor }) => (
         <Image
-          source={require('./chats-icon.png')}
+          source={require('./global/img/home.png')}
           style={[styles.icon, { tintColor: tintColor }]}
         />
       ),
@@ -24,7 +29,7 @@ class MyHomeScreen extends React.Component {
       drawerLabel: 'Notifications',
       drawerIcon: ({ tintColor }) => (
         <Image
-          source={require('./notif-icon.png')}
+          source={require('./global/img/notification.png')}
           style={[styles.icon, { tintColor: tintColor }]}
         />
       ),
@@ -56,4 +61,4 @@ class MyHomeScreen extends React.Component {
     },
   });
   
-  const MyApp = createAppContainer(MyDrawerNavigator)
+  export default createAppContainer(MyDrawerNavigator)
