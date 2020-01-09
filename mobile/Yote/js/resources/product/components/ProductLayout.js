@@ -27,7 +27,7 @@ import YTButton from '../../../global/buttons/YTButton';
 import YTHeader from '../../../global/headers/YTHeader';
 
 // import module components
-import ProductList from '../components/ProductList';
+import ProductList from '../ProductList';
 
 // import actions
 import * as productActions from '../productActions'
@@ -35,7 +35,7 @@ import * as productActions from '../productActions'
 // import styles
 import YTStyles from '../../../global/styles/YTStyles';
 
-class ProductRoot extends Binder {
+class ProductLayout extends Binder {
   constructor(props) {
     super(props);
     this._bind(
@@ -103,7 +103,7 @@ class ProductRoot extends Binder {
   }
 }
 
-ProductRoot.propTypes = {
+ProductLayout.propTypes = {
   dispatch: PropTypes.func
 }
 
@@ -117,4 +117,4 @@ const mapStoreToProps = (store) => {
 
 export default connect(
   mapStoreToProps
-)(ProductRoot);
+)(ProductLayout);

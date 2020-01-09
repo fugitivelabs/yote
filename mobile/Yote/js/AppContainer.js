@@ -6,6 +6,8 @@ import Home from './global/landing/Home';
 import Login from './resources/user/views/Login'; 
 import ProductRoot from './resources/product/views/ProductRoot'; 
 import AuthLoadingScreen from './AuthLoadingScreen'; 
+
+// types of navigators  
 import TabNavigator from './TabNavigator'; 
 import DrawerNavigator from './DrawerNavigator'; 
 
@@ -16,7 +18,7 @@ const AppContainer = createAppContainer(
   createSwitchNavigator(
     {
       AuthLoading: AuthLoadingScreen,
-      App: TabNavigator, // could also use regular stack or DrawerNavigator
+      App: AppStack, // could also use TabNav or DrawerNavigator
       Auth: AuthStack,
     },
     {
