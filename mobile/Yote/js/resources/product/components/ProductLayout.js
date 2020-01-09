@@ -27,7 +27,7 @@ import YTButton from '../../../global/buttons/YTButton';
 import YTHeader from '../../../global/headers/YTHeader';
 
 // import module components
-import ProductList from '../ProductList';
+import ProductList from './ProductList';
 
 // import actions
 import * as productActions from '../productActions'

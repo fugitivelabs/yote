@@ -4,21 +4,21 @@ import { connect } from 'react-redux';
 
 import Home from './global/landing/Home'; 
 import Login from './resources/user/views/Login'; 
-import ProductRoot from './resources/product/views/ProductRoot'; 
+import ProductLayout from './resources/product/components/ProductLayout'; 
 import AuthLoadingScreen from './AuthLoadingScreen'; 
 
 // types of navigators  
 import TabNavigator from './TabNavigator'; 
 import DrawerNavigator from './DrawerNavigator'; 
 
-const AppStack = createStackNavigator({ Home: Home, Product: ProductRoot });
+const AppStack = createStackNavigator({ Home: Home, Product: ProductLayout });
 const AuthStack = createStackNavigator({ SignIn: Login });
 
 const AppContainer = createAppContainer(
   createSwitchNavigator(
     {
       AuthLoading: AuthLoadingScreen,
-      App: AppStack, // could also use TabNav or DrawerNavigator
+      App: TabNavigator, // could also use TabNav or DrawerNavigator
       Auth: AuthStack,
     },
     {
