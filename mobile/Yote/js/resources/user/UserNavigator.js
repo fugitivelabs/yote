@@ -13,7 +13,7 @@ import {
   , View
 } from 'react-native';
 
-import { createStackNavigator } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
 
 // import user components
 import Login from './views/Login'; 

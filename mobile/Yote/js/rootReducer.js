@@ -17,6 +17,7 @@ const rootReducer = (store, action) => {
     console.log("clear store"); 
     store = undefined
   }
+
   return appReducer(store, action)
 }
 
