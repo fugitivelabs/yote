@@ -23,6 +23,8 @@ module.exports = (router, app) => {
     res.end(htmlIndex({
       currentUser: req.user
       , development: app.get('env') == 'development' ? true : false
+      , appUrl: config.appUrl
+      , env: app.get('env')
     }));
 
     // res.render('layout', {
