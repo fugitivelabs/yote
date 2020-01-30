@@ -21,7 +21,7 @@ const Fade = ({ children, ...props }) => (
 );
 
 //build and export the landing page Hero banner
-class Hero extends React.Component{
+class Hero extends React.Component {
   constructor(props){
     super(props);
     this.state = {
@@ -57,7 +57,7 @@ class Hero extends React.Component{
     clearInterval(this.interval);
   }
 
-  render(){
+  render() {
     return (
       <div styleName="landingStyles.hero" className="hero">
         <div className="yt-container">
