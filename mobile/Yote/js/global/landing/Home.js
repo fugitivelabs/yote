@@ -53,9 +53,6 @@ class Home extends Binder {
 
     return (
       <View style={YTStyles.container}>
-        <YTHeader
-          title={appKeys.displayName}
-        />
         <ScrollView
           automaticallyAdjustContentInsets={false}
         >

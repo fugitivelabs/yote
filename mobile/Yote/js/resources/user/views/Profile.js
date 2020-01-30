@@ -21,7 +21,6 @@ import {
   , View
 } from 'react-native'; 
 
-import ImagePicker from 'react-native-image-picker';
 import { NavigationActions } from 'react-navigation'
 
 // import global components
@@ -114,7 +113,6 @@ class Profile extends Binder {
       '_closeModal'
       , '_handleLogout'
       , '_openEditProfile'
-      , '_openImagePicker'
     )
   }
 
@@ -132,44 +130,6 @@ class Profile extends Binder {
         this.props.navigation.navigate('Auth'); 
       }
     })
-  }
-
-  _openImagePicker() { 
-    ImagePicker.showImagePicker((response) => {
-      console.log('Response = ', response);
-      if (response.didCancel) {
-        console.log('User cancelled image picker');
-      }
-      else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
-      }
-      else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
-      }
-      else {
-        let source;
-
-        // You can display the image using either data...
-        source = { uri: 'data:image/jpeg;base64,' + response.data };
-
-        // Or a reference to the platform specific asset location
-        if (Platform.OS === 'android') {
-          source = { uri: response.uri };
-        } else {
-          source = { uri: response.uri.replace('file://', '') };
-        }
-        console.log(source); 
-        this.setState({
-          profilePicUrl: source
-        });
-        console.log(this.state.profilePicUrl); 
-      }
-      let newUser = JSON.parse(JSON.stringify(this.props.user));
-      newUser.info.profilePicUrl = this.state.profilePicUrl.uri;
-      this.props.dispatch(singleUserActions.sendUpdateProfile(newUser)).then((action)=> {
-        console.log(action);
-      });
-    });
   }
 
   render() {
