@@ -47,6 +47,11 @@ class UserLogin extends Binder {
   }
 
   componentWillReceiveProps(nextProps) {
+
+    // will be depreciated in React 17+
+    // see notes here https://reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html
+
+
     this.setState(nextProps);
     if(nextProps.status === "error") {
       alert(nextProps.error.message);

@@ -16,9 +16,6 @@ import Binder from '../../../global/components/Binder.js.jsx';
 import CloseWrapper from '../../../global/components/helpers/CloseWrapper.js.jsx';
 import ProfileDropdown from '../../../global/components/navigation/ProfileDropdown.js.jsx';
 
-// import css modules
-import landingStyles from '../landingStyles.css';
-
 class LandingNav extends Binder {
   constructor(props) {
     super(props);

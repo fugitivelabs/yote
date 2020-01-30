@@ -32,6 +32,7 @@ class DefaultTopNav extends Binder {
   }
 
   componentWillMount() {
+    // will be depreciated in React 17+
     window.addEventListener('scroll', this._handleScroll);
   }
 
