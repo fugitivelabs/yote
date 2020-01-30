@@ -13,7 +13,7 @@ require('es5-shim/es5-sham');
 // import primary libraries
 import React from 'react';
 import { render } from 'react-dom';
-import injectTapEventPlugin from 'react-tap-event-plugin';
+// import injectTapEventPlugin from 'react-tap-event-plugin';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
@@ -21,7 +21,9 @@ import createHistory from 'history/createBrowserHistory';
 import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-router-redux';
 
 // instantiate tap event plugin
-injectTapEventPlugin();
+// https://www.npmjs.com/package/react-tap-event-plugin
+// fixed in most browser, recommended to migrate away from this plugin
+// injectTapEventPlugin();
 
 
 // import scss files.

@@ -52,7 +52,7 @@
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^5.0.0-alpha.8",
     "react-select": "^2.0.0",
-    "react-tap-event-plugin": "3.0.2",
+    "react-tap-event-plugin": "^3.0.2",
     "react-tooltip": "^3.11.1",
     "react-transition-group": "^2.5.3",
     "redux": "^3.7.2",
@@ -61,7 +61,6 @@
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
-    "babel-jest": "^24.9.0",
     "babel-loader": "^6.2.10",
     "babel-plugin-dev-expression": "^0.1.0",
     "babel-preset-env": "^1.7.0",
