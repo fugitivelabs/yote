@@ -2,6 +2,8 @@
  * Configure the application routes
  */
 
+let env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+let config = require('../../config')[env];
 
 const htmlIndex = require('pug').compileFile('global/layouts/htmlIndex.pug')
 
@@ -22,9 +24,9 @@ module.exports = (router, app) => {
     res.writeHead( 200, { "Content-Type": "text/html" } );
     res.end(htmlIndex({
       currentUser: req.user
-      , development: app.get('env') == 'development' ? true : false
+      , development: env == 'development' ? true : false
       , appUrl: config.appUrl
-      , env: app.get('env')
+      , env
     }));
 
     // res.render('layout', {
