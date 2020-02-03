@@ -1,5 +1,9 @@
 require("babel-register")({
   ignore: /\/(build|node_modules)\//
-  , presets: ["env"]
+  , presets: [
+    "env"
+    , "react"
+    , "stage-2"
+  ]
 });
 require( "./yote" ); 

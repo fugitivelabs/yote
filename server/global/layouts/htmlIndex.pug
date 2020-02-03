@@ -53,6 +53,8 @@ html(lang="en")
     script.
       window.appUrl = !{JSON.stringify(appUrl)}
       window.env = !{JSON.stringify(env)}
+    script.
+      console.log("TEST, htmlIndex loaded")
 
     //- <!-- Google Analytics -->
     script.
@@ -68,5 +70,6 @@ html(lang="en")
   body
     //- load the react container and run the react script
     #application-main-yote
+      | !{reactDom}
 
-    script(src='/js/react-bundle.js')
+    //- script(src='/js/react-bundle.js')
