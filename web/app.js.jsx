@@ -15,10 +15,10 @@ import React from 'react';
 import { render } from 'react-dom';
 // import injectTapEventPlugin from 'react-tap-event-plugin';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+// import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import createHistory from 'history/createBrowserHistory';
-import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-router-redux';
+import { ConnectedRouter, push } from 'react-router-redux';
 
 // instantiate tap event plugin
 // https://www.npmjs.com/package/react-tap-event-plugin
@@ -32,6 +32,7 @@ import './config/yote.scss';
 
 import routes from './config/routes.js.jsx';
 
+import * as userActions from './resources/user/userActions'
 import configureStore from './config/configureStore';
 
 /**
@@ -64,8 +65,15 @@ if((navigator.userAgent.toLowerCase().indexOf('webkit') == -1 && navigator.userA
  * END EXPERIMENTAL CROSS BROWSER STUFF
  */
 
+console.log("about to configure store")
 
 const store = configureStore();
+
+if(window && window.currentUser && window.currentUser.username) {
+  // temporary. dispatch this action explicitly.
+  store.dispatch(userActions.initSession(window.currentUser))
+}
+
 const history = createHistory();
 
 // // listen to location changes and fire off a google analytics event.

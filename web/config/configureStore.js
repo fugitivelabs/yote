@@ -10,7 +10,7 @@ import thunk from 'redux-thunk'
 // import { browserHistory } from 'react-router';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import createHistory from 'history/createBrowserHistory';
-import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-router-redux';
+import { routerReducer, routerMiddleware, push } from 'react-router-redux';
 
 // import main application reducers
 import * as resourceReducers from './resourceReducers.js';
@@ -21,7 +21,7 @@ const rootReducer = combineReducers({
   , ...resourceReducers
 });
 
-const history = createHistory();
+// const history = createHistory();
 
 // let process = global.process;
 
@@ -29,17 +29,7 @@ export default function configureStore(initialState) {
   // console.log("initialState");
   // console.log(initialState);
 
-  /**
-   * Setup server rendering by uncommenting below
-   * TODO: get initial state from server and populate
-   */
-  // const jadeInitialState = {
-  //   user: {
-  //     loggedIn: {
-  //       user: window.currentUser || {}
-  //     }
-  //   }
-  // };
+  const history = createHistory();
 
   const middlewares = [thunk, routerMiddleware(history)];
 
