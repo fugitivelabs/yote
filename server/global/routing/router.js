@@ -36,9 +36,12 @@ module.exports = (router, app) => {
 
     const store = configureStore();
     const context = {}
+    const state = store.getState();
 
 
-    console.log("STORE? ", store.getState())
+    console.log()
+    // console.log("STORE STATE? ", state)
+
     const jsxLayout = (
       <Provider store={store}>
         {/* <h1>Test</h1> */}
@@ -55,6 +58,7 @@ module.exports = (router, app) => {
     // const jsx = (<h1>TEST</h1>)
     // const reactDom = renderToString(jsx)
     // console.log(TEST)
+    console.log(jsxLayout)
     const reactDom = renderToString(jsxLayout)
 
     console.log("REACT DOM", reactDom)
@@ -64,9 +68,11 @@ module.exports = (router, app) => {
     // ReactDOM.hydrate(rea)
 
     res.writeHead( 200, { "Content-Type": "text/html" } );
-    res.end(htmlLayout({
+    res.end(htmlIndex({
       currentUser: req.user
       , development: app.get('env') == 'development' ? true : false
+      , appUrl: config.appUrl
+      , env
       , reactDom
     }));
   });

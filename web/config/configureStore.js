@@ -9,7 +9,8 @@ import { createLogger } from 'redux-logger';
 import thunk from 'redux-thunk'
 // import { browserHistory } from 'react-router';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
-import createHistory from 'history/createBrowserHistory';
+// import createHistory from 'history/createBrowserHistory';
+import { createHistory} from 'history';
 import { routerReducer, routerMiddleware, push } from 'react-router-redux';
 
 // import main application reducers
@@ -29,9 +30,10 @@ export default function configureStore(initialState) {
   // console.log("initialState");
   // console.log(initialState);
 
-  const history = createHistory();
+  // const history = createHistory();
 
-  const middlewares = [thunk, routerMiddleware(history)];
+  // const middlewares = [thunk, routerMiddleware(history)];
+  const middlewares = [thunk]
 
   if(process.env.NODE_ENV != "production") {
     // don't log redux changes in production

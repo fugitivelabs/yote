@@ -33,7 +33,7 @@ const routes =
   <Switch>
     <Route exact path="/" component={Landing} />
     <Route path="/unauthorized" component={Forbidden} />
-    { Object.keys(resourceRoutes).map((resourceName, i) =>
+    {/* { Object.keys(resourceRoutes).map((resourceName, i) =>
       <Route
         component={resourceRoutes[resourceName]}
         key={Math.floor(Math.random()*100000)}
@@ -47,12 +47,17 @@ const routes =
         path={`/admin/${_.kebabCase(resourceName)}`}
         role="admin"
       />
-    )}
-    <Route path="/admin">
+    )} */}
+    {/* <Route path="/admin">
       <AdminRouter/>
-    </Route>
-    <Route component={NotFound} />
+    </Route> */}
+    {/* <Route component={NotFound} /> */}
   </Switch>
 ;
 
 export default routes;
+
+// export function createRoutes() {
+//   console.log("RETURNING ROUTES!");
+//   return routes
+// }
