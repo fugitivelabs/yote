@@ -2,6 +2,8 @@
  * Configure the application routes
  */
 
+let env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+let config = require('../../config')[env];
 
 const htmlIndex = require('pug').compileFile('global/layouts/htmlIndex.pug')
 
