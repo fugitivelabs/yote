@@ -5,10 +5,10 @@
 // import primary libraries
 import { combineReducers } from 'redux'
 
-// import all module reducers
-import * as moduleReducers from './modules/moduleReducers.js';
+// import all resource reducers
+import * as resourceReducers from './resources/resourceReducers.js';
 
-const appReducer = combineReducers(moduleReducers);
+const appReducer = combineReducers(resourceReducers);
 
 // combine all the reducers
 const rootReducer = (store, action) => {
@@ -17,6 +17,7 @@ const rootReducer = (store, action) => {
     console.log("clear store"); 
     store = undefined
   }
+
   return appReducer(store, action)
 }
 

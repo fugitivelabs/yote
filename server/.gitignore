@@ -30,12 +30,15 @@ secrets.js
 *.DS_Store
 
 # Compiled stuff
-public/css/yote.css
-public/js/react-bundle.js
-public/js/react-bundle.js.map
+static/css/yote.css
+static/css/yote.css.map
+static/js/react-bundle.js
+static/js/react-bundle.js.map
 
 
-# SSL Stuff
-ssl/*
+
+# HTTPS Stuff
+https/production/*
+https/staging/*
 
 # end of file

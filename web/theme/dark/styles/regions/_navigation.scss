@@ -1,0 +1,334 @@
+
+// Navigation components styles
+// ••••••••••••••••••••••••••••••••••••••••••••••••••
+
+$topbar-height:  $header-height;
+
+a.nav-logo,
+.nav-logo {
+  @include display-flex;
+  @include align-items(center);
+  @include large-font;
+  color: $text-color;
+  font-weight: 700;
+  height: $header-height;
+  svg {
+    width: 120px;
+  }
+  img {
+    max-height: 80%;
+    width: auto;
+    opacity: 0.97;
+    @include transition(opacity 250ms ease-in-out);
+    &:hover { opacity: 1; }
+  }
+}
+
+.mobile-actions {
+  position: absolute;
+  height: 0px;
+  top: 0;
+  left: 0;
+  width: 100%;
+
+  @include MQ(M) {
+    display: none;
+  }
+}
+
+.topbar {
+  background-color: inherit;;
+  height: $topbar-height;
+  position: relative;
+  @include display-flex;
+  @include align-items(stretch);
+  @include justify-content(space-between);
+  .menu-icon {
+    @include align-self(stretch);
+    @include display-flex;
+    @include align-items(center);
+    @include justify-content(flex-end);
+    // background-color: $gray-2;
+    border-right: 1px solid $divider-color;
+    padding: 12px;
+    width: $gutter-width;
+    @include MQ(S) {
+      width: 50px;
+      padding: 15px;
+    }
+    color: rgba(0,0,0,0.5);
+    @include transition(all 250ms ease-in-out);
+    i {
+      // @include transition(all 250ms ease-in-out);
+      // margin-right: 5px;
+      @include large-font();
+    }
+    &:hover {
+      color: $black-0;
+      // i { margin-right: 10px;}
+    }
+  }
+  .titles {
+    @include display-flex;
+    @include align-items(stretch);
+    .-subtitle {
+      margin-left: $gutter;
+      color: rgba(255,255,255, 0.8);
+      @include base-font;
+      font-weight: normal;
+    }
+
+  }
+  .actions {
+    // display: none;
+    // padding: 0 $gutter;
+    @include display-flex;
+    @include justify-content(flex-end);
+    @include align-items(stretch);
+    @include flex(1);
+    font-family: $font-brand;
+    // @include MQ(XS) {
+    // }
+    > .yt-row { width: 100%; height: inherit; }
+  }
+
+  .navigation {
+    // height: 100%;
+    @include display-flex;
+    @include justify-content(flex-end);
+    @include align-items(stretch);
+    @include align-self(stretch);
+    list-style: none;
+    text-align: center;
+    // @extend %calibre-semibold;
+    // @include smaller-font;
+    // text-transform: uppercase;
+    &.-left {
+      margin-left: 0;
+      @include justify-content(flex-start);
+      li {
+        margin-left: 0;
+        margin-right: $gutter-width;
+      }
+    }
+    li {
+      // height: 100%;
+
+      margin-left: $gutter-width;
+      @include display-flex;
+      @include align-items(stretch);
+
+      &.-desktop-only {
+        display: none;
+        @include MQ(S) {
+          @include display-flex;
+
+        }
+      }
+      a, .action-link {
+        @include display-flex;
+        @include align-items(center);
+        // color: $text-color;
+        color: rgba(0,0,0,0.48);
+        @include transition(all 250ms ease-in-out);
+        padding: 0 5px;
+        border-bottom: 3px solid transparent;
+        white-space: nowrap;
+        &:hover {
+          color: $black-0;
+          // border-bottom: 3px solid $brand-accent;
+        }
+        &.active {
+          color: $brand-primary;
+          border-bottom: 3px solid $brand-accent;
+          // background-color: $highlight-color;
+        }
+      }
+    }
+    &.primary {
+      @include flex(1);
+      border-right: 1px solid $divider-color;
+      padding-right: $gutter;
+      font-size: 1.25rem;
+      line-height: 1;
+      @include MQ(XL) {
+        // everything above 1600px
+        font-size: 1.4rem;
+      }
+      text-transform: none;
+      .active {
+      }
+      li {
+        text-align: center;
+        width: 120px;
+        margin-left: 0;
+        @include MQ(S) {
+          // everything above 960px
+          width: 120px;
+        }
+        @include MQ(XL) {
+          width: 140px;
+        }
+      }
+    }
+  }
+
+  .-profile-pic {
+    height: $topbar-height * 0.6;
+    width: $topbar-height * 0.6;
+    border-radius: 50%;
+    margin-right: 10px;
+    background-image: url('/img/green_army_men.jpg');
+    background-position: center;
+    background-size: cover;
+  }
+}
+
+.body.with-header .topbar.authoring-nav li {
+  @media screen and (max-width: 450px) {
+    margin-left: 5px !important;
+    width: 20%;
+  }
+}
+
+.sidebar {
+  @include flex(0 0 12em);
+  background-color: $sidebar-bg-color;
+  color: $text-color;
+  position: relative;
+  .nav-header {
+    padding: $gutter;
+    background-color: darken($sidebar-bg-color, 7);
+    border-bottom: 1px solid darken($sidebar-bg-color, 15);
+    width: 100%;
+    color: $text-light;
+    font-weight: 700;
+  }
+  ul {
+    list-style: none;
+    // padding: $gutter 0 ;
+    // margin-top: $gutter;
+    li {
+      line-height: 1.25;
+      width: 100%;
+
+
+      &.nav-header {
+        // @include letterSpacing-loose;
+        text-transform: uppercase;
+        font-weight: 700;
+        margin-bottom: $gutter;
+        padding: $gutter;
+        padding-bottom: 0;
+        @include small-font;
+        text-align: center;
+        width: 100%;
+      }
+      a {
+        padding: $gutter;
+        color: $text-color;
+        width: 100%;
+        border-left: 3px solid $sidebar-bg-color;
+        display: block;
+        @include transition(all 250ms ease-in-out);
+        &:hover {
+          color: $link-hover-color;
+        }
+        &.active {
+          background-color: darken($sidebar-bg-color, 3);
+          color: $brand-primary;
+          border-left: 3px solid $brand-primary;
+        }
+      }
+    }
+  }
+  .side-nav-footer {
+
+  }
+}
+
+.main-side-nav {
+  position: fixed;
+  margin-top: $gutter;
+  width: 0;
+  margin-left: -$side-nav-width;
+  min-height: 400px;
+
+  // NOTE: calc can't pass vars, so this is:
+  // calc(100vh - $gutter - $header-height - 40px;)
+  height: calc(100vh - 20px - 84px - 40px);
+
+  border-right: 1px solid $divider-color;
+  @include zIndex-6;
+  @include transition(all 240ms ease-in-out);
+  @include mobile-scroll;
+  @include MQ(M) {
+    margin-left: 0;
+    width: $side-nav-width;
+  };
+  .nav-items {
+    width: 100%;
+    li { width: 100%; }
+    a {
+      padding: 9px 18px;
+      color: $lighter-text-color;
+      width: 100%;
+      display: inline-block;;
+      @include transition(all 250ms ease-in-out);
+      &.active {
+        color: $text-color;
+        background-color: $highlight-color;
+        border-right: 3px solid $brand-accent;
+      }
+      &:hover {
+        color: $link-color;
+      }
+    }
+  }
+}
+
+
+.-super-nav {
+  background-color: darken($brand-primary, 30);
+  color: rgba(255,255,255,0.9);
+  @include smaller-font;
+  text-align: right;
+  padding: 4px;
+  height: 32px;
+  a {
+    color: rgba(255,255,255,0.93);
+    border-bottom: 1px dotted rgba(255,255,255,0.93);
+    &:hover {
+      color: #fff;
+      border-color: #fff;
+    }
+  }
+}
+
+.-main-nav {
+  height: $topbar-height;
+}
+
+
+
+.-fixed-subheader {
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  right: 0;
+  top: $header-height;
+}
+
+.-sub-nav {
+  height: 40px;
+  background-color: #f1f1f1;
+  border-bottom: 1px solid $divider-color;
+  position: fixed;
+  width: 100%;
+  z-index: 600;
+  @include transition(all 400ms ease-in-out);
+  @include mobile-scroll-x;
+  &.isTop {
+    margin-top: -60px;
+  }
+}

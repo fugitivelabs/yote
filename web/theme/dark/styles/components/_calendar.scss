@@ -1,0 +1,234 @@
+
+// AirBnb's default styles for 'react-dates' library
+@import './node_modules/react-dates/lib/css/_datepicker.css';
+
+// default styles for the 'react-big-calendar' library
+@import './node_modules/react-big-calendar/lib/css/react-big-calendar.css';
+
+.big-calendar-wrapper {
+  display: block;
+  height: 800px;
+  width: 100%;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid $brand-primary;
+  .-blackout-date {
+    background-color: rgba(0,0,0,0.22);
+    border: 1px solid rgba(0,0,0,0.44);
+  }
+  .-allowed {
+    &.-none {
+      background-color: rgba(0,0,0,0.22);
+      // border: 1px solid rgba(0,0,0,0.44);
+    }
+    &.-hourly {
+      position: relative;
+      &:after {
+        content: ' • ';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        font-size: 3rem;
+        height: 20px;
+        width: 50%;
+        text-align: right;
+        color: magenta;
+        opacity: 0.5;
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
+    &.-overnight {
+      position: relative;
+      &:before {
+        content: ' • ';
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        font-size: 3rem;
+        height: 20px;
+        width: 50%;
+        color: $brand-primary;
+        opacity: 0.5;
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
+  }
+  .-legend {
+    margin-top: $gutter;
+    padding-bottom: $gutter;
+
+  }
+  .-color-key {
+    @include small-font;
+    vertical-align: top;
+    display: inline-block;
+    width: 30%;
+    .-icon {
+      @include medium-font;
+      padding-right: 5px;
+    }
+    .-key {
+      @include display-flex;
+      @include align-items(center);
+      // @include justify-content(center);
+      padding: 10px;
+      // display: inline-block;
+    }
+    .-program {
+      color: $soflete-yellow;
+    }
+    .-upcoming-program {
+      background-color: $soflete-yellow;
+      opacity: 0.7;
+    }
+    .-published {
+      color: $soflete-red;
+    }
+    .-draft {
+      color: $soflete-light-red;
+    }
+  }
+}
+
+.-cal-event {
+  @include small-font;
+  // vertical-align: top;
+  position: relative;
+  &.add-day {
+    background-color: $soflete-yellow;
+    @include transition(all 250ms ease-in-out);
+    &:hover {
+        opacity: 0.9;
+      }
+  }
+  .-cal-link {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2px 4px;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  &.-program {
+    height: 30px;
+    @include transition(all 250ms ease-in-out);
+
+    &.-current {
+      background-color: $soflete-yellow;
+      &:hover {
+        opacity: 0.9;
+      }
+    }
+    a { color: black; }
+    &.-past {
+      background-color: $soflete-gray;
+    }
+    &.-upcoming {
+      background-color: $soflete-yellow;
+      opacity: 0.7;
+      &:hover {
+        opacity: 0.9;
+      }
+    }
+    &.-new {
+      // background-color: $soflete-blue;
+    }
+  }
+
+  &.-workout {
+    height: 30px;
+    // background-color: $soflete-light-red;
+    background-color: white;
+    border: 1px solid $soflete-light-red;
+    color: $soflete-light-red;
+    &:hover {
+        opacity: 0.8;
+      }
+    @include transition(all 250ms ease-in-out);
+    &.-past {
+      background-color: $soflete-light-gray;
+      border: none;
+      color: white;
+      &.-published {
+        background-color: $soflete-light-gray;
+      }
+    }
+    &.-upcoming {
+      background-color: white;
+      border: 1px solid $soflete-light-red;
+      color: $soflete-light-red;
+      opacity: 0.7;
+      &:hover {
+        opacity: 0.9;
+      }
+      &.-published {
+        background-color: $soflete-red;
+        border-color: $soflete-red;
+        color: white;
+      }
+      &.-none {
+        color: $soflete-green;
+        border-color: $soflete-green;
+      }
+    }
+    &.-published {
+      background-color: $soflete-red;
+      border-color: $soflete-red;
+      color: white;
+      a { color: white; }
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+    &.-none {
+      color: $soflete-green;
+      border-color: $soflete-green;
+      border:none;
+      opacity: 0.4;
+      background-color: transparent;
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.-program.-new {
+  @include transition(all 250ms ease-in-out);
+  opacity: 0.4;
+  color: $soflete-blue;
+  border-color: $soflete-blue;
+  background-color: transparent;
+  &:hover {
+    opacity: 1;
+  }
+}
+
+
+// react-dates overrides
+.CalendarDay__highlighted_calendar {
+  background: #ddd;
+  &:hover {
+    background: #cdcdcd;
+  }
+}
+
+.CalendarDay__selected {
+  background: #00a699 !important;
+}
+
+.DateRangePickerInput {
+  border: 1px solid $brand-primary;
+  background-color: darken($formContainerColor, 2);
+  .DateInput_input {
+    border: none;
+    border-bottom: 1px solid $formContainerColor;
+  }
+}

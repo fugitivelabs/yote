@@ -6,44 +6,42 @@ import {
   , StyleSheet
 } from 'react-native'; 
 
-// colors
-import YTColors from '../../global/styles/YTColors';
+// import theme
+import theme from '../themes/default'; 
+// import theme from '../themes/dark';
+// import theme from '../themes/custom'; 
 
 const { height, width } = Dimensions.get('window');
 
+const FONT = Platform.OS === 'android' ? 'sans-serif-condensed' : 'AvenirNextCondensed-DemiBold';
+
 const YTStyles = StyleSheet.flatten({
-  cell: {
-    padding: 5
+
+  // layout
+  brandContainer: {
+    backgroundColor: theme.primary
+    , flex: 1
+  }
+  , cell: {
+      padding: 5
   }
   , container: {
-      backgroundColor: '#fff'
+      backgroundColor: theme.background
       , flex: 1
-  }
-  , header: {
-      color: YTColors.darkText
-      , fontSize: 30
-      , fontWeight: '600'
-    }
-  , header2: {
-      color: YTColors.darkText
-      , fontSize: 20
-      , fontWeight: '600'
-      , paddingHorizontal: 5
   }
   , icon: {
       height: 20
       , width: 20
   }
-  , input: {
-      minHeight: 40
-      , fontSize: 15
-      , padding: 4
-      , flex: 1
-      , backgroundColor: '#fff'
-    }
+  , inputContainer: {
+    borderWidth: Platform.OS == 'ios' ? 1 : 0
+    , borderBottomColor: '#CCC'
+    , borderColor: 'transparent'
+    , marginTop: 14
+  }
   , separator: {
       borderTopWidth: 1
-      , borderColor: YTColors.listSeparator
+      , borderColor: theme.separator
   }
   , shadow: {
       shadowColor: '#000000'
@@ -51,22 +49,86 @@ const YTStyles = StyleSheet.flatten({
       , shadowOpacity: 0.2
       , shadowRadius: 4
   }
-  , subHeader: {
-      color: YTColors.lightText
-      , fontSize: 18
-      , fontWeight: '600'
-      , padding: 5
-    }
-  , text: {
-      fontSize: 18,
-      fontWeight: 'normal',
-      color: YTColors.lightText
-    }
   , userImg: {
       borderRadius: 50 * .5
       , width: 50
       , height: 50
       , justifyContent: 'center'
+  }
+
+  // text
+  , h1: {
+      color: theme.mainText
+      , fontFamily: FONT
+      , fontSize: 30
+      , fontWeight: '600'
+    }
+  , h2: {
+      color: theme.mainText
+      , fontFamily: FONT
+      , fontSize: 25
+      , fontWeight: '600'
+  }
+  , h2_secondary: {
+      color: theme.secondary
+        , fontFamily: FONT
+        , fontSize: 25
+        , fontWeight: '600'
+  }
+  , h3: {
+      color: theme.mainText
+      , fontFamily: FONT
+      , fontSize: 20
+      , fontWeight: '600'
+  }
+  , text: {
+      color: theme.mainText
+      , fontFamily: FONT
+      , fontSize: 18
+      , fontWeight: 'normal'
+    }
+  , subText: {
+      color: theme.subText
+      , fontFamily: FONT
+      , fontSize: 18
+      , fontWeight: 'normal'
+    }
+  , linkText: {
+      color: theme.accent
+      , fontFamily: FONT
+      , fontSize: 18
+      , fontWeight: 'normal'
+    }
+  , input: {
+      minHeight: 40
+      , color: theme.mainText
+      , fontFamily: FONT
+      , fontSize: 18
+      , fontWeight: 'normal'
+      , padding: 4
+      , flex: 1
+      , backgroundColor: theme.background
+    }
+  , label: {
+      fontSize: 12
+      , color: theme.lightText
+      , marginBottom: 4
+  }
+
+  // colors
+  , colors: {
+      accent: theme.accent
+      , subText: theme.subText
+      , danger: theme.danger
+      , header: theme.header
+      , headerText: theme.headerText
+      , mainText: theme.mainText
+      , primary: theme.primary
+      , secondary: theme.secondary
+      , separator: theme.separator
+      , success: theme.success
+      , underlay: theme.underlay
+      , warning: theme.warning
   }
 })
 

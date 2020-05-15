@@ -1,0 +1,110 @@
+
+
+a, .action-link {
+  color: $link-color;
+  // margin: -.2rem;
+  // padding: .2rem;
+  text-decoration: none;
+
+  &:visited {
+    color: $link-visited-color;
+  }
+  &:hover {
+    color: $link-hover-color;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  &:active {
+    color: $link-hover-color;
+  }
+}
+
+.-big-link {
+  font-family: $font-brand;
+  // @include small-font;
+  display: block;
+}
+
+ul {
+  // margin: 0px;
+  // padding: 0px;
+}
+
+h1 {
+  @include largest-font;
+  line-height: 1;
+  &.light-weight {
+    font-family: $font-sans;
+  }
+}
+
+h2 {
+  @include larger-font;
+  line-height: 1;
+  &.light-weight {
+    font-family: $font-sans;
+  }
+}
+
+h3 {
+  @include large-font;
+  line-height: 1;
+  &.light-weight {
+    font-family: $font-sans;
+  }
+}
+
+h4 {
+  @include base-font;
+}
+
+h5 {
+  @include small-font;
+  line-height: 1;
+  &.light-weight {
+    font-family: $font-sans;
+  }
+}
+
+h6 {
+  @include smaller-font;
+  line-height: 1;
+  &.light-weight {
+    font-family: $font-sans;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: .4em;
+  font-family: $font-brand;
+  font-weight: 300;
+}
+
+small {
+  @include smaller-font;
+}
+
+em {
+  font-style: italic;
+}
+
+p {
+  @include base-font;
+  margin: 0px;
+  margin-bottom: .3em;
+}
+
+u {
+  text-decoration: underline;
+}
+
+strong {
+  font-weight: 700;
+}
+
+hr {
+  border-bottom: none;
+  // border-style: solid;
+  border-color: $divider-color;
+  margin: $gutter * 0.5 0;
+}
