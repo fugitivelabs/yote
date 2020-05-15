@@ -35,10 +35,11 @@ static/css/yote.css.map
 static/js/react-bundle.js
 static/js/react-bundle.js.map
 
-
-
-# HTTPS Stuff
+# HTTPS stuff
 https/production/*
 https/staging/*
+
+# util outout
+util/output
 
 # end of file
