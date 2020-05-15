@@ -38,7 +38,7 @@ utilWrapper.run((config, secrets) => {
   
       for(let product of products) {
         nextLine = {
-          "id": product._id
+          "Identifier": product._id
           , "Title": product.title
           , "Description": product.description
         }
