@@ -2,6 +2,9 @@ import React from 'react';
 import { StyleSheet, Button, Image } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createDrawerNavigator } from 'react-navigation-drawer'; 
+import Home from './global/landing/Home'; 
+import ProductLayout from './resources/product/components/ProductLayout'; 
+import Profile from './resources/user/views/Profile'; 
 
 class MyHomeScreen extends React.Component {
     static navigationOptions = {
@@ -16,20 +19,17 @@ class MyHomeScreen extends React.Component {
   
     render() {
       return (
-        <Button
-          onPress={() => this.props.navigation.navigate('Notifications')}
-          title="Go to notifications"
-        />
+        <Home/>
       );
     }
   }
   
-  class MyNotificationsScreen extends React.Component {
+  class Products extends React.Component {
     static navigationOptions = {
-      drawerLabel: 'Notifications',
+      drawerLabel: 'Products',
       drawerIcon: ({ tintColor }) => (
         <Image
-          source={require('./global/img/notification.png')}
+          source={require('./global/img/shoppingBag.png')}
           style={[styles.icon, { tintColor: tintColor }]}
         />
       ),
@@ -37,10 +37,25 @@ class MyHomeScreen extends React.Component {
   
     render() {
       return (
-        <Button
-          onPress={() => this.props.navigation.goBack()}
-          title="Go back home"
+        <ProductLayout/>
+      );
+    }
+  }
+
+  class UserProfile extends React.Component {
+    static navigationOptions = {
+      drawerLabel: 'Profile',
+      drawerIcon: ({ tintColor }) => (
+        <Image
+          source={require('./global/img/user.png')}
+          style={[styles.icon, { tintColor: tintColor }]}
         />
+      ),
+    };
+  
+    render() {
+      return (
+        <Profile/>
       );
     }
   }
@@ -57,8 +72,11 @@ class MyHomeScreen extends React.Component {
       screen: MyHomeScreen,
     },
     Notifications: {
-      screen: MyNotificationsScreen,
+      screen: Products,
     },
+    Profile: {
+      screen: UserProfile
+    }
   });
   
   export default createAppContainer(MyDrawerNavigator)

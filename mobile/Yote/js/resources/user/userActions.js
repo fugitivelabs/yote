@@ -581,3 +581,46 @@ export function invalidateList(...listArgs) {
     , listArgs
   }
 }
+
+// push notifications
+export const REQUEST_SEND_FIREBASE = "REQUEST_SEND_FIREBASE"
+function requestSendFirebase(data) {
+  return {
+    type: REQUEST_SEND_FIREBASE
+    , firebaseToken: data
+  }
+}
+
+export const RECEIVE_SEND_FIREBASE = "RECEIVE_SEND_FIREBASE"
+function receiveSendFirebase(json) {
+  return {
+    type: RECEIVE_SEND_FIREBASE
+    , success: json.success
+    , error: json.message
+    , receivedAt: Date.now()
+  }
+}
+
+export function sendFirebaseToken(firebaseToken) {
+  // console.log('FIREBASE TOKEN XXX: ' + firebaseToken);
+  return dispatch => {
+    dispatch(requestSendFirebase(firebaseToken))
+    return fetch(`${rootUrl}/api/users/savemobilecreds`, {
+      method: 'POST'
+      , headers: {
+        'Accept': 'application/json'
+        , 'Content-Type': 'application/json'
+        , 'token': store.getState().user.loggedIn.apiToken
+      }
+      , credentials: 'same-origin'
+      , body: JSON.stringify({
+        firebaseToken: firebaseToken
+      })
+    })
+    .then(res => res.json())
+    .then(json => {
+      return json;
+    })
+    .then(json => dispatch(receiveSendFirebase(json)))
+  }
+}

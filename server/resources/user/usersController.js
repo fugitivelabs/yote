@@ -442,3 +442,41 @@ exports.delete = function(req, res) {
     }
   });
 }
+
+// push notification methods
+
+exports.getRecipient = (id, callback) => {
+  console.log('get recipient user by id fired.. '); 
+  User.findById(id).exec((err, user) => {
+    if(err) {
+      callback({ success: false, message: err });
+    } else if (!user) {
+      callback({ success: false, message: "no recipient user :(" });
+    } else {
+      callback({ success: true, user: user });
+    }
+  });
+}
+
+exports.saveMobileCreds = (req, res) => {
+  console.log(req.param('firebaseToken'));
+  if(!req.user || !req.user.id) {
+    res.send({success: false, message: "Invalid User Id"});
+  } else {
+    User.findOne({_id: req.user.id}).exec((err, user) => {
+      if(err || !user) {
+        res.send({success: false, message: "Could not find user"});
+      } else {
+        // MATCH THIS TO WHATEVER YOU NAME THE FIELD
+        user.firebaseToken = req.param('firebaseToken');
+        user.save((err, user) => {
+          if(err || !user) {
+            res.send({success: false, message: "Error saving user mobile creds"});
+          } else {
+            res.send({success: true, user: user});
+          }
+        });
+      }
+    });
+  }
+}

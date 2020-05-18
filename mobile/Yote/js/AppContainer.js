@@ -18,7 +18,7 @@ const AppContainer = createAppContainer(
   createSwitchNavigator(
     {
       AuthLoading: AuthLoadingScreen,
-      App: TabNavigator, // could also use TabNav or DrawerNavigator
+      App: DrawerNavigator, // could also use TabNav or DrawerNavigator
       Auth: AuthStack,
     },
     {
