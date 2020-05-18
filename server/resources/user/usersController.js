@@ -445,9 +445,9 @@ exports.delete = function(req, res) {
 
 // push notification methods
 
-exports.getRecipient = function(id, callback) {
+exports.getRecipient = (id, callback) => {
   console.log('get recipient user by id fired.. '); 
-  User.findById(id).exec(function(err, user) {
+  User.findById(id).exec((err, user) => {
     if(err) {
       callback({ success: false, message: err });
     } else if (!user) {
@@ -458,18 +458,18 @@ exports.getRecipient = function(id, callback) {
   });
 }
 
-exports.saveMobileCreds = function(req, res) {
+exports.saveMobileCreds = (req, res) => {
   console.log(req.param('firebaseToken'));
   if(!req.user || !req.user.id) {
     res.send({success: false, message: "Invalid User Id"});
   } else {
-    User.findOne({_id: req.user.id}).exec(function(err, user) {
+    User.findOne({_id: req.user.id}).exec((err, user) => {
       if(err || !user) {
         res.send({success: false, message: "Could not find user"});
       } else {
         // MATCH THIS TO WHATEVER YOU NAME THE FIELD
         user.firebaseToken = req.param('firebaseToken');
-        user.save(function(err, user) {
+        user.save((err, user) => {
           if(err || !user) {
             res.send({success: false, message: "Error saving user mobile creds"});
           } else {

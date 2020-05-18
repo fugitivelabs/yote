@@ -23,7 +23,7 @@ const notificationUtils = {
           , 'Authorization': `key=xxxxxxxx` // This is the server  API key, save this in secrets
         }
         ,  body: data
-      }, function(error, res, body){ 
+      }, (error, res, body) => { 
         if(error) {
           console.log(error); 
           //callback(error); 
