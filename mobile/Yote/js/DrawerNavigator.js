@@ -4,6 +4,7 @@ import { createAppContainer } from 'react-navigation';
 import { createDrawerNavigator } from 'react-navigation-drawer'; 
 import Home from './global/landing/Home'; 
 import ProductLayout from './resources/product/components/ProductLayout'; 
+import Profile from './resources/user/views/Profile'; 
 
 class MyHomeScreen extends React.Component {
     static navigationOptions = {
@@ -40,6 +41,24 @@ class MyHomeScreen extends React.Component {
       );
     }
   }
+
+  class UserProfile extends React.Component {
+    static navigationOptions = {
+      drawerLabel: 'Profile',
+      drawerIcon: ({ tintColor }) => (
+        <Image
+          source={require('./global/img/user.png')}
+          style={[styles.icon, { tintColor: tintColor }]}
+        />
+      ),
+    };
+  
+    render() {
+      return (
+        <Profile/>
+      );
+    }
+  }
   
   const styles = StyleSheet.create({
     icon: {
@@ -55,6 +74,9 @@ class MyHomeScreen extends React.Component {
     Notifications: {
       screen: Products,
     },
+    Profile: {
+      screen: UserProfile
+    }
   });
   
   export default createAppContainer(MyDrawerNavigator)
