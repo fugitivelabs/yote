@@ -365,3 +365,5 @@ https://cloud.google.com/compute/docs/containers/container_vms
 -NEW TYPE OF CONTAINERS - the "container optimized" ones are now obsolete, so going forward we will use the new gci ones
 -notes - does not require sudo before commands, diff colors and filesystems
 -https://cloud.google.com/container-optimized-os/docs/how-to/create-configure-instance
+
+mongod --config /usr/local/etc/mongod.conf
