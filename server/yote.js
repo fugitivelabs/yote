@@ -169,7 +169,7 @@ require('./global/routing/router')(router, app);
 
 // check for the server timeout. NOTE: this must be last in the middleware stack
 app.use(haltOnTimedout);
-function haltOnTimedout(req, res, next){
+function haltOnTimedout(req, res, next) {
   //http://stackoverflow.com/questions/21708208/express-js-response-timeout
   if (!req.timedout) next();
 }
@@ -221,7 +221,7 @@ else if(app.get('env') == 'staging' && config.useHttps) {
   server.listen(443);
   // need to catch for all http requests and redirect to httpS
   if(config.httpsOptional) {
-    require('http').createServer(app).listen(80);
+    require('http').createServer(app).listen(config.port);
   } else {
     require('http').createServer((req, res) => {
       logger.info("REDIRECTING TO HTTPS");
@@ -231,7 +231,7 @@ else if(app.get('env') == 'staging' && config.useHttps) {
       });
       res.end();
     // }).listen(3030); // NOTE: uncomment to test HTTPS locally
-    }).listen(80);
+    }).listen(config.port);
   }
 
   logger.info('Yote is listening on port ' + 80 + ' and ' + 443 + '...');

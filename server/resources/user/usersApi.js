@@ -8,15 +8,15 @@ let User = require('mongoose').model('User');
 let users = require('./usersController');
 let logger = global.logger;
 
-module.exports = function(router, requireLogin, requireRole) {
+module.exports = (router, requireLogin, requireRole) => {
 
   // user login and use session cookies
-  router.post('/api/users/login', function(req, res, next) {
+  router.post('/api/users/login', (req, res, next) => {
     if(req.body.username == undefined) {
       res.send({ success: false, message: "No username present." });
     } else {
       req.body.username = req.body.username.toLowerCase();
-      passport.authenticate('local', {session: true},  function(err, user) {
+      passport.authenticate('local', {session: true},  (err, user) => {
         if(err) {
           res.send({ success:false, message: "Error authenticating user." });
         } else if(!user) {
@@ -27,7 +27,7 @@ module.exports = function(router, requireLogin, requireRole) {
             if(err || !user) {
               res.send({ success: false, message: "Error logging user in." });
             } else {
-              req.logIn(user, function(err) {
+              req.logIn(user, err => {
                 if(err) { return next(err);}
                 logger.warn(req.user);
                 res.send({ success: true, user: user });
@@ -40,9 +40,9 @@ module.exports = function(router, requireLogin, requireRole) {
   });
 
   // user want to login and use an API token instead of session cookies -- i.e. for mobile
-  router.post('/api/users/token', function(req, res, next) {
+  router.post('/api/users/token', (req, res, next) => {
     req.body.username = req.body.username.toLowerCase();
-    passport.authenticate('local', { session: false }, function(err, user) {
+    passport.authenticate('local', { session: false }, (err, user) => {
       if(err) {
         res.send({ success:false, message: "Error authenticating user." });
       }
@@ -50,7 +50,7 @@ module.exports = function(router, requireLogin, requireRole) {
         res.send({ success:false, message: "Matching user not found." });
       }
       logger.debug("TOKEN TIME");
-      user.createToken(function(err, token) {
+      user.createToken((err, token) => {
         if(err || !token) {
           res.send({ success: false, message: "Unable to generate user API token" });
         } else {
@@ -71,18 +71,18 @@ module.exports = function(router, requireLogin, requireRole) {
   });
 
   // user logout
-  router.post('/api/users/logout', requireLogin(), function(req, res) {
+  router.post('/api/users/logout', requireLogin(), (req, res) => {
     // logout with token will not affect session status, and vice-versa
     logger.debug("logout");
     if(req.headers.token) {
       logger.debug("logout with token");
       // remove token object
-      User.findOne({ apiToken: req.headers.token }).exec(function(err, user) {
+      User.findOne({ apiToken: req.headers.token }).exec((err, user) => {
         if(err || !user) {
           logger.error("could not find user object to log out with");
           res.send({ success: false, message: "could not find user object to log out with" })
         } else {
-          user.removeToken(function(err) {
+          user.removeToken(err => {
             if(err) {
               logger.error(err);
               res.send({ success: false, message: "could not remove user token" });
@@ -106,7 +106,7 @@ module.exports = function(router, requireLogin, requireRole) {
        // req.logout();
        // res.status(200).end();
 
-      req.session.destroy(function(err) {
+      req.session.destroy(err => {
         req.logout();
         if(err) {
           res.send({ success: false, err: err, message: "Error logging user out" });

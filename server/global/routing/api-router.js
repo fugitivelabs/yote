@@ -12,14 +12,14 @@ function requireLogin() {
    * Anything that calls this method will check if a user is logged in or not.
    * If so, let them through. If not, block access.
    */
-  return function(req, res, next) {
+  return (req, res, next) => {
     // check by token
     if(req.headers.token) {
       // header has token. Use it.
       logger.debug("LOGIN CHECK HIT - by token");
       logger.debug(req.headers.token);
 
-      User.findOne({apiToken: req.headers.token}).exec(function(err, user) {
+      User.findOne({apiToken: req.headers.token}).exec((err, user) => {
         if(err || !user) {
           logger.error(err);
           res.status(403);
@@ -64,7 +64,7 @@ function requireRole(role) {
    *
    * @param role == string
    */
-  return function(req, res, next) {
+  return (req, res, next) => {
     var rl = requireLogin();
     rl(req, res, function() {
       logger.debug("trying to require role");
@@ -82,12 +82,12 @@ function requireRole(role) {
 
 // export Yote resource API paths
 let routeFilenames = [];
-module.exports = function(router) {
+module.exports = router => {
   /**
    *
    *
    */
-  routeFilenames.forEach(function(filename) {
+  routeFilenames.forEach(filename => {
     logger.debug("filename: " + filename);
     require('../../resources/' + filename)(router, requireLogin, requireRole);
   });
