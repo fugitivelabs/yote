@@ -1,4 +1,7 @@
 const secrets = require(`./secrets.js`);
+// console.log("SECRETS", secrets, process.env.NODE_ENV)
+let env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+
 const envSecrets = secrets[process.env.NODE_ENV];
 
 const config = {
@@ -13,18 +16,16 @@ const config = {
   }
 
   , database: {
-    dbName: `yote`
-    , dbUri: `mongodb://localhost/`
+    uri: `mongodb://localhost/`
+    , name: `yote`
   }
 
   , session: {
-    secret: envSecrets.sessionSecret
+    // set by env
   }
 
   , externalApis: {
-    mandrill: {
-      apiKey: envSecrets.mandrill
-    }
+    // set by env
   }
 };
 

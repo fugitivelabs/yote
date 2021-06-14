@@ -7,8 +7,18 @@ const config = {
     , useHttps: true
   }
 
+  , session: {
+    secret: envSecrets.sessionSecret
+  }
+
   , database: {
     dbName: `yote-prod`
+  }
+
+  , externalApis: {
+    mandrill: {
+      apiKey: envSecrets.mandrill
+    }
   }
 
 };
