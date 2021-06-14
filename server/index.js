@@ -26,18 +26,10 @@ mongoose.connect(config.get('database.uri') + config.get('database.name'), {
 })
 
 
-
-
 app.get('/', (req, res) => {
   console.log(config.get('database'))
   res.send('Hello World!')
 })
-
-app.get('/error', (req, res, next) => {
-  next(new Error('hello world error'))
-})
-
-console.log("PORT", config.get('app.port'))
 
 app.listen(3030, () => {
   console.log(`Example app listening at ${config.get('app.url')}`)
