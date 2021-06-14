@@ -1,0 +1,5 @@
+node_modules
+
+# https://github.com/lorenwest/node-config/wiki/Configuration-Files
+config/local.js
+config/secrets.js
