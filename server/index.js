@@ -1,6 +1,7 @@
 // https://github.com/lorenwest/node-config
 const config = require('config')
 const express = require('express')
+require('express-async-errors');
 const path = require('path');
 const compression = require('compression');
 const cookieParser = require('cookie-parser');
@@ -35,16 +36,13 @@ let router = express.Router();
 const productApi = require('./resources/product/productApi')(router)
 
 
+app.use('/', router);
 
-// app.get('/', (req, res) => {
-//   console.log(config.get('database'))
-//   res.send('Hello World!')
-// })
+const errorHandler = require('./global/handlers/errorHandler.js')
+app.use(errorHandler)
 
 let server;
 
 app.listen(3030, () => {
   console.log(`Example app listening at ${config.get('app.url')}`)
 })
-
-app.use('/', router);
