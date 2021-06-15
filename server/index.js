@@ -16,7 +16,9 @@ app.set('view engine', 'pug');
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(compression())
+app.use(compression());
+
+// other config - cors, options
 
 // connect to database
 mongoose.connect(config.get('database.uri') + config.get('database.name'), {
@@ -25,12 +27,24 @@ mongoose.connect(config.get('database.uri') + config.get('database.name'), {
   , useUnifiedTopology: true
 })
 
+// passport
 
-app.get('/', (req, res) => {
-  console.log(config.get('database'))
-  res.send('Hello World!')
-})
+// api
+let router = express.Router();
+// const Product = require('./resources/product/ProductModel');
+const productApi = require('./resources/product/productApi')(router)
+
+
+
+// app.get('/', (req, res) => {
+//   console.log(config.get('database'))
+//   res.send('Hello World!')
+// })
+
+let server;
 
 app.listen(3030, () => {
   console.log(`Example app listening at ${config.get('app.url')}`)
 })
+
+app.use('/', router);
