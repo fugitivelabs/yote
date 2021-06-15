@@ -10,6 +10,9 @@ module.exports = (error, req, res, next) => {
    * if errors happen, just throw them and move on
    * let this determine what to send back
    * 
+   * some misc
+   * https://www.joyent.com/node-js/production/design/errors
+   * 
    * for mongoose errors
    * https://mongoosejs.com/docs/api/error.html
    * 

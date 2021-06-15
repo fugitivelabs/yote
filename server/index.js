@@ -1,11 +1,17 @@
 // https://github.com/lorenwest/node-config
 const config = require('config')
+// todo: after more research, i think dotenv better
+
+// open libraries
 const express = require('express')
 require('express-async-errors');
 const path = require('path');
 const compression = require('compression');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
+
+// yote libraries
+const errorHandler = require('./global/handlers/errorHandler.js')
 
 // init app
 const app = express()
@@ -30,15 +36,16 @@ mongoose.connect(config.get('database.uri') + config.get('database.name'), {
 
 // passport
 
+// const Product = require('./resources/product/ProductModel');
+// const productApi = require('./resources/product/productApi')(router)
+
 // api
 let router = express.Router();
-// const Product = require('./resources/product/ProductModel');
-const productApi = require('./resources/product/productApi')(router)
-
+require('./global/api/router')(router, app)
 
 app.use('/', router);
 
-const errorHandler = require('./global/handlers/errorHandler.js')
+// unified error handler
 app.use(errorHandler)
 
 let server;
