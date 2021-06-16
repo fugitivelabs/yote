@@ -5,5 +5,5 @@ const product = require('./productController')
 module.exports = (router) => {
 
   router.get('/api/products/:id', product.getSingleById)
-  router.get('/api/products', product.getListByArgs)
+  router.get('/api/products', product.getListWithArgs)
 }

@@ -12,7 +12,7 @@ exports.getSingleById = async (req, res) => {
 }
 
 // list api actions
-exports.getListByArgs = async (req, res) => {
+exports.getListWithArgs = async (req, res) => {
 
   // let query = {}
   let query = {type: "doesnt exist"}
