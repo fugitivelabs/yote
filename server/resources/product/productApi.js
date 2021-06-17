@@ -1,5 +1,4 @@
 const ProductSchema = require('./ProductModel')
-
 const product = require('./productController')
 
 module.exports = (router) => {
