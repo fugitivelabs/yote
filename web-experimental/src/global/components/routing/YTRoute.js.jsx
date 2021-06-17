@@ -11,8 +11,11 @@ import { Redirect, Route } from 'react-router-dom';
 import Auth from '../../utils/auth';
 
 const YTRoute = ({
-  // There is no "this.props". The rest parameter syntax (...) allows us to represent an indefinite number of arguments as an array. More info: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters
-  ...props
+  role,
+  login,
+  exact,
+  path,
+  component,
 }) => {
 
   // const location = useLocation();
@@ -21,16 +24,19 @@ const YTRoute = ({
   //   newLocation.state = {}
   // }
   // newLocation.state.breadcrumbs = breadcrumbs;
-  if((props.role || props.login) && Auth.notLoggedIn()) {
+
+  if((role || login) && Auth.notLoggedIn()) {
     // return <Redirect to={{pathname: "/user/login", state: { from: location }}}/>
     return <Redirect to={{pathname: "/user/login" }}/>
-  } else if(props.role && Auth.notRole(props.role)) {
+  } else if(role && Auth.notRole(role)) {
     return <Redirect to={{pathname: "/unauthorized"}}/>
   } else {
     return (
-      <Route exact={props.exact} path={props.path}>
-        <props.component breadcrumbs={props.breadcrumbs}/>
-      </Route>
+      <Route
+        exact={exact}
+        path={path}
+        component={component}
+      />
     )
   }
 }
