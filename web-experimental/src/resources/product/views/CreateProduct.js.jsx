@@ -4,7 +4,7 @@ import React from 'react'
 import { Link, useLocation, useParams, useHistory } from 'react-router-dom'
 
 // import actions/reducer
-import { useDefaultProduct, useCreateProduct } from '../productApi';
+import { useDefaultProduct, useCreateProduct } from '../productService';
 
 // import resource components
 import ProductForm from '../components/ProductForm.js.jsx';
@@ -12,44 +12,35 @@ import ProductLayout from '../components/ProductLayout.js.jsx';
 
 
 const CreateProduct = () => {
-  // Using a query hook automatically fetches data and returns query values
-  // const { data: productList, error, isLoading, isFetching, refetch } = useProductList('all')
   const history = useHistory();
   
   const { data: defaultProduct, error, isLoading, isFetching } = useDefaultProduct(); 
 
+  // access the create action by running the mutation hook created in productService
+  // It returns an array where the first item is the create action and the second is an object with information about the result of the create action
   const [
     sendCreateProduct, // this is the function that fires the POST call to api/products/:productId
-    { isUpdating }, // This is the destructured mutation result
+    { isLoading: isCreating }, // This is the destructured mutation result.  Rename isLoading to isCreating for clarity.
   ] = useCreateProduct();
 
   const handleFormSubmit = async (newProduct) => {
-    const {data: product} = await sendCreateProduct(newProduct);
+    const {data: product} = await sendCreateProduct(newProduct); //  replaces dispatch(productActions.sendCreateProduct(newProduct)).then(productRes => ...)
     history.push(`/products/${product._id}`)
   }
 
   // render UI based on data and loading state
+  if(error) return <div>{error}</div>
+  if(isLoading) return <div>Loading...</div>
+  if(!defaultProduct) return <div>No default product found!</div>
   return (
-    <ProductLayout>
-      { error ?
-        <div>{error}</div>
-        :
-        isLoading ?
-        <h2> Loading...</h2>
-        :
-        defaultProduct ?
-        <ProductForm
-          product={defaultProduct}
-          cancelLink="/products"
-          disabled={isFetching || isUpdating}
-          formTitle="Create Product"
-          formType="create"
-          handleFormSubmit={handleFormSubmit}
-        />
-        :
-        null
-      }
-    </ProductLayout>
+    <ProductForm
+      product={defaultProduct}
+      cancelLink="/products"
+      disabled={isFetching || isCreating}
+      formTitle="Create Product"
+      formType="create"
+      handleFormSubmit={handleFormSubmit}
+    />
   )
 }
 
