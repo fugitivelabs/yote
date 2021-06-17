@@ -1,10 +1,12 @@
 
 const Product = require('mongoose').model('Product');
 const YoteError = require('../../global/helpers/YoteError');
+const apiUtils = require('../../global/api/apiUtils')
 
 // TODO: in theory, we could split "controller" into single/many/utils files
+// any utility functions (internal facing only)
 
-// single api actions
+// single api functions
 exports.getSingleById = async (req, res) => {
   const product = await Product.findById(req.params.id)
   if(!product) {
@@ -17,7 +19,6 @@ exports.getSingleById = async (req, res) => {
 exports.createSingle = async (req, res) => {
   let newProduct = new Product(req.body)
   const product = await newProduct.save()
-
   res.json(product)
 }
 
@@ -44,7 +45,6 @@ exports.updateSingleById = async (req, res) => {
    *  , ...req.body
    * }
    */
-  
 }
 
 exports.deleteSingle = async (req, res) => {
@@ -65,20 +65,29 @@ exports.deleteSingle = async (req, res) => {
 }
 
 exports.getDefault = async (req, res) => {
-
+  res.send({success: true, defaultObj: Product.getDefault()});
 }
 
-// list api actions
+// list api functions
 exports.getListWithArgs = async (req, res) => {
 
-  let query = {}
+  console.log("BOOM")
+  console.log(req.params)
+  const { query, pagination } = apiUtils.buildMongoQueryFromUrlQuery(req.query);
+  console.log("after", query)
+
+  // let query = {}
   // let query = {type: "doesnt exist"}
   // let query = "break me"
+  // const products = await Product.find(query)
+  // const products = await Product.find(req.query)
   const products = await Product.find(query)
+    .skip(pagination ? (pagination.page-1)* pagination.per : null)
+    .limit(pagination ? pagination.per : null)
+
   // .catch(err => { throw new Error(err, "things happened")}) // catch custom errors if we need to, or do something different with error
   res.json(products)
 }
-
 
 
 // other experimental/future todos
