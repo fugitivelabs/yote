@@ -1,7 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
 import counterReducer from '../resources/counter/counterSlice';
 import logger from 'redux-logger'
-import { productApi } from '../resources/product/productApi';
+
+// info on integrating apiSlices into the store here: https://redux-toolkit.js.org/rtk-query/api/created-api/redux-integration
+import { productService } from '../resources/product/productService';
 
 // More info: https://redux-toolkit.js.org/usage/usage-guide
 // redux thunk is included with getDefaultMiddleware. More info on that: https://redux-toolkit.js.org/api/getDefaultMiddleware
@@ -11,9 +13,8 @@ import { productApi } from '../resources/product/productApi';
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
-    [productApi.reducerPath]: productApi.reducer
-
+    [productService.reducerPath]: productService.reducer,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger).concat(productApi.middleware),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger).concat(productService.middleware),
 
 });

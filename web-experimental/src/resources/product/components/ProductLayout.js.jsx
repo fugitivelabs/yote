@@ -5,16 +5,15 @@
 
 // import primary libraries
 import React from 'react';
-import PropTypes from 'prop-types';
 
 // import global components
-// import DefaultLayout from '../../../global/components/layouts/DefaultLayout.js.jsx'; // doesn't exist yet
+import DefaultLayout from '../../../global/components/layouts/DefaultLayout.js.jsx'; // doesn't exist yet
 
 const ProductLayout = ({...props}) => {
   return (
-    <div>
+    <DefaultLayout>
       {props.children}
-    </div>
+    </DefaultLayout>
   )
 }
 
