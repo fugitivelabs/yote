@@ -40,12 +40,12 @@ class CreateProduct extends Binder {
 
   componentDidMount() {
     const { dispatch } = this.props;
-    dispatch(productActions.fetchDefaultProduct());
+    // dispatch(productActions.fetchDefaultProduct());
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      product: _.cloneDeep(nextProps.defaultProduct.obj)
+      // product: _.cloneDeep(nextProps.defaultProduct.obj)
     })
   }
 
@@ -107,7 +107,7 @@ const mapStoreToProps = (store) => {
   * differentiated from the React component's internal state
   */
   return {
-    defaultProduct: store.product.defaultItem
+    defaultProduct: { obj: {} }
   }
 }
 
