@@ -1,9 +1,7 @@
 
 exports.buildMongoQueryFromUrlQuery = urlQuery => {
   let newQuery = {...urlQuery}
-
-  console.log("TESTING")
-  let pagination;
+  let pagination, sort;
   if(newQuery.page && newQuery.per) {
     pagination = {}
     pagination.page = parseInt(newQuery.page);
@@ -12,27 +10,27 @@ exports.buildMongoQueryFromUrlQuery = urlQuery => {
   delete newQuery.page;
   delete newQuery.per;
 
+  if(newQuery.sort) {
+    sort = newQuery.sort;
+  }
+  delete newQuery.sort;
+
   // loop. keys should stay the same, but we need to change value for various types
   for(key in newQuery) {
-    console.log("next key", key)
-    console.log("next value", newQuery[key])
-
-    // booleans
     if(newQuery[key] == "true") {
       newQuery[key] = true;
     } else if(newQuery[key] == "false") {
       newQuery[key] = false;
+    } else if(newQuery[key] == "null") {
+      newQuery[key] = null;
     } else if(Array.isArray(newQuery[key])) {
       newQuery[key] = {
         $in: newQuery[key]
       }
     }
-
-
+    // TODO: numbers, dates, gt, lt
   }
-
-  // console.log(newQuery)
-  return { query: newQuery, pagination };
+  return { query: newQuery, pagination, sort };
 }
 
 exports.defaultValueFromSchema = schemaType => {

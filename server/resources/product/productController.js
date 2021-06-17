@@ -73,8 +73,8 @@ exports.getListWithArgs = async (req, res) => {
 
   console.log("BOOM")
   console.log(req.params)
-  const { query, pagination } = apiUtils.buildMongoQueryFromUrlQuery(req.query);
-  console.log("after", query)
+  const { query, pagination, sort } = apiUtils.buildMongoQueryFromUrlQuery(req.query);
+  console.log("after", query, pagination, sort)
 
   // let query = {}
   // let query = {type: "doesnt exist"}
@@ -84,7 +84,7 @@ exports.getListWithArgs = async (req, res) => {
   const products = await Product.find(query)
     .skip(pagination ? (pagination.page-1)* pagination.per : null)
     .limit(pagination ? pagination.per : null)
-
+    .sort(sort)
   // .catch(err => { throw new Error(err, "things happened")}) // catch custom errors if we need to, or do something different with error
   res.json(products)
 }
