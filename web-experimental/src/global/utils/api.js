@@ -3,6 +3,17 @@
  */
 
 const apiUtils = {
+  callAPI(route, method = 'GET', body, headers = {
+    'Accept': 'application/json', 'Content-Type': 'application/json'
+  }) {
+    return fetch(route, {
+      headers
+      , method
+      , credentials: 'same-origin'
+      , body: JSON.stringify(body)
+    })
+    .then(response => response.json())
+  },
   // ported from yote actions. Used in productService to build endpoints for different types of list fetches.
   getEndpointFromListArgs(baseUrl, listArgs = ['all']) {
     let endpoint = baseUrl;

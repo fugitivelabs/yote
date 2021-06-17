@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import counterReducer from '../resources/counter/counterSlice';
-import logger from 'redux-logger'
+import authService from '../resources/user/authService';
+import logger from 'redux-logger';
 
 // info on integrating apiSlices into the store here: https://redux-toolkit.js.org/rtk-query/api/created-api/redux-integration
 import { productService } from '../resources/product/productService';
@@ -12,6 +13,7 @@ import { productService } from '../resources/product/productService';
 
 export const store = configureStore({
   reducer: {
+    auth: authService, 
     counter: counterReducer,
     [productService.reducerPath]: productService.reducer,
   },
