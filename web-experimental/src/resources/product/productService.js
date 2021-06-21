@@ -124,7 +124,20 @@ export const productService = createApi({
       // In this case, `productById` will be re-run. `productList` *might*  rerun, if this id was under its results.
       invalidatesTags: (result, error, id) => [{ type: 'Products', id }],
     }),
+    extraReducers: (builder) => {
+      builder
+        .addCase(productService.endpoints.productList.matchFulfilled, (state, action) => {
+          console.log('state', state);
+          console.log('action', action);
+      })
+    }
   }),
+  
+  /**
+   * Still considering storing all results in a byId map.
+   * Would require using matching??? https://redux-toolkit.js.org/api/matching-utilities https://redux-toolkit.js.org/rtk-query/api/created-api/endpoints#matchers
+   * 
+   */
 })
 
 // Export generated hooks for usage in functional components
@@ -137,3 +150,43 @@ export const {
   useProductIdMapQuery: useProductIdMap,
   useUpdateProductMutation: useUpdateProduct,
 } = productService;
+
+
+
+// helpers
+
+/**
+ * A helper hook to get a single product from an existing list.
+ * 
+ * It uses the RTK Query `useQueryState` and `selectFromResult` functions but saves us the boilerplate.
+ * 
+ * @param {string} productId - the _id of the product object to be plucked from the list.
+ * @param {[string]} listArgs - the same `listArgs` array that was used to fetch the list in the parent component.
+ * 
+ * @example const { product } = useProductFromList(productId, listArgs);
+ * 
+ * @links
+ * `useQueryState` https://redux-toolkit.js.org/rtk-query/api/created-api/hooks#usequerystate
+ * `selectFromResult` https://redux-toolkit.js.org/rtk-query/usage/queries#selecting-data-from-a-query-result
+ */
+
+export const useProductFromList = (productId, listArgs) => {
+  // return the generated useProductList with the selectFromResult callback and boilerplate
+  return productService.endpoints.productList.useQueryState(listArgs, {
+    selectFromResult: ({ data }) => ({
+      product: data?.find((product) => product._id === productId),
+    }),
+  })
+}
+
+// Will select the product with the given id from the existing list (or will fetch the list) and will only rerender if the given product's data changes
+// Not really useful in this context, but could become useful.
+// This actually works pretty well for singles as it doesn't make a fetch when you click through from productList to this view but will fetch the list if you reload on single. Could be interesting.
+// more info: https://redux-toolkit.js.org/rtk-query/usage/queries#query-hook-options
+// const { product } = useProductList(listArgs, {
+//   selectFromResult: ({ data }) => ({
+//     product: data?.find((product) => product._id === productId),
+//   }),
+// });
+
+console.log('productService', productService);
