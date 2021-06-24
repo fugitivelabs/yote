@@ -35,7 +35,6 @@ const SingleProduct = () => {
             <hr />
             <p> {product.description}</p>
             <Link to={`${location.pathname}/update`}> UPDATE PRODUCT </Link>
-            <Link to={`/products2`}> ProDuCts</Link>
           </>
         }
       </AsyncWrapper>

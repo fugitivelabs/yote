@@ -13,7 +13,7 @@ const ProductListItem = ({ product }) => {
   // const product = useProductFromMap(productId);
   return (
     <li>
-      <Link to={`/products2/${product?._id}`}> {product?.title}</Link>
+      <Link to={`/products2/${product._id}`}> {product.title}</Link>
       <p><em>{product?.description}</em></p>
     </li>
   )

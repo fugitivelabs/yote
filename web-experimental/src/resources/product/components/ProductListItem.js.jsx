@@ -29,7 +29,7 @@ import { useProductFromList } from '../productService';
 // const ProductListItem = ({ product }) => {
 const ProductListItem = ({ productId, listArgs }) => {
 
-  // if we just passed the id we can use this helper method to grab the product from the list.
+  // if we only passed the id and not the object, we can use this helper method to grab the product from the list.
   // seems like it would be more efficient to just pass the whole product from the parent, but here's how it could work
   const { product } = useProductFromList(productId, listArgs);
 
@@ -42,7 +42,8 @@ const ProductListItem = ({ productId, listArgs }) => {
 }
 
 ProductListItem.propTypes = {
-  product: PropTypes.object.isRequired
+  productId: PropTypes.string.isRequired,
+  listArgs: PropTypes.array.isRequired
 }
 
 export default ProductListItem;

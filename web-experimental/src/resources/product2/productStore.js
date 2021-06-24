@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import apiUtils from '../../global/utils/api';
-import { shouldFetch } from '../../global/utils/storeUtils';
+import { convertListToMap, shouldFetch } from '../../global/utils/storeUtils';
 
 
 const initialState = {
@@ -187,7 +187,7 @@ export const productSlice = createSlice({
       })
       .addCase(fetchProductList.fulfilled, (state, action) => {
         // convert the array of objects to a map
-        const productMap = apiUtils.convertListToMap(action.payload.products, '_id');
+        const productMap = convertListToMap(action.payload.products, '_id');
         // find the query object for this fetch in the queries map
         const listQuery = state.queries[action.meta.arg];
         // save the array of ids for the returned products

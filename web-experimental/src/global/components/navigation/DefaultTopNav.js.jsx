@@ -129,7 +129,8 @@ class DefaultTopNav extends React.Component {
               <ul className="navigation">
                 {/* { MAIN_NAV_ITEMS.map((item, i) => */}
                   <li key={'foo'}>
-                    <NavLink to={`/products`} activeClassName="active">{'Products'}</NavLink>
+                  <NavLink to={`/products`} activeClassName="active">{'Products'}</NavLink>
+                  <NavLink to={`/products2`} activeClassName="active">{'Products2'}</NavLink>
                   </li>
                 {/* )} */}
                 {/* { loggedInUser && loggedInUser._id ?
