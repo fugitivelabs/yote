@@ -26,12 +26,10 @@ class DefaultTopNav extends React.Component {
       , scrollingDown: false
       , isTop: true
     }
-    // this._bind(
-    //   '_handleScroll'
-    // );
+    this._handleScroll = this._handleScroll.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     // will be depreciated in React 17+
     window.addEventListener('scroll', this._handleScroll);
   }
@@ -84,7 +82,7 @@ class DefaultTopNav extends React.Component {
     }
 
     // tell the State about the scroll direction
-    if(scrollingDown !== undefined && scrollingDown != this.state.scrollingDown) {
+    if(scrollingDown !== undefined && scrollingDown !== this.state.scrollingDown) {
       this.setState({scrollingDown: scrollingDown});
     }
 
@@ -95,7 +93,7 @@ class DefaultTopNav extends React.Component {
 
   render() {
     // let { fancyScroll, fixed, loggedInUser, navClasses } = this.props;
-    let { loggedInUser } = this.props;
+    // let { loggedInUser } = this.props;
     // let { isTop, scrollingDown, isFixed } = this.state;
     // let headerClass = classNames(
     //   'header'
@@ -106,12 +104,12 @@ class DefaultTopNav extends React.Component {
     //   }
     // )
 
-    let pictureUrl = '/img/defaults/profile.png';
-    if(loggedInUser && loggedInUser.profilePicUrl) {
-      pictureUrl = loggedInUser.profilePicUrl;
-    }
+    // let pictureUrl = '/img/defaults/profile.png';
+    // if(loggedInUser && loggedInUser.profilePicUrl) {
+    //   pictureUrl = loggedInUser.profilePicUrl;
+    // }
 
-    let profileImg = { backgroundImage: `url(${pictureUrl})` };
+    // let profileImg = { backgroundImage: `url(${pictureUrl})` };
 
     return(
       <header className={""}>
@@ -122,7 +120,7 @@ class DefaultTopNav extends React.Component {
           /> */}
           <div className="titles">
             <NavLink to="/" className="nav-logo" >
-              <img src="/img/yote_logo.png"/>
+              <img src="/img/yote_logo.png" alt="The Yote logo"/>
               <span className="-subtitle"> Standard Yote Dev Kit </span>
             </NavLink>
           </div>
