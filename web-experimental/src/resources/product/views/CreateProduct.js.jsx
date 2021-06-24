@@ -1,7 +1,6 @@
-
 // import primary libraries
 import React from 'react'
-import { Link, useLocation, useParams, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
 // import actions/reducer
 import { useDefaultProduct, useCreateProduct } from '../productService';
@@ -14,7 +13,7 @@ import ProductLayout from '../components/ProductLayout.js.jsx';
 const CreateProduct = () => {
   const history = useHistory();
   
-  const { data: defaultProduct, error, isLoading, isFetching } = useDefaultProduct(); 
+  const { data: defaultProduct, error, isLoading, isFetching } = useDefaultProduct();
 
   // access the create action by running the mutation hook created in productService
   // It returns an array where the first item is the create action and the second is an object with information about the result of the create action
@@ -24,25 +23,31 @@ const CreateProduct = () => {
   ] = useCreateProduct();
 
   const handleFormSubmit = async (newProduct) => {
-    const {data: product} = await sendCreateProduct(newProduct); //  replaces dispatch(productActions.sendCreateProduct(newProduct)).then(productRes => ...)
+    const { data: product } = await sendCreateProduct(newProduct); //  replaces dispatch(productActions.sendCreateProduct(newProduct)).then(productRes => ...)
     history.push(`/products/${product._id}`)
   }
 
   // render UI based on data and loading state
-  if(error) return <div>{error}</div>
-  if(isLoading) return <div>Loading...</div>
-  if(!defaultProduct) return <div>No default product found!</div>
+  // without AsyncWrapper we have to check each possible state by hand
   return (
-    <ProductForm
-      product={defaultProduct}
-      cancelLink="/products"
-      disabled={isFetching || isCreating}
-      formTitle="Create Product"
-      formType="create"
-      handleFormSubmit={handleFormSubmit}
-    />
+    <ProductLayout title={'New Product'}>
+      { error ? <div>{error}</div>
+        : isLoading ? <div>Loading...</div>
+        : !defaultProduct ? <div>No default product found!</div>
+        : // we have the defaultProduct, render the form
+        <ProductForm
+          product={defaultProduct}
+          cancelLink="/products"
+          disabled={isFetching || isCreating}
+          formTitle="Create Product"
+          formType="create"
+          handleFormSubmit={handleFormSubmit}
+        />
+      }
+    </ProductLayout>
   )
 }
 
 export default CreateProduct;
+
 

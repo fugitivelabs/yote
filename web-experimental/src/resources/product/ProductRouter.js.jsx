@@ -15,11 +15,11 @@
 
 // import primary libraries
 import React from 'react';
-import { Switch, Route, useLocation } from 'react-router-dom';
+import { Switch, useLocation } from 'react-router-dom';
 
 // import global components
 import YTRoute from '../../global/components/routing/YTRoute.js.jsx';
-import ProductLayout from './components/ProductLayout.js.jsx';
+// import ProductLayout from './components/ProductLayout.js.jsx';
 
 // import product views
 import CreateProduct from './views/CreateProduct.js.jsx';
@@ -30,10 +30,10 @@ import UpdateProduct from './views/UpdateProduct.js.jsx';
 const ProductRouter = () => {
   const location = useLocation();
   const productId = location.pathname.split('/')[1];
-  // render all product views inside <ProductLayout/> so we don't have to import it into every view.
   return (
-    <Route path="/products">
-      <ProductLayout>
+    // render all product views inside <ProductLayout/> so we don't have to import it into every view.
+    // <Route path="/products">
+    //   <ProductLayout>
         <Switch>
           <YTRoute
             breadcrumbs={[{display: 'All products', path: null }]}
@@ -62,8 +62,8 @@ const ProductRouter = () => {
             // role="admin"
           />
           </Switch>
-        </ProductLayout>
-      </Route>
+      //   </ProductLayout>
+      // </Route>
   )
 }
 

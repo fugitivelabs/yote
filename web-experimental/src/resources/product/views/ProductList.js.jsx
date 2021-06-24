@@ -110,7 +110,7 @@ import { useProductList } from '../productService';
 // import resource components
 import ProductListItem from '../components/ProductListItem.js.jsx';
 import ProductLayout from '../components/ProductLayout.js.jsx';
-import { AsyncWrapper } from '../../../global/components/navigation/helpers/AsyncWrapper.js.jsx';
+import AsyncWrapper from '../../../global/components/helpers/AsyncWrapper.js.jsx';
 
 
 
@@ -131,7 +131,8 @@ const ProductList = () => {
         { isEmpty ? <div>No products found</div>
           :
           <ul>
-            { productList.map((product, i) =>
+            {productList.map((product) =>
+                // I've read that passing the id is more performant than passing the whole product object, but I have my doubts about that.
                 <ProductListItem key={product._id} productId={product._id} listArgs={['all']} />
                 // <ProductListItem key={product._id} product={product} />
                 )}

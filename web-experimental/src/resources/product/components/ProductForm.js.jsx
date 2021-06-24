@@ -15,6 +15,7 @@ import { TextInput } from '../../../global/components/forms'
 
 const ProductForm = ({
   cancelLink
+  , disabled
   , formTitle
   , formType
   // , handleFormChange
@@ -44,6 +45,7 @@ const ProductForm = ({
           label="Title"
           value={updatedProduct.title || ""}
           change={handleChange}
+          disabled={disabled}
           required={true}
         />
         <TextInput
@@ -51,12 +53,22 @@ const ProductForm = ({
           label="Description"
           value={updatedProduct.description || ""}
           change={handleChange}
+          disabled={disabled}
           required={true}
         />
         <div className="input-group">
           <div className="yt-row space-between">
-            <Link className="yt-btn link" to={cancelLink}>Cancel</Link>
-            <button className="yt-btn " type="submit" > {buttonText} </button>
+            <Link
+              // we can disable links using the pointer-events attribute
+              // more info: https://stackoverflow.com/questions/10276133/how-to-disable-html-links/10276157#10276157
+              className={`yt-btn link ${disabled && 'pointer-events-none'}`}
+              to={cancelLink}
+              // disable a link!
+              // style={disabled ? { pointerEvents: 'none' } : null}
+            >
+              Cancel
+            </Link>
+            <button disabled={disabled} className="yt-btn " type="submit" > {buttonText} </button>
           </div>
         </div>
       </form>
@@ -66,6 +78,7 @@ const ProductForm = ({
 
 ProductForm.propTypes = {
   cancelLink: PropTypes.string.isRequired
+  , disabled: PropTypes.bool
   , formTitle: PropTypes.string
   , formType: PropTypes.string.isRequired
   // , handleFormChange: PropTypes.func.isRequired
@@ -74,7 +87,8 @@ ProductForm.propTypes = {
 }
 
 ProductForm.defaultProps = {
-  formTitle: ''
+  disabled: false
+  , formTitle: ''
 }
 
 export default ProductForm;

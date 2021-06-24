@@ -22,18 +22,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { AsyncWrapper } from '../../../global/components/navigation/helpers/AsyncWrapper.js.jsx';
 
 // import actions/reducer
-import { useProductList } from '../productService';
-// import { useProductFromList } from '../productHooks';
 import { useProductFromList } from '../productService';
 
+// const ProductListItem = ({ product }) => {
 const ProductListItem = ({ productId, listArgs }) => {
-  // const ProductListItem = ({ product }) => {
 
-  
-
+  // if we just passed the id we can use this helper method to grab the product from the list.
+  // seems like it would be more efficient to just pass the whole product from the parent, but here's how it could work
   const { product } = useProductFromList(productId, listArgs);
 
   return (

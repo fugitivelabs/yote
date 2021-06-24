@@ -18,14 +18,17 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 import apiUtils from '../../global/utils/api';
 
+import { convertListToMap } from '../../global/utils/storeUtils';
+
 // import { createEntityAdapter } from '@reduxjs/toolkit'; // https://redux-toolkit.js.org/api/createEntityAdapter
 // this can be used to create a standardized map from an array of objects returned by the server.
 // Returns an object like this: { ids: [1,2,3], entities: {1: {_id: 1, name: "first"}, 2: {_id: 2, name: "second"}, etc...} }
+// It would be used in the transformResponse property on the endpoints below.
 // May revisit this later, but seems like overkill at the moment.
 // const mapAdapter = createEntityAdapter({
 //   // Assume IDs are stored in a field other than `item.id`
 //   selectId: (item) => item._id,
-//   // Keep the "all IDs" array sorted based on title. Not sure when we would use the all IDs array though.
+//   // Keep the "all IDs" array sorted based on title.
 //   sortComparer: (a, b) => a.title.localeCompare(b.title)
 // })
 
@@ -45,9 +48,8 @@ export const productService = createApi({
         body
       }),
       transformResponse: (response) => response.product, // response looks like {success: true, product: {...}} we only want response.product
-      // Invalidates all Product-type queries of type 'Products', after all, depending of the sort order,
-      // that newly created product could show up in any list.
-      invalidatesTags:  () => [{ type: 'Products' }],
+      // Invalidates all queries of type 'Products', after all, that newly created product could show up in any list.
+      invalidatesTags: () => [{ type: 'Products' }],
     }),
 
     // READ
@@ -60,39 +62,41 @@ export const productService = createApi({
     // fetch list
     // Provides a list of `Products` using yote style listArgs.
     productList: builder.query({
-      query: (listArgs) => apiUtils.getEndpointFromListArgs('/', listArgs),
+      query: (listArgs) => apiUtils.buildEndpointFromListArgs('/', listArgs),
       transformResponse: (response) => response.products,
       // If any mutation is executed that invalidates any of these tags, this query will re-run to be always up-to-date.
-      // listArgs id is a "virtual id" we just made up to be able to invalidate this query specifically if a new `Products` element was added.
+      // listArgs id is used as a "virtual id" to invalidate this query specifically if a new `Products` element was added.
       providesTags: (products, error, listArgs) =>
         // is result available?
         products ?
-        // successful query
-        [
-          ...products.map((product) => ({ type: 'Products', id: product._id })),
-          { type: 'Products', id: listArgs }
-        ]
-        :
-        // an error occurred, but we still want to refetch this query when `{ type: 'Products', id: listArgs }` is invalidated
-        [{ type: 'Products', id: listArgs }]
+          // successful query
+          [ // create a tag for each product in the list
+            ...products.map((product) => ({ type: 'Products', id: product._id })),
+            // also create a tag for the whole list
+            { type: 'Products', id: listArgs }
+          ]
+          :
+          // an error occurred, but we still want to refetch this query when `{ type: 'Products', id: listArgs }` is invalidated
+          [{ type: 'Products', id: listArgs }]
     }),
     // Provides an id map of `Products` using yote style listArgs.
     productIdMap: builder.query({
-      query: (listArgs) => apiUtils.getEndpointFromListArgs('/', listArgs),
-      transformResponse: (response) => apiUtils.convertListToMap(response.products, '_id'), // converts the products array to an object like this {1: {_id: 1, name: "first"}, 2: {_id: 2, name: "second"}, etc...}
+      query: (listArgs) => apiUtils.buildEndpointFromListArgs('/', listArgs),
+      // here is where we could use the entityAdapter described above. Using a simpler method for now.
+      transformResponse: (response) => convertListToMap(response.products, '_id'), // converts the products array to an object like this {1: {_id: 1, name: "first"}, 2: {_id: 2, name: "second"}, etc...}
       // If any mutation is executed that invalidates any of these tags, this query will re-run to be always up-to-date.
       // listArgs id is a "virtual id" we use to be able to invalidate this query specifically if a new `Products` element was added.
       providesTags: (productMap, error, listArgs) =>
         // is result available?
         productMap ?
-        // successful query
-        [
-          ...Object.keys(productMap).map((productId) => ({ type: 'Products', id: productId })),
-          { type: 'Products', id: listArgs }
-        ]
-        :
-        // an error occurred, but we still want to refetch this query when `{ type: 'Products', id: listArgs }` is invalidated
-        [{ type: 'Products', id: listArgs }]
+          // successful query
+          [
+            ...Object.keys(productMap).map((productId) => ({ type: 'Products', id: productId })),
+            { type: 'Products', id: listArgs }
+          ]
+          :
+          // an error occurred, but we still want to refetch this query when `{ type: 'Products', id: listArgs }` is invalidated
+          [{ type: 'Products', id: listArgs }]
     }),
 
     // fetch default
@@ -111,7 +115,7 @@ export const productService = createApi({
       transformResponse: (response) => response.product,
       // Invalidates all queries that subscribe to this Product `id` only.
       // In this case, `productById` will be re-run. `productList` *might*  rerun, if this id was under its results.
-      invalidatesTags: (product, error, {_id}) => [{ type: 'Products', id: _id }],
+      invalidatesTags: (product, error, { _id }) => [{ type: 'Products', id: _id }],
     }),
 
     // DELETE
@@ -124,21 +128,8 @@ export const productService = createApi({
       // In this case, `productById` will be re-run. `productList` *might*  rerun, if this id was under its results.
       invalidatesTags: (result, error, id) => [{ type: 'Products', id }],
     }),
-    extraReducers: (builder) => {
-      builder
-        .addCase(productService.endpoints.productList.matchFulfilled, (state, action) => {
-          console.log('state', state);
-          console.log('action', action);
-      })
-    }
-  }),
-  
-  /**
-   * Still considering storing all results in a byId map.
-   * Would require using matching??? https://redux-toolkit.js.org/api/matching-utilities https://redux-toolkit.js.org/rtk-query/api/created-api/endpoints#matchers
-   * 
-   */
-})
+  })
+});
 
 // Export generated hooks for usage in functional components
 // These are generated with the useGetThingQuery naming convention. Might as well rename the exports.
@@ -178,15 +169,3 @@ export const useProductFromList = (productId, listArgs) => {
     }),
   })
 }
-
-// Will select the product with the given id from the existing list (or will fetch the list) and will only rerender if the given product's data changes
-// Not really useful in this context, but could become useful.
-// This actually works pretty well for singles as it doesn't make a fetch when you click through from productList to this view but will fetch the list if you reload on single. Could be interesting.
-// more info: https://redux-toolkit.js.org/rtk-query/usage/queries#query-hook-options
-// const { product } = useProductList(listArgs, {
-//   selectFromResult: ({ data }) => ({
-//     product: data?.find((product) => product._id === productId),
-//   }),
-// });
-
-console.log('productService', productService);

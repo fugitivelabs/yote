@@ -1,14 +1,19 @@
-
 // import primary libraries
 import React from 'react';
 // import PropTypes from 'prop-types'; // this component gets no props!
 import { Link, useLocation, useParams } from 'react-router-dom'
 
 // import actions/reducer
-import { useSingleProduct, useProductList } from '../productService';
+import {
+  useSingleProduct,
+  // useProductList
+} from '../productService';
 
 // import global components
+import AsyncWrapper from '../../../global/components/helpers/AsyncWrapper.js.jsx';
 // import Breadcrumbs from '../../../global/components/navigation/Breadcrumbs.js.jsx'; // doesn't exist yet
+
+import ProductLayout from '../components/ProductLayout.js.jsx'
 
 const SingleProduct = () => {
   // get the product id from the url. Below is equivalent to const { productId } = this.props.match.params;
@@ -27,32 +32,26 @@ const SingleProduct = () => {
   // });
 
   // Fetch the single product using the hook created in productService.
-  const {
-    data: product, // rename the returned data to something more descriptive
-    error,
-    isLoading, // isLoading is true the first time this product is fetched from the server and never again. If isLoading is true we can be sure that we haven't received a product yet.
-    isFetching, // isFetching is true every time this product is fetched from the server. We'll still have access to the existing cached product while fetching occurs.
-    refetch // Every method on productService returns this refetch function which will re-run the query. 
-  } = useSingleProduct(productId);
-  
-  // render UI based on data and loading state
-  if(error) return <div>There was an error fetching this product. <button onClick={refetch}> Try again </button></div>
-  if(isLoading) return <div>Loading...</div>
-  if(!product) return <div>No product found</div>
-  // No errors, not loading, and we have the product. Safe to render the product info
+  const { data: product, ...productFetch } = useSingleProduct(productId);
+  const isEmpty = !product;
   return (
-    <>
+    <ProductLayout title={'Single Product'}>
       <h3> Single Product </h3>
-      <hr/>
-      <div style={{opacity: isFetching ? 0.5 : 1}}>
-        <h1> {product.title} </h1>
-        <hr/>
-        <p> {product.description}</p>
-        <Link to={`${location.pathname}/update`}> UPDATE PRODUCT </Link>
-      </div>
-    </>
+      <hr />
+      <AsyncWrapper {...productFetch}>
+        { isEmpty ?
+          <div>No product found</div>
+          :
+          <>
+            <h1> {product.title} </h1>
+            <hr />
+            <p> {product.description}</p>
+            <Link to={`${location.pathname}/update`}> UPDATE PRODUCT </Link>
+          </>
+        }
+      </AsyncWrapper>
+    </ProductLayout>
   )
 }
 
 export default SingleProduct;
-

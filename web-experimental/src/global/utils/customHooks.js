@@ -1,7 +1,4 @@
-import React, { useReducer } from 'react'
-
-// This little guy handles editing a resource in component state before sending it to the server.
-// Includes the standard handleChange method so we don't have to define it everywhere.
+import { useReducer } from 'react'
 
 /**
  * This little guy handles editing a resource in component state before sending it to the server.
@@ -21,8 +18,5 @@ export const useForm = (initialState = {}) => {
     setState({[e.target.name]: e.target.value});
   }
 
-  return [
-    state
-    , handleChange
-  ];
+  return [ state, handleChange ];
 }
