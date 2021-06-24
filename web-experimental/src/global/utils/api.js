@@ -2,6 +2,8 @@
  * This is a utility to handle default API requests with the Yote server
  */
 
+// TODO: break this into separate exports so we aren't forced to import the entire set to use one method.
+
 const apiUtils = {
   callAPI(route, method = 'GET', body, headers = {
     'Accept': 'application/json', 'Content-Type': 'application/json'
@@ -15,7 +17,7 @@ const apiUtils = {
     .then(response => response.json())
   },
   // ported from yote actions. Used in productService to build endpoints for different types of list fetches.
-  getEndpointFromListArgs(baseUrl, listArgs = ['all']) {
+  buildEndpointFromListArgs(baseUrl, listArgs = ['all']) {
     let endpoint = baseUrl;
     if(listArgs.length === 1 && listArgs[0] !== "all") {
       endpoint += `by-${listArgs[0]}`;
@@ -28,7 +30,7 @@ const apiUtils = {
       for(let i = 0; i < listArgs[1].length; i++) {
         endpoint += `${listArgs[0]}=${listArgs[1][i]}&`
       }
-    } else if(listArgs.length == 2) {
+    } else if(listArgs.length === 2) {
       // ex: ("author","12345")
       endpoint += `by-${listArgs[0]}/${listArgs[1]}`;
     } else if(listArgs.length > 2) {
@@ -38,23 +40,9 @@ const apiUtils = {
       }
     }
     return endpoint
-  },
-  /**
-   * Similar to but simpler than the createEntityAdapter method.
-   * Theoretically we could map the objects by any key, not just the _id.
-   * @param {[object]} items - An array of objects
-   * @param {string} key - The key used to create the map ("_id" by default)
-   * @returns a map of items by key
-   * @example
-   * items: [{_id: 1, name: "first"}, {_id: 2, name: "second"}, etc...]
-   * returns: {1: {_id: 1, name: "first"}, 2: {_id: 2, name: "second"}, etc...}
-   */
-  convertListToMap(items, key = '_id') {
-    return items.reduce((acc, curr) => {
-      acc[curr[key]] = curr
-      return acc
-    }, {})
   }
 }
 
 export default apiUtils;
+
+
