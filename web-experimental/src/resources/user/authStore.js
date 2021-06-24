@@ -1,14 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-// TODO: Implement regular yote style reducers https://redux-toolkit.js.org/usage/usage-guide
-
 import apiUtils from '../../global/utils/api';
-
-// const initialState = {
-//   loggedInUser: null,
-//   status: 'idle',
-//   error: null,
-// }
 
 // The function below is called a thunk and allows us to perform async logic. It
 // can be dispatched like a regular action: `dispatch(incrementAsync(10))`. This
@@ -17,8 +9,8 @@ import apiUtils from '../../global/utils/api';
 // typically used to make async requests.
 export const sendLogin = createAsyncThunk(
   'auth/sendLogin',
-  async (username, password) => {
-    const response = await apiUtils.callAPI('/api/users/login', 'POST', { username, password });
+  async (userInfo) => {
+    const response = await apiUtils.callAPI('/api/users/login', 'POST', userInfo);
     // The value we return becomes the `fulfilled` action payload
     return response;
   }
@@ -33,7 +25,7 @@ export const sendLogout = createAsyncThunk(
   }
 );
 
-export const authService = createSlice({
+export const authStore = createSlice({
   name: 'auth',
   initialState: {
     loggedInUser: null,
@@ -52,11 +44,17 @@ export const authService = createSlice({
         state.status = 'loading';
         state.error = null
       })
-      .addCase(sendLogin.fulfilled, (state, action) => {
-        state.status = 'idle';
-        state.loggedInUser = action.user;
+      .addCase(sendLogin.fulfilled, (state, {payload}) => {
+        console.log('state', state);
+        console.log('payload', payload);
+        if(payload.success) {
+          state.status = 'idle';
+          state.loggedInUser = payload.user;
+        } else {
+          state.status = 'error'
+          state.error = payload.message
+        }
       })
-      // not sure this will work but worth exploring
       .addCase(sendLogin.rejected, (state, action) => {
         state.status = 'error'
         state.error = action.error
@@ -69,13 +67,13 @@ export const authService = createSlice({
         state.status = 'idle';
         state.loggedInUser = null
       })
-      // not sure this will work but worth exploring
       .addCase(sendLogout.rejected, (state, action) => {
         state.status = 'error'
         state.error = action.error
-      });
-  },
+      })
+  }
 });
+
 
 
 
@@ -87,15 +85,9 @@ export const authService = createSlice({
  * 
  * @returns logged in user object
  */
-export const getLoggedInUser = (state) => state.loggedInUser;
+export const getLoggedInUser = ({auth}) => {
+  return auth.loggedInUser;
+}
 
-// // We can also write thunks by hand, which may contain both sync and async logic.
-// // Here's an example of conditionally dispatching actions based on current state.
-// export const incrementIfOdd = (amount) => (dispatch, getState) => {
-//   const currentValue = selectCount(getState());
-//   if (currentValue % 2 === 1) {
-//     dispatch(incrementByAmount(amount));
-//   }
-// };
-export default authService.reducer;
+export default authStore.reducer;
 
