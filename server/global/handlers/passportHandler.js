@@ -1,29 +1,30 @@
+const UserSchema = require('../../resources/user/UserModel')
+const User = require('mongoose').model('User');
+const YoteError = require('../../global/helpers/YoteError');
+let passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 
-const passport = require("passport");
-const LocalStrategy = require("passport-local").Strategy;
+// TODO: once working, redo for new asyncs
 
 // define strategies
-
-// initialize passport
 passport.use('local', new LocalStrategy(
   function(username, password, done) {
     var projection = {
       username: 1, password_salt: 1, password_hash: 1, roles: 1
     }
-    User.findOne({username:username}, projection).exec((err, user) => {
-      if(user && user.authenticate(password)) {
-        logger.debug("authenticated!");
+    // console.log("TESTING", username, password)
+    User.findOne({username}, projection).exec((err, user) => {
+      if(user && user.checkPassword(password)) {
+        console.log("authenticated!");
         return done(null, user);
       } else {
-        logger.debug("NOT authenticated");
+        console.log("NOT authenticated");
         return done(null, false);
       }
     })
   }
 ));
 
-
-// TODO: once working, redo for now asyncs
 passport.serializeUser((user, cb) => {
   // logger.warn("SERIALIZE USER");
   if(user) {

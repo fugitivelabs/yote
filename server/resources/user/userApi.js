@@ -1,14 +1,20 @@
 const UserSchema = require('./UserModel')
-const user = require('./userController')
+const standardUser = require('./userController')
+const userSessions = require('./sessionController')
+
 
 module.exports = (router) => {
 
-  router.get('/api/users/default', user.getDefault)
-  router.get('/api/users/:id', user.getSingleById)
-  router.get('/api/users', user.getListWithArgs)
+  router.get('/api/users/default', standardUser.getDefault)
+  router.get('/api/users/:id', standardUser.getSingleById)
+  router.get('/api/users', standardUser.getListWithArgs)
 
-  router.post('/api/users', user.createSingle)
 
-  router.put('/api/users/:id', user.updateSingleById)
+  router.post(`/api/users/login`, userSessions.login)
+  router.post('/api/users/register', userSessions.register)
+
+  router.post('/api/users', standardUser.createSingle)
+
+  router.put('/api/users/:id', standardUser.updateSingleById)
 
 }

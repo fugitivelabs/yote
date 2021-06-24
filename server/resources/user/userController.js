@@ -31,20 +31,6 @@ exports.updateSingleById = async (req, res) => {
   const user = await oldUser.save()
   res.json(user)
 
-  /**
-   * NOTES
-   * 
-   * mongoose provides a "findByIdAndUpdate" function to shorthand this, however 
-   * these limit us a little bit for the more complicated cases, AND they bypass 
-   * some of the additional built in model validation stuff so not planning to use
-   * 
-   * normally we'd want to use the spread operator, but it appears that internally this 
-   * calls .toObject() on the mongo object, removing our .save() methods
-   * oldUser = {
-   *  ...oldUser
-   *  , ...req.body
-   * }
-   */
 }
 
 exports.deleteSingle = async (req, res) => {
@@ -56,12 +42,6 @@ exports.deleteSingle = async (req, res) => {
   const deletedCount = oldUser.remove()
   res.json()
 
-  /**
-   * NOTES
-   * 
-   * similarly to update, mongoose does provide a single step "findByIdAndRemove",
-   * however not planning to use for same reasons as above
-   */
 }
 
 exports.getDefault = async (req, res) => {
@@ -72,16 +52,11 @@ exports.getDefault = async (req, res) => {
 exports.getListWithArgs = async (req, res) => {
   // console.log(req.params)
   const { query, pagination, sort } = apiUtils.buildMongoQueryFromUrlQuery(req.query);
-  console.log("after parse", query, pagination, sort)
-
-  // let query = {}
-  // let query = {type: "doesnt exist"}
-  // let query = "break me"
+  // console.log("after parse", query, pagination, sort)
   const users = await User.find(query)
     .skip(pagination ? (pagination.page-1)*pagination.per : null)
     .limit(pagination ? pagination.per : null)
     .sort(sort)
-  // .catch(err => { throw new Error(err, "things happened")}) // catch custom errors if we need to, or do something different with error
   res.json(users)
 }
 

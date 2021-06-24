@@ -15,7 +15,8 @@ const MongoStore = require('connect-mongo');
 
 // yote libraries
 const errorHandler = require('./global/handlers/errorHandler.js')
-const { passport } = require('./global/handlers/passportHandler.js')
+const { passport } = require('./global/handlers/passportHandler.js');
+const db = require('../server-old/db.js');
 
 // init app
 const app = express()
@@ -33,16 +34,10 @@ app.use(compression());
 
 // connect to database
 mongoose.connect(config.get('database.uri') + config.get('database.name'), {
-  // mongoose has a lot of depreciation warnings
-  useNewUrlParser: true
-  , useUnifiedTopology: true
-})
-
-// setup sessions
-const sessionStore = new MongoStore({
-  mongooseConnection: connection,
-  collection: "sessions",
-});
+    // mongoose has a lot of depreciation warnings
+    useNewUrlParser: true
+    , useUnifiedTopology: true
+  }).catch(err => console.log("OUCHIE OOOO MY DB", err))
 
 app.use(
   session({
@@ -50,7 +45,16 @@ app.use(
     secret: "ABC123",
     resave: false,
     saveUninitialized: true,
-    store: sessionStore,
+    store: MongoStore.create({
+      mongoUrl: config.get('database.uri') + config.get('database.name')
+      // NOTES HERE - this functions but is NOT correct - connect-mongo changed their package
+      // , and we SHOULD be able to pass in teh connection promise, as below, but it breaks. the temp solution creates unnecessary additional database connections
+      // https://stackoverflow.com/questions/66388523/error-cannot-init-client-mongo-connect-express-session
+      // https://www.npmjs.com/package/connect-mongo#express-or-connect-integration
+      
+      // correct way, re-use existing connection:
+      // clientPromise: mongoose.connection
+    })
   })
 );
 
