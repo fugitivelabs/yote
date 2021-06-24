@@ -11,11 +11,15 @@
   "dependencies": {
     "compression": "^1.7.4",
     "config": "^3.3.6",
+    "connect-mongo": "^4.4.1",
     "cookie-parser": "^1.4.5",
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
+    "express-session": "^1.17.2",
     "http-errors": "^1.7.2",
     "mongoose": "^5.12.13",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
     "pug": "^3.0.2"
   }
 }

@@ -4,7 +4,7 @@ const apiUtils = require('../../global/api/apiUtils')
 const userSchema = mongoose.Schema({
   created:                  { type: Date, default: Date.now }
   , updated:                { type: Date, default: Date.now }
-  , title:                  { type: String, required: '{PATH} is required!', unique: true }
+  , email:                  { type: String, required: '{PATH} is required!', unique: true }
   , description:            { type: String }
 });
 
