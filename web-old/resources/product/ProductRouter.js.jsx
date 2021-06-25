@@ -43,7 +43,6 @@ class ProductRouter extends Binder {
         <YTRoute
           breadcrumbs={[{display: 'All products', path: '/products'}, {display: 'New ', path: null}]}
           component={CreateProduct}
-          login={true}
           exact
           path="/products/new"
         />
@@ -58,7 +57,6 @@ class ProductRouter extends Binder {
           component={UpdateProduct}
           exact
           path="/products/:productId/update"
-          role="admin"
         />
       </Switch>
     )

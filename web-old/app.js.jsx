@@ -41,24 +41,24 @@ import configureStore from './config/configureStore';
  * - instead of checking let's ONLY show console logs if it's chrome
  */
 
-if((navigator.userAgent.toLowerCase().indexOf('webkit') == -1 && navigator.userAgent.toLowerCase().indexOf('firefox') == -1) || !window.development) {
-  window.console = {log: function() {}, error: function(){} };
-  /**
-   * NOTE: overriding the error function may be dangerous, but IE throws some
-   * major errors. in particular, something in the draftjs library checks if
-   * console is undefined before calling errora (normally true in IE,
-   * but we are overriding it to be an empty fn, which results in weird behavior)
-   */
-} else {
-  // override errors.
-  // NOTE: Only do this in chrome, IE haaaaaates that bind call
-  var consoleError = console.error.bind(console);
-  console.error = function(err){
-    if(err !== 'Warning: A component is `contentEditable` and contains `children` managed by React. It is now your responsibility to guarantee that none of those nodes are unexpectedly modified or duplicated. This is probably not intentional.'){
-        consoleError(err);
-    }
-  }
-}
+// if((navigator.userAgent.toLowerCase().indexOf('webkit') == -1 && navigator.userAgent.toLowerCase().indexOf('firefox') == -1) || !window.development) {
+//   window.console = {log: function() {}, error: function(){} };
+//   /**
+//    * NOTE: overriding the error function may be dangerous, but IE throws some
+//    * major errors. in particular, something in the draftjs library checks if
+//    * console is undefined before calling errora (normally true in IE,
+//    * but we are overriding it to be an empty fn, which results in weird behavior)
+//    */
+// } else {
+//   // override errors.
+//   // NOTE: Only do this in chrome, IE haaaaaates that bind call
+//   var consoleError = console.error.bind(console);
+//   console.error = function(err){
+//     if(err !== 'Warning: A component is `contentEditable` and contains `children` managed by React. It is now your responsibility to guarantee that none of those nodes are unexpectedly modified or duplicated. This is probably not intentional.'){
+//         consoleError(err);
+//     }
+//   }
+// }
 
 /**
  * END EXPERIMENTAL CROSS BROWSER STUFF
