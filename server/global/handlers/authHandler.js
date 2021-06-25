@@ -24,7 +24,6 @@ module.exports = {
     // this check will not actually do anything, but will fetch some stuff just to test
     // REQUIREMENT: a product with that description exists in the database (because obviously)
 
-    console.log("TESTING ACCESS", req.query)
     if(!req.query || !req.query.description) {
       res.status(403).send("UNAUTHORIZED - NOT LOGGED IN");
     } else {
@@ -33,6 +32,8 @@ module.exports = {
       if(!product) {
         res.status(403).send("ARBITRARILY RESTRICTING BECAUSE YOU DIDNT PASS API CHECKS");
       } else {
+        // delete req.query.description // can REMOVE it here too if you want, but prob bad for debugging
+        // but then it doesnt effect the subsequent query
         next();
       }
 
