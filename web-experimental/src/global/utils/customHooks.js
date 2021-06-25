@@ -20,3 +20,23 @@ export const useForm = (initialState = {}) => {
 
   return [ state, handleChange ];
 }
+
+export const usePagination = (initialState = { page: 1, per: 10 }) => {
+  // The reducer determines what we do when new values come in
+  // In the case of a pagination we want to update the state object with the new values.
+  const reducer = (state, newState) => ({ ...state, ...newState })
+  
+  // useReducer returns a state variable and a function to update it.
+  // It is almost the same as useState, but for objects instead of primitives.
+  const [pagination, setPagination] = useReducer(reducer, initialState);
+
+  const setPage = newPage => {
+    setPagination({page: newPage || 1});
+  }
+
+  const setPer = newPer => {
+    setPagination({per: newPer || 1})
+  }
+
+  return { pagination, setPage, setPer};
+}
