@@ -6,7 +6,7 @@ import React from 'react'
 const AsyncWrapper = ({
   children, // all children of this component
   // the rest of these are provided from the fetch object passed in (the one returned by the service)
-  error: dataError,
+  isError: dataError,
   isLoading,
   isFetching,
   refetch,
