@@ -1,4 +1,4 @@
-
+const ProductSchema = require('./ProductModel')
 const Product = require('mongoose').model('Product');
 const YoteError = require('../../global/helpers/YoteError');
 const apiUtils = require('../../global/api/apiUtils')

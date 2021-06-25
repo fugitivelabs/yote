@@ -24,6 +24,7 @@ passport.use('local', new LocalStrategy(
     })
   }
 ));
+// other user auth strategies defined here
 
 passport.serializeUser((user, cb) => {
   // logger.warn("SERIALIZE USER");

@@ -6,6 +6,7 @@ const productSchema = mongoose.Schema({
   , updated:                { type: Date, default: Date.now }
   , title:                  { type: String, required: '{PATH} is required!', unique: true }
   , description:            { type: String }
+
 });
 
 // schema hooks

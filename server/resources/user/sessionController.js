@@ -13,7 +13,6 @@ const apiUtils = require('../../global/api/apiUtils')
 const passport = require('passport');
 
 exports.login = async (req, res, next) => {
-  console.log("TRYING TO LOG IN")
   if(req.body.username == undefined) {
     res.send({ success: false, message: "No username present." });
   } else {
@@ -62,13 +61,15 @@ exports.register = async (req, res) => {
   }
 }
 
-exports.updateSingleById = async (req, res) => {
+exports.updateProfile = async (req, res) => {
   let oldUser = await User.findById(req.params.id)
   if(!oldUser) {
     throw new YoteError("Could not find matching User", 404)
   }
-  oldUser = Object.assign(oldUser, req.body)
+  // oldUser = Object.assign(oldUser, req.body)
+  // define specifically what fields a user can change on their own profile
+  // oldUser.thing = req.body.thing;
+
   const user = await oldUser.save()
   res.json(user)
-
 }
