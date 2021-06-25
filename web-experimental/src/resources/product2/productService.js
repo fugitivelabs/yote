@@ -9,6 +9,7 @@
 
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
+import apiUtils from '../../global/utils/api';
 
 // import all of the actions from the store
 import {
@@ -16,6 +17,7 @@ import {
   , fetchProductList
   , selectShouldFetch
   , selectFetchStatus
+  , selectListPageCount
   , selectSingleById
   , fetchSingleProduct
   , fetchDefaultProduct
@@ -125,17 +127,22 @@ export const useGetDefaultProduct = (forceFetch = false) => {
 /**
  * This hook will check for a fresh list in the store and fetch a new one if necessary
  * 
- * @param {[string]} listArgs - an array of strings used to construct the query
+ * @param {object} listArgs - an object used to construct the query
  * @param {boolean} forceFetch - optional override to force a fetch from the server
  * @returns an object containing fetch info and eventually the product list (as `list`)
  * @returns an invalidate and refetch function for convenience
  */
-export const useGetProductList = (listArgs, forceFetch = false) => {
+export const useGetProductList = (listArgs = {}, forceFetch = false) => {
+  // convert the query object to a query string for the new server api
+  // also makes it easy to track the lists in the reducer by query string
+  listArgs = apiUtils.queryStringFromObject(listArgs) || "all"
   const dispatch = useDispatch();
   // get current list status (if it exists)
   const status = useSelector((store) => selectFetchStatus(store, listArgs))
+  // get total document count for proper pagination
+  const totalPages = useSelector((store) => selectListPageCount(store, listArgs))
   // get current list data (if it exists)
-  const list = useSelector((store) => selectListItems(store, listArgs))
+  const products = useSelector((store) => selectListItems(store, listArgs))
 
   const shouldFetch = useSelector((store) => selectShouldFetch(store, listArgs))
 
@@ -147,13 +154,14 @@ export const useGetProductList = (listArgs, forceFetch = false) => {
   }, [status, listArgs, forceFetch, shouldFetch, dispatch]);
 
   const isFetching = status === 'pending' || status === undefined
-  const isLoading = isFetching && !list;
+  const isLoading = isFetching && !products;
   const isError = status === 'rejected'
   const isSuccess = status === 'fulfilled'
 
   // return the info for the caller of the hook to use
   return {
-    list,
+    products,
+    totalPages,
     isFetching,
     isLoading,
     isError,

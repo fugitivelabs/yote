@@ -40,6 +40,24 @@ const apiUtils = {
       }
     }
     return endpoint
+  },
+
+  queryStringFromObject(queryObject) {
+    // console.log("QUERY STRING FROM OBJECT")
+    // ex: { page: '1', per: '20' } to ?page=1&per=20
+    return Object.entries(queryObject)
+      // remove empties
+      .filter(entry => entry[1] && entry[1].toString().length > 0)
+      .map(item => {
+        // debugging
+        console.log(item);
+        return item;
+      })
+      // if value is array, convert to string, otherwise just add the string
+      .map(entry => Array.isArray(entry[1]) ? [entry[0], entry[1].join(",")]: entry)
+      // map to string
+      .map(entry => entry.join("="))
+      .join("&")
   }
 }
 

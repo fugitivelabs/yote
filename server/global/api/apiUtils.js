@@ -17,6 +17,11 @@ exports.buildMongoQueryFromUrlQuery = urlQuery => {
 
   // loop. keys should stay the same, but we need to change value for various types
   for(key in newQuery) {
+    // catch for "all" here and return a blank query
+    if(key === "all") {
+      newQuery = {}
+      break;
+    }
     if(newQuery[key] == "true") {
       newQuery[key] = true;
     } else if(newQuery[key] == "false") {

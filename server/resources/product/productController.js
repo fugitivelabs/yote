@@ -77,12 +77,16 @@ exports.getListWithArgs = async (req, res) => {
   // let query = {}
   // let query = {type: "doesnt exist"}
   // let query = "break me"
+  // get count so we can determine total pages for front end to allow proper pagination
+  const count = pagination ? await Product.countDocuments(query) : null
+  const totalPages = count && Math.ceil(count / pagination.per)
   const products = await Product.find(query)
     .skip(pagination ? (pagination.page-1)*pagination.per : null)
     .limit(pagination ? pagination.per : null)
     .sort(sort)
   // .catch(err => { throw new Error(err, "things happened")}) // catch custom errors if we need to, or do something different with error
-  res.json(products)
+
+  res.json({products, totalPages})
 }
 
 

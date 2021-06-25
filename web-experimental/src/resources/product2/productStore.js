@@ -74,7 +74,7 @@ export const fetchSingleProduct = createAsyncThunk(
 export const fetchProductList = createAsyncThunk(
   'product2/fetchList', // this is the action name that will show up in the console logger.
   async (listArgs) => {
-    const endpoint = apiUtils.buildEndpointFromListArgs('/api/products/', listArgs);
+    const endpoint = `/api/products?${listArgs}`;
     const response = await apiUtils.callAPI(endpoint);
     // The value we return becomes the `fulfilled` action payload
     return response;
@@ -133,7 +133,7 @@ export const productSlice = createSlice({
       // CREATE
       .addCase(sendCreateProduct.fulfilled, (state, action) => {
         // console.log('action', action);
-        const { product } = action.payload;
+        const product = action.payload;
         state.queries[product._id] = {}
         const singleQuery = state.queries[product._id];
         singleQuery.id = product._id;
@@ -154,7 +154,7 @@ export const productSlice = createSlice({
         state.queries['defaultItem'].status = 'pending';
       })
       .addCase(fetchDefaultProduct.fulfilled, (state, action) => {
-        const {defaultObj: defaultProduct} = action.payload;
+        const defaultProduct = action.payload;
         const singleQuery = state.queries['defaultItem'];
         singleQuery.id = 'defaultItem';
         state.byId = { ...state.byId, defaultItem: defaultProduct };
@@ -168,7 +168,7 @@ export const productSlice = createSlice({
         state.queries[action.meta.arg].status = 'pending';
       })
       .addCase(fetchSingleProduct.fulfilled, (state, action) => {
-        const { product } = action.payload
+        const product = action.payload
         // find the query object for this fetch in the queries map
         const singleQuery = state.queries[action.meta.arg];
         // set the query id
@@ -186,8 +186,9 @@ export const productSlice = createSlice({
         state.queries[action.meta.arg].status = 'pending';
       })
       .addCase(fetchProductList.fulfilled, (state, action) => {
+        const {products, totalPages} = action.payload;
         // convert the array of objects to a map
-        const productMap = convertListToMap(action.payload.products, '_id');
+        const productMap = convertListToMap(products, '_id');
         // find the query object for this fetch in the queries map
         const listQuery = state.queries[action.meta.arg];
         // save the array of ids for the returned products
@@ -195,9 +196,16 @@ export const productSlice = createSlice({
         // add the product objects to the byId map
         state.byId = { ...state.byId, ...productMap };
         // update other query info
+        listQuery.totalPages = totalPages;
         listQuery.status = 'fulfilled';
         listQuery.receivedAt = Date.now();
         listQuery.expirationDate = Date.now() + (1000 * 60 * 5); // 5 minutes from now
+      })
+      .addCase(fetchProductList.rejected, (state, action) => {
+        // TODO: handle server errors
+        const listQuery = state.queries[action.meta.arg];
+        listQuery.status = 'rejected';
+        listQuery.receivedAt = Date.now();
       })
       
       // UPDATE
@@ -207,7 +215,7 @@ export const productSlice = createSlice({
         state.queries[_id].status = 'pending';
       })
       .addCase(sendUpdateProduct.fulfilled, (state, action) => {
-        const { product } = action.payload;
+        const product = action.payload;
         const singleQuery = state.queries[product._id];
         singleQuery.id = product._id;
         state.byId = { ...state.byId, [product._id]: product };
@@ -249,6 +257,10 @@ export const selectListItems = ({product2: productStore}, listArgs) => {
   } else {
     return null;
   }
+}
+
+export const selectListPageCount = ({product2: productStore}, listArgs) => {
+  return productStore.queries[listArgs]?.totalPages;
 }
 
 export const selectShouldFetch = ({product2: productStore}, queryKey) => {
