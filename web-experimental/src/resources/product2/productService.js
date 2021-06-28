@@ -133,25 +133,53 @@ export const useGetDefaultProduct = (forceFetch = false) => {
  * @returns an invalidate and refetch function for convenience
  */
 export const useGetProductList = (listArgs = {}, forceFetch = false) => {
+
+   /**
+   * NOTE: tracking lists using the query string is easy because the `listArgs` passed into
+   * dispatch(fetchProductList(listArgs)) are accessed in the store by using action.meta.arg.
+   * We could try setting the queryKey to something different (or nesting it) but we'd need to figure
+   * out how to access that info in the store. Maybe by passing it along as a named object like:
+   * 
+   * dispatch(fetchProductList({queryString: listArgs, queryKey: someParsedVersionOfListArgs}))
+   * 
+   * TODO: Separate pagination from the rest of the list args, or nest it under pagination: {}.
+   * That way we can clean up the query key, but ALSO PREFETCH THE NEXT PAGE. If the use is on page 3
+   * then fetch page 4 and 2. Use clicks 4 then fetch 5 and 3.
+   */
+
   // convert the query object to a query string for the new server api
   // also makes it easy to track the lists in the reducer by query string
-  listArgs = apiUtils.queryStringFromObject(listArgs) || "all"
-  const dispatch = useDispatch();
+  const queryString = apiUtils.queryStringFromObject(listArgs) || "all"
+
   // get current list status (if it exists)
-  const status = useSelector((store) => selectFetchStatus(store, listArgs))
+  const status = useSelector((store) => selectFetchStatus(store, queryString))
   // get total document count for proper pagination
-  const totalPages = useSelector((store) => selectListPageCount(store, listArgs))
+  const totalPages = useSelector((store) => selectListPageCount(store, queryString))
   // get current list data (if it exists)
-  const products = useSelector((store) => selectListItems(store, listArgs))
-
-  const shouldFetch = useSelector((store) => selectShouldFetch(store, listArgs))
-
+  const products = useSelector((store) => selectListItems(store, queryString))
+  
+  const shouldFetch = useSelector((store) => selectShouldFetch(store, queryString))
+  
+  const dispatch = useDispatch();
   useEffect(() => {
     // on mount or listArgs change, if no status send a request for the list
     if(forceFetch || shouldFetch) {
-      dispatch(fetchProductList(listArgs))
+      dispatch(fetchProductList(queryString))
     }
-  }, [status, listArgs, forceFetch, shouldFetch, dispatch]);
+  }, [status, queryString, forceFetch, shouldFetch, dispatch]);
+
+  
+  // PREFETCH
+
+  const nextQueryString = listArgs.page && listArgs.page < totalPages ? apiUtils.queryStringFromObject({ ...listArgs, page: Number(listArgs.page) + 1 }) : null;
+  const shouldFetchNext = useSelector((store) => selectShouldFetch(store, nextQueryString))
+
+  useEffect(() => {
+    // on mount or listArgs change, if no status send a request for the list
+    if(nextQueryString && shouldFetchNext) {
+      dispatch(fetchProductList(nextQueryString))
+    }
+  }, [nextQueryString, shouldFetchNext, dispatch]);
 
   const isFetching = status === 'pending' || status === undefined
   const isLoading = isFetching && !products;
