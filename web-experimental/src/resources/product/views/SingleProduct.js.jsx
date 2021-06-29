@@ -10,7 +10,7 @@ import {
 } from '../productService';
 
 // import global components
-import AsyncWrapper from '../../../global/components/helpers/AsyncWrapper.js.jsx';
+import AsyncWrapper from '../../../global/components/helpers/AsyncWrapper';
 // import Breadcrumbs from '../../../global/components/navigation/Breadcrumbs.js.jsx'; // doesn't exist yet
 
 import ProductLayout from '../components/ProductLayout.js.jsx'

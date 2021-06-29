@@ -4,7 +4,7 @@ import React from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom'
 
 // import global components
-import AsyncWrapper from '../../../global/components/helpers/AsyncWrapper.js.jsx';
+import AsyncWrapper from '../../../global/components/helpers/AsyncWrapper';
 
 // import actions/reducer
 import { useGetSingleProduct } from '../productService';

@@ -7,7 +7,7 @@ import { useParams, useHistory } from 'react-router-dom'
 import { useGetUpdatableProduct } from '../productService';
 
 // import global components
-import AsyncWrapper from '../../../global/components/helpers/AsyncWrapper.js.jsx';
+import AsyncWrapper from '../../../global/components/helpers/AsyncWrapper';
 
 // import resource components
 import ProductLayout from '../components/ProductLayout.js.jsx'

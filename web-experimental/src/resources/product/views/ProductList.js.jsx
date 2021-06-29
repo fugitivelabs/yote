@@ -110,7 +110,7 @@ import { useProductList } from '../productService';
 // import resource components
 import ProductListItem from '../components/ProductListItem.js.jsx';
 import ProductLayout from '../components/ProductLayout.js.jsx';
-import AsyncWrapper from '../../../global/components/helpers/AsyncWrapper.js.jsx';
+import AsyncWrapper from '../../../global/components/helpers/AsyncWrapper';
 
 
 

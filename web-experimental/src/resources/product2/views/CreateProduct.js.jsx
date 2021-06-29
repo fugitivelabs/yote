@@ -7,7 +7,7 @@ import { useHistory } from 'react-router-dom'
 import { useCreateProduct, useAddProductToList } from '../productService';
 
 // import global components
-import AsyncWrapper from '../../../global/components/helpers/AsyncWrapper.js.jsx';
+import AsyncWrapper from '../../../global/components/helpers/AsyncWrapper';
 
 // import resource components
 import ProductForm from '../components/ProductForm.js.jsx';
