@@ -3,8 +3,8 @@ import React from 'react'
 
 import PropTypes from 'prop-types';
 
-/* This example requires Tailwind CSS v2.0+ */
-// import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid'
+// import icons
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid'
 
 // condense crazy tailwind styles for pagination component. Adapted from: https://tailwindui.com/components/application-ui/navigation/pagination#component-69eb9381f977800aa890ce8f7d9e2d20
 const paginationBtnCommonClasses = "relative inline-flex items-center px-4 py-2 text-sm font-medium border border-gray-300 bg-white"
@@ -55,13 +55,19 @@ const PageTabber = ({
 
   return (
     <div className="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
-      <div className="flex-1 flex justify-between sm:hidden">
+      {/* only show two buttons on small screens */}
+      <div className="flex-1 flex justify-between md:hidden">
         <a
           onClick={currentPage > 1 ? () => setPage(currentPage - 1) : null }
           className={mobileBtnCommonClasses}
         >
           Previous
         </a>
+        <div className="relative inline-flex items-center px-4 py-2 text-sm">
+          <p className="text-sm text-gray-700">
+            <span className="font-small">{currentPage}</span> of <span className="font-small">{totalPages}</span>
+          </p>
+        </div>
         <a
           onClick={currentPage < totalPages ? () => setPage(currentPage + 1) : null }
           className={`${mobileBtnCommonClasses} ml-3`}
@@ -69,7 +75,8 @@ const PageTabber = ({
           Next
         </a>
       </div>
-      <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+      {/* show the whole thing on medium and larger screens */}
+      <div className="hidden md:flex-1 md:flex sm:items-center md:justify-between">
         <div>
           <p className="text-sm text-gray-700">
             Showing <span className="font-medium">{ (pagination.page * pagination.per) - (pagination.per - 1)}</span> to <span className="font-medium">{ pagination.page * pagination.per}</span> of{' '}
@@ -83,10 +90,7 @@ const PageTabber = ({
               className={`${setPageBtnCommonClasses} rounded-l-md` }
             >
               <span className="sr-only">Previous</span>
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-              {/* <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" /> */}
+              <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
             </a>
             {currentPage > 4 ?
               <span className={placeholderBtnCommonClasses}>
@@ -133,10 +137,7 @@ const PageTabber = ({
               className={`${setPageBtnCommonClasses} rounded-r-md` }
             >
               <span className="sr-only">Next</span>
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-              {/* <ChevronRightIcon className="h-5 w-5" aria-hidden="true" /> */}
+              <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
             </a>
           </nav>
         </div>
