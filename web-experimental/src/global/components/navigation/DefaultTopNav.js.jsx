@@ -3,193 +3,170 @@
  */
 
 // import primary libararies
-import React from 'react';
+import React, { Fragment } from 'react'
+import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { NavLink, withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
+import _ from 'lodash'
 
-// import third-party libraries
-// import classNames from 'classnames';
+// import UI components
+import { Disclosure, Menu, Transition } from '@headlessui/react'
+import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 
-// import components
-// import Binder from '../Binder.js.jsx';
-// import CloseWrapper from '../helpers/CloseWrapper.js.jsx';
-// import ProfileDropdown from './ProfileDropdown.js.jsx';
+const navigation = ['dashboard', 'products', 'products2']
+const profile = ['Your Profile', 'Settings', 'Sign out']
 
-// import { MAIN_NAV_ITEMS } from '../../../config/navItems.js';
+const classNames = (...classes) => {
+  return classes.filter(Boolean).join(' ')
+}
 
-class DefaultTopNav extends React.Component {
-  constructor(props, context) {
-    super(props);
-    this.state = {
-      profileOpen: false
-      , scrollingDown: false
-      , isTop: true
-    }
-    this._handleScroll = this._handleScroll.bind(this);
-  }
+const DefaultTopNav = () => {
+  return (
+    <Disclosure as="nav" className="bg-indigo-600">
+      {({ open }) => (
+        <>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between h-16">
+              <div className="flex items-center">
+                <div className="flex-shrink-0">
+                  <img
+                    className="h-10 w-10"
+                    src="/img/howler.png"
+                    // src="/img/yote_logo.png"
+                    // src="https://tailwindui.com/img/logos/workflow-mark-indigo-300.svg"
+                    alt="Workflow"
+                  />
+                </div>
+                <div className="hidden md:block">
+                  <div className="ml-10 flex items-baseline space-x-4">
+                    {navigation.map((item) =>
+                      <NavLink
+                        activeClassName="bg-indigo-700 text-white px-3 py-2 rounded-md text-sm font-medium"
+                        className="text-white hover:bg-indigo-500 hover:bg-opacity-75 px-3 py-2 rounded-md text-sm font-medium"
+                        to={`/${item}`}> {_.startCase(item)}
+                      </NavLink>
+                    )}
+                  </div>
+                </div>
+              </div>
+              <div className="hidden md:block">
+                <div className="ml-4 flex items-center md:ml-6">
 
-  componentDidMount() {
-    // will be depreciated in React 17+
-    window.addEventListener('scroll', this._handleScroll);
-  }
+                  {/* Notification button should be extracted into a separate component, will need its own Menu like the user menu stuff below.
+                   <button className="p-1 bg-indigo-600 rounded-full text-indigo-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:ring-white">
+                    <span className="sr-only">View notifications</span>
+                    <BellIcon className="h-6 w-6" aria-hidden="true" />
+                  </button> */}
 
-  componentWillUnmount() {
-    window.removeEventListener('scroll', this._handleScroll);
-  }
-
-  _handleScroll(e) {
-    /**
-     * When the page scrolls, check the Y position to determine whether to
-     * hide, show or fade in DefaultTopNav.
-     *
-     * @param e = broswer scroll event
-     */
-    if(!this.props.fancyScroll) {
-      return false;
-    }
-
-    let scrollTop;
-    if(e.target.scrollingElement) {
-      scrollTop = e.target.scrollingElement.scrollTop;
-    } else {
-      scrollTop = document.documentElement.scrollTop;
-    }
-
-    // handle initial position
-    let isTop = scrollTop < 20 ? true : false;
-    if(isTop !== this.state.isTop) {
-      this.setState({isTop: isTop});
-    }
-
-    // if the page is scrolled down, change the navbar style
-    var scrollingDown;
-    if ( typeof this._handleScroll.y == undefined ) {
-      this._handleScroll.y=window.pageYOffset;
-      scrollingDown = false;
-    }
-
-    // check last position vs current position
-    var diffY=this._handleScroll.y-window.pageYOffset;
-
-    // check the direction of the scroll
-    if( diffY<0 ) {
-      // Page is scrolling down
-      scrollingDown = true;
-    } else if( diffY>0 ) {
-      // Page is scrolling up
-      scrollingDown = false;
-    }
-
-    // tell the State about the scroll direction
-    if(scrollingDown !== undefined && scrollingDown !== this.state.scrollingDown) {
-      this.setState({scrollingDown: scrollingDown});
-    }
-
-    // set the function's XY position to the current position
-    this._handleScroll.x=window.pageXOffset;
-    this._handleScroll.y=window.pageYOffset;
-  }
-
-  render() {
-    // let { fancyScroll, fixed, loggedInUser, navClasses } = this.props;
-    // let { loggedInUser } = this.props;
-    // let { isTop, scrollingDown, isFixed } = this.state;
-    // let headerClass = classNames(
-    //   'header'
-    //   , navClasses
-    //   , {
-    //     'fixed': fixed
-    //     , 'isHidden': fancyScroll && scrollingDown && !isTop
-    //   }
-    // )
-
-    // let pictureUrl = '/img/defaults/profile.png';
-    // if(loggedInUser && loggedInUser.profilePicUrl) {
-    //   pictureUrl = loggedInUser.profilePicUrl;
-    // }
-
-    // let profileImg = { backgroundImage: `url(${pictureUrl})` };
-
-    return(
-      <header className={""}>
-        <div className="topbar main-container">
-          {/* <CloseWrapper
-            isOpen={this.state.profileOpen}
-            closeAction={() => this.setState({profileOpen: false})}
-          /> */}
-          <div className="titles">
-            <NavLink to="/" className="nav-logo" >
-              <img src="/img/yote_logo.png" alt="The Yote logo"/>
-              <span className="-subtitle"> Standard Yote Dev Kit </span>
-            </NavLink>
-          </div>
-          <div className="actions">
-            <div className="yt-row center-vert right">
-              <ul className="navigation">
-                {/* { MAIN_NAV_ITEMS.map((item, i) => */}
-                  <li key={'foo'}>
-                  <NavLink to={`/products`} activeClassName="active">{'Products'}</NavLink>
-                  <NavLink to={`/products2`} activeClassName="active">{'Products2'}</NavLink>
-                  </li>
-                {/* )} */}
-                {/* { loggedInUser && loggedInUser._id ?
-                  <li className="dropdown">
-                    <a onClick={() => this.setState({profileOpen: true})}>
-                      <div className="-profile-pic" style={profileImg} />
-                      <i className="fa fa-caret-down"></i>
-                    </a>
-                    <ProfileDropdown
-                      close={() => this.setState({profileOpen: false})}
-                      isOpen={this.state.profileOpen}
-                    />
-                  </li>
-                  :
-                  null
-                } */}
-              </ul>
-              {/* {!loggedInUser.username ?
-                <ul className="navigation">
-                  <li>
-                    <NavLink to="/user/login">Sign In</NavLink>
-                  </li>
-                  <li>
-                    <NavLink to="/user/register">Register</NavLink>
-                  </li>
-                </ul>
-                :
-                null
-              } */}
+                  {/* Profile dropdown */}
+                  <Menu as="div" className="ml-3 relative">
+                    {({ open }) => (
+                      <>
+                        <div>
+                          <Menu.Button className="max-w-xs bg-indigo-600 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:ring-white">
+                            <span className="sr-only">Open user menu</span>
+                            <img
+                              className="h-8 w-8 rounded-full"
+                              src="/img/defaults/profile.png"
+                              alt=""
+                            />
+                          </Menu.Button>
+                        </div>
+                        <Transition
+                          show={open}
+                          as={Fragment}
+                          enter="transition ease-out duration-100"
+                          enterFrom="transform opacity-0 scale-95"
+                          enterTo="transform opacity-100 scale-100"
+                          leave="transition ease-in duration-75"
+                          leaveFrom="transform opacity-100 scale-100"
+                          leaveTo="transform opacity-0 scale-95"
+                        >
+                          <Menu.Items
+                            static
+                            className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+                          >
+                            {profile.map((item) => (
+                              <Menu.Item key={item}>
+                                {({ active }) => (
+                                  <a
+                                    href="#"
+                                    className={classNames(
+                                      active ? 'bg-gray-100' : '',
+                                      'block px-4 py-2 text-sm text-gray-700'
+                                    )}
+                                  >
+                                    {item}
+                                  </a>
+                                )}
+                              </Menu.Item>
+                            ))}
+                          </Menu.Items>
+                        </Transition>
+                      </>
+                    )}
+                  </Menu>
+                </div>
+              </div>
+              <div className="-mr-2 flex md:hidden">
+                {/* Mobile menu button */}
+                <Disclosure.Button className="bg-indigo-600 inline-flex items-center justify-center p-2 rounded-md text-indigo-200 hover:text-white hover:bg-indigo-500 hover:bg-opacity-75 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:ring-white">
+                  <span className="sr-only">Open main menu</span>
+                  {open ? (
+                    <XIcon className="block h-6 w-6" aria-hidden="true" />
+                  ) : (
+                    <MenuIcon className="block h-6 w-6" aria-hidden="true" />
+                  )}
+                </Disclosure.Button>
+              </div>
             </div>
           </div>
-        </div>
-      </header>
-    )
-  }
 
+          <Disclosure.Panel className="md:hidden">
+            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+              {navigation.map((item) =>
+                <NavLink
+                  activeClassName="bg-indigo-700 text-white block px-3 py-2 rounded-md text-base font-medium"
+                  className="text-white hover:bg-indigo-500 hover:bg-opacity-75 block px-3 py-2 rounded-md text-base font-medium"
+                  to={`/${item}`}> {_.startCase(item)}
+                </NavLink>
+              )}
+            </div>
+            <div className="pt-4 pb-3 border-t border-indigo-700">
+              <div className="flex items-center px-5">
+                <div className="flex-shrink-0">
+                  <img
+                    className="h-10 w-10 rounded-full"
+                    src="/img/defaults/profile.png"
+                    alt=""
+                  />
+                </div>
+                <div className="ml-3">
+                  <div className="text-base font-medium text-white">Tom Cook</div>
+                  <div className="text-sm font-medium text-indigo-300">tom@example.com</div>
+                </div>
+                {/* Notification button */}
+                {/* <button className="ml-auto bg-indigo-600 flex-shrink-0 p-1 rounded-full text-indigo-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:ring-white">
+                  <span className="sr-only">View notifications</span>
+                  <BellIcon className="h-6 w-6" aria-hidden="true" />
+                </button> */}
+              </div>
+              <div className="mt-3 px-2 space-y-1">
+                {profile.map((item) => (
+                  <a
+                    key={item}
+                    href="#"
+                    className="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75"
+                  >
+                    {item}
+                  </a>
+                ))}
+              </div>
+            </div>
+          </Disclosure.Panel>
+        </>
+      )}
+    </Disclosure>
+  )
 }
 
-DefaultTopNav.propTypes = {
-  dispatch: PropTypes.func.isRequired
-  , fancyScroll: PropTypes.bool
-  , fixed: PropTypes.bool
-  , navClasses: PropTypes.string
-}
-
-DefaultTopNav.defaultProps = {
-  fancyScroll: false
-  , fixed: true
-  , navClasses: ''
-}
-
-const mapStoreToProps = (store) => {
-  return {
-    // loggedInUser: store.user.loggedIn.user
-  }
-}
-
-export default withRouter(
-  connect(
-    mapStoreToProps
-  )(DefaultTopNav)
-);
+export default DefaultTopNav;

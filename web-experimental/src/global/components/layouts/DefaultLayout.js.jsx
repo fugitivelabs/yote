@@ -9,21 +9,30 @@ import React from 'react';
 import { Helmet }  from 'react-helmet'
 
 // import nav components
-import Footer from '../navigation/Footer.js.jsx';
 import DefaultTopNav from '../navigation/DefaultTopNav.js.jsx';
 
-const DefaultLayout = ({...props}) => {
+
+const DefaultLayout = ({ ...props }) => {
+  const {
+    children
+    , title
+  } = props;
   return (
-    <div className="container mx-auto">
+    <div>
       <Helmet title={props.title || "Yote App"}/>
       <DefaultTopNav />
-      <div className="container">
-        {props.children}
-      </div>
-      <Footer />
+      <header className="bg-white shadow-sm">
+        <div className="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
+          <h1 className="text-lg leading-6 font-semibold text-gray-900">{title}</h1>
+        </div>
+      </header>
+      <main>
+        <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+          {children}
+        </div>
+      </main>
     </div>
   )
 }
 
-export default DefaultLayout
-
+export default DefaultLayout;
