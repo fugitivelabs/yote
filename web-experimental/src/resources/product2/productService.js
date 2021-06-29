@@ -171,12 +171,13 @@ export const useGetProductList = (listArgs = {}, forceFetch = false) => {
   
   // PREFETCH
 
+  // if we are using pagination, check if we need to fetch the NEXT page.
   const nextQueryString = listArgs.page && listArgs.page < totalPages ? apiUtils.queryStringFromObject({ ...listArgs, page: Number(listArgs.page) + 1 }) : null;
   const shouldFetchNext = useSelector((store) => selectShouldFetch(store, nextQueryString))
 
   useEffect(() => {
-    // on mount or listArgs change, if no status send a request for the list
     if(nextQueryString && shouldFetchNext) {
+      // fetch the next page now
       dispatch(fetchProductList(nextQueryString))
     }
   }, [nextQueryString, shouldFetchNext, dispatch]);
