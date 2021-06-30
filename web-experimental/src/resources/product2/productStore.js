@@ -187,19 +187,36 @@ export const productSlice = createSlice({
       })
       .addCase(fetchProductList.fulfilled, (state, action) => {
         const {products, totalPages} = action.payload;
-        // convert the array of objects to a map
+        // update list query
+         // convert the array of objects to a map
         const productMap = convertListToMap(products, '_id');
+        // add the product objects to the byId map
+        state.byId = { ...state.byId, ...productMap };
+
         // find the query object for this fetch in the queries map
         const listQuery = state.queries[action.meta.arg];
         // save the array of ids for the returned products
-        listQuery.ids = Object.keys(productMap);
-        // add the product objects to the byId map
-        state.byId = { ...state.byId, ...productMap };
-        // update other query info
+        listQuery.ids = products.map(product => product._id);
+        // set the rest of the query info
         listQuery.totalPages = totalPages;
         listQuery.status = 'fulfilled';
         listQuery.receivedAt = Date.now();
         listQuery.expirationDate = Date.now() + (1000 * 60 * 5); // 5 minutes from now
+
+        // while we're here we might as well add a single query for each of these since we know they're fresh
+        products.forEach(product => {
+          // add a single query for the product.
+          const singleQuery = {
+            id: product._id
+            , status: listQuery.status
+            , receivedAt: listQuery.receivedAt
+            , expirationDate: listQuery.expirationDate
+          };
+          
+          state.queries[product._id] = singleQuery;
+          // add the product to the map 
+          state.byId[product._id] = product
+        });
       })
       .addCase(fetchProductList.rejected, (state, action) => {
         // TODO: handle server errors
@@ -263,7 +280,8 @@ export const selectListPageCount = ({product2: productStore}, listArgs) => {
   return productStore.queries[listArgs]?.totalPages;
 }
 
-export const selectShouldFetch = ({product2: productStore}, queryKey) => {
+export const selectShouldFetch = ({ product2: productStore }, queryKey) => {
+  if(!queryKey) return false;
   const productQuery = productStore.queries[queryKey];
   // use the util to check if we should fetch or not
   return shouldFetch(productQuery);
