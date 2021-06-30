@@ -9,6 +9,8 @@
 
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
+import { usePagination } from '../../global/utils/customHooks';
+
 import apiUtils from '../../global/utils/api';
 
 // import all of the actions from the store
@@ -85,7 +87,7 @@ export const useGetSingleProduct = (id, forceFetch = false) => {
 
   // return the info for the caller of the hook to use
   return {
-    item,
+    data: item,
     isFetching,
     isLoading,
     isError,
@@ -121,7 +123,7 @@ export const useGetDefaultProduct = (forceFetch = false) => {
   const isError = status === 'rejected'
   const isSuccess = status === 'fulfilled'
   // return the info for the caller of the hook to use
-  return { item, isFetching, isLoading, isError, isSuccess }
+  return { data: item, isFetching, isLoading, isError, isSuccess }
 }
 
 /**
@@ -129,7 +131,7 @@ export const useGetDefaultProduct = (forceFetch = false) => {
  * 
  * @param {object} listArgs - an object used to construct the query
  * @param {boolean} forceFetch - optional override to force a fetch from the server
- * @returns an object containing fetch info and eventually the product list (as `list`)
+ * @returns an object containing fetch info and eventually the product list (as `data`)
  * @returns an invalidate and refetch function for convenience
  */
 export const useGetProductList = (listArgs = {}, forceFetch = false) => {
@@ -146,6 +148,17 @@ export const useGetProductList = (listArgs = {}, forceFetch = false) => {
    * That way we can clean up the query key, but ALSO PREFETCH THE NEXT PAGE. If the use is on page 3
    * then fetch page 4 and 2. Use clicks 4 then fetch 5 and 3.
    */
+
+  // handle pagination right here as part of the fetch so we don't have to call usePagination every time from each component
+  let { page, per } = listArgs;
+  let pagination = usePagination({ page, per });
+
+  if(page && per) {
+    listArgs.page = pagination.page;
+    listArgs.per = pagination.per;
+  } else {
+    pagination = {}
+  }
 
   // convert the query object to a query string for the new server api
   // also makes it easy to track the lists in the reducer by query string
@@ -168,7 +181,19 @@ export const useGetProductList = (listArgs = {}, forceFetch = false) => {
     }
   }, [status, queryString, forceFetch, shouldFetch, dispatch]);
 
-  
+  const isFetching = status === 'pending' || status === undefined
+  const isLoading = isFetching && !products;
+  const isError = status === 'rejected'
+  const isSuccess = status === 'fulfilled'
+  if(totalPages) {
+    // add totalPages from the fetch to the pagination object
+    pagination.totalPages = totalPages;
+  }
+  // pagination.totalPages = totalPages || 1 // default to 1 seems reasonable
+
+  const isEmpty = isSuccess && !products.length;
+
+
   // PREFETCH
 
   // if we are using pagination, check if we need to fetch the NEXT page.
@@ -182,21 +207,19 @@ export const useGetProductList = (listArgs = {}, forceFetch = false) => {
     }
   }, [nextQueryString, shouldFetchNext, dispatch]);
 
-  const isFetching = status === 'pending' || status === undefined
-  const isLoading = isFetching && !products;
-  const isError = status === 'rejected'
-  const isSuccess = status === 'fulfilled'
+  // END PREFETCH
 
   // return the info for the caller of the hook to use
   return {
-    products,
-    totalPages,
-    isFetching,
-    isLoading,
-    isError,
-    isSuccess,
-    invalidate: () => dispatch(invalidateQuery(listArgs)),
-    refetch: () => dispatch(fetchProductList(listArgs))
+    data: products
+    , isFetching
+    , isLoading
+    , isError
+    , isSuccess
+    , isEmpty
+    , invalidate: () => dispatch(invalidateQuery(listArgs))
+    , refetch: () => dispatch(fetchProductList(listArgs))
+    , pagination
   }
 }
 

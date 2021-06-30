@@ -50,7 +50,7 @@ const apiUtils = {
       .filter(entry => entry[1] && entry[1].toString().length > 0)
       .map(item => {
         // debugging
-        console.log(item);
+        // console.log(item);
         return item;
       })
       // if value is array, convert to string, otherwise just add the string

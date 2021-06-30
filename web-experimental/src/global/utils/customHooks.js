@@ -38,5 +38,5 @@ export const usePagination = (initialState = { page: 1, per: 10 }) => {
     setPagination({per: newPer || 1})
   }
 
-  return { pagination, setPage, setPer};
+  return { ...pagination, setPage, setPer};
 }
