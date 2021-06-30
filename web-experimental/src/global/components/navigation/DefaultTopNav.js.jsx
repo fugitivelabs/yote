@@ -38,8 +38,9 @@ const DefaultTopNav = () => {
                 </div>
                 <div className="hidden md:block">
                   <div className="ml-10 flex items-baseline space-x-4">
-                    {navigation.map((item) =>
+                    {navigation.map((item, i) =>
                       <NavLink
+                        key={`nav-item${i}`}
                         activeClassName="bg-indigo-700 text-white px-3 py-2 rounded-md text-sm font-medium"
                         className="text-white hover:bg-indigo-500 hover:bg-opacity-75 px-3 py-2 rounded-md text-sm font-medium"
                         to={`/${item}`}> {_.startCase(item)}
@@ -121,10 +122,12 @@ const DefaultTopNav = () => {
             </div>
           </div>
 
+          {/* mobile menu */}
           <Disclosure.Panel className="md:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-              {navigation.map((item) =>
+              {navigation.map((item, i) =>
                 <NavLink
+                  key={`mobile-nav-item${i}`}
                   activeClassName="bg-indigo-700 text-white block px-3 py-2 rounded-md text-base font-medium"
                   className="text-white hover:bg-indigo-500 hover:bg-opacity-75 block px-3 py-2 rounded-md text-base font-medium"
                   to={`/${item}`}> {_.startCase(item)}
