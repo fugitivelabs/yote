@@ -11,13 +11,16 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { usePagination } from '../../global/utils/customHooks';
 
+import { shouldFetch } from '../../global/utils/storeUtils';
+
+
 import apiUtils from '../../global/utils/api';
 
 // import all of the actions from the store
-import {
-  selectListItems
+import { // TODO: rename these so it still makes sense when we are importing selectors and action from other stores.
+  selectListItems // call this selectProductList
   , fetchProductList
-  , selectShouldFetch
+  , selectShouldFetch // selectProductShouldFetch
   , selectFetchStatus
   , selectListPageCount
   , selectSingleById
@@ -64,6 +67,7 @@ export const useCreateProduct = () => {
  * @returns an object containing fetch info and eventually the product (as `item`)
  * @returns an invalidate and refetch function for convenience
  */
+// rename to useGetProduct
 export const useGetSingleProduct = (id, forceFetch = false) => {
   const dispatch = useDispatch();
   // get current list status (if it exists)
@@ -136,18 +140,18 @@ export const useGetDefaultProduct = (forceFetch = false) => {
  */
 export const useGetProductList = (listArgs = {}, forceFetch = false) => {
 
-   /**
-   * NOTE: tracking lists using the query string is easy because the `listArgs` passed into
-   * dispatch(fetchProductList(listArgs)) are accessed in the store by using action.meta.arg.
-   * We could try setting the queryKey to something different (or nesting it) but we'd need to figure
-   * out how to access that info in the store. Maybe by passing it along as a named object like:
-   * 
-   * dispatch(fetchProductList({queryString: listArgs, queryKey: someParsedVersionOfListArgs}))
-   * 
-   * TODO: Separate pagination from the rest of the list args, or nest it under pagination: {}.
-   * That way we can clean up the query key, but ALSO PREFETCH THE NEXT PAGE. If the use is on page 3
-   * then fetch page 4 and 2. Use clicks 4 then fetch 5 and 3.
-   */
+  /**
+  * NOTE: tracking lists using the query string is easy because the `listArgs` passed into
+  * dispatch(fetchProductList(listArgs)) are accessed in the store by using action.meta.arg.
+  * We could try setting the queryKey to something different (or nesting it) but we'd need to figure
+  * out how to access that info in the store. Maybe by passing it along as a named object like:
+  * 
+  * dispatch(fetchProductList({queryString: listArgs, queryKey: someParsedVersionOfListArgs}))
+  * 
+  * TODO: Separate pagination from the rest of the list args, or nest it under pagination: {}.
+  * That way we can clean up the query key, but ALSO PREFETCH THE NEXT PAGE. If the use is on page 3
+  * then fetch page 4 and 2. Use clicks 4 then fetch 5 and 3.
+  */
 
   // handle pagination right here as part of the fetch so we don't have to call usePagination every time from each component
   let { page, per } = listArgs;
@@ -170,9 +174,9 @@ export const useGetProductList = (listArgs = {}, forceFetch = false) => {
   const totalPages = useSelector((store) => selectListPageCount(store, queryString))
   // get current list data (if it exists)
   const products = useSelector((store) => selectListItems(store, queryString))
-  
+
   const shouldFetch = useSelector((store) => selectShouldFetch(store, queryString))
-  
+
   const dispatch = useDispatch();
   useEffect(() => {
     // on mount or listArgs change, if no status send a request for the list
@@ -217,8 +221,8 @@ export const useGetProductList = (listArgs = {}, forceFetch = false) => {
     , isError
     , isSuccess
     , isEmpty
-    , invalidate: () => dispatch(invalidateQuery(listArgs))
-    , refetch: () => dispatch(fetchProductList(listArgs))
+    , invalidate: () => dispatch(invalidateQuery(queryString))
+    , refetch: () => dispatch(fetchProductList(queryString))
     , pagination
   }
 }
@@ -263,7 +267,7 @@ export const useUpdateProduct = () => {
 export const useGetUpdatableProduct = (id) => {
   // use the existing hook to fetch the product
   const productFetch = useGetSingleProduct(id);
-   // use the existing hook to access the update action
+  // use the existing hook to access the update action
   const { sendUpdateProduct } = useUpdateProduct();
   return {
     // return the update action and the product fetch
@@ -283,7 +287,7 @@ export const useGetUpdatableProduct = (id) => {
 export const useAddProductToList = () => {
   const dispatch = useDispatch();
   return {
-    addProductToList: (productId, listArgs) => dispatch(addProductToList({id: productId, listArgs: listArgs}))
+    addProductToList: (productId, listArgs) => dispatch(addProductToList({ id: productId, listArgs: listArgs }))
   }
 }
 
@@ -296,3 +300,69 @@ export const useProductFromMap = (productId) => {
   const product = useSelector((store) => selectSingleById(store, productId));
   return product
 }
+
+// export const useGcSovData = (sovId) => {
+
+//   // leverage existing stuff to get related resource info
+//   const { data: sov, ...sovFetch } = useGetSov(sovId);
+//   const { data: lineItems, ...lineItemFetch } = useGetLineItemList({ _sov: sovId });
+//   const { data: lineChangeOrders, ...lineChangeOrderFetch } = useGetLineChangeOrderList({ _sov: sovId });
+//   const { data: contracts, ...contractFetch } = useGetContractList({ _sov: sovId });
+//   const { data: contractChangeOrders, ...contractChangeOrderFetch } = useGetContractChangeOrderList({ _sov: sovId });
+//   const { data: phases, ...phaseFetch } = useGetPhaseList({ _sov: sovId });
+
+//   const isFetching = (
+//     sovFetch.isFetching
+//     || lineItemFetch.isFetching
+//     || lineChangeOrderFetch.isFetching
+//     || contractFetch.isFetching
+//     || contractChangeOrderFetch.isFetching
+//     || phaseFetch.isFetching
+//   )
+
+//   const isLoading = (
+//     sovFetch.isLoading
+//     || lineItemFetch.isLoading
+//     || lineChangeOrderFetch.isLoading
+//     || contractFetch.isLoading
+//     || contractChangeOrderFetch.isLoading
+//     || phaseFetch.isLoading
+//   )
+
+//   const isError = (
+//     sovFetch.isError
+//     || lineItemFetch.isError
+//     || lineChangeOrderFetch.isError
+//     || contractFetch.isError
+//     || contractChangeOrderFetch.isError
+//     || phaseFetch.isError
+//   )
+
+//   const isSuccess = (
+//     sovFetch.isSuccess
+//     && lineItemFetch.isSuccess
+//     && lineChangeOrderFetch.isSuccess
+//     && contractFetch.isSuccess
+//     && contractChangeOrderFetch.isSuccess
+//     && phaseFetch.isSuccess
+//   )
+
+//   const phaseTotals = !isSuccess ?
+//         sovUtils.getSovPhaseTotals({
+//           contractsByLineItem: _.groupBy(contracts, '_lineItem')
+//           , invoicesByContract: _.groupBy(invoices, '_contract')
+//           , phaseListItems: phases
+//         })
+//         :
+//         null
+
+//   // return the info for the caller of the hook to use
+//   return {
+//     data: phaseTotals,
+//     isFetching,
+//     isLoading,
+//     isError,
+//     isSuccess,
+//   }
+
+// }

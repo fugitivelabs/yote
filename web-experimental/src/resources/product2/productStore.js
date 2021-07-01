@@ -181,9 +181,9 @@ export const productSlice = createSlice({
         singleQuery.expirationDate = Date.now() + (1000 * 60 * 5); // 5 minutes from now
       })
       .addCase(fetchProductList.pending, (state, action) => {
-        // create a query object for it in the queries map
-        state.queries[action.meta.arg] = {};
-        state.queries[action.meta.arg].status = 'pending';
+        // update or create the query object for it in the queries map
+        state.queries[action.meta.arg] = { ...state.queries[action.meta.arg], status: 'pending' };
+
       })
       .addCase(fetchProductList.fulfilled, (state, action) => {
         const {products, totalPages} = action.payload;
@@ -293,7 +293,7 @@ export const selectSingleById = ({product2: productStore}, id) => {
 }
 
 // queryKey will either be a single id or an array of listArgs. productStore.queries doesn't care either way
-export const selectFetchStatus = ({product2: productStore}, queryKey) => {
+export const selectFetchStatus = ({ product2: productStore }, queryKey) => {
   return productStore.queries[queryKey]?.status;
 }
 
