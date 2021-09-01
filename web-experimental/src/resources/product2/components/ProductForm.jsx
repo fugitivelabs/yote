@@ -5,12 +5,14 @@
 // import primary libraries
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { useForm } from '../../../global/utils/customHooks';
+
+// import global components
+import Button from '../../../global/components/base/Button';
+
+// hooks
+import { useFormState } from '../../../global/utils/customHooks';
 
 // import form components
-// import { TextInput, TextAreaInput } from '../../../global/components/forms';
-
 import { TextInput } from '../../../global/components/forms'
 
 const ProductForm = ({
@@ -23,7 +25,7 @@ const ProductForm = ({
   , product
 }) => {
 
-  const [ updatedProduct, handleChange ] = useForm(product); // pass product as initialState
+  const [ updatedProduct, handleChange ] = useFormState(product); // pass product as initialState
 
   // set the button text
   const buttonText = formType === "create" ? "Create Product" : "Update Product";
@@ -31,7 +33,7 @@ const ProductForm = ({
   // set the form header
   const header = formTitle ? <div className="formHeader"><h2> {formTitle} </h2><hr /></div> : <div />;
   
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
     handleFormSubmit(updatedProduct)
   }
@@ -58,17 +60,19 @@ const ProductForm = ({
         />
         <div className="input-group">
           <div className="yt-row space-between">
-            <Link
-              // we can disable links using the pointer-events attribute
-              // more info: https://stackoverflow.com/questions/10276133/how-to-disable-html-links/10276157#10276157
-              className={`yt-btn link ${disabled && 'pointer-events-none'}`}
-              to={cancelLink}
-              // disable a link!
-              // style={disabled ? { pointerEvents: 'none' } : null}
+            <Button
+              disabled={disabled}
+              link={cancelLink}
+              skin="white"
             >
               Cancel
-            </Link>
-            <button disabled={disabled} className="yt-btn " type="submit" > {buttonText} </button>
+            </Button>
+            <Button
+              disabled={disabled}
+              type="submit"
+            >
+              {buttonText}
+            </Button>
           </div>
         </div>
       </form>

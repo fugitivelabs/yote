@@ -18,47 +18,47 @@ import React from 'react';
 import { Switch, useLocation } from 'react-router-dom';
 
 // import global components
-import YTRoute from '../../global/components/routing/YTRoute.js.jsx';
-// import ProductLayout from './components/ProductLayout.js.jsx';
+import YTRoute from '../../global/components/routing/YTRoute.jsx';
+// import ProductLayout from './components/ProductLayout.jsx';
 
 // import product views
-import CreateProduct from './views/CreateProduct.js.jsx';
-import ProductList from './views/ProductList.js.jsx';
-import SingleProduct from './views/SingleProduct.js.jsx';
-import UpdateProduct from './views/UpdateProduct.js.jsx';
+import CreateProduct from './views/CreateProduct.jsx';
+import ProductList from './views/ProductList.jsx';
+import SingleProduct from './views/SingleProduct.jsx';
+import UpdateProduct from './views/UpdateProduct.jsx';
 
-const ProductRouter = () => {
+const ProductRouter2 = () => {
   const location = useLocation();
   const productId = location.pathname.split('/')[1];
   return (
     // render all product views inside <ProductLayout/> so we don't have to import it into every view.
-    // <Route path="/products">
+    // <Route path="/products2">
     //   <ProductLayout>
         <Switch>
           <YTRoute
             breadcrumbs={[{display: 'All products', path: null }]}
             component={ProductList}
             exact
-            path="/products"
+            path="/products2"
           />
           <YTRoute
-            breadcrumbs={[{display: 'All products', path: '/products'}, {display: 'New ', path: null}]}
+            breadcrumbs={[{display: 'All products', path: '/products2'}, {display: 'New ', path: null}]}
             component={CreateProduct}
             // login={true}
             exact
-            path="/products/new"
+            path="/products2/new"
           />
           <YTRoute
-            breadcrumbs={[{display: 'All products', path: '/products'}, {display: 'Product details', path: null}]}
+            breadcrumbs={[{display: 'All products', path: '/products2'}, {display: 'Product details', path: null}]}
             component={SingleProduct}
             exact
-            path="/products/:productId"
+            path="/products2/:productId"
           />
           <YTRoute
-            breadcrumbs={[{display: 'All products', path: '/products'}, {display: 'Product Details', path: `/products/${productId}`}, {display: 'Update', path: null}]}
+            breadcrumbs={[{display: 'All products', path: '/products2'}, {display: 'Product Details', path: `/products2/${productId}`}, {display: 'Update', path: null}]}
             component={UpdateProduct}
             exact
-            path="/products/:productId/update"
+            path="/products2/:productId/update"
             // role="admin"
           />
           </Switch>
@@ -67,4 +67,4 @@ const ProductRouter = () => {
   )
 }
 
-export default ProductRouter;
+export default ProductRouter2;

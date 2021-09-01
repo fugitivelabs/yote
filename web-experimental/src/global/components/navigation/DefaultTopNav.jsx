@@ -5,12 +5,13 @@
 // import primary libararies
 import React, { Fragment } from 'react'
 import { NavLink } from 'react-router-dom';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import _ from 'lodash'
 
 // import UI components
 import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
+import { MenuIcon, XIcon } from '@heroicons/react/outline'
+// import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 
 const navigation = ['dashboard', 'products', 'products2']
 const profile = ['Your Profile', 'Settings', 'Sign out']
@@ -90,7 +91,7 @@ const DefaultTopNav = () => {
                               <Menu.Item key={item}>
                                 {({ active }) => (
                                   <a
-                                    href="#"
+                                    href="/todo-add-this-route"
                                     className={classNames(
                                       active ? 'bg-gray-100' : '',
                                       'block px-4 py-2 text-sm text-gray-700'
@@ -157,7 +158,7 @@ const DefaultTopNav = () => {
                 {profile.map((item) => (
                   <a
                     key={item}
-                    href="#"
+                    href="/todo-add-this-route"
                     className="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75"
                   >
                     {item}

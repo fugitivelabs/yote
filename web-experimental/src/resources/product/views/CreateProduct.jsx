@@ -6,8 +6,8 @@ import { useHistory } from 'react-router-dom'
 import { useDefaultProduct, useCreateProduct } from '../productService';
 
 // import resource components
-import ProductForm from '../components/ProductForm.js.jsx';
-import ProductLayout from '../components/ProductLayout.js.jsx';
+import ProductForm from '../components/ProductForm.jsx';
+import ProductLayout from '../components/ProductLayout.jsx';
 
 
 const CreateProduct = () => {

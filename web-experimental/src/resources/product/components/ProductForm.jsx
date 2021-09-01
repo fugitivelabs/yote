@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { useForm } from '../../../global/utils/customHooks';
+import { useFormState } from '../../../global/utils/customHooks';
 
 // import form components
 // import { TextInput, TextAreaInput } from '../../../global/components/forms';
@@ -23,7 +23,7 @@ const ProductForm = ({
   , product
 }) => {
 
-  const [ updatedProduct, handleChange ] = useForm(product); // pass product as initialState
+  const [ updatedProduct, handleChange ] = useFormState(product); // pass product as initialState
 
   // set the button text
   const buttonText = formType === "create" ? "Create Product" : "Update Product";

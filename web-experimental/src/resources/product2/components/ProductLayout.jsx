@@ -2,7 +2,6 @@
  * Wraps all Product views in a wrapping container. If you want to give all
  * product views a sidebar for example, you would set that here.
  * 
- * TODO:
  * Accepts a "title" prop and passes it down to be used by React Helmet
  * This allows us to easily update the browser tab title on each view.
  */
@@ -11,7 +10,7 @@
 import React from 'react';
 
 // import global components
-import DefaultLayout from '../../../global/components/layouts/DefaultLayout.js.jsx';
+import DefaultLayout from '../../../global/components/layouts/DefaultLayout.jsx'; // doesn't exist yet
 
 const ProductLayout = ({...props}) => {
   return (

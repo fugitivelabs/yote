@@ -18,8 +18,8 @@ import { useDispatch } from 'react-redux';
 import { sendLogin } from '../authStore';
 
 // import user components
-import UserLayout from '../components/UserLayout.js.jsx';
-import UserLoginForm from '../components/UserLoginForm.js.jsx';
+import UserLayout from '../components/UserLayout.jsx';
+import UserLoginForm from '../components/UserLoginForm.jsx';
 
 const UserLogin = () => {
   const dispatch = useDispatch();

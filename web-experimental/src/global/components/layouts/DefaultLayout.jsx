@@ -4,12 +4,12 @@
  */
 
 // import primary libraries
-import React from 'react';
+import React, { useEffect } from 'react';
 // TODO: Maybe find an alternative to react-helmet since it's out of date and causes react to throw warnings
-import { Helmet }  from 'react-helmet'
+// import { Helmet }  from 'react-helmet'
 
 // import nav components
-import DefaultTopNav from '../navigation/DefaultTopNav.js.jsx';
+import DefaultTopNav from '../navigation/DefaultTopNav.jsx';
 
 
 const DefaultLayout = ({ ...props }) => {
@@ -17,9 +17,17 @@ const DefaultLayout = ({ ...props }) => {
     children
     , title
   } = props;
+  
+  // this can replace react-helmet if all we need to do is set the page title.
+  useEffect(() => {
+    document.title = title || "Yote App";
+  }, [title])
+
+
+
   return (
     <div>
-      <Helmet title={props.title || "Yote App"}/>
+      {/* <Helmet title={props.title || "Yote App"}/> */}
       <DefaultTopNav />
       <header className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">

@@ -2,11 +2,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router-dom';
-import { useForm } from '../../../global/utils/customHooks';
+
+// import hooks
+import { useFormState } from '../../../global/utils/customHooks';
 
 // import form components
 // import { EmailInput, PasswordInput } from '../../../global/components/forms';
-import { TextInput } from '../../../global/components/forms'
+import { TextInput, PasswordInput } from '../../../global/components/forms'
 
 const UserLoginForm = ({
   handleFormSubmit
@@ -14,7 +16,7 @@ const UserLoginForm = ({
 }) => {
   const location = useLocation();
 
-  const [updatedUser, handleChange] = useForm(user); // pass user as initialState
+  const [updatedUser, handleChange] = useFormState(user); // pass user as initialState
   
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -33,13 +35,12 @@ const UserLoginForm = ({
           change={handleChange}
           required={true}
         />
-        <TextInput
+        <PasswordInput
           name="password"
           label="Password"
           value={updatedUser.password}
           change={handleChange}
           required={true}
-          // password={true}
         />
         <Link to="/user/forgot-password">
           <em>
@@ -66,8 +67,7 @@ const UserLoginForm = ({
 }
 
 UserLoginForm.propTypes = {
-  handleFormChange: PropTypes.func.isRequired
-  , handleFormSubmit: PropTypes.func.isRequired
+  handleFormSubmit: PropTypes.func.isRequired
   , user: PropTypes.object.isRequired
   , location: PropTypes.object
 }

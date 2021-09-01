@@ -9,8 +9,8 @@ import AsyncWrapper from '../../../global/components/helpers/AsyncWrapper';
 
 
 // import resource components
-import ProductLayout from '../components/ProductLayout.js.jsx'
-import ProductForm from '../components/ProductForm.js.jsx';
+import ProductLayout from '../components/ProductLayout.jsx'
+import ProductForm from '../components/ProductForm.jsx';
 
 const UpdateProduct = () => {
 

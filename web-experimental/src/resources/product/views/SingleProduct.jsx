@@ -11,9 +11,9 @@ import {
 
 // import global components
 import AsyncWrapper from '../../../global/components/helpers/AsyncWrapper';
-// import Breadcrumbs from '../../../global/components/navigation/Breadcrumbs.js.jsx'; // doesn't exist yet
+// import Breadcrumbs from '../../../global/components/navigation/Breadcrumbs.jsx'; // doesn't exist yet
 
-import ProductLayout from '../components/ProductLayout.js.jsx'
+import ProductLayout from '../components/ProductLayout.jsx'
 
 const SingleProduct = () => {
   // get the product id from the url. Below is equivalent to const { productId } = this.props.match.params;

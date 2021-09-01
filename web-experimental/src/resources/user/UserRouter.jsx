@@ -7,14 +7,14 @@ import React from 'react';
 import { Switch } from 'react-router-dom';
 
 // import global components
-import YTRoute from '../../global/components/routing/YTRoute.js.jsx';
+import YTRoute from '../../global/components/routing/YTRoute.jsx';
 
 // import user views
-// import ForgotPassword from './views/ForgotPassword.js.jsx';
-// import ResetPassword from './views/ResetPassword.js.jsx';
-import UserLogin from './views/UserLogin.js.jsx';
-// import UserProfile from './views/UserProfile.js.jsx';
-// import UserRegister from './views/UserRegister.js.jsx';
+// import ForgotPassword from './views/ForgotPassword.jsx';
+// import ResetPassword from './views/ResetPassword.jsx';
+import UserLogin from './views/UserLogin.jsx';
+// import UserProfile from './views/UserProfile.jsx';
+// import UserRegister from './views/UserRegister.jsx';
 
 const UserRouter = () => {
 

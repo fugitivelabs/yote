@@ -7,7 +7,7 @@
 // import { useProductList } from '../productService';
 
 // // import resource components
-// import ProductListItem from '../components/ProductListItem.js.jsx';
+// import ProductListItem from '../components/ProductListItem.jsx';
 
 // const ProductList = () => {
 //   // Using a query hook automatically fetches data and returns query values
@@ -51,7 +51,7 @@
 // import { useProductList } from '../productService';
 
 // // import resource components
-// import ProductListItem from '../components/ProductListItem.js.jsx';
+// import ProductListItem from '../components/ProductListItem.jsx';
 
 
 
@@ -108,8 +108,8 @@ import { Link } from 'react-router-dom'
 import { useProductList } from '../productService';
 
 // import resource components
-import ProductListItem from '../components/ProductListItem.js.jsx';
-import ProductLayout from '../components/ProductLayout.js.jsx';
+import ProductListItem from '../components/ProductListItem.jsx';
+import ProductLayout from '../components/ProductLayout.jsx';
 import AsyncWrapper from '../../../global/components/helpers/AsyncWrapper';
 
 
@@ -159,7 +159,7 @@ export default ProductList;
 // import { useProductIdMap } from '../productService';
 
 // // import resource components
-// import ProductListItem from '../components/ProductListItem.js.jsx';
+// import ProductListItem from '../components/ProductListItem.jsx';
 
 // const ProductList = () => {
 
