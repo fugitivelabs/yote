@@ -1,5 +1,6 @@
 
 import React from 'react';
+import PropTypes from 'prop-types'
 
 const ListItem = ({
   children
@@ -11,6 +12,10 @@ const ListItem = ({
       {children}
     </li>
   )
+}
+
+ListItem.propTypes = {
+  className: PropTypes.string
 }
 
 export default ListItem

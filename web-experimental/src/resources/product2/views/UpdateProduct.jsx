@@ -44,8 +44,8 @@ const UpdateProduct = () => {
     //     />
     //   }
     // </ProductLayout>
-    
-    // <WaitOn/> handles all of the isLoading, isError, etc stuff so we don't have to the stuff above
+
+    // <WaitOn/> handles all of the isLoading, isError, etc stuff so we don't have to do the stuff above
     <ProductLayout title={'Update Product'}>
       <WaitOn query={productQuery}>
         { product &&

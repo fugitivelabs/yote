@@ -1,18 +1,18 @@
 
 import React from 'react';
-// todo: add proptypes
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types'
 
 const Button = ({ ...props }) => {
   
   const {
     children
-    , classNames
+    , className
     , onClick
     , disabled
+    , link
     , size = 'md'
     , skin = 'primary'
-    , link
     , type = 'button'
   } = props
 
@@ -44,7 +44,7 @@ const Button = ({ ...props }) => {
     ''
   )
 
-  const combinedClasses = `${baseClasses} ${colorClasses} ${sizeClasses} ${classNames} ${disabled && 'pointer-events-none opacity-50'}`
+  const combinedClasses = `${baseClasses} ${colorClasses} ${sizeClasses} ${className} ${disabled && 'pointer-events-none opacity-50'}`
 
   if(link) return (
     <Link
@@ -66,6 +66,17 @@ const Button = ({ ...props }) => {
     </button>
   
   )
+}
+
+
+Button.propTypes = {
+  className: PropTypes.string
+  , onClick: PropTypes.func
+  , disabled: PropTypes.bool
+  , link: PropTypes.string
+  , size: PropTypes.string
+  , skin: PropTypes.string
+  , type: PropTypes.string
 }
 
 export default Button;
