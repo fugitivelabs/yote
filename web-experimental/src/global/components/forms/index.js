@@ -2,22 +2,22 @@
  * compile and export all form components from one file
  */
 
-// import CheckboxInput from './CheckboxInput.js.jsx';
-// import EmailInput from './EmailInput.js.jsx';
-// import FileInput from './FileInput.js.jsx';
-// import ListComparator from './ListComparator.js.jsx';
-// import NewPasswordInput from './NewPasswordInput.js.jsx';
-// import NumberInput from './NumberInput.js.jsx';
-// import ObjectListComparator from './ObjectListComparator.js.jsx';
-// import PasswordInput from './PasswordInput.js.jsx';
-// import RadioInput from './RadioInput.js.jsx';
-// import SearchInput from './SearchInput.js.jsx';
-// import SelectFromArray from './SelectFromArray.js.jsx';
-// import SelectFromObject from './SelectFromObject.js.jsx';
-// import SimpleArrayEditor from './SimpleArrayEditor.js.jsx';
-// import TextAreaInput from './TextAreaInput.js.jsx';
-import TextInput from './TextInput.js.jsx';
-// import UrlInput from './UrlInput.js.jsx';
+// import CheckboxInput from './CheckboxInput.jsx';
+// import EmailInput from './EmailInput.jsx';
+// import FileInput from './FileInput.jsx';
+// import ListComparator from './ListComparator.jsx';
+// import NewPasswordInput from './NewPasswordInput.jsx';
+// import NumberInput from './NumberInput.jsx';
+// import ObjectListComparator from './ObjectListComparator.jsx';
+import PasswordInput from './PasswordInput.jsx';
+// import RadioInput from './RadioInput.jsx';
+// import SearchInput from './SearchInput.jsx';
+// import SelectFromArray from './SelectFromArray.jsx';
+// import SelectFromObject from './SelectFromObject.jsx';
+// import SimpleArrayEditor from './SimpleArrayEditor.jsx';
+// import TextAreaInput from './TextAreaInput.jsx';
+import TextInput from './TextInput.jsx';
+// import UrlInput from './UrlInput.jsx';
 
 // export { CheckboxInput };
 // export { EmailInput };
@@ -26,7 +26,7 @@ import TextInput from './TextInput.js.jsx';
 // export { NewPasswordInput };
 // export { NumberInput };
 // export { ObjectListComparator };
-// export { PasswordInput };
+export { PasswordInput };
 // export { RadioInput };
 // export { SearchInput };
 // export { SelectFromArray };
