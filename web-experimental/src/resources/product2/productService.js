@@ -11,12 +11,11 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { usePagination } from '../../global/utils/customHooks';
 
-
 import apiUtils from '../../global/utils/api';
 
 // import all of the actions from the store
 import { // TODO: rename these so it still makes sense when we are importing selectors and action from other stores.
-  selectListItems // call this selectProductList
+  selectListItems // call this selectProductListItems
   , fetchProductList
   , fetchListIfNeeded
   , selectShouldFetch // selectProductShouldFetch

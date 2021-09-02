@@ -10,7 +10,7 @@
 import React from 'react';
 
 // import global components
-import DefaultLayout from '../../../global/components/layouts/DefaultLayout.jsx'; // doesn't exist yet
+import DefaultLayout from '../../../global/components/layouts/DefaultLayout.jsx';
 
 const ProductLayout = ({...props}) => {
   return (

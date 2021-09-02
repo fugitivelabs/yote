@@ -23,8 +23,6 @@ const DefaultLayout = ({ ...props }) => {
     document.title = title || "Yote App";
   }, [title])
 
-
-
   return (
     <div>
       {/* <Helmet title={props.title || "Yote App"}/> */}

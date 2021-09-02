@@ -29,7 +29,6 @@ const WaitOn = ({
     // fetch is done. render children to display the fetched data
     // return <div className={`${className} ${isFetching ? 'opacity-50' : ''}`}>{children}</div>
     return children;
-    // return children;
   } catch(childError) {
     // debugging
     // console.log('Error in WaitOn children ', childError);

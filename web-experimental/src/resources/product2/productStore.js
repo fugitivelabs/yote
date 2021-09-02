@@ -163,7 +163,7 @@ export const productSlice = createSlice({
       })
       .addCase(fetchDefaultProduct.fulfilled, (state, action) => {
         const defaultProduct = action.payload;
-        // add it to the byId map (for the iud we'll use 'defaultProduct')
+        // add it to the byId map (for the id we'll use 'defaultProduct')
         state.byId['defaultProduct'] = defaultProduct
         // state.byId = { ...state.byId, defaultProduct: defaultProduct };
         // update the query object
