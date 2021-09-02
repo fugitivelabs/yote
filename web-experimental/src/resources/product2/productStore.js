@@ -9,10 +9,8 @@ const initialState = {
    * "byId" is an object map of all product items in the store. The map's keys are
    * the Mongo ids of the objects by default
    */
-  byId: {},
+  byId: {}
   
-  // defaultItem will just be a regular fetch, no need to give it a special spot in state.
-
   /**
    * "queries" is an object map of all server fetches for products. The map's keys are listArgs
    * in the case of list fetches and Mongo ids in the case of single fetches.
@@ -28,7 +26,9 @@ const initialState = {
    *  id: mongoId
    * }
    */
-  queries: {} // this can hold lists and single queries with the same meta. Instead of listArgs, singles would be indexed by id.
+  , singleQueries: {}
+  , listQueries: {}
+
 };
 
 /**
@@ -38,7 +38,7 @@ const initialState = {
  * code can then be executed and other actions can be dispatched. Thunks are
  * typically used to make async requests.
  * 
- * In practice we won't dispatch these directly, they will be dispatched by productService.
+ * In practice we won't dispatch these directly, they will be dispatched by productService which has a nicer api built on hooks.
  */
 
 // CREATE
@@ -92,7 +92,7 @@ export const sendUpdateProduct = createAsyncThunk(
   }
 );
 
-// TODO: add delete
+// TODO: add sendDeleteProduct
 
 
 // define the productSlice. This is a combination of actions and reducers. More info: https://redux-toolkit.js.org/api/createSlice
@@ -109,12 +109,12 @@ export const productSlice = createSlice({
   reducers: {
     invalidateQuery: (state, action) => {
       const queryKey = action.payload;
-      const query = state.queries[queryKey];
+      const query = state.listQueries[queryKey] || state.singleQueries[queryKey];
       if(query) query.didInvalidate = true
-    },
-    addProductToList: (state, action) => {
-      const { listArgs: queryKey, id } = action.payload;
-      const query = state.queries[queryKey];
+    }
+    , addProductToList: (state, action) => {
+      const { queryKey, id } = action.payload;
+      const query = state.listQueries[queryKey];
       if(query) {
         query.ids.push(id)
       } else {
@@ -134,13 +134,20 @@ export const productSlice = createSlice({
       .addCase(sendCreateProduct.fulfilled, (state, action) => {
         // console.log('action', action);
         const product = action.payload;
-        state.queries[product._id] = {}
-        const singleQuery = state.queries[product._id];
-        singleQuery.id = product._id;
-        state.byId = { ...state.byId, [product._id]: product };
-        singleQuery.status = 'fulfilled';
-        singleQuery.receivedAt = Date.now();
-        singleQuery.expirationDate = Date.now() + (1000 * 60 * 5); // 5 minutes from now
+        // add it to the map
+        state.byId[product._id] = product;
+        // create a query object for it
+        state.singleQueries[product._id] = {
+          id: product._id
+          , status: 'fulfilled'
+          , receivedAt: Date.now()
+          , expirationDate: Date.now() + (1000 * 60 * 5) // 5 minutes from now
+        }
+
+        // A new product was just created. Rather than dealing with adding it to a list or invalidating specific lists from the component we'll just invalidate the listQueries here.
+        Object.keys(state.listQueries).forEach(queryKey => {
+          state.listQueries[queryKey].didInvalidate = true;
+        });
       })
       .addCase(sendCreateProduct.rejected, (state, action) => {
         // TODO: handle server errors
@@ -149,52 +156,50 @@ export const productSlice = createSlice({
       // READ
       .addCase(fetchDefaultProduct.pending, (state, action) => {
         // create a query object for it in the queries map
-        state.queries['defaultItem'] = {};
-        // set the status to pending
-        state.queries['defaultItem'].status = 'pending';
+        state.singleQueries['defaultProduct'] = {
+          id: 'defaultProduct'
+          , status: 'pending'
+        };
       })
       .addCase(fetchDefaultProduct.fulfilled, (state, action) => {
         const defaultProduct = action.payload;
-        const singleQuery = state.queries['defaultItem'];
-        singleQuery.id = 'defaultItem';
-        state.byId = { ...state.byId, defaultItem: defaultProduct };
+        // add it to the byId map (for the iud we'll use 'defaultProduct')
+        state.byId['defaultProduct'] = defaultProduct
+        // state.byId = { ...state.byId, defaultProduct: defaultProduct };
+        // update the query object
+        const singleQuery = state.singleQueries['defaultProduct'];
         singleQuery.status = 'fulfilled';
         singleQuery.receivedAt = Date.now();
         singleQuery.expirationDate = Infinity; // this should never expire. It's just an empty product.
       })
       .addCase(fetchSingleProduct.pending, (state, action) => {
-        // create a query object for it in the queries map
-        state.queries[action.meta.arg] = {}
-        state.queries[action.meta.arg].status = 'pending';
+        // update or create a query object for it in the queries map
+        state.singleQueries[action.meta.arg] = { ...state.singleQueries[action.meta.arg], id: action.meta.arg, status: 'pending', didInvalidate: false };
       })
       .addCase(fetchSingleProduct.fulfilled, (state, action) => {
-        const product = action.payload
-        // find the query object for this fetch in the queries map
-        const singleQuery = state.queries[action.meta.arg];
-        // set the query id
-        singleQuery.id = product._id;
+        const product = action.payload;
         // add the product object to the byId map
-        state.byId = { ...state.byId, [product._id]: product };
-        // update other query info
+        state.byId[product._id] = product;
+        // find the query object for this fetch in the singleQueries map and update query info
+        const singleQuery = state.singleQueries[action.meta.arg];
         singleQuery.status = 'fulfilled';
         singleQuery.receivedAt = Date.now();
         singleQuery.expirationDate = Date.now() + (1000 * 60 * 5); // 5 minutes from now
       })
       .addCase(fetchProductList.pending, (state, action) => {
-        // update or create the query object for it in the queries map
-        state.queries[action.meta.arg] = { ...state.queries[action.meta.arg], status: 'pending' };
-
+        // update or create the query object for it in the listQueries map
+        state.listQueries[action.meta.arg] = { ...state.listQueries[action.meta.arg], status: 'pending', didInvalidate: false };
       })
       .addCase(fetchProductList.fulfilled, (state, action) => {
-        const {products, totalPages} = action.payload;
+        const { products, totalPages } = action.payload;
         // update list query
-         // convert the array of objects to a map
+        // convert the array of objects to a map
         const productMap = convertListToMap(products, '_id');
         // add the product objects to the byId map
         state.byId = { ...state.byId, ...productMap };
 
-        // find the query object for this fetch in the queries map
-        const listQuery = state.queries[action.meta.arg];
+        // find the query object for this fetch in the listQueries map and update query info
+        const listQuery = state.listQueries[action.meta.arg];
         // save the array of ids for the returned products
         listQuery.ids = products.map(product => product._id);
         // set the rest of the query info
@@ -212,30 +217,34 @@ export const productSlice = createSlice({
             , receivedAt: listQuery.receivedAt
             , expirationDate: listQuery.expirationDate
           };
-          
-          state.queries[product._id] = singleQuery;
-          // add the product to the map 
-          state.byId[product._id] = product
+          state.singleQueries[product._id] = singleQuery;
         });
       })
       .addCase(fetchProductList.rejected, (state, action) => {
         // TODO: handle server errors
-        const listQuery = state.queries[action.meta.arg];
+        const listQuery = state.listQueries[action.meta.arg];
         listQuery.status = 'rejected';
         listQuery.receivedAt = Date.now();
       })
       
       // UPDATE
       .addCase(sendUpdateProduct.pending, (state, action) => {
-        const {_id} = action.meta.arg;
-        state.queries[_id] = state.queries[_id] || {};
-        state.queries[_id].status = 'pending';
+        // action.meta.arg in this case is the updated product object that was sent in the POST
+        const updatedProduct = action.meta.arg
+        // get the product id
+        const id = updatedProduct._id;
+        // access or create the query object in the map
+        state.singleQueries[id] = { ...state.singleQueries[id], id: id, status: 'pending' }
+
+        // optimistic update the version that's in the map
+        state.byId[id] = { ...state.byId[id], ...updatedProduct}
       })
       .addCase(sendUpdateProduct.fulfilled, (state, action) => {
         const product = action.payload;
-        const singleQuery = state.queries[product._id];
-        singleQuery.id = product._id;
-        state.byId = { ...state.byId, [product._id]: product };
+        // replace the previous version in the map with the new one
+        state.byId[product._id] = product;
+        // update the query object
+        const singleQuery = state.singleQueries[product._id];
         singleQuery.status = 'fulfilled';
         singleQuery.receivedAt = Date.now();
         singleQuery.expirationDate = Date.now() + (1000 * 60 * 5); // 5 minutes from now
@@ -248,6 +257,18 @@ export const productSlice = createSlice({
 });
 
 export const { invalidateQuery, addProductToList } = productSlice.actions;
+
+// We can also write thunks by hand, which may contain both sync and async logic.
+// Here's an example of conditionally dispatching actions based on current state.
+export const fetchListIfNeeded = (queryKey) => (dispatch, getState) => {
+  const productQuery = getState().product2.listQueries[queryKey];
+  if(shouldFetch(productQuery)) {
+    // console.log('Fetching new product list', );
+    dispatch(fetchProductList(queryKey));
+  } else {
+    // console.log('No need to fetch, fresh query in cache');
+  }
+};
 
 /**
  * The functions below are called a selectors and allow us to select a value from
@@ -267,8 +288,15 @@ export const { invalidateQuery, addProductToList } = productSlice.actions;
  * But to minimize the risk of over-generalizing, we'll define a set in each store.
  */
 
-export const selectListItems = ({product2: productStore}, listArgs) => {
-  const listIds = productStore.queries[listArgs]?.ids;
+
+/**
+ * 
+ * @param {object} productStore - supplied by useSelector hook
+ * @param {string} queryKey - the key used to access the query from the map
+ * @returns 
+ */
+export const selectListItems = ({product2: productStore}, queryKey) => {
+  const listIds = productStore.listQueries[queryKey]?.ids;
   if(listIds) {
     return listIds.map(id => productStore.byId[id]);
   } else {
@@ -277,12 +305,12 @@ export const selectListItems = ({product2: productStore}, listArgs) => {
 }
 
 export const selectListPageCount = ({product2: productStore}, listArgs) => {
-  return productStore.queries[listArgs]?.totalPages;
+  return productStore.listQueries[listArgs]?.totalPages;
 }
 
 export const selectShouldFetch = ({ product2: productStore }, queryKey) => {
   if(!queryKey) return false;
-  const productQuery = productStore.queries[queryKey];
+  const productQuery = productStore.listQueries[queryKey] || productStore.singleQueries[queryKey];
   // use the util to check if we should fetch or not
   return shouldFetch(productQuery);
 }
@@ -292,9 +320,14 @@ export const selectSingleById = ({product2: productStore}, id) => {
   return productStore.byId[id];
 }
 
-// queryKey will either be a single id or an array of listArgs. productStore.queries doesn't care either way
-export const selectFetchStatus = ({ product2: productStore }, queryKey) => {
-  return productStore.queries[queryKey]?.status;
+// export const selectFetchStatus = ({ product2: productStore }, queryKey) => {
+//   const productQuery = productStore.listQueries[queryKey] || productStore.singleQueries[queryKey];
+//   return productQuery?.status;
+// }
+
+export const selectQuery = ({ product2: productStore }, queryKey) => {
+  const productQuery = productStore.listQueries[queryKey] || productStore.singleQueries[queryKey];
+  return productQuery || {};
 }
 
 export default productSlice.reducer;
