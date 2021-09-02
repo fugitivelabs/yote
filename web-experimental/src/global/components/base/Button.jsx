@@ -1,5 +1,6 @@
 
 import React from 'react';
+// todo: add proptypes
 import { Link } from 'react-router-dom';
 
 const Button = ({ ...props }) => {
@@ -10,18 +11,19 @@ const Button = ({ ...props }) => {
     , onClick
     , disabled
     , size = 'md'
-    , flavor = 'primary'
+    , skin = 'primary'
     , link
+    , type = 'button'
   } = props
 
   const baseClasses = "inline-flex items-center border border-transparent font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2"
 
   const colorClasses = (
-    flavor === 'primary' ? "text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500"
+    skin === 'primary' ? "text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500"
     :
-    flavor === 'secondary' ? "text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:ring-indigo-500"
+    skin === 'secondary' ? "text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:ring-indigo-500"
     :
-    flavor === 'white' ? "text-gray-700 bg-white hover:bg-gray-50 focus:ring-indigo-500"
+    skin === 'white' ? "text-gray-700 bg-white hover:bg-gray-50 focus:ring-indigo-500"
     :
     ''
   )
@@ -57,7 +59,7 @@ const Button = ({ ...props }) => {
     <button
       onClick={onClick}
       disabled={disabled}
-      type="button"
+      type={type}
       className={combinedClasses}
     >
       {children}

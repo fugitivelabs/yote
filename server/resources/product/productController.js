@@ -12,8 +12,8 @@ exports.getSingleById = async (req, res) => {
   if(!product) {
     throw new YoteError("Could not find matching Product", 404)
   }
-  // res.json(product)
-  res.send({success: true, product})
+  res.json(product);
+  // res.send({success: true, product})
 }
 
 exports.createSingle = async (req, res) => {
@@ -65,7 +65,9 @@ exports.deleteSingle = async (req, res) => {
 }
 
 exports.getDefault = async (req, res) => {
-  res.send({success: true, defaultObj: Product.getDefault()});
+  const defaultProduct = await Product.getDefault();
+  res.json(defaultProduct);
+  // res.send({success: true, defaultObj: Product.getDefault()});
 }
 
 // list api functions

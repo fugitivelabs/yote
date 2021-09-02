@@ -55,23 +55,23 @@ const PageTabber = ({
     <div className="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
       {/* only show two buttons on small screens */}
       <div className="flex-1 flex justify-between md:hidden">
-        <a
+        <button
           onClick={currentPage > 1 ? () => setPage(currentPage - 1) : null }
           className={mobileBtnCommonClasses}
         >
           Previous
-        </a>
+        </button>
         <div className="relative inline-flex items-center px-4 py-2 text-sm">
           <p className="text-sm text-gray-700">
             <span className="font-small">{currentPage}</span> of <span className="font-small">{totalPages}</span>
           </p>
         </div>
-        <a
+        <button
           onClick={currentPage < totalPages ? () => setPage(currentPage + 1) : null }
           className={`${mobileBtnCommonClasses} ml-3`}
         >
           Next
-        </a>
+        </button>
       </div>
       {/* show the whole thing on medium and larger screens */}
       <div className="hidden md:flex-1 md:flex sm:items-center md:justify-between">
@@ -83,13 +83,13 @@ const PageTabber = ({
         </div>
         <div>
           <nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
-            <a
+            <button
               onClick={currentPage > 1 ? () => setPage(currentPage - 1) : null}
               className={`${setPageBtnCommonClasses} rounded-l-md` }
             >
               <span className="sr-only">Previous</span>
               <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
-            </a>
+            </button>
             {currentPage > 4 ?
               <span className={`${setPageBtnCommonClasses} pointer-events-none`}>
                 ...
@@ -98,28 +98,28 @@ const PageTabber = ({
               null
             }
             {before.map((page, i) => (
-              <a
+              <button
                 key={`page-before-${i}`}
                 onClick={() => setPage(page)}
                 className={setPageBtnCommonClasses}
               >
               {page}
-              </a>
+              </button>
             ))}
-            <a
+            <button
               aria-current="page"
               className={`${paginationBtnCommonClasses} z-10 bg-indigo-50 border-indigo-500 text-indigo-600 pointer-events-none`}
             >
               {currentPage}
-            </a>
+            </button>
             {after.map((page , i)=> (
-              <a
+              <button
                 key={`page-after-${i}`}
                 onClick={()=> setPage(page)}
                 className={setPageBtnCommonClasses}
               >
               {page}
-              </a>
+              </button>
             ))}
             { currentPage < totalPages - 3 ?
               <span className={`${setPageBtnCommonClasses} pointer-events-none`}>
@@ -128,13 +128,13 @@ const PageTabber = ({
               :
               null
             }
-            <a
+            <button
               onClick={currentPage < totalPages ? () => setPage(currentPage + 1) : null }
               className={`${setPageBtnCommonClasses} rounded-r-md` }
             >
               <span className="sr-only">Next</span>
               <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
-            </a>
+            </button>
           </nav>
         </div>
       </div>
