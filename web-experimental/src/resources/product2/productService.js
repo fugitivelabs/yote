@@ -131,7 +131,15 @@ export const useGetDefaultProduct = (forceFetch = false) => {
   const isSuccess = status === 'fulfilled';
   const isEmpty = isSuccess && !defaultProduct;
   // return the info for the caller of the hook to use
-  return { data: defaultProduct, isFetching, isLoading, isError, isSuccess, isEmpty }
+  return {
+    data: defaultProduct
+    , isFetching
+    , isLoading
+    , isError
+    , isSuccess
+    , isEmpty
+    , refetch: () => dispatch(fetchDefaultProduct())
+  }
 }
 
 /**

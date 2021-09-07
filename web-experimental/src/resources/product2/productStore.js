@@ -172,6 +172,11 @@ export const productSlice = createSlice({
         singleQuery.receivedAt = Date.now();
         singleQuery.expirationDate = Infinity; // this should never expire. It's just an empty product.
       })
+      .addCase(fetchDefaultProduct.rejected, (state, action) => {
+        const singleQuery = state.singleQueries['defaultProduct'];
+        singleQuery.status = 'rejected';
+        singleQuery.receivedAt = Date.now();
+      })
       .addCase(fetchSingleProduct.pending, (state, action) => {
         // update or create a query object for it in the queries map
         state.singleQueries[action.meta.arg] = { ...state.singleQueries[action.meta.arg], id: action.meta.arg, status: 'pending', didInvalidate: false };
@@ -185,6 +190,12 @@ export const productSlice = createSlice({
         singleQuery.status = 'fulfilled';
         singleQuery.receivedAt = Date.now();
         singleQuery.expirationDate = Date.now() + (1000 * 60 * 5); // 5 minutes from now
+      })
+      .addCase(fetchSingleProduct.rejected, (state, action) => {
+        // find the query object for this fetch in the singleQueries map and update query info
+        const singleQuery = state.singleQueries[action.meta.arg];
+        singleQuery.status = 'rejected';
+        singleQuery.receivedAt = Date.now();
       })
       .addCase(fetchProductList.pending, (state, action) => {
         // update or create the query object for it in the listQueries map
@@ -250,7 +261,12 @@ export const productSlice = createSlice({
         singleQuery.expirationDate = Date.now() + (1000 * 60 * 5); // 5 minutes from now
       })
       .addCase(sendUpdateProduct.rejected, (state, action) => {
-        // TODO: handle server errors
+        // action.meta.arg in this case is the updated product object that was sent in the POST
+        const product = action.meta.arg
+        // update the query object
+        const singleQuery = state.singleQueries[product._id];
+        singleQuery.status = 'rejected';
+        singleQuery.receivedAt = Date.now();
       })
     // TODO: add delete
   },
