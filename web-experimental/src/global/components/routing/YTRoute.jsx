@@ -6,40 +6,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Redirect, Route, useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import WaitOn from '../helpers/WaitOn';
 
-// import the selector function
-import { getLoggedInUser } from '../../../resources/user/authStore';
+import { Redirect, Route, useLocation } from 'react-router-dom';
+
+import DefaultLayout from '../layouts/DefaultLayout';
+
+// import hooks
+import { useGetLoggedInUser } from '../../../resources/user/authService';
 
 const YTRoute = ({
-  breadcrumbs,
-  role,
-  login,
-  exact,
-  path,
-  component,
+  breadcrumbs
+  , role
+  , login
+  , exact
+  , path
+  , component
 }) => {
 
-  /**
-   * NOTE: All of the loggedInUser stuff works, but we haven't yet figured out how we're going to persist
-   * sessions so you'll be logged out if you refresh your browser.
-   * 
-   * TODO: Figure out how we're going to handle user authentication on the server and come up with a way
-   * to persist sessions.
-   * 
-   * useSelector is like mapStoreToProps. It accesses the entire store.
-   * const loggedInUser = useSelector((store) => {
-   *  // access the entire store
-   * }
-   * 
-   * we can use destructuring to access a specific reducer. In this case the 'auth' reducer.
-   * const loggedInUser = useSelector(({auth}) => auth.loggedInUser);
-   * 
-   * we can also define the callback function in the service and import and use it here.
-   * const loggedInUser = useSelector(getLoggedInUser);
-   */
-  const loggedInUser = useSelector(getLoggedInUser);
+  // use the hook to get the loggedInUser from the authStore
+  const { loggedInUser, ...authQuery } = useGetLoggedInUser();
+
 
   const location = useLocation();
   let newLocation = location;
@@ -48,21 +35,23 @@ const YTRoute = ({
   }
   newLocation.state.breadcrumbs = breadcrumbs;
 
-
-  if((role || login) && !loggedInUser) {
-    return <Redirect to={{pathname: "/user/login", state: { from: location }}}/>
-  } else if(role && loggedInUser?.roles?.indexOf[role] === -1) {
-    return <Redirect to={{pathname: "/unauthorized"}}/>
-  } else {
-    return (
-      <Route
-        exact={exact}
-        path={path}
-        component={component}
-        location={newLocation}
-      />
-    )
-  }
+  return (
+    <WaitOn query={authQuery} fallback={<DefaultLayout.Skeleton/>}>
+      { (role || login) && !loggedInUser ?
+        <Redirect to={{ pathname: "/user/login", state: { from: location } }} />
+        :
+        role && loggedInUser?.roles?.indexOf[role] === -1 ?
+        <Redirect to={{ pathname: "/unauthorized" }} />
+        :
+        <Route
+          exact={exact}
+          path={path}
+          component={component}
+          location={newLocation}
+        />
+      }
+    </WaitOn>
+  )
 }
 
 YTRoute.propTypes = {
