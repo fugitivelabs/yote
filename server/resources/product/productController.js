@@ -44,6 +44,7 @@ exports.updateSingleById = async (req, res) => {
    *  ...oldProduct
    *  , ...req.body
    * }
+   * , hence using Object.assign above
    */
 }
 
