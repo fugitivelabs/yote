@@ -1,16 +1,16 @@
 
 import React from 'react'
+import Spinner from './Spinner';
 import Button from '../base/Button';
 
 // deals with fetch info supplied by query hooks and displays loading and error states if applicable.
 // only renders children when the fetch is done.
 const WaitOn = ({
-  className = ''
-  , fallback = (<Spinner />)
+  fallback = (<Spinner />)
   , query
   , children
 }) => {
-  
+
   const {
     isError: fetchError
     , isLoading
@@ -38,10 +38,5 @@ const WaitOn = ({
   }
 }
 
-const Spinner = () => {
-  return (
-    <div className='animate-spin rounded-full border-8 border-gray-200 h-20 w-20 mx-auto' style={{borderTopColor: "lightblue"}}/>
-  )
-}
 
 export default WaitOn;
