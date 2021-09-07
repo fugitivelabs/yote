@@ -16,7 +16,6 @@ const MongoStore = require('connect-mongo');
 // yote libraries
 const errorHandler = require('./global/handlers/errorHandler.js')
 const { passport } = require('./global/handlers/passportHandler.js');
-const db = require('../server-old/db.js');
 
 // init app
 const app = express()
@@ -61,7 +60,6 @@ app.use(
 // passport
 app.use(passport.initialize());
 app.use(passport.session());
-
 
 // api
 let router = express.Router();
