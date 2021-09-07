@@ -1,7 +1,7 @@
 /**
- * View component for /user/login
+ * View component for /user/register
  *
- * On successful login this component forwards the user back to referrer
+ * On successful registration this component forwards the user back to referrer
  * or to the root if there is no referrer.
  *
  * NOTE: upon reaching this page, user can toggle between /user/login and
@@ -14,19 +14,19 @@ import React from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import { sendLogin } from '../authStore';
+import { sendRegister } from '../authStore';
 
 // import user components
 import UserLayout from '../components/UserLayout.jsx';
-import UserLoginForm from '../components/UserLoginForm.jsx';
+import UserRegisterForm from '../components/UserRegisterForm.jsx';
 
-const UserLogin = () => {
+const UserRegister = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
 
   const handleFormSubmit = async (userInfo) => {
-    const { payload: result } = await dispatch(sendLogin(userInfo));
+    const { payload: result } = await dispatch(sendRegister(userInfo));
     // adapted from: https://reactrouter.com/web/example/auth-workflow
     const { from } = location.state || { from: { pathname: "/"} }
     if(result.success) {
@@ -40,7 +40,7 @@ const UserLogin = () => {
     <UserLayout>
       <div className="container">
         <div className="mx-auto">
-          <UserLoginForm
+          <UserRegisterForm
             user={{username: '', password: ''}}
             handleFormSubmit={handleFormSubmit}
           />
@@ -50,4 +50,4 @@ const UserLogin = () => {
   )
 }
 
-export default UserLogin
+export default UserRegister
