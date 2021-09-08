@@ -39,26 +39,26 @@ const ProductRouter = () => {
             breadcrumbs={[{display: 'All products', path: null }]}
             component={ProductList}
             exact
-            path="/products"
+            path="/products-rtk"
           />
           <YTRoute
             breadcrumbs={[{display: 'All products', path: '/products'}, {display: 'New ', path: null}]}
             component={CreateProduct}
             // login={true}
             exact
-            path="/products/new"
+            path="/products-rtk/new"
           />
           <YTRoute
             breadcrumbs={[{display: 'All products', path: '/products'}, {display: 'Product details', path: null}]}
             component={SingleProduct}
             exact
-            path="/products/:productId"
+            path="/products-rtk/:productId"
           />
           <YTRoute
-            breadcrumbs={[{display: 'All products', path: '/products'}, {display: 'Product Details', path: `/products/${productId}`}, {display: 'Update', path: null}]}
+            breadcrumbs={[{display: 'All products', path: '/products'}, {display: 'Product Details', path: `/products-rtk/${productId}`}, {display: 'Update', path: null}]}
             component={UpdateProduct}
             exact
-            path="/products/:productId/update"
+            path="/products-rtk/:productId/update"
             // role="admin"
           />
           </Switch>

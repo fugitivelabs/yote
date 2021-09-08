@@ -18,13 +18,13 @@ const CreateProduct = () => {
   // access the create action by running the mutation hook created in productService
   // It returns an array where the first item is the create action and the second is an object with information about the result of the create action
   const [
-    sendCreateProduct, // this is the function that fires the POST call to api/products/:productId
+    sendCreateProduct, // this is the function that fires the POST call to api/products-rtk/:productId
     { isLoading: isCreating }, // This is the destructured mutation result.  Rename isLoading to isCreating for clarity.
   ] = useCreateProduct();
 
   const handleFormSubmit = async (newProduct) => {
     const { data: product } = await sendCreateProduct(newProduct); //  replaces dispatch(productActions.sendCreateProduct(newProduct)).then(productRes => ...)
-    history.push(`/products/${product._id}`)
+    history.push(`/products-rtk/${product._id}`)
   }
 
   // render UI based on data and loading state

@@ -27,7 +27,6 @@ const WaitOn = ({
     // fetch returned empty
     if(isEmpty) return <div>No data found</div>
     // fetch is done. render children to display the fetched data
-    // return <div className={`${className} ${isFetching ? 'opacity-50' : ''}`}>{children}</div>
     return children;
   } catch(childError) {
     // debugging

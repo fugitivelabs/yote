@@ -24,7 +24,7 @@ const CreateProduct = () => {
     setIsCreating(true);
     const { payload: product } = await sendCreateProduct(newProduct); // replaces dispatch(productActions.sendCreateProduct(newProduct)).then(productRes => ...)
     setIsCreating(false);
-    history.push(`/products2/${product._id}`);
+    history.push(`/products/${product._id}`);
   }
 
   // render UI based on data and loading state
@@ -35,7 +35,7 @@ const CreateProduct = () => {
         // we have the defaultProduct, render the form
         <ProductForm
           product={defaultProduct}
-          cancelLink="/products2"
+          cancelLink="/products"
           disabled={defaultProductQuery.isFetching || isCreating}
           // formTitle="Create Product"
           formType="create"

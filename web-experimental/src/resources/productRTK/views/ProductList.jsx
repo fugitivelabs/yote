@@ -28,7 +28,7 @@
 //   return (
 //     <>
 //       <h1> Product List</h1>
-//       <Link to={'/products/new'}> New Product</Link>
+//       <Link to={'/products-rtk/new'}> New Product</Link>
 //       <hr />
 //       <div className={{opacity: isFetching ? 0.5 : 1}}>
 //         <ul>
@@ -82,7 +82,7 @@
 //   return (
 //     <>
 //       <h1> Product List</h1>
-//       <Link to={'/products/new'}> New Product</Link>
+//       <Link to={'/products-rtk/new'}> New Product</Link>
 //       <hr />
 //       <div className={isFetching ? 'opacity-50' : ''}>
 //         <ul>
@@ -123,7 +123,7 @@ const ProductList = () => {
   return (
     <ProductLayout title={'Product List'}>
       <h1> Product List</h1>
-      <Link to={'/products/new'}> New Product</Link>
+      <Link to={'/products-rtk/new'}> New Product</Link>
       <hr />
       {/* pass the fetch info along to this component to handle the loading and error states */}
       <AsyncWrapper {...productFetch}>
@@ -172,7 +172,7 @@ export default ProductList;
 //   return (
 //     <>
 //       <h1> Product List</h1>
-//       <Link to={'/products/new'}> New Product</Link>
+//       <Link to={'/products-rtk/new'}> New Product</Link>
 //       <hr/>
 //       <div style={{opacity: isFetching ? 0.5 : 1}}>
 //         <ul>

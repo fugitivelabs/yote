@@ -55,7 +55,7 @@ export const productService = createApi({
     // READ
     // fetch single
     productById: builder.query({
-      query: (id) => `/${id}`, // endpoint will be "/api/products/id"
+      query: (id) => `/${id}`, // endpoint will be "/api/products-rtk/id"
       // transformResponse: (response) => response.product, // response looks like {success: true, product: {...}} we only want response.product
       providesTags: (product, error, id) => [{ type: 'Products', id }],
     }),
@@ -101,7 +101,7 @@ export const productService = createApi({
 
     // fetch default
     defaultProduct: builder.query({
-      query: () => `/default`, // endpoint will be "/api/products/id"
+      query: () => `/default`, // endpoint will be "/api/products-rtk/id"
       // transformResponse: (response) => response.defaultObj,
     }),
 

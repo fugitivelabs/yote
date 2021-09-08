@@ -22,7 +22,7 @@ const ProductListItem = ({ id }) => {
 
   return (
     <ListItem className={productQuery.isFetching ? 'opacity-50' : ''}>
-      <Link to={`/products2/${product._id}`}>{product.title}</Link>
+      <Link to={`/products/${product._id}`}>{product.title}</Link>
       <p><em>{product.description}</em></p>
     </ListItem>
   )

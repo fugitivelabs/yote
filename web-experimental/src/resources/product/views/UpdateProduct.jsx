@@ -25,7 +25,7 @@ const UpdateProduct = () => {
     // send the updatedProduct to the server
     sendUpdateProduct(updatedProduct);
     // back to single product view. We don't have to wait for the update to finish. It's okay if the product is still updating when the user gets to the single product view.
-    history.push(`/products2/${updatedProduct._id}`);
+    history.push(`/products/${updatedProduct._id}`);
   }
 
   return (
@@ -36,7 +36,7 @@ const UpdateProduct = () => {
     //     : // we have the product
     //     <ProductForm
     //       product={product}
-    //       cancelLink={`/products2/${productId}`}
+    //       cancelLink={`/products/${productId}`}
     //       disabled={productQuery.isFetching}
     //       formTitle="Update Product"
     //       formType="update"
@@ -52,7 +52,7 @@ const UpdateProduct = () => {
           // we have the product, render the form
           <ProductForm
             product={product}
-            cancelLink={`/products2/${productId}`}
+            cancelLink={`/products/${productId}`}
             disabled={productQuery.isFetching}
             // formTitle="Update Product"
             formType="update"

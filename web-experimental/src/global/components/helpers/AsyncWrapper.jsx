@@ -1,11 +1,11 @@
-
+// NOTE: this is the older version of WaitOn
+// Leaving it here because pr0ductRTK depends on it, but going forward use WaitOn instead
 import React from 'react'
 import Button from '../base/Button';
 
 
 // deals with fetch info supplied by query hooks and displays loading and error states if applicable.
 // only renders children when the fetch is done.
-
 
 const AsyncWrapper = ({
   children

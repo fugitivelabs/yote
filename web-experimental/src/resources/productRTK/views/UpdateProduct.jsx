@@ -23,7 +23,7 @@ const UpdateProduct = () => {
   // access the update action by running the mutation hook created in productService
   // It returns an array where the first item is the update action and the second is an object with information about the result of the update action
   const [
-    sendUpdateProduct, // this is the function that fires the POST call to api/products/:productId. Think of it as importing productActions.sendUpdateProduct
+    sendUpdateProduct, // this is the function that fires the POST call to api/products-rtk/:productId. Think of it as importing productActions.sendUpdateProduct
     { isLoading: isUpdating }, // This is the destructured update result. Rename isLoading to isUpdating for clarity.
   ] = useUpdateProduct();
 
@@ -31,7 +31,7 @@ const UpdateProduct = () => {
     // send the updatedProduct to the server
     const { data: product } = await sendUpdateProduct(updatedProduct); // replaces dispatch(productActions.sendUpdateProduct(updatedProduct)).then(productRes => {...})
     // back to single product view
-    history.push(`/products/${product._id}`)
+    history.push(`/products-rtk/${product._id}`)
   }
   
   return (

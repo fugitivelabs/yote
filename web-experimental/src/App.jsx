@@ -11,7 +11,7 @@ function App() {
       {/* import all resource routers here */}
       {/* redirect for now since there is no view for the base route */}
       <Route exact path='/'>
-        <Redirect to="/products2" />
+        <Redirect to="/products" />
       </Route>      
       <ProductRouter />
       <ProductRouterRTK />

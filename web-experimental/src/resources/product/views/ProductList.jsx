@@ -21,7 +21,7 @@ const ProductList = () => {
     <ProductLayout title={'Product List'}>
       <div className="flex w-full mb-4 justify-end">
         <Button
-          link='/products2/new'
+          link='/products/new'
           size="sm"
           skin="secondary"
         >

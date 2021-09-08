@@ -6,7 +6,7 @@
 // const ProductListItem = ({ product }) => {
 //   return (
 //     <li>
-//       <Link to={`/products/${product._id}`}> {product.title}</Link>
+//       <Link to={`/products-rtk/${product._id}`}> {product.title}</Link>
 //       <p><em>{product.description}</em></p>
 //     </li>
 //   )
@@ -35,7 +35,7 @@ const ProductListItem = ({ productId, listArgs }) => {
 
   return (
     <li>
-      <Link to={`/products/${product?._id}`}> {product?.title}</Link>
+      <Link to={`/products-rtk/${product?._id}`}> {product?.title}</Link>
       <p><em>{product?.description}</em></p>
     </li>
   )
