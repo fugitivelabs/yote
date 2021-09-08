@@ -1,0 +1,25 @@
+doctype
+html(lang="en")
+  head
+    title Yote App
+    meta(charset="utf-8")
+    meta(HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8")
+ 
+    link(rel="stylesheet", href="/css/yote.css")
+    //-  ignore other stuff for the time being
+    
+    if !!currentUser
+      script.
+        window.currentUser = !{JSON.stringify(currentUser)}
+    else
+      script.
+        window.currentUser = {}
+    script.
+      window.appUrl = !{JSON.stringify(appUrl)}
+      window.env = !{JSON.stringify(env)}
+
+  body
+    //- load the react container and run the react script
+    #application-main-yote
+
+    script(src='/js/react-bundle.js')

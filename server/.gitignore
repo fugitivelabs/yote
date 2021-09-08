@@ -1,0 +1,15 @@
+node_modules
+
+# https://github.com/lorenwest/node-config/wiki/Configuration-Files
+config/local.js
+config/secrets.js
+auth/*
+
+# .DS_Store
+*.DS_Store
+
+# Compiled stuff
+static/css/yote.css
+static/css/yote.css.map
+static/js/react-bundle.js
+static/js/react-bundle.js.map
