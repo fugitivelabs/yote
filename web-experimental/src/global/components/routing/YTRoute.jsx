@@ -27,7 +27,6 @@ const YTRoute = ({
   // use the hook to get the loggedInUser from the authStore
   const { loggedInUser, ...authQuery } = useGetLoggedInUser();
 
-
   const location = useLocation();
   let newLocation = location;
   if(!newLocation.state) {
@@ -61,7 +60,9 @@ YTRoute.propTypes = {
       , path: PropTypes.string
     })
   )
+  , exact: PropTypes.bool
   , login: PropTypes.bool
+  , path: PropTypes.string
   , role: PropTypes.string
 }
 

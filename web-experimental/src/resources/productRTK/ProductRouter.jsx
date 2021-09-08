@@ -1,16 +1,5 @@
 /**
  * Sets up the routing for all Product views.
- *
- * NOTE: As an example, we've included two other Route Components that protect a given
- * path: LoginRoute and RoleRoute
- *
- * LoginRoute simply checks if the user is logged in and if NOT, it redirects
- * them to the login page.
- *
- * RoleRoute protects the path to make sure the user is A) logged in and B) has
- * role matching the path= prop.
- * 
- * YOTE3 NOTE: login and role stuff needs to be reworked. Currently doesn't work.
  */
 
 // import primary libraries

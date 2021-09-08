@@ -20,11 +20,11 @@ const ProductForm = ({
   , disabled
   , formTitle
   , formType
-  // , handleFormChange
   , handleFormSubmit
   , product
 }) => {
 
+  // use the helper to handle product state
   const [ updatedProduct, handleChange ] = useFormState(product); // pass product as initialState
 
   // set the button text
@@ -85,7 +85,6 @@ ProductForm.propTypes = {
   , disabled: PropTypes.bool
   , formTitle: PropTypes.string
   , formType: PropTypes.string.isRequired
-  // , handleFormChange: PropTypes.func.isRequired
   , handleFormSubmit: PropTypes.func.isRequired
   , product: PropTypes.object.isRequired
 }

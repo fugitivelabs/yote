@@ -54,7 +54,6 @@ const UpdateProduct = () => {
             product={product}
             cancelLink={`/products/${productId}`}
             disabled={productQuery.isFetching}
-            // formTitle="Update Product"
             formType="update"
             handleFormSubmit={handleFormSubmit}
           />

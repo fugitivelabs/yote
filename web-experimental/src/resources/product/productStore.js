@@ -350,11 +350,6 @@ export const selectSingleById = ({ product: productStore }, id) => {
   return productStore.byId[id];
 }
 
-// export const selectFetchStatus = ({ product: productStore }, queryKey) => {
-//   const productQuery = productStore.listQueries[queryKey] || productStore.singleQueries[queryKey];
-//   return productQuery?.status;
-// }
-
 export const selectQuery = ({ product: productStore }, queryKey) => {
   const productQuery = productStore.listQueries[queryKey] || productStore.singleQueries[queryKey];
   return productQuery || {};

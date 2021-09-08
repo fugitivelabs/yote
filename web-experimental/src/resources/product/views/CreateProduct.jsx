@@ -37,7 +37,6 @@ const CreateProduct = () => {
           product={defaultProduct}
           cancelLink="/products"
           disabled={defaultProductQuery.isFetching || isCreating}
-          // formTitle="Create Product"
           formType="create"
           handleFormSubmit={handleFormSubmit}
         />
