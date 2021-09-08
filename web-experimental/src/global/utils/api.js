@@ -2,6 +2,7 @@
  * This is a utility to handle default API requests with the Yote server
  */
 
+import _ from 'lodash'
 // TODO: break this into separate exports so we aren't forced to import the entire set to use one method.
 
 const apiUtils = {
@@ -15,9 +16,9 @@ const apiUtils = {
       , body: JSON.stringify(body)
     })
     .then(response => response.json())
-  },
+  }
   // ported from yote actions. Used in productService to build endpoints for different types of list fetches.
-  buildEndpointFromListArgs(baseUrl, listArgs = ['all']) {
+  , buildEndpointFromListArgs(baseUrl, listArgs = ['all']) {
     let endpoint = baseUrl;
     if(listArgs.length === 1 && listArgs[0] !== "all") {
       endpoint += `by-${listArgs[0]}`;
@@ -40,6 +41,39 @@ const apiUtils = {
       }
     }
     return endpoint
+  }
+
+  , queryStringFromObject(queryObject) {
+    // console.log("QUERY STRING FROM OBJECT")
+    // ex: { page: '1', per: '20' } to ?page=1&per=20
+    return Object.entries(queryObject)
+      // remove empties
+      .filter(entry => entry[1].toString().length > 0)
+      // .filter(entry => entry[1] && entry[1].toString().length > 0)
+      .map(item => {
+        // debugging
+        // console.log(item);
+        return item;
+      })
+      // if value is array, convert to string, otherwise just add the string
+      .map(entry => Array.isArray(entry[1]) ? [entry[0], entry[1].join(",")]: entry)
+      // map to string
+      .map(entry => entry.join("="))
+      .join("&")
+  }
+  , objectFromQueryString(queryString) {
+    // convert search string into object notation
+    // ex: ?page=1&per=20 to { page: '1', per: '20' }
+    return queryString.replace("?","").split("&")
+      .map(item => item.split("="))
+      .map(item => [_.camelCase(item[0]), item[1]]) // convert kebab case to camel case, ie. "end-date" => "endDate"
+      // .map(item => {
+      //   // debugging
+      //   console.log(item);
+      //   return item;
+      // })
+      // if "" dont add it, otherwise add key:value to return object
+      .reduce((returnObj, item) => {return item[0].length > 0 ? {...returnObj, [item[0]]:item[1]}: returnObj}, {})
   }
 }
 

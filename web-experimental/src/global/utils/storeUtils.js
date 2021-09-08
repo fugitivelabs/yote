@@ -27,7 +27,7 @@ export const shouldFetch = (query) => {
   } else if(query.status === 'rejected') {
     // yes, this query had an error
     // console.log("X shouldFetch - true: isError");
-    return true
+    return false
   } else if(new Date().getTime() > query.expirationDate) {
     // yes, the query has expired
     // console.log("X shouldFetch - true: query has expired");

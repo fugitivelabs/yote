@@ -47,7 +47,7 @@ export const productService = createApi({
         method: 'POST',
         body
       }),
-      transformResponse: (response) => response.product, // response looks like {success: true, product: {...}} we only want response.product
+      // transformResponse: (response) => response.product, // response looks like {success: true, product: {...}} we only want response.product
       // Invalidates all queries of type 'Products', after all, that newly created product could show up in any list.
       invalidatesTags: () => [{ type: 'Products' }],
     }),
@@ -56,7 +56,7 @@ export const productService = createApi({
     // fetch single
     productById: builder.query({
       query: (id) => `/${id}`, // endpoint will be "/api/products/id"
-      transformResponse: (response) => response.product, // response looks like {success: true, product: {...}} we only want response.product
+      // transformResponse: (response) => response.product, // response looks like {success: true, product: {...}} we only want response.product
       providesTags: (product, error, id) => [{ type: 'Products', id }],
     }),
     // fetch list
@@ -102,7 +102,7 @@ export const productService = createApi({
     // fetch default
     defaultProduct: builder.query({
       query: () => `/default`, // endpoint will be "/api/products/id"
-      transformResponse: (response) => response.defaultObj,
+      // transformResponse: (response) => response.defaultObj,
     }),
 
     // UPDATE
@@ -112,7 +112,7 @@ export const productService = createApi({
         method: 'PUT',
         body: updates, // fetchBaseQuery automatically adds `content-type: application/json` to the Headers and calls `JSON.stringify(updates)`
       }),
-      transformResponse: (response) => response.product,
+      // transformResponse: (response) => response.product,
       // Invalidates all queries that subscribe to this Product `id` only.
       // In this case, `productById` will be re-run. `productList` *might*  rerun, if this id was under its results.
       invalidatesTags: (product, error, { _id }) => [{ type: 'Products', id: _id }],
