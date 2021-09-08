@@ -14,7 +14,7 @@ const WaitOn = ({
   const {
     isError: fetchError
     , isLoading
-    , isFetching
+    // , isFetching
     , isEmpty
     , refetch
   } = query;

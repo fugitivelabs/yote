@@ -5,14 +5,12 @@
 // import primary libraries
 import React from 'react';
 import PropTypes from 'prop-types';
-
-// import global components
-import Button from '../../../global/components/base/Button';
-
-// hooks
+import { Link } from 'react-router-dom';
 import { useFormState } from '../../../global/utils/customHooks';
 
 // import form components
+// import { TextInput, TextAreaInput } from '../../../global/components/forms';
+
 import { TextInput } from '../../../global/components/forms'
 
 const ProductForm = ({
@@ -33,7 +31,7 @@ const ProductForm = ({
   // set the form header
   const header = formTitle ? <div className="formHeader"><h2> {formTitle} </h2><hr /></div> : <div />;
   
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     handleFormSubmit(updatedProduct)
   }
@@ -60,19 +58,15 @@ const ProductForm = ({
         />
         <div className="input-group">
           <div className="yt-row space-between">
-            <Button
-              disabled={disabled}
-              link={cancelLink}
-              skin="white"
+            <Link
+              // we can disable links using the pointer-events attribute
+              // more info: https://stackoverflow.com/questions/10276133/how-to-disable-html-links/10276157#10276157
+              className={`yt-btn link ${disabled && 'pointer-events-none'}`}
+              to={cancelLink}
             >
               Cancel
-            </Button>
-            <Button
-              disabled={disabled}
-              type="submit"
-            >
-              {buttonText}
-            </Button>
+            </Link>
+            <button disabled={disabled} className="yt-btn " type="submit" > {buttonText} </button>
           </div>
         </div>
       </form>

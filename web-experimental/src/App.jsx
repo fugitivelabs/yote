@@ -2,8 +2,8 @@ import React from 'react';
 import { Redirect } from 'react-router';
 import { Route } from 'react-router-dom';
 import './App.css';
+import ProductRouterRTK from './resources/productRTK/ProductRouter.jsx';
 import ProductRouter from './resources/product/ProductRouter.jsx';
-import ProductRouter2 from './resources/product2/ProductRouter.jsx';
 import UserRouter from './resources/user/UserRouter.jsx';
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
         <Redirect to="/products2" />
       </Route>      
       <ProductRouter />
-      <ProductRouter2 />
+      <ProductRouterRTK />
       <UserRouter />
     </>
   );

@@ -16,5 +16,4 @@ module.exports = (router) => {
   router.post('/api/users', standardUser.createSingle)
 
   router.put('/api/users/:id', standardUser.updateSingleById)
-
 }

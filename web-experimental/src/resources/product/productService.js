@@ -1,171 +1,377 @@
 /**
- * 
- * This file is basically our actions and reducers all rolled into one. Redux toolkit query handles
- * caching, invalidating, and refetching data from defined endpoints. It works a lot like the original
- * yote reducers but has some other tricks as well.
- * 
- * It uses "tags" to keep track of lists. We set these tags by adding a "providesTags" function to a query.
- * When we want to invalidate a list (on mutation like create, update, or delete) we make sure that action has
- * an "invalidateTags" function.
- * 
- * More info on this:
- * https://redux-toolkit.js.org/rtk-query/usage/automated-refetching#automated-re-fetching
- * https://redux-toolkit.js.org/rtk-query/api/createApi#providestags
- * 
+ * This set of hooks is how we'll interact with the productStore. The idea is to provide a simple api to get what
+ * we need from the store without having to use `dispatch`, `connect`, `mapStoreToProps`, and all that stuff
+ * in the components.
  */
 
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux'
+import { usePagination } from '../../global/utils/customHooks';
 
 import apiUtils from '../../global/utils/api';
 
-import { convertListToMap } from '../../global/utils/storeUtils';
-
-// import { createEntityAdapter } from '@reduxjs/toolkit'; // https://redux-toolkit.js.org/api/createEntityAdapter
-// this can be used to create a standardized map from an array of objects returned by the server.
-// Returns an object like this: { ids: [1,2,3], entities: {1: {_id: 1, name: "first"}, 2: {_id: 2, name: "second"}, etc...} }
-// It would be used in the transformResponse property on the endpoints below.
-// May revisit this later, but seems like overkill at the moment.
-// const mapAdapter = createEntityAdapter({
-//   // Assume IDs are stored in a field other than `item.id`
-//   selectId: (item) => item._id,
-//   // Keep the "all IDs" array sorted based on title.
-//   sortComparer: (a, b) => a.title.localeCompare(b.title)
-// })
-
-
-// Define a service using a base URL and expected endpoints
-export const productService = createApi({
-  reducerPath: 'product', // this is the name of the reducer that will deal with the data received from the fetches below.
-  baseQuery: fetchBaseQuery({ baseUrl: '/api/products' }), // this will preface all fetches so we only need to add "/..." for each query below
-  tagTypes: ['Products'],
-  endpoints: (builder) => ({
-
-    // CREATE
-    createProduct: builder.mutation({
-      query: body => ({
-        url: `/`,
-        method: 'POST',
-        body
-      }),
-      // transformResponse: (response) => response.product, // response looks like {success: true, product: {...}} we only want response.product
-      // Invalidates all queries of type 'Products', after all, that newly created product could show up in any list.
-      invalidatesTags: () => [{ type: 'Products' }],
-    }),
-
-    // READ
-    // fetch single
-    productById: builder.query({
-      query: (id) => `/${id}`, // endpoint will be "/api/products/id"
-      // transformResponse: (response) => response.product, // response looks like {success: true, product: {...}} we only want response.product
-      providesTags: (product, error, id) => [{ type: 'Products', id }],
-    }),
-    // fetch list
-    // Provides a list of `Products` using yote style listArgs.
-    productList: builder.query({
-      query: (listArgs) => apiUtils.buildEndpointFromListArgs('/', listArgs),
-      transformResponse: (response) => response.products,
-      // If any mutation is executed that invalidates any of these tags, this query will re-run to be always up-to-date.
-      // listArgs id is used as a "virtual id" to invalidate this query specifically if a new `Products` element was added.
-      providesTags: (products, error, listArgs) =>
-        // is result available?
-        products ?
-          // successful query
-          [ // create a tag for each product in the list
-            ...products.map((product) => ({ type: 'Products', id: product._id })),
-            // also create a tag for the whole list
-            { type: 'Products', id: listArgs }
-          ]
-          :
-          // an error occurred, but we still want to refetch this query when `{ type: 'Products', id: listArgs }` is invalidated
-          [{ type: 'Products', id: listArgs }]
-    }),
-    // Provides an id map of `Products` using yote style listArgs.
-    productIdMap: builder.query({
-      query: (listArgs) => apiUtils.buildEndpointFromListArgs('/', listArgs),
-      // here is where we could use the entityAdapter described above. Using a simpler method for now.
-      transformResponse: (response) => convertListToMap(response.products, '_id'), // converts the products array to an object like this {1: {_id: 1, name: "first"}, 2: {_id: 2, name: "second"}, etc...}
-      // If any mutation is executed that invalidates any of these tags, this query will re-run to be always up-to-date.
-      // listArgs id is a "virtual id" we use to be able to invalidate this query specifically if a new `Products` element was added.
-      providesTags: (productMap, error, listArgs) =>
-        // is result available?
-        productMap ?
-          // successful query
-          [
-            ...Object.keys(productMap).map((productId) => ({ type: 'Products', id: productId })),
-            { type: 'Products', id: listArgs }
-          ]
-          :
-          // an error occurred, but we still want to refetch this query when `{ type: 'Products', id: listArgs }` is invalidated
-          [{ type: 'Products', id: listArgs }]
-    }),
-
-    // fetch default
-    defaultProduct: builder.query({
-      query: () => `/default`, // endpoint will be "/api/products/id"
-      // transformResponse: (response) => response.defaultObj,
-    }),
-
-    // UPDATE
-    updateProduct: builder.mutation({
-      query: ({ _id, ...updates }) => ({
-        url: `/${_id}`,
-        method: 'PUT',
-        body: updates, // fetchBaseQuery automatically adds `content-type: application/json` to the Headers and calls `JSON.stringify(updates)`
-      }),
-      // transformResponse: (response) => response.product,
-      // Invalidates all queries that subscribe to this Product `id` only.
-      // In this case, `productById` will be re-run. `productList` *might*  rerun, if this id was under its results.
-      invalidatesTags: (product, error, { _id }) => [{ type: 'Products', id: _id }],
-    }),
-
-    // DELETE
-    deleteProduct: builder.mutation({
-      query: (id) => ({
-        url: `/${id}`,
-        method: 'DELETE'
-      }),
-      // Invalidates all queries that subscribe to this Product `id` only.
-      // In this case, `productById` will be re-run. `productList` *might*  rerun, if this id was under its results.
-      invalidatesTags: (result, error, id) => [{ type: 'Products', id }],
-    }),
-  })
-});
-
-// Export generated hooks for usage in functional components
-// These are generated with the useGetThingQuery naming convention. Might as well rename the exports.
-export const {
-  useCreateProductMutation: useCreateProduct,
-  useDefaultProductQuery: useDefaultProduct,
-  useProductByIdQuery: useSingleProduct,
-  useProductListQuery: useProductList,
-  useProductIdMapQuery: useProductIdMap,
-  useUpdateProductMutation: useUpdateProduct,
-} = productService;
+// import all of the actions from the store
+import { // TODO: rename these so it still makes sense when we are importing selectors and action from other stores.
+  selectListItems // call this selectProductListItems
+  , fetchProductList
+  , fetchListIfNeeded
+  , selectSingleById
+  , fetchSingleProduct
+  , fetchDefaultProduct
+  , sendCreateProduct
+  , sendUpdateProduct
+  , invalidateQuery
+  , addProductToList
+  , selectQuery
+  , fetchSingleIfNeeded
+} from './productStore';
 
 
+// Define the hooks that we'll use to manage data in the components
 
-// helpers
+// CREATE
 
 /**
- * A helper hook to get a single product from an existing list.
+ * Use this hook to access the defaultProduct and the sendCreateProduct action
  * 
- * It uses the RTK Query `useQueryState` and `selectFromResult` functions but saves us the boilerplate.
- * 
- * @param {string} productId - the _id of the product object to be plucked from the list.
- * @param {[string]} listArgs - the same `listArgs` array that was used to fetch the list in the parent component.
- * 
- * @example const { product } = useProductFromList(productId, listArgs);
- * 
- * @links
- * `useQueryState` https://redux-toolkit.js.org/rtk-query/api/created-api/hooks#usequerystate
- * `selectFromResult` https://redux-toolkit.js.org/rtk-query/usage/queries#selecting-data-from-a-query-result
+ * @returns an object containing the dispatched `sendCreateProduct` action and the fetch for the default product
+ * @example // to use in a component
+ * // access the create function and fetch the default product
+ * const { sendCreateProduct, data: defaultProduct, ...productFetch } = useCreateProduct(productId);
+ * // send the new product
+ * sendCreateProduct(newProduct);
  */
-
-export const useProductFromList = (productId, listArgs) => {
-  // return the generated useProductList with the selectFromResult callback and boilerplate
-  return productService.endpoints.productList.useQueryState(listArgs, {
-    selectFromResult: ({ data }) => ({
-      product: data?.find((product) => product._id === productId),
-    }),
-  })
+export const useCreateProduct = () => {
+  const dispatch = useDispatch();
+  const defaultProductFetch = useGetDefaultProduct();
+  // return the default product fetch and the sendCreateProduct action
+  return {
+    sendCreateProduct: (newProduct) => dispatch(sendCreateProduct(newProduct))
+    , ...defaultProductFetch
+  }
 }
+
+// READ
+
+/**
+ * NOTE: If you are using this because you want to create a new product, try `useCreateProduct`
+ * instead. It returns the defaultProduct and the `sendCreateProduct` action in one go.
+ * 
+ * @param {boolean} forceFetch - optional override to force a fetch from the server
+ * @returns an object containing fetch info and eventually the defaultProduct (as `data`)
+ * @returns a refetch function for convenience (will probably never be used for default product, but keeps things consistent)
+ */
+export const useGetDefaultProduct = (forceFetch = false) => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    // fetch the default product if required
+    if(forceFetch) {
+      dispatch(fetchDefaultProduct())
+    } else {
+      dispatch(fetchSingleIfNeeded('defaultProduct'))
+    }
+    // this is the dependency array. useEffect will run anytime one of these changes
+  }, [forceFetch, dispatch]);
+
+  // get the query status from the store
+  const { status } = useSelector(store => selectQuery(store, 'defaultProduct'));
+
+  // get current item (if it exists)
+  const defaultProduct = useSelector((store) => selectSingleById(store, 'defaultProduct'));
+
+  const isFetching = status === 'pending' || status === undefined;
+  const isLoading = isFetching && !defaultProduct;
+  const isError = status === 'rejected';
+  const isSuccess = status === 'fulfilled';
+  const isEmpty = isSuccess && !defaultProduct;
+   
+  // return the info for the caller of the hook to use
+  return {
+    data: defaultProduct
+    , isFetching
+    , isLoading
+    , isError
+    , isSuccess
+    , isEmpty
+    , refetch: () => dispatch(fetchDefaultProduct())
+  }
+}
+
+/**
+ * This hook will check for a fresh product in the store and fetch a new one if necessary
+ * 
+ * @param {string} id - the id of the product to be fetched
+ * @param {boolean} forceFetch - optional override to force a fetch from the server
+ * @returns an object containing fetch info and eventually the product (as `data`)
+ * @returns an invalidate and refetch function for convenience
+ */
+export const useGetProductById = (id, forceFetch = false) => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    // only fetch if we need to
+    if(forceFetch) {
+      dispatch(fetchSingleProduct(id));
+    } else {
+      dispatch(fetchSingleIfNeeded(id))
+    }
+    // this is the dependency array. useEffect will run anytime one of these changes
+  }, [id, forceFetch, dispatch]);
+
+  // get the query status from the store
+  const { status } = useSelector(store => selectQuery(store, id));
+  // get current product data (if it exists)
+  const product = useSelector((store) => selectSingleById(store, id));
+
+  const isFetching = status === 'pending' || status === undefined;
+  const isLoading = isFetching && !product;
+  const isError = status === 'rejected';
+  const isSuccess = status === 'fulfilled';
+  const isEmpty = isSuccess && !product;
+
+  // return the info for the caller of the hook to use
+  return {
+    data: product
+    , isFetching
+    , isLoading
+    , isError
+    , isSuccess
+    , isEmpty
+    , invalidate: () => dispatch(invalidateQuery(id))
+    , refetch: () => dispatch(fetchSingleProduct(id))
+  }
+}
+
+/**
+ * This hook will check for a fresh list in the store and fetch a new one if necessary
+ * 
+ * @param {object} listArgs - an object used to construct the query
+ * @param {boolean} forceFetch - optional override to force a fetch from the server
+ * @returns an object containing fetch info and eventually the product list (as `data`)
+ * @returns an invalidate and refetch function for convenience
+ */
+export const useGetProductList = (listArgs = {}, forceFetch = false) => {
+  const dispatch = useDispatch();
+  /**
+  * NOTE: tracking lists using the query string is easy because the `listArgs` passed into
+  * dispatch(fetchProductList(listArgs)) are accessed in the store by using action.meta.arg.
+  * We could try setting the queryKey to something different (or nesting it) but we'd need to figure
+  * out how to access that info in the store. Maybe by passing it along as a named object like:
+  * 
+  * dispatch(fetchProductList({queryString: listArgs, queryKey: someParsedVersionOfListArgs}))
+  * 
+  */
+
+  // handle pagination right here as part of the fetch so we don't have to call usePagination every time from each component
+  // this also allows us to prefetch the next page(s)
+  let { page, per } = listArgs;
+  let pagination = usePagination({ page, per });
+
+  if(page && per) {
+    listArgs.page = pagination.page;
+    listArgs.per = pagination.per;
+  } else {
+    pagination = {};
+  }
+
+  // convert the query object to a query string for the new server api
+  // also makes it easy to track the lists in the reducer by query string
+  const queryString = apiUtils.queryStringFromObject(listArgs) || "all";
+  // console.log('queryString', queryString);
+
+  useEffect(() => {
+    if(forceFetch) {
+      dispatch(fetchProductList(queryString));
+    } else {
+      dispatch(fetchListIfNeeded(queryString));
+    }
+  }, [queryString, forceFetch, dispatch]);
+
+  // get the query info from the store
+  const { status, totalPages, ids } = useSelector(store => selectQuery(store, queryString));
+
+  // get current list items (if they exist)
+  const products = useSelector((store) => selectListItems(store, queryString));
+
+  const isFetching = status === 'pending' || status === undefined;
+  const isLoading = isFetching && !products;
+  const isError = status === 'rejected';
+  const isSuccess = status === 'fulfilled';
+  const isEmpty = isSuccess && !products.length;
+
+  if(totalPages) {
+    // add totalPages from the query to the pagination object
+    pagination.totalPages = totalPages;
+  }
+
+  // PREFETCH
+
+  // if we are using pagination we can fetch the next page(s) now
+  const nextQueryString = listArgs.page && listArgs.page < totalPages ? apiUtils.queryStringFromObject({ ...listArgs, page: Number(listArgs.page) + 1 }) : null;
+
+  useEffect(() => {
+    if(nextQueryString) {
+      // fetch the next page now
+      dispatch(fetchListIfNeeded(nextQueryString))
+    }
+  }, [nextQueryString, dispatch]);
+
+  // END PREFETCH
+
+  // return the info for the caller of the hook to use
+  return {
+    ids
+    , data: products
+    , isFetching
+    , isLoading
+    , isError
+    , isSuccess
+    , isEmpty
+    , invalidate: () => dispatch(invalidateQuery(queryString))
+    , refetch: () => dispatch(fetchProductList(queryString))
+    , pagination
+  }
+}
+
+// UPDATE
+
+/**
+ * Use this hook to access the `sendUpdateProduct` action
+ * 
+ * Useful if you want to update a product that you already have access to
+ * 
+ * NOTE: Check out `useGetUpdatableProduct` if you want to fetch and update a product
+ * 
+ * @returns the sendUpdateProduct action wrapped in dispatch
+ * @example // to use in a component
+ * // access the update function
+ * const { sendUpdateProduct } = useUpdateProduct();
+ * // send the update
+ * sendUpdateProduct(updatedProduct);
+ */
+export const useUpdateProduct = () => {
+  const dispatch = useDispatch();
+  return {
+    // return the update action
+    sendUpdateProduct: (updatedProduct) => dispatch(sendUpdateProduct(updatedProduct))
+  }
+}
+
+/**
+ * Use this hook to fetch a product and access the `sendUpdateProduct` action
+ * 
+ * Under the hood it combines `useGetProductById` and `useUpdateProduct` in a more convenient package
+ * 
+ * @param {string} id - the id of the product to be fetched and updated.
+ * @returns an object containing the sendUpdateProduct function and the fetch for the product id passed in
+ * @example // to use in a component
+ * // access the update function and fetch the product
+ * const { sendUpdateProduct, data: product, ...productFetch } = useUpdateProduct(productId);
+ * // send the update
+ * sendUpdateProduct(updatedProduct);
+ */
+export const useGetUpdatableProduct = (id) => {
+  // use the existing hook to fetch the product
+  const productFetch = useGetProductById(id);
+  // use the existing hook to access the update action
+  const { sendUpdateProduct } = useUpdateProduct();
+  return {
+    // return the update action and the product fetch
+    sendUpdateProduct: sendUpdateProduct
+    , ...productFetch
+  }
+}
+
+// TODO: Add delete
+
+
+// OTHERS
+
+/**
+ * @returns the `addProductToList` function wrapped in dispatch
+ */
+export const useAddProductToList = () => {
+  const dispatch = useDispatch();
+  return {
+    addProductToList: (productId, listArgs) => dispatch(addProductToList({ id: productId, queryKey: apiUtils.queryStringFromObject(listArgs) || "all" }))
+  }
+}
+
+/**
+ * NOTE: Only use this if you're sure the product is already in the store. WILL NOT fetch from the server.
+ * @param {string} productId - the id of the product that you want to grab from the store
+ * @returns the product from the store's byId map.
+ */
+export const useProductFromMap = (productId) => {
+  const product = useSelector((store) => selectSingleById(store, productId));
+  return product
+}
+
+
+// idea to get some computed info that relies on a complicated set of fetches. This is adapted from the higher order component GcSovData from flip factory
+// export const useGcSovData = (sovId) => {
+
+//   // leverage existing stuff to get related resource info
+//   const { data: sov, ...sovFetch } = useGetSov(sovId);
+//   const { data: lineItems, ...lineItemFetch } = useGetLineItemList({ _sov: sovId });
+//   const { data: lineChangeOrders, ...lineChangeOrderFetch } = useGetLineChangeOrderList({ _sov: sovId });
+//   const { data: contracts, ...contractFetch } = useGetContractList({ _sov: sovId });
+//   const { data: contractChangeOrders, ...contractChangeOrderFetch } = useGetContractChangeOrderList({ _sov: sovId });
+//   const { data: phases, ...phaseFetch } = useGetPhaseList({ _sov: sovId });
+
+//   const isFetching = (
+//     sovFetch.isFetching
+//     || lineItemFetch.isFetching
+//     || lineChangeOrderFetch.isFetching
+//     || contractFetch.isFetching
+//     || contractChangeOrderFetch.isFetching
+//     || phaseFetch.isFetching
+//   )
+
+//   const isLoading = (
+//     sovFetch.isLoading
+//     || lineItemFetch.isLoading
+//     || lineChangeOrderFetch.isLoading
+//     || contractFetch.isLoading
+//     || contractChangeOrderFetch.isLoading
+//     || phaseFetch.isLoading
+//   )
+
+//   const isError = (
+//     sovFetch.isError
+//     || lineItemFetch.isError
+//     || lineChangeOrderFetch.isError
+//     || contractFetch.isError
+//     || contractChangeOrderFetch.isError
+//     || phaseFetch.isError
+//   )
+
+//   const isSuccess = (
+//     sovFetch.isSuccess
+//     && lineItemFetch.isSuccess
+//     && lineChangeOrderFetch.isSuccess
+//     && contractFetch.isSuccess
+//     && contractChangeOrderFetch.isSuccess
+//     && phaseFetch.isSuccess
+//   )
+
+//   const phaseTotals = !isSuccess ?
+//         sovUtils.getSovPhaseTotals({
+//           contractsByLineItem: _.groupBy(contracts, '_lineItem')
+//           , invoicesByContract: _.groupBy(invoices, '_contract')
+//           , phaseListItems: phases
+//         })
+//         :
+//         null
+
+//   // return the info for the caller of the hook to use
+//   return {
+//     data: phaseTotals,
+//     isFetching,
+//     isLoading,
+//     isError,
+//     isSuccess
+//   }
+
+// }

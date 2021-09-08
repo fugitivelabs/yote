@@ -4,10 +4,76 @@ import apiUtils from '../../global/utils/api';
 import { convertListToMap, shouldFetch } from '../../global/utils/storeUtils';
 
 
+// First define all API calls for product
+/**
+ * The functions below, called thunks, allow us to perform async logic. They
+ * can be dispatched like a regular action: `dispatch(incrementAsync(10))`. This
+ * will call the thunk with the `dispatch` function as the first argument. Async
+ * code can then be executed and other actions can be dispatched. Thunks are
+ * typically used to make async requests.
+ * 
+ * In practice we won't dispatch these directly, they will be dispatched by productService which has a nicer api built on hooks.
+ */
+
+// CREATE
+export const sendCreateProduct = createAsyncThunk(
+  'product/sendCreate',
+  async (newProduct) => {
+    const endpoint = `/api/products`;
+    const response = await apiUtils.callAPI(endpoint, 'POST', newProduct);
+    // The value we return becomes the `fulfilled` action payload
+    return response;
+  }
+);
+
+// READ
+export const fetchDefaultProduct = createAsyncThunk(
+  'product/fetchDefault',
+  async () => {
+    const endpoint = `/api/products/default`;
+    const response = await apiUtils.callAPI(endpoint);
+    // The value we return becomes the `fulfilled` action payload
+    return response;
+  }
+);
+export const fetchSingleProduct = createAsyncThunk(
+  'product/fetchSingle',
+  async (id) => {
+    const endpoint = `/api/products/${id}`;
+    const response = await apiUtils.callAPI(endpoint);
+    // The value we return becomes the `fulfilled` action payload
+    return response;
+  }
+);
+export const fetchProductList = createAsyncThunk(
+  'product/fetchList', // this is the action name that will show up in the console logger.
+  async (listArgs) => {
+    const endpoint = `/api/products?${listArgs}`;
+    const response = await apiUtils.callAPI(endpoint);
+    // The value we return becomes the `fulfilled` action payload
+    return response;
+  }
+);
+
+// UPDATE
+export const sendUpdateProduct = createAsyncThunk(
+  'product/sendUpdate',
+  async ({_id, ...updates}) => {
+    const endpoint = `/api/products/${_id}`;
+    const response = await apiUtils.callAPI(endpoint, 'PUT', updates);
+    // The value we return becomes the `fulfilled` action payload
+    return response;
+  }
+);
+
+// TODO: add sendDeleteProduct
+
+
+// next define the store's initial state
 const initialState = {
   /**
    * "byId" is an object map of all product items in the store. The map's keys are
-   * the Mongo ids of the objects by default
+   * the Mongo ids of the objects by default. This is where all product objects will live.
    */
   byId: {}
   
@@ -31,74 +97,10 @@ const initialState = {
 
 };
 
-/**
- * The function below is called a thunk and allows us to perform async logic. It
- * can be dispatched like a regular action: `dispatch(incrementAsync(10))`. This
- * will call the thunk with the `dispatch` function as the first argument. Async
- * code can then be executed and other actions can be dispatched. Thunks are
- * typically used to make async requests.
- * 
- * In practice we won't dispatch these directly, they will be dispatched by productService which has a nicer api built on hooks.
- */
-
-// CREATE
-export const sendCreateProduct = createAsyncThunk(
-  'product2/sendCreate',
-  async (newProduct) => {
-    const endpoint = `/api/products`;
-    const response = await apiUtils.callAPI(endpoint, 'POST', newProduct);
-    // The value we return becomes the `fulfilled` action payload
-    return response;
-  }
-);
-
-// READ
-export const fetchDefaultProduct = createAsyncThunk(
-  'product2/fetchDefault',
-  async () => {
-    const endpoint = `/api/products/default`;
-    const response = await apiUtils.callAPI(endpoint);
-    // The value we return becomes the `fulfilled` action payload
-    return response;
-  }
-);
-export const fetchSingleProduct = createAsyncThunk(
-  'product2/fetchSingle',
-  async (id) => {
-    const endpoint = `/api/products/${id}`;
-    const response = await apiUtils.callAPI(endpoint);
-    // The value we return becomes the `fulfilled` action payload
-    return response;
-  }
-);
-export const fetchProductList = createAsyncThunk(
-  'product2/fetchList', // this is the action name that will show up in the console logger.
-  async (listArgs) => {
-    const endpoint = `/api/products?${listArgs}`;
-    const response = await apiUtils.callAPI(endpoint);
-    // The value we return becomes the `fulfilled` action payload
-    return response;
-  }
-);
-
-// UPDATE
-export const sendUpdateProduct = createAsyncThunk(
-  'product2/sendUpdate',
-  async ({_id, ...updates}) => {
-    const endpoint = `/api/products/${_id}`;
-    const response = await apiUtils.callAPI(endpoint, 'PUT', updates);
-    // The value we return becomes the `fulfilled` action payload
-    return response;
-  }
-);
-
-// TODO: add sendDeleteProduct
-
-
 // define the productSlice. This is a combination of actions and reducers. More info: https://redux-toolkit.js.org/api/createSlice
 export const productSlice = createSlice({
-  name: 'product',
-  initialState,
+  name: 'product'
+  , initialState
   /**
    * The `reducers` field lets us define reducers and generate associated actions.
    * Unlike the selectors defined at the bottom of this file, reducers only have access
@@ -106,7 +108,7 @@ export const productSlice = createSlice({
    * 
    * Again, we will not dispatch these directly, they will be dispatched by productService.
    */
-  reducers: {
+  , reducers: {
     invalidateQuery: (state, action) => {
       const queryKey = action.payload;
       const query = state.listQueries[queryKey] || state.singleQueries[queryKey];
@@ -121,14 +123,17 @@ export const productSlice = createSlice({
         console.log('Could not find list');
       }
     }
-  },
+  }
 
   /**
    * The `extraReducers` field lets the slice handle actions defined elsewhere,
    * including actions generated by createAsyncThunk or in other slices.
    * We'll use them to track our server request status.
+   * 
+   * We'll add a case for each API call defined at the top of the file to dictate
+   * what happens during each API call lifecycle.
    */
-  extraReducers: (builder) => {
+  , extraReducers: (builder) => {
     builder
       // CREATE
       .addCase(sendCreateProduct.fulfilled, (state, action) => {
@@ -155,7 +160,7 @@ export const productSlice = createSlice({
 
       // READ
       .addCase(fetchDefaultProduct.pending, (state, action) => {
-        // create a query object for it in the queries map
+        // create a query object for it in the queries map. Instead of an id we'll use the string 'defaultProduct'
         state.singleQueries['defaultProduct'] = {
           id: 'defaultProduct'
           , status: 'pending'
@@ -165,7 +170,6 @@ export const productSlice = createSlice({
         const defaultProduct = action.payload;
         // add it to the byId map (for the id we'll use 'defaultProduct')
         state.byId['defaultProduct'] = defaultProduct
-        // state.byId = { ...state.byId, defaultProduct: defaultProduct };
         // update the query object
         const singleQuery = state.singleQueries['defaultProduct'];
         singleQuery.status = 'fulfilled';
@@ -208,7 +212,6 @@ export const productSlice = createSlice({
         const productMap = convertListToMap(products, '_id');
         // add the product objects to the byId map
         state.byId = { ...state.byId, ...productMap };
-
         // find the query object for this fetch in the listQueries map and update query info
         const listQuery = state.listQueries[action.meta.arg];
         // save the array of ids for the returned products
@@ -252,7 +255,7 @@ export const productSlice = createSlice({
       })
       .addCase(sendUpdateProduct.fulfilled, (state, action) => {
         const product = action.payload;
-        // replace the previous version in the map with the new one
+        // replace the previous version in the map with the new one from the server
         state.byId[product._id] = product;
         // update the query object
         const singleQuery = state.singleQueries[product._id];
@@ -269,29 +272,48 @@ export const productSlice = createSlice({
         singleQuery.receivedAt = Date.now();
       })
     // TODO: add delete
-  },
+  }
 });
 
+// export the actions defined above
 export const { invalidateQuery, addProductToList } = productSlice.actions;
+
 
 // We can also write thunks by hand, which may contain both sync and async logic.
 // Here's an example of conditionally dispatching actions based on current state.
+
 export const fetchListIfNeeded = (queryKey) => (dispatch, getState) => {
-  const productQuery = getState().product2.listQueries[queryKey];
+  const productQuery = getState().product.listQueries[queryKey];
   if(shouldFetch(productQuery)) {
-    // console.log('Fetching new product list', );
+    // console.log('Fetching product list', queryKey);
     dispatch(fetchProductList(queryKey));
   } else {
     // console.log('No need to fetch, fresh query in cache');
   }
 };
 
+export const fetchSingleIfNeeded = (id) => (dispatch, getState) => {
+  const productQuery = getState().product.singleQueries[id];
+  if(shouldFetch(productQuery)) {
+    // console.log('Fetching product', id);
+    if(id === 'defaultProduct') {
+      dispatch(fetchDefaultProduct());
+    } else {
+      dispatch(fetchSingleProduct(id));
+    }
+  } else {
+    // console.log('No need to fetch, fresh query in cache');
+  }
+}
+
 /**
  * The functions below are called a selectors and allow us to select a value from
- * the store. Selectors can also be defined inline where they're used instead of
- * in the slice file. For example: `useSelector((store: RootState) => store.product.value)`
+ * the store.
  * 
  * These are the replacement for the old mapStoreToProps functionality.
+ * 
+ * Selectors can also be defined inline where they're used instead of
+ * in the slice file. For example: `useSelector((store) => store.product.value)`
  * 
  * Because selectors take the whole store as their first argument, and our
  * stores are all structured the same way, we could define these at the global
@@ -307,11 +329,11 @@ export const fetchListIfNeeded = (queryKey) => (dispatch, getState) => {
 
 /**
  * 
- * @param {object} productStore - supplied by useSelector hook
+ * @param {object} productStore - supplied by useSelector hook in the productService file
  * @param {string} queryKey - the key used to access the query from the map
  * @returns 
  */
-export const selectListItems = ({product2: productStore}, queryKey) => {
+export const selectListItems = ({ product: productStore }, queryKey) => {
   const listIds = productStore.listQueries[queryKey]?.ids;
   if(listIds) {
     return listIds.map(id => productStore.byId[id]);
@@ -320,28 +342,20 @@ export const selectListItems = ({product2: productStore}, queryKey) => {
   }
 }
 
-export const selectListPageCount = ({product2: productStore}, listArgs) => {
+export const selectListPageCount = ({ product: productStore }, listArgs) => {
   return productStore.listQueries[listArgs]?.totalPages;
 }
 
-export const selectShouldFetch = ({ product2: productStore }, queryKey) => {
-  if(!queryKey) return false;
-  const productQuery = productStore.listQueries[queryKey] || productStore.singleQueries[queryKey];
-  // use the util to check if we should fetch or not
-  return shouldFetch(productQuery);
-}
-
-
-export const selectSingleById = ({product2: productStore}, id) => {
+export const selectSingleById = ({ product: productStore }, id) => {
   return productStore.byId[id];
 }
 
-// export const selectFetchStatus = ({ product2: productStore }, queryKey) => {
+// export const selectFetchStatus = ({ product: productStore }, queryKey) => {
 //   const productQuery = productStore.listQueries[queryKey] || productStore.singleQueries[queryKey];
 //   return productQuery?.status;
 // }
 
-export const selectQuery = ({ product2: productStore }, queryKey) => {
+export const selectQuery = ({ product: productStore }, queryKey) => {
   const productQuery = productStore.listQueries[queryKey] || productStore.singleQueries[queryKey];
   return productQuery || {};
 }

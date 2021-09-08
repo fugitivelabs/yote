@@ -1,49 +1,48 @@
-// // import primary libraries
-// import React from 'react';
-// import PropTypes from 'prop-types';
-// import { Link } from 'react-router-dom';
 
-// const ProductListItem = ({ product }) => {
-//   return (
-//     <li>
-//       <Link to={`/products/${product._id}`}> {product.title}</Link>
-//       <p><em>{product.description}</em></p>
-//     </li>
-//   )
-// }
-
-// ProductListItem.propTypes = {
-//   product: PropTypes.object.isRequired
-// }
-
-// export default ProductListItem;
 
   // import primary libraries
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-// import actions/reducer
-import { useProductFromList } from '../productService';
+// import global components
+import ListItem from '../../../global/components/base/ListItem';
+import Button from '../../../global/components/base/Button';
+// import WaitOn from '../../../global/components/helpers/WaitOn';
 
-// const ProductListItem = ({ product }) => {
-const ProductListItem = ({ productId, listArgs }) => {
+// import services
+import { useGetProductById } from '../productService';
 
-  // if we only passed the id and not the object, we can use this helper method to grab the product from the list.
-  // seems like it would be more efficient to just pass the whole product from the parent, but here's how it could work
-  const { product } = useProductFromList(productId, listArgs);
+const ProductListItem = ({ id }) => {
+  const { data: product, ...productQuery } = useGetProductById(id);
+
+  if(productQuery.isLoading) return <Skeleton />
+  if(productQuery.isError) return <ListItem>An error occurred 😬 <Button onClick={productQuery.refetch}>Refetch</Button></ListItem>
+  if(!product) return <ListItem>No product found</ListItem>
 
   return (
-    <li>
-      <Link to={`/products/${product?._id}`}> {product?.title}</Link>
-      <p><em>{product?.description}</em></p>
-    </li>
+    <ListItem className={productQuery.isFetching ? 'opacity-50' : ''}>
+      <Link to={`/products2/${product._id}`}>{product.title}</Link>
+      <p><em>{product.description}</em></p>
+    </ListItem>
   )
 }
 
+// custom loading skeleton for this component, by defining it right here we can keep it synced with any changes we make to the actual component above
+const Skeleton = () => {
+  return (
+    <ListItem className="animate-pulse">
+      <p className="w-6/12 h-4 bg-gray-500"></p>
+      <p className="h-4"></p>
+      <p className="w-8/12 h-4 bg-gray-500"></p>
+    </ListItem>
+  )
+}
+// add the skeleton to the component so we can access it in other components (ProductList in this case)
+ProductListItem.Skeleton = Skeleton;
+
 ProductListItem.propTypes = {
-  productId: PropTypes.string.isRequired,
-  listArgs: PropTypes.array.isRequired
+  id: PropTypes.string.isRequired
 }
 
 export default ProductListItem;
