@@ -20,6 +20,7 @@ import { // TODO: rename these so it still makes sense when we are importing sel
   , fetchDefaultProduct
   , sendCreateProduct
   , sendUpdateProduct
+  , sendDeleteProduct
   , invalidateQuery
   , addProductToList
   , selectQuery
@@ -36,9 +37,9 @@ import { // TODO: rename these so it still makes sense when we are importing sel
  * 
  * @returns an object containing the dispatched `sendCreateProduct` action and the fetch for the default product
  * @example // to use in a component
- * // access the create function and fetch the default product
- * const { sendCreateProduct, data: defaultProduct, ...productFetch } = useCreateProduct(productId);
- * // send the new product
+ * // access the create action and fetch the default product
+ * const { sendCreateProduct, data: defaultProduct, ...productFetch } = useCreateProduct();
+ * // dispatch the create action
  * sendCreateProduct(newProduct);
  */
 export const useCreateProduct = () => {
@@ -245,9 +246,9 @@ export const useGetProductList = (listArgs = {}, forceFetch = false) => {
  * 
  * @returns the sendUpdateProduct action wrapped in dispatch
  * @example // to use in a component
- * // access the update function
+ * // access the update action
  * const { sendUpdateProduct } = useUpdateProduct();
- * // send the update
+ * // dispatch the update action
  * sendUpdateProduct(updatedProduct);
  */
 export const useUpdateProduct = () => {
@@ -266,9 +267,9 @@ export const useUpdateProduct = () => {
  * @param {string} id - the id of the product to be fetched and updated.
  * @returns an object containing the sendUpdateProduct function and the fetch for the product id passed in
  * @example // to use in a component
- * // access the update function and fetch the product
+ * // access the update action and fetch the product
  * const { sendUpdateProduct, data: product, ...productFetch } = useUpdateProduct(productId);
- * // send the update
+ * // dispatch the update action
  * sendUpdateProduct(updatedProduct);
  */
 export const useGetUpdatableProduct = (id) => {
@@ -283,13 +284,31 @@ export const useGetUpdatableProduct = (id) => {
   }
 }
 
-// TODO: Add delete
+// DELETE
 
+/**
+ * Use this hook to access the `sendDeleteProduct` action
+ * 
+ * @returns the sendDeleteProduct action wrapped in dispatch
+ * 
+ * @example // to use in a component
+ * // access the delete action
+ * const { sendDeleteProduct } = useDeleteProduct();
+ * // dispatch the delete action
+ * sendDeleteProduct(productId);
+ */
+export const useDeleteProduct = () => {
+  const dispatch = useDispatch();
+  return {
+    // return the update action
+    sendDeleteProduct: (id) => dispatch(sendDeleteProduct(id))
+  }
+}
 
 // OTHERS
 
 /**
- * @returns the `addProductToList` function wrapped in dispatch
+ * @returns the `addProductToList` action wrapped in dispatch
  */
 export const useAddProductToList = () => {
   const dispatch = useDispatch();
@@ -300,11 +319,11 @@ export const useAddProductToList = () => {
 
 /**
  * NOTE: Only use this if you're sure the product is already in the store. WILL NOT fetch from the server.
- * @param {string} productId - the id of the product that you want to grab from the store
- * @returns the product from the store's byId map.
+ * @param {string} id - the id of the product that you want to grab from the store
+ * @returns the product from the store's byId map
  */
-export const useProductFromMap = (productId) => {
-  const product = useSelector((store) => selectSingleById(store, productId));
+export const useProductFromMap = (id) => {
+  const product = useSelector((store) => selectSingleById(store, id));
   return product
 }
 

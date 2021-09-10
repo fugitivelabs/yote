@@ -48,14 +48,14 @@ exports.updateSingleById = async (req, res) => {
 }
 
 exports.deleteSingle = async (req, res) => {
-  // todo: need to test
   const oldProduct = await Product.findById(req.params.id)
   if(!oldProduct) {
     throw new YoteError("Could not find matching Product", 404)
   }
-  const deletedCount = oldProduct.remove()
-  res.json()
-
+  const deletedProduct = await oldProduct.remove()
+  // console.log('product deleted', deletedProduct);
+  // return the deleted product ??
+  res.json(deletedProduct);
   /**
    * NOTES
    * 
