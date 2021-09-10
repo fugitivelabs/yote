@@ -17,6 +17,7 @@ module.exports = (router) => {
   //   product.getListWithArgs
   // )
 
+  // router.post('/api/products', product.createSingle)
   router.post('/api/products', requireLogin, product.createSingle)
 
   router.put('/api/products/:id', product.updateSingleById)

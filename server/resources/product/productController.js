@@ -12,8 +12,8 @@ exports.getSingleById = async (req, res) => {
   if(!product) {
     throw new YoteError("Could not find matching Product", 404)
   }
-  // res.json(product)
-  res.send({success: true, product})
+  res.json(product);
+  // res.send({success: true, product})
 }
 
 exports.createSingle = async (req, res) => {
@@ -65,7 +65,9 @@ exports.deleteSingle = async (req, res) => {
 }
 
 exports.getDefault = async (req, res) => {
-  res.send({success: true, defaultObj: Product.getDefault()});
+  const defaultProduct = await Product.getDefault();
+  res.json(defaultProduct);
+  // res.send({success: true, defaultObj: Product.getDefault()});
 }
 
 // list api functions
@@ -77,12 +79,16 @@ exports.getListWithArgs = async (req, res) => {
   // let query = {}
   // let query = {type: "doesnt exist"}
   // let query = "break me"
+  // get count so we can determine total pages for front end to allow proper pagination
+  const count = pagination ? await Product.countDocuments(query) : null
+  const totalPages = count && Math.ceil(count / pagination.per)
   const products = await Product.find(query)
     .skip(pagination ? (pagination.page-1)*pagination.per : null)
     .limit(pagination ? pagination.per : null)
     .sort(sort)
   // .catch(err => { throw new Error(err, "things happened")}) // catch custom errors if we need to, or do something different with error
-  res.json(products)
+
+  res.json({products, totalPages})
 }
 
 

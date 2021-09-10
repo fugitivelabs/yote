@@ -53,7 +53,6 @@
     "errorhandler": "^1.4.2",
     "es5-shim": "^4.5.9",
     "express": "^4.14.0",
-    "express-async-errors": "^3.1.1",
     "express-session": "^1.8.2",
     "isomorphic-fetch": "^2.2.1",
     "jwt-simple": "^0.5.0",

@@ -12,31 +12,7 @@
 let Product = require('mongoose').model('Product');
 let logger = global.logger;
 
-exports.list = async (req, res, next) => {
-  console.log("TESTING LIST 1")
-  let query = {}
-  // let query = "break me"
-  const products = await Product.find(query)
-  console.log("TESTING LIST 2")
-
-  throw Error({msg: "product error"})
-  
-  if(products) {
-    console.log("products", products)
-  } else {
-    console.log("not products?")
-  }  // // list all products
-  // Product.find({}).exec((err, products) => {
-  //   if(err || !products) {
-  //     res.send({ success: false, message: err });
-  //   } else {
-  //     res.send({ success: true, products: products });
-  //   }
-  // });
-}
-
-
-exports.listOld = (req, res) => {
+exports.list = (req, res) => {
   if(req.query.page) {
     // paginate on the server
     var page = req.query.page || 1;

@@ -21,7 +21,6 @@ let cookieParser    = require('cookie-parser');
 let compress        = require('compression');
 // let errorHandler    = require('errorhandler');
 let express         = require('express');
-require('express-async-errors');
 let favicon         = require('serve-favicon');
 let fs              = require('fs');
 let LocalStrategy   = require('passport-local').Strategy;
@@ -167,17 +166,6 @@ if (app.get('env') == 'development') {
 let router = express.Router();
 require('./global/routing/router')(router, app);
 // some notes on router: http://scotch.io/tutorials/javascript/learn-to-use-the-new-router-in-expressjs-4
-
-// // catch thrown errors?
-// app.use((err, req, res, next) => {
-//   console.log("CATCHING ERROR")
-//   // if (err.message === 'access denied') {
-//   //   res.status(403);
-//   //   res.json({ error: err.message });
-//   // }
- 
-//   next(err);
-// });
 
 // check for the server timeout. NOTE: this must be last in the middleware stack
 app.use(haltOnTimedout);
