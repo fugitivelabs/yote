@@ -3,18 +3,16 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types'
 
-const Button = ({ ...props }) => {
-  
-  const {
-    children
-    , className
-    , onClick
-    , disabled
-    , link
-    , size = 'md'
-    , skin = 'primary'
-    , type = 'button'
-  } = props
+const Button = ({
+  children
+  , className
+  , onClick
+  , disabled
+  , link
+  , size = 'md'
+  , skin = 'primary'
+  , type = 'button'
+}) => {
 
   const baseClasses = "inline-flex items-center border border-transparent font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2"
 
@@ -30,8 +28,6 @@ const Button = ({ ...props }) => {
 
   const sizeClasses = (
     size === 'xs' ? "px-2.5 py-1.5 text-xs rounded"
-    :
-    size === 'xs1' ? "px-2.5 py-1.5 text-xs rounded-md"
     :
     size === 'sm' ? "px-3 py-2 text-sm leading-4 rounded-md"
     :
@@ -74,9 +70,9 @@ Button.propTypes = {
   , onClick: PropTypes.func
   , disabled: PropTypes.bool
   , link: PropTypes.string
-  , size: PropTypes.string
-  , skin: PropTypes.string
-  , type: PropTypes.string
+  , size: PropTypes.oneOf(['xs', 'sm', 'md', 'lg', 'xl'])
+  , skin: PropTypes.oneOf(['primary', 'secondary', 'white'])
+  , type: PropTypes.oneOf(['button', 'submit'])
 }
 
 export default Button;

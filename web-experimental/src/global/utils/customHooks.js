@@ -1,44 +1,41 @@
-import { useReducer } from 'react'
+import { useState } from 'react'
 
 /**
- * This little guy handles editing a resource in component state before sending it to the server.
- * @param {object} initialState - the object to be updated
+ * This little guy handles editing a resource object in component state before sending it to the server
+ * @param {object} initialFormState - the object to be updated
  * @returns [ state, handleChange ]
  */
-export const useFormState = (initialState = {}) => {
-  // The reducer determines what we do when new values come in
-  // In the case of a form we want to update the state object with the new values.
-  const reducer = (formState, newState) => ({ ...formState, ...newState })
-  
-  // useReducer returns a state variable and a function to update it.
-  // It is almost the same as useState, but for objects instead of primitives.
-  const [formState, setFormState] = useReducer(reducer, initialState);
+export const useFormState = (initialFormState = {}) => {
+  // use build-in `useState` hook to handle state
+  const [formState, setFormState] = useState(initialFormState);
 
-  const handleChange = e => {
-    setFormState({[e.target.name]: e.target.value});
+  // create a specific action to update nested state while preserving existing state (standard reducer pattern)
+  const handleFormChange = e => {
+    setFormState(state => ({...state, [e.target.name]: e.target.value}));
   }
 
-  return [ formState, handleChange ];
+  return [ formState, handleFormChange ];
 }
 
 
-// This hook handles pagination state.
-export const usePagination = (initialState = { page: 1, per: 10 }) => {
-  // The reducer determines what we do when new values come in
-  // In the case of pagination we want to update the state object with the new values.
-  const reducer = (state, newState) => ({ ...state, ...newState })
+/**
+ * This hook handles pagination state
+ * @param {object} initialPagination - a pagination object, default is { page: 1, per: 10 }
+ * @returns the pagination object and `setPage` and `setPer` functions
+ */
+export const usePagination = (initialPagination = { page: 1, per: 10 }) => {
   
-  // useReducer returns a state variable and a function to update it.
-  // It is almost the same as useState, but for objects instead of primitives.
-  const [pagination, setPagination] = useReducer(reducer, initialState);
+  // use the built-in `useState` hook to handle state
+  const [pagination, setPagination] = useState(initialPagination);
 
+  // create specific actions to update pagination
   const setPage = newPage => {
-    setPagination({page: newPage || 1});
+    setPagination(state => ({ ...state, page: newPage || 1 }));
   }
 
   const setPer = newPer => {
-    setPagination({per: newPer || 1})
+    setPagination(state => ({ ...state, per: newPer || 10 }));
   }
 
-  return { ...pagination, setPage, setPer};
+  return { ...pagination, setPage, setPer };
 }
