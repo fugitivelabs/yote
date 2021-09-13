@@ -1,5 +1,5 @@
 /**
- * This files dynamically compiles the module routes for the client and
+ * This file dynamically compiles the module routes for the client and
  * redirects any route that doesn't match to a 'NotFound'/404 page
  *
  * Below we import all module routes and assign them top-level pathnames as the
