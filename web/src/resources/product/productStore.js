@@ -286,7 +286,7 @@ export const productSlice = createSlice({
         const productId = action.meta.arg;
         Object.keys(state.listQueries).forEach(queryKey => {
           // filter the product from the existing lists before we remove it from the store below (avoid reference errors)
-          state.listQueries[queryKey].ids = state.listQueries[queryKey].ids?.filter(id => id != productId);
+          state.listQueries[queryKey].ids = state.listQueries[queryKey].ids?.filter(id => id !== productId);
           // invalidate existing lists
           state.listQueries[queryKey].didInvalidate = true;
         });
