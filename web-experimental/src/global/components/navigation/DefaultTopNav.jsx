@@ -13,7 +13,7 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
 // import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 
-const navigation = ['dashboard', 'products', 'products-rtk']
+const navigation = ['dashboard', 'products']
 const profile = ['Your Profile', 'Settings', 'Sign out']
 
 const classNames = (...classes) => {
