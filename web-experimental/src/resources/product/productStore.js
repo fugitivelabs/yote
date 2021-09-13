@@ -66,6 +66,17 @@ export const sendUpdateProduct = createAsyncThunk(
   }
 );
 
+// DELETE
+export const sendDeleteProduct = createAsyncThunk(
+  'product/sendDelete',
+  async (id) => {
+    const endpoint = `/api/products/${id}`;
+    const response = await apiUtils.callAPI(endpoint, 'DELETE');
+    // The value we return becomes the `fulfilled` action payload
+    return response;
+  }
+);
+
 // TODO: add sendDeleteProduct
 
 
@@ -271,7 +282,22 @@ export const productSlice = createSlice({
         singleQuery.status = 'rejected';
         singleQuery.receivedAt = Date.now();
       })
-    // TODO: add delete
+      .addCase(sendDeleteProduct.fulfilled, (state, action) => {
+        const productId = action.meta.arg;
+        Object.keys(state.listQueries).forEach(queryKey => {
+          // filter the product from the existing lists before we remove it from the store below (avoid reference errors)
+          state.listQueries[queryKey].ids = state.listQueries[queryKey].ids?.filter(id => id != productId);
+          // invalidate existing lists
+          state.listQueries[queryKey].didInvalidate = true;
+        });
+        // remove the query object
+        delete state.singleQueries[productId];
+        // remove it from the map
+        delete state.byId[productId];
+      })
+      .addCase(sendDeleteProduct.rejected, (state, action) => {
+        // TODO: handle errors
+      })
   }
 });
 
@@ -331,7 +357,7 @@ export const fetchSingleIfNeeded = (id) => (dispatch, getState) => {
  * 
  * @param {object} productStore - supplied by useSelector hook in the productService file
  * @param {string} queryKey - the key used to access the query from the map
- * @returns 
+ * @returns an array of product objects matching the query's `ids` array
  */
 export const selectListItems = ({ product: productStore }, queryKey) => {
   const listIds = productStore.listQueries[queryKey]?.ids;
