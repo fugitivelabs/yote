@@ -2,9 +2,9 @@ import React from 'react';
 import { Redirect } from 'react-router';
 import { Route } from 'react-router-dom';
 import './App.css';
-import ProductRouterRTK from './resources/productRTK/ProductRouter.jsx';
-import ProductRouter from './resources/product/ProductRouter.jsx';
-import UserRouter from './resources/user/UserRouter.jsx';
+
+import routes from './config/routes';
+
 function App() {
   return (
     <>
@@ -13,9 +13,7 @@ function App() {
       <Route exact path='/'>
         <Redirect to="/products" />
       </Route>      
-      <ProductRouter />
-      <ProductRouterRTK />
-      <UserRouter />
+      {routes}
     </>
   );
 }
