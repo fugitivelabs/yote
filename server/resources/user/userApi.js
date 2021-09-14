@@ -11,8 +11,7 @@ module.exports = (router) => {
   router.post('/api/users/register', userSessions.register)
   router.post('/api/users/logout', requireLogin, userSessions.logout)
   router.post('/api/users/get-logged-in', userSessions.getLoggedIn)
-  router.get('/api/users/get-logged-in', userSessions.getLoggedIn)
-
+  // router.get('/api/users/get-logged-in', userSessions.getLoggedIn) // easier testing
 
   // standard
   router.get('/api/users/default', standardUser.getDefault)

@@ -29,13 +29,11 @@ const DefaultTopNav = () => {
 
   const dispatch = useDispatch();
   const history = useHistory();
-  const location = useLocation();
 
   const handleLogout = async () => {
     const { payload: result } = await dispatch(sendLogout());
     // adapted from: https://reactrouter.com/web/example/auth-workflow
-    const { from } = location.state || { from: { pathname: "/"} }
-    history.replace(from);
+    history.push("/");
   }
 
 
