@@ -26,7 +26,7 @@ export const shouldFetch = (query) => {
     return false
   } else if(query.status === 'rejected') {
     // no, this query had an error, re-fetching could cause an infinite loop.
-    // console.log("X shouldFetch - true: isError");
+    // console.log("X shouldFetch - false: isError");
     return false
   } else if(new Date().getTime() > query.expirationDate) {
     // yes, the query has expired

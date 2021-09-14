@@ -6,8 +6,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import WaitOn from '../helpers/WaitOn';
-
 import { Redirect, Route, useLocation } from 'react-router-dom';
 
 import DefaultLayout from '../layouts/DefaultLayout';
@@ -34,22 +32,29 @@ const YTRoute = ({
   }
   newLocation.state.breadcrumbs = breadcrumbs;
 
+  if(role || login) {
+    if(authQuery.isFetching) return <DefaultLayout.Skeleton />
+    if(authQuery.isError || !loggedInUser) return <Redirect to={{ pathname: "/user/login", state: { from: location } }} />
+    if(role && !loggedInUser.roles?.indexOf[role] > -1) return <Redirect to={{ pathname: "/unauthorized" }} />
+    // we have a loggedInUser
+    return (
+      <Route
+        exact={exact}
+        path={path}
+        component={component}
+        location={newLocation}
+      />
+    )
+  }
+
+  // no route protection required
   return (
-    <WaitOn query={authQuery} fallback={<DefaultLayout.Skeleton/>}>
-      { (role || login) && !loggedInUser ?
-        <Redirect to={{ pathname: "/user/login", state: { from: location } }} />
-        :
-        role && loggedInUser?.roles?.indexOf[role] === -1 ?
-        <Redirect to={{ pathname: "/unauthorized" }} />
-        :
-        <Route
-          exact={exact}
-          path={path}
-          component={component}
-          location={newLocation}
-        />
-      }
-    </WaitOn>
+    <Route
+      exact={exact}
+      path={path}
+      component={component}
+      location={newLocation}
+    />
   )
 }
 
