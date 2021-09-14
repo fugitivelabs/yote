@@ -26,7 +26,7 @@ const UserLoginForm = ({
   return (
     <div className="form-container -skinny">
       <form name="userForm" className="user-form" onSubmit={handleSubmit}>
-        <h2> Sign In </h2>
+        <h2> Register </h2>
         <hr/>
         <TextInput
           name="username"
@@ -52,13 +52,13 @@ const UserLoginForm = ({
             <Link
               className="yt-btn link"
               to={{
-                pathname: "/user/register"
+                pathname: "/user/login"
                 , state: location.state
               }}
             >
-              Register
+              Sign In
             </Link>
-            <button className="yt-btn " type="submit" > Sign in </button>
+            <button className="yt-btn " type="submit" > Register </button>
           </div>
         </div>
       </form>

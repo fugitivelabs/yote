@@ -70,7 +70,7 @@ exports.logout = async (req, res, next) => {
     if(err) {
       throw new YoteError("Error logging out", 500)
     } else {
-      logger.debug("REMOVED SESSION OBJECT");
+      console.log("REMOVED SESSION OBJECT");
       res.send(200);
     }
   });
