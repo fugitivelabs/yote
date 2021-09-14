@@ -36,7 +36,7 @@ const UserRegister = () => {
     }
   }
 
-  return  (
+  return (
     <UserLayout>
       <div className="container">
         <div className="mx-auto">
