@@ -9,12 +9,11 @@ module.exports = (router) => {
   router.get('/api/users/:id', standardUser.getSingleById)
   router.get('/api/users', standardUser.getListWithArgs)
 
-
   router.post(`/api/users/login`, userSessions.login)
   router.post('/api/users/register', userSessions.register)
+  router.post('/api/users/get-logged-in', userSessions.getLoggedIn)
 
   router.post('/api/users', standardUser.createSingle)
 
   router.put('/api/users/:id', standardUser.updateSingleById)
-
 }

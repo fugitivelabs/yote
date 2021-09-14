@@ -7,6 +7,7 @@ const productSchema = mongoose.Schema({
   , title:                  { type: String, required: '{PATH} is required!', unique: true }
   , description:            { type: String }
   , featured:               { type: Boolean, default: false }
+  
 });
 
 // schema hooks

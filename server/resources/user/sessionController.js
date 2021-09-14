@@ -46,10 +46,13 @@ exports.register = async (req, res) => {
 
   // TODO: make better
   // extremely simple validation
-  if (!( /(.+)@(.+){2,}\.(.+){2,}/.test(newUser.username) )) {
-    callback({ success: false, message: "Invalid email address." });
+  if(!( /(.+)@(.+){2,}\.(.+){2,}/.test(newUser.username) )) {
+    // res.send({ success: false, message: "Invalid email address." });
+    throw new YoteError("Invalid email address", 400)
+
   } else if(req.body.password.length <= 6) {
-    callback({ success: false, message: "Password not long enough. Min 6 characters." });
+    // res.send({ success: false, message: "Password not long enough. Min 6 characters." });
+    throw new YoteError("Password not long enough. Min 6 characters", 400)
   } else {
     const { salt, hash } = User.generatePassword(req.body.password)
     newUser.password_salt = salt;
@@ -59,6 +62,11 @@ exports.register = async (req, res) => {
     const user = await newUser.save()
     res.json(user)
   }
+}
+
+exports.getLoggedIn = (req, res) => {
+  console.log('getting logged in user! ', req.user);
+  res.json(req.user);
 }
 
 exports.updateProfile = async (req, res) => {
