@@ -32,7 +32,6 @@ const DefaultTopNav = () => {
 
   const handleLogout = async () => {
     const { payload: result } = await dispatch(sendLogout());
-    // adapted from: https://reactrouter.com/web/example/auth-workflow
     history.push("/");
   }
 
