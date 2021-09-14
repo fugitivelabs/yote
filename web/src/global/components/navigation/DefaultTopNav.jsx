@@ -31,7 +31,7 @@ const DefaultTopNav = () => {
   const history = useHistory();
 
   const handleLogout = async () => {
-    const { payload: result } = await dispatch(sendLogout());
+    const { response } = await dispatch(sendLogout());
     history.push("/");
   }
 
