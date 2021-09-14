@@ -10,7 +10,7 @@ import Spinner from '../helpers/Spinner.jsx';
 // import { Helmet }  from 'react-helmet'
 
 // import nav components
-import DefaultTopNav from '../navigation/DefaultTopNav.jsx';
+import DefaultNav from '../navigation/DefaultNav.jsx';
 
 
 const DefaultLayout = ({ ...props }) => {
@@ -27,7 +27,7 @@ const DefaultLayout = ({ ...props }) => {
   return (
     <div>
       {/* <Helmet title={props.title || "Yote App"}/> */}
-      <DefaultTopNav />
+      <DefaultNav />
       <main>
         {children}
       </main>
@@ -38,7 +38,7 @@ const DefaultLayout = ({ ...props }) => {
 const Skeleton = () => {
   return (
     <div>
-      <DefaultTopNav />
+      <DefaultNav />
       <main>
         <div className="">
           <Spinner/>

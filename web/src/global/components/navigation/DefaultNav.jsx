@@ -1,5 +1,6 @@
 /**
- * Global DefaultTopNav component. 
+ * Global DefaultNav component. Up to the designers to decide if should live 
+ * as a top-nav, fixed side, menu-prompted, etc. 
  * 
  * Recommended to select a good one from Tailwind UI that matches the brand 
  * and edit from there. 
@@ -24,11 +25,8 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
 // import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 
-const classNames = (...classes) => {
-  return classes.filter(Boolean).join(' ')
-}
 
-const DefaultTopNav = () => {
+const DefaultNav = () => {
 
   // use the hook to get the loggedInUser from the authStore
   const { loggedInUser, ...authQuery } = useGetLoggedInUser();
@@ -65,4 +63,4 @@ const DefaultTopNav = () => {
   )
 }
 
-export default DefaultTopNav;
+export default DefaultNav;
