@@ -8,6 +8,11 @@ import { NavLink } from 'react-router-dom';
 // import PropTypes from 'prop-types';
 import _ from 'lodash'
 
+import { useHistory, useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+
+import { sendLogout } from '../../../resources/user/authStore';
+
 // import UI components
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
@@ -21,6 +26,16 @@ const classNames = (...classes) => {
 }
 
 const DefaultTopNav = () => {
+
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const handleLogout = async () => {
+    const { response } = await dispatch(sendLogout());
+    history.push("/");
+  }
+
+
   return (
     <Disclosure as="nav" className="bg-indigo-600">
       {({ open }) => (
@@ -47,6 +62,7 @@ const DefaultTopNav = () => {
                         to={`/${item}`}> {_.startCase(item)}
                       </NavLink>
                     )}
+                    <button onClick={handleLogout}>LOGOUT</button>
                   </div>
                 </div>
               </div>

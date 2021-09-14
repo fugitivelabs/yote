@@ -1,6 +1,5 @@
-
+const ProductSchema = require('../../resources/product/ProductModel')
 const Product = require('mongoose').model('Product');
-
 
 module.exports = {
 
