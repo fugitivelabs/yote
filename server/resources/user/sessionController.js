@@ -64,9 +64,27 @@ exports.register = async (req, res) => {
   }
 }
 
+exports.logout = async (req, res, next) => {
+  req.session.destroy(err => {
+    req.logout();
+    if(err) {
+      throw new YoteError("Error logging out", 500)
+    } else {
+      console.log("REMOVED SESSION OBJECT");
+      res.send(200);
+    }
+  });
+}
+
 exports.getLoggedIn = (req, res) => {
   console.log('getting logged in user! ', req.user);
-  res.json(req.user);
+  if(!req.user) {
+    // throw new YoteError("Not logged in", 404)
+    // not sure this is an error,
+    res.send(404)
+  } else {
+    res.json(req.user);
+  }
 }
 
 exports.updateProfile = async (req, res) => {

@@ -24,7 +24,7 @@ const UserRegisterForm = ({
   }
 
   return (
-    <div className="">
+    <div>
       <form name="userForm" onSubmit={handleSubmit}>
         <h1>Register</h1>
         <TextInput
@@ -41,9 +41,7 @@ const UserRegisterForm = ({
           change={handleChange}
           required={true}
         />
-       
         <Link
-          className=""
           to={{
             pathname: "/user/login"
             , state: location.state

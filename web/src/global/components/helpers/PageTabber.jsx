@@ -52,77 +52,52 @@ const PageTabber = ({
   }
 
   return (
-    <div className="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
-      {/* only show two buttons on small screens */}
-      <div className="flex-1 flex justify-between md:hidden">
-        <button
-          onClick={currentPage > 1 ? () => setPage(currentPage - 1) : null }
-          className={mobileBtnCommonClasses}
-        >
-          Previous
-        </button>
-        <div className="relative inline-flex items-center px-4 py-2 text-sm">
-          <p className="text-sm text-gray-700">
-            <span className="font-small">{currentPage}</span> of <span className="font-small">{totalPages}</span>
-          </p>
-        </div>
-        <button
-          onClick={currentPage < totalPages ? () => setPage(currentPage + 1) : null }
-          className={`${mobileBtnCommonClasses} ml-3`}
-        >
-          Next
-        </button>
-      </div>
-      {/* show the whole thing on medium and larger screens */}
-      <div className="hidden md:flex-1 md:flex sm:items-center md:justify-between">
+    <div>
+      &mdash;
+      
+      <p className="">
+        <span className="">Page {currentPage}</span> of <span className="">{totalPages}</span>
+      </p>
+      
+      <div className="">
+        
         <div>
-          <p className="text-sm text-gray-700">
-            Showing <span className="font-medium">{ (pagination.page * pagination.per) - (pagination.per - 1)}</span> to <span className="font-medium">{ pagination.page * pagination.per}</span> of{' '}
-            <span className="font-medium">about {pagination.per * totalPages}</span> results
-          </p>
-        </div>
-        <div>
-          <nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+          <nav className="" aria-label="Pagination">
             <button
               onClick={currentPage > 1 ? () => setPage(currentPage - 1) : null}
-              className={`${setPageBtnCommonClasses} rounded-l-md` }
             >
-              <span className="sr-only">Previous</span>
-              <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
+              <span>Previous</span>
             </button>
             {currentPage > 4 ?
-              <span className={`${setPageBtnCommonClasses} pointer-events-none`}>
+              <span>
                 ...
               </span>
               :
               null
             }
             {before.map((page, i) => (
-              <button
+              <a
                 key={`page-before-${i}`}
                 onClick={() => setPage(page)}
-                className={setPageBtnCommonClasses}
+                // className={setPageBtnCommonClasses}
               >
               {page}
-              </button>
+              </a>
             ))}
-            <button
-              aria-current="page"
-              className={`${paginationBtnCommonClasses} z-10 bg-indigo-50 border-indigo-500 text-indigo-600 pointer-events-none`}
-            >
+            <span aria-current="page">
               {currentPage}
-            </button>
+            </span>
             {after.map((page , i)=> (
-              <button
+              <a
                 key={`page-after-${i}`}
                 onClick={()=> setPage(page)}
-                className={setPageBtnCommonClasses}
+                
               >
               {page}
-              </button>
+              </a>
             ))}
             { currentPage < totalPages - 3 ?
-              <span className={`${setPageBtnCommonClasses} pointer-events-none`}>
+              <span>
               ...
               </span>
               :
@@ -130,13 +105,16 @@ const PageTabber = ({
             }
             <button
               onClick={currentPage < totalPages ? () => setPage(currentPage + 1) : null }
-              className={`${setPageBtnCommonClasses} rounded-r-md` }
+              
             >
-              <span className="sr-only">Next</span>
-              <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
+              <span>Next</span>
             </button>
           </nav>
         </div>
+        <p className="">
+          Showing <span className="">{ (pagination.page * pagination.per) - (pagination.per - 1)}</span> to <span className="">{ pagination.page * pagination.per}</span> of{' '}
+          <span className="">about {pagination.per * totalPages}</span> results
+        </p>
       </div>
     </div>
   )
