@@ -1,0 +1,1 @@
+All of the 'counter' stuff comes from the redux cra template. Here for reference.
