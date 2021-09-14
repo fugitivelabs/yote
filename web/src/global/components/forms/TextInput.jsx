@@ -17,8 +17,8 @@ const TextInput = ({
 }) => {
 
   return (
-    <div className="input-group">
-      <label htmlFor={name}> {label} {required ? <sup className="-required">*</sup> : null}</label>
+    <div className="">
+      <label htmlFor={name}> {label} {required ? <sup className="">*</sup> : null}</label>
       <input
         disabled={disabled}
         name={name}

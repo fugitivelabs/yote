@@ -17,7 +17,7 @@ const List = ({
 }) => {
   // TODO: Add UI to use setPer
   return (
-    <div className={"space-y-3 " + className}>
+    <ul className={"space-y-3 " + className}>
       {children}
       {page && per && setPage && totalPages ?
         <PageTabber
@@ -28,7 +28,7 @@ const List = ({
         :
         null
       }
-    </div>
+    </ul>
   )
 }
 

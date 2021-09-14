@@ -8,9 +8,9 @@ const ListItem = ({
 }) => {
 
   return (
-    <div className={"bg-white shadow overflow-hidden rounded-md px-6 py-4 " + className}>
+    <li className={"bg-white shadow overflow-hidden rounded-md px-6 py-4 " + className}>
       {children}
-    </div>
+    </li>
   )
 }
 
