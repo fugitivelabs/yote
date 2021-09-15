@@ -10,6 +10,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import { useGetLoggedInUser } from '../authService';
+import { sendLogout } from '../authStore';
 
 // import user components
 import UserLayout from '../components/UserLayout.jsx';
