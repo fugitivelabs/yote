@@ -4,9 +4,9 @@ import PropTypes from 'prop-types'
 
 import PageTabber from '../helpers/PageTabber'
 
-const List = ({
+const PaginatedList = ({
   children
-  , className = ''
+  , classes
   , pagination: {
     page
     , per
@@ -17,7 +17,7 @@ const List = ({
 }) => {
   // TODO: Add UI to use setPer
   return (
-    <div className={"space-y-3 " + className}>
+    <ul className={classes}>
       {children}
       {page && per && setPage && totalPages ?
         <PageTabber
@@ -28,12 +28,12 @@ const List = ({
         :
         null
       }
-    </div>
+    </ul>
   )
 }
 
-List.propTypes = {
-  className: PropTypes.string
+PaginatedList.propTypes = {
+  classes: PropTypes.string
   , pagination: PropTypes.shape({
     page: PropTypes.number
     , per: PropTypes.number
@@ -43,7 +43,8 @@ List.propTypes = {
   })
 }
 
-List.defaultProps = {
-  pagination: {}
+PaginatedList.defaultProps = {
+  classes: ''
+  , pagination: {}
 }
-export default List
+export default PaginatedList

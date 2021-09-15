@@ -1,10 +1,9 @@
 // import primary libraries
 import React from 'react';
 // import PropTypes from 'prop-types'; // this component gets no props
-import { useLocation, useParams } from 'react-router-dom'
+import { Link, useLocation, useParams } from 'react-router-dom'
 
 // import global components
-import Button from '../../../global/components/base/Button';
 import WaitOn from '../../../global/components/helpers/WaitOn';
 
 // import services
@@ -46,18 +45,12 @@ const SingleProduct = () => {
     <ProductLayout title={'Single Product'}>
       <WaitOn query={productQuery} fallback={<Skeleton />}>
         <div className={productQuery.isFetching ? 'opacity-50' : ''}>
+          <h2>Product details</h2>
           <h1> {product?.title} </h1>
           <p> {product?.description} </p>
         </div>
       </WaitOn>
-      <Button
-        disabled={!product || productQuery.isFetching}
-        link={`${location.pathname}/update`}
-        size="sm"
-        skin="secondary"
-      >
-        Update Product
-      </Button>
+      <Link to={`${location.pathname}/update`}>Update Product</Link>
     </ProductLayout>
   )
 }

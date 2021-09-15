@@ -37,15 +37,11 @@ const UserLogin = () => {
   }
 
   return  (
-    <UserLayout>
-      <div className="container">
-        <div className="mx-auto">
-          <UserLoginForm
-            user={{username: '', password: ''}}
-            handleFormSubmit={handleFormSubmit}
-          />
-        </div>
-      </div>
+    <UserLayout title="Sign in">
+      <UserLoginForm
+        user={{username: '', password: ''}}
+        handleFormSubmit={handleFormSubmit}
+      />
     </UserLayout>
   )
 }
