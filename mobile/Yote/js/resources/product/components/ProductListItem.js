@@ -14,6 +14,7 @@ import {
   , TouchableHighlight
   , View
 } from 'react-native'; 
+import { useNavigation } from '@react-navigation/native';
 
 // import global components
 import YTButton from '../../../global/buttons/YTButton';
@@ -27,7 +28,7 @@ import YTStyles from '../../../global/styles/YTStyles';
 // import services
 import { useGetProductById } from '../productService';
 
-const ProductListItem = ({ id }) => {
+const ProductListItem = ({ id, navigation }) => {
   const { data: product, ...productQuery } = useGetProductById(id);
 
   if(productQuery.isLoading) return <Skeleton />
@@ -36,8 +37,12 @@ const ProductListItem = ({ id }) => {
 
   return (
     <ListItem style={{opacity: productQuery.isFetching ? 'opacity-50' : ''}}>
-      <Text>{product.title}</Text>
-      <Text>{product.description}</Text>
+      <TouchableHighlight onPress={() => navigation.navigate('SingleProduct', {productId: id})}>
+        <View>
+          <Text>{product.title}</Text>
+          <Text>{product.description}</Text>
+        </View>
+      </TouchableHighlight>
     </ListItem>
   )
 }
