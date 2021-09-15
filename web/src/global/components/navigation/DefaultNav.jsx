@@ -20,11 +20,6 @@ import { useGetLoggedInUser } from '../../../resources/user/authService';
 
 import { sendLogout } from '../../../resources/user/authStore';
 
-// import UI components
-import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { MenuIcon, XIcon } from '@heroicons/react/outline'
-// import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
-
 
 const DefaultNav = () => {
 
