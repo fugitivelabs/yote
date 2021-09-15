@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 // import global components
-import ListItem from '../../../global/components/base/ListItem';
+
 // import WaitOn from '../../../global/components/helpers/WaitOn';
 
 // import services
