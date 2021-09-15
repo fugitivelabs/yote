@@ -3,16 +3,6 @@ import React from 'react'
 
 import PropTypes from 'prop-types';
 
-// import icons
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid'
-
-// condense crazy tailwind styles for pagination component. Adapted from: https://tailwindui.com/components/application-ui/navigation/pagination#component-69eb9381f977800aa890ce8f7d9e2d20
-const paginationBtnCommonClasses = "relative inline-flex items-center px-4 py-2 text-sm font-medium border border-gray-300 bg-white"
-
-const mobileBtnCommonClasses = `${paginationBtnCommonClasses} text-gray-700 rounded-md hover:bg-gray-50 cursor-pointer`
-
-const setPageBtnCommonClasses = `${paginationBtnCommonClasses} text-gray-500 hover:bg-gray-50 cursor-pointer`
-
 const PageTabber = ({
   pagination
   , setPage
