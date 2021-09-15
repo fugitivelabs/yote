@@ -18,10 +18,8 @@ const UserLayout = ({ ...props }) => {
     document.title = title || "Yote App | User";
   }, [title])
   return (
-    <div className="container">
-      <div className="container mx-auto">
-        {props.children}
-      </div>
+    <div>
+      {props.children}
     </div>
   )
 }
