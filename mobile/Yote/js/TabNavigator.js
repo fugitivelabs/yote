@@ -8,6 +8,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from './global/landing/Home';
 import ProductList from './resources/product/components/ProductList'; 
 import SingleProduct from './resources/product/views/SingleProduct'; 
+import CreateProduct from './resources/product/views/CreateProduct'; 
 
 function HomeScreen() {
   return (
@@ -27,6 +28,12 @@ function SingleProductScreen() {
   )
 }
 
+function CreateProductScreen() {
+  return (
+    <CreateProduct/>
+  )
+}
+
 const ProductStack = createNativeStackNavigator(); 
 
 function ProductStackScreen() {
@@ -36,6 +43,7 @@ function ProductStackScreen() {
     }}>
       <ProductStack.Screen name="ProductList" component={ProductsScreen}/>
       <ProductStack.Screen name="SingleProduct" component={SingleProductScreen} getId={({ params }) => params.productId}/>
+      <ProductStack.Screen name="CreateProduct" component={CreateProductScreen}/>
     </ProductStack.Navigator>
   )
 }

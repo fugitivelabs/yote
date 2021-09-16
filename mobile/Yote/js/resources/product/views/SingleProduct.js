@@ -63,7 +63,7 @@ const SingleProduct = () => {
         leftItem={leftItem}
       />
       <WaitOn query={productQuery} fallback={<Skeleton />}>
-        <ScrollView style={{opacity: productQuery.isFetching ? "50%" : null}}>
+        <ScrollView style={{opacity: productQuery.isFetching ? 0.5 : null}}>
           <View style={{padding: 10}}>
             <Text style={YTStyles.h1}>{product?.title}</Text>
           </View>
