@@ -1,3 +1,5 @@
+// Note: Figure out if this file is necessary for tailwind use in mobile. It should be removed if it isn't 
+
 {
 	"container": {
 		"width": "100%"
