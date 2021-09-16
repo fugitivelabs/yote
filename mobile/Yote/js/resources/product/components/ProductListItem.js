@@ -14,7 +14,6 @@ import {
   , TouchableHighlight
   , View
 } from 'react-native'; 
-import { useNavigation } from '@react-navigation/native';
 
 // import global components
 import YTButton from '../../../global/buttons/YTButton';
@@ -36,7 +35,7 @@ const ProductListItem = ({ id, navigation }) => {
   if(!product) return <ListItem>No product found</ListItem>
 
   return (
-    <ListItem style={{opacity: productQuery.isFetching ? 'opacity-50' : ''}}>
+    <ListItem style={{opacity: productQuery.isFetching ? 0.5 : ''}}>
       <TouchableHighlight onPress={() => navigation.navigate('SingleProduct', {productId: id})}>
         <View>
           <Text>{product.title}</Text>

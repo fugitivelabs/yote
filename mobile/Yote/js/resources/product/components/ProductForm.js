@@ -39,12 +39,6 @@ const ProductForm = ({
 
   // use the helper to handle product state
   const [updatedProduct, handleChange] = useFormState(product); // pass product as initialState
-
-  // set the button text
-  const buttonText = formType === "create" ? "Create Product" : "Update Product";
-
-  // set the form header
-  const header = formTitle ? <div className="formHeader"><h2> {formTitle} </h2><hr /></div> : <div />;
   
   const handleSubmit = e => {
     e.preventDefault();
