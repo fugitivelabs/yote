@@ -20,8 +20,6 @@ const CreateProduct = () => {
   const [isCreating, setIsCreating] = useState(false);
 
   const handleFormSubmit = async (newProduct) => {
-    console.log('new product'); 
-    console.log(newProduct); 
     // set isCreating true to disable the form while wait for the new product to get returned
     setIsCreating(true);
     const { payload: product } = await sendCreateProduct(newProduct); // replaces dispatch(productActions.sendCreateProduct(newProduct)).then(productRes => ...)
