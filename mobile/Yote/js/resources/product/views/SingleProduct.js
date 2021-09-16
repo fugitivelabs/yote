@@ -63,7 +63,7 @@ const SingleProduct = () => {
         leftItem={leftItem}
       />
       <WaitOn query={productQuery} fallback={<Skeleton />}>
-        <ScrollView style={{opacity: productQuery.isFetching ? '50' : null}}>
+        <ScrollView style={{opacity: productQuery.isFetching ? "50%" : null}}>
           <View style={{padding: 10}}>
             <Text style={YTStyles.h1}>{product?.title}</Text>
           </View>
@@ -83,64 +83,6 @@ const Skeleton = () => {
     </ListItem>
   )
 }
-
-// class SingleProduct extends Binder {
-//   constructor(props){
-//     super(props);
-//     this._bind(
-//       '_closeModal'
-//       , '_openUpdateProduct'
-//     )
-//   }
-
-//   componentDidMount() {
-//     const { productId } = this.props.navigation.state.params;
-//     this.props.dispatch(productActions.fetchSingleProductById(productId));
-//   }
-
-//   _closeModal() {
-//     this.props.navigation.goBack();
-//   }
-
-//   _openUpdateProduct() {
-//     const { product } = this.props.navigation.state.params;
-//     this.props.navigation.navigate('UpdateProduct', {product: product});
-//   }
-
-//   render() {
-//     const { productMap } = this.props;
-//     const { product } = this.props.navigation.state.params;
-    
-//     const leftItem = {
-//       icon: require('../../../global/img/back.png'),
-//       layout: 'icon',
-//       onPress: this._closeModal,
-//     }
-
-//     const rightItem = {
-//       title: 'Edit'
-//       , onPress: this._openUpdateProduct
-//     }
-
-//     return(
-//       <View style={YTStyles.container}>
-//         <YTHeader
-//           title='Single Product'
-//           leftItem={leftItem}
-//           rightItem={rightItem}
-//         />
-//         <ScrollView>
-//           <View style={{padding: 10}}>
-//             <Text style={YTStyles.h1}>{product.title}</Text>
-//           </View>
-//           <View style={{paddingHorizontal: 10}}>
-//             <Text style={YTStyles.text}>{product.description}</Text>
-//           </View>
-//         </ScrollView>
-//       </View>
-//     )
-//   }
-// }
 
 SingleProduct.propTypes = {
   productId: PropTypes.string
