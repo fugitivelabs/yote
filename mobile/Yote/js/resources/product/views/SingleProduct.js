@@ -70,6 +70,12 @@ const SingleProduct = () => {
           <View style={{paddingHorizontal: 10}}>
             <Text style={YTStyles.text}>{product?.description}</Text>
           </View>
+          <View style={{padding: 10}}>
+            <YTButton
+              caption={"Edit"}
+              onPress={() => navigation.navigate('UpdateProduct', {productId: product._id})}
+            />
+          </View>
         </ScrollView>
       </WaitOn>
     </View>

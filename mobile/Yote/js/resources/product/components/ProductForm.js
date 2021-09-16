@@ -97,7 +97,7 @@ const ProductForm = ({
         </View>
         <View style={{paddingHorizontal: 10, paddingVertical: 20}}>
           <YTButton
-            caption={"Create new product"}
+            caption={formType == "update" ? "Update product" : "Create new product"}
             isDisabled={disabled}
             onPress={() => handleFormSubmit(updatedProduct)}
           />

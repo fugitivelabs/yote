@@ -70,7 +70,7 @@ const CreateProduct = () => {
   return (
     <View style={YTStyles.container}>
       <YTHeader
-        title='Single Product'
+        title='Create Product'
         leftItem={leftItem}
       />
       <WaitOn query={defaultProductQuery}>

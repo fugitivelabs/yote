@@ -9,6 +9,7 @@ import Home from './global/landing/Home';
 import ProductList from './resources/product/components/ProductList'; 
 import SingleProduct from './resources/product/views/SingleProduct'; 
 import CreateProduct from './resources/product/views/CreateProduct'; 
+import UpdateProduct from './resources/product/views/UpdateProduct';
 
 function HomeScreen() {
   return (
@@ -34,6 +35,12 @@ function CreateProductScreen() {
   )
 }
 
+function UpdateProductScreen() {
+  return (
+    <UpdateProduct/>
+  )
+}
+
 const ProductStack = createNativeStackNavigator(); 
 
 function ProductStackScreen() {
@@ -44,6 +51,7 @@ function ProductStackScreen() {
       <ProductStack.Screen name="ProductList" component={ProductsScreen}/>
       <ProductStack.Screen name="SingleProduct" component={SingleProductScreen} getId={({ params }) => params.productId}/>
       <ProductStack.Screen name="CreateProduct" component={CreateProductScreen}/>
+      <ProductStack.Screen name="UpdateProduct" component={UpdateProductScreen}/>
     </ProductStack.Navigator>
   )
 }
