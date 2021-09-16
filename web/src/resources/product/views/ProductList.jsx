@@ -1,10 +1,11 @@
 // import primary libraries
 import React from 'react'
+import { Link, useLocation } from 'react-router-dom';
 // import PropTypes from 'prop-types'; // this component gets no props
 
 // import global components
 import Button from '../../../global/components/base/Button';
-import List from '../../../global/components/base/List';
+import PaginatedList from '../../../global/components/base/PaginatedList';
 import WaitOn from '../../../global/components/helpers/WaitOn';
 
 // import resource components
@@ -19,16 +20,11 @@ const ProductList = () => {
   
   return (
     <ProductLayout title={'Product List'}>
-      <div className="flex w-full mb-4 justify-end">
-        <Button
-          link='/products/new'
-          size="sm"
-          skin="secondary"
-        >
-          New Product
-        </Button>
+      <h1>Product List</h1>
+      <div className="">
+        <Link to="/products/new">New Product</Link>
       </div>
-      <List
+      <PaginatedList
         pagination={pagination}
         className={`${productQuery.isFetching ? 'opacity-50' : ''}`}
       >
@@ -36,7 +32,7 @@ const ProductList = () => {
           {products?.map(product => <ProductListItem key={product._id} id={product._id} />)}
           {/* {ids?.map(productId => <ProductListItem key={productId} id={productId} />)} */}
         </WaitOn>
-      </List>
+      </PaginatedList>
     </ProductLayout>
   )
 }

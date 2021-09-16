@@ -202,12 +202,12 @@ class YTHeader extends Binder {
             />
           </View>
         </View>
-        { isDemo ? 
+        {/* { isDemo ? 
           <View style={[styles.demoHeader]}>
-            <Text style={{flex: 1, textAlign: 'center', color: YTStyles.colors.white}}>Note: This is a demo version of the Flip Factory app.</Text>
+            <Text style={{flex: 1, textAlign: 'center', color: YTStyles.colors.white}}>Note: This is a demo version of the app.</Text>
           </View>
         : null
-        }
+        } */}
       </View>
     )
   }

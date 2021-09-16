@@ -13,7 +13,7 @@ import YTRoute from '../../global/components/routing/YTRoute.jsx';
 // import ForgotPassword from './views/ForgotPassword.jsx';
 // import ResetPassword from './views/ResetPassword.jsx';
 import UserLogin from './views/UserLogin.jsx';
-// import UserProfile from './views/UserProfile.jsx';
+import UserProfile from './views/UserProfile.jsx';
 import UserRegister from './views/UserRegister.jsx';
 
 const UserRouter = () => {
@@ -24,7 +24,8 @@ const UserRouter = () => {
       <YTRoute exact path="/user/register" component={UserRegister} />
       {/* <YTRoute exact path="/user/forgot-password" component={ForgotPassword} />
       <YTRoute exact path="/user/reset-password/:hex" component={ResetPassword} />
-      <YTRoute login={true} exact path="/user/profile" component={UserProfile} /> */}
+      */}
+      <YTRoute login={true} exact path="/user/profile" component={UserProfile} /> 
     </Switch>
   )
 }

@@ -37,15 +37,11 @@ const UserRegister = () => {
   }
 
   return (
-    <UserLayout>
-      <div className="container">
-        <div className="mx-auto">
-          <UserRegisterForm
-            user={{username: '', password: ''}}
-            handleFormSubmit={handleFormSubmit}
-          />
-        </div>
-      </div>
+    <UserLayout title="Register">
+      <UserRegisterForm
+        user={{username: '', password: ''}}
+        handleFormSubmit={handleFormSubmit}
+      />
     </UserLayout>
   )
 }

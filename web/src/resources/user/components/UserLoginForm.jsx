@@ -24,10 +24,9 @@ const UserLoginForm = ({
   }
 
   return (
-    <div className="form-container -skinny">
-      <form name="userForm" className="user-form" onSubmit={handleSubmit}>
-        <h2> Sign In </h2>
-        <hr/>
+    <div className="">
+      <form name="userForm" onSubmit={handleSubmit}>
+        <h1> Sign In </h1>
         <TextInput
           name="username"
           label="Email Address"
@@ -42,25 +41,21 @@ const UserLoginForm = ({
           change={handleChange}
           required={true}
         />
+        <Link
+          className=""
+          to={{
+            pathname: "/user/register"
+            , state: location.state
+          }}
+        >
+          Register
+        </Link>
+        <button className="" type="submit" > Sign in </button>
         <Link to="/user/forgot-password">
           <em>
             Forgot Password?
           </em>
         </Link>
-        <div className="input-group">
-          <div className="yt-row right">
-            <Link
-              className="yt-btn link"
-              to={{
-                pathname: "/user/register"
-                , state: location.state
-              }}
-            >
-              Register
-            </Link>
-            <button className="yt-btn " type="submit" > Sign in </button>
-          </div>
-        </div>
       </form>
     </div>
   )
