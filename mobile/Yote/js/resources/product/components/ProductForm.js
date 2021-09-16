@@ -104,44 +104,6 @@ const ProductForm = ({
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
-    // <div className="form-container">
-    //   <form name="productForm" className="product-form" onSubmit={handleSubmit}>
-    //     {header}
-    //     <TextInput
-    //       name="title"
-    //       label="Title"
-    //       value={updatedProduct.title || ""}
-    //       change={handleChange}
-    //       disabled={disabled}
-    //       required={true}
-    //     />
-    //     <TextInput
-    //       name="description"
-    //       label="Description"
-    //       value={updatedProduct.description || ""}
-    //       change={handleChange}
-    //       disabled={disabled}
-    //       required={true}
-    //     />
-    //     <div className="input-group">
-    //       <div className="yt-row space-between">
-    //         <Button
-    //           disabled={disabled}
-    //           link={cancelLink}
-    //           skin="white"
-    //         >
-    //           Cancel
-    //         </Button>
-    //         <Button
-    //           disabled={disabled}
-    //           type="submit"
-    //         >
-    //           {buttonText}
-    //         </Button>
-    //       </div>
-    //     </div>
-    //   </form>
-    // </div>
   )
 }
 

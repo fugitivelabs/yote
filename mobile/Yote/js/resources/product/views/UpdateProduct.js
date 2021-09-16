@@ -65,22 +65,6 @@ const UpdateProduct = () => {
   }
 
   return (
-    // <ProductLayout title={'Update Product'}>
-    //   { productQuery.isLoading ? <div>Loading...</div>
-    //     : productQuery.isError ? <div>An error occurred 😬 <Button onClick={productQuery.refetch}>Refetch</Button></div>
-    //     : productQuery.isEmpty ? <div>Empty</div>
-    //     : // we have the product
-    //     <ProductForm
-    //       product={product}
-    //       cancelLink={`/products/${productId}`}
-    //       disabled={productQuery.isFetching}
-    //       formTitle="Update Product"
-    //       formType="update"
-    //       handleFormSubmit={handleFormSubmit}
-    //     />
-    //   }
-    // </ProductLayout>
-
     // <WaitOn/> handles all of the isLoading, isError, etc stuff so we don't have to do the stuff above
     <View style={YTStyles.container}>
       <YTHeader
