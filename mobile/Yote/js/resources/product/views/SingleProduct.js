@@ -84,9 +84,9 @@ const SingleProduct = () => {
 
 const Skeleton = () => {
   return (
-    <ListItem>
+    <View>
       <Text>Loading</Text>
-    </ListItem>
+    </View>
   )
 }
 
