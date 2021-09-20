@@ -18,7 +18,7 @@ module.exports = (router) => {
   // )
 
   // router.post('/api/products', product.createSingle)
-  router.post('/api/products', requireLogin, product.createSingle);
+  router.post('/api/products', product.createSingle);
 
   router.put('/api/products/:id', product.updateSingleById);
 

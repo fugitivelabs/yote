@@ -28,7 +28,7 @@ const WaitOn = ({
 
   try {
     // there was an error fetching data
-    if(fetchError) return <Text> Oops, there was an error accessing this data. {refetch && <YTButton onPress={refetch} >Try again</YTButton>}</Text>
+    if(fetchError) return <Text> Oops, there was an error accessing this data. {refetch && <YTButton type={"secondary"} caption={'Try Again'} onPress={refetch}/>}</Text>
     // still waiting for data
     if(isLoading) return fallback
     // fetch returned empty
@@ -40,7 +40,7 @@ const WaitOn = ({
     // console.log('Error in WaitOn children ', childError);
     // there was an error thrown by the children, but the app will not crash, it will display an error message instead.
     // Could somehow log this error or save it as a userEvent kind of thing. Could make it easier to track bugs over time.
-    return <Text> Oops, there was an error. {refetch && <YTButton onPress={refetch}>Try again</YTButton>}</Text>
+    return <Text> Oops, there was an error. {refetch && <YTButton type={"secondary"} caption={'Try Again'} onPress={refetch}/>}</Text>
   }
 }
 

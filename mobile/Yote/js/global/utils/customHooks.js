@@ -16,8 +16,13 @@ export const useFormState = (initialFormState = {}) => {
 
   // the `setFormState` method will replace the entire value in `formState`
   // create a specific action to update nested state while preserving existing state(standard reducer pattern)
-  const handleFormChange = e => {
-    setFormState(state => ({ ...state, [e.target.name]: e.target.value }));
+  // const handleFormChange = e => {
+  //   setFormState(state => ({ ...state, [e.target.name]: e.target.value }));
+  // }
+
+  // mobile event handling is a little different 
+  const handleFormChange = (e, target) => {
+    setFormState(state => ({ ...state, [target]: e.nativeEvent.text }));
   }
 
   return [ formState, handleFormChange ];

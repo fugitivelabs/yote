@@ -18,6 +18,7 @@ import {
   , TouchableHighlight
   , View
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 // import actions/reducers
 import { useProductList } from '../productService';
@@ -25,7 +26,7 @@ import { useProductList } from '../productService';
 // import components
 import ProductListItem from './ProductListItem';
 import WaitOn from '../../../global/components/helpers/WaitOn';
-
+import YTButton from '../../../global/buttons/YTButton';
 import YTHeader from '../../../global/headers/YTHeader'; 
 
 // import styles
@@ -36,7 +37,8 @@ import { useGetProductList } from '../productService';
 
 const ProductList = () => {
   const { data: products, ids, pagination, ...productQuery } = useGetProductList({ page: 1, per: 5 });
-  
+  const navigation = useNavigation(); 
+
   return (
     <View style={{flex: 1}}>
       <YTHeader
@@ -44,8 +46,14 @@ const ProductList = () => {
         // rightItem={rightItem}
       />
       <ScrollView>
+        <View style={{padding: 10}}>
+          <YTButton
+            caption={"New Product"}
+            onPress={() => navigation.navigate('CreateProduct')}
+          />
+        </View>
         <WaitOn query={productQuery} fallback={<Skeleton count={pagination.per} />}>
-          {products?.map(product => <ProductListItem key={product._id} id={product._id} />)}
+          {products?.map(product => <ProductListItem key={product._id} id={product._id} navigation={navigation}/>)}
           {/* {ids?.map(productId => <ProductListItem key={productId} id={productId} />)} */}
         </WaitOn>
       </ScrollView>

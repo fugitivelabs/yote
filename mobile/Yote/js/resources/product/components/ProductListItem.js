@@ -27,7 +27,7 @@ import YTStyles from '../../../global/styles/YTStyles';
 // import services
 import { useGetProductById } from '../productService';
 
-const ProductListItem = ({ id }) => {
+const ProductListItem = ({ id, navigation }) => {
   const { data: product, ...productQuery } = useGetProductById(id);
 
   if(productQuery.isLoading) return <Skeleton />
@@ -35,9 +35,13 @@ const ProductListItem = ({ id }) => {
   if(!product) return <ListItem>No product found</ListItem>
 
   return (
-    <ListItem style={{opacity: productQuery.isFetching ? 'opacity-50' : ''}}>
-      <Text>{product.title}</Text>
-      <Text>{product.description}</Text>
+    <ListItem style={{opacity: productQuery.isFetching ? 0.5 : ''}}>
+      <TouchableHighlight onPress={() => navigation.navigate('SingleProduct', {productId: id})}>
+        <View>
+          <Text>{product.title}</Text>
+          <Text>{product.description}</Text>
+        </View>
+      </TouchableHighlight>
     </ListItem>
   )
 }

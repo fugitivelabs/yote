@@ -3,8 +3,13 @@ import { Text, View } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 import Home from './global/landing/Home';
 import ProductList from './resources/product/components/ProductList'; 
+import SingleProduct from './resources/product/views/SingleProduct'; 
+import CreateProduct from './resources/product/views/CreateProduct'; 
+import UpdateProduct from './resources/product/views/UpdateProduct';
 
 function HomeScreen() {
   return (
@@ -16,6 +21,39 @@ function ProductsScreen() {
   return (
     <ProductList/>
   );
+}
+
+function SingleProductScreen() {
+  return (
+    <SingleProduct/>
+  )
+}
+
+function CreateProductScreen() {
+  return (
+    <CreateProduct/>
+  )
+}
+
+function UpdateProductScreen() {
+  return (
+    <UpdateProduct/>
+  )
+}
+
+const ProductStack = createNativeStackNavigator(); 
+
+function ProductStackScreen() {
+  return (
+    <ProductStack.Navigator screenOptions ={{
+      headerShown: false
+    }}>
+      <ProductStack.Screen name="ProductList" component={ProductsScreen}/>
+      <ProductStack.Screen name="SingleProduct" component={SingleProductScreen} getId={({ params }) => params.productId}/>
+      <ProductStack.Screen name="CreateProduct" component={CreateProductScreen}/>
+      <ProductStack.Screen name="UpdateProduct" component={UpdateProductScreen}/>
+    </ProductStack.Navigator>
+  )
 }
 
 const Tab = createBottomTabNavigator(); 
@@ -30,7 +68,7 @@ export default function App() {
         headerShown: false
       }}>
         <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Products" component={ProductsScreen} />
+        <Tab.Screen name="Products" component={ProductStackScreen} />
       </Tab.Navigator>
     </NavigationContainer>
   );
