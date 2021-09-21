@@ -7,19 +7,14 @@
 import React, { useEffect } from 'react';
 
 // import global components
-const UserLayout = ({ ...props }) => {
-  const {
-    children
-    , title
-  } = props;
-  
+const UserLayout = ({ title, children }) => {
   // this can replace react-helmet if all we need to do is set the page title.
   useEffect(() => {
     document.title = title || "Yote App | User";
   }, [title])
   return (
     <div>
-      {props.children}
+      {children}
     </div>
   )
 }
