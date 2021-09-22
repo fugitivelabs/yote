@@ -4,10 +4,11 @@
 
 // import primary libraries
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 // import global components
-import Button from '../../../global/components/base/Button';
+
 
 // hooks
 import { useFormState } from '../../../global/utils/customHooks';
@@ -60,19 +61,17 @@ const ProductForm = ({
         />
         <div className="input-group">
           <div className="yt-row space-between">
-            <Button
-              disabled={disabled}
-              link={cancelLink}
-              skin="white"
+            <Link
+              to={cancelLink}
             >
               Cancel
-            </Button>
-            <Button
+            </Link>
+            <button
               disabled={disabled}
               type="submit"
             >
               {buttonText}
-            </Button>
+            </button>
           </div>
         </div>
       </form>

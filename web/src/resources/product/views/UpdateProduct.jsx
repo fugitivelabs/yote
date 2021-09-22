@@ -31,7 +31,7 @@ const UpdateProduct = () => {
   return (
     // <ProductLayout title={'Update Product'}>
     //   { productQuery.isLoading ? <div>Loading...</div>
-    //     : productQuery.isError ? <div>An error occurred 😬 <Button onClick={productQuery.refetch}>Refetch</Button></div>
+    //     : productQuery.isError ? <div>An error occurred 😬 <button onClick={productQuery.refetch}>Refetch</button></div>
     //     : productQuery.isEmpty ? <div>Empty</div>
     //     : // we have the product
     //     <ProductForm
