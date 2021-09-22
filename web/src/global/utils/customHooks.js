@@ -20,6 +20,11 @@ export const useFormState = (initialFormState = {}) => {
     setFormState(state => ({ ...state, [e.target.name]: e.target.value }));
   }
 
+  // mobile event handling is a little different 
+  // const handleFormChange = (e, target) => {
+  //   setFormState(state => ({ ...state, [target]: e.nativeEvent.text }));
+  // }
+
   return [ formState, handleFormChange ];
 }
 
