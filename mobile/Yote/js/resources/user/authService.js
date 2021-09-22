@@ -22,7 +22,7 @@ import {
  * using the browser cookie
  * @returns an object containing fetch info and eventually the loggedInUser
  */
-export const useGetLoggedInUser = () => {
+export const useLoggedInUser = () => {
   const dispatch = useDispatch();
   // get the loggedInUser from the store
   const loggedInUser = useSelector(store => selectLoggedInUser(store));

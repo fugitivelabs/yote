@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
-import { useGetLoggedInUser } from './resources/user/authService';
+import { useLoggedInUser } from './resources/user/authService';
 import { authStore } from './resources/user/authStore'; 
 
 import TabNavigator from './TabNavigator'; 
@@ -18,7 +18,7 @@ import UserRegister from '../js/resources/user/views/UserRegister';
 
 export default function AuthNavigator() {
   // use the hook to get the loggedInUser from the authStore
-  const { loggedInUser, ...authQuery } = useGetLoggedInUser();
+  const { loggedInUser } = useLoggedInUser();
   
   // if (state.isLoading) {
   //   return (
