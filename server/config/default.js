@@ -14,6 +14,7 @@ const config = {
     , url: `localhost:3030`
     , useHttps: false
   }
+  , buildPath: '../web/dist'
 
   , database: {
     uri: `mongodb://localhost/`

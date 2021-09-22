@@ -108,8 +108,8 @@ const initialState = {
 
 };
 
-// define the productSlice. This is a combination of actions and reducers. More info: https://redux-toolkit.js.org/api/createSlice
-export const productSlice = createSlice({
+// define the productStore. This is a combination of actions and reducers. More info: https://redux-toolkit.js.org/api/createSlice
+export const productStore = createSlice({
   name: 'product'
   , initialState
   /**
@@ -302,7 +302,7 @@ export const productSlice = createSlice({
 });
 
 // export the actions defined above
-export const { invalidateQuery, addProductToList } = productSlice.actions;
+export const { invalidateQuery, addProductToList } = productStore.actions;
 
 
 // We can also write thunks by hand, which may contain both sync and async logic.
@@ -381,4 +381,4 @@ export const selectQuery = ({ product: productStore }, queryKey) => {
   return productQuery || {};
 }
 
-export default productSlice.reducer;
+export default productStore.reducer;

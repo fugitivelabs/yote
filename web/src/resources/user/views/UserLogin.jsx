@@ -28,9 +28,9 @@ const UserLogin = () => {
   const handleFormSubmit = async (userInfo) => {
     const { payload: result } = await dispatch(sendLogin(userInfo));
     // adapted from: https://reactrouter.com/web/example/auth-workflow
-    const { from } = location.state || { from: { pathname: "/"} }
+    const from = location.state.from || { pathname: "/" };
     if(result.success) {
-      history.replace(from);
+      history.replace(from.pathname, location.state);
     } else {
       alert(result.message)
     }
