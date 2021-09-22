@@ -6,7 +6,7 @@ const LocalStrategy = require('passport-local').Strategy;
 
 // TODO: once working, redo for new asyncs
 
-console.log("PASSPORT")
+// console.log("PASSPORT")
 
 // define strategies
 passport.use('local', new LocalStrategy({
