@@ -1,3 +1,11 @@
+const fs = require('fs');
+const path = require('path');
+const serialize = require('serialize-javascript');
+const config = require('config');
+
+// on dev the build path points to web/dist, on prod it points to web/build
+const buildPath = config.get('buildPath');
+
 let routeFilenames = [];
 
 module.exports = (router, app) => {
@@ -11,6 +19,21 @@ module.exports = (router, app) => {
   // catch all other api requests and send 404
   router.all('/api/*', (req, res) => {
     res.send(404);
+  });
+
+  // serve the react app index.html
+  router.get('*', (req, res) => {
+    const indexHtmlPath = path.resolve(`${buildPath}/index.html`);
+    fs.readFile(indexHtmlPath, 'utf8', (err, indexHtml) => {
+      if(err) {
+        console.error('Something went wrong:', err);
+        return res.status(500).send('Oops, better luck next time!');
+      }
+      // inject current user into the html by replacing the __CURRENT_USER__ placeholder in the html file. Info: https://create-react-app.dev/docs/title-and-meta-tags#injecting-data-from-the-server-into-the-page
+      // use `serialize` library to eliminate risk of XSS attacks when embedding JSON in html. Info: https://medium.com/node-security/the-most-common-xss-vulnerability-in-react-js-applications-2bdffbcc1fa0
+      const indexHtmlWithData = indexHtml.replace('__CURRENT_USER__', req.user ? serialize(req.user, { isJSON: true }) : '');
+      return res.send(indexHtmlWithData);
+    });
   });
 }
 
