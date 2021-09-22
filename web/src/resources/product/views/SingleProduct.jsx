@@ -24,23 +24,16 @@ const SingleProduct = () => {
 
   return (
     // <ProductLayout title={'Single Product'}>
-    //   { productQuery.isLoading ? <Skeleton />
-    //     : productQuery.isError ? <div>An error occurred 😬 <Button onClick={productQuery.refetch}>Refetch</Button></div>
-    //     : productQuery.isEmpty ? <div>Empty</div>
-    //     :
-    //     <div className={productQuery.isFetching ? 'opacity-50' : ''}>
-    //       <h1> {product?.title} </h1>
-    //       <p> {product?.description}</p>
-    //       <Button
-    //         disabled={!product || productQuery.isFetching}
-    //         link={`${location.pathname}/update`}
-    //         size="sm"
-    //         skin="secondary"
-    //       >
-    //         Update Product
-    //       </Button>
-    //     </div>
-    //   }
+    // { productQuery.isLoading ? <Skeleton />
+    //   : productQuery.isError ? <div>An error occurred 😬 <button onClick={productQuery.refetch}>Refetch</button></div>
+    //   : productQuery.isEmpty ? <div>Empty</div>
+    //   :
+    //   <div className={productQuery.isFetching ? 'opacity-50' : ''}>
+    //     <h1> {product?.title} </h1>
+    //     <p> {product?.description}</p>
+    //     <Link to={`${location.pathname}/update`}>Update Product</Link>
+    //   </div>
+    // }
     // </ProductLayout>
     <ProductLayout title={'Single Product'}>
       <WaitOn query={productQuery} fallback={<Skeleton />}>
