@@ -9,7 +9,7 @@
 
 // import primary libararies
 import React from 'react'
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 // import PropTypes from 'prop-types';
 import _ from 'lodash'
 
@@ -29,6 +29,7 @@ const DefaultNav = () => {
 
   const dispatch = useDispatch();
   const history = useHistory();
+  const location = useLocation();
 
   const handleLogout = async () => {
     const { response } = await dispatch(sendLogout());
@@ -45,8 +46,8 @@ const DefaultNav = () => {
       </ul>
       {!loggedInUser ?
         <ul>
-          <li><NavLink to="/user/login">Sign in</NavLink></li>
-          <li><NavLink to="/user/register">Register</NavLink></li>
+          <li><NavLink to={{ pathname: "/user/login", state: { from: location } }}>Sign in</NavLink></li>
+          <li><NavLink to={{ pathname: "/user/register", state: { from: location } }}>Register</NavLink></li>
         </ul>
         :
         <ul>
