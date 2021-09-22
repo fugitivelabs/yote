@@ -46,8 +46,8 @@ const DefaultNav = () => {
       </ul>
       {!loggedInUser ?
         <ul>
-          <li><NavLink to={{pathname: "/user/login", state: { from: location }}}>Sign in</NavLink></li>
-          <li><NavLink to={{pathname: "/user/register", state: { from: location }}}>Register</NavLink></li>
+          <li><NavLink to={{ pathname: "/user/login", state: { from: location } }}>Sign in</NavLink></li>
+          <li><NavLink to={{ pathname: "/user/register", state: { from: location } }}>Register</NavLink></li>
         </ul>
         :
         <ul>
