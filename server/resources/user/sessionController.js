@@ -31,6 +31,15 @@ exports.login = async (req, res, next) => {
         } else {
           req.logIn(user, err => {
             if(err) { return next(err);}
+
+            // set additional fields on session, for later display/user
+            // ip address, useragent
+            req.session['user-agent'] = req.headers['user-agent'];
+
+            if(req.ip && typeof(req.ip) == 'string' ) {
+              req.session.ip = req.ip;
+            }
+
             res.send({ success: true, user });
           });
         }

@@ -19,7 +19,7 @@
     "redux-logger": "^3.0.6"
   },
   "scripts": {
-    "start": "craco start",
+    "start": "WDS_SOCKET_PORT=3000 craco start",
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject"
