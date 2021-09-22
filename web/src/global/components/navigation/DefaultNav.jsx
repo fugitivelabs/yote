@@ -8,15 +8,16 @@
  */
 
 // import primary libararies
-import React, { Fragment } from 'react'
+import React from 'react'
 import { NavLink } from 'react-router-dom';
 // import PropTypes from 'prop-types';
 import _ from 'lodash'
 
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import { useGetLoggedInUser } from '../../../resources/user/authService';
+import { useLoggedInUser } from '../../../resources/user/authService';
+
 
 import { sendLogout } from '../../../resources/user/authStore';
 
@@ -24,7 +25,7 @@ import { sendLogout } from '../../../resources/user/authStore';
 const DefaultNav = () => {
 
   // use the hook to get the loggedInUser from the authStore
-  const { loggedInUser, ...authQuery } = useGetLoggedInUser();
+  const loggedInUser = useLoggedInUser();
 
   const dispatch = useDispatch();
   const history = useHistory();

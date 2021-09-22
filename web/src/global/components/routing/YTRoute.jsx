@@ -8,10 +8,8 @@ import PropTypes from 'prop-types';
 
 import { Redirect, Route, useLocation } from 'react-router-dom';
 
-import DefaultLayout from '../layouts/DefaultLayout';
-
 // import hooks
-import { useGetLoggedInUser } from '../../../resources/user/authService';
+import { useLoggedInUser } from '../../../resources/user/authService';
 
 const YTRoute = ({
   breadcrumbs
@@ -23,8 +21,7 @@ const YTRoute = ({
 }) => {
 
   // use the hook to get the loggedInUser from the authStore
-  const { loggedInUser, ...authQuery } = useGetLoggedInUser();
-
+  const loggedInUser = useLoggedInUser();
   const location = useLocation();
   let newLocation = location;
   if(!newLocation.state) {
@@ -33,10 +30,8 @@ const YTRoute = ({
   newLocation.state.breadcrumbs = breadcrumbs;
 
   if(role || login) {
-    if(authQuery.isFetching) return <DefaultLayout.Skeleton />
-    if(authQuery.isError || !loggedInUser) return <Redirect to={{ pathname: "/user/login", state: { from: location } }} />
+    if(!loggedInUser) return <Redirect to={{ pathname: "/user/login", state: { from: location } }} />
     if(role && !loggedInUser.roles?.indexOf[role] > -1) return <Redirect to={{ pathname: "/unauthorized" }} />
-    // we have a loggedInUser
     return (
       <Route
         exact={exact}

@@ -17,13 +17,16 @@ const MongoStore = require('connect-mongo');
 const errorHandler = require('./global/handlers/errorHandler.js')
 const { passport } = require('./global/handlers/passportHandler.js');
 
+// on dev the build path points to web/dist, on prod it points to web/build
+const buildPath = config.get('buildPath');
+
 // init app
 const app = express()
 
 // setup express
-app.use(express.static(path.join(__dirname, 'public')));
-app.set('views', path.join(__dirname, 'global/views'));
-app.set('view engine', 'pug');
+app.use(express.static(path.join(__dirname, buildPath)));
+app.set('views', path.join(__dirname, buildPath));
+app.set('view engine', 'html');
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -69,8 +72,6 @@ app.use('/', router);
 
 // unified error handler
 app.use(errorHandler)
-
-let server;
 
 app.listen(3030, () => {
   console.log(`Example app listening at ${config.get('app.url')}`)

@@ -9,7 +9,8 @@ import React from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import { useGetLoggedInUser } from '../authService';
+import { useLoggedInUser } from '../../../resources/user/authService';
+
 import { sendLogout } from '../authStore';
 
 // import user components
@@ -18,10 +19,9 @@ import UserLayout from '../components/UserLayout.jsx';
 const UserRegister = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const location = useLocation();
 
   // use the hook to get the loggedInUser from the authStore
-  const { loggedInUser, ...authQuery } = useGetLoggedInUser();
+  const loggedInUser = useLoggedInUser();
 
   const handleLogout = async () => {
     const { response } = await dispatch(sendLogout());
@@ -30,7 +30,7 @@ const UserRegister = () => {
   return (
     <UserLayout title="Profile">
       <h1>My profile</h1>
-      <p>{loggedInUser.username}</p>
+      <p>{loggedInUser?.username}</p>
       <button onClick={handleLogout}>Logout</button>
     </UserLayout>
   )

@@ -6,9 +6,12 @@ const LocalStrategy = require('passport-local').Strategy;
 
 // TODO: once working, redo for new asyncs
 
+// console.log("PASSPORT")
+
 // define strategies
-passport.use('local', new LocalStrategy(
-  function(username, password, done) {
+passport.use('local', new LocalStrategy({
+  passReqToCallback: true
+}, function(req, username, password, done) {
     var projection = {
       username: 1, password_salt: 1, password_hash: 1, roles: 1
     }

@@ -20,6 +20,6 @@
     "mongoose": "^5.12.13",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
-    "pug": "^3.0.2"
+    "serialize-javascript": "^6.0.0"
   }
 }

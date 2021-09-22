@@ -6,6 +6,7 @@ const config = {
     port: 80
     , useHttps: true
   }
+  , buildPath: '../web/build'
 
   , session: {
     secret: envSecrets.sessionSecret
