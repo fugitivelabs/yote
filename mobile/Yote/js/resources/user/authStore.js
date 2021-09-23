@@ -20,8 +20,10 @@ export const sendRegister = createAsyncThunk(
 export const sendLogin = createAsyncThunk(
   'auth/sendLogin'
   , async (userInfo) => {
-    const response = await apiUtils.callAPI('/api/users/login', 'POST', userInfo);
+    const response = await apiUtils.callAPI('/api/users/mobile-login', 'POST', userInfo);
     // The value we return becomes the `fulfilled` action payload
+    console.log('auth store response'); 
+    console.log(response); 
     return response;
   }
 );

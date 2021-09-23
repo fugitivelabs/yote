@@ -19,8 +19,8 @@ const apiUtils = {
       , body: JSON.stringify(body)
     })
     .then(response => {
-      console.log('response obj');
-      console.log(response.headers); 
+      console.log('api response obj');
+      console.log(response); 
       // console.log(response.headers.get('set-cookie')); 
       return response.json(); 
     })
