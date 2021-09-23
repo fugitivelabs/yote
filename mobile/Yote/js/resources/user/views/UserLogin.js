@@ -36,10 +36,8 @@ const UserLogin = () => {
 
   const handleFormSubmit = async (userInfo) => {
     const { payload: result } = await dispatch(sendLogin(userInfo));
-    // adapted from: https://reactrouter.com/web/example/auth-workflow
-    const { from } = location.state || { from: { pathname: "/"} }
     if(result.success) {
-      // grab token from response header and save to user locally 
+      // grab token and save to user locally 
       // auth stack will unmount and be replaced by TabsNavigator
     } else {
       Alert.alert(result.message)

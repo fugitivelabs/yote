@@ -10,7 +10,7 @@ let url = env.url;
 
 const apiUtils = {
   callAPI(route, method = 'GET', body, headers = {
-    'Accept': 'application/json', 'Content-Type': 'application/json'
+    'Accept': 'application/json', 'Content-Type': 'application/json', 'token': store.getState().auth.token
   }) {
     return fetch(url + route, {
       headers
@@ -18,12 +18,7 @@ const apiUtils = {
       , credentials: 'same-origin'
       , body: JSON.stringify(body)
     })
-    .then(response => {
-      console.log('api response obj');
-      console.log(response); 
-      // console.log(response.headers.get('set-cookie')); 
-      return response.json(); 
-    })
+    .then(response => response.json())
   },
   // ported from yote actions. Used in productService to build endpoints for different types of list fetches.
   buildEndpointFromListArgs(baseUrl, listArgs = ['all']) {

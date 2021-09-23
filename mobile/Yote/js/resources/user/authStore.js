@@ -22,8 +22,6 @@ export const sendLogin = createAsyncThunk(
   , async (userInfo) => {
     const response = await apiUtils.callAPI('/api/users/mobile-login', 'POST', userInfo);
     // The value we return becomes the `fulfilled` action payload
-    console.log('auth store response'); 
-    console.log(response); 
     return response;
   }
 );
@@ -85,6 +83,7 @@ export const authStore = createSlice({
         if(payload.success) {
           state.status = 'idle';
           state.loggedInUser = payload.user;
+          state.token = payload.token; 
         } else {
           state.status = 'rejected'
           state.error = payload.message || 'failed login'
@@ -101,6 +100,7 @@ export const authStore = createSlice({
       .addCase(sendLogout.fulfilled, (state) => {
         state.status = 'idle';
         state.loggedInUser = null
+        state.token = null 
       })
       .addCase(sendLogout.rejected, (state, action) => {
         state.status = 'rejected'
@@ -142,6 +142,14 @@ export const selectLoggedInUser = ({ auth }) => {
  */
 export const selectAuthStatus = ({ auth }) => {
   return auth.status
+}
+
+/**
+ * 
+ * @returns login token 
+ */
+export const selectSessionToken = ({ auth }) => {
+  return auth.token
 }
 
 export default authStore.reducer;

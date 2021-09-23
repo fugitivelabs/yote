@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
-import { useLoggedInUser } from './resources/user/authService';
+import { useLoggedInUser, useSessionToken } from './resources/user/authService';
 import { authStore } from './resources/user/authStore'; 
 
 import TabNavigator from './TabNavigator'; 
@@ -18,7 +18,7 @@ import UserRegister from '../js/resources/user/views/UserRegister';
 
 export default function AuthNavigator() {
   // use the hook to get the loggedInUser from the authStore
-  const { loggedInUser } = useLoggedInUser();
+  const token = useSessionToken();
   
   // if (state.isLoading) {
   //   return (
@@ -35,7 +35,7 @@ export default function AuthNavigator() {
       <AuthStack.Navigator screenOptions ={{
         headerShown: false
       }}>
-        { !loggedInUser ? (
+        { !token ? (
           // No token found, user isn't signed in 
           <>
             <AuthStack.Screen
@@ -45,7 +45,7 @@ export default function AuthNavigator() {
                 title: 'Sign in',
                 // When logging out, a pop animation feels intuitive
                 // You can remove this if you want the default 'push' animation
-                // animationTypeForReplace: loggedInUserUser ? 'pop' : 'push',
+                // animationTypeForReplace: tokenUser ? 'pop' : 'push',
               }}
             />
             <AuthStack.Screen
