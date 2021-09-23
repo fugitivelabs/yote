@@ -14,7 +14,6 @@ import {
   , selectAuthStatus
 } from './authStore';
 
-
 // Define the hooks that we'll use to manage data in the components
 
 /**

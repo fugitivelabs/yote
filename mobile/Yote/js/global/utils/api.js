@@ -18,7 +18,12 @@ const apiUtils = {
       , credentials: 'same-origin'
       , body: JSON.stringify(body)
     })
-    .then(response => response.json())
+    .then(response => {
+      console.log('response obj');
+      console.log(response.headers); 
+      // console.log(response.headers.get('set-cookie')); 
+      return response.json(); 
+    })
   },
   // ported from yote actions. Used in productService to build endpoints for different types of list fetches.
   buildEndpointFromListArgs(baseUrl, listArgs = ['all']) {
