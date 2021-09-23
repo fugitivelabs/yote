@@ -98,8 +98,8 @@ exports.mobileLogin = async (req, res, next) => {
               // console.log("next", next)
               if(next.includes('connect.sid')) {
                 console.log("found it", next)
-                let connectCookieVal = next.trim().split('=')[1]
-                console.log("connectCookieVal", connectCookieVal)
+                connectCookieVal = next.trim().split('=')[1]
+                console.log("connectCookieVal 1", connectCookieVal)
               }
             }
             // how to parse it down?
@@ -108,6 +108,7 @@ exports.mobileLogin = async (req, res, next) => {
             // console.log('DEBUG 2', res.header()._headers)
             // console.log('DEBUG 2', res.get('X-Powered-By'))
             // console.log('DEBUG 3', res.get('Set-Cookie'))
+            // console.log("connectCookieVal 2", connectCookieVal)
 
             res.send({ success: true, user, token: connectCookieVal});
           });
