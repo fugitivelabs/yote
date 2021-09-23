@@ -11,7 +11,6 @@
 import React from 'react'
 import { NavLink, useLocation } from 'react-router-dom';
 // import PropTypes from 'prop-types';
-import _ from 'lodash'
 
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
