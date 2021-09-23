@@ -23,13 +23,8 @@ import * as resourceRoutes from './resourceRoutes.js';
 
 // // import custom components
 import Forbidden from '../global/components/navigation/Forbidden.jsx';
+import Landing from '../global/components/landing/Landing.jsx';
 import NotFound from '../global/components/navigation/NotFound.jsx';
-// import Landing from '../global/landing/views/Landing.jsx';
-// TODO: Make a landing view
-const Landing = () => {
-  return <div>Landing</div>
-}
-
 
 // import AdminRouter from '../global/admin/AdminRouter.jsx';
 
