@@ -45,7 +45,7 @@ export default function AuthNavigator() {
                 title: 'Sign in',
                 // When logging out, a pop animation feels intuitive
                 // You can remove this if you want the default 'push' animation
-                // animationTypeForReplace: tokenUser ? 'pop' : 'push',
+                animationTypeForReplace: token ? 'pop' : 'push',
               }}
             />
             <AuthStack.Screen
