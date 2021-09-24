@@ -2,7 +2,7 @@
  * compile and export all form components from one file
  */
 
-// import CheckboxInput from './CheckboxInput.jsx';
+import CheckboxInput from './CheckboxInput.jsx';
 import EmailInput from './EmailInput.jsx';
 // import FileInput from './FileInput.jsx'; // react-files package is outdated. Proposed v3 looks good but is only in alpha release at the moment: https://github.com/mother/react-files/pull/32
 // import ListComparator from './ListComparator.jsx';
@@ -19,7 +19,7 @@ import TextAreaInput from './TextAreaInput.jsx';
 import TextInput from './TextInput.jsx';
 // import UrlInput from './UrlInput.jsx';
 
-// export { CheckboxInput };
+export { CheckboxInput };
 export { EmailInput };
 // export { FileInput };
 // export { ListComparator };
