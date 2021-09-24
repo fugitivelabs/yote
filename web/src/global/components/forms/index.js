@@ -15,7 +15,7 @@ import PasswordInput from './PasswordInput.jsx';
 // import SelectFromArray from './SelectFromArray.jsx';
 // import SelectFromObject from './SelectFromObject.jsx';
 // import SimpleArrayEditor from './SimpleArrayEditor.jsx';
-// import TextAreaInput from './TextAreaInput.jsx';
+import TextAreaInput from './TextAreaInput.jsx';
 import TextInput from './TextInput.jsx';
 // import UrlInput from './UrlInput.jsx';
 
@@ -32,6 +32,6 @@ export { PasswordInput };
 // export { SelectFromArray };
 // export { SelectFromObject };
 // export { SimpleArrayEditor };
-// export { TextAreaInput };
+export { TextAreaInput };
 export { TextInput };
 // export { UrlInput };

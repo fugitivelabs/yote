@@ -79,7 +79,7 @@ export const useGetDefaultProduct = (forceFetch = false) => {
   const { status } = useSelector(store => selectQuery(store, 'defaultProduct'));
 
   // get current item (if it exists)
-  const defaultProduct = useSelector((store) => selectSingleById(store, 'defaultProduct'));
+  const defaultProduct = useSelector(store => selectSingleById(store, 'defaultProduct'));
 
   const isFetching = status === 'pending' || status === undefined;
   const isLoading = isFetching && !defaultProduct;
@@ -123,7 +123,7 @@ export const useGetProductById = (id, forceFetch = false) => {
   // get the query status from the store
   const { status } = useSelector(store => selectQuery(store, id));
   // get current product data (if it exists)
-  const product = useSelector((store) => selectSingleById(store, id));
+  const product = useSelector(store => selectSingleById(store, id));
 
   const isFetching = status === 'pending' || status === undefined;
   const isLoading = isFetching && !product;
@@ -193,7 +193,7 @@ export const useGetProductList = (listArgs = {}, forceFetch = false) => {
   const { status, totalPages, ids } = useSelector(store => selectQuery(store, queryString));
 
   // get current list items (if they exist)
-  const products = useSelector((store) => selectListItems(store, queryString));
+  const products = useSelector(store => selectListItems(store, queryString));
 
   const isFetching = status === 'pending' || status === undefined;
   const isLoading = isFetching && !products;
@@ -323,7 +323,7 @@ export const useAddProductToList = () => {
  * @returns the product from the store's byId map
  */
 export const useProductFromMap = (id) => {
-  const product = useSelector((store) => selectSingleById(store, id));
+  const product = useSelector(store => selectSingleById(store, id));
   return product
 }
 
