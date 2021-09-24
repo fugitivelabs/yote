@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 const TextInput = ({
   change
   , disabled
+  , helpText
   , label
   , name
   , placeholder
@@ -18,7 +19,7 @@ const TextInput = ({
 
   return (
     <div className="">
-      <label htmlFor={name}> {label} {required ? <sup className="">*</sup> : null}</label>
+      <label htmlFor={name}> {label} {required && <sup className="">*</sup>}</label>
       <input
         disabled={disabled}
         name={name}
@@ -28,6 +29,7 @@ const TextInput = ({
         type="text"
         value={value}
       />
+      {helpText && <small className=""><em>{helpText}</em></small>}
     </div>
   )
 }
@@ -35,6 +37,7 @@ const TextInput = ({
 TextInput.propTypes = {
   change: PropTypes.func.isRequired
   , disabled: PropTypes.bool
+  , helpText: PropTypes.any
   , label: PropTypes.string
   , name: PropTypes.string.isRequired
   , placeholder: PropTypes.string
@@ -44,6 +47,7 @@ TextInput.propTypes = {
 
 TextInput.defaultProps = {
   disabled: false
+  , helpText: null
   , label: ''
   , placeholder: ''
   , required: false

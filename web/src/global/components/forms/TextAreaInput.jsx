@@ -22,7 +22,7 @@ const TextAreaInput = ({
 
   return (
     <div className="">
-      <label htmlFor={name}> {label} {required ? <sup className="">*</sup> : null}</label>
+      <label htmlFor={name}> {label} {required && <sup className="">*</sup>}</label>
       <textarea
         cols={cols}
         disabled={disabled}
