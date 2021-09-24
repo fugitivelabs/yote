@@ -1,3 +1,27 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  body, p, ol, ul, td {
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-size: 100%;
+    line-height: 1.2rem; }
+  
+  a { color: #141414; }
+  
+  a:hover {
+    color: #efefef;
+    background-color: #141414; }
+  
+  label {
+    display: block; }
+  
+  ul {
+    list-style: none;
+    padding: 0px; }
+  
+  h1 {
+    @apply text-center;
+  }
+}

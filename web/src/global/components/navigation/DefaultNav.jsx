@@ -39,22 +39,23 @@ const DefaultNav = () => {
 
   return (
     <header>
-      <h3>Navigation</h3>
-      <ul>
-        <li><NavLink to="/">Home</NavLink></li>
-        <li><NavLink to="/products">Products</NavLink></li>
-      </ul>
-      {!loggedInUser ?
+      <div className="flex justify-between">
         <ul>
-          <li><NavLink to={{ pathname: "/user/login", state: { from: location } }}>Sign in</NavLink></li>
-          <li><NavLink to={{ pathname: "/user/register", state: { from: location } }}>Register</NavLink></li>
+          <li><NavLink to="/">Home</NavLink></li>
+          <li><NavLink to="/products">Products</NavLink></li>
         </ul>
-        :
-        <ul>
-          <li><NavLink to="/user/profile">My profile</NavLink></li>
-          <button onClick={handleLogout}>Logout</button>
-        </ul>
-      }
+        {!loggedInUser ?
+          <ul>
+            <li><NavLink to={{ pathname: "/user/login", state: { from: location } }}>Sign in</NavLink></li>
+            <li><NavLink to={{ pathname: "/user/register", state: { from: location } }}>Register</NavLink></li>
+          </ul>
+          :
+          <ul>
+            <li><NavLink to="/user/profile">My profile</NavLink></li>
+            <button onClick={handleLogout}>Logout</button>
+          </ul>
+        }
+      </div>
       <hr/>
     </header>
   )
