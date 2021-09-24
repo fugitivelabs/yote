@@ -20,8 +20,4 @@
   ul {
     list-style: none;
     padding: 0px; }
-  
-  h1 {
-    @apply text-center;
-  }
 }
