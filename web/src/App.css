@@ -1,16 +1,27 @@
+body, p, ol, ul, td {
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 100%;
+  line-height: 1.2rem; }
+
+a { color: #141414; }
+
+a:visited { color: #545454; }
+
+a:hover {
+  color: #efefef;
+  background-color: #141414; }
+
+label {
+  display: block; }
+
+ul {
+  list-style: none;
+  padding: 0px; }
+
+
+
 .App {
   text-align: center;
-}
-
-.App-logo {
-  max-height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-float infinite 3s ease-in-out;
-  }
 }
 
 .App-header {
@@ -26,6 +37,18 @@
   color: rgb(112, 76, 182);
 }
 
+
+.App-logo {
+  max-height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-float infinite 3s ease-in-out;
+  }
+}
+
 @keyframes App-logo-float {
   0% {
     transform: translateY(0);
@@ -37,3 +60,5 @@
     transform: translateY(0px);
   }
 }
+
+
