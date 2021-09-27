@@ -35,7 +35,7 @@ const TextAreaInput = ({
         type="text"
         value={value}
       />
-      <small className=""><em>{helpText}</em></small>
+      {helpText && <small className=""><em>{helpText}</em></small>}
     </div>
   )
 }

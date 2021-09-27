@@ -16,7 +16,7 @@ try {
   loggedInUser = JSON.parse(window.currentUser);
 } catch(error) {
   // console.log('error', error);
-  // window.currentUser was is a valid stringified JSON object (it was probably 'undefined')
+  // window.currentUser is not a valid stringified JSON object (it was probably 'undefined')
   loggedInUser = null
 }
 
