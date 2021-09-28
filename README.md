@@ -60,36 +60,46 @@ We assume at least intermediate-level knowledge of Javascript. For the server yo
 ## Basic Usage
 ****
 
-> NOTE: Yote CLI is in active development.  Note all commands may be ready.  Please see
-  ```
-  $ yote -h
-  ```
-  for a full list of commands.
+1. Make sure you have MongoDB installed, [instructions here](https://docs.mongodb.com/manual/administration/install-community/), and have a **mongo server running locally** on the default port.
 
-1. Install the Yote CLI
-    ```
-    $ (sudo) npm install -g yote
-    ```
-1. Initialize your project
-    ```
-    $ yote init MyApp
-    # ... this may take a minute
-    ```
-1. Change directory to `MyApp/server` and start the web server
-    ```
-    $ cd MyApp/server
-    $ nodemon
-    # NOTE: yote run-server coming soon...
-    ```    
-    The Yote server is now listening at `http://localhost:3030` and watching for changes.   
-1. In a new terminal, change directory to `MyApp/client` and start the client
-    ```
-    $ cd MyApp/client
-    $ npm run watch
-    # NOTE: yote run-client coming soon...
-    ```
-    This runs the Yote client in watch mode to look for and recompile changes to the `bundle.js`
-1. Using a browser, go to `http://localhost:3030` and you'll see "Welcome to Yote!"
+	```
+	$[~] mongod --dbpath /path/to/data/db
+	```
+
+2. **Start a server...**
+	Clone this repository and navigate to the `/server` directory.
+	
+	{{ Placeholder: Add instructions for a secrets file, or add the default secrets file to the repo and delete this, or remove dependency on secrets and delete this }}
+	
+	Run `npm install` from this directory
+	```
+	$[server] npm install
+	```
+	
+	**...using nodemon**
+	Run the `nodemon` command from the `/server` directory.
+	```
+	$[server] nodemon
+	```
+	
+	You should see an output that includes this line:
+	```
+	...
+	Example app listening at localhost:3030
+	```
+	
+	
+	**...using other_method**
+	{{ Placeholder: Instructions on spinning up a server not using nodemon }}
+	
+3. **Start the frontend...**
+	In another terminal window, navigate to the `/web` directory. 
+	
+	Run `yarn install`
+	
+	Run `yarn start`
+	
+4. In your browser, navigate to localhost:3030 and you should see the "Welcome to Yote" screen.
 
 
 ## Documentation
