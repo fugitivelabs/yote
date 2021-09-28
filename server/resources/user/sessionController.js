@@ -30,7 +30,10 @@ exports.login = async (req, res, next) => {
           res.send({ success: false, message: "Error logging user in." });
         } else {
           req.logIn(user, err => {
-            if(err) { return next(err);}
+            if(err) { 
+              res.send({ success: false, message: "Error logging user in 2." });
+              return;
+            }
 
             // set additional fields on session, for later display/user
             // ip address, useragent
@@ -41,6 +44,59 @@ exports.login = async (req, res, next) => {
             }
 
             res.send({ success: true, user });
+          });
+        }
+      }
+    })(req, res, next);
+  }
+}
+
+exports.mobileLogin = async (req, res, next) => {
+  /**
+   * NOTES: eventually we want to implement something like https://www.npmjs.com/package/react-native-cookies
+   * so that we can use cookie session-management directly on mobile.
+   * for the time being, though, since the header is proving somewhat inaccessible on mobile,
+   * we're going to use this separate login endpoint that returns it as json
+   */
+  if(req.body.username == undefined) {
+    res.send({ success: false, message: "No username present." });
+  } else {
+    req.body.username = req.body.username.toLowerCase();
+    passport.authenticate('local', {session: true},  async (err, passportUser) => {
+      if(err) {
+        console.log("ERR", err)
+        res.send({ success:false, message: "Error authenticating user." });
+      } else if(!passportUser) {
+        res.send({ success:false, message: "Matching user not found." });
+      } else {
+        // User is authenticted. Now get actual user data from the db and log them in
+        const user = await User.findById(passportUser._id)
+        if(!user) {
+          res.send({ success: false, message: "Error logging user in." });
+        } else {
+          req.logIn(user, err => {
+            if(err) { 
+              res.send({ success: false, message: "Error logging user in 2." });
+              return;
+            }
+
+            // set additional fields on session, for later display/user
+            // ip address, useragent
+            req.session['user-agent'] = req.headers['user-agent'];
+
+            if(req.ip && typeof(req.ip) == 'string' ) {
+              req.session.ip = req.ip;
+            }
+
+            let splitCookies = req.headers.cookie.split(';');
+            let connectCookieVal;
+            for(let next of splitCookies) {
+              if(next.includes('connect.sid')) {
+                connectCookieVal = next.trim().split('=')[1]
+                // console.log("connectCookieVal", connectCookieVal)
+              }
+            }
+            res.send({ success: true, user, token: connectCookieVal});
           });
         }
       }
@@ -69,7 +125,14 @@ exports.register = async (req, res) => {
 
     // TODO: maybe some of the password history stuff? 
     const user = await newUser.save()
-    res.json(user)
+
+    // now re-fetch to make sure to only return "safe" fields
+    const safeUser = await User.findById(user._id)
+    if(!safeUser) {
+      throw new YoteError("Could not find matching User", 404)
+    }
+
+    res.json(safeUser)
   }
 }
 
