@@ -19,19 +19,23 @@ const ProductList = () => {
   
   return (
     <ProductLayout title={'Product List'}>
-      <h1>Product List</h1>
-      <div className="">
-        <Link to="/products/new">New Product</Link>
-      </div>
-      <PaginatedList
-        pagination={pagination}
-        className={`${productQuery.isFetching ? 'opacity-50' : ''}`}
-      >
-        <WaitOn query={productQuery} fallback={<Skeleton count={pagination.per} />}>
-          {products?.map(product => <ProductListItem key={product._id} id={product._id} />)}
-          {/* {ids?.map(productId => <ProductListItem key={productId} id={productId} />)} */}
-        </WaitOn>
-      </PaginatedList>
+      <section class="max-w-screen-lg border border-solid bg-white shadow-sm rounded-sm mx-auto mt-16">
+        <header class="flex items-center justify-between border-solid border-t-0 border-l-0 border-r-0 border-b p-2">
+          <h1 class="p-2 m-0">Product List</h1>
+          <div className="p-2">
+            <Link to="/products/new" className="text-base p-2 px-8 rounded-full border border-solid bg-orange-500 text-blue-50 cursor-pointer">New Product</Link>
+          </div>
+        </header>
+        <PaginatedList
+          pagination={pagination}
+          className={`${productQuery.isFetching ? 'opacity-50' : ''}`}
+        >
+          <WaitOn query={productQuery} fallback={<Skeleton count={pagination.per} />}>
+            {products?.map(product => <ProductListItem key={product._id} id={product._id} />)}
+            {/* {ids?.map(productId => <ProductListItem key={productId} id={productId} />)} */}
+          </WaitOn>
+        </PaginatedList>
+      </section>
     </ProductLayout>
   )
 }
