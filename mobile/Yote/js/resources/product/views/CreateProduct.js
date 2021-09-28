@@ -4,28 +4,18 @@
 
 // import react things
 import React, { useState } from 'react'
-import PropTypes from 'prop-types';
-import ReactNative from 'react-native';
-import { connect } from 'react-redux';
 
 // import react-native components
 import {
   ActivityIndicator
-  , Alert
-  , Image
-  , KeyboardAvoidingView
-  , Platform
-  , ScrollView
-  , StyleSheet
   , Text
   , TextInput
   , TouchableOpacity
   , View
 } from 'react-native'; 
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 // import global components
-import YTButton from '../../../global/buttons/YTButton';
 import YTHeader from '../../../global/headers/YTHeader';
 import WaitOn from '../../../global/components/helpers/WaitOn';
 
