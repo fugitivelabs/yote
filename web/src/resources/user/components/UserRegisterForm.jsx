@@ -42,7 +42,7 @@ const UserRegisterForm = ({
           required={true}
         />
         <div className="p-2">
-          <button className="text-base p-2 px-8 rounded-sm border border-solid bg-blue-500 text-blue-50 cursor-pointer" type="submit" > Register </button>
+          <button className="text-base p-2 px-8 rounded-sm border border-solid bg-orange-500 text-blue-50 cursor-pointer" type="submit" > Register </button>
         </div>
       </form>
       <p className="p-2 text-sm">
