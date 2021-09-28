@@ -37,8 +37,8 @@ const DefaultNav = () => {
   }
 
   return (
-    <header>
-      <div className="flex flex-col md:flex-row md:justify-between">
+    <header className="border-b border-solid shadow-sm">
+      <div className="p-2 flex flex-col md:flex-row md:justify-between md:items-center">
         <ul class="list-none p-0 flex flex-col md:flex-row md:items-center">
           <li><NavLink to="/" className="p-2 block">Home</NavLink></li>
           <li><NavLink to="/products" className="p-2 block">Products</NavLink></li>
@@ -55,7 +55,6 @@ const DefaultNav = () => {
           </ul>
         }
       </div>
-      <hr/>
     </header>
   )
 }
