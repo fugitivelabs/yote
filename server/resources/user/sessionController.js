@@ -125,7 +125,14 @@ exports.register = async (req, res) => {
 
     // TODO: maybe some of the password history stuff? 
     const user = await newUser.save()
-    res.json(user)
+
+    // now re-fetch to make sure to only return "safe" fields
+    const safeUser = await User.findById(user._id)
+    if(!safeUser) {
+      throw new YoteError("Could not find matching User", 404)
+    }
+
+    res.json(safeUser)
   }
 }
 
