@@ -1,12 +1,12 @@
 /**
- * Helper component for rendering basic text inputs
+ * Helper component for rendering basic checkbox inputs
  */
 
 // import primary libraries
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const TextInput = ({
+const CheckboxInput = ({
   change
   , disabled
   , helpText
@@ -22,11 +22,19 @@ const TextInput = ({
       <label htmlFor={name}> {label} {required && <sup className="">*</sup>}</label>
       <input
         disabled={disabled}
+        checked={!!value}
         name={name}
-        onChange={change}
+        onChange={e => {
+          change({
+            target: {
+              name: name
+              , value: e.target.checked
+            }
+          })
+        }}
         placeholder={placeholder}
         required={required}
-        type="text"
+        type="checkbox"
         value={value}
       />
       {helpText && <small className=""><em>{helpText}</em></small>}
@@ -34,7 +42,7 @@ const TextInput = ({
   )
 }
 
-TextInput.propTypes = {
+CheckboxInput.propTypes = {
   change: PropTypes.func.isRequired
   , disabled: PropTypes.bool
   , helpText: PropTypes.any
@@ -42,10 +50,10 @@ TextInput.propTypes = {
   , name: PropTypes.string.isRequired
   , placeholder: PropTypes.string
   , required: PropTypes.bool
-  , value: PropTypes.string.isRequired
+  , value: PropTypes.bool.isRequired
 }
 
-TextInput.defaultProps = {
+CheckboxInput.defaultProps = {
   disabled: false
   , helpText: null
   , label: ''
@@ -53,4 +61,4 @@ TextInput.defaultProps = {
   , required: false
 }
 
-export default TextInput;
+export default CheckboxInput;

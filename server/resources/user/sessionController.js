@@ -24,7 +24,7 @@ exports.login = async (req, res, next) => {
       } else if(!passportUser) {
         res.send({ success:false, message: "Matching user not found." });
       } else {
-        // User is authenticted. Now get actual user data from the db and log them in
+        // User is authenticated. Now get actual user data from the db and log them in
         const user = await User.findById(passportUser._id)
         if(!user) {
           res.send({ success: false, message: "Error logging user in." });
@@ -164,5 +164,6 @@ exports.updateProfile = async (req, res) => {
   // oldUser.thing = req.body.thing;
 
   const user = await oldUser.save()
+  .catch(err => { throw new YoteError(err) });
   res.json(user)
 }

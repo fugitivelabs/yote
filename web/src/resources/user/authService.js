@@ -4,8 +4,7 @@
  * in the components.
  */
 
-import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux';
 
 // import all of the actions from the store
 import {

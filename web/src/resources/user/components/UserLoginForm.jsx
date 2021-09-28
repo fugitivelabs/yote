@@ -7,8 +7,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { useFormState } from '../../../global/utils/customHooks';
 
 // import form components
-// import { EmailInput, PasswordInput } from '../../../global/components/forms';
-import { TextInput, PasswordInput } from '../../../global/components/forms'
+import { EmailInput, PasswordInput } from '../../../global/components/forms'
 
 const UserLoginForm = ({
   handleFormSubmit
@@ -27,7 +26,7 @@ const UserLoginForm = ({
     <div className="">
       <form name="userForm" onSubmit={handleSubmit}>
         <h1> Sign In </h1>
-        <TextInput
+        <EmailInput
           name="username"
           label="Email Address"
           value={updatedUser.username}
