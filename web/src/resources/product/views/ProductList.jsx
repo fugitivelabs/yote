@@ -23,7 +23,7 @@ const ProductList = () => {
         <header class="flex items-center justify-between border-solid border-t-0 border-l-0 border-r-0 border-b p-2">
           <h1 class="p-2 m-0">Product List</h1>
           <div className="p-2">
-            <Link to="/products/new" className="text-base p-2 px-8 rounded-full border border-solid bg-orange-500 text-blue-50 cursor-pointer">New Product</Link>
+            <Link to="/products/new" className="text-base p-2 px-8 rounded-full border border-solid bg-yote-500 text-blue-50 cursor-pointer">New Product</Link>
           </div>
         </header>
         <PaginatedList
