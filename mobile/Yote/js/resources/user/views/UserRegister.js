@@ -44,11 +44,10 @@ const UserRegister = () => {
   }
 
   const handleFormSubmit = async (userInfo) => {
-    // TODO: Do not return user's password salt and hash 
+    // TODO: should not return user's password salt and hash from server
     const { payload: result } = await dispatch(sendRegister(userInfo));
-    if(result.success) {
+    if(result) {
       handleLoginSubmit(userInfo); 
-      // history.replace(from);
     } else {
       Alert.alert(result.message)
     }
