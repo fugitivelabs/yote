@@ -36,21 +36,20 @@ const DefaultNav = () => {
     history.push("/");
   }
 
-
   return (
     <header>
-      <div className="flex justify-between">
-        <ul>
-          <li><NavLink to="/">Home</NavLink></li>
-          <li><NavLink to="/products">Products</NavLink></li>
+      <div className="flex flex-col md:flex-row md:justify-between">
+        <ul class="list-none p-0 flex flex-col md:flex-row md:items-center">
+          <li><NavLink to="/" className="p-2 block">Home</NavLink></li>
+          <li><NavLink to="/products" className="p-2 block">Products</NavLink></li>
         </ul>
         {!loggedInUser ?
-          <ul>
-            <li><NavLink to={{ pathname: "/user/login", state: { from: location } }}>Sign in</NavLink></li>
-            <li><NavLink to={{ pathname: "/user/register", state: { from: location } }}>Register</NavLink></li>
+          <ul class="list-none p-0 flex flex-col md:flex-row md:items-center">
+            <li><NavLink to={{ pathname: "/user/login", state: { from: location } }} className="p-2 block">Sign in</NavLink></li>
+            <li><NavLink to={{ pathname: "/user/register", state: { from: location } }} className="p-2 block">Register</NavLink></li>
           </ul>
           :
-          <ul>
+          <ul class="list-none p-0 flex flex-col md:flex-row md:items-center">
             <li><NavLink to="/user/profile">My profile</NavLink></li>
             <button onClick={handleLogout}>Logout</button>
           </ul>

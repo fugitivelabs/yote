@@ -8,16 +8,17 @@
     font-size: 100%;
     line-height: 1.2rem; }
   
-  a { color: #141414; }
+  a { @apply text-gray-800 }
   
   a:hover {
-    color: #efefef;
-    background-color: #141414; }
+    @apply bg-gray-900 text-gray-50 
+  }
   
   label {
-    display: block; }
-  
+    @apply block;
+  }
+
   ul {
-    list-style: none;
-    padding: 0px; }
+    @apply m-0;
+  }
 }
