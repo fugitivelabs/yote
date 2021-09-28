@@ -17,8 +17,8 @@ const TextInput = ({
 }) => {
 
   return (
-    <div className="">
-      <label htmlFor={name}> {label} {required ? <sup className="">*</sup> : null}</label>
+    <div className="p-2">
+      <label htmlFor={name} className="text-sm"> {label}{required ? <sup className="text-red-500">*</sup> : null}</label>
       <input
         disabled={disabled}
         name={name}
@@ -27,6 +27,7 @@ const TextInput = ({
         required={required}
         type="text"
         value={value}
+        className="text-base border border-solid w-full p-2 block rounded-sm"
       />
     </div>
   )

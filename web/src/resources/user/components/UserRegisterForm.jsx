@@ -24,9 +24,9 @@ const UserRegisterForm = ({
   }
 
   return (
-    <div>
+    <div class="max-w-lg border border-solid bg-white shadow-sm rounded-sm mx-auto p-4 mt-16">
       <form name="userForm" onSubmit={handleSubmit}>
-        <h1>Register</h1>
+        <h1 className="px-2">Register</h1>
         <TextInput
           name="username"
           label="Email Address"
@@ -41,16 +41,22 @@ const UserRegisterForm = ({
           change={handleChange}
           required={true}
         />
+        <div className="p-2">
+          <button className="text-base p-2 px-8 rounded-sm border border-solid bg-blue-500 text-blue-50 cursor-pointer" type="submit" > Register </button>
+        </div>
+      </form>
+      <p className="p-2 text-sm">
+        Already have an account? 
         <Link
           to={{
             pathname: "/user/login"
             , state: location.state
           }}
+          className="mx-2"
         >
           Sign in
         </Link>
-        <button className="" type="submit" > Register </button>
-      </form>
+      </p>
     </div>
   )
 }
