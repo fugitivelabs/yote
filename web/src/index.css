@@ -13,5 +13,7 @@
   
   label { @apply block; }
 
+  button { @apply m-0; }
+
   ul { @apply m-0; }
 }
