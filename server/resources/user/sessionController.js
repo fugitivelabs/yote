@@ -30,7 +30,10 @@ exports.login = async (req, res, next) => {
           res.send({ success: false, message: "Error logging user in." });
         } else {
           req.logIn(user, err => {
-            if(err) { return next(err);}
+            if(err) { 
+              res.send({ success: false, message: "Error logging user in 2." });
+              return;
+            }
 
             // set additional fields on session, for later display/user
             // ip address, useragent
@@ -49,8 +52,6 @@ exports.login = async (req, res, next) => {
 }
 
 exports.mobileLogin = async (req, res, next) => {
-  // console.log('DEBUG 0', req.headers.cookie)
-
   /**
    * NOTES: eventually we want to implement something like https://www.npmjs.com/package/react-native-cookies
    * so that we can use cookie session-management directly on mobile.
@@ -74,7 +75,10 @@ exports.mobileLogin = async (req, res, next) => {
           res.send({ success: false, message: "Error logging user in." });
         } else {
           req.logIn(user, err => {
-            if(err) { return next(err);}
+            if(err) { 
+              res.send({ success: false, message: "Error logging user in 2." });
+              return;
+            }
 
             // set additional fields on session, for later display/user
             // ip address, useragent
@@ -84,32 +88,14 @@ exports.mobileLogin = async (req, res, next) => {
               req.session.ip = req.ip;
             }
 
-            // console.log(req._passport)
-            // console.log(req.session)
-
-            // console.log('DEBUG 1', res.getHeaders())
-
-            // console.log('DEBUG 2', req.signedCookies['connect.sid'])
-            console.log('DEBUG 3', req.headers.cookie)
-
             let splitCookies = req.headers.cookie.split(';');
             let connectCookieVal;
             for(let next of splitCookies) {
-              // console.log("next", next)
               if(next.includes('connect.sid')) {
-                console.log("found it", next)
                 connectCookieVal = next.trim().split('=')[1]
-                console.log("connectCookieVal 1", connectCookieVal)
+                // console.log("connectCookieVal", connectCookieVal)
               }
             }
-            // how to parse it down?
-            // console.log(cookies.)
-            // console.log('DEBUG 2', res.header())
-            // console.log('DEBUG 2', res.header()._headers)
-            // console.log('DEBUG 2', res.get('X-Powered-By'))
-            // console.log('DEBUG 3', res.get('Set-Cookie'))
-            // console.log("connectCookieVal 2", connectCookieVal)
-
             res.send({ success: true, user, token: connectCookieVal});
           });
         }
@@ -139,7 +125,14 @@ exports.register = async (req, res) => {
 
     // TODO: maybe some of the password history stuff? 
     const user = await newUser.save()
-    res.json(user)
+
+    // now re-fetch to make sure to only return "safe" fields
+    const safeUser = await User.findById(user._id)
+    if(!safeUser) {
+      throw new YoteError("Could not find matching User", 404)
+    }
+
+    res.json(safeUser)
   }
 }
 
