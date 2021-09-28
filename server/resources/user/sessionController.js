@@ -30,7 +30,10 @@ exports.login = async (req, res, next) => {
           res.send({ success: false, message: "Error logging user in." });
         } else {
           req.logIn(user, err => {
-            if(err) { return next(err);}
+            if(err) { 
+              res.send({ success: false, message: "Error logging user in 2." });
+              return;
+            }
 
             // set additional fields on session, for later display/user
             // ip address, useragent
@@ -72,7 +75,10 @@ exports.mobileLogin = async (req, res, next) => {
           res.send({ success: false, message: "Error logging user in." });
         } else {
           req.logIn(user, err => {
-            if(err) { return next(err);}
+            if(err) { 
+              res.send({ success: false, message: "Error logging user in 2." });
+              return;
+            }
 
             // set additional fields on session, for later display/user
             // ip address, useragent
