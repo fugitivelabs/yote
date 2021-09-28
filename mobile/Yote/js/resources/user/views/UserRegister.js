@@ -23,7 +23,7 @@ import {
 } from 'react-native';
 import { useDispatch } from 'react-redux';
 
-import { sendRegister } from '../authStore';
+import { sendRegister, sendLogin } from '../authStore';
 
 // import user components
 import UserRegisterForm from '../components/UserRegisterForm';
@@ -33,11 +33,21 @@ import YTStyles from '../../../global/styles/YTStyles';
 const UserRegister = () => {
   const dispatch = useDispatch();
 
-  const handleFormSubmit = async (userInfo) => {
-    const { payload: result } = await dispatch(sendRegister(userInfo));
-    // adapted from: https://reactrouter.com/web/example/auth-workflow
-    const { from } = location.state || { from: { pathname: "/"} }
+  const handleLoginSubmit = async (userInfo) => {
+    const { payload: result } = await dispatch(sendLogin(userInfo));
     if(result.success) {
+      // grab token and save to user locally 
+      // auth stack will unmount and be replaced by TabsNavigator
+    } else {
+      Alert.alert(result.message)
+    }
+  }
+
+  const handleFormSubmit = async (userInfo) => {
+    // TODO: Do not return user's password salt and hash 
+    const { payload: result } = await dispatch(sendRegister(userInfo));
+    if(result.success) {
+      handleLoginSubmit(userInfo); 
       // history.replace(from);
     } else {
       Alert.alert(result.message)

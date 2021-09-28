@@ -139,7 +139,8 @@ exports.register = async (req, res) => {
 
     // TODO: maybe some of the password history stuff? 
     const user = await newUser.save()
-    res.json(user)
+    // res.json(user)
+    res.send({ success: true, user }); 
   }
 }
 
