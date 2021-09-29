@@ -44,7 +44,7 @@ const UserLoginForm = ({
 
 
         <div className="p-2">
-          <button className="text-base p-2 px-8 rounded-sm border border-solid bg-yote-500 text-blue-50 cursor-pointer" type="submit" >Sign in</button>
+          <button className="text-sm p-2 px-8 rounded-full border border-solid bg-white text-gray-800 border border-gray-800 cursor-pointer hover:bg-green-400 no-underline font-semibold" type="submit" >Sign in</button>
         </div>
       </form>
 

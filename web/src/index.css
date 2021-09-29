@@ -9,7 +9,7 @@
   
   a { @apply text-gray-800; }
   
-  a:hover { @apply bg-gray-800 text-gray-50; }
+  a:hover { @apply bg-green-400; }
   
   label { @apply block; }
   

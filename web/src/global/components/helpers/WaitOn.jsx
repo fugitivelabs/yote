@@ -24,7 +24,7 @@ const WaitOn = ({
     // still waiting for data
     if(isLoading) return fallback
     // fetch returned empty
-    if(isEmpty) return <div class="text-center p-8 text-gray-500 italic">No data found</div>
+    if(isEmpty) return <div class="p-8"><p className="text-gray-500 italic text-center">No data found</p></div>
     // fetch is done. render children to display the fetched data
     return children;
   } catch(childError) {

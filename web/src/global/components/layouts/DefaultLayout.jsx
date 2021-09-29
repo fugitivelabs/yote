@@ -28,7 +28,7 @@ const DefaultLayout = ({ ...props }) => {
     <div>
       {/* <Helmet title={props.title || "Yote App"}/> */}
       <DefaultNav />
-      <main>
+      <main class="py-20">
         {children}
       </main>
     </div>

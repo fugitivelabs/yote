@@ -37,7 +37,7 @@ const DefaultNav = () => {
   }
 
   return (
-    <header className="border-b border-solid shadow-sm">
+    <header className="border-b border-solid shadow-sm bg-white">
       <div className="p-2 flex flex-col md:flex-row md:justify-between md:items-center">
         <ul class="list-none p-0 flex flex-col md:flex-row md:items-center">
           <li><NavLink to="/" className="p-2 block">Home</NavLink></li>
