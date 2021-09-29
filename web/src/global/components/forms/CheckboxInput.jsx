@@ -1,12 +1,12 @@
 /**
- * Helper component for rendering basic text inputs
+ * Helper component for rendering basic checkbox inputs
  */
 
 // import primary libraries
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const TextInput = ({
+const CheckboxInput = ({
   change
   , disabled
   , helpText
@@ -18,24 +18,31 @@ const TextInput = ({
 }) => {
 
   return (
-    <div className="p-2">
-      <label htmlFor={name} className="text-sm"> {label} {required && <sup className="text-red-500">*</sup>}</label>
+    <div className="">
+      <label htmlFor={name}> {label} {required && <sup className="">*</sup>}</label>
       <input
         disabled={disabled}
+        checked={!!value}
         name={name}
-        onChange={change}
+        onChange={e => {
+          change({
+            target: {
+              name: name
+              , value: e.target.checked
+            }
+          })
+        }}
         placeholder={placeholder}
         required={required}
-        type="text"
+        type="checkbox"
         value={value}
-        className="text-base border border-solid w-full p-2 block rounded-sm"
       />
       {helpText && <small className=""><em>{helpText}</em></small>}
     </div>
   )
 }
 
-TextInput.propTypes = {
+CheckboxInput.propTypes = {
   change: PropTypes.func.isRequired
   , disabled: PropTypes.bool
   , helpText: PropTypes.any
@@ -43,10 +50,10 @@ TextInput.propTypes = {
   , name: PropTypes.string.isRequired
   , placeholder: PropTypes.string
   , required: PropTypes.bool
-  , value: PropTypes.string.isRequired
+  , value: PropTypes.bool.isRequired
 }
 
-TextInput.defaultProps = {
+CheckboxInput.defaultProps = {
   disabled: false
   , helpText: null
   , label: ''
@@ -54,4 +61,4 @@ TextInput.defaultProps = {
   , required: false
 }
 
-export default TextInput;
+export default CheckboxInput;

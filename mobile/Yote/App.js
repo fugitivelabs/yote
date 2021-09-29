@@ -9,8 +9,6 @@
 import React from 'react';
 import { Provider } from 'react-redux'; 
 import store from './js/config/store'; 
-// import AppContainer from './js/AppContainer'; 
-import TabNavigator from './js/TabNavigator'; 
 import AuthNavigator from './js/AuthNavigator'; 
 import { PersistGate } from 'redux-persist/integration/react'; 
 

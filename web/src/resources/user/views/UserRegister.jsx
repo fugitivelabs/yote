@@ -28,11 +28,11 @@ const UserRegister = () => {
   const handleFormSubmit = async (userInfo) => {
     const { payload: result } = await dispatch(sendRegister(userInfo));
     // adapted from: https://reactrouter.com/web/example/auth-workflow
-    const { from } = location.state || { from: { pathname: "/"} }
-    if(result.success) {
+    const from = location.state.from || { pathname: "/" };
+    if(result) {
       history.replace(from);
     } else {
-      alert(result.message)
+      alert("There was a problem registering")
     }
   }
 

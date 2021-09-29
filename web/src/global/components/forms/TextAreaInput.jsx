@@ -1,57 +1,66 @@
 /**
- * Helper component for rendering basic text inputs
+ * Helper component for rendering textarea inputs
  */
 
 // import primary libraries
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const TextInput = ({
+const TextAreaInput = ({
   change
+  , cols
   , disabled
   , helpText
   , label
+  , maxlength
   , name
   , placeholder
   , required
+  , rows
   , value
 }) => {
 
   return (
-    <div className="p-2">
-      <label htmlFor={name} className="text-sm"> {label} {required && <sup className="text-red-500">*</sup>}</label>
-      <input
+    <div className="">
+      <label htmlFor={name}> {label} {required && <sup className="">*</sup>}</label>
+      <textarea
+        cols={cols}
         disabled={disabled}
+        maxLength={maxlength}
         name={name}
         onChange={change}
         placeholder={placeholder}
         required={required}
+        rows={rows}
         type="text"
         value={value}
-        className="text-base border border-solid w-full p-2 block rounded-sm"
       />
       {helpText && <small className=""><em>{helpText}</em></small>}
     </div>
   )
 }
 
-TextInput.propTypes = {
+TextAreaInput.propTypes = {
   change: PropTypes.func.isRequired
+  , cols: PropTypes.number
   , disabled: PropTypes.bool
   , helpText: PropTypes.any
   , label: PropTypes.string
+  , maxlength: PropTypes.number
   , name: PropTypes.string.isRequired
   , placeholder: PropTypes.string
   , required: PropTypes.bool
+  , rows: PropTypes.number
   , value: PropTypes.string.isRequired
 }
 
-TextInput.defaultProps = {
+TextAreaInput.defaultProps = {
   disabled: false
   , helpText: null
   , label: ''
   , placeholder: ''
   , required: false
+  , rows: 4
 }
 
-export default TextInput;
+export default TextAreaInput;
