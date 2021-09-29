@@ -24,7 +24,7 @@ const UserLoginForm = ({
   }
 
   return (
-    <div className="max-w-lg border border-solid bg-white shadow-sm rounded-sm mx-auto p-4 mt-16">
+    <div className="card max-w-lg p-4 mt-16">
       <form name="userForm" onSubmit={handleSubmit}>
         <h1 class="px-2">Sign In</h1>
         <TextInput

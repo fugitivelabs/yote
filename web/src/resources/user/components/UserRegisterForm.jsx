@@ -24,7 +24,7 @@ const UserRegisterForm = ({
   }
 
   return (
-    <div class="max-w-lg border border-solid bg-white shadow-sm rounded-sm mx-auto p-4 mt-16">
+    <div class="card max-w-lg p-4 mt-16">
       <form name="userForm" onSubmit={handleSubmit}>
         <h1 className="px-2">Register</h1>
         <TextInput

@@ -19,7 +19,7 @@ const ProductList = () => {
   
   return (
     <ProductLayout title={'Product List'}>
-      <section class="max-w-screen-lg border border-solid bg-white shadow-sm rounded-sm mx-auto">
+      <section class="max-w-screen-lg card">
         <header class="flex items-center justify-between border-solid border-t-0 border-l-0 border-r-0 border-b p-2">
           <h1 className="p-2 m-0">Product List</h1>
           <div className="p-2">
