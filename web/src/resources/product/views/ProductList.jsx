@@ -21,9 +21,9 @@ const ProductList = () => {
     <ProductLayout title={'Product List'}>
       <section class="max-w-screen-lg border border-solid bg-white shadow-sm rounded-sm mx-auto">
         <header class="flex items-center justify-between border-solid border-t-0 border-l-0 border-r-0 border-b p-2">
-          <h1 class="p-2 m-0">Product List</h1>
+          <h1 className="p-2 m-0">Product List</h1>
           <div className="p-2">
-            <Link to="/products/new" className="text-base p-2 px-8 rounded-full border border-solid bg-white text-gray-800 border border-gray-800 cursor-pointer hover:bg-green-400 no-underline font-semibold">New Product</Link>
+            <Link to="/products/new" className="btn">New Product</Link>
           </div>
         </header>
         <PaginatedList

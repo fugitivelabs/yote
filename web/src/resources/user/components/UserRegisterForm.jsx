@@ -42,7 +42,7 @@ const UserRegisterForm = ({
           required={true}
         />
         <div className="p-2">
-          <button className="text-sm p-2 px-8 rounded-full border border-solid bg-white text-gray-800 border border-gray-800 cursor-pointer hover:bg-green-400 no-underline font-semibold" type="submit" > Register </button>
+          <button className="btn" type="submit" >Register</button>
         </div>
       </form>
       <p className="p-2 text-sm">
