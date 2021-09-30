@@ -38,17 +38,17 @@ const DefaultNav = () => {
   return (
     <header className="border-b border-solid shadow-sm bg-white">
       <div className="p-2 flex flex-col md:flex-row md:justify-between md:items-center">
-        <ul class="list-none p-0 flex flex-col md:flex-row md:items-center">
+        <ul className="list-none p-0 flex flex-col md:flex-row md:items-center">
           <li><NavLink to="/" className="p-2 block">Home</NavLink></li>
           <li><NavLink to="/products" className="p-2 block">Products</NavLink></li>
         </ul>
         {!loggedInUser ?
-          <ul class="list-none p-0 flex flex-col md:flex-row md:items-center">
+          <ul className="list-none p-0 flex flex-col md:flex-row md:items-center">
             <li><NavLink to={{ pathname: "/user/login", state: { from: location } }} className="p-2 block">Sign in</NavLink></li>
             <li><NavLink to={{ pathname: "/user/register", state: { from: location } }} className="p-2 block">Register</NavLink></li>
           </ul>
           :
-          <ul class="list-none p-0 flex flex-col md:flex-row md:items-center">
+          <ul className="list-none p-0 flex flex-col md:flex-row md:items-center">
             <li><NavLink to="/user/profile">My profile</NavLink></li>
             <button onClick={handleLogout}>Logout</button>
           </ul>

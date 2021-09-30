@@ -23,7 +23,7 @@ const UserRegisterForm = ({
   }
 
   return (
-    <div class="card max-w-lg p-4 mt-16">
+    <div className="card max-w-lg p-4 mt-16">
       <form name="userForm" onSubmit={handleSubmit}>
         <h1 className="px-2">Register</h1>
         <EmailInput
