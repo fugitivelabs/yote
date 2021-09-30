@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @layer base {
+  /* ↓↓↓ Applys Tailwind utility classes to establish some baseline global styles. */
   * { @apply box-border; }
   
   body, p, ol, ul, td { @apply font-sans leading-5 m-0 text-gray-800; }
@@ -16,6 +17,7 @@
   button { @apply m-0; }
   
   ul { @apply m-0 p-0; }
+  /* ꜛꜛꜛ End baseline global styles */
 }
 
 
