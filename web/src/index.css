@@ -22,16 +22,16 @@
 
 
 @layer components {
-  .btn {
+  /* Add any necessary component level semantic classes here... for exmaple: */
+  /* .btn {
     @apply text-sm p-2 px-8 rounded-full border border-solid bg-white text-gray-800 border border-gray-800 cursor-pointer hover:bg-green-400 no-underline font-semibold;
-  }
-  
-  .card {
-    @apply border border-solid bg-white shadow-sm rounded-sm mx-auto;
-  }
+  } */
 }
 
 
 @layer utilities {
-  
+  /* Add new utility classes here,,, for example: */
+  /* .h-half-screen {
+    height: 50vh;
+  } */
 }
