@@ -5,7 +5,14 @@ module.exports = {
     preflight: false, // NOTE: remove when ready to implement styles across browser
   },
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        // Add custom color palletes here...
+        // orange: {
+        //   500: '#FB6440'
+        // }
+      }
+    },
   },
   variants: {
     extend: {},
