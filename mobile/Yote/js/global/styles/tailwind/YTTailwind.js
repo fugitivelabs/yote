@@ -7,10 +7,10 @@ import {
 } from 'react-native'; 
 
 // import theme
-import theme from './themes/default'; 
+import theme from '../../themes/default'; 
 // import theme from '../themes/custom'; 
 
-import { tailwind, getColor } from './styles/tailwind'; 
+import { tailwind, getColor } from './tailwind'; 
 
 const { height, width } = Dimensions.get('window');
 

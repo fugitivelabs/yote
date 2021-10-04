@@ -30,27 +30,27 @@ const ProductListItem = ({ id, navigation }) => {
   const { data: product, ...productQuery } = useGetProductById(id);
 
   if(productQuery.isLoading) return <Skeleton />
-  if(productQuery.isError) return <ListItem>An error occurred 😬 <YTButton onPress={productQuery.refetch}>Refetch</YTButton></ListItem>
-  if(!product) return <ListItem>No product found</ListItem>
+  if(productQuery.isError) return <Text>An error occurred 😬 <YTButton caption={"Refetch"} onPress={productQuery.refetch}/></Text>
+  if(!product) return <Text>No product found</Text>
 
   return (
-    <ListItem style={{opacity: productQuery.isFetching ? 0.5 : ''}}>
+    <View style={{flex: 1, opacity: productQuery.isFetching ? 0.5 : 1}}>
       <TouchableHighlight onPress={() => navigation.navigate('SingleProduct', {productId: id})}>
         <View>
           <Text>{product.title}</Text>
           <Text>{product.description}</Text>
         </View>
       </TouchableHighlight>
-    </ListItem>
+    </View>
   )
 }
 
 // custom loading skeleton for this component, by defining it right here we can keep it synced with any changes we make to the actual component above
 const Skeleton = () => {
   return (
-    <ListItem className="animate-pulse">
+    <View >
       <Text>Loading</Text>
-    </ListItem>
+    </View>
   )
 }
 // add the skeleton to the component so we can access it in other components (ProductList in this case)
