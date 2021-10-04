@@ -24,7 +24,7 @@ import Hero from './Hero.js';
 import YTHeader from '../headers/YTHeader';
 
 // import styles
-import YTStyles from '../styles/YTStyles'
+import YTTailwind from '../styles/tailwind/YTTailwind'
 
 const height = Dimensions.get('window').height
 
@@ -52,11 +52,11 @@ class Home extends Binder {
     const {  itemList, navigator, user } = this.props;
 
     return (
-      <View style={YTStyles.container}>
+      <View style={YTTailwind.container}>
         <ScrollView
           automaticallyAdjustContentInsets={false}
         >
-          <View style={YTStyles.brandContainer} >
+          <View style={YTTailwind.brandContainer} >
             <View style={{height: height * .66, backgroundColor: 'transparent', justifyContent: 'center', alignItems: 'center'}}>
               <View style={{flexDirection: 'row', justifyContent: 'center'}}>
                 <Image
@@ -69,12 +69,12 @@ class Home extends Binder {
                 <Hero/>
               </View>
             </View>
-            <View style={[YTStyles.container, {justifyContent: 'center'}]}>
+            <View style={[YTTailwind.container, {justifyContent: 'center'}]}>
               <View style={{flexDirection: 'row', justifyContent: 'center', paddingVertical: 50}}>
-                <Text style={[YTStyles.text, {textAlign: 'center'}]}> Check out the docs on </Text>
+                <Text style={[YTTailwind.text, {textAlign: 'center'}]}> Check out the docs on </Text>
                 <TouchableOpacity
                   onPress={this._handleClick}>
-                  <Text style={[YTStyles.text, {textAlign: 'center', color: YTStyles.colors.accent}]}>Github </Text>
+                  <Text style={[YTTailwind.text, {textAlign: 'center', color: YTTailwind.colors.accent}]}>Github </Text>
                 </TouchableOpacity>
               </View>
             </View>
