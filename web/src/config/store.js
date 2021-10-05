@@ -1,12 +1,10 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import logger from 'redux-logger';
 
 import * as resourceReducers from './resourceReducers';
 
 export const initStore = (loggedInUser = null) => configureStore({
-  reducer: {
-    ...resourceReducers
-  }
+  reducer: rootReducer
   , middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger)
   , preloadedState: {
     auth: {
@@ -16,4 +14,17 @@ export const initStore = (loggedInUser = null) => configureStore({
       , error: null
     }
   }
+})
+
+const rootReducer = (state, action) => {
+  // clear store on logout, also on login so any previous rejected queries are cleared out.
+  // adapted from https://stackoverflow.com/a/61943631
+  if(action.type === 'auth/sendLogout/fulfilled' || action.type === 'auth/sendLogin/fulfilled') {
+    state = undefined
+  }
+  return combinedReducers(state, action)
+}
+
+const combinedReducers = combineReducers({
+  ...resourceReducers
 })
