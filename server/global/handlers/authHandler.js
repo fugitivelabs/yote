@@ -1,4 +1,5 @@
-const ProductSchema = require('../../resources/product/ProductModel')
+const ProductSchema = require('../../resources/product/ProductModel');
+const YoteError = require('../helpers/YoteError');
 const Product = require('mongoose').model('Product');
 
 module.exports = {
@@ -8,7 +9,11 @@ module.exports = {
     // check by passport session
     if(!req.isAuthenticated()) {
       console.log("UNAUTHORIZED");
-      res.status(403).send("UNAUTHORIZED - NOT LOGGED IN");
+      // must use `.json` because the front end expects to parse the response using response.json()
+      // res.status(401).send(JSON.stringify("You must be logged in to perform this action"))
+      res.status(401).json("You must be logged in to perform this action");
+      // below is equivalent to above as far as the front end is concerned
+      // throw new YoteError("You must be logged in to perform this action", 401)
     } else {  next(); }
   }
 
@@ -24,12 +29,12 @@ module.exports = {
     // REQUIREMENT: a product with that description exists in the database (because obviously)
 
     if(!req.query || !req.query.description) {
-      res.status(403).send("UNAUTHORIZED - NOT LOGGED IN");
+      res.status(403).json("UNAUTHORIZED - NOT LOGGED IN");
     } else {
 
       const product = await Product.findOne({description: req.query.description})
       if(!product) {
-        res.status(403).send("ARBITRARILY RESTRICTING BECAUSE YOU DIDNT PASS API CHECKS");
+        res.status(403).json("ARBITRARILY RESTRICTING BECAUSE YOU DIDNT PASS API CHECKS");
       } else {
         // delete req.query.description // can REMOVE it here too if you want, but prob bad for debugging
         // but then it doesnt effect the subsequent query
