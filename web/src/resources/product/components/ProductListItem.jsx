@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 
 // import global components
 
-// import WaitOn from '../../../global/components/helpers/WaitOn';
+import WaitOn from '../../../global/components/helpers/WaitOn';
 
 // import services
 import { useGetProductById } from '../productService';
@@ -15,15 +15,13 @@ import { useGetProductById } from '../productService';
 const ProductListItem = ({ id }) => {
   const { data: product, ...productQuery } = useGetProductById(id);
 
-  if(productQuery.isLoading) return <Skeleton />
-  if(productQuery.isError) return <li>An error occurred 😬 <button onClick={productQuery.refetch}>Refetch</button></li>
-  if(!product) return <li>No product found</li>
-
   return (
-    <li className={productQuery.isFetching ? 'opacity-50' : ''}>
-      <Link to={`/products/${product._id}`}>{product.title}</Link>
-      <p>{product.description}</p>
-    </li>
+    <WaitOn query={productQuery} fallback={<Skeleton />}>
+      <li className={productQuery.isFetching ? 'opacity-50' : ''}>
+        <Link to={`/products/${product?._id}`}>{product?.title}</Link>
+        <p>{product?.description}</p>
+      </li>
+    </WaitOn>
   )
 }
 

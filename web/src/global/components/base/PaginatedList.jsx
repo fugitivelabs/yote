@@ -35,11 +35,11 @@ const PaginatedList = ({
 PaginatedList.propTypes = {
   classes: PropTypes.string
   , pagination: PropTypes.shape({
-    page: PropTypes.number
-    , per: PropTypes.number
-    , setPage: PropTypes.func
-    , setPer: PropTypes.func
-    , totalPages: PropTypes.number
+      page: PropTypes.number
+      , per: PropTypes.number
+      , setPage: PropTypes.func
+      , setPer: PropTypes.func
+      , totalPages: PropTypes.number
   })
 }
 

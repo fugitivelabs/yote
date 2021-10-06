@@ -42,8 +42,8 @@ const SingleProduct = () => {
           <h1> {product?.title} </h1>
           <p> {product?.description} </p>
         </div>
+        <Link to={`${location.pathname}/update`}>Update Product</Link>
       </WaitOn>
-      <Link to={`${location.pathname}/update`}>Update Product</Link>
     </ProductLayout>
   )
 }
