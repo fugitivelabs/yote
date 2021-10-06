@@ -26,13 +26,13 @@ const UserLogin = () => {
   const location = useLocation();
 
   const handleFormSubmit = async (userInfo) => {
-    const { payload: result } = await dispatch(sendLogin(userInfo));
+    const { payload: loggedInUser, error } = await dispatch(sendLogin(userInfo));
     // adapted from: https://reactrouter.com/web/example/auth-workflow
     const from = location.state.from || { pathname: "/" };
-    if(result.success) {
+    if(loggedInUser) {
       history.replace(from.pathname, location.state);
     } else {
-      alert(result.message)
+      alert(error.message || "There was a problem logging in. Please try again")
     }
   }
 
