@@ -26,7 +26,6 @@ exports.createSingle = async (req, res) => {
 }
 
 exports.updateSingleById = async (req, res) => {
-  // todo: test this. The error thrown on line 35 may break things.
   let oldProduct = await Product.findById(req.params.id).catch(err => {
     console.log(err)
     throw new YoteError("Error finding Product", 404)
@@ -61,11 +60,11 @@ exports.deleteSingle = async (req, res) => {
     throw new YoteError("Error finding Product", 404)
   });;
   if(!oldProduct) throw new YoteError("Could not find matching Product", 404);
-
   const deletedProduct = await oldProduct.remove().catch(err => {
     console.log(err)
     throw new YoteError("There was a problem deleting this Product", 404)
   });
+  // console.log('product deleted', deletedProduct);
   // return the deleted product ??
   res.json(deletedProduct);
   /**

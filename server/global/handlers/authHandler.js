@@ -10,9 +10,9 @@ module.exports = {
     if(!req.isAuthenticated()) {
       console.log("UNAUTHORIZED");
       // must use `.json` because the front end expects to parse the response using response.json()
-      // res.status(401).send(JSON.stringify("You must be logged in to perform this action"))
       res.status(401).json("You must be logged in to perform this action");
-      // below is equivalent to above as far as the front end is concerned
+      // both below are equivalent to above as far as the front end is concerned
+      // res.status(401).send(JSON.stringify("You must be logged in to perform this action"))
       // throw new YoteError("You must be logged in to perform this action", 401)
     } else {  next(); }
   }

@@ -22,7 +22,7 @@ exports.createSingle = async (req, res) => {
     console.log(err)
     throw new YoteError("Error creating User", 404)
   })
-  if(!user) throw new YoteError("Could not find matching User", 404)
+  if(!user) throw new YoteError("Could not create User", 404)
   res.json(user)
 }
 
@@ -69,7 +69,7 @@ exports.getListWithArgs = async (req, res) => {
   const { query, pagination, sort } = apiUtils.buildMongoQueryFromUrlQuery(req.query);
   // console.log("after parse", query, pagination, sort)
   const users = await User.find(query)
-    .skip(pagination ? (pagination.page-1)*pagination.per : null)
+    .skip(pagination ? (pagination.page - 1) * pagination.per : null)
     .limit(pagination ? pagination.per : null)
     .sort(sort)
     .catch(err => {
