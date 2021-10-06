@@ -166,7 +166,7 @@ export const productStore = createSlice({
         });
       })
       .addCase(sendCreateProduct.rejected, (state, action) => {
-        // TODO: handle server errors
+        // TODO: handle server errors. This one is weird, because it's new and therefore can't have a query object in state.
       })
 
       // READ
@@ -190,6 +190,7 @@ export const productStore = createSlice({
       .addCase(fetchDefaultProduct.rejected, (state, action) => {
         const singleQuery = state.singleQueries['defaultProduct'];
         singleQuery.status = 'rejected';
+        singleQuery.error = action.error.message;
         singleQuery.receivedAt = Date.now();
       })
       .addCase(fetchSingleProduct.pending, (state, action) => {
@@ -210,6 +211,7 @@ export const productStore = createSlice({
         // find the query object for this fetch in the singleQueries map and update query info
         const singleQuery = state.singleQueries[action.meta.arg];
         singleQuery.status = 'rejected';
+        singleQuery.error = action.error.message;
         singleQuery.receivedAt = Date.now();
       })
       .addCase(fetchProductList.pending, (state, action) => {
@@ -246,9 +248,9 @@ export const productStore = createSlice({
         });
       })
       .addCase(fetchProductList.rejected, (state, action) => {
-        // TODO: handle server errors
         const listQuery = state.listQueries[action.meta.arg];
         listQuery.status = 'rejected';
+        listQuery.error = action.error.message;
         listQuery.receivedAt = Date.now();
       })
       
@@ -280,6 +282,7 @@ export const productStore = createSlice({
         // update the query object
         const singleQuery = state.singleQueries[product._id];
         singleQuery.status = 'rejected';
+        singleQuery.error = action.error.message;
         singleQuery.receivedAt = Date.now();
       })
       .addCase(sendDeleteProduct.fulfilled, (state, action) => {
@@ -296,7 +299,11 @@ export const productStore = createSlice({
         delete state.byId[productId];
       })
       .addCase(sendDeleteProduct.rejected, (state, action) => {
-        // TODO: handle errors
+        // find the query object for this fetch in the singleQueries map and update query info
+        const singleQuery = state.singleQueries[action.meta.arg];
+        singleQuery.status = 'rejected';
+        singleQuery.error = action.error.message;
+        singleQuery.receivedAt = Date.now();
       })
   }
 });
