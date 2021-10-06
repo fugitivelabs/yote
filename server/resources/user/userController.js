@@ -8,44 +8,59 @@ const apiUtils = require('../../global/api/apiUtils')
 
 // single api functions
 exports.getSingleById = async (req, res) => {
-  const user = await User.findById(req.params.id)
-  if(!user) {
-    throw new YoteError("Could not find matching User", 404)
-  }
-  // res.json(user)
-  res.send({success: true, user})
+  const user = await User.findById(req.params.id).catch(err => {
+    console.log(err)
+    throw new YoteError("Error finding this User", 404)
+  })
+  if(!user) throw new YoteError("Could not find matching User", 404)
+  res.json(user)
 }
 
 exports.createSingle = async (req, res) => {
-  let newUser = new User(req.body)
-  const user = await newUser.save()
+  const newUser = new User(req.body)
+  const user = await newUser.save().catch(err => {
+    console.log(err)
+    throw new YoteError("Error creating User", 404)
+  })
+  if(!user) throw new YoteError("Could not find matching User", 404)
   res.json(user)
 }
 
 exports.updateSingleById = async (req, res) => {
-  let oldUser = await User.findById(req.params.id)
-  if(!oldUser) {
-    throw new YoteError("Could not find matching User", 404)
-  }
+  let oldUser = await User.findById(req.params.id).catch(err => {
+    console.log(err)
+    throw new YoteError("Error finding this User", 404)
+  })
+  if(!oldUser) throw new YoteError("Could not find matching User", 404)
   oldUser = Object.assign(oldUser, req.body)
-  const user = await oldUser.save()
+  const user = await oldUser.save().catch(err => {
+    console.log(err)
+    throw new YoteError("Error updating this User", 404)
+  })
   res.json(user)
-
 }
 
 exports.deleteSingle = async (req, res) => {
   // todo: need to test
-  const oldUser = await User.findById(req.params.id)
-  if(!oldUser) {
-    throw new YoteError("Could not find matching User", 404)
-  }
-  const deletedCount = oldUser.remove()
-  res.json()
+  const oldUser = await User.findById(req.params.id).catch(err => {
+    console.log(err)
+    throw new YoteError("Error finding this User", 404)
+  })
+  if(!oldUser) throw new YoteError("Could not find matching User", 404)
 
+  const deletedUser = oldUser.remove().catch(err => {
+    console.log(err)
+    throw new YoteError("There was a problem deleting this User", 404)
+  })
+  res.json(deletedUser)
 }
 
 exports.getDefault = async (req, res) => {
-  res.send({success: true, defaultObj: User.getDefault()});
+  const defaultUser = await User.getDefault().catch(err => {
+    console.log(err)
+    throw new YoteError("Error finding default User", 404)
+  })
+  res.json(defaultUser)
 }
 
 // list api functions
@@ -57,6 +72,10 @@ exports.getListWithArgs = async (req, res) => {
     .skip(pagination ? (pagination.page-1)*pagination.per : null)
     .limit(pagination ? pagination.per : null)
     .sort(sort)
+    .catch(err => {
+      console.log(err)
+      throw new YoteError("There was a problem finding Users", 404)
+    })
   res.json(users)
 }
 
