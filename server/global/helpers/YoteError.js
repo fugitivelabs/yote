@@ -4,7 +4,8 @@ module.exports = class YoteError extends Error {
   constructor (message, statusCode, fields) {
   
     // Calling parent constructor of base Error class.
-    super(message);
+    // stringify the message so it can be parsed by the browser fetch API
+    super(JSON.stringify(message));
     
     // Saving class name in the property of our custom error as a shortcut.
     this.name = this.constructor.name;

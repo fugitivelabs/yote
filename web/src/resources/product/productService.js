@@ -76,7 +76,7 @@ export const useGetDefaultProduct = (forceFetch = false) => {
   }, [forceFetch, dispatch]);
 
   // get the query status from the store
-  const { status } = useSelector(store => selectQuery(store, 'defaultProduct'));
+  const { status, error } = useSelector(store => selectQuery(store, 'defaultProduct'));
 
   // get current item (if it exists)
   const defaultProduct = useSelector(store => selectSingleById(store, 'defaultProduct'));
@@ -90,6 +90,7 @@ export const useGetDefaultProduct = (forceFetch = false) => {
   // return the info for the caller of the hook to use
   return {
     data: defaultProduct
+    , error
     , isFetching
     , isLoading
     , isError
@@ -121,7 +122,7 @@ export const useGetProductById = (id, forceFetch = false) => {
   }, [id, forceFetch, dispatch]);
 
   // get the query status from the store
-  const { status } = useSelector(store => selectQuery(store, id));
+  const { status, error } = useSelector(store => selectQuery(store, id));
   // get current product data (if it exists)
   const product = useSelector(store => selectSingleById(store, id));
 
@@ -134,6 +135,7 @@ export const useGetProductById = (id, forceFetch = false) => {
   // return the info for the caller of the hook to use
   return {
     data: product
+    , error
     , isFetching
     , isLoading
     , isError
@@ -190,7 +192,7 @@ export const useGetProductList = (listArgs = {}, forceFetch = false) => {
   }, [queryString, forceFetch, dispatch]);
 
   // get the query info from the store
-  const { status, totalPages, ids } = useSelector(store => selectQuery(store, queryString));
+  const { status, error, totalPages, ids } = useSelector(store => selectQuery(store, queryString));
 
   // get current list items (if they exist)
   const products = useSelector(store => selectListItems(store, queryString));
@@ -224,6 +226,7 @@ export const useGetProductList = (listArgs = {}, forceFetch = false) => {
   return {
     ids
     , data: products
+    , error
     , isFetching
     , isLoading
     , isError

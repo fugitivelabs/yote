@@ -15,7 +15,19 @@ const apiUtils = {
       , credentials: 'same-origin'
       , body: JSON.stringify(body)
     })
-    .then(response => response.json())
+      // .then(response => response.json())
+      .then(response => {
+        // response.ok info: https://developer.mozilla.org/en-US/docs/Web/API/Response/ok
+        if(response.ok) {
+          return response.json();
+        } else {
+          // server returned an error
+          return response.json().then(error => {
+            // need to throw the error so redux thunk knows to trigger the 'rejected' action.
+            throw error
+          })
+        }
+      });
   }
 
   // DEPRECATED: As of v3.0 this is no longer supported by our api. Remove before release.

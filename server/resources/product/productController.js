@@ -8,27 +8,34 @@ const apiUtils = require('../../global/api/apiUtils')
 
 // single api functions
 exports.getSingleById = async (req, res) => {
-  const product = await Product.findById(req.params.id)
-  if(!product) {
-    throw new YoteError("Could not find matching Product", 404)
-  }
+  const product = await Product.findById(req.params.id).catch(err => {
+    console.log(err);
+    throw new YoteError("Error finding Product", 404)
+  });
+  if(!product) throw new YoteError("Could not find a matching Product", 404);
   res.json(product);
-  // res.send({success: true, product})
 }
 
 exports.createSingle = async (req, res) => {
-  let newProduct = new Product(req.body)
-  const product = await newProduct.save()
+  const newProduct = new Product(req.body)
+  const product = await newProduct.save().catch(err => {
+    console.log(err)
+    throw new YoteError("Error creating Product", 404)
+  });
   res.json(product)
 }
 
 exports.updateSingleById = async (req, res) => {
-  let oldProduct = await Product.findById(req.params.id)
-  if(!oldProduct) {
-    throw new YoteError("Could not find matching Product", 404)
-  }
+  let oldProduct = await Product.findById(req.params.id).catch(err => {
+    console.log(err)
+    throw new YoteError("Error finding Product", 404)
+  });
+  if(!oldProduct) throw new YoteError("Could not find matching Product", 404);
   oldProduct = Object.assign(oldProduct, req.body)
-  const product = await oldProduct.save()
+  const product = await oldProduct.save().catch(err => {
+    console.log(err)
+    throw new YoteError("Could not update Product", 404)
+  });
   res.json(product)
 
   /**
@@ -48,11 +55,15 @@ exports.updateSingleById = async (req, res) => {
 }
 
 exports.deleteSingle = async (req, res) => {
-  const oldProduct = await Product.findById(req.params.id)
-  if(!oldProduct) {
-    throw new YoteError("Could not find matching Product", 404)
-  }
-  const deletedProduct = await oldProduct.remove()
+  const oldProduct = await Product.findById(req.params.id).catch(err => {
+    console.log(err)
+    throw new YoteError("Error finding Product", 404)
+  });;
+  if(!oldProduct) throw new YoteError("Could not find matching Product", 404);
+  const deletedProduct = await oldProduct.remove().catch(err => {
+    console.log(err)
+    throw new YoteError("There was a problem deleting this Product", 404)
+  });
   // console.log('product deleted', deletedProduct);
   // return the deleted product ??
   res.json(deletedProduct);
@@ -65,16 +76,18 @@ exports.deleteSingle = async (req, res) => {
 }
 
 exports.getDefault = async (req, res) => {
-  const defaultProduct = await Product.getDefault();
+  const defaultProduct = await Product.getDefault().catch(err => {
+    console.log(err)
+    throw new YoteError("Error finding default Product", 404)
+  });
   res.json(defaultProduct);
-  // res.send({success: true, defaultObj: Product.getDefault()});
 }
 
 // list api functions
 exports.getListWithArgs = async (req, res) => {
   // console.log(req.params)
   const { query, pagination, sort } = apiUtils.buildMongoQueryFromUrlQuery(req.query);
-  console.log("after parse", query, pagination, sort)
+  // console.log("after parse", query, pagination, sort)
 
   // let query = {}
   // let query = {type: "doesnt exist"}
@@ -83,11 +96,13 @@ exports.getListWithArgs = async (req, res) => {
   const count = pagination ? await Product.countDocuments(query) : null
   const totalPages = count && Math.ceil(count / pagination.per)
   const products = await Product.find(query)
-    .skip(pagination ? (pagination.page-1)*pagination.per : null)
+    .skip(pagination ? (pagination.page - 1) * pagination.per : null)
     .limit(pagination ? pagination.per : null)
     .sort(sort)
-  // .catch(err => { throw new Error(err, "things happened")}) // catch custom errors if we need to, or do something different with error
-
+    .catch(err => {
+      console.log(err);
+      throw new YoteError("There was a problem finding Products", 404)
+    });
   res.json({products, totalPages})
 }
 
