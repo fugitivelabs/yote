@@ -88,12 +88,12 @@ const UserLoginForm = ({
                 // ref="password"
                 returnKeyType="go"
                 secureTextEntry={true}
-                style={YTStyles.input}
+                style={tailwind('text-base font-normal text-black p-5')}
                 value={updatedUser.password}
               />
             </View>
           </View>
-          <View style={{paddingTop: 40, paddingBottom: 10}}>
+          <View style={tailwind('pt-4 mb-2')}>
             <YTButton
               caption={"Login"}
               isDisabled={null}
@@ -101,7 +101,7 @@ const UserLoginForm = ({
               type="primary"
             />
           </View>
-          <View style={{paddingVertical: 10}}>
+          <View style={tailwind('py-2')}>
             <YTButton
               caption={"Register"}
               isDisabled={null}
