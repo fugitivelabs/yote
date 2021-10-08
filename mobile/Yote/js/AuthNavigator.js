@@ -19,16 +19,6 @@ import UserRegister from '../js/resources/user/views/UserRegister';
 export default function AuthNavigator() {
   // use the hook to get the loggedInUser from the authStore
   const { loggedInUser } = useLoggedInUser(); 
-
-  
-  // if (state.isLoading) {
-  //   return (
-  //     <View>
-  //       <ActivityIndicator/>
-  //     </View>
-  //   )
-  // }
-
   const AuthStack = createNativeStackNavigator(); 
 
   return (
@@ -36,7 +26,7 @@ export default function AuthNavigator() {
       <AuthStack.Navigator screenOptions ={{
         headerShown: false
       }}>
-        { !loggedInUser.token ? (
+        { !loggedInUser || !loggedInUser.token ? (
           // No loggedInUser found, user isn't signed in 
           <>
             <AuthStack.Screen
@@ -46,7 +36,7 @@ export default function AuthNavigator() {
                 title: 'Sign in',
                 // When logging out, a pop animation feels intuitive
                 // You can remove this if you want the default 'push' animation
-                animationTypeForReplace: loggedInUser.token ? 'pop' : 'push',
+                animationTypeForReplace: loggedInUser ? 'pop' : 'push',
               }}
             />
             <AuthStack.Screen

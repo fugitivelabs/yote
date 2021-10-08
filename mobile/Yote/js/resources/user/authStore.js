@@ -75,7 +75,7 @@ export const authStore = createSlice({
         state.error = null
       })
       .addCase(sendLogin.fulfilled, (state, action) => {
-        state.status = 'idle';
+        state.status = 'fulfilled';
         state.loggedInUser = action.payload;
         state.token = action.token; 
       })
