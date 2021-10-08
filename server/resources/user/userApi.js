@@ -8,7 +8,6 @@ module.exports = (router) => {
 
   // sessions
   router.post(`/api/users/login`, userSessions.login)
-  router.post(`/api/users/mobile-login`, userSessions.mobileLogin)
   router.post('/api/users/register', userSessions.register)
 
   router.post('/api/users/logout', requireLogin, userSessions.logout)
