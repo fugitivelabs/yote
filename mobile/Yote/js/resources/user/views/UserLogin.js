@@ -35,12 +35,12 @@ const UserLogin = () => {
   const dispatch = useDispatch();
 
   const handleFormSubmit = async (userInfo) => {
-    const { payload: result } = await dispatch(sendLogin(userInfo));
-    if(result.success) {
+    const { payload: loggedInUser, error } = await dispatch(sendLogin(userInfo));
+    if(loggedInUser) {
       // grab token and save to user locally 
       // auth stack will unmount and be replaced by TabsNavigator
     } else {
-      Alert.alert(result.message)
+      Alert.alert(error.message || "There was a problem loggin in. Please try again.")
     }
   }
 

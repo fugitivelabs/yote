@@ -132,5 +132,13 @@ export const selectAuthStatus = ({ auth }) => {
   return auth.status
 }
 
+/**
+ * 
+ * @returns login token 
+ */
+ export const selectSessionToken = ({ auth }) => {
+  return auth.token
+}
+
 export default authStore.reducer;
 

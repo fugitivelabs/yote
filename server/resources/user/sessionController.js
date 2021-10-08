@@ -66,35 +66,47 @@ exports.mobileLogin = async (req, res, next) => {
    * we're going to use this separate login endpoint that returns it as json
    */
   if(req.body.username == undefined) {
-    res.send({ success: false, message: "No username present." });
+    throw new YoteError("No username present.", 400)
   } else {
     req.body.username = req.body.username.toLowerCase();
     passport.authenticate('local', {session: true},  async (err, passportUser) => {
       if(err) {
         console.log("ERR", err)
-        res.send({ success:false, message: "Error authenticating user." });
+        res.status(404).json("Error authenticating user.");
       } else if(!passportUser) {
-        res.send({ success:false, message: "Matching user not found." });
+        res.status(404).json("Matching user not found.");
       } else {
         // User is authenticted. Now get actual user data from the db and log them in
-        const user = await User.findById(passportUser._id)
+        const user = await User.findById(passportUser._id).catch(err => {
+          console.log(err);
+          res.status(404).json("Error finding user.");
+          // throw new YoteError("Error finding user", 404)
+        });
         if(!user) {
-          res.send({ success: false, message: "Error logging user in." });
+          res.status(402).json("Could not retrieve user.");
         } else {
           req.logIn(user, err => {
-            if(err) { 
-              res.send({ success: false, message: "Error logging user in 2." });
-              return;
-            }
+            if(err) {
+              res.status(402).json("Error logging in.");
+            } else {
+              // if(err) throw new YoteError("Error logging in.", 402)
+              // set additional fields on session, for later display/user
+              // ip address, useragent
+              req.session['user-agent'] = req.headers['user-agent'];
+
+              if(req.ip && typeof (req.ip) == 'string') {
+                req.session.ip = req.ip;
+              }
 
             // set additional fields on session, for later display/user
             // ip address, useragent
-            req.session['user-agent'] = req.headers['user-agent'];
+            // req.session['user-agent'] = req.headers['user-agent'];
 
-            if(req.ip && typeof(req.ip) == 'string' ) {
-              req.session.ip = req.ip;
+            // if(req.ip && typeof(req.ip) == 'string' ) {
+            //   req.session.ip = req.ip;
+            // }
+
             }
-
             let splitCookies = req.headers.cookie.split(';');
             let connectCookieVal;
             for(let next of splitCookies) {
@@ -103,7 +115,8 @@ exports.mobileLogin = async (req, res, next) => {
                 // console.log("connectCookieVal", connectCookieVal)
               }
             }
-            res.send({ success: true, user, token: connectCookieVal});
+            res.json({user, token: connectCookieVal}); 
+            // res.send({user, token: connectCookieVal});
           });
         }
       }

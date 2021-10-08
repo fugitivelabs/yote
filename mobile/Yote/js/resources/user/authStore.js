@@ -62,61 +62,51 @@ export const authStore = createSlice({
         state.status = 'pending';
         state.error = null
       })
-      .addCase(sendRegister.fulfilled, (state, {payload}) => {
-        if(payload) {
-          state.status = 'idle';
-          state.loggedInUser = payload;
-        } else {
-          state.status = 'rejected'
-          state.error = payload.message || 'failed register'
-        }
+      .addCase(sendRegister.fulfilled, (state, action) => {
+        state.status = 'idle';
+        state.loggedInUser = action.payload;
       })
-      .addCase(sendRegister.rejected, (state, {error}) => {
+      .addCase(sendRegister.rejected, (state, action) => {
         state.status = 'rejected'
-        state.error = error
+        state.error = action.error.message
       })
       .addCase(sendLogin.pending, (state) => {
         state.status = 'pending';
         state.error = null
       })
-      .addCase(sendLogin.fulfilled, (state, {payload}) => {
-        if(payload.success) {
-          state.status = 'idle';
-          state.loggedInUser = payload.user;
-          state.token = payload.token; 
-        } else {
-          state.status = 'rejected'
-          state.error = payload.message || 'failed login'
-        }
+      .addCase(sendLogin.fulfilled, (state, action) => {
+        state.status = 'idle';
+        state.loggedInUser = action.payload;
+        state.token = action.token; 
       })
       .addCase(sendLogin.rejected, (state, action) => {
-        state.status = 'rejected'
-        state.error = action.error
+        state.status = 'rejected';
+        state.error = action.error.message;
       })
       .addCase(sendLogout.pending, (state) => {
         state.status = 'pending';
-        state.error = null
+        state.error = null;
       })
       .addCase(sendLogout.fulfilled, (state) => {
         state.status = 'idle';
-        state.loggedInUser = null
-        state.token = null 
+        state.loggedInUser = null;
+        state.token = null; 
       })
       .addCase(sendLogout.rejected, (state, action) => {
-        state.status = 'rejected'
-        state.error = action.error
+        state.status = 'rejected';
+        state.error = action.error.message;
       })
       .addCase(sendGetLoggedIn.pending, (state) => {
         state.status = 'pending';
-        state.error = null
+        state.error = null;
       })
-      .addCase(sendGetLoggedIn.fulfilled, (state, {payload: loggedInUser}) => {
+      .addCase(sendGetLoggedIn.fulfilled, (state, action) => {
         state.status = 'fulfilled';
-        state.loggedInUser = loggedInUser;
+        state.loggedInUser = action.payload;
       })
-      .addCase(sendGetLoggedIn.rejected, (state, {error}) => {
-        state.status = 'rejected'
-        state.error = error
+      .addCase(sendGetLoggedIn.rejected, (state, action) => {
+        state.status = 'rejected';
+        state.error = action.error.message;
       })
   }
 });
@@ -148,7 +138,7 @@ export const selectAuthStatus = ({ auth }) => {
  * 
  * @returns login token 
  */
-export const selectSessionToken = ({ auth }) => {
+ export const selectSessionToken = ({ auth }) => {
   return auth.token
 }
 
