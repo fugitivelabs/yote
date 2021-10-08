@@ -56,11 +56,9 @@ exports.deleteSingle = async (req, res) => {
 }
 
 exports.getDefault = async (req, res) => {
-  const defaultUser = await User.getDefault().catch(err => {
-    console.log(err)
-    throw new YoteError("Error finding default User", 404)
-  })
-  res.json(defaultUser)
+  const defaultUser = await User.getDefault();
+  if(!defaultUser) throw new YoteError("Error finding default User", 404);
+  res.json(defaultUser);
 }
 
 // list api functions

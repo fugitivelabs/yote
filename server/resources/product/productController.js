@@ -76,10 +76,8 @@ exports.deleteSingle = async (req, res) => {
 }
 
 exports.getDefault = async (req, res) => {
-  const defaultProduct = await Product.getDefault().catch(err => {
-    console.log(err)
-    throw new YoteError("Error finding default Product", 404)
-  });
+  const defaultProduct = await Product.getDefault();
+  if(!defaultProduct) throw new YoteError("Error finding default Product", 404);
   res.json(defaultProduct);
 }
 
