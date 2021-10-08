@@ -26,6 +26,8 @@ import { useFormState } from '../../../global/utils/customHooks';
 
 // import styles
 import YTStyles from '../../../global/styles/YTStyles'; 
+import { tailwind } from '../../../global/styles/tailwind/tailwind'; 
+
 
 const UserLoginForm = ({
   handleFormSubmit
@@ -52,7 +54,7 @@ const UserLoginForm = ({
             style={{height: 250, width: 250, tintColor: YTStyles.colors.secondary}}
           />
         </View>
-        <View style={{paddingHorizontal: 20}}>
+        <View style={tailwind('px-4')}>
           <View style={YTStyles.inputWrapper}>
             <View style={YTStyles.inputContainer}>
               <TextInput
@@ -69,7 +71,7 @@ const UserLoginForm = ({
                 placeholder="Email"
                 // ref="username"
                 returnKeyType="next"
-                style={YTStyles.input}
+                style={tailwind('text-base font-normal text-black p-5')}
                 value={updatedUser.username}
               />
             </View>
