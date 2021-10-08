@@ -136,7 +136,7 @@ exports.register = async (req, res) => {
         // send back user
         res.json(safeUser);
       }
-    });
+    })
   }
 }
 
