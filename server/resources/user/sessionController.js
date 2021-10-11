@@ -49,74 +49,21 @@ exports.login = async (req, res, next) => {
               if(req.ip && typeof (req.ip) == 'string') {
                 req.session.ip = req.ip;
               }
-            }
-            res.json(user);
-          });
-        }
-      }
-    })(req, res, next);
-  }
-}
-
-exports.mobileLogin = async (req, res, next) => {
-  /**
-   * NOTES: eventually we want to implement something like https://www.npmjs.com/package/react-native-cookies
-   * so that we can use cookie session-management directly on mobile.
-   * for the time being, though, since the header is proving somewhat inaccessible on mobile,
-   * we're going to use this separate login endpoint that returns it as json
-   */
-  if(req.body.username == undefined) {
-    throw new YoteError("No username present.", 400)
-  } else {
-    req.body.username = req.body.username.toLowerCase();
-    passport.authenticate('local', {session: true},  async (err, passportUser) => {
-      if(err) {
-        console.log("ERR", err)
-        res.status(404).json("Error authenticating user.");
-      } else if(!passportUser) {
-        res.status(404).json("Matching user not found.");
-      } else {
-        // User is authenticted. Now get actual user data from the db and log them in
-        const user = await User.findById(passportUser._id).catch(err => {
-          console.log(err);
-          res.status(404).json("Error finding user.");
-          // throw new YoteError("Error finding user", 404)
-        });
-        if(!user) {
-          res.status(402).json("Could not retrieve user.");
-        } else {
-          req.logIn(user, err => {
-            if(err) {
-              res.status(402).json("Error logging in.");
-            } else {
-              // if(err) throw new YoteError("Error logging in.", 402)
-              // set additional fields on session, for later display/user
-              // ip address, useragent
-              req.session['user-agent'] = req.headers['user-agent'];
-
-              if(req.ip && typeof (req.ip) == 'string') {
-                req.session.ip = req.ip;
-              }
-
-            // set additional fields on session, for later display/user
-            // ip address, useragent
-            // req.session['user-agent'] = req.headers['user-agent'];
-
-            // if(req.ip && typeof(req.ip) == 'string' ) {
-            //   req.session.ip = req.ip;
-            // }
-
-            }
-            let splitCookies = req.headers.cookie.split(';');
-            let connectCookieVal;
-            for(let next of splitCookies) {
-              if(next.includes('connect.sid')) {
-                connectCookieVal = next.trim().split('=')[1]
-                // console.log("connectCookieVal", connectCookieVal)
+              // if this is a mobile request we need to return the token
+              if(req.body.mobile) {
+                let splitCookies = req.headers.cookie.split(';');
+                let connectCookieVal;
+                for(let next of splitCookies) {
+                  if(next.includes('connect.sid')) {
+                    connectCookieVal = next.trim().split('=')[1]
+                    // console.log("connectCookieVal", connectCookieVal)
+                  }
+                }
+                res.json({ user, token: connectCookieVal });
+              } else {
+                res.json(user);
               }
             }
-            res.json({user, token: connectCookieVal}); 
-            // res.send({user, token: connectCookieVal});
           });
         }
       }
@@ -161,7 +108,22 @@ exports.register = async (req, res) => {
       if(req.ip && typeof(req.ip) == 'string' ) {
         req.session.ip = req.ip;
       }
-      res.json(safeUser);
+
+      // if this is a mobile request we need to return the token
+      if(req.body.mobile) {
+        console.log('MOBILE REQUEST BEING FULFILED LIKE A BAAAUUUUCE');
+        let splitCookies = req.headers.cookie.split(';');
+        let connectCookieVal;
+        for(let next of splitCookies) {
+          if(next.includes('connect.sid')) {
+            connectCookieVal = next.trim().split('=')[1]
+            // console.log("connectCookieVal", connectCookieVal)
+          }
+        }
+        res.json({ user: safeUser, token: connectCookieVal });
+      } else {
+        res.json(safeUser);
+      }
     });
   }
 }
