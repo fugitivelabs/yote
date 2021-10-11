@@ -40,7 +40,7 @@ const UserLogin = () => {
       // grab token and save to user locally 
       // auth stack will unmount and be replaced by TabsNavigator
     } else {
-      Alert.alert(error.message || "There was a problem loggin in. Please try again.")
+      Alert.alert(error.message || "There was a problem logging in. Please try again.")
     }
   }
 

@@ -63,7 +63,7 @@ const ProductList = () => {
 
 const Skeleton = ({count = 5}) => {
   const items = new Array(count).fill('some-non-empty-value')
-  return items.map(() => <ActivityIndicator/>)
+  return items.map(() => <ActivityIndicator key={Math.random()}/>)
 }
 
 export default ProductList;
