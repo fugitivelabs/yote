@@ -111,7 +111,6 @@ exports.register = async (req, res) => {
 
       // if this is a mobile request we need to return the token
       if(req.body.mobile) {
-        console.log('MOBILE REQUEST BEING FULFILED LIKE A BAAAUUUUCE');
         let splitCookies = req.headers.cookie.split(';');
         let connectCookieVal;
         for(let next of splitCookies) {
