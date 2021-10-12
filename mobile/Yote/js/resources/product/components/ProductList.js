@@ -3,7 +3,6 @@
 // import react things
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 
 // import react-native components
 import {
@@ -19,9 +18,6 @@ import {
   , View
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-
-// import actions/reducers
-import { useProductList } from '../productService';
 
 // import components
 import ProductListItem from './ProductListItem';

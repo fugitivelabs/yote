@@ -23,7 +23,7 @@ import {
 } from 'react-native';
 import { useDispatch } from 'react-redux';
 
-import { sendRegister, sendLogin } from '../authStore';
+import { sendRegister } from '../authStore';
 
 // import user components
 import UserRegisterForm from '../components/UserRegisterForm';

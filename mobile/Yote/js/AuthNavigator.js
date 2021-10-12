@@ -1,16 +1,14 @@
 import React from 'react';
-import {
-  ActivityIndicator,
-  AsyncStorage,
-  StatusBar,
-  StyleSheet,
-  View,
-  Text,
-} from 'react-native';
+// import {
+//   ActivityIndicator,
+//   StatusBar,
+//   StyleSheet,
+//   View,
+//   Text,
+// } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
-import { useLoggedInUser, useSessionToken } from './resources/user/authService';
-import { authStore } from './resources/user/authStore'; 
+import { useLoggedInUser } from './resources/user/authService';
 
 import TabNavigator from './TabNavigator'; 
 import UserLogin from '../js/resources/user/views/UserLogin';
@@ -36,7 +34,7 @@ export default function AuthNavigator() {
                 title: 'Sign in'
                 // When logging out, a pop animation feels intuitive
                 // You can remove this if you want the default 'push' animation
-                , animationTypeForReplace: loggedInUser ? 'pop' : 'push'
+                // , animationTypeForReplace: loggedInUser ? 'push' : 'pop'
               }}
             />
             <AuthStack.Screen
@@ -46,7 +44,13 @@ export default function AuthNavigator() {
           </>
         ) : (
           // User is signed in
-          <AuthStack.Screen name="TabNavigator" component={TabNavigator} />
+          <AuthStack.Screen 
+            name="TabNavigator" 
+            component={TabNavigator}
+            options={{
+              animationTypeForReplace: 'push'
+            }}
+          />
         )}
       </AuthStack.Navigator>
     </NavigationContainer>

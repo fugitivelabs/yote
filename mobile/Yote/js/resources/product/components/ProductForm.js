@@ -27,7 +27,6 @@ import YTButton from '../../../global/buttons/YTButton';
 import { useFormState } from '../../../global/utils/customHooks';
 import YTStyles from '../../../global/styles/YTStyles';
 
-
 const ProductForm = ({
   cancelLink
   , disabled
