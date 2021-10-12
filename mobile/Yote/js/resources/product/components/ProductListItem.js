@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import {
   Dimensions
   , Image
-  , ListView
   , Platform
   , StyleSheet
   , Text
@@ -17,6 +16,7 @@ import {
 // import global components
 import YTButton from '../../../global/buttons/YTButton';
 import ListItem from '../../../global/components/base/ListItem';
+import WaitOn from '../../../global/components/helpers/WaitOn'; 
 
 // import libraries
 
@@ -29,19 +29,17 @@ import { useGetProductById } from '../productService';
 const ProductListItem = ({ id, navigation }) => {
   const { data: product, ...productQuery } = useGetProductById(id);
 
-  if(productQuery.isLoading) return <Skeleton />
-  if(productQuery.isError) return <Text>An error occurred 😬 <YTButton caption={"Refetch"} onPress={productQuery.refetch}/></Text>
-  if(!product) return <Text>No product found</Text>
-
   return (
-    <View style={{flex: 1, opacity: productQuery.isFetching ? 0.5 : 1}}>
-      <TouchableHighlight onPress={() => navigation.navigate('SingleProduct', {productId: id})}>
-        <View>
-          <Text>{product.title}</Text>
-          <Text>{product.description}</Text>
-        </View>
-      </TouchableHighlight>
-    </View>
+    <WaitOn query={productQuery} fallback={<Skeleton/>}>
+      <View style={{flex: 1, opacity: productQuery.isFetching ? 0.5 : 1}}>
+        <TouchableHighlight onPress={() => navigation.navigate('SingleProduct', {productId: id})}>
+          <View>
+            <Text>{product.title}</Text>
+            <Text>{product.description}</Text>
+          </View>
+        </TouchableHighlight>
+      </View>
+    </WaitOn>
   )
 }
 

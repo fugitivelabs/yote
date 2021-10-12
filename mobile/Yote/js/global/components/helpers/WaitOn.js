@@ -20,6 +20,7 @@ const WaitOn = ({
 
   const {
     isError: fetchError
+    , error
     , isLoading
     // , isFetching
     , isEmpty
@@ -28,7 +29,7 @@ const WaitOn = ({
 
   try {
     // there was an error fetching data
-    if(fetchError) return <Text> Oops, there was an error accessing this data. {refetch && <YTButton type={"secondary"} caption={'Try Again'} onPress={refetch}/>}</Text>
+    if(fetchError) return <Text> {error || "Oops, there was an error accessing this data."} {refetch && <YTButton type={"secondary"} caption={'Try Again'} onPress={refetch}/>}</Text>
     // still waiting for data
     if(isLoading) return fallback
     // fetch returned empty

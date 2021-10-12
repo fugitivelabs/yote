@@ -11,6 +11,8 @@ import apiUtils from '../../global/utils/api';
 export const sendRegister = createAsyncThunk(
   'auth/sendRegister'
   , async (userInfo) => {
+    // let the server know this is a mobile request so the session token is returned with the user
+    userInfo.mobile = true;
     const response = await apiUtils.callAPI('/api/users/register', 'POST', userInfo);
     // The value we return becomes the `fulfilled` action payload
     return response;
@@ -20,7 +22,9 @@ export const sendRegister = createAsyncThunk(
 export const sendLogin = createAsyncThunk(
   'auth/sendLogin'
   , async (userInfo) => {
-    const response = await apiUtils.callAPI('/api/users/mobile-login', 'POST', userInfo);
+    // let the server know this is a mobile request so the session token is returned with the user
+    userInfo.mobile = true;
+    const response = await apiUtils.callAPI('/api/users/login', 'POST', userInfo);
     // The value we return becomes the `fulfilled` action payload
     return response;
   }
@@ -47,6 +51,7 @@ export const authStore = createSlice({
   name: 'auth'
   , initialState: {
     loggedInUser: null
+    , token: null
     , status: 'idle'
     , error: null
   }
@@ -62,61 +67,56 @@ export const authStore = createSlice({
         state.status = 'pending';
         state.error = null
       })
-      .addCase(sendRegister.fulfilled, (state, {payload}) => {
-        if(payload) {
-          state.status = 'idle';
-          state.loggedInUser = payload;
-        } else {
-          state.status = 'rejected'
-          state.error = payload.message || 'failed register'
-        }
+      .addCase(sendRegister.fulfilled, (state, action) => {
+        state.status = 'fulfilled';
+        state.loggedInUser = action.payload.user;
+        state.token = action.payload.token;
       })
-      .addCase(sendRegister.rejected, (state, {error}) => {
+      .addCase(sendRegister.rejected, (state, action) => {
         state.status = 'rejected'
-        state.error = error
+        state.error = action.error.message
       })
       .addCase(sendLogin.pending, (state) => {
         state.status = 'pending';
         state.error = null
       })
-      .addCase(sendLogin.fulfilled, (state, {payload}) => {
-        if(payload.success) {
-          state.status = 'idle';
-          state.loggedInUser = payload.user;
-          state.token = payload.token; 
-        } else {
-          state.status = 'rejected'
-          state.error = payload.message || 'failed login'
-        }
+      .addCase(sendLogin.fulfilled, (state, action) => {
+        state.status = 'fulfilled';
+        state.loggedInUser = action.payload.user;
+        state.token = action.payload.token;
       })
       .addCase(sendLogin.rejected, (state, action) => {
-        state.status = 'rejected'
-        state.error = action.error
+        state.status = 'rejected';
+        state.error = action.error.message;
       })
       .addCase(sendLogout.pending, (state) => {
         state.status = 'pending';
-        state.error = null
+        state.error = null;
       })
       .addCase(sendLogout.fulfilled, (state) => {
         state.status = 'idle';
-        state.loggedInUser = null
-        state.token = null 
+        state.loggedInUser = null;
+        state.token = null;
       })
       .addCase(sendLogout.rejected, (state, action) => {
-        state.status = 'rejected'
-        state.error = action.error
+        // state.status = 'rejected';
+        // state.error = action.error.message;
+        // in practice logout will only be rejected when they weren't logged in. In that case we probably still want to clear the info in the store.
+        state.status = 'idle';
+        state.loggedInUser = null;
+        state.token = null;
       })
       .addCase(sendGetLoggedIn.pending, (state) => {
         state.status = 'pending';
-        state.error = null
+        state.error = null;
       })
-      .addCase(sendGetLoggedIn.fulfilled, (state, {payload: loggedInUser}) => {
+      .addCase(sendGetLoggedIn.fulfilled, (state, action) => {
         state.status = 'fulfilled';
-        state.loggedInUser = loggedInUser;
+        state.loggedInUser = action.payload;
       })
-      .addCase(sendGetLoggedIn.rejected, (state, {error}) => {
-        state.status = 'rejected'
-        state.error = error
+      .addCase(sendGetLoggedIn.rejected, (state, action) => {
+        state.status = 'rejected';
+        state.error = action.error.message;
       })
   }
 });
@@ -148,7 +148,7 @@ export const selectAuthStatus = ({ auth }) => {
  * 
  * @returns login token 
  */
-export const selectSessionToken = ({ auth }) => {
+ export const selectSessionToken = ({ auth }) => {
   return auth.token
 }
 
