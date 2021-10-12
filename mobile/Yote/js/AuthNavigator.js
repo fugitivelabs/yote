@@ -26,17 +26,17 @@ export default function AuthNavigator() {
       <AuthStack.Navigator screenOptions ={{
         headerShown: false
       }}>
-        { !loggedInUser || !loggedInUser.token ? (
+        { !loggedInUser ? (
           // No loggedInUser found, user isn't signed in 
           <>
             <AuthStack.Screen
               name="UserLogin"
               component={UserLogin}
               options={{
-                title: 'Sign in',
+                title: 'Sign in'
                 // When logging out, a pop animation feels intuitive
                 // You can remove this if you want the default 'push' animation
-                animationTypeForReplace: loggedInUser ? 'pop' : 'push',
+                , animationTypeForReplace: loggedInUser ? 'pop' : 'push'
               }}
             />
             <AuthStack.Screen

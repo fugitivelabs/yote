@@ -55,7 +55,7 @@ const UserProfile = () => {
         title="Profile"
       />
       <Text>My profile</Text>
-      <Text>{loggedInUser.user.username}</Text>
+      <Text>{loggedInUser?.username}</Text>
       <YTButton
         caption="Logout"
         captionStyle={{color: YTStyles.colors.danger}}
