@@ -10,6 +10,8 @@ import {
 } from 'react-native';
 import YTButton from '../../buttons/YTButton';
 
+import { tailwind } from '../../styles/tailwind/tailwind'; 
+
 // deals with fetch info supplied by query hooks and displays loading and error states if applicable.
 // only renders children when the fetch is done.
 const WaitOn = ({
@@ -33,7 +35,7 @@ const WaitOn = ({
     // still waiting for data
     if(isLoading) return fallback
     // fetch returned empty
-    if(isEmpty) return <Text>No data found</Text>
+    if(isEmpty) return <Text style={tailwind('text-center text-lg p-4')}>No data found</Text>
     // fetch is done. render children to display the fetched data
     return children;
   } catch(childError) {
