@@ -22,6 +22,7 @@ import Binder from '../Binder';
 
 // import Styles
 import YTStyles from '../styles/YTStyles'; 
+import { tailwind } from '../styles/tailwind/tailwind';
 
 const STATUS_BAR_HEIGHT = Platform.OS == 'android' ? 20 : 35; 
 const HEADER_HEIGHT = STATUS_BAR_HEIGHT + 20;
@@ -29,71 +30,22 @@ const IMAGE_SIZE = 25;
 const FONT = Platform.OS === 'android' ? 'sans-serif-condensed' : 'Avenir';
 
 // const isDemo = env.type == ("demo" || "staging"); // allows red demo banner on all header views, leaving out for now
-const isDemo = false; 
+const isDemo = false;
 
 var styles = StyleSheet.create({
-  centerItem: {
-    flex: .5
-    , alignItems: 'center'
-  }
-  , statusBar: {
+  statusBarHeight: {
     minHeight: STATUS_BAR_HEIGHT
-    , backgroundColor: YTStyles.colors.primary
   }
   , header: {
-      alignItems: 'center'
-      , backgroundColor: YTStyles.colors.primary
-      , borderBottomWidth: isDemo ? 0 : 1
-      , borderColor: YTStyles.colors.separator
-      , flexDirection: 'row'
+      borderBottomWidth: isDemo ? 0 : 1
       , height: HEADER_HEIGHT
-      , justifyContent: 'space-between'
       , paddingBottom: Platform.OS == 'ios' ? 0 : 15
     }
-  , demoHeader: {
-    alignItems: 'center'
-      , backgroundColor: YTStyles.colors.danger
-      , borderBottomWidth: 1
-      , borderColor: YTStyles.colors.danger
-      , flexDirection: 'row'
-      , height: 30
-      , justifyContent: 'space-between'
-      // , paddingTop: Platform.OS == 'ios' ? STATUS_BAR_HEIGHT : 0
-  }
   , iconStyle: {
-      height: IMAGE_SIZE
-      , width: IMAGE_SIZE
-      , tintColor: YTStyles.colors.headerText
-      // , marginTop: 10
-    }
-  , imageStyle: {
-      height: IMAGE_SIZE
-      , width: IMAGE_SIZE
-      , borderRadius: IMAGE_SIZE * 0.5
-    }
-  , itemText: {
-      color: 'white'
-      , fontSize: 12
-      , letterSpacing: 1
-      // , flex: 1
-    }
-  , itemWrapper: {
-      padding: 8
-    }
-  , leftItem: {
-      alignItems: 'flex-start'
-      , flex: .25
-    }
-  , rightItem: {
-      alignItems: 'flex-end'
-      , flex: .25
+      tintColor: YTStyles.colors.headerText
     }
   , titleText: {
-      color: YTStyles.colors.headerText
-      , fontFamily: FONT
-      , fontSize: 20
-      , fontWeight: '700'
-      // , marginTop: 10
+      fontFamily: FONT
     }
   , toolbar: {
       height: HEADER_HEIGHT - STATUS_BAR_HEIGHT
@@ -116,9 +68,9 @@ class ItemWrapperIOS extends React.Component {
     if ((layout !== 'icon' || layout !== 'image')  && title) {
       content = (
         <View style={{flex: 1, justifyContent: 'center'}}>
-          <Text style={[styles.itemText, {color}]}>{title.charAt(0).toUpperCase() + title.slice(1)}</Text>
+          <Text style={[tailwind('text-blue-50 font-base'), {color}]}>{title.charAt(0).toUpperCase() + title.slice(1)}</Text>
           {subText ?
-            <Text style={[styles.itemText, {color: color}]}>{subText}</Text>
+            <Text style={[tailwind('text-blue-50 font-base'), {color: color}]}>{subText}</Text>
           : null
           }
         </View>
@@ -127,10 +79,10 @@ class ItemWrapperIOS extends React.Component {
       content = <Image
         source={image}
         resizeMode={"cover"}
-        style={styles.imageStyle}
+        style={tailwind('w-4 h-4')}
         />;
     } else if (icon) {
-      content = <Image source={icon} resizeMode="contain" style={styles.iconStyle}/>;
+      content = <Image source={icon} resizeMode="contain" style={tailwind('w-4 h-4')}/>;
     }
 
     return (
@@ -138,7 +90,7 @@ class ItemWrapperIOS extends React.Component {
         accessibilityLabel={title}
         accessibilityTraits="button"
         onPress={onPress}
-        style={styles.itemWrapper}>
+        style={tailwind('px-2')}>
         {content}
       </TouchableOpacity>
     );
@@ -179,9 +131,9 @@ class YTHeader extends Binder {
 
     return(
       <View>
-        <View style={[styles.statusBar, headerBackground]}></View>
-        <View style={[styles.header, headerBackground]}>
-          <View style={styles.leftItem}>
+        <View style={[tailwind('bg-blue-500'), styles.statusBarHeight]}></View>
+        <View style={[tailwind('flex-row items-center justify-between bg-blue-500 w-full relative'), styles.header, headerBackground]}>
+          <View style={tailwind('flex-row items-start w-1/4')}>
             <ItemWrapperIOS
               item={leftItem}
               color={titleColor}
@@ -191,11 +143,11 @@ class YTHeader extends Binder {
             accessible={true}
             accessibilityLabel={title}
             accessibilityTraits="header"
-            style={[styles.centerItem]}
+            style={tailwind('w-1/2')}
           >
-            <Text numberOfLines={1} style={[styles.titleText, titleStyle]}> {title} </Text>
+            <Text numberOfLines={1} style={[tailwind('text-xl text-blue-50 font-bold text-center'), styles.titleText, titleStyle]}>{title}</Text>
           </View>
-          <View style={styles.rightItem}>
+          <View style={tailwind('flex-row items-end w-1/4')}>
             <ItemWrapperIOS
               item={rightItem}
               color={titleColor}
