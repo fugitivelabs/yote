@@ -26,7 +26,6 @@ import { tailwind } from '../styles/tailwind/tailwind';
 
 const STATUS_BAR_HEIGHT = Platform.OS == 'android' ? 20 : 35; 
 const HEADER_HEIGHT = STATUS_BAR_HEIGHT + 20;
-const IMAGE_SIZE = 25;
 const FONT = Platform.OS === 'android' ? 'sans-serif-condensed' : 'Avenir';
 
 // const isDemo = env.type == ("demo" || "staging"); // allows red demo banner on all header views, leaving out for now
