@@ -15,6 +15,11 @@ module.exports = {
       serif: ['Merriweather', 'serif'],
     },
     extend: {
+      colors: {
+        orange: {
+          500: '#FB6440'
+        }
+      }
       spacing: {
         '128': '32rem',
         '144': '36rem',

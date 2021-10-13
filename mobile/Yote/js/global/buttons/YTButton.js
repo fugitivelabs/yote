@@ -13,48 +13,13 @@ import {
 
 // import styles
 import YTStyles from '../styles/YTStyles';
+import { tailwind } from '../styles/tailwind/tailwind'; 
 
 const BUTTON_FONT = Platform.OS === 'android' ? 'sans-serif-condensed' : 'AvenirNextCondensed-DemiBold';
 const HEIGHT = 50;
 
 var styles = StyleSheet.create({
-  button: {
-    flex: 1
-    , flexDirection: 'row'
-    , alignItems: 'center'
-    , justifyContent: 'center'
-    , paddingHorizontal: 40
-  }
-  , border: {
-      borderWidth: 1
-      , borderColor: YTStyles.colors.accentText
-      , borderRadius: HEIGHT / 2
-    }
-  , caption: {
-      letterSpacing: 1
-      , fontSize: 15
-      , fontWeight: '600'
-      , fontFamily: BUTTON_FONT
-    }
-  , container: {
-      height: HEIGHT
-    }
-  , disabled: {
-      opacity: 0.7
-    }
-  , icon: {
-      marginRight: 12
-    }
-  , primaryButton: {
-      borderRadius: HEIGHT / 2
-      , backgroundColor: YTStyles.colors.primary
-    }
-  , primaryCaption: {
-      color: '#fff'
-    }
-  , secondaryCaption: {
-      color: YTStyles.colors.accent
-    }
+
 });
 
 const YTButton = ({ type, icon, caption, buttonStyle, onPress, isDisabled, captionStyle }) => {
@@ -64,7 +29,7 @@ const YTButton = ({ type, icon, caption, buttonStyle, onPress, isDisabled, capti
   let iconTint = type === 'primary' ? {tintColor: "#fff"} : {tintColor: YTStyles.colors.accentText} ;
 
   if (icon) {
-    btnIcon = <Image source={icon} style={[styles.icon, iconTint]} />;
+    btnIcon = <Image source={icon} style={[tailwind('mr-2'), iconTint]} />;
   }
 
   let content;
@@ -72,9 +37,9 @@ const YTButton = ({ type, icon, caption, buttonStyle, onPress, isDisabled, capti
   if (type === 'primary' || type === undefined) {
     content = (
       <View
-        style={[styles.button, styles.primaryButton, buttonStyle, disabled, ]}>
+        style={[tailwind('flex-row items-center justify-center p-2 bg-blue-500 rounded-full'), buttonStyle, disabled, ]}>
         {btnIcon}
-        <Text style={[styles.caption, styles.primaryCaption, captionStyle]}>
+        <Text style={[tailwind('text-lg font-semibold text-blue-50'), captionStyle]}>
           {caption}
         </Text>
       </View>
@@ -82,9 +47,9 @@ const YTButton = ({ type, icon, caption, buttonStyle, onPress, isDisabled, capti
   } else {
     var border = type === 'bordered' && styles.border;
     content = (
-      <View style={[styles.button, border, buttonStyle, disabled]}>
+      <View style={[tailwind('flex-row items-center justify-center p-2 border border-blue-800 rounded-full'), buttonStyle, disabled]}>
         {btnIcon}
-        <Text style={[styles.caption, styles.secondaryCaption, captionStyle]}>
+        <Text style={[tailwind('text-lg font-semibold text-blue-800'), captionStyle]}>
           {caption}
         </Text>
       </View>
@@ -93,7 +58,7 @@ const YTButton = ({ type, icon, caption, buttonStyle, onPress, isDisabled, capti
 
   if(isDisabled) {
     return (
-      <View style={[styles.container]}>{content}</View>
+      <View style={tailwind('opacity-70')}>{content}</View>
     )
   } else {
 
@@ -101,8 +66,7 @@ const YTButton = ({ type, icon, caption, buttonStyle, onPress, isDisabled, capti
       <TouchableOpacity
         accessibilityTraits="button"
         onPress={onPress}
-        activeOpacity={0.8}
-        style={[styles.container]}>
+        activeOpacity={0.8}>
         {content}
       </TouchableOpacity>
     )
