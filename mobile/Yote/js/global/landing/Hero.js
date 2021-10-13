@@ -14,7 +14,8 @@ import {
 import Binder from '../Binder';
 
 // import styles
-import YTStyles from '../styles/YTStyles'; 
+import { tailwind } from '../styles/tailwind/tailwind'; 
+
 
 /**
  * build a temporary component for each "cool thing"
@@ -59,7 +60,7 @@ class TheCoolThing extends Binder {
   render() {
      
     return(
-      <Text style={[YTStyles.h2_secondary, {textAlign: 'center'}]} key={this.state.coolThing}>
+      <Text style={tailwind('text-center text-yellow-500 text-2xl')} key={this.state.coolThing}>
         {this.state.coolThing}
       </Text>
     )
@@ -76,10 +77,10 @@ class Hero extends Binder {
 
   render(){
     return (
-      <View style={{flex: 1}}>
-          <Text style={{fontSize: 30, textAlign: 'center', padding: 10, fontWeight: '600', fontFamily: 'AvenirNextCondensed-DemiBold'}}>Yote </Text> 
-          <TheCoolThing />
-          <Text style={{fontSize: 18, textAlign: 'center', padding: 10, fontWeight: 'normal', fontFamily: 'AvenirNextCondensed-DemiBold'}}>Yote is the best super-stack solution out there for any data driven application.</Text>
+      <View style={tailwind('flex flex-col')}>
+        <Text style={tailwind('text-2xl text-center font-semibold p-4')}>Yote </Text>
+        <TheCoolThing />
+        <Text style={tailwind('text-lg text-center p-4')}>Yote is the best super-stack solution out there for any data driven application.</Text>
       </View>
     )
   }
