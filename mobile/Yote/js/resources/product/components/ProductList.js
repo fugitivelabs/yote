@@ -3,7 +3,6 @@
 // import react things
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 
 // import react-native components
 import {
@@ -19,9 +18,6 @@ import {
   , View
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-
-// import actions/reducers
-import { useProductList } from '../productService';
 
 // import components
 import ProductListItem from './ProductListItem';
@@ -63,7 +59,7 @@ const ProductList = () => {
 
 const Skeleton = ({count = 5}) => {
   const items = new Array(count).fill('some-non-empty-value')
-  return items.map(() => <ActivityIndicator/>)
+  return items.map(() => <ActivityIndicator key={Math.random()}/>)
 }
 
 export default ProductList;

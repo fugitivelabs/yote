@@ -5,17 +5,13 @@
 // import react things
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 
 // import react-native components
 import {
   Dimensions
   , Image
-  , Linking
-  , ListView
   , Platform
   , ScrollView
-  , StyleSheet
   , Text
   , TouchableOpacity
   , View
@@ -24,7 +20,6 @@ import {
 import { NavigationActions } from 'react-navigation'
 
 // import global components
-import Binder from '../../../global/Binder';
 import YTButton from '../../../global/buttons/YTButton';
 import YTHeader from '../../../global/headers/YTHeader';
 
@@ -55,7 +50,7 @@ const UserProfile = () => {
         title="Profile"
       />
       <Text>My profile</Text>
-      <Text>{loggedInUser.username}</Text>
+      <Text>{loggedInUser?.username}</Text>
       <YTButton
         caption="Logout"
         captionStyle={{color: YTStyles.colors.danger}}

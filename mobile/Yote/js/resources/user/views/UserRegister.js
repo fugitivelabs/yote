@@ -23,7 +23,7 @@ import {
 } from 'react-native';
 import { useDispatch } from 'react-redux';
 
-import { sendRegister, sendLogin } from '../authStore';
+import { sendRegister } from '../authStore';
 
 // import user components
 import UserRegisterForm from '../components/UserRegisterForm';
@@ -33,23 +33,12 @@ import YTStyles from '../../../global/styles/YTStyles';
 const UserRegister = () => {
   const dispatch = useDispatch();
 
-  const handleLoginSubmit = async (userInfo) => {
-    const { payload: result } = await dispatch(sendLogin(userInfo));
-    if(result.success) {
-      // grab token and save to user locally 
+  const handleFormSubmit = async (userInfo) => {
+    const { payload: loggedInUser, error } = await dispatch(sendRegister(userInfo));
+    if(loggedInUser) {
       // auth stack will unmount and be replaced by TabsNavigator
     } else {
-      Alert.alert(result.message)
-    }
-  }
-
-  const handleFormSubmit = async (userInfo) => {
-    // TODO: should not return user's password salt and hash from server
-    const { payload: result } = await dispatch(sendRegister(userInfo));
-    if(result) {
-      handleLoginSubmit(userInfo); 
-    } else {
-      Alert.alert(result.message)
+      Alert.alert(error.message || "There was a problem registering. Please try again.")
     }
   }
 
