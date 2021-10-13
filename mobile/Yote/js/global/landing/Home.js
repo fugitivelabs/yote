@@ -24,7 +24,7 @@ import Hero from './Hero.js';
 import YTHeader from '../headers/YTHeader';
 
 // import styles
-import YTTailwind from '../styles/tailwind/YTTailwind'
+import { tailwind } from '../styles/tailwind/tailwind'; 
 
 const height = Dimensions.get('window').height
 
@@ -52,29 +52,29 @@ class Home extends Binder {
     const {  itemList, navigator, user } = this.props;
 
     return (
-      <View style={YTTailwind.container}>
+      <View style={tailwind('bg-white flex-1')}>
         <ScrollView
           automaticallyAdjustContentInsets={false}
         >
-          <View style={YTTailwind.brandContainer} >
-            <View style={{height: height * .66, backgroundColor: 'transparent', justifyContent: 'center', alignItems: 'center'}}>
-              <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+          <View style={tailwind('bg-blue-500')} >
+            <View style={tailwind('py-8')}>
+              <View style={tailwind('flex items-center py-8')}>
                 <Image
                   resizeMode={'contain'}
                   source={require('../img/logo.png')}
-                  style={{height: 170, width: 200}}
+                  style={tailwind('w-40 h-40')}
                 />
               </View>
-              <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+              <View>
                 <Hero/>
               </View>
             </View>
-            <View style={[YTTailwind.container, {justifyContent: 'center'}]}>
-              <View style={{flexDirection: 'row', justifyContent: 'center', paddingVertical: 50}}>
-                <Text style={[YTTailwind.text, {textAlign: 'center'}]}> Check out the docs on </Text>
+            <View style={tailwind('bg-white')}>
+              <View style={tailwind('p-8 flex-row justify-center')}>
+                <Text style={tailwind('text-center text-lg')}> Check out the docs on </Text>
                 <TouchableOpacity
                   onPress={this._handleClick}>
-                  <Text style={[YTTailwind.text, {textAlign: 'center', color: YTTailwind.colors.accent}]}>Github </Text>
+                  <Text style={tailwind('text-center text-lg text-blue-500 underline')}> Github</Text>
                 </TouchableOpacity>
               </View>
             </View>
