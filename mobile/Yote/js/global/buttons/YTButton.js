@@ -22,8 +22,6 @@ var styles = StyleSheet.create({
 });
 
 const YTButton = ({ type, icon, caption, buttonStyle, onPress, isDisabled, captionStyle }) => {
-  caption = caption.toUpperCase();
-
   let btnIcon;
   let iconTint = type === 'primary' ? {tintColor: "#fff"} : {tintColor: YTStyles.colors.accentText} ;
 

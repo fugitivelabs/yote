@@ -26,7 +26,7 @@ import YTButton from '../../../global/buttons/YTButton';
 import YTHeader from '../../../global/headers/YTHeader'; 
 
 // import styles
-import YTStyles from '../../../global/styles/YTStyles';
+import { tailwind } from '../../../global/styles/tailwind/tailwind'; 
 
 // import services
 import { useGetProductList } from '../productService';
@@ -41,8 +41,8 @@ const ProductList = () => {
         title="Products"
         // rightItem={rightItem}
       />
-      <ScrollView>
-        <View style={{padding: 10}}>
+      <ScrollView style={tailwind('p-2')}>
+        <View style={tailwind('p-2')}>
           <YTButton
             caption={"New Product"}
             onPress={() => navigation.navigate('CreateProduct')}
