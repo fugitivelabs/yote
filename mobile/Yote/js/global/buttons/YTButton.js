@@ -16,7 +16,6 @@ import YTStyles from '../styles/YTStyles';
 import { tailwind } from '../styles/tailwind/tailwind'; 
 
 const BUTTON_FONT = Platform.OS === 'android' ? 'sans-serif-condensed' : 'AvenirNextCondensed-DemiBold';
-const HEIGHT = 50;
 
 var styles = StyleSheet.create({
 
