@@ -24,7 +24,9 @@ const buildPath = config.get('buildPath');
 const app = express()
 
 // setup express
-app.use(express.static(path.join(__dirname, buildPath)));
+app.use(express.static(path.join(__dirname, buildPath), {
+  index: false
+}));
 app.set('views', path.join(__dirname, buildPath));
 app.set('view engine', 'html');
 app.use(express.json());
