@@ -71,7 +71,7 @@ const UserLoginForm = ({
                 placeholder="Email"
                 // ref="username"
                 returnKeyType="next"
-                style={tailwind('text-base font-normal text-black p-5')}
+                style={tailwind('text-base font-normal text-black p-4')}
                 value={updatedUser.username}
               />
             </View>
@@ -88,7 +88,7 @@ const UserLoginForm = ({
                 // ref="password"
                 returnKeyType="go"
                 secureTextEntry={true}
-                style={tailwind('text-base font-normal text-black p-5')}
+                style={tailwind('text-base font-normal text-black p-4')}
                 value={updatedUser.password}
               />
             </View>
