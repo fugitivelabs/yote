@@ -22,9 +22,14 @@ const CreateProduct = () => {
   const handleFormSubmit = async (newProduct) => {
     // set isCreating true to disable the form while wait for the new product to get returned
     setIsCreating(true);
-    const { payload: product } = await sendCreateProduct(newProduct); // replaces dispatch(productActions.sendCreateProduct(newProduct)).then(productRes => ...)
+    const { payload: product, error } = await sendCreateProduct(newProduct); // replaces dispatch(productActions.sendCreateProduct(newProduct)).then(productRes => ...)
     setIsCreating(false);
-    history.push(`/products/${product._id}`);
+    if(error) {
+      alert(error.message || 'An error occurred.');
+      history.push(`/products`);
+    } else {
+      history.push(`/products/${product._id}`);
+    }
   }
 
   // render UI based on data and loading state
