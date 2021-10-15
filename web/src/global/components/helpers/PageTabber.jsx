@@ -54,7 +54,8 @@ const PageTabber = ({
         <div>
           <nav className="" aria-label="Pagination">
             <button
-              onClick={currentPage > 1 ? () => setPage(currentPage - 1) : null}
+              onClick={() => setPage(currentPage - 1)}
+              disabled={currentPage == 1}
             >
               <span>Previous</span>
             </button>
@@ -94,8 +95,8 @@ const PageTabber = ({
               null
             }
             <button
-              onClick={currentPage < totalPages ? () => setPage(currentPage + 1) : null }
-              
+              onClick={() => setPage(currentPage + 1)}
+              disabled={currentPage >= totalPages}
             >
               <span>Next</span>
             </button>
