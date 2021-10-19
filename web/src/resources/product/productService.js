@@ -303,7 +303,7 @@ export const useGetUpdatableProduct = (id) => {
 export const useDeleteProduct = () => {
   const dispatch = useDispatch();
   return {
-    // return the update action
+    // return the delete action
     sendDeleteProduct: (id) => dispatch(sendDeleteProduct(id))
   }
 }
