@@ -6,7 +6,7 @@
 
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { usePagination } from '../../global/utils/customHooks';
+import { usePagination, useCheckListArgsReady } from '../../global/utils/customHooks';
 
 import apiUtils from '../../global/utils/api';
 
@@ -112,11 +112,16 @@ export const useGetProductById = (id, forceFetch = false) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // only fetch if we need to
-    if(forceFetch) {
-      dispatch(fetchSingleProduct(id));
+    if(id) {
+      // only fetch if we need to
+      if(forceFetch) {
+        dispatch(fetchSingleProduct(id));
+      } else {
+        dispatch(fetchSingleIfNeeded(id));
+      }
     } else {
-      dispatch(fetchSingleIfNeeded(id))
+      // no id yet, don't attempt fetch
+      // console.log("still waiting for product id");
     }
     // this is the dependency array. useEffect will run anytime one of these changes
   }, [id, forceFetch, dispatch]);
@@ -165,9 +170,12 @@ export const useGetProductList = (listArgs = {}, forceFetch = false) => {
   * dispatch(fetchProductList({queryString: listArgs, queryKey: someParsedVersionOfListArgs}))
   * 
   */
+  
+  // first make sure all list args are present. If any are undefined we will wait to fetch.
+  const readyToFetch = useCheckListArgsReady(listArgs);
 
   // handle pagination right here as part of the fetch so we don't have to call usePagination every time from each component
-  // this also allows us to prefetch the next page(s)
+  // this also allows us to pre-fetch the next page(s)
   let { page, per } = listArgs;
   let pagination = usePagination({ page, per });
 
@@ -184,12 +192,17 @@ export const useGetProductList = (listArgs = {}, forceFetch = false) => {
   // console.log('queryString', queryString);
 
   useEffect(() => {
-    if(forceFetch) {
-      dispatch(fetchProductList(queryString));
+    if(readyToFetch) {
+      if(forceFetch) {
+        dispatch(fetchProductList(queryString));
+      } else {
+        dispatch(fetchListIfNeeded(queryString));
+      }
     } else {
-      dispatch(fetchListIfNeeded(queryString));
+      // listArgs aren't ready yet, don't attempt fetch
+      // console.log("still waiting for listArgs");
     }
-  }, [queryString, forceFetch, dispatch]);
+  }, [readyToFetch, queryString, forceFetch, dispatch]);
 
   // get the query info from the store
   const { status, error, totalPages, ids } = useSelector(store => selectQuery(store, queryString));
@@ -211,7 +224,7 @@ export const useGetProductList = (listArgs = {}, forceFetch = false) => {
   // PREFETCH
 
   // if we are using pagination we can fetch the next page(s) now
-  const nextQueryString = listArgs.page && listArgs.page < totalPages ? apiUtils.queryStringFromObject({ ...listArgs, page: Number(listArgs.page) + 1 }) : null;
+  const nextQueryString = readyToFetch && listArgs.page && listArgs.page < totalPages ? apiUtils.queryStringFromObject({ ...listArgs, page: Number(listArgs.page) + 1 }) : null;
 
   useEffect(() => {
     if(nextQueryString) {

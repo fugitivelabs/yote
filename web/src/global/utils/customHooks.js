@@ -2,7 +2,7 @@
  * Custom hooks are stateful, reusable chunks of logic that we can use in functional components
  * Handy to cut down on repetitive boilerplate
  */
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 /**
  * This hook handles editing a resource object in component state before sending it to the server
@@ -59,7 +59,7 @@ export const usePagination = (initialPagination = { page: 1, per: 10 }) => {
 export const useCheckListArgsReady = (listArgs) => {
   const [readyToFetch, setReadyToFetch] = useState(false);
 
-   useEffect(() => {
+  useEffect(() => {
     // make sure we aren't waiting for any listArgs
     if(Object.keys(listArgs).length < 1) {
       setReadyToFetch(false)
@@ -69,10 +69,10 @@ export const useCheckListArgsReady = (listArgs) => {
         if(listArgs[key] === undefined) {
           allArgsArePresent = false;
         }
-        setReadyToFetch(allArgsArePresent)
       });
+      setReadyToFetch(allArgsArePresent);
     }
-   }, [listArgs])
-  
+  }, [listArgs])
+
   return readyToFetch;
 }
