@@ -5,10 +5,10 @@ const { requireLogin, requireAccountAccess } = require('../../global/handlers/au
 module.exports = (router) => {
 
   router.get('/api/products/default', product.getDefault)
-  router.get('/api/products/:id', requireLogin, product.getSingleById)
+  router.get('/api/products/:id', product.getSingleById)
 
 
-  router.get('/api/products', requireLogin, product.getListWithArgs)
+  router.get('/api/products', product.getListWithArgs)
 
   // // same but with api level restrictions
   // router.get('/api/products', 
