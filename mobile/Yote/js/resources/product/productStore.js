@@ -77,9 +77,6 @@ export const sendDeleteProduct = createAsyncThunk(
   }
 );
 
-// TODO: add sendDeleteProduct
-
-
 // next define the store's initial state
 const initialState = {
   /**
@@ -180,7 +177,7 @@ export const productStore = createSlice({
       .addCase(fetchDefaultProduct.fulfilled, (state, action) => {
         const defaultProduct = action.payload;
         // add it to the byId map (for the id we'll use 'defaultProduct')
-        state.byId['defaultProduct'] = defaultProduct
+        state.byId['defaultProduct'] = defaultProduct;
         // update the query object
         const singleQuery = state.singleQueries['defaultProduct'];
         singleQuery.status = 'fulfilled';
@@ -195,7 +192,7 @@ export const productStore = createSlice({
       })
       .addCase(fetchSingleProduct.pending, (state, action) => {
         // update or create a query object for it in the queries map
-        state.singleQueries[action.meta.arg] = { ...state.singleQueries[action.meta.arg], id: action.meta.arg, status: 'pending', didInvalidate: false };
+        state.singleQueries[action.meta.arg] = { ...state.singleQueries[action.meta.arg], id: action.meta.arg, status: 'pending', didInvalidate: false, error: null };
       })
       .addCase(fetchSingleProduct.fulfilled, (state, action) => {
         const product = action.payload;
@@ -216,7 +213,7 @@ export const productStore = createSlice({
       })
       .addCase(fetchProductList.pending, (state, action) => {
         // update or create the query object for it in the listQueries map
-        state.listQueries[action.meta.arg] = { ...state.listQueries[action.meta.arg], status: 'pending', didInvalidate: false };
+        state.listQueries[action.meta.arg] = { ...state.listQueries[action.meta.arg], status: 'pending', didInvalidate: false, error: null };
       })
       .addCase(fetchProductList.fulfilled, (state, action) => {
         const { products, totalPages } = action.payload;
@@ -261,7 +258,7 @@ export const productStore = createSlice({
         // get the product id
         const id = updatedProduct._id;
         // access or create the query object in the map
-        state.singleQueries[id] = { ...state.singleQueries[id], id: id, status: 'pending' }
+        state.singleQueries[id] = { ...state.singleQueries[id], id: id, status: 'pending', error: null }
 
         // optimistic update the version that's in the map
         state.byId[id] = { ...state.byId[id], ...updatedProduct}
@@ -278,12 +275,18 @@ export const productStore = createSlice({
       })
       .addCase(sendUpdateProduct.rejected, (state, action) => {
         // action.meta.arg in this case is the updated product object that was sent in the POST
-        const product = action.meta.arg
+        const product = action.meta.arg;
         // update the query object
         const singleQuery = state.singleQueries[product._id];
         singleQuery.status = 'rejected';
         singleQuery.error = action.error.message;
         singleQuery.receivedAt = Date.now();
+      })
+      .addCase(sendDeleteProduct.pending, (state, action) => {
+        // action.meta.arg in this case is the product id
+        const id = action.meta.arg;
+        // access or create the query object in the map
+        state.singleQueries[id] = { ...state.singleQueries[id], id: id, status: 'pending', error: null }
       })
       .addCase(sendDeleteProduct.fulfilled, (state, action) => {
         const productId = action.meta.arg;
