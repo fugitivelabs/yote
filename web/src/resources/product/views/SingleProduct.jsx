@@ -22,6 +22,12 @@ const SingleProduct = () => {
   // get the product from the store (or fetch it from the server)
   const { data: product, ...productQuery } = useGetProductById(productId);
 
+  // if you need information stored on `product` to perform other fetches use the examples below
+  // NOTE: if any listArg value (`category` in this case) is undefined then the hook will wait to perform the fetch
+  // const { data: relatedProducts, ...relatedProductsQuery } = useGetProductList({ category: product?.category })
+  // NOTE: if the id is undefined then the hook will wait to perform the fetch
+  // const { data: otherResource, ...otherResourceQuery } = useGetOtherResourceById(product?._otherResource);
+
   return (
     // <ProductLayout title={'Single Product'}>
     // { productQuery.isLoading ? <Skeleton />

@@ -62,7 +62,7 @@ const apiUtils = {
     // ex: { page: '1', per: '20' } to ?page=1&per=20
     return Object.entries(queryObject)
       // remove empties
-      .filter(entry => entry[1].toString().length > 0)
+      .filter(entry => entry[1] && entry[1].toString().length > 0)
       // .filter(entry => entry[1] && entry[1].toString().length > 0)
       .map(item => {
         // debugging
