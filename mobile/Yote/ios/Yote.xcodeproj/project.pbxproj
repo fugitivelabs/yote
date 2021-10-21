@@ -114,7 +114,6 @@
 				9CCCB723337B8888018185D1 /* Pods-Yote-YoteTests.debug.xcconfig */,
 				9E936EE2E75775EBDD8A1AA9 /* Pods-Yote-YoteTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
