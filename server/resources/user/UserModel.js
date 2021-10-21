@@ -14,7 +14,11 @@ const userSchema = mongoose.Schema({
   , password_salt:  { type: String, required: '{PATH} is required!', select: false }
   , password_hash:  { type: String, required: '{PATH} is required!', select: false }
 
-});
+  , resetRequested:       { type: Boolean, default: false, select: false }
+  , resetRequestedDate:   { type: Date, select: false }
+  , resetToken:           { type: String, select: false }
+
+  });
 
 // schema hooks
 userSchema.pre('save', function() {
@@ -26,8 +30,6 @@ userSchema.pre('save', function() {
 
 // instance methods go here
 userSchema.methods = {
-  // of course I can't test any of this until I figure out register and/or reset password....
-
   checkPassword: function(passwordToMatch) {
     // console.log(`trying to authenticate username '${this.username}'`);
     // new crypto - password based key derivation, sha512, 2^13 interations (probably overkill)
@@ -41,6 +43,20 @@ userSchema.statics = {
     const salt = crypto.randomBytes(32).toString('hex'); // to match below
     const hash = crypto.pbkdf2Sync(password, salt, 8192, 64, 'sha512').toString('hex');
     return { salt, hash };
+  }
+
+  , passwordStrengthCheck(password) {
+    // single place to define this. low requirements for now.
+    if(password.length <= 6) {
+      return "Min 6 characters";
+    } else {
+      return false;
+    }
+  }
+
+  , validUsernameCheck(username) {
+    // single place to define this.
+    return(( /(.+)@(.+){2,}\.(.+){2,}/.test(username) ))
   }
 }
 

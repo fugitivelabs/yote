@@ -7,6 +7,8 @@
  * also includes stuff like profile, password reset, etc
  */
 
+ const crypto = require('crypto');
+
 const User = require('mongoose').model('User');
 const YoteError = require('../../global/helpers/YoteError');
 const apiUtils = require('../../global/api/apiUtils')
@@ -76,55 +78,53 @@ exports.register = async (req, res) => {
   // allow specific fields on register
   newUser.username = req.body.username.toLowerCase();
 
-  // TODO: make better
-  // extremely simple validation
-  if(!( /(.+)@(.+){2,}\.(.+){2,}/.test(newUser.username) )) {
-    // res.send({ success: false, message: "Invalid email address." });
+  // validation
+  if(!User.validUsernameCheck(newUser.username)) {
     throw new YoteError("Invalid email address", 400)
-
-  } else if(req.body.password.length <= 6) {
-    // res.send({ success: false, message: "Password not long enough. Min 6 characters." });
-    throw new YoteError("Password not long enough. Min 6 characters", 400)
-  } else {
-    const { salt, hash } = User.generatePassword(req.body.password)
-    newUser.password_salt = salt;
-    newUser.password_hash = hash;
-
-    // TODO: maybe some of the password history stuff? 
-    const user = await newUser.save()
-
-    // now re-fetch to make sure to only return "safe" fields
-    const safeUser = await User.findById(user._id)
-    if(!safeUser) {
-      throw new YoteError("Could not find matching User", 404)
-    }
-    // we have the user, now login
-    req.logIn(safeUser, err => {
-      if(err) throw new YoteError("Error logging user in.", 402)
-      // set additional fields on session, for later display/user
-      // ip address, useragent
-      req.session['user-agent'] = req.headers['user-agent'];
-
-      if(req.ip && typeof(req.ip) == 'string' ) {
-        req.session.ip = req.ip;
-      }
-
-      // if this is a mobile request we need to return the token
-      if(req.body.mobile) {
-        let splitCookies = req.headers.cookie.split(';');
-        let connectCookieVal;
-        for(let next of splitCookies) {
-          if(next.includes('connect.sid')) {
-            connectCookieVal = next.trim().split('=')[1]
-            // console.log("connectCookieVal", connectCookieVal)
-          }
-        }
-        res.json({ user: safeUser, token: connectCookieVal });
-      } else {
-        res.json(safeUser);
-      }
-    });
   }
+  const passwordFailureCheck = User.passwordStrengthCheck(req.body.password);
+  if(passwordFailureCheck) {
+    throw new YoteError(`Password Strength Check Failed: ${passwordFailureCheck}`, 400)
+  }
+  
+  const { salt, hash } = User.generatePassword(req.body.password)
+  newUser.password_salt = salt;
+  newUser.password_hash = hash;
+
+  // TODO: maybe some of the password history stuff? 
+  const user = await newUser.save()
+
+  // now re-fetch to make sure to only return "safe" fields
+  const safeUser = await User.findById(user._id)
+  if(!safeUser) {
+    throw new YoteError("Could not find matching User", 404)
+  }
+  // we have the user, now login
+  req.logIn(safeUser, err => {
+    if(err) throw new YoteError("Error logging user in.", 402)
+    // set additional fields on session, for later display/user
+    // ip address, useragent
+    req.session['user-agent'] = req.headers['user-agent'];
+
+    if(req.ip && typeof(req.ip) == 'string' ) {
+      req.session.ip = req.ip;
+    }
+
+    // if this is a mobile request we need to return the token
+    if(req.body.mobile) {
+      let splitCookies = req.headers.cookie.split(';');
+      let connectCookieVal;
+      for(let next of splitCookies) {
+        if(next.includes('connect.sid')) {
+          connectCookieVal = next.trim().split('=')[1]
+          // console.log("connectCookieVal", connectCookieVal)
+        }
+      }
+      res.json({ user: safeUser, token: connectCookieVal });
+    } else {
+      res.json(safeUser);
+    }
+  });
 }
 
 exports.logout = async (req, res, next) => {
@@ -157,4 +157,68 @@ exports.updateProfile = async (req, res) => {
   const user = await oldUser.save()
   .catch(err => { throw new YoteError(err) });
   res.json(user)
+}
+
+exports.requestReset = async (req, res) => {
+  // see https://cheatsheetseries.owasp.org/cheatsheets/Forgot_Password_Cheat_Sheet.html
+  let user = await User.findOne({username: req.params.email})
+  if(!user) throw new YoteError("Could not find matching User, please try again", 404)
+
+  // 
+  user.resetRequested = true;
+  user.resetRequestedDate = new Date()
+  user.resetToken = crypto.randomBytes(16).toString('hex')
+
+  savedUser = await user.save().catch(err => { throw new YoteError('Error requesting password reset')})
+  // send email
+
+
+  // then send response
+  res.status(200).send("Success")
+}
+
+exports.checkResetToken = async (req, res) => {
+  const user = await User.findOne({resetRequested: true, resetToken: req.params.token})
+  .select('+resetToken +resetRequestedDate +resetRequested')
+  if(!user) throw new YoteError("Invalid Token", 404)
+  
+  if(new Date() - user.resetRequestedDate >= 991800000) {
+    // over 30 minutes, reject
+    throw new YoteError("Invalid Token", 404)
+  } else {
+    res.send("Success")
+  }
+}
+
+exports.resetPassword = async (req, res) => {
+  let user = await User.findOne({resetRequested: true, resetToken: req.params.token})
+  .select('+resetToken +resetRequestedDate +resetRequested')
+  if(!user) throw new YoteError("Invalid Token", 404)
+
+  if(new Date() - user.resetRequestedDate >= 991800000) {
+    // over 30 minutes, reject
+    throw new YoteError("Invalid Token", 404)
+  } else {
+
+    // check and update password
+    const passwordFailureCheck = User.passwordStrengthCheck(req.body.password);
+    if(passwordFailureCheck) {
+      throw new YoteError(`Password Strength Check Failed: ${passwordFailureCheck}`, 400)
+    }
+    
+    const { salt, hash } = User.generatePassword(req.body.password)
+    user.password_salt = salt;
+    user.password_hash = hash;
+    user.resetRequested = false;
+    user.resetToken = crypto.randomBytes(16).toString('hex')
+  
+    // TODO: maybe some of the password history stuff? 
+    const user = await newUser.save().catch(err => {
+      throw new YoteError("Error reseting password")
+    })
+
+    // return success
+    res.status(200).send("Success")
+  }
+
 }
