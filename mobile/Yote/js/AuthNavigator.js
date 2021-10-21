@@ -19,8 +19,26 @@ export default function AuthNavigator() {
   const { loggedInUser } = useLoggedInUser(); 
   const AuthStack = createNativeStackNavigator(); 
 
+  const linking = {
+    prefixes: [
+      /* your linking prefixes */
+      'yote://',
+      'https://yote.com'
+    ],
+    config: {
+      /* configuration for matching screens with paths */
+      screens: {
+        TabNavigator: {
+          screens: {
+            Products: 'products'
+          }
+        }
+      }
+    },
+  };
+
   return (
-    <NavigationContainer>
+    <NavigationContainer linking={linking}>
       <AuthStack.Navigator screenOptions ={{
         headerShown: false
       }}>
