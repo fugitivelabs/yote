@@ -28,8 +28,7 @@ import { useFormState } from '../../../global/utils/customHooks';
 import YTStyles from '../../../global/styles/YTStyles';
 
 const ProductForm = ({
-  cancelLink
-  , disabled
+  disabled
   , formTitle
   , formType
   , handleFormSubmit
@@ -38,11 +37,6 @@ const ProductForm = ({
 
   // use the helper to handle product state
   const [updatedProduct, handleChange] = useFormState(product); // pass product as initialState
-  
-  const handleSubmit = e => {
-    e.preventDefault();
-    handleFormSubmit(updatedProduct)
-  }
 
   return (
     <KeyboardAvoidingView
@@ -101,8 +95,7 @@ const ProductForm = ({
 }
 
 ProductForm.propTypes = {
-  cancelLink: PropTypes.string.isRequired
-  , disabled: PropTypes.bool
+  disabled: PropTypes.bool
   , formTitle: PropTypes.string
   , formType: PropTypes.string.isRequired
   , handleFormSubmit: PropTypes.func.isRequired

@@ -66,7 +66,6 @@ const CreateProduct = () => {
         // we have the defaultProduct, render the form
         <ProductForm
           product={defaultProduct}
-          cancelLink="/products"
           disabled={defaultProductQuery.isFetching || isCreating}
           formType="create"
           handleFormSubmit={handleFormSubmit}
