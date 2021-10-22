@@ -30,6 +30,9 @@ import { sendLogout } from '../authStore';
 
 // import libraries
 
+// Import tailwind with config
+import tw from '../../../global/styles/tailwind/twrnc'; 
+
 // import styles
 import YTStyles from '../../../global/styles/YTStyles'; 
 
@@ -45,18 +48,21 @@ const UserProfile = () => {
     // logging out automatically unmounts TabNavigator and replaces it with AuthStack
   }
   return (
-    <View style={[YTStyles.container]}>
+    <View style={tw`bg-white flex-1`}>
       <YTHeader
         title="Profile"
       />
-      <Text>My profile</Text>
-      <Text>{loggedInUser?.username}</Text>
-      <YTButton
-        caption="Logout"
-        captionStyle={{color: YTStyles.colors.danger}}
-        onPress={handleLogout}
-        type="secondary"
-      />
+      <View style={tw`p-2`}>
+        <Text style={tw`p-2 text-lg`}>Username: {loggedInUser?.username}</Text>
+        <View style={tw`p-2`}>
+          <YTButton
+            caption="Logout"
+            captionStyle={{color: YTStyles.colors.danger}}
+            onPress={handleLogout}
+            type="bordered"
+          />
+        </View>
+      </View>
     </View>
   )
 }
