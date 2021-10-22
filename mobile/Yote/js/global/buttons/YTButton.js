@@ -14,15 +14,11 @@ import {
   , View
 } from 'react-native'; 
 
-// import styles
-import YTStyles from '../styles/YTStyles';
-
 const YTButton = ({ type, icon, caption, buttonStyle, onPress, isDisabled, captionStyle }) => {
   let btnIcon;
-  let iconTint = type === 'primary' ? {tintColor: "#fff"} : {tintColor: YTStyles.colors.accentText} ;
 
   if (icon) {
-    btnIcon = <Image source={icon} style={[tw`mr-2`, iconTint]} />;
+    btnIcon = <Image source={icon} style={tw.style('mr-2', type === 'primary' && 'tintWhite', type != 'primary' && 'tintAccent')} />;
   }
 
   let content;
@@ -30,7 +26,7 @@ const YTButton = ({ type, icon, caption, buttonStyle, onPress, isDisabled, capti
   if (type === 'primary' || type === undefined) {
     content = (
       <View
-        style={[tw`flex-row items-center justify-center p-2 bg-red-500 rounded-full`, buttonStyle, tw.style(isDisabled && 'opacity-50') ]}>
+        style={[tw`flex-row items-center justify-center p-2 bg-red-500 rounded-full tintAccent`, buttonStyle, tw.style(isDisabled && 'opacity-50') ]}>
         {btnIcon}
         <Text style={[tw`text-lg font-semibold text-white`, captionStyle]}>
           {caption}

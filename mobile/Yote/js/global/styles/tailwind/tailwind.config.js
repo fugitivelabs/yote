@@ -1,4 +1,6 @@
 const colors = require('tailwindcss/colors')
+// tailwind.config.js
+const { plugin } = require('twrnc');
 
 module.exports = {
   purge: [],
@@ -15,5 +17,16 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    plugin(({ addUtilities }) => {
+      addUtilities({
+        tintWhite: {
+          tintColor: `#fff`,
+        },
+        tintAccent: {
+          tintColor: `#08bdec`,
+        },
+      });
+    }),
+  ],
 }
