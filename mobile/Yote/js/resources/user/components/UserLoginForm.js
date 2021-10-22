@@ -2,6 +2,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+// Import tailwind with config
+import tw from '../../../global/styles/tailwind/twrnc'; 
+
 import {
   Alert
   , Dimensions
@@ -25,8 +28,6 @@ import YTButton from '../../../global/buttons/YTButton';
 import { useFormState } from '../../../global/utils/customHooks';
 
 // import styles
-import YTStyles from '../../../global/styles/YTStyles'; 
-import tw from '../../../global/styles/tailwind/twrnc'; 
 
 const UserLoginForm = ({
   handleFormSubmit
@@ -54,8 +55,8 @@ const UserLoginForm = ({
           />
         </View>
         <View style={tw`p-4`}>
-          <View style={YTStyles.inputWrapper}>
-            <View style={YTStyles.inputContainer}>
+          <View>
+            <View style={tw`mb-4`}>
               <TextInput
                 autoCapitalize="none"
                 autoCorrect={false}
@@ -70,11 +71,11 @@ const UserLoginForm = ({
                 placeholder="Email"
                 // ref="username"
                 returnKeyType="next"
-                style={YTStyles.input}
+                style={tw`p-2 text-lg border-b border-gray-100`}
                 value={updatedUser.username}
               />
             </View>
-            <View style={YTStyles.inputContainer}>
+            <View style={tw`mb-4`}>
               <TextInput
                 autoCapitalize="none"
                 autoCorrect={false}
@@ -87,12 +88,12 @@ const UserLoginForm = ({
                 // ref="password"
                 returnKeyType="go"
                 secureTextEntry={true}
-                style={YTStyles.input}
+                style={tw`p-2 text-lg border-b border-gray-100`}
                 value={updatedUser.password}
               />
             </View>
           </View>
-          <View style={{paddingTop: 40, paddingBottom: 10}}>
+          <View style={tw`mb-4`}>
             <YTButton
               caption={"Login"}
               isDisabled={null}
@@ -100,12 +101,12 @@ const UserLoginForm = ({
               type="primary"
             />
           </View>
-          <View style={{paddingVertical: 10}}>
+          <View style={tw``}>
             <YTButton
               caption={"Register"}
               isDisabled={null}
               onPress={() => navigation.navigate('UserRegister')}
-              type="primary"
+              type="bordered"
             />
           </View>
         </View>
