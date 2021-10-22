@@ -44,16 +44,16 @@ const UserLoginForm = ({
   }
 
   return (
-    <View style={tw.style()}>
+    <View style={tw`flex-1`}>
       <ScrollView keyboardDismissMode="interactive" keyboardShouldPersistTaps="handled">
-        <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center', paddingTop: 50}}>
+        <View style={tw`flex-1 flex-row justify-center py-8 bg-red-500`}>
           <Image
             resizeMode={"contain"}
             source={require('../../../global/img/logo.png')}
-            style={{height: 250, width: 250, tintColor: YTStyles.colors.secondary}}
+            style={tw`w-full`}
           />
         </View>
-        <View style={{paddingHorizontal: 20}}>
+        <View style={tw`p-4`}>
           <View style={YTStyles.inputWrapper}>
             <View style={YTStyles.inputContainer}>
               <TextInput
