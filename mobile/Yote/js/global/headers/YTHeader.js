@@ -23,9 +23,6 @@ import Binder from '../Binder';
 // Import tailwind with config
 import tw from '../styles/tailwind/twrnc'; 
 
-// import Styles
-import YTStyles from '../styles/YTStyles'; 
-
 class ItemWrapperIOS extends React.Component {
 
   render() {
@@ -91,7 +88,6 @@ class YTHeader extends Binder {
 
     const titleColor = 'white';
 
-    let itemsColor = YTStyles.colors.headerText;
     let headerBackground;
     let titleStyle;
     if(headerStyle) {
@@ -125,12 +121,6 @@ class YTHeader extends Binder {
             />
           </View>
         </View>
-        {/* { isDemo ? 
-          <View style={[styles.demoHeader]}>
-            <Text style={{flex: 1, textAlign: 'center', color: YTStyles.colors.white}}>Note: This is a demo version of the app.</Text>
-          </View>
-        : null
-        } */}
       </View>
     )
   }
