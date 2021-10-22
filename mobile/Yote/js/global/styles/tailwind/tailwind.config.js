@@ -20,6 +20,18 @@ module.exports = {
   plugins: [
     plugin(({ addUtilities }) => {
       addUtilities({
+        iosStatusBarHeight: {
+          minHeight: 35,
+        },
+        androidStatusBarHeight: {
+          minHeight: 20,
+        },
+        iosHeaderHeight: {
+          minHeight: 55,
+        },
+        androidHeaderHeight: {
+          minHeight: 40,
+        },
         tintWhite: {
           tintColor: `#fff`,
         },
