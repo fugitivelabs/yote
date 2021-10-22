@@ -26,7 +26,7 @@ const YTButton = ({ type, icon, caption, buttonStyle, onPress, isDisabled, capti
   if (type === 'primary' || type === undefined) {
     content = (
       <View
-        style={[tw`flex-row items-center justify-center p-2 bg-red-500 rounded-full tintAccent`, buttonStyle, tw.style(isDisabled && 'opacity-50') ]}>
+        style={[tw`flex-row items-center justify-center p-2 bg-red-500 rounded-full`, buttonStyle, tw.style(isDisabled && 'opacity-50') ]}>
         {btnIcon}
         <Text style={[tw`text-lg font-semibold text-white`, captionStyle]}>
           {caption}
