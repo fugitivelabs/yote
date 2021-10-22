@@ -26,6 +26,7 @@ import { useFormState } from '../../../global/utils/customHooks';
 
 // import styles
 import YTStyles from '../../../global/styles/YTStyles'; 
+import tw from '../../../global/styles/tailwind/twrnc'; 
 
 const UserLoginForm = ({
   handleFormSubmit
@@ -43,7 +44,7 @@ const UserLoginForm = ({
   }
 
   return (
-    <View style={YTStyles.container}>
+    <View style={tw.style()}>
       <ScrollView keyboardDismissMode="interactive" keyboardShouldPersistTaps="handled">
         <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center', paddingTop: 50}}>
           <Image
