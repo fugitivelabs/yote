@@ -33,10 +33,6 @@ import { sendLogout } from '../authStore';
 // Import tailwind with config
 import tw from '../../../global/styles/tailwind/twrnc'; 
 
-// import styles
-import YTStyles from '../../../global/styles/YTStyles'; 
-
-
 const UserProfile = () => {
   const dispatch = useDispatch();
 
@@ -57,7 +53,7 @@ const UserProfile = () => {
         <View style={tw`p-2`}>
           <YTButton
             caption="Logout"
-            captionStyle={{color: YTStyles.colors.danger}}
+            captionStyle={tw`text-red-500 border-red-500`}
             onPress={handleLogout}
             type="bordered"
           />
