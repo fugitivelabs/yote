@@ -20,6 +20,8 @@ import { useLoggedInUser } from '../../../resources/user/authService';
 
 import { sendLogout } from '../../../resources/user/authStore';
 
+import NotificationDropdown from '../../../resources/notification/components/NotificationDropdown';
+
 
 const DefaultNav = () => {
 
@@ -32,7 +34,7 @@ const DefaultNav = () => {
 
   const handleLogout = async () => {
     const { response } = await dispatch(sendLogout());
-    history.push("/");
+    response && history.push("/");
   }
 
   return (
@@ -49,6 +51,7 @@ const DefaultNav = () => {
           </ul>
           :
           <ul className="list-none p-0 flex flex-col md:flex-row md:items-center">
+            <li><NotificationDropdown /></li>
             <li><NavLink to="/user/profile">My profile</NavLink></li>
             <button onClick={handleLogout}>Logout</button>
           </ul>
