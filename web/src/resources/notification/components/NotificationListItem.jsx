@@ -15,9 +15,9 @@ const NotificationListItem = ({ id, handleClick = () => {} }) => {
   if(!notification) return <li>No notification found</li>
 
   return (
-    <li className={`list-none p-2 block ${notificationQuery.isFetching ? "opacity-50" : ""}`} onClick={handleClick}>
+    <li className={`list-none p-2 block ${notificationQuery.isFetching ? "opacity-50" : ""} ${notification.unread ? "font-bold" : ""}`}>
       { notification.link ?
-        <Link to={notification.link}>{notification.message}</Link>
+        <Link onClick={handleClick} to={notification.link}>{notification.message}</Link>
         :
         <span>{notification.message}</span>
       }

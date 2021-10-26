@@ -46,6 +46,16 @@ export const sendUpdateNotification = createAsyncThunk(
   }
 );
 
+export const sendDismissNotificationList = createAsyncThunk(
+  'notification/sendDismissList'
+  , async (ids) => {
+    const endpoint = `/api/notifications/dismiss-list`;
+    const response = await apiUtils.callAPI(endpoint, 'PUT', {notificationIds: ids});
+    // The value we return becomes the `fulfilled` action payload
+    return response;
+  }
+)
+
 // DELETE
 export const sendDeleteNotification = createAsyncThunk(
   'notification/sendDelete'
@@ -198,6 +208,25 @@ export const notificationSlice = createSlice({
       })
       
       // UPDATE
+      .addCase(sendDismissNotificationList.pending, (state, action) => {
+        console.log('action.meta.arg', action.meta.arg);
+        // action.meta.arg in this case is the array of notificationIds that was sent in the POST
+        const notificationIds = action.meta.arg;
+        console.log('notificationIds', notificationIds);
+        // optimistic update the ones that are already in the map
+        notificationIds.forEach(id => {
+          state.byId[id] = { ...state.byId[id], unread: false };
+        });
+      })
+      .addCase(sendDismissNotificationList.fulfilled, (state, action) => {
+        // nothing to do here, we already updated the ones in the store when we sent the request
+      })
+      .addCase(sendDismissNotificationList.rejected, (state, action) => {
+        console.log('sendDismissNotificationList rejected');
+        // not much to do in this case, not a huge deal if some were unable to be marked as read
+        // action.meta.arg in this case is the array of notificationIds that was sent in the POST
+        // const { notificationIds } = action.meta.arg;
+      })
       .addCase(sendUpdateNotification.pending, (state, action) => {
         // action.meta.arg in this case is the updated notification object that was sent in the POST
         const updatedNotification = action.meta.arg

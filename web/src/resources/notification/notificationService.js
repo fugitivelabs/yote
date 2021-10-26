@@ -23,6 +23,7 @@ import {
   , selectQuery
   , fetchSingleIfNeeded
   , addPushNotificationToStore
+  , sendDismissNotificationList
 } from './notificationStore';
 import { useLoggedInUser } from '../user/authService';
 
@@ -257,7 +258,7 @@ export const useDeleteNotification = () => {
  * NOTE: This must be called with {init: true} at the top level (AND ONLY ONCE AT THE TOP LEVEL) to initialize the EventSource to stream events from the server.
  * If you really need to grab this list from somewhere farther down the tree you can call this same hook without { init: true }.
  * @param {boolean} init - when true, this hook will create a new EventSource and connect to the server.
- * @returns an object containing fetch info and eventually the notification list (as `data`), also returns a function to dismiss the notification
+ * @returns an object containing fetch info and eventually the notification list (as `data`), also returns a function to dismiss a list of notifications
  * 
  */
 export const useStreamingNotificationList = ({ init } = {}) => {
@@ -300,12 +301,11 @@ export const useStreamingNotificationList = ({ init } = {}) => {
     }
   }, []);
   
-  const { sendUpdateNotification } = useUpdateNotification();
   // return the notificationList query as normal, it will be updated each time a new notification is received
   return {
     data: notificationList
     , ...notificationQuery
-    , sendDismissNotification: (id) => sendUpdateNotification({ _id: id, unread: false })
+    , sendDismissNotifications: (ids) => dispatch(sendDismissNotificationList(ids))
   }
 }
 

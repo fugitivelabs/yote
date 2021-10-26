@@ -22,6 +22,7 @@ module.exports = (router) => {
   //   notification.getListWithArgs
   // )
 
+  router.put('/api/notifications/dismiss-list', requireLogin, notification.dismissList);
   router.put('/api/notifications/:id', requireLogin, notification.updateSingleById);
 
   router.delete('/api/notifications/:id', requireLogin, notification.deleteSingle);

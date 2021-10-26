@@ -149,13 +149,29 @@ exports.subscribe = (req, res) => {
   })
 }
 
-// used to test push notifications on web
-exports.test = (req, res) => {
-  console.log('sending');
-  this.utilCreate({
-    link: '/test'
-    , message: "here goes!"
-    , userId: req.user._id
-  })
-  res.end('Sent!')
+exports.dismissList = async (req, res) => {
+  console.log('dismissing notifications');
+  const notifications = await Notification.updateMany({
+    _user: req.user._id
+    , _id: { $in: req.body.notificationIds }
+  }, {
+    $set: {
+      unread: false
+    }
+  }).catch(err => {
+    console.log(err);
+    throw new YoteError("There was a problem dismissing notifications", 404);
+  });
+  res.json(notifications);
 }
+
+// // used to test push notifications on web
+// exports.test = (req, res) => {
+//   console.log('sending');
+//   this.utilCreate({
+//     link: '/test'
+//     , message: "here goes!"
+//     , userId: req.user._id
+//   })
+//   res.end('Sent!')
+// }

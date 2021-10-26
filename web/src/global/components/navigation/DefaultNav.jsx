@@ -51,8 +51,8 @@ const DefaultNav = () => {
           </ul>
           :
           <ul className="list-none p-0 flex flex-col md:flex-row md:items-center">
-            <li><NotificationDropdown /></li>
-            <li><NavLink to="/user/profile">My profile</NavLink></li>
+            <li><NotificationDropdown classes="p-2 block"/></li>
+            <li><NavLink to="/user/profile" className="p-2 block">My profile</NavLink></li>
             <button onClick={handleLogout}>Logout</button>
           </ul>
         }
