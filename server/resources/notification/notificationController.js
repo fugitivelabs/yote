@@ -151,9 +151,10 @@ exports.subscribe = (req, res) => {
 
 exports.dismissList = async (req, res) => {
   console.log('dismissing notifications');
-  const notifications = await Notification.updateMany({
+  const updateResult = await Notification.updateMany({
     _user: req.user._id
     , _id: { $in: req.body.notificationIds }
+    , unread: true
   }, {
     $set: {
       unread: false
@@ -162,7 +163,8 @@ exports.dismissList = async (req, res) => {
     console.log(err);
     throw new YoteError("There was a problem dismissing notifications", 404);
   });
-  res.json(notifications);
+  // send the update result I guess. Not important to the front end since we optimistically update the store when the action is dispatched.
+  res.json(updateResult);
 }
 
 // // used to test push notifications on web

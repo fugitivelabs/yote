@@ -219,7 +219,7 @@ export const notificationSlice = createSlice({
         });
       })
       .addCase(sendDismissNotificationList.fulfilled, (state, action) => {
-        // nothing to do here, we already updated the ones in the store when we sent the request
+        // nothing to do here, we already updated the ones in the store when we sent the request and the server didn't throw any errors.
       })
       .addCase(sendDismissNotificationList.rejected, (state, action) => {
         console.log('sendDismissNotificationList rejected');
