@@ -6,7 +6,7 @@
 
  import { useEffect } from 'react';
  import { useSelector, useDispatch } from 'react-redux'
- import { usePagination, useCheckListArgsReady } from '../../global/utils/customHooks';
+ import { usePagination } from '../../global/utils/customHooks';
  
  import apiUtils from '../../global/utils/api';
  
@@ -172,7 +172,7 @@
    */
  
    // first make sure all list args are present. If any are undefined we will wait to fetch.
-   const readyToFetch = useCheckListArgsReady(listArgs);
+   const readyToFetch = apiUtils.checkListArgsReady(listArgs);
    
    // handle pagination right here as part of the fetch so we don't have to call usePagination every time from each component
    // this also allows us to pre-fetch the next page(s)
