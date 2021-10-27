@@ -50,29 +50,3 @@ export const usePagination = (initialPagination = { page: 1, per: 10 }) => {
 
   return { ...pagination, setPage, setPer };
 }
-
-/**
- * This hook checks for any undefined values in the listArgs object
- * @param {object} listArgs - the object used to build the query string
- * @returns {boolean} `true` if no listArg values equal `undefined`, otherwise `false`
- */
-export const useCheckListArgsReady = (listArgs) => {
-  const [readyToFetch, setReadyToFetch] = useState(false);
-
-  useEffect(() => {
-    // make sure we aren't waiting for any listArgs
-    if(Object.keys(listArgs).length < 1) {
-      setReadyToFetch(false)
-    } else {
-      let allArgsArePresent = true;
-      Object.keys(listArgs).forEach(key => {
-        if(listArgs[key] === undefined) {
-          allArgsArePresent = false;
-        }
-      });
-      setReadyToFetch(allArgsArePresent);
-    }
-  }, [listArgs])
-
-  return readyToFetch;
-}

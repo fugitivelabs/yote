@@ -89,6 +89,16 @@ const apiUtils = {
       // if "" dont add it, otherwise add key:value to return object
       .reduce((returnObj, item) => { return item[0].length > 0 ? { ...returnObj, [item[0]]: item[1] } : returnObj }, {})
   }
+  , checkListArgsReady(listArgs) {
+    let listArgsReady = true;
+    // if ANY list args are undefined, return false
+    Object.keys(listArgs).forEach(key => {
+      if(listArgs[key] === undefined) {
+        listArgsReady = false;
+      }
+    });
+    return listArgsReady;
+  }
 }
 
 export default apiUtils;
