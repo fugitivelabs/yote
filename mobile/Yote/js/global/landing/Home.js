@@ -23,10 +23,8 @@ import Binder from '../Binder';
 import Hero from './Hero.js';
 import YTHeader from '../headers/YTHeader';
 
-// import styles
-import YTTailwind from '../styles/tailwind/YTTailwind'
-
-const height = Dimensions.get('window').height
+// Import tailwind with config
+import tw from '../styles/tailwind/twrnc'; 
 
 class Home extends Binder {
   constructor(props) {
@@ -52,29 +50,29 @@ class Home extends Binder {
     const {  itemList, navigator, user } = this.props;
 
     return (
-      <View style={YTTailwind.container}>
+      <View style={tw`bg-white flex-1`}>
         <ScrollView
           automaticallyAdjustContentInsets={false}
         >
-          <View style={YTTailwind.brandContainer} >
-            <View style={{height: height * .66, backgroundColor: 'transparent', justifyContent: 'center', alignItems: 'center'}}>
-              <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+          <View style={tw`bg-red-500`} >
+            <View style={tw`py-8`}>
+              <View style={tw`flex items-center py-8`}>
                 <Image
                   resizeMode={'contain'}
                   source={require('../img/logo.png')}
-                  style={{height: 170, width: 200}}
+                  style={tw`w-40 h-40`}
                 />
               </View>
-              <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+              <View>
                 <Hero/>
               </View>
             </View>
-            <View style={[YTTailwind.container, {justifyContent: 'center'}]}>
-              <View style={{flexDirection: 'row', justifyContent: 'center', paddingVertical: 50}}>
-                <Text style={[YTTailwind.text, {textAlign: 'center'}]}> Check out the docs on </Text>
+            <View style={tw`bg-white`}>
+              <View style={tw`p-8 flex-row justify-center`}>
+                <Text style={tw`text-center text-lg`}> Check out the docs on </Text>
                 <TouchableOpacity
                   onPress={this._handleClick}>
-                  <Text style={[YTTailwind.text, {textAlign: 'center', color: YTTailwind.colors.accent}]}>Github </Text>
+                  <Text style={tw`text-center text-lg text-blue-500 underline`}> Github</Text>
                 </TouchableOpacity>
               </View>
             </View>
