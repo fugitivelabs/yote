@@ -18,8 +18,10 @@ const ProductListItem = ({ id }) => {
   return (
     <WaitOn query={productQuery} fallback={<Skeleton />}>
       <li className={productQuery.isFetching ? 'opacity-50' : ''}>
-        <Link to={`/products/${product?._id}`}>{product?.title}</Link>
-        <p>{product?.description}</p>
+        <Link className="no-underline p-2 block" to={`/products/${product?._id}`}>
+          <h2 className="text-xl font-semibold text-primary px-2">{product?.title}</h2>
+          <p className="text-lg text-primary px-2">{product?.description}</p>
+        </Link>
       </li>
     </WaitOn>
   )
