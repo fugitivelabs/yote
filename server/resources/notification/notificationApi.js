@@ -9,7 +9,7 @@ const { requireLogin, requireAccountAccess } = require('../../global/handlers/au
 
 module.exports = (router) => {
 
-  router.get('/api/notifications/test', requireLogin, notification.test);
+  // router.get('/api/notifications/test, requireLogin, notification.test);
   router.get('/api/notifications/subscribe', requireLogin, notification.subscribe);
   router.get('/api/notifications/:id', requireLogin, notification.getSingleById)
 
