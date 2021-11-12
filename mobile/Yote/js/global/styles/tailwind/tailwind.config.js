@@ -1,4 +1,6 @@
 const colors = require('tailwindcss/colors')
+// tailwind.config.js
+const { plugin } = require('twrnc');
 
 module.exports = {
   purge: [],
@@ -9,23 +11,34 @@ module.exports = {
       blue: colors.blue,
       red: colors.rose,
       pink: colors.fuchsia,
+      white: colors.white
     },
-    fontFamily: {
-      sans: ['Graphik', 'sans-serif'],
-      serif: ['Merriweather', 'serif'],
-    },
-    extend: {
-      spacing: {
-        '128': '32rem',
-        '144': '36rem',
-      },
-      borderRadius: {
-        '4xl': '2rem',
-      }
-    }
   },
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    plugin(({ addUtilities }) => {
+      addUtilities({
+        iosStatusBarHeight: {
+          minHeight: 35,
+        },
+        androidStatusBarHeight: {
+          minHeight: 20,
+        },
+        iosHeaderHeight: {
+          minHeight: 55,
+        },
+        androidHeaderHeight: {
+          minHeight: 40,
+        },
+        tintWhite: {
+          tintColor: `#fff`,
+        },
+        tintAccent: {
+          tintColor: `#08bdec`,
+        },
+      });
+    }),
+  ],
 }

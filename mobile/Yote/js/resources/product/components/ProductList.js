@@ -25,8 +25,8 @@ import WaitOn from '../../../global/components/helpers/WaitOn';
 import YTButton from '../../../global/buttons/YTButton';
 import YTHeader from '../../../global/headers/YTHeader'; 
 
-// import styles
-import YTStyles from '../../../global/styles/YTStyles';
+// Import tailwind with config
+import tw from '../../../global/styles/tailwind/twrnc'; 
 
 // import services
 import { useGetProductList } from '../productService';
@@ -41,8 +41,8 @@ const ProductList = () => {
         title="Products"
         // rightItem={rightItem}
       />
-      <ScrollView>
-        <View style={{padding: 10}}>
+      <ScrollView style={tw`p-2`}>
+        <View style={tw`p-2`}>
           <YTButton
             caption={"New Product"}
             onPress={() => navigation.navigate('CreateProduct')}

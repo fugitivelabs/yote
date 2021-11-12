@@ -20,8 +20,8 @@ import WaitOn from '../../../global/components/helpers/WaitOn';
 
 // import libraries
 
-// import styles
-import YTStyles from '../../../global/styles/YTStyles';
+// Import tailwind with config
+import tw from '../../../global/styles/tailwind/twrnc'; 
 
 // import services
 import { useGetProductById } from '../productService';
@@ -31,11 +31,11 @@ const ProductListItem = ({ id, navigation }) => {
 
   return (
     <WaitOn query={productQuery} fallback={<Skeleton/>}>
-      <View style={{flex: 1, opacity: productQuery.isFetching ? 0.5 : 1}}>
-        <TouchableHighlight onPress={() => navigation.navigate('SingleProduct', {productId: id})}>
+      <View style={tw.style('flex-1', { 'opacity-50': productQuery.isFetching })}>
+        <TouchableHighlight style={tw`p-2`} onPress={() => navigation.navigate('SingleProduct', {productId: id})}>
           <View>
-            <Text>{product.title}</Text>
-            <Text>{product.description}</Text>
+            <Text style={tw`text-lg font-semibold`}>{product.title}</Text>
+            <Text style={tw`text-lg`}>{product.description}</Text>
           </View>
         </TouchableHighlight>
       </View>
