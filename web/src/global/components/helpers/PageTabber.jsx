@@ -55,7 +55,7 @@ const PageTabber = ({
           <nav className="" aria-label="Pagination">
             <button
               onClick={() => setPage(currentPage - 1)}
-              disabled={currentPage == 1}
+              disabled={currentPage === 1}
             >
               <span>Previous</span>
             </button>

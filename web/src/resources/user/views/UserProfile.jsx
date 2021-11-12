@@ -25,7 +25,7 @@ const UserRegister = () => {
 
   const handleLogout = async () => {
     const { response } = await dispatch(sendLogout());
-    history.push("/");
+    response && history.push("/");
   }
   return (
     <UserLayout title="Profile">
