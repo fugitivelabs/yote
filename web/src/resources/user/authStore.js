@@ -43,6 +43,30 @@ export const sendGetLoggedIn = createAsyncThunk(
   }
 );
 
+export const sendRequestReset = createAsyncThunk(
+  'auth/sendRequestReset'
+  , async email => {
+    const response = await apiUtils.callAPI('/api/users/request-reset', 'POST', {email});
+    return response
+  }
+)
+
+export const sendCheckResetToken = createAsyncThunk(
+  'auth/sendCheckResetToken'
+  , async token => {
+    const response = await apiUtils.callAPI('/api/users/request-reset', 'POST', {token});
+    return response
+  }
+)
+
+export const sendResetPassword = createAsyncThunk(
+  'auth/sendResetPassword'
+  , async (token, password) => {
+    const response = await apiUtils.callAPI('/api/users/request-reset', 'POST', {token, password});
+    return response
+  }
+)
+
 export const authStore = createSlice({
   name: 'auth'
   , initialState: {
@@ -106,6 +130,9 @@ export const authStore = createSlice({
         state.status = 'rejected';
         state.error = action.error.message;
       })
+      // .addCase(sendRequestReset, (state, action) => {
+        // doesnt need anything in the store?
+      // })
   }
 });
 

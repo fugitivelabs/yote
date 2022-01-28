@@ -139,7 +139,7 @@ exports.logout = async (req, res, next) => {
   });
 }
 
-// NOTE: No longer required on web. Should probably remove it.
+// required for mobile refresh
 exports.getLoggedIn = (req, res) => {
   console.log('getting logged in user! ', req.user);
   res.json(req.user || null);
@@ -161,20 +161,20 @@ exports.updateProfile = async (req, res) => {
 
 exports.requestReset = async (req, res) => {
   // see https://cheatsheetseries.owasp.org/cheatsheets/Forgot_Password_Cheat_Sheet.html
-  let user = await User.findOne({username: req.params.email})
+  console.log(req.body)
+  let user = await User.findOne({username: req.body.email})
   if(!user) throw new YoteError("Could not find matching User, please try again", 404)
 
-  // 
+  // set reset fields
   user.resetRequested = true;
   user.resetRequestedDate = new Date()
   user.resetToken = crypto.randomBytes(16).toString('hex')
 
   savedUser = await user.save().catch(err => { throw new YoteError('Error requesting password reset')})
   // send email
-
-
+  
   // then send response
-  res.status(200).send("Success")
+  res.json({})
 }
 
 exports.checkResetToken = async (req, res) => {

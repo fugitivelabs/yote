@@ -11,22 +11,26 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
 
-import { Link, useHistory, useLocation } from 'react-router-dom';
+import { Link, useHistory, useLocation, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import { useFormState } from '../../../global/utils/customHooks';
 
-import { sendRequestReset } from '../authStore';
+import { sendCheckResetToken, sendResetPassword } from '../authStore';
 
 // import user components
 import UserLayout from '../components/UserLayout.jsx';
 import { EmailInput } from '../../../global/components/forms'
 
 
-const ForgotPassword = () => {
+const ResetPassword = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
+
+  const { token } = useParams();
+
+  // const { error } = 
 
   const [emailObj, handleChange] = useFormState(''); // pass user as initialState
 
@@ -34,19 +38,19 @@ const ForgotPassword = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     // console.log("HANDLE SUBMIT", emailObj)
-    const { error } = await dispatch(sendRequestReset(emailObj.email));
-    if(error) {
-      alert(error.message || "There was a problem reseting your password. Please try again")
-    } else {
-      alert("You should receive an email shortly with instructions on how to reset your password if you have a matching account in our system.")
-    }
+    // const { error } = await dispatch(sendRequestReset(emailObj.email));
+    // if(error) {
+    //   alert(error.message || "There was a problem reseting your password. Please try again")
+    // } else {
+    //   alert("You should receive an email shortly with instructions on how to reset your password if you have a matching account in our system.")
+    // }
   }
 
   return  (
-    <UserLayout title="Forgot Password">
+    <UserLayout title="Reset Password">
           <div className="border border-solid bg-white shadow-sm rounded-sm mx-auto max-w-lg p-4 mt-16">
       <form name="userForm" onSubmit={handleSubmit}>
-        <h1 className="px-2">Forgot Password</h1>
+        <h1 className="px-2">Reset Your Password</h1>
         <EmailInput
           name="email"
           label="Email Address"
@@ -74,4 +78,4 @@ const ForgotPassword = () => {
   )
 }
 
-export default ForgotPassword
+export default ResetPassword
