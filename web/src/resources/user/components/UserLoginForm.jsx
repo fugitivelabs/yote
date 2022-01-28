@@ -3,45 +3,35 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router-dom';
 
-// import hooks
-import { useFormState } from '../../../global/utils/customHooks';
-
 // import form components
 import { EmailInput, PasswordInput } from '../../../global/components/forms'
 
 const UserLoginForm = ({
-  handleFormSubmit
+  handleFormChange
+  , handleFormSubmit
   , user
 }) => {
   const location = useLocation();
 
-  const [updatedUser, handleChange] = useFormState(user); // pass user as initialState
-  
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    handleFormSubmit(updatedUser)
-  }
 
   return (
     <div className="border border-solid bg-white shadow-sm rounded-sm mx-auto max-w-lg p-4 mt-16">
-      <form name="userForm" onSubmit={handleSubmit}>
+      <form name="userForm" onSubmit={handleFormSubmit}>
         <h1 className="px-2"> Sign In </h1>
         <EmailInput
           name="username"
           label="Email Address"
-          value={updatedUser.username}
-          change={handleChange}
+          value={user.username}
+          change={handleFormChange}
           required={true}
         />
         <PasswordInput
           name="password"
           label="Password"
-          value={updatedUser.password}
-          change={handleChange}
+          value={user.password}
+          change={handleFormChange}
           required={true}
         />
-
-
         <div className="p-2">
           <button className="text-sm p-2 px-8 rounded-full border border-solid bg-white text-gray-800 border border-gray-800 cursor-pointer no-underline font-semibold" type="submit" >Sign in</button>
         </div>
@@ -73,9 +63,9 @@ const UserLoginForm = ({
 }
 
 UserLoginForm.propTypes = {
-  handleFormSubmit: PropTypes.func.isRequired
+  handleFormChange: PropTypes.func.isRequired
+  , handleFormSubmit: PropTypes.func.isRequired
   , user: PropTypes.object.isRequired
-  , location: PropTypes.object
 }
 
 export default UserLoginForm;

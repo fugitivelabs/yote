@@ -10,9 +10,6 @@ import PropTypes from 'prop-types';
 // import global components
 
 
-// hooks
-import { useFormState } from '../../../global/utils/customHooks';
-
 // import form components
 import { TextInput } from '../../../global/components/forms'
 
@@ -21,12 +18,10 @@ const ProductForm = ({
   , disabled
   , formTitle
   , formType
+  , handleFormChange
   , handleFormSubmit
   , product
 }) => {
-
-  // use the helper to handle product state
-  const [updatedProduct, handleChange] = useFormState(product); // pass product as initialState
 
   // set the button text
   const buttonText = formType === "create" ? "Create Product" : "Update Product";
@@ -34,28 +29,24 @@ const ProductForm = ({
   // set the form header
   const header = formTitle ? <div className="formHeader"><h2> {formTitle} </h2><hr /></div> : <div />;
   
-  const handleSubmit = e => {
-    e.preventDefault();
-    handleFormSubmit(updatedProduct)
-  }
 
   return (
     <div className="form-container">
-      <form name="productForm" className="product-form" onSubmit={handleSubmit}>
+      <form name="productForm" className="product-form" onSubmit={handleFormSubmit}>
         {header}
         <TextInput
           name="title"
           label="Title"
-          value={updatedProduct.title || ""}
-          change={handleChange}
+          value={product.title || ""}
+          change={handleFormChange}
           disabled={disabled}
           required={true}
         />
         <TextInput
           name="description"
           label="Description"
-          value={updatedProduct.description || ""}
-          change={handleChange}
+          value={product.description || ""}
+          change={handleFormChange}
           disabled={disabled}
           required={true}
         />
@@ -84,6 +75,7 @@ ProductForm.propTypes = {
   , disabled: PropTypes.bool
   , formTitle: PropTypes.string
   , formType: PropTypes.string.isRequired
+  , handleFormChange: PropTypes.func.isRequired
   , handleFormSubmit: PropTypes.func.isRequired
   , product: PropTypes.object.isRequired
 }

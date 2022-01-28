@@ -8,7 +8,7 @@
  * /user/register without changing the original referring source route.
  */
 // import primary libraries
-import React from 'react';
+import React, { useState } from 'react';
 // import PropTypes from 'prop-types';
 
 import { useHistory, useLocation } from 'react-router-dom';
@@ -24,22 +24,25 @@ const UserRegister = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
+  const [user, setUser] = useState({username: '', password: ''});
 
-  const handleFormSubmit = async (userInfo) => {
-    const { payload: result } = await dispatch(sendRegister(userInfo));
+  const handleFormSubmit = async e => {
+    e.preventDefault();
+    const { payload: loggedInUser, error } = await dispatch(sendRegister(user));
     // adapted from: https://reactrouter.com/web/example/auth-workflow
     const from = location.state.from || { pathname: "/" };
-    if(result) {
-      history.replace(from);
+    if(loggedInUser) {
+      history.replace(from.pathname, location.state);
     } else {
-      alert("There was a problem registering")
+      alert(error.message || "There was a problem registering")
     }
   }
 
   return (
     <UserLayout title="Register">
       <UserRegisterForm
-        user={{username: '', password: ''}}
+        user={user}
+        handleFormChange={e => setUser({...user, [e.target.name]: e.target.value})}
         handleFormSubmit={handleFormSubmit}
       />
     </UserLayout>

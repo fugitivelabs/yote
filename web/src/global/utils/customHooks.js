@@ -2,32 +2,7 @@
  * Custom hooks are stateful, reusable chunks of logic that we can use in functional components
  * Handy to cut down on repetitive boilerplate
  */
-import { useEffect, useState } from 'react'
-
-/**
- * This hook handles editing a resource object in component state before sending it to the server
- * @param {object} initialFormState - the object to be updated
- * @returns [ state, handleChange ]
- */
-export const useFormState = (initialFormState = {}) => {
-  // use the built-in `useState` hook to handle state
-  // useState can handle objects. More info: https://reactjs.org/docs/hooks-faq.html#should-i-use-one-or-many-state-variables
-  const [formState, setFormState] = useState(initialFormState);
-
-  // the `setFormState` method will replace the entire value in `formState`
-  // create a specific action to update nested state while preserving existing state(standard reducer pattern)
-  const handleFormChange = e => {
-    setFormState(state => ({ ...state, [e.target.name]: e.target.value }));
-  }
-
-  // mobile event handling is a little different 
-  // const handleFormChange = (e, target) => {
-  //   setFormState(state => ({ ...state, [target]: e.nativeEvent.text }));
-  // }
-
-  return [ formState, handleFormChange ];
-}
-
+import { useState } from 'react'
 
 /**
  * This hook handles pagination state
