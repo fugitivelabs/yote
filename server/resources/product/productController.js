@@ -88,7 +88,7 @@ exports.getListWithArgs = async (req, res) => {
   // console.log("after parse", query, pagination, sort)
 
   // let query = {}
-  // let query = {type: "doesnt exist"}
+  // let query = {type: "doesn't exist"}
   // let query = "break me"
   // get count so we can determine total pages for front end to allow proper pagination
   const count = pagination ? await Product.countDocuments(query) : null
