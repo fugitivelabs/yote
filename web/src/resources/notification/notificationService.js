@@ -261,17 +261,16 @@ export const useDeleteNotification = () => {
  * @returns an object containing fetch info and eventually the notification list (as `data`), also returns a function to dismiss a list of notifications
  * 
  */
-export const useStreamingNotificationList = ({ init } = {}) => {
+export const useStreamingNotificationList = ({ init }) => {
   const dispatch = useDispatch();
   // we'll need some way to reference the EventSource object. We'll use a ref to do that.
   const stream = useRef(null);
 
   // We are currently fetching by loggedInUser id. This should be enforced by the server, but we'll need some way to track the list in the store so we'll use this.
   const loggedInUser = useLoggedInUser();
-  const listArgs = { _user: loggedInUser._id };
 
   // first fetch the list using the standard hook
-  const { data: notificationList, ...notificationQuery } = useGetNotificationList(listArgs);
+  const { data: notificationList, ...notificationQuery } = useGetNotificationList({_user: loggedInUser._id});
   
   useEffect(() => {
     // when init is true (once at the top level component) we will start the stream
@@ -285,7 +284,7 @@ export const useStreamingNotificationList = ({ init } = {}) => {
         const notification = JSON.parse(event.data);
         if(notification && notification._id) {
           // this will add the notification to the store and update the notificationList being returned below
-          dispatch(addPushNotificationToStore({ notification, queryKey: apiUtils.queryStringFromObject(listArgs) }));
+          dispatch(addPushNotificationToStore({ notification, queryKey: apiUtils.queryStringFromObject({_user: loggedInUser._id}) }));
         }
       }
       stream.current.onerror = err => {
@@ -299,7 +298,7 @@ export const useStreamingNotificationList = ({ init } = {}) => {
       // stop the stream
       stream.current && stream.current.close();
     }
-  }, []);
+  }, [init, dispatch, loggedInUser._id]);
   
   // return the notificationList query as normal, it will be updated each time a new notification is received
   return {

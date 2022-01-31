@@ -33,8 +33,8 @@ const DefaultNav = () => {
   const location = useLocation();
 
   const handleLogout = async () => {
-    const { response } = await dispatch(sendLogout());
-    response && history.push("/");
+    const { payload } = await dispatch(sendLogout());
+    payload && history.push("/");
   }
 
   return (
