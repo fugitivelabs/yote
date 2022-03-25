@@ -28,12 +28,12 @@ import Binder from '../../../global/Binder';
 import YTButton from '../../../global/buttons/YTButton';
 // import YTHeader from '../../global/headers/YTHeader';
 
-// import actions
+// import services
 
 // import utils
 
 // import styles
-import YTStyles from '../../../global/styles/YTStyles';
+import tw from '../../../global/styles/tailwind/twrnc'; 
 
 class DefaultClassComponent extends Binder {
   constructor(props){

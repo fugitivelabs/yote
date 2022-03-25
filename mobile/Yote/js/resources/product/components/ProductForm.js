@@ -25,7 +25,9 @@ import YTButton from '../../../global/buttons/YTButton';
 
 // hooks
 import { useFormState } from '../../../global/utils/customHooks';
-import YTStyles from '../../../global/styles/YTStyles';
+
+// import styles
+import tw from '../../../global/styles/tailwind/twrnc'; 
 
 const ProductForm = ({
   disabled
@@ -41,20 +43,19 @@ const ProductForm = ({
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? "padding" : null}
-      contentContainerStyle={{flex: 1}}
-      style={YTStyles.container}
+      contentContainerStyle={tw`flex-1`}
+      style={tw`flex-1 bg-white`}
     >
-      <ScrollView keyboardDismissMode="interactive" keyboardShouldPersistTaps="handled" style={[YTStyles.formWrapper]}>
+      <ScrollView keyboardDismissMode="interactive" keyboardShouldPersistTaps="handled">
         <View>
-          <View style={{padding: 5}}>
+          <View style={tw`p-2`}>
             <TextInput
               autoCorrect={true}
               isRequired={true}
               onChange={(e) => handleChange(e, 'title')}
               placeholder="Title"
-              placeholderTextColor={YTStyles.colors.accentText}
               returnKeyType="next"
-              style={YTStyles.input}
+              style={tw`p-2 text-lg border-b border-gray-100`}
               value={updatedProduct.title || ""}
               // onFocus={ (e) => this._scrollToInput(e, 'product.title')}
               // onSubmitEditing={(event) => {
@@ -63,8 +64,8 @@ const ProductForm = ({
               // ref="product.title"
             />
           </View>
-          <View style={YTStyles.separator}/>
-          <View style={{padding: 5}}>
+          <View style={tw`h-1 border-b`}/>
+          <View style={tw`p-2`}>
             <TextInput
               autoCorrect={true}
               isRequired={true}
@@ -72,17 +73,15 @@ const ProductForm = ({
               onChange={(e) => handleChange(e, 'description')}
               onSubmitEditing={handleFormSubmit}
               placeholder="Write a description..."
-              placeholderTextColor={YTStyles.colors.accentText}
               returnKeyType="go"
-              style={[YTStyles.input, {minHeight: 90}]}
+              style={[tw`p-2 text-lg border-b border-gray-100`]}
               value={updatedProduct.description || ""}
               // onFocus={ (e) => this._scrollToInput(e, 'product.description')}
               // ref="product.description"
             />
           </View>
-          <View style={YTStyles.separator}/>
         </View>
-        <View style={{paddingHorizontal: 10, paddingVertical: 20}}>
+        <View style={tw`px-2 py-4`}>
           <YTButton
             caption={formType == "update" ? "Update product" : "Create new product"}
             isDisabled={disabled}

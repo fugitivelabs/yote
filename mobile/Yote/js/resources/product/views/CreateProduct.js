@@ -28,7 +28,7 @@ import _ from 'lodash';
 import { useCreateProduct } from '../productService';
 
 // import styles
-import YTStyles from '../../../global/styles/YTStyles'; 
+import tw from '../../../global/styles/tailwind/twrnc'; 
 
 const CreateProduct = () => {
   const { data: defaultProduct, sendCreateProduct, ...defaultProductQuery } = useCreateProduct();
@@ -56,7 +56,7 @@ const CreateProduct = () => {
 
   // render UI based on data and loading state
   return (
-    <View style={YTStyles.container}>
+    <View style={tw`flex-1 bg-white`}>
       <YTHeader
         title='Create Product'
         leftItem={leftItem}

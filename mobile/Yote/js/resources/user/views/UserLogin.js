@@ -29,7 +29,8 @@ import { sendLogin } from '../authStore';
 // import user components
 import UserLoginForm from '../components/UserLoginForm';
 
-import YTStyles from '../../../global/styles/YTStyles'; 
+// import styles
+import tw from '../../../global/styles/tailwind/twrnc'; 
 
 const UserLogin = () => {
   const dispatch = useDispatch();
@@ -45,7 +46,7 @@ const UserLogin = () => {
   }
 
   return  (
-    <View style={[YTStyles.container]}>
+    <View style={tw`flex-1 bg-white`}>
       <UserLoginForm
         user={{username: '', password: ''}}
         handleFormSubmit={handleFormSubmit}

@@ -7,12 +7,16 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     colors: {
-      gray: colors.coolGray,
+      gray: colors.gray,
       blue: colors.blue,
       red: colors.rose,
+      green: colors.green,
       pink: colors.fuchsia,
       white: colors.white
     },
+    fontFamily: {
+      
+    }
   },
   variants: {
     extend: {},
@@ -38,6 +42,16 @@ module.exports = {
         tintAccent: {
           tintColor: `#08bdec`,
         },
+        input: {
+          minHeight: 40
+          , color: '#1b2330'
+          , fontFamily: 'AvenirNextCondensed-DemiBold'
+          , fontSize: 18
+          , fontWeight: 'normal'
+          , padding: 4
+          , flex: 1
+          , backgroundColor: '#fff'
+        }
       });
     }),
   ],
