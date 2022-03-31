@@ -26,7 +26,7 @@ import YTHeader from '../../../global/headers/YTHeader';
 import { useFormState } from '../../../global/utils/customHooks';
 
 // import styles
-import YTStyles from '../../../global/styles/YTStyles'; 
+import tw from '../../../global/styles/tailwind/twrnc'; 
 
 const UserRegisterForm = ({
   handleFormSubmit
@@ -51,22 +51,22 @@ const UserRegisterForm = ({
   }
 
   return (
-    <View style={YTStyles.container}>
+    <View style={tw`flex-1`}>
       <YTHeader
         title='Register'
         leftItem={leftItem}
       />
       <ScrollView keyboardDismissMode="interactive" keyboardShouldPersistTaps="handled">
-        <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center', paddingTop: 50}}>
+        <View style={tw`flex-1 flex-row justify-center pt-8`}>
           <Image
             resizeMode={"contain"}
             source={require('../../../global/img/logo.png')}
-            style={{height: 250, width: 250, tintColor: YTStyles.colors.secondary}}
+            style={{height: 250, width: 250, tintColor: 'blue'}}
           />
         </View>
         <View style={{paddingHorizontal: 20}}>
-          <View style={YTStyles.inputWrapper}>
-            <View style={YTStyles.inputContainer}>
+          <View>
+            <View style={tw`mb-4`}>
               <TextInput
                 autoCapitalize="none"
                 autoCorrect={false}
@@ -81,11 +81,11 @@ const UserRegisterForm = ({
                 placeholder="Email"
                 // ref="username"
                 returnKeyType="next"
-                style={YTStyles.input}
+                style={tw`p-2 text-lg border-b border-gray-100`}
                 value={updatedUser.username}
               />
             </View>
-            <View style={YTStyles.inputContainer}>
+            <View style={tw`mb-4`}>
               <TextInput
                 autoCapitalize="none"
                 autoCorrect={false}
@@ -98,12 +98,12 @@ const UserRegisterForm = ({
                 // ref="password"
                 returnKeyType="go"
                 secureTextEntry={true}
-                style={YTStyles.input}
+                style={tw`p-2 text-lg border-b border-gray-100`}
                 value={updatedUser.password}
               />
             </View>
           </View>
-          <View style={{paddingTop: 40}}>
+          <View style={tw`pt-4`}>
             <YTButton
               caption={"Submit"}
               isDisabled={null}

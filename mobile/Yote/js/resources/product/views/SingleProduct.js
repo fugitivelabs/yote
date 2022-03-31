@@ -34,7 +34,7 @@ import _ from 'lodash';
 import { useGetProductById } from '../productService';
 
 // import styles
-import YTStyles from '../../../global/styles/YTStyles';
+import tw from '../../../global/styles/tailwind/twrnc'; 
 
 const SingleProduct = () => {
   // get route state. Below is equivalent to getting navigation obj to access params
@@ -56,20 +56,20 @@ const SingleProduct = () => {
   }
 
   return (
-    <View style={YTStyles.container}>
+    <View style={tw`flex-1 bg-white`}>
       <YTHeader
         title='Single Product'
         leftItem={leftItem}
       />
       <WaitOn query={productQuery} fallback={<Skeleton />}>
         <ScrollView style={{opacity: productQuery.isFetching ? 0.5 : null}}>
-          <View style={{padding: 10}}>
-            <Text style={YTStyles.h1}>{product?.title}</Text>
+          <View style={tw`p-4`}>
+            <Text style={tw`text-lg`}>{product?.title}</Text>
           </View>
-          <View style={{paddingHorizontal: 10}}>
-            <Text style={YTStyles.text}>{product?.description}</Text>
+          <View style={tw`px-4`}>
+            <Text style={tw`text-lg`}>{product?.description}</Text>
           </View>
-          <View style={{padding: 10}}>
+          <View style={tw`p-4`}>
             <YTButton
               caption={"Edit"}
               onPress={() => navigation.navigate('UpdateProduct', {productId: product._id})}

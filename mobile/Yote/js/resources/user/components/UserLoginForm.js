@@ -101,7 +101,7 @@ const UserLoginForm = ({
               type="primary"
             />
           </View>
-          <View style={tw``}>
+          <View style={tw`px-2 py-4`}>
             <YTButton
               caption={"Register"}
               isDisabled={null}

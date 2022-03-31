@@ -34,7 +34,7 @@ import _ from 'lodash';
 import { useGetUpdatableProduct } from '../productService';
 
 // import styles
-import YTStyles from '../../../global/styles/YTStyles';
+import tw from '../../../global/styles/tailwind/twrnc'; 
 
 const UpdateProduct = () => {
   const route = useRoute();
@@ -64,7 +64,7 @@ const UpdateProduct = () => {
 
   return (
     // <WaitOn/> handles all of the isLoading, isError, etc stuff so we don't have to do the stuff above
-    <View style={YTStyles.container}>
+    <View style={tw`flex-1`}>
       <YTHeader
         title='Update Product'
         leftItem={leftItem}
