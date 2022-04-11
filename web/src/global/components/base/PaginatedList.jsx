@@ -6,7 +6,6 @@ import PageTabber from '../helpers/PageTabber'
 
 const PaginatedList = ({
   children
-  , classes
   , pagination: {
     page
     , per
@@ -17,7 +16,7 @@ const PaginatedList = ({
 }) => {
   // TODO: Add UI to use setPer
   return (
-    <ul className={classes}>
+    <ul className="list-none">
       {children}
       {page && per && setPage && totalPages ?
         <PageTabber

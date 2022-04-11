@@ -4,17 +4,42 @@
 
 @layer base {
   /* ↓↓↓ Applys Tailwind utility classes to establish some baseline global styles. */
+  :root {
+    --bg-primary: 253, 252, 253;
+    --bg-secondary: 255, 255, 255;
+    --bg-tertiary: 238, 238, 238;
+
+    --border-primary: 253, 252, 253;
+    --border-secondary: 255, 255, 255;
+    --border-tertiary: 238, 238, 238;
+
+    --text-primary: 0, 0, 0;
+    --text-secondary: 214, 63, 74;
+    --text-tertiary: 255, 255, 255;
+  }
+
+  .dark {
+    --bg-primary: 0, 0, 0;
+    --bg-secondary: 214, 63, 74;
+    --bg-tertiary: 238, 238, 238;
+
+    --border-primary: 253, 252, 253;
+    --border-secondary: 255, 255, 255;
+    --border-tertiary: 238, 238, 238;
+
+    --text-primary: 255, 255, 255;
+    --text-secondary: 214, 63, 74;
+    --text-tertiary: 255, 255, 255;
+  }
+
+  /* ↓↓↓ Applys Tailwind utility classes to establish some baseline global styles. */
   * { @apply box-border; }
   
-  body, p, ol, ul, td { @apply font-sans leading-5 m-0 text-gray-800; }
-  
-  a { @apply text-gray-800; }
-  
-  a:hover { @apply bg-green-400; }
+  body, p, ol, ul, td { @apply font-sans m-0 text-gray-800; }
   
   label { @apply block; }
   
-  button { @apply m-0; }
+  button, h1, h2, h3, h4 { @apply m-0; }
   
   ul { @apply m-0 p-0; }
   /* ꜛꜛꜛ End baseline global styles */
