@@ -1,7 +1,7 @@
 
 exports.buildMongoQueryFromUrlQuery = urlQuery => {
   let newQuery = {...urlQuery}
-  let pagination, sort;
+  let pagination, sort, limit;
   if(newQuery.page && newQuery.per) {
     pagination = {}
     pagination.page = parseInt(newQuery.page);
@@ -15,11 +15,36 @@ exports.buildMongoQueryFromUrlQuery = urlQuery => {
   }
   delete newQuery.sort;
 
+  if(newQuery.limit) {
+    limit = Number(newQuery.limit);
+  }
+  delete newQuery.limit;
   // loop. keys should stay the same, but we need to change value for various types
   for(key in newQuery) {
     // catch for "all" here and return a blank query
     if(key === "all") {
       newQuery = {}
+      break;
+    } else if(key === "searchTerm") {
+      // console.log("found text search in query: " + newQuery.searchTerm);
+      /**
+       * By default, text search is lenient and returns every match for every string.
+       * We want it more strict where "Joe Smith" doesn't also return "Joe Green" and "Jim Smith"
+       * To do so we need the string to look like this \"joe" \"smith". More info: https://docs.mongodb.com/manual/reference/operator/query/text/#phrases
+       */
+      // split the query string at each space so we get an array of strings ["joe", "smith"]
+      const queryArray = newQuery.searchTerm.split(' ');
+      // console.log('queryArray', queryArray);
+      
+      let queryString = ''
+      // format each string as described above and build the queryString.
+      queryArray.forEach(string => {
+        queryString += `\\"${string}"`
+      })
+      newQuery.$text = {
+        $search: queryString
+      }
+      delete newQuery.searchTerm;
       break;
     }
     if(newQuery[key] == "true") {
@@ -35,7 +60,7 @@ exports.buildMongoQueryFromUrlQuery = urlQuery => {
     }
     // TODO: numbers, dates, gt, lt
   }
-  return { query: newQuery, pagination, sort };
+  return { query: newQuery, pagination, sort , limit };
 }
 
 exports.defaultValueFromSchema = schemaType => {

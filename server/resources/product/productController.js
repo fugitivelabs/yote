@@ -83,27 +83,20 @@ exports.getDefault = async (req, res) => {
 
 // list api functions
 exports.getListWithArgs = async (req, res) => {
-  // console.log(req.params)
-  const { query, pagination, sort } = apiUtils.buildMongoQueryFromUrlQuery(req.query);
-  // console.log("after parse", query, pagination, sort)
-
-  // let query = {}
-  // let query = {type: "doesn't exist"}
-  // let query = "break me"
+  const { query, pagination, sort, limit } = apiUtils.buildMongoQueryFromUrlQuery(req.query);
   // get count so we can determine total pages for front end to allow proper pagination
   const count = pagination ? await Product.countDocuments(query) : null
   const totalPages = count && Math.ceil(count / pagination.per)
   const products = await Product.find(query)
     .skip(pagination ? (pagination.page - 1) * pagination.per : null)
-    .limit(pagination ? pagination.per : null)
+    .limit(pagination ? pagination.per : (limit || 500))
     .sort(sort)
     .catch(err => {
       console.log(err);
-      throw new YoteError("There was a problem finding Products", 404)
+      throw new YoteError("There was a problem finding Product list", 404);
     });
   res.json({products, totalPages})
 }
-
 
 // other experimental/future todos
 exports.getSingleByArgs = async (req, res) => {}
