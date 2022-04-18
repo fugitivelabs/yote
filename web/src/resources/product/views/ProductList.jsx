@@ -16,7 +16,7 @@ import { useGetProductList } from '../productService';
 
 const ProductList = () => {
   const { data: products, ids, pagination, ...productQuery } = useGetProductList({ page: 1, per: 5 });
-  
+
   return (
     <ProductLayout title={'Product List'}>
       <section className="max-w-screen-lg border border-solid bg-white shadow-sm rounded-sm mx-auto">
@@ -40,9 +40,9 @@ const ProductList = () => {
   )
 }
 
-const Skeleton = ({count = 5}) => {
+const Skeleton = ({ count = 5 }) => {
   const items = new Array(count).fill('some-non-empty-value')
-  return items.map(() => <ProductListItem.Skeleton key={Math.random()}/>)
+  return items.map(() => <ProductListItem.Skeleton key={Math.random()} />)
 }
 
 

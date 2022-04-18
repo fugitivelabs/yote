@@ -4,26 +4,28 @@
  * in the components.
  */
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { usePagination } from '../../global/utils/customHooks';
 
 import apiUtils from '../../global/utils/api';
 
-// import all of the actions from the store
-import { // TODO: rename these so it still makes sense when we are importing selectors and action from other stores.
-  selectListItems // call this selectProductListItems
-  , fetchProductList
-  , fetchListIfNeeded
+import {
+  selectListItems
   , selectSingleById
+  , selectQuery
+} from '../../global/utils/storeUtils';
+
+// import all of the actions from the store
+import {
+  fetchProductList
+  , fetchListIfNeeded
   , fetchSingleProduct
-  , fetchDefaultProduct
   , sendCreateProduct
   , sendUpdateProduct
   , sendDeleteProduct
   , invalidateQuery
   , addProductToList
-  , selectQuery
   , fetchSingleIfNeeded
 } from './productStore';
 
@@ -33,22 +35,95 @@ import { // TODO: rename these so it still makes sense when we are importing sel
 // CREATE
 
 /**
- * Use this hook to access the defaultProduct and the sendCreateProduct action
+ * Use this hook to handle the creation of a new product.
+ * @param {Object} initialState - The initial state of the product (optional)
+ * @param {Function} handleResponse - The function to call when the product is successfully created
  * 
- * @returns an object containing the dispatched `sendCreateProduct` action and the fetch for the default product
+ * @returns an object containing fetch info and the following:
+ * - `newProduct` as `data`: the new product object as it currently exists in state, initially the default product
+ * - `handleFormChange`: standard form change handler to be used in the form
+ * - `handleFormSubmit`: standard form submit handler to be used in the form
+ * - `setFormState`: a way to handle form state changes in the component instead of `handleFormChange`, rarely needed but sometimes necessary
  * @example // to use in a component
  * // access the create action and fetch the default product
- * const { sendCreateProduct, data: defaultProduct, ...productFetch } = useCreateProduct();
- * // dispatch the create action
- * sendCreateProduct(newProduct);
+ * const { data: newProduct, handleFormChange, handleFormSubmit, ...productQuery } = useCreateProduct({
+ *   // optional, anything we want to add to the default object
+ *   initialState: {
+ *     _athlete: match.params.athleteId
+ *   }
+ *   // optional, callback function that receives the response from the server
+ *   , handleResponse: ({payload: product, error}) => {
+ *     if(error || !product) {
+ *       alert(error.message || "An error occurred.")
+ *     }
+ *     history.push(`/products/${product._id}`)
+ *   }
+ * });
+ * 
+ * return (
+ *   <WaitOn query={productQuery}>
+ *     <ProductForm
+ *       product={product}
+ *       handleFormSubmit={handleFormSubmit}
+ *       handleFormChange={handleFormChange}
+ *     />
+ *   </WaitOn>
+ * )
  */
-export const useCreateProduct = () => {
+export const useCreateProduct = ({ initialState = {}, onResponse = () => { } }) => {
   const dispatch = useDispatch();
-  const defaultProductFetch = useGetDefaultProduct();
-  // return the default product fetch and the sendCreateProduct action
+  // STATE
+  // set up a state variable to hold the product, start with an empty object
+  const [newProduct, setFormState] = useState(initialState);
+  // set up a state variable to hold the isCreating flag
+  const [isCreating, setIsCreating] = useState(false)
+
+  // FETCH
+  // use the existing hook to get the default product
+  const { data: defaultProduct, ...defaultProductQuery } = useGetDefaultProduct();
+
+  useEffect(() => {
+    // once we have the default product, set it to state
+    if(defaultProduct) {
+      // override default values with anything that was passed as initialState
+      setFormState((currentState) => {
+        return { ...defaultProduct, ...currentState }
+      });
+    }
+  }, [defaultProduct])
+
+  // FORM HANDLERS
+  // setFormState will replace the entire product object with the new product object
+  // set up a handleFormChange method to update nested state while preserving existing state(standard reducer pattern)
+  const handleFormChange = e => {
+    setFormState(currentState => {
+      return { ...currentState, [e.target.name]: e.target.value }
+    });
+  }
+
+  const handleFormSubmit = e => {
+    // prevent the default form submit event if present
+    e?.preventDefault && e.preventDefault();
+    // set isCreating true so the component knows we're waiting on a response
+    setIsCreating(true)
+    // dispatch the create action
+    dispatch(sendCreateProduct(newProduct)).then(response => {
+      // set isCreating false so the component knows we're done waiting on a response
+      setIsCreating(false)
+      // send the response to the callback function
+      onResponse(response.payload, response.error);
+    })
+  }
+
+  // return everything the component needs to create a new product
   return {
-    sendCreateProduct: (newProduct) => dispatch(sendCreateProduct(newProduct))
-    , ...defaultProductFetch
+    data: newProduct
+    , handleFormChange
+    , handleFormSubmit
+    , setFormState // only used if we want to handle this in a component, will usually use handleFormChange
+    , ...defaultProductQuery
+    // override isFetching if we're waiting for the new product to get returned (for ui purposes)
+    , isFetching: isCreating || defaultProductQuery.isFetching
   }
 }
 
@@ -56,49 +131,17 @@ export const useCreateProduct = () => {
 
 /**
  * NOTE: If you are using this because you want to create a new product, try `useCreateProduct`
- * instead. It returns the defaultProduct and the `sendCreateProduct` action in one go.
+ * instead. It handles everything for you!
  * 
  * @param {boolean} forceFetch - optional override to force a fetch from the server
  * @returns an object containing fetch info and eventually the defaultProduct (as `data`)
  * @returns a refetch function for convenience (will probably never be used for default product, but keeps things consistent)
  */
 export const useGetDefaultProduct = (forceFetch = false) => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    // fetch the default product if required
-    if(forceFetch) {
-      dispatch(fetchDefaultProduct())
-    } else {
-      dispatch(fetchSingleIfNeeded('defaultProduct'))
-    }
-    // this is the dependency array. useEffect will run anytime one of these changes
-  }, [forceFetch, dispatch]);
-
-  // get the query status from the store
-  const { status, error } = useSelector(store => selectQuery(store, 'defaultProduct'));
-
-  // get current item (if it exists)
-  const defaultProduct = useSelector(store => selectSingleById(store, 'defaultProduct'));
-
-  const isFetching = status === 'pending' || status === undefined;
-  const isLoading = isFetching && !defaultProduct;
-  const isError = status === 'rejected';
-  const isSuccess = status === 'fulfilled';
-  const isEmpty = isSuccess && !defaultProduct;
-   
-  // return the info for the caller of the hook to use
-  return {
-    data: defaultProduct
-    , error
-    , isFetching
-    , isLoading
-    , isError
-    , isSuccess
-    , isEmpty
-    , refetch: () => dispatch(fetchDefaultProduct())
-  }
+  // leverage existing hooks to get the default product (using 'default' as the id will return the default product from the server)
+  return useGetProductById('default', forceFetch);
 }
+
 
 /**
  * This hook will check for a fresh product in the store and fetch a new one if necessary
@@ -121,15 +164,15 @@ export const useGetProductById = (id, forceFetch = false) => {
       }
     } else {
       // no id yet, don't attempt fetch
-      // console.log("still waiting for product id");
+      // console.log("still waiting for Product id");
     }
     // this is the dependency array. useEffect will run anytime one of these changes
   }, [id, forceFetch, dispatch]);
 
   // get the query status from the store
-  const { status, error } = useSelector(store => selectQuery(store, id));
+  const { status, error } = useSelector(({ product: productStore }) => selectQuery(productStore, id));
   // get current product data (if it exists)
-  const product = useSelector(store => selectSingleById(store, id));
+  const product = useSelector(({ product: productStore }) => selectSingleById(productStore, id));
 
   const isFetching = status === 'pending' || status === undefined;
   const isLoading = isFetching && !product;
@@ -170,7 +213,7 @@ export const useGetProductList = (listArgs = {}, forceFetch = false) => {
   * dispatch(fetchProductList({queryString: listArgs, queryKey: someParsedVersionOfListArgs}))
   * 
   */
-  
+
   // first make sure all list args are present. If any are undefined we will wait to fetch.
   const readyToFetch = apiUtils.checkListArgsReady(listArgs);
 
@@ -205,10 +248,10 @@ export const useGetProductList = (listArgs = {}, forceFetch = false) => {
   }, [readyToFetch, queryString, forceFetch, dispatch]);
 
   // get the query info from the store
-  const { status, error, totalPages, ids } = useSelector(store => selectQuery(store, queryString));
+  const { status, error, totalPages, ids } = useSelector(({ product: productStore }) => selectQuery(productStore, queryString));
 
   // get current list items (if they exist)
-  const products = useSelector(store => selectListItems(store, queryString));
+  const products = useSelector(({ product: productStore }) => selectListItems(productStore, queryString));
 
   const isFetching = status === 'pending' || status === undefined;
   const isLoading = isFetching && !products;
@@ -276,29 +319,81 @@ export const useUpdateProduct = () => {
 }
 
 /**
- * Use this hook to fetch a product and access the `sendUpdateProduct` action
+ * Use this hook to handle the update of an existing product.
+ * @param {string} id - the id of the product to be updated.
+ * @param {Object} options - an object that expects an optional onResponse function that receives the updated product and error.
  * 
- * Under the hood it combines `useGetProductById` and `useUpdateProduct` in a more convenient package
- * 
- * @param {string} id - the id of the product to be fetched and updated.
- * @returns an object containing the sendUpdateProduct function and the fetch for the product id passed in
+ * @returns an object containing fetch info and the following:
+ * - `product` as `data`: the product object as it currently exists in state
+ * - `handleFormChange`: standard form change handler to be used in the form
+ * - `handleFormSubmit`: standard form submit handler to be used in the form
+ * - `setFormState`: a way to handle form state changes in the component instead of `handleFormChange`, rarely needed but sometimes necessary
  * @example // to use in a component
- * // access the update action and fetch the product
- * const { sendUpdateProduct, data: product, ...productFetch } = useUpdateProduct(productId);
- * // dispatch the update action
- * sendUpdateProduct(updatedProduct);
+ * // fetch the product and access everything needed to handle updating it
+ * const { data: product, handleFormChange, handleFormSubmit, ...productQuery } = useGetUpdatableProduct(productId, {
+ *   // optional, callback function to run after the request is complete
+ *   onResponse: (updatedProduct, error) => {
+ *     if(error || !updatedProduct) {
+ *       alert(error.message || "An error occurred.")
+ *     }
+ *     history.push(`/products/${productId}`)
+ *   }
+ * });
+ * 
+ * return (
+ *   <WaitOn query={productQuery}>
+ *     <ProductForm
+ *       product={product}
+ *       handleFormSubmit={handleFormSubmit}
+ *       handleFormChange={handleFormChange}
+ *     />
+ *   </WaitOn>
+ * )
  */
-export const useGetUpdatableProduct = (id) => {
-  // use the existing hook to fetch the product
-  const productFetch = useGetProductById(id);
-  // use the existing hook to access the update action
-  const { sendUpdateProduct } = useUpdateProduct();
+export const useGetUpdatableProduct = (id, { onResponse = () => { } } = {}) => {
+  const dispatch = useDispatch();
+  // STATE
+  // set up a state variable to hold the product, start with an empty object
+  const [updatedProduct, setFormState] = useState({});
+
+  // FETCH
+  // use the existing hook to get the product
+  const { data: product, ...productQuery } = useGetProductById(id);
+
+  useEffect(() => {
+    // once we have the product, set it to state
+    // this will also run when the update request is complete, because `product` will be updated, which is nice
+    if(product) {
+      setFormState({ ...product });
+    }
+  }, [product])
+
+  // setFormState will replace the entire product object with the new product object
+  // set up a handleFormChange method to update nested state while preserving existing state(standard reducer pattern)
+  const handleFormChange = e => {
+    setFormState(currentState => {
+      return { ...currentState, [e.target.name]: e.target.value }
+    });
+  }
+
+  const handleFormSubmit = e => {
+    // prevent the default form submit event if present
+    e?.preventDefault && e.preventDefault();
+    // dispatch the update action then send the response to the callback function (successful or not)
+    dispatch(sendUpdateProduct(updatedProduct)).then(response => {
+      onResponse(response.payload, response.error);
+    });
+  }
+
   return {
-    // return the update action and the product fetch
-    sendUpdateProduct: sendUpdateProduct
-    , ...productFetch
+    data: updatedProduct
+    , handleFormChange
+    , handleFormSubmit
+    , setFormState // only used if we want to handle this in a component, will usually use handleFormChange
+    , ...productQuery
   }
 }
+
 
 // DELETE
 
@@ -339,74 +434,6 @@ export const useAddProductToList = () => {
  * @returns the product from the store's byId map
  */
 export const useProductFromMap = (id) => {
-  const product = useSelector(store => selectSingleById(store, id));
+  const product = useSelector(({ product: productStore }) => selectSingleById(productStore, id));
   return product
 }
-
-
-// idea to get some computed info that relies on a complicated set of fetches. This is adapted from the higher order component GcSovData from flip factory
-// export const useGcSovData = (sovId) => {
-
-//   // leverage existing stuff to get related resource info
-//   const { data: sov, ...sovFetch } = useGetSov(sovId);
-//   const { data: lineItems, ...lineItemFetch } = useGetLineItemList({ _sov: sovId });
-//   const { data: lineChangeOrders, ...lineChangeOrderFetch } = useGetLineChangeOrderList({ _sov: sovId });
-//   const { data: contracts, ...contractFetch } = useGetContractList({ _sov: sovId });
-//   const { data: contractChangeOrders, ...contractChangeOrderFetch } = useGetContractChangeOrderList({ _sov: sovId });
-//   const { data: phases, ...phaseFetch } = useGetPhaseList({ _sov: sovId });
-
-//   const isFetching = (
-//     sovFetch.isFetching
-//     || lineItemFetch.isFetching
-//     || lineChangeOrderFetch.isFetching
-//     || contractFetch.isFetching
-//     || contractChangeOrderFetch.isFetching
-//     || phaseFetch.isFetching
-//   )
-
-//   const isLoading = (
-//     sovFetch.isLoading
-//     || lineItemFetch.isLoading
-//     || lineChangeOrderFetch.isLoading
-//     || contractFetch.isLoading
-//     || contractChangeOrderFetch.isLoading
-//     || phaseFetch.isLoading
-//   )
-
-//   const isError = (
-//     sovFetch.isError
-//     || lineItemFetch.isError
-//     || lineChangeOrderFetch.isError
-//     || contractFetch.isError
-//     || contractChangeOrderFetch.isError
-//     || phaseFetch.isError
-//   )
-
-//   const isSuccess = (
-//     sovFetch.isSuccess
-//     && lineItemFetch.isSuccess
-//     && lineChangeOrderFetch.isSuccess
-//     && contractFetch.isSuccess
-//     && contractChangeOrderFetch.isSuccess
-//     && phaseFetch.isSuccess
-//   )
-
-//   const phaseTotals = !isSuccess ?
-//         sovUtils.getSovPhaseTotals({
-//           contractsByLineItem: _.groupBy(contracts, '_lineItem')
-//           , invoicesByContract: _.groupBy(invoices, '_contract')
-//           , phaseListItems: phases
-//         })
-//         :
-//         null
-
-//   // return the info for the caller of the hook to use
-//   return {
-//     data: phaseTotals,
-//     isFetching,
-//     isLoading,
-//     isError,
-//     isSuccess
-//   }
-
-// }
