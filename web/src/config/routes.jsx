@@ -44,7 +44,7 @@ const routes =
         component={adminResourceRoutes[resourceName]}
         key={Math.floor(Math.random()*100000)}
         path={`/admin/${_.kebabCase(resourceName)}`}
-        role="admin"
+        admin={true}
       />
     )}
     <Route path="/admin">
