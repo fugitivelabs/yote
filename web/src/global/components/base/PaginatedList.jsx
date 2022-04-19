@@ -16,14 +16,16 @@ const PaginatedList = ({
   }
 }) => {
   // TODO: Add UI to use setPer
+  const listRef = React.useRef(null);
   return (
-    <ul className={`list-none p-2 ${className}`}>
+    <ul className={`p-2 ${className}`} ref={listRef}>
       {children}
       {page && per && setPage ?
         <PageTabber
-          pagination={{ page: page, per: per }}
+          pagination={{page: page, per: per}}
           setPage={setPage}
-          totalPages={totalPages}
+          totalPages={totalPages || 1}
+          onSetPage={() => listRef.current.scrollIntoView({behavior: 'smooth'})} // scroll to top of list when page changes
         />
         :
         null
@@ -35,11 +37,11 @@ const PaginatedList = ({
 PaginatedList.propTypes = {
   classes: PropTypes.string
   , pagination: PropTypes.shape({
-    page: PropTypes.number
-    , per: PropTypes.number
-    , setPage: PropTypes.func
-    , setPer: PropTypes.func
-    , totalPages: PropTypes.number
+      page: PropTypes.number
+      , per: PropTypes.number
+      , setPage: PropTypes.func
+      , setPer: PropTypes.func
+      , totalPages: PropTypes.number
   })
 }
 

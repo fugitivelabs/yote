@@ -6,8 +6,14 @@ import PropTypes from 'prop-types';
 const PageTabber = ({
   pagination
   , setPage
-  , totalPages
+  , totalPages = 1
+  , onSetPage = () => { }
 }) => {
+
+  const handleSetPage = (newPage) => {
+    setPage(newPage);
+    onSetPage();
+  }
 
   if(!totalPages) return null;
 
@@ -52,7 +58,7 @@ const PageTabber = ({
       <div className="">
         <nav className="" aria-label="Pagination">
           <button
-            onClick={() => setPage(currentPage - 1)}
+            onClick={() => handleSetPage(currentPage - 1)}
             disabled={currentPage === 1}
           >
             <span>Previous</span>
@@ -67,7 +73,7 @@ const PageTabber = ({
           {before.map((page, i) => (
             <button
               key={`page-before-${i}`}
-              onClick={() => setPage(page)}
+              onClick={() => handleSetPage(page)}
             >
               {page}
             </button>
@@ -78,7 +84,7 @@ const PageTabber = ({
           {after.map((page, i) => (
             <button
               key={`page-after-${i}`}
-              onClick={() => setPage(page)}
+              onClick={() => handleSetPage(page)}
             >
               {page}
             </button>
@@ -91,7 +97,7 @@ const PageTabber = ({
             null
           }
           <button
-            onClick={() => setPage(currentPage + 1)}
+            onClick={() => handleSetPage(currentPage + 1)}
             disabled={currentPage >= totalPages}
           >
             <span>Next</span>
