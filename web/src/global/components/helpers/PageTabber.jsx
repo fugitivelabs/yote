@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 const PageTabber = ({
   pagination
   , setPage
-  , totalPages = 1
+  , totalPages
   , onSetPage = () => { }
 }) => {
 

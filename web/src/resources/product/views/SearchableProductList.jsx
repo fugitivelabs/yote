@@ -1,5 +1,5 @@
 /**
- * Same as the other product list, but with a search input that uses
+ * Same as the other product list, but with a search input that leverages server-side search
  */
 
 // import primary libraries
@@ -20,13 +20,13 @@ import ProductLayout from '../components/ProductLayout.jsx';
 import { useGetProductList } from '../productService';
 
 const SearchableProductList = () => {
-  const initialPagination = { page: 1, per: 10 };
+  const initialPagination = { page: 1, per: 5 };
   const [queryArgs, setQueryArgs] = useState({
     // the server api will catch for this specific key `textSearch` and use it to search any indexed fields
     textSearch: '' // search all by default
   })
 
-  const { data: products, ids, pagination, ...productQuery } = useGetProductList({...queryArgs, ...initialPagination});
+  const { data: products, ids, pagination, ...productQuery } = useGetProductList({ ...queryArgs, ...initialPagination });
 
   const handleQueryChange = (e) => {
     const { name, value } = e.target;

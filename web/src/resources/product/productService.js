@@ -259,13 +259,10 @@ export const useGetProductList = (listArgs = {}, forceFetch = false) => {
   const isSuccess = status === 'fulfilled';
   const isEmpty = isSuccess && !products.length;
 
-  if(totalPages) {
-    // add totalPages from the query to the pagination object
-    pagination.totalPages = totalPages;
-  }
+  // add totalPages from the query to the pagination object
+  pagination.totalPages = totalPages || 0;
 
   // PREFETCH
-
   // if we are using pagination we can fetch the next page(s) now
   const nextQueryString = readyToFetch && listArgs.page && listArgs.page < totalPages ? apiUtils.queryStringFromObject({ ...listArgs, page: Number(listArgs.page) + 1 }) : null;
 
