@@ -15,7 +15,7 @@ import ProductLayout from '../components/ProductLayout.jsx';
 import { useGetProductList } from '../productService';
 
 const ProductList = () => {
-  const { data: products, ids, pagination, ...productQuery } = useGetProductList({ page: 1, per: 5 });
+  const { data: products, ids, pagination, ...productQuery } = useGetProductList({ page: 1, per: 10 });
 
   return (
     <ProductLayout title={'Product List'}>
