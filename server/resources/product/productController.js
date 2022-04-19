@@ -95,9 +95,9 @@ exports.getListWithArgs = async (req, res) => {
       console.log(err);
       throw new YoteError("There was a problem finding Product list", 404);
     });
-  res.json({products, totalPages})
+  res.json({ products, totalPages })
 }
 
 // other experimental/future todos
-exports.getSingleByArgs = async (req, res) => {}
-exports.bulkUpdate = async (req, res) => {}
+exports.getSingleByArgs = async (req, res) => { }
+exports.bulkUpdate = async (req, res) => { }

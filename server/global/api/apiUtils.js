@@ -25,15 +25,15 @@ exports.buildMongoQueryFromUrlQuery = urlQuery => {
     if(key === "all") {
       newQuery = {}
       break;
-    } else if(key === "searchTerm") {
-      // console.log("found text search in query: " + newQuery.searchTerm);
+    } else if(key === "textSearch") {
+      // console.log("found text search in query: " + newQuery.textSearch);
       /**
        * By default, text search is lenient and returns every match for every string.
        * We want it more strict where "Joe Smith" doesn't also return "Joe Green" and "Jim Smith"
        * To do so we need the string to look like this \"joe" \"smith". More info: https://docs.mongodb.com/manual/reference/operator/query/text/#phrases
        */
       // split the query string at each space so we get an array of strings ["joe", "smith"]
-      const queryArray = newQuery.searchTerm.split(' ');
+      const queryArray = newQuery.textSearch.split(' ');
       // console.log('queryArray', queryArray);
       
       let queryString = ''
@@ -44,7 +44,7 @@ exports.buildMongoQueryFromUrlQuery = urlQuery => {
       newQuery.$text = {
         $search: queryString
       }
-      delete newQuery.searchTerm;
+      delete newQuery.textSearch;
       break;
     }
     if(newQuery[key] == "true") {
