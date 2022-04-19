@@ -28,7 +28,8 @@ import { sendRegister } from '../authStore';
 // import user components
 import UserRegisterForm from '../components/UserRegisterForm';
 
-import YTStyles from '../../../global/styles/YTStyles'; 
+// import styles
+import tw from '../../../global/styles/tailwind/twrnc'; 
 
 const UserRegister = () => {
   const dispatch = useDispatch();
@@ -43,7 +44,7 @@ const UserRegister = () => {
   }
 
   return (
-    <View style={[YTStyles.container]}>
+    <View style={tw`flex-1 bg-white`}>
       <UserRegisterForm
         user={{username: '', password: ''}}
         handleFormSubmit={handleFormSubmit}

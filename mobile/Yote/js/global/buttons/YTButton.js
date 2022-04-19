@@ -8,7 +8,6 @@ import tw from '../../global/styles/tailwind/twrnc';
 import {
   Image
   , Platform
-  , StyleSheet
   , Text
   , TouchableOpacity
   , View

@@ -43,7 +43,7 @@ import _ from 'lodash';
 import * as singleActions from '../userActions.js';
 
 // import styles
-import YTStyles from '../../../global/styles/YTStyles'; 
+import tw from '../../../global/styles/tailwind/twrnc'; 
 
 const IMAGE_HEIGHT = 150;
 
@@ -152,73 +152,67 @@ class UpdateProfile extends Binder {
     return(
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? "padding" : null}
-        contentContainerStyle={{flex:1}}
-        style={YTStyles.container}
+        contentContainerStyle={tw`flex-1`}
+        style={tw`flex-1 bg-white`}
       >
         <YTHeader
           leftItem={leftItem}
           title="Edit Profile"
         />
-        <ScrollView ref="myScrollView" keyboardDismissMode="interactive" keyboardShouldPersistTaps="handled" style={[YTStyles.scrollContainer]} >
+        <ScrollView ref="myScrollView" keyboardDismissMode="interactive" keyboardShouldPersistTaps="handled">
           <View>
-            <View style={{alignItems: 'center' , flex: 1 , padding: 30 , justifyContent: 'center'}}>
-              <View style={{flex: 1, borderRadius: IMAGE_HEIGHT * .5}}>
+            <View style={tw`align-center flex-1 p-4 justify-center`}>
+              <View style={tw`flex-1 rounded-full`}>
                 <Image
-                  style={{backgroundColor: YTStyles.colors.listSeparator, width: IMAGE_HEIGHT, height: IMAGE_HEIGHT, borderRadius: Platform.OS === 'ios' ? IMAGE_HEIGHT * .5 : null}}
+                  style={[tw`bg-gray-300`, {width: IMAGE_HEIGHT, height: IMAGE_HEIGHT, borderRadius: Platform.OS === 'ios' ? IMAGE_HEIGHT * .5 : null}]}
                   source={newProfilePic ? {uri: newProfilePic.uri} : profileImg}
                 />
               </View>
             </View>
-            <View style={{flex: 1, flexDirection: 'row', paddingHorizontal: 10, paddingVertical: 5}}>
-              <View style={{flex: .4, justifyContent: 'center', paddingLeft: 10}}>
-                <Text style={YTStyles.text}>First Name:</Text>
+            <View style={tw`flex-1 flex-row px-4 py-2`}>
+              <View style={tw`flex-auto justify-center pl-4`}>
+                <Text style={tw`text-lg`}>First Name:</Text>
               </View>
-              <View style={{flex: .6, justifyContent: 'center'}}>
+              <View style={tw`flex-auto justify-center pl-4`}>
                 <TextInput
                   autoCapitalize="words"
                   autoCorrect={false}
                   isRequired={true}
                   onChange={ (e) => this._handleInputChange(e, "newUserData.firstName") }
                   onFocus={ (e) => this._scrollToInput(e, 'newUserData.firstName')}
-                  placeholder=""
-                  placeholderTextColor={YTStyles.colors.lightText}
                   ref="newUserData.firstName"
                   returnKeyType="default"
-                  style={YTStyles.input}
+                  style={tw`p-2 text-lg border-b border-gray-100`}
                   value={this.state.newUserData.firstName}
                 />
               </View>
             </View>
-            <View style={YTStyles.separator}/>
             <View>
-              <View style={{flex: 1, flexDirection: 'row', paddingHorizontal: 10, paddingVertical: 5}}>
-                <View style={{flex: .4, justifyContent: 'center', paddingLeft: 10}}>
-                  <Text style={YTStyles.text}>Last Name:</Text>
+              <View style={tw`flex-1 flex-row px-4 py-2`}>
+                <View style={tw`flex-auto justify-center pl-4`}>
+                  <Text style={tw`text-lg`}>Last Name:</Text>
                 </View>
-                <View style={{flex: .6, justifyContent: 'center'}}>
+                <View style={tw`flex-auto justify-center pl-4`}>
                   <TextInput
                     autoCapitalize="words"
                     autoCorrect={false}
                     isRequired={true}
                     onFocus={ (e) => this._scrollToInput(e, 'newUserData.lastName')}
                     onChange={ (e) => this._handleInputChange(e, "newUserData.lastName") }
-                    placeholder=""
-                    placeholderTextColor={YTStyles.colors.lightText}
                     ref="newUserData.lastName"
                     returnKeyType="default"
-                    style={YTStyles.input}
+                    style={tw`p-2 text-lg border-b border-gray-100`}
                     value={this.state.newUserData.lastName}
                   />
                 </View>
               </View>
-              <View style={YTStyles.separator}/>
             </View>
             <View>
-              <View style={{flex: 1, flexDirection: 'row', paddingHorizontal: 10, paddingVertical: 5}}>
-                <View style={{flex: .4, justifyContent: 'center', paddingLeft: 10}}>
-                  <Text style={YTStyles.text}>Email:</Text>
+              <View style={tw`flex-1 flex-row px-4 py-2`}>
+                <View style={tw`flex-auto justify-center pl-4`}>
+                  <Text style={tw`text-lg`}>Email:</Text>
                 </View>
-                <View style={{flex: .6, justifyContent: 'center'}}>
+                <View style={tw`flex-auto justify-center pl-4`}>
                   <TextInput
                     autoCapitalize="words"
                     autoCorrect={false}
@@ -228,17 +222,16 @@ class UpdateProfile extends Binder {
                     onChange={ (e) => this._handleInputChange(e, "newUserData.username") }
                     onFocus={ (e) => this._scrollToInput(e, 'newUserData.username')}
                     placeholder=""
-                    placeholderTextColor={YTStyles.colors.lightText}
+                    placeholderTextColor={tw``}
                     ref="newUserData.username"
                     returnKeyType="default"
-                    style={YTStyles.input}
+                    style={tw`p-2 text-lg border-b border-gray-100`}
                     value={this.state.newUserData.username}
                   />
                 </View>
               </View>
-              <View style={YTStyles.separator}/>
             </View>
-          <View style={{paddingHorizontal: 10, paddingVertical: 20}}>
+          <View style={tw`px-2 py-4`}>
             <YTButton
               caption={isFetching ? "Please wait..." : "Update my profile"}
               isDisabled={!this.state.isFormValid || isFetching}
