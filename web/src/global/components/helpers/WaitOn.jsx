@@ -20,6 +20,7 @@ const WaitOn = ({
   } = query;
 
   try {
+    if(!query) return null
     // there was an error fetching data
     if(fetchError) return <div className="p-8">{error || "Oops, there was an error. "} {refetch && <button onClick={refetch}>Try again</button>}</div>
     // still waiting for data
@@ -27,7 +28,7 @@ const WaitOn = ({
     // fetch returned empty
     if(isEmpty) return <div className="p-8"><p className="text-gray-500 italic text-center">No data found</p></div>
     // fetch is done. render children to display the fetched data
-    return children;
+    return children || null;
   } catch(childError) {
     // debugging
     // console.log('Error in WaitOn children ', childError);

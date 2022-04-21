@@ -7,7 +7,7 @@
  * https://tailwindui.com/components/application-ui/headings/page-headings
  */
 
-// import primary libararies
+// import primary libraries
 import React from 'react'
 import { NavLink, useLocation } from 'react-router-dom';
 // import PropTypes from 'prop-types';
@@ -33,27 +33,28 @@ const DefaultNav = () => {
   const location = useLocation();
 
   const handleLogout = async () => {
-    const { payload } = await dispatch(sendLogout());
-    payload && history.push("/");
+    dispatch(sendLogout()).then(response => {
+      history.push("/");
+    })
   }
 
   return (
     <header className="border-b border-solid shadow-sm bg-white">
-      <div className="p-2 flex flex-col md:flex-row md:justify-between md:items-center">
-        <ul className="list-none p-0 flex flex-col md:flex-row md:items-center">
+      <div className="p-2 flex flex-row justify-between items-center">
+        <ul className="list-none p-0 flex flex-row">
           <li><NavLink to="/" className="p-2 block">Home</NavLink></li>
           <li><NavLink to="/products" className="p-2 block">Products</NavLink></li>
         </ul>
         {!loggedInUser ?
-          <ul className="list-none p-0 flex flex-col md:flex-row md:items-center">
+          <ul className="list-none p-0 flex flex-row">
             <li><NavLink to={{ pathname: "/user/login", state: { from: location } }} className="p-2 block">Sign in</NavLink></li>
             <li><NavLink to={{ pathname: "/user/register", state: { from: location } }} className="p-2 block">Register</NavLink></li>
           </ul>
           :
-          <ul className="list-none p-0 flex flex-col md:flex-row md:items-center">
-            <li><NotificationDropdown classes="p-2 block"/></li>
+          <ul className="list-none p-0 flex flex-row">
+            <li><NotificationDropdown classes="p-2 block" /></li>
             <li><NavLink to="/user/profile" className="p-2 block">My profile</NavLink></li>
-            <button onClick={handleLogout}>Logout</button>
+            <li><button className="p-2 block" onClick={handleLogout}>Logout</button></li>
           </ul>
         }
       </div>

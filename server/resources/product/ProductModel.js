@@ -31,4 +31,10 @@ productSchema.statics.getDefault = () => {
   return defaultObj;
 }
 
+// necessary for server-side text search.
+productSchema.index({
+  title: 'text'
+  , description: 'text'
+})
+
 const Product = mongoose.model('Product', productSchema);

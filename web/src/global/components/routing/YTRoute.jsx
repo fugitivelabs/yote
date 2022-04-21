@@ -13,7 +13,7 @@ import { useLoggedInUser } from '../../../resources/user/authService';
 
 const YTRoute = ({
   breadcrumbs
-  , role
+  , admin
   , login
   , exact
   , path
@@ -29,9 +29,9 @@ const YTRoute = ({
   }
   newLocation.state.breadcrumbs = breadcrumbs;
 
-  if(role || login) {
+  if(admin || login) {
     if(!loggedInUser) return <Redirect to={{ pathname: "/user/login", state: { from: location } }} />
-    if(role && !loggedInUser.roles?.indexOf[role] > -1) return <Redirect to={{ pathname: "/unauthorized" }} />
+    if(admin && !loggedInUser.admin) return <Redirect to={{ pathname: "/unauthorized" }} />
     return (
       <Route
         exact={exact}
@@ -63,13 +63,13 @@ YTRoute.propTypes = {
   , exact: PropTypes.bool
   , login: PropTypes.bool
   , path: PropTypes.string
-  , role: PropTypes.string
+  , admin: PropTypes.bool
 }
 
 YTRoute.defaultProps = {
   breadcrumbs: []
   , login: false
-  , role: null
+  , admin: false
 }
 
 export default YTRoute;
