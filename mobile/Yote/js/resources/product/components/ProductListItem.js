@@ -11,43 +11,42 @@ import {
   , Text
   , TouchableHighlight
   , View
-} from 'react-native'; 
-
-// import global components
-import YTButton from '../../../global/buttons/YTButton';
-import ListItem from '../../../global/components/base/ListItem';
-import WaitOn from '../../../global/components/helpers/WaitOn'; 
+} from 'react-native';
 
 // import libraries
 
 // Import tailwind with config
-import tw from '../../../global/styles/tailwind/twrnc'; 
+import tw from '../../../global/styles/tailwind/twrnc';
 
 // import services
-import { useGetProductById } from '../productService';
+import { useProductFromMap } from '../productService';
 
 const ProductListItem = ({ id, navigation }) => {
-  const { data: product, ...productQuery } = useGetProductById(id);
+  // if this is being rendered then we already fetched the list so we know this product exists in the map, no need to attempt to fetch it again
+  const product = useProductFromMap(id);
+
+  if(!product) return <Skeleton />;
 
   return (
-    <WaitOn query={productQuery} fallback={<Skeleton/>}>
-      <View style={tw.style('flex-1', { 'opacity-50': productQuery.isFetching })}>
-        <TouchableHighlight style={tw`p-2`} onPress={() => navigation.navigate('SingleProduct', {productId: id})}>
-          <View>
-            <Text style={tw`text-lg font-semibold`}>{product.title}</Text>
-            <Text style={tw`text-lg`}>{product.description}</Text>
-          </View>
-        </TouchableHighlight>
-      </View>
-    </WaitOn>
+    <View style={tw`flex`}>
+      <TouchableHighlight style={tw`p-2`} onPress={() => navigation.navigate('SingleProduct', { productId: id })}>
+        <View>
+          <Text style={tw`text-lg font-semibold`}>{product?.title}</Text>
+          <Text style={tw`text-lg`}>{product?.description}</Text>
+        </View>
+      </TouchableHighlight>
+    </View>
   )
 }
 
 // custom loading skeleton for this component, by defining it right here we can keep it synced with any changes we make to the actual component above
 const Skeleton = () => {
   return (
-    <View >
-      <Text>Loading</Text>
+    <View style={tw`flex`} >
+      <View style={tw`p-2`}>
+        <Text style={tw`bg-gray-400 h-5 my-1 w-2/5`} />
+        <Text style={tw`bg-gray-300 h-5 my-1 w-3/4`} />
+      </View>
     </View>
   )
 }
@@ -56,6 +55,7 @@ ProductListItem.Skeleton = Skeleton;
 
 ProductListItem.propTypes = {
   id: PropTypes.string.isRequired
+  , onPress: PropTypes.func
 }
 
 export default ProductListItem;

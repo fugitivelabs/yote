@@ -2,7 +2,6 @@
 
 // import react things
 import React from 'react';
-import PropTypes from 'prop-types';
 
 // import react-native components
 import {
@@ -32,7 +31,7 @@ import tw from '../../../global/styles/tailwind/twrnc';
 import { useGetProductList } from '../productService';
 
 const ProductList = () => {
-  const { data: products, ids, pagination, ...productQuery } = useGetProductList({ page: 1, per: 5 });
+  const { data: products, ids, ...productQuery } = useGetProductList({});
   const navigation = useNavigation(); 
 
   return (
@@ -48,7 +47,7 @@ const ProductList = () => {
             onPress={() => navigation.navigate('CreateProduct')}
           />
         </View>
-        <WaitOn query={productQuery} fallback={<Skeleton count={pagination.per} />}>
+        <WaitOn query={productQuery} fallback={<Skeleton />}>
           {products?.map(product => <ProductListItem key={product._id} id={product._id} navigation={navigation}/>)}
           {/* {ids?.map(productId => <ProductListItem key={productId} id={productId} />)} */}
         </WaitOn>
@@ -57,9 +56,9 @@ const ProductList = () => {
   )
 }
 
-const Skeleton = ({count = 5}) => {
-  const items = new Array(count).fill('some-non-empty-value')
-  return items.map(() => <ActivityIndicator key={Math.random()}/>)
+const Skeleton = ({ count = 10 }) => {
+  const items = new Array(count).fill('list-item-skeleton');
+  return items.map((name, index) => <ProductListItem.Skeleton key={`${name} ${index}`} />)
 }
 
 export default ProductList;
