@@ -41,8 +41,8 @@ const ProductList = () => {
 }
 
 const Skeleton = ({ count = 5 }) => {
-  const items = new Array(count).fill('some-non-empty-value')
-  return items.map(() => <ProductListItem.Skeleton key={Math.random()} />)
+  const items = new Array(count).fill('list-item-skeleton');
+  return items.map((name, index) => <ProductListItem.Skeleton key={`${name} ${index}`} />)
 }
 
 

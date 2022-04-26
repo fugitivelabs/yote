@@ -12,7 +12,7 @@ import {
   sendGetLoggedIn
   , selectLoggedInUser
   , selectAuthStatus
-  , selectSessionToken
+  // , selectSessionToken
 } from './authStore';
 
 // Define the hooks that we'll use to manage data in the components
@@ -54,12 +54,12 @@ export const useLoggedInUser = () => {
   }
 }
 
-/**
- * This hook will grab the token from the store
- * @returns the token from the auth store
- */
-export const useSessionToken = () => {
-  // get the token from the store
-  const token = useSelector(store => selectSessionToken(store)); 
-  return token; 
-}
+// /**
+//  * This hook will grab the token from the store
+//  * @returns the token from the auth store
+//  */
+// export const useSessionToken = () => {
+//   // get the token from the store
+//   const token = useSelector(store => selectSessionToken(store)); 
+//   return token; 
+// }

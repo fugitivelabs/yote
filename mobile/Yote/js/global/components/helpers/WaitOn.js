@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 
 // Import tailwind with config
-import tw from '../../../global/styles/tailwind/twrnc'; 
+import tw from '../../../global/styles/tailwind/twrnc';
 
 
 import YTButton from '../../buttons/YTButton';
@@ -18,7 +18,7 @@ import YTButton from '../../buttons/YTButton';
 // deals with fetch info supplied by query hooks and displays loading and error states if applicable.
 // only renders children when the fetch is done.
 const WaitOn = ({
-  fallback = (<ActivityIndicator/>)
+  fallback = (<ActivityIndicator />)
   , query
   , children
 }) => {
@@ -33,20 +33,42 @@ const WaitOn = ({
   } = query;
 
   try {
+    if(!query) return null;
     // there was an error fetching data
-    if(fetchError) return <Text> {error || "Oops, there was an error accessing this data."} {refetch && <YTButton type={"secondary"} caption={'Try Again'} onPress={refetch}/>}</Text>
+    if(fetchError) return (
+      <View style={tw`flex flex-col items-center my-auto`}>
+        <Text style={tw`text-center text-lg p-4`}>
+          {error || "Oops, there was an error accessing this data."}
+        </Text>
+        <YTButton
+          onPress={refetch}
+          type='secondary'
+          caption='Try again'
+        />
+      </View>
+    )
     // still waiting for data
-    if(isLoading) return fallback
+    if(isLoading) return fallback;
     // fetch returned empty
-    if(isEmpty) return <Text style={tw`text-center text-lg p-4`}>No data found</Text>
+    if(isEmpty) return <Text style={tw`text-center text-lg p-4 my-auto`}>No data found</Text>
     // fetch is done. render children to display the fetched data
-    return children;
+    return children || null;
   } catch(childError) {
     // debugging
     // console.log('Error in WaitOn children ', childError);
     // there was an error thrown by the children, but the app will not crash, it will display an error message instead.
-    // Could somehow log this error or save it as a userEvent kind of thing. Could make it easier to track bugs over time.
-    return <Text> Oops, there was an error. {refetch && <YTButton type={"secondary"} caption={'Try Again'} onPress={refetch}/>}</Text>
+    return (
+      <View style={tw`flex flex-col items-center my-auto`}>
+        <Text style={tw`text-center text-lg p-4`}>
+          Oops, there was an error.
+        </Text>
+        <YTButton
+          onPress={refetch}
+          type='secondary'
+          caption='Try again'
+        />
+      </View>
+    )
   }
 }
 
