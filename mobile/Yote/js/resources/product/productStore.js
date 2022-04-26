@@ -1,7 +1,29 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import apiUtils from '../../global/utils/api';
-import { convertListToMap, shouldFetch } from '../../global/utils/storeUtils';
+
+import {
+  handleCreateFulfilled
+  , handleFetchSinglePending
+  , handleFetchSingleFulfilled
+  , handleFetchSingleRejected
+  , handleFetchListPending
+  , handleFetchListFulfilled
+  , handleFetchListRejected
+  , handleMutationPending
+  , handleMutationFulfilled
+  , handleMutationRejected
+  , handleDeletePending
+  , handleDeleteFulfilled
+  , handleDeleteRejected
+  , shouldFetch
+  , INITIAL_STATE
+  , handleInvalidateQuery
+  , handleAddSingleToList
+  , selectListItems
+  , selectSingleById
+  , handleInvalidateQueries
+} from '../../global/utils/storeUtils';
 
 
 // First define all API calls for product
@@ -17,8 +39,8 @@ import { convertListToMap, shouldFetch } from '../../global/utils/storeUtils';
 
 // CREATE
 export const sendCreateProduct = createAsyncThunk(
-  'product/sendCreate',
-  async (newProduct) => {
+  'product/sendCreate'
+  , async (newProduct) => {
     const endpoint = `/api/products`;
     const response = await apiUtils.callAPI(endpoint, 'POST', newProduct);
     // The value we return becomes the `fulfilled` action payload
@@ -27,18 +49,9 @@ export const sendCreateProduct = createAsyncThunk(
 );
 
 // READ
-export const fetchDefaultProduct = createAsyncThunk(
-  'product/fetchDefault',
-  async () => {
-    const endpoint = `/api/products/default`;
-    const response = await apiUtils.callAPI(endpoint);
-    // The value we return becomes the `fulfilled` action payload
-    return response;
-  }
-);
 export const fetchSingleProduct = createAsyncThunk(
-  'product/fetchSingle',
-  async (id) => {
+  'product/fetchSingle'
+  , async (id) => {
     const endpoint = `/api/products/${id}`;
     const response = await apiUtils.callAPI(endpoint);
     // The value we return becomes the `fulfilled` action payload
@@ -46,8 +59,8 @@ export const fetchSingleProduct = createAsyncThunk(
   }
 );
 export const fetchProductList = createAsyncThunk(
-  'product/fetchList', // this is the action name that will show up in the console logger.
-  async (listArgs) => {
+  'product/fetchList' // this is the action name that will show up in the console logger.
+  , async (listArgs) => {
     const endpoint = `/api/products?${listArgs}`;
     const response = await apiUtils.callAPI(endpoint);
     // The value we return becomes the `fulfilled` action payload
@@ -57,8 +70,8 @@ export const fetchProductList = createAsyncThunk(
 
 // UPDATE
 export const sendUpdateProduct = createAsyncThunk(
-  'product/sendUpdate',
-  async ({_id, ...updates}) => {
+  'product/sendUpdate'
+  , async ({ _id, ...updates }) => {
     const endpoint = `/api/products/${_id}`;
     const response = await apiUtils.callAPI(endpoint, 'PUT', updates);
     // The value we return becomes the `fulfilled` action payload
@@ -68,8 +81,8 @@ export const sendUpdateProduct = createAsyncThunk(
 
 // DELETE
 export const sendDeleteProduct = createAsyncThunk(
-  'product/sendDelete',
-  async (id) => {
+  'product/sendDelete'
+  , async (id) => {
     const endpoint = `/api/products/${id}`;
     const response = await apiUtils.callAPI(endpoint, 'DELETE');
     // The value we return becomes the `fulfilled` action payload
@@ -77,36 +90,11 @@ export const sendDeleteProduct = createAsyncThunk(
   }
 );
 
-// next define the store's initial state
-const initialState = {
-  /**
-   * "byId" is an object map of all product items in the store. The map's keys are
-   * the Mongo ids of the objects by default. This is where all product objects will live.
-   */
-  byId: {}
-  
-  /**
-   * "queries" is an object map of all server fetches for products. The map's keys are listArgs
-   * in the case of list fetches and Mongo ids in the case of single fetches.
-   * Each individual query looks like this:
-   * 
-   * @example {
-   *  expirationDate: date
-   *  receivedAt: date
-   *  status: 'pending' || 'fulfilled' || 'rejected'
-   *  // for lists
-   *  ids: [mongoId, mongoId]
-   *  // for singles
-   *  id: mongoId
-   * }
-   */
-  , singleQueries: {}
-  , listQueries: {}
+// next define the store's initial state, all of our store utils rely on a specific state shape, so use the constant
+const initialState = { ...INITIAL_STATE };
 
-};
-
-// define the productStore. This is a combination of actions and reducers. More info: https://redux-toolkit.js.org/api/createSlice
-export const productStore = createSlice({
+// define the productSlice. This is a combination of actions and reducers. More info: https://redux-toolkit.js.org/api/createSlice
+export const productSlice = createSlice({
   name: 'product'
   , initialState
   /**
@@ -117,20 +105,12 @@ export const productStore = createSlice({
    * Again, we will not dispatch these directly, they will be dispatched by productService.
    */
   , reducers: {
-    invalidateQuery: (state, action) => {
-      const queryKey = action.payload;
-      const query = state.listQueries[queryKey] || state.singleQueries[queryKey];
-      if(query) query.didInvalidate = true
+    invalidateQuery: handleInvalidateQuery
+    // , invalidateQueries: handleInvalidateQueries
+    , invalidateQueries: (state, action, cb) => {
+      handleInvalidateQueries(state, action, cb); 
     }
-    , addProductToList: (state, action) => {
-      const { queryKey, id } = action.payload;
-      const query = state.listQueries[queryKey];
-      if(query) {
-        query.ids.push(id)
-      } else {
-        console.log('Could not find list');
-      }
-    }
+    , addProductToList: handleAddSingleToList
   }
 
   /**
@@ -144,175 +124,34 @@ export const productStore = createSlice({
   , extraReducers: (builder) => {
     builder
       // CREATE
-      .addCase(sendCreateProduct.fulfilled, (state, action) => {
-        // console.log('action', action);
-        const product = action.payload;
-        // add it to the map
-        state.byId[product._id] = product;
-        // create a query object for it
-        state.singleQueries[product._id] = {
-          id: product._id
-          , status: 'fulfilled'
-          , receivedAt: Date.now()
-          , expirationDate: Date.now() + (1000 * 60 * 5) // 5 minutes from now
-        }
-
-        // A new product was just created. Rather than dealing with adding it to a list or invalidating specific lists from the component we'll just invalidate the listQueries here.
-        Object.keys(state.listQueries).forEach(queryKey => {
-          state.listQueries[queryKey].didInvalidate = true;
-        });
-      })
-      .addCase(sendCreateProduct.rejected, (state, action) => {
-        // TODO: handle server errors. This one is weird, because it's new and therefore can't have a query object in state.
-      })
+      .addCase(sendCreateProduct.fulfilled, handleCreateFulfilled)
 
       // READ
-      .addCase(fetchDefaultProduct.pending, (state, action) => {
-        // create a query object for it in the queries map. Instead of an id we'll use the string 'defaultProduct'
-        state.singleQueries['defaultProduct'] = {
-          id: 'defaultProduct'
-          , status: 'pending'
-        };
-      })
-      .addCase(fetchDefaultProduct.fulfilled, (state, action) => {
-        const defaultProduct = action.payload;
-        // add it to the byId map (for the id we'll use 'defaultProduct')
-        state.byId['defaultProduct'] = defaultProduct;
-        // update the query object
-        const singleQuery = state.singleQueries['defaultProduct'];
-        singleQuery.status = 'fulfilled';
-        singleQuery.receivedAt = Date.now();
-        singleQuery.expirationDate = Infinity; // this should never expire. It's just an empty product.
-      })
-      .addCase(fetchDefaultProduct.rejected, (state, action) => {
-        const singleQuery = state.singleQueries['defaultProduct'];
-        singleQuery.status = 'rejected';
-        singleQuery.error = action.error.message;
-        singleQuery.receivedAt = Date.now();
-      })
-      .addCase(fetchSingleProduct.pending, (state, action) => {
-        // update or create a query object for it in the queries map
-        state.singleQueries[action.meta.arg] = { ...state.singleQueries[action.meta.arg], id: action.meta.arg, status: 'pending', didInvalidate: false, error: null };
-      })
-      .addCase(fetchSingleProduct.fulfilled, (state, action) => {
-        const product = action.payload;
-        // add the product object to the byId map
-        state.byId[product._id] = product;
-        // find the query object for this fetch in the singleQueries map and update query info
-        const singleQuery = state.singleQueries[action.meta.arg];
-        singleQuery.status = 'fulfilled';
-        singleQuery.receivedAt = Date.now();
-        singleQuery.expirationDate = Date.now() + (1000 * 60 * 5); // 5 minutes from now
-      })
-      .addCase(fetchSingleProduct.rejected, (state, action) => {
-        // find the query object for this fetch in the singleQueries map and update query info
-        const singleQuery = state.singleQueries[action.meta.arg];
-        singleQuery.status = 'rejected';
-        singleQuery.error = action.error.message;
-        singleQuery.receivedAt = Date.now();
-      })
-      .addCase(fetchProductList.pending, (state, action) => {
-        // update or create the query object for it in the listQueries map
-        state.listQueries[action.meta.arg] = { ...state.listQueries[action.meta.arg], status: 'pending', didInvalidate: false, error: null };
-      })
-      .addCase(fetchProductList.fulfilled, (state, action) => {
-        const { products, totalPages } = action.payload;
-        // update list query
-        // convert the array of objects to a map
-        const productMap = convertListToMap(products, '_id');
-        // add the product objects to the byId map
-        state.byId = { ...state.byId, ...productMap };
-        // find the query object for this fetch in the listQueries map and update query info
-        const listQuery = state.listQueries[action.meta.arg];
-        // save the array of ids for the returned products
-        listQuery.ids = products.map(product => product._id);
-        // set the rest of the query info
-        listQuery.totalPages = totalPages;
-        listQuery.status = 'fulfilled';
-        listQuery.receivedAt = Date.now();
-        listQuery.expirationDate = Date.now() + (1000 * 60 * 5); // 5 minutes from now
+      .addCase(fetchSingleProduct.pending, handleFetchSinglePending)
+      .addCase(fetchSingleProduct.fulfilled, handleFetchSingleFulfilled)
+      .addCase(fetchSingleProduct.rejected, handleFetchSingleRejected)
+      .addCase(fetchProductList.pending, handleFetchListPending)
+      // because lists are returned from the server named for their resource, we need to pass a `listKey` so the util can properly handle the response
+      .addCase(fetchProductList.fulfilled, (state, action) => handleFetchListFulfilled(state, action, 'products'))
+      .addCase(fetchProductList.rejected, handleFetchListRejected)
 
-        // while we're here we might as well add a single query for each of these since we know they're fresh
-        products.forEach(product => {
-          // add a single query for the product.
-          const singleQuery = {
-            id: product._id
-            , status: listQuery.status
-            , receivedAt: listQuery.receivedAt
-            , expirationDate: listQuery.expirationDate
-          };
-          state.singleQueries[product._id] = singleQuery;
-        });
-      })
-      .addCase(fetchProductList.rejected, (state, action) => {
-        const listQuery = state.listQueries[action.meta.arg];
-        listQuery.status = 'rejected';
-        listQuery.error = action.error.message;
-        listQuery.receivedAt = Date.now();
-      })
-      
       // UPDATE
-      .addCase(sendUpdateProduct.pending, (state, action) => {
-        // action.meta.arg in this case is the updated product object that was sent in the POST
-        const updatedProduct = action.meta.arg
-        // get the product id
-        const id = updatedProduct._id;
-        // access or create the query object in the map
-        state.singleQueries[id] = { ...state.singleQueries[id], id: id, status: 'pending', error: null }
+      .addCase(sendUpdateProduct.pending, handleMutationPending)
+      .addCase(sendUpdateProduct.fulfilled, handleMutationFulfilled)
+      .addCase(sendUpdateProduct.rejected, handleMutationRejected)
+      // .addCase(sendUpdateProduct.fulfilled, (state, action) => handleMutationFulfilled(state, action, (newState, action) => {
+      //   // by passing this optional callback we now have access to the new state if we want to do something else with it, this works for all reducer handlers
+      // }))
 
-        // optimistic update the version that's in the map
-        state.byId[id] = { ...state.byId[id], ...updatedProduct}
-      })
-      .addCase(sendUpdateProduct.fulfilled, (state, action) => {
-        const product = action.payload;
-        // replace the previous version in the map with the new one from the server
-        state.byId[product._id] = product;
-        // update the query object
-        const singleQuery = state.singleQueries[product._id];
-        singleQuery.status = 'fulfilled';
-        singleQuery.receivedAt = Date.now();
-        singleQuery.expirationDate = Date.now() + (1000 * 60 * 5); // 5 minutes from now
-      })
-      .addCase(sendUpdateProduct.rejected, (state, action) => {
-        // action.meta.arg in this case is the updated product object that was sent in the POST
-        const product = action.meta.arg;
-        // update the query object
-        const singleQuery = state.singleQueries[product._id];
-        singleQuery.status = 'rejected';
-        singleQuery.error = action.error.message;
-        singleQuery.receivedAt = Date.now();
-      })
-      .addCase(sendDeleteProduct.pending, (state, action) => {
-        // action.meta.arg in this case is the product id
-        const id = action.meta.arg;
-        // access or create the query object in the map
-        state.singleQueries[id] = { ...state.singleQueries[id], id: id, status: 'pending', error: null }
-      })
-      .addCase(sendDeleteProduct.fulfilled, (state, action) => {
-        const productId = action.meta.arg;
-        Object.keys(state.listQueries).forEach(queryKey => {
-          // filter the product from the existing lists before we remove it from the store below (avoid reference errors)
-          state.listQueries[queryKey].ids = state.listQueries[queryKey].ids?.filter(id => id !== productId);
-          // invalidate existing lists
-          state.listQueries[queryKey].didInvalidate = true;
-        });
-        // remove the query object
-        delete state.singleQueries[productId];
-        // remove it from the map
-        delete state.byId[productId];
-      })
-      .addCase(sendDeleteProduct.rejected, (state, action) => {
-        // find the query object for this fetch in the singleQueries map and update query info
-        const singleQuery = state.singleQueries[action.meta.arg];
-        singleQuery.status = 'rejected';
-        singleQuery.error = action.error.message;
-        singleQuery.receivedAt = Date.now();
-      })
+      // DELETE
+      .addCase(sendDeleteProduct.pending, handleDeletePending)
+      .addCase(sendDeleteProduct.fulfilled, handleDeleteFulfilled)
+      .addCase(sendDeleteProduct.rejected, handleDeleteRejected)
   }
 });
 
-// export the actions defined above
-export const { invalidateQuery, addProductToList } = productStore.actions;
+// export the actions for the reducers defined above
+export const { invalidateQuery, invalidateQueries, addProductToList, createLocalList, addProductsToList, clearList } = productSlice.actions;
 
 
 // We can also write thunks by hand, which may contain both sync and async logic.
@@ -322,73 +161,38 @@ export const fetchListIfNeeded = (queryKey) => (dispatch, getState) => {
   const productQuery = getState().product.listQueries[queryKey];
   if(shouldFetch(productQuery)) {
     // console.log('Fetching product list', queryKey);
-    dispatch(fetchProductList(queryKey));
+    return dispatch(fetchProductList(queryKey));
   } else {
-    // console.log('No need to fetch, fresh query in cache');
+    return dispatch(() => {
+      // console.log('No need to fetch, fresh query in cache');
+      const productStore = getState().product;
+      const query = productStore.listQueries[queryKey];
+      return Promise.resolve({
+        payload: {
+          products: selectListItems(productStore, queryKey)
+          , ...query
+        }
+      })
+    })
   }
 };
 
 export const fetchSingleIfNeeded = (id) => (dispatch, getState) => {
   const productQuery = getState().product.singleQueries[id];
   if(shouldFetch(productQuery)) {
-    // console.log('Fetching product', id);
-    if(id === 'defaultProduct') {
-      dispatch(fetchDefaultProduct());
-    } else {
-      dispatch(fetchSingleProduct(id));
-    }
+    return dispatch(fetchSingleProduct(id));
   } else {
     // console.log('No need to fetch, fresh query in cache');
+    return dispatch(() => {
+      // console.log('No need to fetch, fresh query in cache');
+      const productStore = getState().product;
+      return Promise.resolve({
+        payload: {
+          product: selectSingleById(productStore, id)
+        }
+      })
+    })
   }
 }
 
-/**
- * The functions below are called a selectors and allow us to select a value from
- * the store.
- * 
- * These are the replacement for the old mapStoreToProps functionality.
- * 
- * Selectors can also be defined inline where they're used instead of
- * in the slice file. For example: `useSelector((store) => store.product.value)`
- * 
- * Because selectors take the whole store as their first argument, and our
- * stores are all structured the same way, we could define these at the global
- * level and pass in the store we want to access when we use them.
- * 
- * for example in productService:
- * 
- * const singleProduct = useSelector(store => selectSingleById(store.product, productId))
- * 
- * But to minimize the risk of over-generalizing, we'll define a set in each store.
- */
-
-
-/**
- * 
- * @param {object} productStore - supplied by useSelector hook in the productService file
- * @param {string} queryKey - the key used to access the query from the map
- * @returns an array of product objects matching the query's `ids` array
- */
-export const selectListItems = ({ product: productStore }, queryKey) => {
-  const listIds = productStore.listQueries[queryKey]?.ids;
-  if(listIds) {
-    return listIds.map(id => productStore.byId[id]);
-  } else {
-    return null;
-  }
-}
-
-export const selectListPageCount = ({ product: productStore }, listArgs) => {
-  return productStore.listQueries[listArgs]?.totalPages;
-}
-
-export const selectSingleById = ({ product: productStore }, id) => {
-  return productStore.byId[id];
-}
-
-export const selectQuery = ({ product: productStore }, queryKey) => {
-  const productQuery = productStore.listQueries[queryKey] || productStore.singleQueries[queryKey];
-  return productQuery || {};
-}
-
-export default productStore.reducer;
+export default productSlice.reducer;
