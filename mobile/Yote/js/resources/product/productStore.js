@@ -106,10 +106,7 @@ export const productSlice = createSlice({
    */
   , reducers: {
     invalidateQuery: handleInvalidateQuery
-    // , invalidateQueries: handleInvalidateQueries
-    , invalidateQueries: (state, action, cb) => {
-      handleInvalidateQueries(state, action, cb); 
-    }
+    , invalidateQueries: handleInvalidateQueries
     , addProductToList: handleAddSingleToList
   }
 
@@ -151,12 +148,14 @@ export const productSlice = createSlice({
 });
 
 // export the actions for the reducers defined above
-export const { invalidateQuery, invalidateQueries, addProductToList, createLocalList, addProductsToList, clearList } = productSlice.actions;
+export const { invalidateQuery, invalidateQueries, addProductToList } = productSlice.actions;
 
 
 // We can also write thunks by hand, which may contain both sync and async logic.
 // Here's an example of conditionally dispatching actions based on current state.
 
+// this will fetch from server or return existing data from the store.
+// it will always return a promise so we can call `.then()` on it.
 export const fetchListIfNeeded = (queryKey) => (dispatch, getState) => {
   const productQuery = getState().product.listQueries[queryKey];
   if(shouldFetch(productQuery)) {
@@ -177,6 +176,8 @@ export const fetchListIfNeeded = (queryKey) => (dispatch, getState) => {
   }
 };
 
+// this will fetch from server or return existing data from the store.
+// it will always return a promise so we can call `.then()` on it.
 export const fetchSingleIfNeeded = (id) => (dispatch, getState) => {
   const productQuery = getState().product.singleQueries[id];
   if(shouldFetch(productQuery)) {

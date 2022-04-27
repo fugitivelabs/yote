@@ -8,27 +8,16 @@ import PropTypes from 'prop-types';
 
 // import react-native components
 import {
-  Alert
-  , Dimensions
-  , Image
-  , ListView
-  , Platform
-  , ScrollView
+  ScrollView
   , Text
-  , TextInput
-  , TouchableOpacity
   , View
 } from 'react-native'; 
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 // import global components
 import YTButton from '../../../global/buttons/YTButton';
-import ListItem from '../../../global/components/base/ListItem';
 import YTHeader from '../../../global/headers/YTHeader';
 import WaitOn from '../../../global/components/helpers/WaitOn';
-
-// import libraries
-import _ from 'lodash';
 
 // import services
 import { useGetProductById } from '../productService';

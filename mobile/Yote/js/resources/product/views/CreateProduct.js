@@ -8,9 +8,6 @@ import React from 'react'
 // import react-native components
 import {
   ActivityIndicator
-  , Text
-  , TextInput
-  , TouchableOpacity
   , View
 } from 'react-native'; 
 import { useNavigation } from '@react-navigation/native';
@@ -19,10 +16,8 @@ import { useNavigation } from '@react-navigation/native';
 import YTHeader from '../../../global/headers/YTHeader';
 import WaitOn from '../../../global/components/helpers/WaitOn';
 
+// import resource components
 import ProductForm from '../components/ProductForm'; 
-
-// import libraries
-import _ from 'lodash';
 
 // import services
 import { useCreateProduct } from '../productService';
@@ -62,7 +57,7 @@ const CreateProduct = () => {
         title='Create Product'
         leftItem={leftItem}
       />
-      <WaitOn query={productQuery}>
+      <WaitOn query={productQuery} fallback={<ActivityIndicator/>}>
         <ProductForm
           product={product}
           disabled={productQuery.isFetching}

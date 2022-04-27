@@ -4,11 +4,7 @@ import PropTypes from 'prop-types';
 
 // import react-native components
 import {
-  Dimensions
-  , Image
-  , Platform
-  , StyleSheet
-  , Text
+  Text
   , TouchableHighlight
   , View
 } from 'react-native';
@@ -55,7 +51,6 @@ ProductListItem.Skeleton = Skeleton;
 
 ProductListItem.propTypes = {
   id: PropTypes.string.isRequired
-  , onPress: PropTypes.func
 }
 
 export default ProductListItem;

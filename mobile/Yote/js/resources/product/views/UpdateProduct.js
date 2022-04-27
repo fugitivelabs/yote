@@ -4,31 +4,20 @@
 
 // import react things
 import React from 'react';
-import PropTypes from 'prop-types';
 
 // import react-native components
 import {
-  Image
-  , KeyboardAvoidingView
-  , Platform
-  , ScrollView
-  , StyleSheet
-  , Text
-  , TextInput
-  , TouchableOpacity
+  ActivityIndicator
   , View
 } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 // import global components
-// import YTButton from '../../../global/buttons/YTButton';
 import YTHeader from '../../../global/headers/YTHeader';
 import WaitOn from '../../../global/components/helpers/WaitOn';
 
+// import resource components
 import ProductForm from '../components/ProductForm';
-
-// import libraries
-import _ from 'lodash';
 
 // import services
 import { useGetUpdatableProduct } from '../productService';
@@ -68,7 +57,7 @@ const UpdateProduct = () => {
         title='Update Product'
         leftItem={leftItem}
       />
-      <WaitOn query={productQuery}>
+      <WaitOn query={productQuery} fallback={<ActivityIndicator />}>
         <ProductForm
           product={product}
           cancelLink={`/products/${productId}`}

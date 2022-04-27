@@ -74,7 +74,7 @@ import {
 export const useCreateProduct = ({ initialState = {}, onResponse = () => { } }) => {
   const dispatch = useDispatch();
   // STATE
-  // set up a state variable to hold the product, start with an empty object
+  // set up a state variable to hold the product, start with what was passed in as initialState (or an empty object)
   const [newProduct, setFormState] = useState(initialState);
   // set up a state variable to hold the isCreating flag
   const [isCreating, setIsCreating] = useState(false)
@@ -305,7 +305,7 @@ export const useGetProductList = (listArgs = {}, forceFetch = false) => {
 export const useInfiniteProductList = (listArgs, forceFetch = false) => {
   const dispatch = useDispatch();
   // check force fetch to determine which action to use
-  const dispatchProductFetch = (query) => {
+  const fetchProducts = (query) => {
     if(forceFetch) return dispatch(fetchProductList(query));
     return dispatch(fetchListIfNeeded(query));
   }
@@ -347,8 +347,8 @@ export const useInfiniteProductList = (listArgs, forceFetch = false) => {
     const productQuery = apiUtils.queryStringFromObject({ ...listArgs, page, per });
     // add the new query string to the array
     setQueryKeys(keys => ([...keys, productQuery]));
-    // dispatch(fetchListIfNeeded(productQuery)).then(productRes => {
-      dispatchProductFetch(productQuery).then(productRes => {
+    // use the action defined at the top to fetch the next page
+    fetchProducts(productQuery).then(productRes => {
       const { products: nextProducts = [], totalPages: nextTotalPages, totalCount: nextTotalCount, error } = productRes.payload;
       // add the new products to the list
       setError(error);
@@ -360,12 +360,13 @@ export const useInfiniteProductList = (listArgs, forceFetch = false) => {
   }
 
   const resetProductList = () => {
+    // clear the list and reset the page
     setProducts([]);
     if(page != 1) {
-      // changing page will trigger a new fetch
+      // when page changes `fetchNextProducts` will be called
       setPage(1);
     } else {
-      // still on first page just fetch again
+      // still on first page, fetch manually
       fetchNextProducts();
     }
   }
@@ -374,12 +375,14 @@ export const useInfiniteProductList = (listArgs, forceFetch = false) => {
   const getNextPage = () => {
     const currentDataHasLoaded = !isFetching && productList.length > 0;
     const nextPageExists = page < totalPages;
+    // when page changes `fetchNextProducts` will be called
     if(currentDataHasLoaded && nextPageExists) setPage(page + 1);
   }
 
   // to be used in a component
   const refresh = () => {
     dispatch(invalidateQueries(queryKeys))
+    // clear current set of query keys
     setQueryKeys([]);
     resetProductList();
   }

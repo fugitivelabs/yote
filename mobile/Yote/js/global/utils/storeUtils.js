@@ -274,7 +274,7 @@ export const handleDeleteRejected = (state, action, cb) => {
  * 
  * These are the replacement for the old mapStoreToProps functionality.
  * 
- * Selectors can also be defined inline where they're used, for example: `useSelector((store) => store.athleteClaim.value)`
+ * Selectors can also be defined inline where they're used, for example: `const product = useSelector((store) => store.product.byId[productId])`
  * 
  * Because selectors take the whole store as their first argument, and our
  * stores are all structured the same way, we define these at the global

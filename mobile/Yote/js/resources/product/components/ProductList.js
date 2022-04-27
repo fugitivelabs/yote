@@ -5,24 +5,18 @@ import React from 'react';
 
 // import react-native components
 import {
-  ActivityIndicator
-  , Image
-  , FlatList
-  , Platform
-  , RefreshControl
-  , ScrollView
-  , StyleSheet
-  , Text
-  , TouchableHighlight
+  ScrollView
   , View
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-// import components
-import ProductListItem from './ProductListItem';
+// import global  components
 import WaitOn from '../../../global/components/helpers/WaitOn';
 import YTButton from '../../../global/buttons/YTButton';
 import YTHeader from '../../../global/headers/YTHeader'; 
+
+// import resource components
+import ProductListItem from './ProductListItem';
 
 // Import tailwind with config
 import tw from '../../../global/styles/tailwind/twrnc'; 

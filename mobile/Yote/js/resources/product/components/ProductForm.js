@@ -7,16 +7,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import {
-  ActivityIndicator
-  , Alert
-  , Image
-  , KeyboardAvoidingView
+  KeyboardAvoidingView
   , Platform
   , ScrollView
-  , StyleSheet
-  , Text
-  , TextInput
-  , TouchableOpacity
   , View
 } from 'react-native'; 
 
@@ -95,6 +88,7 @@ ProductForm.propTypes = {
   disabled: PropTypes.bool
   , formTitle: PropTypes.string
   , formType: PropTypes.string.isRequired
+  , handleFormChange: PropTypes.func.isRequired
   , handleFormSubmit: PropTypes.func.isRequired
   , product: PropTypes.object.isRequired
 }

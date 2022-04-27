@@ -1,6 +1,10 @@
+/**
+ * Infinite scrolling list of products
+ */
 
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import tw from '../../../global/styles/tailwind/twrnc';
 
 // import react-native components
 import {
@@ -9,18 +13,16 @@ import {
   , View
 } from 'react-native';
 
-// import components
-import ProductListItem from './ProductListItem';
+// import global components
 import YTButton from '../../../global/buttons/YTButton';
 import YTHeader from '../../../global/headers/YTHeader';
 import SearchInput from '../../../global/inputs/SearchInput';
 
-// Import tailwind with config
-import tw from '../../../global/styles/tailwind/twrnc';
+// import resource components
+import ProductListItem from './ProductListItem';
 
 // import services
 import { useInfiniteProductList } from '../productService';
-
 
 const InfiniteProductList = () => {
   const navigation = useNavigation();

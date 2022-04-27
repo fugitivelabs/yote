@@ -18,7 +18,7 @@ const YTTextInput = ({
 }) => {
 
   const handleChange = text => {
-    // emit a synthetic event to the onChange handler
+    // emit a web style event to the onChange handler
     onChange({ target: { name, value: text } })
   }
   return (
@@ -31,7 +31,7 @@ const YTTextInput = ({
 
 TextInput.propTypes = {
   name: PropTypes.string // the name of the field being changed
-  , onChange: PropTypes.func // the function to call when the field changes
+  , onChange: PropTypes.func // the function to call when the input changes
 }
 
 export default YTTextInput;
