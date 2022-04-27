@@ -81,20 +81,30 @@ export const INITIAL_STATE = {
 };
 
 // reducer handlers, reused across all resource reducers. They manipulate the state object defined above.
-export const handleInvalidateQuery = (state, action) => {
+export const handleInvalidateQuery = (state, action, cb) => {
   const queryKey = action.payload;
   const query = state.listQueries[queryKey] || state.singleQueries[queryKey];
   if(query) query.didInvalidate = true
+  cb && cb(state, action)
 }
 
-export const handleAddSingleToList = (state, action) => {
+export const handleInvalidateQueries = (state, action, cb) => {
+  const queryKeys = action.payload
+  const queries = queryKeys.map(key => state.listQueries[key] || state.singleQueries[key])
+  queries.forEach(query => query.didInvalidate = true)
+  cb && cb(state, action)
+}
+
+export const handleAddSingleToList = (state, action, cb) => {
   const { queryKey, id } = action.payload;
   const query = state.listQueries[queryKey];
   if(query) {
-    query.ids.push(id)
+    // add to the list of ids and remove duplicates
+    query.ids = [...new Set([...query.ids, id])];
   } else {
     console.log('Could not find list');
   }
+  cb && cb(state, action)
 }
 
 export const handleCreateFulfilled = (state, action, cb) => {
@@ -146,12 +156,12 @@ export const handleFetchSingleRejected = (state, action, cb) => {
 
 export const handleFetchListPending = (state, action, cb) => {
   // update or create the query object for it in the listQueries map
-  state.listQueries[action.meta.arg] = { ...state.listQueries[action.meta.arg], status: 'pending', didInvalidate: false, error: null };
+  state.listQueries[action.meta.arg] = { ids: [], ...state.listQueries[action.meta.arg], status: 'pending', didInvalidate: false, error: null };
   cb && cb(state, action);
 }
 
 export const handleFetchListFulfilled = (state, action, listKey, cb) => {
-  const { [listKey]: resourceList, totalPages } = action.payload;
+  const { [listKey]: resourceList, totalPages, totalCount } = action.payload;
   // update list query
   // convert the array of objects to a map
   const resourceMap = convertListToMap(resourceList, '_id');
@@ -163,6 +173,7 @@ export const handleFetchListFulfilled = (state, action, listKey, cb) => {
   listQuery.ids = resourceList.map(resource => resource._id);
   // set the rest of the query info
   listQuery.totalPages = totalPages;
+  listQuery.totalCount = totalCount;
   listQuery.status = 'fulfilled';
   listQuery.receivedAt = Date.now();
   listQuery.expirationDate = Date.now() + (1000 * 60 * 5); // 5 minutes from now
@@ -263,7 +274,7 @@ export const handleDeleteRejected = (state, action, cb) => {
  * 
  * These are the replacement for the old mapStoreToProps functionality.
  * 
- * Selectors can also be defined inline where they're used, for example: `useSelector((store) => store.athleteClaim.value)`
+ * Selectors can also be defined inline where they're used, for example: `const product = useSelector((store) => store.product.byId[id])`
  * 
  * Because selectors take the whole store as their first argument, and our
  * stores are all structured the same way, we define these at the global

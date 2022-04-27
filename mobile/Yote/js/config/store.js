@@ -26,7 +26,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 const rootReducer = (state, action) => {
   // clear store on logout, also on login so any previous rejected queries are cleared out.
   // adapted from https://stackoverflow.com/a/61943631
-  if(action.type === 'auth/sendLogout/fulfilled' || action.type === 'auth/sendLogin/fulfilled') {
+  if(action.type === 'auth/sendLogout/fulfilled' || action.type === 'auth/sendLogout/rejected' || action.type === 'auth/sendLogin/fulfilled') {
     state = undefined
   }
   return combinedReducers(state, action)

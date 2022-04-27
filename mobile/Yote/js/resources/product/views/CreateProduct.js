@@ -3,14 +3,11 @@
  */
 
 // import react things
-import React, { useState } from 'react'
+import React from 'react'
 
 // import react-native components
 import {
   ActivityIndicator
-  , Text
-  , TextInput
-  , TouchableOpacity
   , View
 } from 'react-native'; 
 import { useNavigation } from '@react-navigation/native';
@@ -19,10 +16,8 @@ import { useNavigation } from '@react-navigation/native';
 import YTHeader from '../../../global/headers/YTHeader';
 import WaitOn from '../../../global/components/helpers/WaitOn';
 
+// import resource components
 import ProductForm from '../components/ProductForm'; 
-
-// import libraries
-import _ from 'lodash';
 
 // import services
 import { useCreateProduct } from '../productService';
@@ -31,22 +26,23 @@ import { useCreateProduct } from '../productService';
 import tw from '../../../global/styles/tailwind/twrnc'; 
 
 const CreateProduct = () => {
-  const { data: defaultProduct, sendCreateProduct, ...defaultProductQuery } = useCreateProduct();
+  const navigation = useNavigation();
 
-  const navigation = useNavigation(); 
-
-  // this useState call is equivalent to this.state = { isCreating: false } and setIsCreating is this.setState({isCreating: boolean})
-  const [isCreating, setIsCreating] = useState(false);
-
-  const handleFormSubmit = async (newProduct) => {
-    // set isCreating true to disable the form while wait for the new product to get returned
-    setIsCreating(true);
-    const { payload: product } = await sendCreateProduct(newProduct); // replaces dispatch(productActions.sendCreateProduct(newProduct)).then(productRes => ...)
-    setIsCreating(false);
-    // history.push(`/products/${product._id}`);
-    // replace create view with single product on stack 
-    navigation.replace('SingleProduct', {productId: product._id}); 
-  }
+  const { data: product, handleFormChange, handleFormSubmit, ...productQuery } = useCreateProduct({
+    // optional, anything we want to add to the default object
+    initialState: {
+      // someKey: someValue
+    }
+    // optional, callback function to run after the request is complete
+    , onResponse: (newProduct, error) => {
+      if(error || !newProduct) {
+        // TODO: handle error
+      } else {
+        // replace create view with single product on stack 
+        navigation.replace('SingleProduct', {productId: newProduct._id}); 
+      }
+    }
+  });
 
   const leftItem = {
     icon: require('../../../global/img/back.png'),
@@ -61,16 +57,14 @@ const CreateProduct = () => {
         title='Create Product'
         leftItem={leftItem}
       />
-      <WaitOn query={defaultProductQuery}>
-      { defaultProduct &&
-        // we have the defaultProduct, render the form
+      <WaitOn query={productQuery} fallback={<ActivityIndicator/>}>
         <ProductForm
-          product={defaultProduct}
-          disabled={defaultProductQuery.isFetching || isCreating}
+          product={product}
+          disabled={productQuery.isFetching}
           formType="create"
+          handleFormChange={handleFormChange}
           handleFormSubmit={handleFormSubmit}
         />
-      }
       </WaitOn>
     </View>
   )

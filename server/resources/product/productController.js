@@ -95,7 +95,7 @@ exports.getListWithArgs = async (req, res) => {
       console.log(err);
       throw new YoteError("There was a problem finding Product list", 404);
     });
-  res.json({ products, totalPages })
+  res.json({ products, totalPages, totalCount: count });
 }
 
 // other experimental/future todos

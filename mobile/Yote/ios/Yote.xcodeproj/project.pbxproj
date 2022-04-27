@@ -159,7 +159,6 @@
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				AE880E5517D0F148A658C472 /* [CP] Embed Pods Frameworks */,
 				9A33DA3F360D8BC237D421C7 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
@@ -182,7 +181,6 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				216A14218D9F39C455580957 /* [CP] Embed Pods Frameworks */,
 				0B4D6EE665396B42D1C97BDB /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
@@ -281,23 +279,6 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Yote/Pods-Yote-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		216A14218D9F39C455580957 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Yote/Pods-Yote-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Yote/Pods-Yote-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Yote/Pods-Yote-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		66A7A75C41761D5580B739D6 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -335,23 +316,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Yote-YoteTests/Pods-Yote-YoteTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		AE880E5517D0F148A658C472 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Yote-YoteTests/Pods-Yote-YoteTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Yote-YoteTests/Pods-Yote-YoteTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Yote-YoteTests/Pods-Yote-YoteTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B0E8BB36A08C9E54A817BB95 /* [CP] Check Pods Manifest.lock */ = {

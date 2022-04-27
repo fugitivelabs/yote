@@ -25,6 +25,7 @@ import {
   , sendUpdateProduct
   , sendDeleteProduct
   , invalidateQuery
+  // , invalidateQueries
   , addProductToList
   , fetchSingleIfNeeded
 } from './productStore';
@@ -49,10 +50,10 @@ import {
  * const { data: newProduct, handleFormChange, handleFormSubmit, ...productQuery } = useCreateProduct({
  *   // optional, anything we want to add to the default object
  *   initialState: {
- *     _athlete: match.params.athleteId
+ *     someKey: 'someValue'
  *   }
- *   // optional, callback function that receives the response from the server
- *   , handleResponse: ({payload: product, error}) => {
+ *   // optional, callback function that receives the new product or error
+ *   , handleResponse: (product, error) => {
  *     if(error || !product) {
  *       alert(error.message || "An error occurred.")
  *     }
@@ -365,6 +366,7 @@ export const useGetUpdatableProduct = (id, { onResponse = () => { } } = {}) => {
     }
   }, [product])
 
+  // FORM HANDLERS
   // setFormState will replace the entire product object with the new product object
   // set up a handleFormChange method to update nested state while preserving existing state(standard reducer pattern)
   const handleFormChange = e => {

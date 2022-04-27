@@ -7,24 +7,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import {
-  ActivityIndicator
-  , Alert
-  , Image
-  , KeyboardAvoidingView
+  KeyboardAvoidingView
   , Platform
   , ScrollView
-  , StyleSheet
-  , Text
-  , TextInput
-  , TouchableOpacity
   , View
 } from 'react-native'; 
 
 // import global components
 import YTButton from '../../../global/buttons/YTButton';
-
-// hooks
-import { useFormState } from '../../../global/utils/customHooks';
+import YTTextInput from '../../../global/inputs/YTTextInput';
 
 // import styles
 import tw from '../../../global/styles/tailwind/twrnc'; 
@@ -33,12 +24,10 @@ const ProductForm = ({
   disabled
   , formTitle
   , formType
+  , handleFormChange
   , handleFormSubmit
   , product
 }) => {
-
-  // use the helper to handle product state
-  const [updatedProduct, handleChange] = useFormState(product); // pass product as initialState
 
   return (
     <KeyboardAvoidingView
@@ -49,14 +38,15 @@ const ProductForm = ({
       <ScrollView keyboardDismissMode="interactive" keyboardShouldPersistTaps="handled">
         <View>
           <View style={tw`p-2`}>
-            <TextInput
+            <YTTextInput
               autoCorrect={true}
               isRequired={true}
-              onChange={(e) => handleChange(e, 'title')}
+              name="title"
+              onChange={handleFormChange}
               placeholder="Title"
               returnKeyType="next"
               style={tw`p-2 text-lg border-b border-gray-100`}
-              value={updatedProduct.title || ""}
+              value={product.title || ""}
               // onFocus={ (e) => this._scrollToInput(e, 'product.title')}
               // onSubmitEditing={(event) => {
               //   this.refs['product.description'].focus();
@@ -66,16 +56,17 @@ const ProductForm = ({
           </View>
           <View style={tw`h-1 border-b`}/>
           <View style={tw`p-2`}>
-            <TextInput
+            <YTTextInput
               autoCorrect={true}
               isRequired={true}
               multiline={true}
-              onChange={(e) => handleChange(e, 'description')}
+              name="description"
+              onChange={handleFormChange}
               onSubmitEditing={handleFormSubmit}
               placeholder="Write a description..."
               returnKeyType="go"
               style={[tw`p-2 text-lg border-b border-gray-100`]}
-              value={updatedProduct.description || ""}
+              value={product.description || ""}
               // onFocus={ (e) => this._scrollToInput(e, 'product.description')}
               // ref="product.description"
             />
@@ -85,7 +76,7 @@ const ProductForm = ({
           <YTButton
             caption={formType == "update" ? "Update product" : "Create new product"}
             isDisabled={disabled}
-            onPress={() => handleFormSubmit(updatedProduct)}
+            onPress={handleFormSubmit}
           />
         </View>
       </ScrollView>
@@ -97,6 +88,7 @@ ProductForm.propTypes = {
   disabled: PropTypes.bool
   , formTitle: PropTypes.string
   , formType: PropTypes.string.isRequired
+  , handleFormChange: PropTypes.func.isRequired
   , handleFormSubmit: PropTypes.func.isRequired
   , product: PropTypes.object.isRequired
 }
