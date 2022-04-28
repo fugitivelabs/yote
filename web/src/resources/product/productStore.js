@@ -19,6 +19,7 @@ import {
   , shouldFetch
   , INITIAL_STATE
   , handleInvalidateQuery
+  , handleInvalidateQueries
   , handleAddSingleToList
 } from '../../global/utils/storeUtils';
 
@@ -103,6 +104,7 @@ export const productSlice = createSlice({
    */
   , reducers: {
     invalidateQuery: handleInvalidateQuery
+    , invalidateQueries: handleInvalidateQueries
     , addProductToList: handleAddSingleToList
   }
 

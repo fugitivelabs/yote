@@ -39,9 +39,9 @@ const SingleProduct = () => {
   const { data: product, ...productQuery } = useGetProductById(productId);
 
   const leftItem = {
-    icon: require('../../../global/img/back.png'),
-    layout: 'icon',
-    onPress: () => navigation.goBack(),
+    icon: require('../../../global/img/back.png')
+    , layout: 'icon'
+    , onPress: () => navigation.goBack()
   }
 
   return (

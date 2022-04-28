@@ -6,6 +6,7 @@
 
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
+import { useIsFocused } from '@react-navigation/native';
 import { usePagination } from '../../global/utils/customHooks';
 
 import apiUtils from '../../global/utils/api';
@@ -204,6 +205,8 @@ export const useGetProductById = (id, forceFetch = false) => {
  * @returns an invalidate and refetch function for convenience
  */
 export const useGetProductList = (listArgs = {}, forceFetch = false) => {
+  // isFocused is used to make sure we rerender when this screen comes into focus. This way invalidated lists will be refetched
+  const isFocused = useIsFocused();
   const dispatch = useDispatch();
   /**
   * NOTE: tracking lists using the query string is easy because the `listArgs` passed into
@@ -236,7 +239,7 @@ export const useGetProductList = (listArgs = {}, forceFetch = false) => {
   // console.log('queryString', queryString);
 
   useEffect(() => {
-    if(readyToFetch) {
+    if(readyToFetch && isFocused) {
       if(forceFetch) {
         dispatch(fetchProductList(queryString));
       } else {
@@ -246,7 +249,7 @@ export const useGetProductList = (listArgs = {}, forceFetch = false) => {
       // listArgs aren't ready yet, don't attempt fetch
       // console.log("still waiting for listArgs");
     }
-  }, [readyToFetch, queryString, forceFetch, dispatch]);
+  }, [readyToFetch, queryString, forceFetch, isFocused, dispatch]);
 
   // get the query info from the store
   const { status, error, totalPages, ids } = useSelector(({ product: productStore }) => selectQuery(productStore, queryString));
@@ -302,7 +305,9 @@ export const useGetProductList = (listArgs = {}, forceFetch = false) => {
  * @returns an object containing fetch info and eventually the product list (as `data`)
  * @returns a `refresh` and `getNextPage` function designed to be used by FlatList
  */
-export const useInfiniteProductList = (listArgs, forceFetch = false) => {
+export const useInfiniteProductList = (listArgs = {}, forceFetch = false) => {
+  // isFocused is used to make sure we rerender when this screen comes into focus. This way invalidated lists will be refetched
+  const isFocused = useIsFocused();
   const dispatch = useDispatch();
   // check force fetch to determine which action to use
   const fetchProducts = (query) => {
@@ -328,10 +333,11 @@ export const useInfiniteProductList = (listArgs, forceFetch = false) => {
   const isError = !!error
   const isEmpty = !isFetching && !productList.length;
 
+  const queryString = apiUtils.queryStringFromObject(listArgs) || "all";
   // every time query changes reset the list and set the page to 1
   useEffect(() => {
-    resetProductList();
-  }, [listArgs, per]);
+    isFocused && resetProductList();
+  }, [queryString, per, isFocused]);
 
   // every time page changes fetch more products and add them to the list
   useEffect(() => {

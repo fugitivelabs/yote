@@ -1,5 +1,5 @@
 /**
- * Will update the name and description of an already existing product
+ * Will update an existing product using the inputs on the ProductForm
  */
 
 // import react things
@@ -45,9 +45,9 @@ const UpdateProduct = () => {
   });
 
   const leftItem = {
-    icon: require('../../../global/img/back.png'),
-    layout: 'icon',
-    onPress: () => navigation.goBack(),
+    icon: require('../../../global/img/back.png')
+    , layout: 'icon'
+    , onPress: () => navigation.goBack()
   }
 
   return (
@@ -60,7 +60,6 @@ const UpdateProduct = () => {
       <WaitOn query={productQuery} fallback={<ActivityIndicator />}>
         <ProductForm
           product={product}
-          cancelLink={`/products/${productId}`}
           disabled={productQuery.isFetching}
           formType='update'
           handleFormChange={handleFormChange}
