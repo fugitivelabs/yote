@@ -1,5 +1,5 @@
 /**
- * Will create a new product from information in the TextInputs
+ * Will create a new product from the default product and the inputs on the ProductForm
  */
 
 // import react things
