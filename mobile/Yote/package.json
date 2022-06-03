@@ -22,6 +22,7 @@
     "react-native-screens": "^3.6.0",
     "react-navigation": "^4.4.4",
     "react-redux": "^7.2.4",
+    "recyclerlistview": "^3.0.5",
     "redux": "^4.1.1",
     "redux-logger": "^3.0.6",
     "redux-persist": "^6.0.0",

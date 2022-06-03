@@ -91,7 +91,9 @@ export const handleInvalidateQuery = (state, action, cb) => {
 export const handleInvalidateQueries = (state, action, cb) => {
   const queryKeys = action.payload
   const queries = queryKeys.map(key => state.listQueries[key] || state.singleQueries[key])
-  queries.forEach(query => query.didInvalidate = true)
+  queries.forEach(query => {
+    if(query) query.didInvalidate = true
+  })
   cb && cb(state, action)
 }
 
