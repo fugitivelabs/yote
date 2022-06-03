@@ -69,7 +69,7 @@ import {
  *   </WaitOn>
  * )
  */
-export const useCreateProduct = ({ initialState = {}, onResponse = () => { } }) => {  
+export const useCreateProduct = ({ initialState = {}, onResponse = () => { } }) => {
   const dispatch = useDispatch();
   // set up product specific stuff to be used by the shared hook
   const defaultProductQuery = useGetDefaultProduct();
@@ -78,8 +78,6 @@ export const useCreateProduct = ({ initialState = {}, onResponse = () => { } }) 
   // the hook will return everything the caller needs to create a new product
   return useMutateResource({resourceQuery: defaultProductQuery, sendMutation, initialState, onResponse});
 }
-
-
 
 // READ
 
@@ -160,6 +158,7 @@ export const useInfiniteProductList = (listArgs = {}, forceFetch = false) => {
   return useInfiniteResourceList({ listArgs, sendFetchList, sendInvalidateLists, listKey: 'products' });
 
 }
+
 // UPDATE
 
 /**
@@ -218,11 +217,11 @@ export const useUpdateProduct = () => {
  */
 export const useGetUpdatableProduct = (id, { onResponse = () => { } } = {}) => {
   const dispatch = useDispatch();
-  // use the existing hook to get the product
+  // set up product specific stuff to be used by the shared hook
+  // use the existing hook to get the productQuery
   const productQuery = useGetProductById(id);
-
   const sendMutation = (mutatedProduct) => dispatch(sendUpdateProduct(mutatedProduct));
-  // let the shared global hook handle the rest
+  // return the (now product specific) hook
   return useMutateResource({resourceQuery: productQuery, sendMutation, onResponse});
   
 }
@@ -270,18 +269,3 @@ export const useProductFromMap = (id) => {
   const product = useSelector(({ product: productStore }) => selectSingleById(productStore, id));
   return product
 }
-
-
-
-
-/// TESTING
-
-/**
- * Use this hook to handle the creation or update of a resource.
- * 
- * @param {object} props - props required to access and mutate the resource
- * @param {ServiceHookResponse} props.resourceQuery - the object returned from the resource query hook (e.g. resourceQuery = useGetProductById(productId))
- * @param {function} props.sendMutation - the dispatched action to send the mutation to the server (e.g. (updatedProduct) => dispatch(sendUpdateProduct(updatedProduct)))
- * @param {object?} props.initialState - the initial state we want to apply to the resource returned from the resourceQuery
- * @param {function?} props.onResponse - a callback function that accepts the mutated resource or error
- */
