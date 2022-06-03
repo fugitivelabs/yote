@@ -16,16 +16,16 @@ import tw from '../../../global/styles/tailwind/twrnc';
 
 // import services
 import { useProductFromMap } from '../productService';
-
-const ProductListItem = ({ id, navigation }) => {
+const FIXED_HEIGHT = 80;
+const ProductListItem = ({ id, onPress = () => { } }) => {
   // if this is being rendered then we already fetched the list so we know this product exists in the map, no need to attempt to fetch it again
   const product = useProductFromMap(id);
 
   if(!product) return <Skeleton />;
 
   return (
-    <View style={tw`flex`}>
-      <TouchableHighlight style={tw`p-2`} onPress={() => navigation.navigate('SingleProduct', { productId: id })}>
+    <View style={[tw`flex`, { height: FIXED_HEIGHT}]}>
+      <TouchableHighlight style={tw`p-2`} onPress={onPress}>
         <View>
           <Text style={tw`text-lg font-semibold`}>{product?.title}</Text>
           <Text style={tw`text-lg`}>{product?.description}</Text>
@@ -48,9 +48,12 @@ const Skeleton = () => {
 }
 // add the skeleton to the component so we can access it in other components (ProductList in this case)
 ProductListItem.Skeleton = Skeleton;
+ProductListItem.fixedHeight = FIXED_HEIGHT;
 
 ProductListItem.propTypes = {
   id: PropTypes.string.isRequired
+  , onPress: PropTypes.func
 }
+
 
 export default ProductListItem;
