@@ -1,3 +1,9 @@
+/**
+ * This global set of hooks contains most of the logic that is shared across each resource service.
+ * It's designed to be called by each separate resource service with args specific to that resource.
+ */
+
+
 import { useEffect, useState } from 'react';
 import { useIsFocused } from '@react-navigation/native';
 import { usePagination } from '../../global/utils/customHooks';
@@ -360,9 +366,9 @@ export const useMutateResource = ({
 
 // TYPES - allows jsdoc comments to give us better intellisense
 /**
- * the basic object returned from a standard service hook
- * @typedef {Object} ServiceHookResponse
- * @property {Object} data - the data returned from the store
+ * the basic object returned from a standard service hook (e.g. StandardHookResponse = useGetProductById(productId))
+ * @typedef {object} ServiceHookResponse
+ * @property {object} data - the data returned from the store
  * @property {string?} error - the error message returned from the store
  * @property {boolean} isFetching - whether the service is fetching
  * @property {boolean} isError - whether the fetch returned an error
