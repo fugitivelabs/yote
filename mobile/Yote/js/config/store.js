@@ -15,7 +15,7 @@ import {
   REGISTER,
   REHYDRATE,
 } from 'redux-persist'; 
-import AsyncStorage from '@react-native-community/async-storage'; 
+import AsyncStorage from '@react-native-async-storage/async-storage'; 
 
 // More info: https://redux-toolkit.js.org/usage/usage-guide
 // redux thunk is included with getDefaultMiddleware. More info on that: https://redux-toolkit.js.org/api/getDefaultMiddleware
