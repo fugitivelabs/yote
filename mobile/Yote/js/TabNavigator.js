@@ -3,12 +3,13 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import Home from './global/landing/Home';
-import ProductList from './resources/product/components/ProductList'; 
+// import ProductList from './resources/product/components/ProductList'; 
 import SingleProduct from './resources/product/views/SingleProduct'; 
 import CreateProduct from './resources/product/views/CreateProduct'; 
 import UpdateProduct from './resources/product/views/UpdateProduct';
 
 import Profile from './resources/user/views/Profile'; 
+import InfiniteProductList from './resources/product/components/InfiniteProductList';
 
 function HomeScreen() {
   return (
@@ -18,7 +19,8 @@ function HomeScreen() {
 
 function ProductsScreen() {
   return (
-    <ProductList/>
+    // <ProductList />
+    <InfiniteProductList/>
   );
 }
 

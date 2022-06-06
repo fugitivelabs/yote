@@ -7,7 +7,15 @@ const PageTabber = ({
   pagination
   , setPage
   , totalPages
+  , onSetPage = () => { }
 }) => {
+
+  const handleSetPage = (newPage) => {
+    setPage(newPage);
+    onSetPage();
+  }
+
+  if(!totalPages) return null;
 
   let before;
   let after;
@@ -20,11 +28,11 @@ const PageTabber = ({
   if(currentPage === 1) {
     before = [];
   } else if(currentPage === 2) {
-    before = [ 1 ];
+    before = [1];
   } else if(currentPage === 3) {
-    before = [1,2];
+    before = [1, 2];
   } else {
-    before = [ (currentPage - 3), (currentPage - 2), (currentPage - 1) ];
+    before = [(currentPage - 3), (currentPage - 2), (currentPage - 1)];
   }
 
   /**
@@ -34,76 +42,69 @@ const PageTabber = ({
   if(currentPage === totalPages) {
     after = [];
   } else if(currentPage === totalPages - 1) {
-    after = [currentPage + 1 ];
+    after = [currentPage + 1];
   } else if(currentPage === totalPages - 2) {
-    after = [(currentPage + 1), (currentPage + 2) ]
+    after = [(currentPage + 1), (currentPage + 2)]
   } else {
-    after = [(currentPage + 1), (currentPage + 2), (currentPage + 3) ]
+    after = [(currentPage + 1), (currentPage + 2), (currentPage + 3)]
   }
 
   return (
     <div>
       &mdash;
-      
       <p className="">
         <span className="">Page {currentPage}</span> of <span className="">{totalPages}</span>
       </p>
-      
       <div className="">
-        
-        <div>
-          <nav className="" aria-label="Pagination">
-            <button
-              onClick={() => setPage(currentPage - 1)}
-              disabled={currentPage === 1}
-            >
-              <span>Previous</span>
-            </button>
-            {currentPage > 4 ?
-              <span>
-                ...
-              </span>
-              :
-              null
-            }
-            {before.map((page, i) => (
-              <a
-                key={`page-before-${i}`}
-                onClick={() => setPage(page)}
-                // className={setPageBtnCommonClasses}
-              >
-              {page}
-              </a>
-            ))}
-            <span aria-current="page">
-              {currentPage}
-            </span>
-            {after.map((page , i)=> (
-              <a
-                key={`page-after-${i}`}
-                onClick={()=> setPage(page)}
-                
-              >
-              {page}
-              </a>
-            ))}
-            { currentPage < totalPages - 3 ?
-              <span>
+        <nav className="" aria-label="Pagination">
+          <button
+            onClick={() => handleSetPage(currentPage - 1)}
+            disabled={currentPage === 1}
+          >
+            <span>Previous</span>
+          </button>
+          {currentPage > 4 ?
+            <span>
               ...
-              </span>
-              :
-              null
-            }
+            </span>
+            :
+            null
+          }
+          {before.map((page, i) => (
             <button
-              onClick={() => setPage(currentPage + 1)}
-              disabled={currentPage >= totalPages}
+              key={`page-before-${i}`}
+              onClick={() => handleSetPage(page)}
             >
-              <span>Next</span>
+              {page}
             </button>
-          </nav>
-        </div>
+          ))}
+          <span aria-current="page">
+            {currentPage}
+          </span>
+          {after.map((page, i) => (
+            <button
+              key={`page-after-${i}`}
+              onClick={() => handleSetPage(page)}
+            >
+              {page}
+            </button>
+          ))}
+          {currentPage < totalPages - 3 ?
+            <span>
+              ...
+            </span>
+            :
+            null
+          }
+          <button
+            onClick={() => handleSetPage(currentPage + 1)}
+            disabled={currentPage >= totalPages}
+          >
+            <span>Next</span>
+          </button>
+        </nav>
         <p className="">
-          Showing <span className="">{ (pagination.page * pagination.per) - (pagination.per - 1)}</span> to <span className="">{ pagination.page * pagination.per}</span> of{' '}
+          Showing <span className="">{(pagination.page * pagination.per) - (pagination.per - 1)}</span> to <span className="">{pagination.page * pagination.per}</span> of{' '}
           <span className="">about {pagination.per * totalPages}</span> results
         </p>
       </div>

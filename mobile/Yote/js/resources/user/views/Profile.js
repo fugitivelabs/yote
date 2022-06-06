@@ -40,7 +40,7 @@ const UserProfile = () => {
   const { loggedInUser, ...authQuery } = useLoggedInUser();
 
   const handleLogout = async () => {
-    const { response } = await dispatch(sendLogout());
+    const response = await dispatch(sendLogout());
     // logging out automatically unmounts TabNavigator and replaces it with AuthStack
   }
   return (
