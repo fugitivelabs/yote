@@ -34,7 +34,7 @@ export const useGetResourceById = ({
 }) => {
 
   useEffect(() => {
-    sendFetchById(id);
+    if(id) sendFetchById(id);
     // this is the dependency array. useEffect will run anytime one of these changes
   }, [id, sendFetchById]);
 
