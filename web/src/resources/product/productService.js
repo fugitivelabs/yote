@@ -4,17 +4,9 @@
  * in the components.
  */
 
-import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { usePagination } from '../../global/utils/customHooks';
-
 import apiUtils from '../../global/utils/api';
-
-import {
-  selectListItems
-  , selectSingleById
-  , selectQuery
-} from '../../global/utils/storeUtils';
+import { selectSingleById } from '../../global/utils/storeUtils';
 
 // import all of the actions from the store
 import {
@@ -29,6 +21,11 @@ import {
   , addProductToList
   , fetchSingleIfNeeded
 } from './productStore';
+import {
+  useGetResourceById
+  , useGetResourceList
+  , useMutateResource
+} from '../../global/utils/serviceHooks';
 
 
 // Define the hooks that we'll use to manage data in the components
@@ -52,10 +49,10 @@ import {
  *   initialState: {
  *     someKey: 'someValue'
  *   }
- *   // optional, callback function that receives the new product or error
+ *   // optional, callback function that receives the response from the server
  *   , handleResponse: (product, error) => {
  *     if(error || !product) {
- *       alert(error.message || "An error occurred.")
+ *       alert(error || "An error occurred.")
  *     }
  *     history.push(`/products/${product._id}`)
  *   }
@@ -73,59 +70,12 @@ import {
  */
 export const useCreateProduct = ({ initialState = {}, onResponse = () => { } }) => {
   const dispatch = useDispatch();
-  // STATE
-  // set up a state variable to hold the product, start with an empty object
-  const [newProduct, setFormState] = useState(initialState);
-  // set up a state variable to hold the isCreating flag
-  const [isCreating, setIsCreating] = useState(false)
+  // set up product specific stuff to be used by the shared hook
+  const defaultProductQuery = useGetDefaultProduct();
+  const sendMutation = (mutatedProduct) => dispatch(sendCreateProduct(mutatedProduct));
 
-  // FETCH
-  // use the existing hook to get the default product
-  const { data: defaultProduct, ...defaultProductQuery } = useGetDefaultProduct();
-
-  useEffect(() => {
-    // once we have the default product, set it to state
-    if(defaultProduct) {
-      // override default values with anything that was passed as initialState
-      setFormState((currentState) => {
-        return { ...defaultProduct, ...currentState }
-      });
-    }
-  }, [defaultProduct])
-
-  // FORM HANDLERS
-  // setFormState will replace the entire product object with the new product object
-  // set up a handleFormChange method to update nested state while preserving existing state(standard reducer pattern)
-  const handleFormChange = e => {
-    setFormState(currentState => {
-      return { ...currentState, [e.target.name]: e.target.value }
-    });
-  }
-
-  const handleFormSubmit = e => {
-    // prevent the default form submit event if present
-    e?.preventDefault && e.preventDefault();
-    // set isCreating true so the component knows we're waiting on a response
-    setIsCreating(true)
-    // dispatch the create action
-    dispatch(sendCreateProduct(newProduct)).then(response => {
-      // set isCreating false so the component knows we're done waiting on a response
-      setIsCreating(false)
-      // send the response to the callback function
-      onResponse(response.payload, response.error);
-    })
-  }
-
-  // return everything the component needs to create a new product
-  return {
-    data: newProduct
-    , handleFormChange
-    , handleFormSubmit
-    , setFormState // only used if we want to handle this in a component, will usually use handleFormChange
-    , ...defaultProductQuery
-    // override isFetching if we're waiting for the new product to get returned (for ui purposes)
-    , isFetching: isCreating || defaultProductQuery.isFetching
-  }
+  // the hook will return everything the caller needs to create a new product
+  return useMutateResource({ resourceQuery: defaultProductQuery, sendMutation, initialState, onResponse });
 }
 
 // READ
@@ -154,45 +104,15 @@ export const useGetDefaultProduct = (forceFetch = false) => {
  */
 export const useGetProductById = (id, forceFetch = false) => {
   const dispatch = useDispatch();
+  // set up product specific stuff to be used by the shared hook
+  const productStore = useSelector(({ product }) => product);
+  const fetchProduct = forceFetch ? fetchSingleProduct : fetchSingleIfNeeded;
+  const sendFetchById = (id) => dispatch(fetchProduct(id));
+  const sendInvalidateSingle = (id) => dispatch(invalidateQuery(id));
 
-  useEffect(() => {
-    if(id) {
-      // only fetch if we need to
-      if(forceFetch) {
-        dispatch(fetchSingleProduct(id));
-      } else {
-        dispatch(fetchSingleIfNeeded(id));
-      }
-    } else {
-      // no id yet, don't attempt fetch
-      // console.log("still waiting for Product id");
-    }
-    // this is the dependency array. useEffect will run anytime one of these changes
-  }, [id, forceFetch, dispatch]);
+  // return the (now product specific) hook
+  return useGetResourceById({ id, fromStore: productStore, sendFetchById, sendInvalidateSingle });
 
-  // get the query status from the store
-  const { status, error } = useSelector(({ product: productStore }) => selectQuery(productStore, id));
-  // get current product data (if it exists)
-  const product = useSelector(({ product: productStore }) => selectSingleById(productStore, id));
-
-  const isFetching = status === 'pending' || status === undefined;
-  const isLoading = isFetching && !product;
-  const isError = status === 'rejected';
-  const isSuccess = status === 'fulfilled';
-  const isEmpty = isSuccess && !product;
-
-  // return the info for the caller of the hook to use
-  return {
-    data: product
-    , error
-    , isFetching
-    , isLoading
-    , isError
-    , isSuccess
-    , isEmpty
-    , invalidate: () => dispatch(invalidateQuery(id))
-    , refetch: () => dispatch(fetchSingleProduct(id))
-  }
 }
 
 /**
@@ -205,91 +125,14 @@ export const useGetProductById = (id, forceFetch = false) => {
  */
 export const useGetProductList = (listArgs = {}, forceFetch = false) => {
   const dispatch = useDispatch();
-  /**
-  * NOTE: tracking lists using the query string is easy because the `listArgs` passed into
-  * dispatch(fetchProductList(listArgs)) are accessed in the store by using action.meta.arg.
-  * We could try setting the queryKey to something different (or nesting it) but we'd need to figure
-  * out how to access that info in the store. Maybe by passing it along as a named object like:
-  * 
-  * dispatch(fetchProductList({queryString: listArgs, queryKey: someParsedVersionOfListArgs}))
-  * 
-  */
+  // set up product specific stuff to be used by the shared hook
+  const productStore = useSelector(({ product }) => product);
+  const fetchProducts = forceFetch ? fetchProductList : fetchListIfNeeded;
+  const sendFetchList = (queryString) => dispatch(fetchProducts(queryString));
+  const sendInvalidateList = (queryString) => dispatch(invalidateQuery(queryString));
 
-  // first make sure all list args are present. If any are undefined we will wait to fetch.
-  const readyToFetch = apiUtils.checkListArgsReady(listArgs);
-
-  // handle pagination right here as part of the fetch so we don't have to call usePagination every time from each component
-  // this also allows us to pre-fetch the next page(s)
-  let { page, per } = listArgs;
-  let pagination = usePagination({ page, per });
-
-  if(page && per) {
-    listArgs.page = pagination.page;
-    listArgs.per = pagination.per;
-  } else {
-    pagination = {};
-  }
-
-  // convert the query object to a query string for the new server api
-  // also makes it easy to track the lists in the reducer by query string
-  const queryString = apiUtils.queryStringFromObject(listArgs) || "all";
-  // console.log('queryString', queryString);
-
-  useEffect(() => {
-    if(readyToFetch) {
-      if(forceFetch) {
-        dispatch(fetchProductList(queryString));
-      } else {
-        dispatch(fetchListIfNeeded(queryString));
-      }
-    } else {
-      // listArgs aren't ready yet, don't attempt fetch
-      // console.log("still waiting for listArgs");
-    }
-  }, [readyToFetch, queryString, forceFetch, dispatch]);
-
-  // get the query info from the store
-  const { status, error, totalPages, ids } = useSelector(({ product: productStore }) => selectQuery(productStore, queryString));
-
-  // get current list items (if they exist)
-  const products = useSelector(({ product: productStore }) => selectListItems(productStore, queryString));
-
-  const isFetching = status === 'pending' || status === undefined;
-  const isLoading = isFetching && !products;
-  const isError = status === 'rejected';
-  const isSuccess = status === 'fulfilled';
-  const isEmpty = isSuccess && !products.length;
-
-  // add totalPages from the query to the pagination object
-  pagination.totalPages = totalPages || 0;
-
-  // PREFETCH
-  // if we are using pagination we can fetch the next page(s) now
-  const nextQueryString = readyToFetch && listArgs.page && listArgs.page < totalPages ? apiUtils.queryStringFromObject({ ...listArgs, page: Number(listArgs.page) + 1 }) : null;
-
-  useEffect(() => {
-    if(nextQueryString) {
-      // fetch the next page now
-      dispatch(fetchListIfNeeded(nextQueryString))
-    }
-  }, [nextQueryString, dispatch]);
-
-  // END PREFETCH
-
-  // return the info for the caller of the hook to use
-  return {
-    ids
-    , data: products
-    , error
-    , isFetching
-    , isLoading
-    , isError
-    , isSuccess
-    , isEmpty
-    , invalidate: () => dispatch(invalidateQuery(queryString))
-    , refetch: () => dispatch(fetchProductList(queryString))
-    , pagination
-  }
+  // return the (now product specific) hook
+  return useGetResourceList({ listArgs, fromStore: productStore, sendFetchList, sendInvalidateList });
 }
 
 // UPDATE
@@ -332,7 +175,7 @@ export const useUpdateProduct = () => {
  *   // optional, callback function to run after the request is complete
  *   onResponse: (updatedProduct, error) => {
  *     if(error || !updatedProduct) {
- *       alert(error.message || "An error occurred.")
+ *       alert(error || "An error occurred.")
  *     }
  *     history.push(`/products/${productId}`)
  *   }
@@ -350,47 +193,13 @@ export const useUpdateProduct = () => {
  */
 export const useGetUpdatableProduct = (id, { onResponse = () => { } } = {}) => {
   const dispatch = useDispatch();
-  // STATE
-  // set up a state variable to hold the product, start with an empty object
-  const [updatedProduct, setFormState] = useState({});
+  // set up product specific stuff to be used by the shared hook
+  // use the existing hook to get the productQuery
+  const productQuery = useGetProductById(id);
+  const sendMutation = (mutatedProduct) => dispatch(sendUpdateProduct(mutatedProduct));
+  // return the (now product specific) hook
+  return useMutateResource({ resourceQuery: productQuery, sendMutation, onResponse });
 
-  // FETCH
-  // use the existing hook to get the product
-  const { data: product, ...productQuery } = useGetProductById(id);
-
-  useEffect(() => {
-    // once we have the product, set it to state
-    // this will also run when the update request is complete, because `product` will be updated, which is nice
-    if(product) {
-      setFormState({ ...product });
-    }
-  }, [product])
-
-  // FORM HANDLERS
-  // setFormState will replace the entire product object with the new product object
-  // set up a handleFormChange method to update nested state while preserving existing state(standard reducer pattern)
-  const handleFormChange = e => {
-    setFormState(currentState => {
-      return { ...currentState, [e.target.name]: e.target.value }
-    });
-  }
-
-  const handleFormSubmit = e => {
-    // prevent the default form submit event if present
-    e?.preventDefault && e.preventDefault();
-    // dispatch the update action then send the response to the callback function (successful or not)
-    dispatch(sendUpdateProduct(updatedProduct)).then(response => {
-      onResponse(response.payload, response.error);
-    });
-  }
-
-  return {
-    data: updatedProduct
-    , handleFormChange
-    , handleFormSubmit
-    , setFormState // only used if we want to handle this in a component, will usually use handleFormChange
-    , ...productQuery
-  }
 }
 
 
