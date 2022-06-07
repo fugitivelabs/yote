@@ -3,7 +3,7 @@
  */
 
 // import primary libraries
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { Link } from 'react-router-dom';
 // import PropTypes from 'prop-types'; // this component gets no props
 
@@ -28,7 +28,7 @@ const SearchableProductList = () => {
 
   const { data: products, ids, pagination, ...productQuery } = useGetProductList({ ...queryArgs, ...initialPagination });
 
-  const handleQueryChange = (e) => {
+  const handleQueryChange = useCallback((e) => {
     const { name, value } = e.target;
     // go back to page 1 when a new search term is entered
     pagination.setPage(1);
@@ -38,7 +38,8 @@ const SearchableProductList = () => {
       ...args
       , [name]: value
     }))
-  }
+    // React will complain that we don't have `pagination` in our dependencies, but that causes an infinite loop ¯\_(ツ)_/¯
+  }, [setQueryArgs])
 
   return (
     <ProductLayout title={'Search Product List'}>
@@ -72,8 +73,8 @@ const SearchableProductList = () => {
 }
 
 const Skeleton = ({ count = 5 }) => {
-  const items = new Array(count).fill('some-non-empty-value')
-  return items.map(() => <ProductListItem.Skeleton key={Math.random()} />)
+  const items = new Array(count).fill('product-list-item-skeleton');
+  return items.map((name, index) => <ProductListItem.Skeleton key={`${name} ${index}`} />)
 }
 
 

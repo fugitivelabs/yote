@@ -7,7 +7,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Add custom color palletes here...
+        // Add custom color pallettes here...
         // orange: {
         //   500: '#FB6440'
         // }

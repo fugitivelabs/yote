@@ -7,7 +7,7 @@
 // import primary libraries
 import React from 'react';
 // import PropTypes from 'prop-types'; // this component gets no props
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, useLocation } from 'react-router-dom';
 
 // import global components
 import WaitOn from '../../../global/components/helpers/WaitOn';
@@ -20,7 +20,8 @@ import ProductForm from '../components/ProductForm.jsx';
 import { useGetUpdatableProduct } from '../productService';
 
 const UpdateProduct = () => {
-  const history = useHistory()
+  const history = useHistory();
+  const location = useLocation();
   const { productId } = useParams() // replaces match.params.productId
   const { data: product, handleFormChange, handleFormSubmit, ...productQuery } = useGetUpdatableProduct(productId, {
     // optional, callback function to run after the request is complete
@@ -28,7 +29,7 @@ const UpdateProduct = () => {
       if(error || !updatedProduct) {
         alert(error?.message || 'An error occurred.');
       }
-      history.push(`/products/${productId}`)
+      history.replace(`/products/${productId}`, location.state)
     }
   });
 

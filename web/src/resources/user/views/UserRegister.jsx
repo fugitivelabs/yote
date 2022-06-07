@@ -34,7 +34,7 @@ const UserRegister = () => {
     if(loggedInUser) {
       history.replace(from.pathname, location.state);
     } else {
-      alert(error.message || "There was a problem registering")
+      alert(error?.message || "There was a problem registering")
     }
   }
 

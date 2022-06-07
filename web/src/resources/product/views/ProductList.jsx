@@ -41,7 +41,7 @@ const ProductList = () => {
 }
 
 const Skeleton = ({ count = 5 }) => {
-  const items = new Array(count).fill('list-item-skeleton');
+  const items = new Array(count).fill('product-list-item-skeleton');
   return items.map((name, index) => <ProductListItem.Skeleton key={`${name} ${index}`} />)
 }
 

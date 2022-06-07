@@ -15,7 +15,6 @@ const PageTabber = ({
     onSetPage();
   }
 
-  if(!totalPages) return null;
 
   let before;
   let after;
@@ -39,7 +38,7 @@ const PageTabber = ({
    * determine how many pages come after the current page and display (at most)
    * the next three
    */
-  if(currentPage === totalPages) {
+  if(!totalPages || currentPage === totalPages) {
     after = [];
   } else if(currentPage === totalPages - 1) {
     after = [currentPage + 1];
@@ -53,7 +52,7 @@ const PageTabber = ({
     <div>
       &mdash;
       <p className="">
-        <span className="">Page {currentPage}</span> of <span className="">{totalPages}</span>
+        <span className="">Page {currentPage}</span> of <span className="">{totalPages || "--"}</span>
       </p>
       <div className="">
         <nav className="" aria-label="Pagination">
@@ -105,7 +104,7 @@ const PageTabber = ({
         </nav>
         <p className="">
           Showing <span className="">{(pagination.page * pagination.per) - (pagination.per - 1)}</span> to <span className="">{pagination.page * pagination.per}</span> of{' '}
-          <span className="">about {pagination.per * totalPages}</span> results
+          <span className="">about {pagination.per * totalPages || "--"}</span> results
         </p>
       </div>
     </div>
