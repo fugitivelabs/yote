@@ -47,6 +47,12 @@ const InfiniteProductList = (props) => {
   // use the hook to get the product list, convenience methods for the recycler list, and fetching state
   const infiniteProductList = useInfiniteProductList(queryArgs);
 
+  // invalidate the accumulated data when the user navigates to the create product screen so we can be sure the new one is loaded when they navigate back
+  const goToCreateProduct = () => {
+    infiniteProductList.invalidate();
+    navigation.navigate('CreateProduct');
+  }
+
   // We have to tell the InfiniteList component how to render each item
   const rowRenderer = (type, id) => {
     // RecyclerListView allows for using `type` here to render different list items based on the data. Not currently used so only works with one type (ProductListItem in this case).
@@ -69,7 +75,7 @@ const InfiniteProductList = (props) => {
         <View style={tw`p-2`}>
           <YTButton
             caption={"New Product"}
-            onPress={() => navigation.navigate('CreateProduct')}
+            onPress={goToCreateProduct}
           />
         </View>
         <SearchInput
