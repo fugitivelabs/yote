@@ -5,8 +5,7 @@
 
 
 import { useEffect, useState } from 'react';
-import { useIsFocused } from '@react-navigation/native';
-import { usePagination } from '../../global/utils/customHooks';
+import { usePagination, useIsFocused } from '../../global/utils/customHooks';
 
 import apiUtils from '../../global/utils/api';
 
@@ -32,11 +31,12 @@ export const useGetResourceById = ({
   , sendFetchById
   , sendInvalidateSingle
 }) => {
+  const isFocused = useIsFocused();
 
   useEffect(() => {
-    if(id) sendFetchById(id);
+    if(id && isFocused) sendFetchById(id);
     // this is the dependency array. useEffect will run anytime one of these changes
-  }, [id, sendFetchById]);
+  }, [id, sendFetchById, isFocused]);
 
   const invalidate = () => {
     sendInvalidateSingle(id);
@@ -88,7 +88,7 @@ export const useGetResourceList = ({
   , sendFetchList
   , sendInvalidateList
 }) => {
-  // isFocused is used to make sure we rerender when this screen comes into focus. This way invalidated lists will be refetched
+  // isFocused is used to make sure we rerender when this screen comes into focus. This way invalidated lists will be refetched without having to interact with the page.
   const isFocused = useIsFocused();
   /**
   * NOTE: tracking lists using the query string is easy because the `listArgs` passed into
@@ -106,19 +106,18 @@ export const useGetResourceList = ({
   // handle pagination right here as part of the fetch so we don't have to call usePagination every time from each component
   // this also allows us to pre-fetch the next page(s)
   let { page, per } = listArgs;
+  
   let pagination = usePagination({ page, per });
-
   if(page && per) {
-    listArgs.page = pagination.page;
-    listArgs.per = pagination.per;
+    listArgs.page = null
+    listArgs.per = null
   } else {
     pagination = {};
   }
 
   // convert the query object to a query string for the new server api
   // also makes it easy to track the lists in the reducer by query string
-  const queryString = apiUtils.queryStringFromObject(listArgs) || "all";
-  // console.log('queryString', queryString);
+  const queryString = apiUtils.queryStringFromObject({...listArgs, page: pagination.page, per: pagination.per}) || "all";
 
   useEffect(() => {
     if(readyToFetch && isFocused) {
@@ -127,7 +126,7 @@ export const useGetResourceList = ({
       // listArgs aren't ready yet, don't attempt fetch
       // console.log("still waiting for listArgs");
     }
-  }, [readyToFetch, queryString, isFocused]);
+  }, [readyToFetch, sendFetchList, queryString, isFocused]);
 
   // get the query info from the store
   const { status, error, totalPages, ids } = selectQuery(fromStore, queryString);
@@ -146,14 +145,14 @@ export const useGetResourceList = ({
 
   // PREFETCH
   // if we are using pagination we can fetch the next page(s) now
-  const nextQueryString = readyToFetch && listArgs.page && listArgs.page < totalPages ? apiUtils.queryStringFromObject({ ...listArgs, page: Number(listArgs.page) + 1 }) : null;
+  const nextQueryString = readyToFetch && pagination.page && pagination.page < totalPages ? apiUtils.queryStringFromObject({ ...listArgs, page: Number(pagination.page) + 1, per: pagination.per }) : null;
 
   useEffect(() => {
     if(nextQueryString) {
       // fetch the next page now
       sendFetchList(nextQueryString);
     }
-  }, [nextQueryString]);
+  }, [nextQueryString, sendFetchList]);
 
   // END PREFETCH
 
@@ -177,123 +176,6 @@ export const useGetResourceList = ({
     , invalidate
     , pagination
     , refetch
-  }
-}
-
-
-/**
- * This hook is designed to be used with the InfiniteList component.
- * When `getNextPage` is called, it will fetch the next page of resources and add their ids to the array.
- * We're using an array of ids as opposed to an array of objects for performance reasons. Also we don't
- * need the entire objects to render the list, it's assumed we only pass the ids to the list items.
- * 
- * @param {object} listArgs - an object containing the query args to be used for the fetch (e.g. { _user: userId, featured: true })
- * @param {object} listKey - the pluralized name of the resource (e.g. 'products', 'users', etc) as it's returned from the server
- * @param {function} sendFetchList - the dispatched action to fetch the list (e.g. (queryString) => dispatch(fetchProductList(queryString)))
- * @param {function} sendInvalidateLists - the dispatched action to invalidate the accumulated lists (e.g. (queryStrings) => dispatch(invalidateQueries(queryStrings)))
- * @returns an object containing fetch info and eventually the productIds list (as `data`)
- * @returns `refresh` and `getNextPage` functions designed to be used by the calling component
- */
-export const useInfiniteResourceList = ({
-  listArgs
-  , listKey
-  , sendFetchList
-  , sendInvalidateLists
-}) => {
-  // keep track of the query keys (each page is a separate query) so we can invalidate all pages on refresh
-  const [queryKeys, setQueryKeys] = useState([]);
-
-  // use the existing hook to control pagination
-  const { page, per, setPage } = usePagination({ page: 1, per: 20 });
-
-  // this will hold the accumulated pages of resource ids. Each time page changes (and a fetch is made) the resource ids will be added to this list. Each time the query changes the list will be reset.
-  const [resourceIds, setResources] = useState([]);
-
-  // these will be updated on each fetch and returned to the component
-  const [isFetching, setIsFetching] = useState(false);
-  const [totalPages, setTotalPages] = useState(0);
-  const [totalCount, setTotalCount] = useState(0);
-  const [error, setError] = useState(null);
-  const isLoading = isFetching && !resourceIds.length;
-  const isError = !!error;
-  const isEmpty = !isFetching && !resourceIds.length;
-
-  const queryString = apiUtils.queryStringFromObject(listArgs) || "all";
-  // every time query or per changes reset the list.
-  useEffect(() => {
-    resetResourceList();
-  }, [queryString, per]);
-
-  const resetResourceList = () => {
-    // if we're already fetching, don't do anything
-    if(isFetching) return;
-    if(queryKeys.length) {
-      // clear the list and reset the page
-      setResources([]);
-      if(page != 1) {
-        // when page changes `fetchNextResources` will be called
-        setPage(1);
-      } else {
-        // still on first page, fetch manually
-        fetchNextResources();
-      }
-    }
-  }
-
-  // every time page changes fetch more resources and add them to the list
-  useEffect(() => {
-    fetchNextResources();
-  }, [page]);
-
-  const fetchNextResources = () => {
-    // if we're already fetching, don't do anything
-    if(isFetching) return;
-    // time to fetch next, clear any previous error and set fetching to true
-    setIsFetching(true);
-    setError(null);
-    const newQueryString = apiUtils.queryStringFromObject({ ...listArgs, page, per });
-    // add the new query string to the array
-    setQueryKeys(keys => ([...keys, newQueryString]));
-    // fetch the next page
-    sendFetchList(newQueryString).then(resourceRes => {
-      const { [listKey]: nextResources = [], totalPages: nextTotalPages, totalCount: nextTotalCount, error } = resourceRes.payload;
-      // add the new resources to the list
-      setResources((currentResourceIds) => [...currentResourceIds, ...nextResources.map(resource => resource._id)]);
-      // update everything else
-      setError(error?.message || error);
-      setTotalPages(nextTotalPages || 1);
-      setTotalCount(nextTotalCount);
-      setIsFetching(false);
-    });
-  }
-
-  // to be used in a component
-  const getNextPage = () => {
-    const previousPageHasLoaded = !isFetching && resourceIds.length > 0;
-    const nextPageExists = page < totalPages;
-    // setPage will trigger the next fetch
-    if(previousPageHasLoaded && nextPageExists) setPage(page + 1);
-  }
-
-  // to be used in a component
-  const refresh = () => {
-    // dispatch(invalidateQueries(queryKeys));
-    sendInvalidateLists(queryKeys)
-    // clear current set of query keys
-    setQueryKeys([]);
-    resetResourceList();
-  }
-
-  return {
-    data: resourceIds
-    , error
-    , getNextPage
-    , isEmpty
-    , isError
-    , isFetching
-    , isLoading
-    , refresh
-    , totalCount
   }
 }
 
@@ -364,7 +246,7 @@ export const useMutateResource = ({
 }
 
 
-// TYPES - allows jsdoc comments to give us better intellisense
+ // TYPES - allows jsdoc comments to give us better intellisense
 /**
  * the basic object returned from a standard service hook (e.g. StandardHookResponse = useGetProductById(productId))
  * @typedef {object} ServiceHookResponse

@@ -6,7 +6,7 @@
 
 // import primary libraries
 import React from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 
 // import global components
 import WaitOn from '../../../global/components/helpers/WaitOn'
@@ -19,20 +19,21 @@ import ProductLayout from '../components/ProductLayout.jsx'
 import { useCreateProduct } from '../productService'
 
 const CreateProduct = () => {
-  const history = useHistory()
+  const history = useHistory();
+  const location = useLocation();
 
   const { data: product, handleFormChange, handleFormSubmit, ...productQuery } = useCreateProduct({
     // optional, anything we want to add to the default object
     initialState: {
       // someKey: someValue
     }
-    // optional, callback function to run after the request is complete
+    // optional, callback function to run when the server returns the new product
     , onResponse: (newProduct, error) => {
       if(error || !newProduct) {
         alert(error?.message || 'An error occurred.')
-        history.push('/products')
+        history.replace(`/products`, location.state);
       } else {
-        history.push(`/products/${newProduct._id}`)
+        history.replace(`/products/${newProduct._id}`, location.state);
       }
     }
   });

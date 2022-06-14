@@ -31,7 +31,7 @@ const SearchInput = ({
     return () => {
       clearTimeout(handler);
     };
-  }, [debouncedValue, debounceTime]); // Only re-call effect if value or delay changes
+  }, [debouncedValue, debounceTime, change, name]); // Only re-call effect if value or delay changes
 
   // send the event immediately when the user presses the enter key
   const handleEnter = () => {

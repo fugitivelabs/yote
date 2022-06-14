@@ -95,7 +95,7 @@ const InfiniteProductList = (props) => {
 }
 
 const Skeleton = ({ count = 10 }) => {
-  const items = new Array(count).fill('list-item-skeleton');
+  const items = new Array(count).fill('product-list-item-skeleton');
   return items.map((name, index) => <ProductListItem.Skeleton key={`${name} ${index}`} />)
 }
 

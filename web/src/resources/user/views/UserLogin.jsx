@@ -34,7 +34,7 @@ const UserLogin = () => {
     if(loggedInUser) {
       history.replace(from.pathname, location.state);
     } else {
-      alert(error.message || "There was a problem logging in. Please try again")
+      alert(error?.message || "There was a problem logging in. Please try again")
     }
   }
 

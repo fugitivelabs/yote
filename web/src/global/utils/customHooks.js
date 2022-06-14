@@ -2,7 +2,7 @@
  * Custom hooks are stateful, reusable chunks of logic that we can use in functional components
  * Handy to cut down on repetitive boilerplate
  */
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 /**
  * This hook handles pagination state
@@ -24,4 +24,25 @@ export const usePagination = (initialPagination = { page: 1, per: 10 }) => {
   }
 
   return { ...pagination, setPage, setPer };
+}
+
+/**
+ * 
+ * @returns {boolean} - true if the window is focused, false otherwise
+ */
+export const useIsFocused = () => {
+  const [isFocused, setIsFocused] = useState(document.visibilityState === 'visible');
+  const onFocus = () => setIsFocused(true);
+  const onBlur = () => setIsFocused(false);
+
+  useEffect(() => {
+    window.addEventListener('focus', onFocus);
+    window.addEventListener('blur', onBlur);
+    return () => {
+      window.removeEventListener('focus', onFocus);
+      window.removeEventListener('blur', onBlur);
+    };
+  }, []);
+
+  return isFocused;
 }

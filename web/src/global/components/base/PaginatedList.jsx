@@ -35,7 +35,7 @@ const PaginatedList = ({
 }
 
 PaginatedList.propTypes = {
-  classes: PropTypes.string
+  className: PropTypes.string
   , pagination: PropTypes.shape({
     page: PropTypes.number
     , per: PropTypes.number
@@ -46,7 +46,7 @@ PaginatedList.propTypes = {
 }
 
 PaginatedList.defaultProps = {
-  classes: ''
+  className: ''
   , pagination: {}
 }
 export default PaginatedList
