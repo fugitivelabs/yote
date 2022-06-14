@@ -3,7 +3,7 @@ const colors = require('tailwindcss/colors')
 const { plugin } = require('twrnc');
 
 module.exports = {
-  purge: [],
+  content: [],
   darkMode: false, // or 'media' or 'class'
   theme: {
     colors: {
