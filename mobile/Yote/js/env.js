@@ -13,7 +13,7 @@ let simulator = {
 }
 
 let localIP = {
-  url: "http://your-ip-here:3030"
+  url: "http://10.0.2.2:3030"
 }
 
 // testing server

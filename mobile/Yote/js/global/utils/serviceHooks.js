@@ -200,8 +200,10 @@ export const useInfiniteResourceList = ({
   , sendFetchList
   , sendInvalidateLists
 }) => {
+  const isFocused = useIsFocused();
   // keep track of the query keys (each page is a separate query) so we can invalidate all pages on refresh
   const [queryKeys, setQueryKeys] = useState([]);
+  const [didInvalidate, setDidInvalidate ] = useState(false);
 
   // use the existing hook to control pagination
   const { page, per, setPage } = usePagination({ page: 1, per: 20 });
@@ -223,6 +225,13 @@ export const useInfiniteResourceList = ({
   useEffect(() => {
     resetResourceList();
   }, [queryString, per]);
+
+  // because this hook keeps its own accumulated list (outside the store), we need to check its invalidated status on focus and reset if needed
+  useEffect(() => {
+    if(didInvalidate && isFocused) {
+      resetResourceList();
+    }
+  }, [didInvalidate, isFocused]);
 
   const resetResourceList = () => {
     // if we're already fetching, don't do anything
@@ -284,6 +293,10 @@ export const useInfiniteResourceList = ({
     resetResourceList();
   }
 
+  const invalidate = () => {
+    sendInvalidateLists(queryKeys);
+    setDidInvalidate(true);
+  }
   return {
     data: resourceIds
     , error
@@ -294,6 +307,7 @@ export const useInfiniteResourceList = ({
     , isLoading
     , refresh
     , totalCount
+    , invalidate
   }
 }
 
