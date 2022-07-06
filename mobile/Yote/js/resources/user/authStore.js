@@ -23,7 +23,7 @@ export const sendLogin = createAsyncThunk(
   'auth/sendLogin'
   , async (userInfo) => {
     // let the server know this is a mobile request so the session token is returned with the user
-    userInfo.mobile = true;
+    // userInfo.mobile = true;
     const response = await apiUtils.callAPI('/api/users/login', 'POST', userInfo);
     // The value we return becomes the `fulfilled` action payload
     return response;

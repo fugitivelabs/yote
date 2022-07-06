@@ -10,7 +10,7 @@ let url = env.url;
 
 const apiUtils = {
   callAPI(route, method = 'GET', body, headers = {
-    'Accept': 'application/json', 'Content-Type': 'application/json', 'token': store.getState().auth.token
+    'Accept': 'application/json', 'Content-Type': 'application/json'//, 'token': store.getState().auth.token
   }) {
     return fetch(url + route, {
       headers
