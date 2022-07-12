@@ -6,8 +6,7 @@ module.exports = {
 
   requireLogin: (req, res, next) => {
     console.log("LOGIN CHECK HIT - by cookie");
-    console.log("headers.cookie", req.headers.cookie)
-    console.log("headers.token", req.headers.token)
+    
     // check by passport session
     if(!req.isAuthenticated()) {
       console.log("UNAUTHORIZED");
