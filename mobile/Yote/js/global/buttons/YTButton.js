@@ -10,53 +10,53 @@ import {
   , Platform
   , Text
   , TouchableOpacity
+  , TouchableHighlight
   , View
 } from 'react-native'; 
 
-const YTButton = ({ type, icon, caption, buttonStyle, onPress, isDisabled, captionStyle }) => {
+const YTButton = ({ type, icon, caption, buttonStyle, onPress, isDisabled, captionStyle, color }) => {
   let btnIcon;
 
   if (icon) {
     btnIcon = <Image source={icon} style={tw.style('mr-2', type === 'primary' && 'tintWhite', type != 'primary' && 'tintAccent')} />;
   }
 
-  let content;
-
   if (type === 'primary' || type === undefined) {
-    content = (
-      <View
-        style={[tw`flex-row items-center justify-center p-2 bg-red-500 rounded-full`, buttonStyle, tw.style(isDisabled && 'opacity-50') ]}>
-        {btnIcon}
-        <Text style={[tw`text-lg font-semibold text-white`, captionStyle]}>
-          {caption}
-        </Text>
-      </View>
-    );
-  } else {
-    content = (
-      <View style={[tw`flex-row items-center justify-center p-2 border border-red-500 rounded-full`, tw.style(type === 'bordered' && 'border border-red-500'), buttonStyle, tw.style(isDisabled && 'opacity-50')]}>
-        {btnIcon}
-        <Text style={[tw`text-lg font-semibold text-red-500`, captionStyle]}>
-          {caption}
-        </Text>
-      </View>
-    );
-  }
-
-  if(isDisabled) {
-    return (
-      <View>{content}</View>
-    )
-  } else {
-
     return (
       <TouchableOpacity
         accessibilityTraits="button"
+        disabled={isDisabled}
         onPress={onPress}
         activeOpacity={0.8}>
-        {content}
-      </TouchableOpacity>
-    )
+        <View
+          style={[tw`flex-row items-center justify-center p-2 bg-${color ? color : 'red'}-700 rounded-full`, buttonStyle, tw.style(isDisabled && 'opacity-50') ]}>
+          {btnIcon}
+          <Text style={[tw`text-base font-semibold text-white`, captionStyle]}>
+            {caption}
+          </Text>
+        </View>
+        </TouchableOpacity>
+    );
+  } else {
+    // secondary has lighter background and bordered and should darken on press 
+    return (
+      <TouchableHighlight
+        accessibilityTraits="button"
+        disabled={isDisabled}
+        onPress={onPress}
+        style={tw`rounded-full`}
+        underlayColor={'#000000'}
+        // activeOpacity={0.8}
+      >
+        <View 
+          style={[tw`flex-row items-center justify-center p-2 bg-${color ? color : 'red'}-200 border border-${color ? color : 'red'}-700 rounded-full`, buttonStyle, tw.style(isDisabled && 'opacity-50')]}>
+          {btnIcon}
+          <Text style={[tw`text-base font-semibold text-${color ? color : 'red'}-700`, captionStyle]}>
+            {caption}
+          </Text>
+        </View>
+        </TouchableHighlight>
+    );
   }
 }
 

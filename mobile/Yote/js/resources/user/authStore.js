@@ -51,7 +51,6 @@ export const authStore = createSlice({
   name: 'auth'
   , initialState: {
     loggedInUser: null
-    , token: null
     , status: 'idle'
     , error: null
   }
@@ -69,8 +68,7 @@ export const authStore = createSlice({
       })
       .addCase(sendRegister.fulfilled, (state, action) => {
         state.status = 'fulfilled';
-        state.loggedInUser = action.payload.user;
-        state.token = action.payload.token;
+        state.loggedInUser = action.payload;
       })
       .addCase(sendRegister.rejected, (state, action) => {
         state.status = 'rejected'
@@ -82,8 +80,7 @@ export const authStore = createSlice({
       })
       .addCase(sendLogin.fulfilled, (state, action) => {
         state.status = 'fulfilled';
-        state.loggedInUser = action.payload.user;
-        state.token = action.payload.token;
+        state.loggedInUser = action.payload;
       })
       .addCase(sendLogin.rejected, (state, action) => {
         state.status = 'rejected';
@@ -96,7 +93,6 @@ export const authStore = createSlice({
       .addCase(sendLogout.fulfilled, (state) => {
         state.status = 'idle';
         state.loggedInUser = null;
-        state.token = null;
       })
       .addCase(sendLogout.rejected, (state, action) => {
         // state.status = 'rejected';
@@ -104,7 +100,6 @@ export const authStore = createSlice({
         // in practice logout will only be rejected when they weren't logged in. In that case we probably still want to clear the info in the store.
         state.status = 'idle';
         state.loggedInUser = null;
-        state.token = null;
       })
       .addCase(sendGetLoggedIn.pending, (state) => {
         state.status = 'pending';
