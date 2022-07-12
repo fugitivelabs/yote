@@ -49,20 +49,7 @@ exports.login = async (req, res, next) => {
               if(req.ip && typeof (req.ip) == 'string') {
                 req.session.ip = req.ip;
               }
-              // if this is a mobile request we need to return the token
-              if(req.body.mobile) {
-                let splitCookies = req.headers.cookie.split(';');
-                let connectCookieVal;
-                for(let next of splitCookies) {
-                  if(next.includes('connect.sid')) {
-                    connectCookieVal = next.trim().split('=')[1]
-                    // console.log("connectCookieVal", connectCookieVal)
-                  }
-                }
-                res.json({ user, token: connectCookieVal });
-              } else {
-                res.json(user);
-              }
+              res.json(user);
             }
           });
         }
@@ -108,21 +95,7 @@ exports.register = async (req, res) => {
       if(req.ip && typeof(req.ip) == 'string' ) {
         req.session.ip = req.ip;
       }
-
-      // if this is a mobile request we need to return the token
-      if(req.body.mobile) {
-        let splitCookies = req.headers.cookie.split(';');
-        let connectCookieVal;
-        for(let next of splitCookies) {
-          if(next.includes('connect.sid')) {
-            connectCookieVal = next.trim().split('=')[1]
-            // console.log("connectCookieVal", connectCookieVal)
-          }
-        }
-        res.json({ user: safeUser, token: connectCookieVal });
-      } else {
-        res.json(safeUser);
-      }
+      res.json(safeUser);
     });
   }
 }
