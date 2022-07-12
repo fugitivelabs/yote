@@ -8,7 +8,8 @@ import PropTypes from 'prop-types';
 
 // import react-native components
 import {
-  ScrollView
+  ActivityIndicator
+  , ScrollView
   , Text
   , View
 } from 'react-native'; 
@@ -50,7 +51,7 @@ const SingleProduct = () => {
         title='Single Product'
         leftItem={leftItem}
       />
-      <WaitOn query={productQuery} fallback={<Skeleton />}>
+      <WaitOn query={productQuery} fallback={<ActivityIndicator />}>
         <ScrollView style={{opacity: productQuery.isFetching ? 0.5 : null}}>
           <View style={tw`p-4`}>
             <Text style={tw`text-lg`}>{product?.title}</Text>
@@ -66,14 +67,6 @@ const SingleProduct = () => {
           </View>
         </ScrollView>
       </WaitOn>
-    </View>
-  )
-}
-
-const Skeleton = () => {
-  return (
-    <View>
-      <Text>Loading</Text>
     </View>
   )
 }

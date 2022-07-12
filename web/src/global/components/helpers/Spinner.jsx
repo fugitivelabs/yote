@@ -2,7 +2,9 @@ import React from 'react'
 
 const Spinner = () => {
   return (
-    <div className='animate-spin rounded-full border-8 border-gray-200 h-20 w-20 mx-auto' style={{borderTopColor: "lightblue"}}/>
+    <div className="flex items-center justify-center">
+      <div style={{borderTopColor:"transparent"}} className="w-16 h-16 border-4 border-blue-400 border-solid rounded-full animate-spin"/>
+    </div>
   )
 }
 

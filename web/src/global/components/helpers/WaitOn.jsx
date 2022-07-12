@@ -34,7 +34,7 @@ const WaitOn = ({
     // console.log('Error in WaitOn children ', childError);
     // there was an error thrown by the children, but the app will not crash, it will display an error message instead.
     // Could somehow log this error or save it as a userEvent kind of thing. Could make it easier to track bugs over time.
-    return <div className="p-8">Something went wrong. {refetch && <button onClick={window.location.reload}>Try again</button>}</div>
+    return <div className="p-8">Something went wrong. <button onClick={window.location.reload}>Try again</button></div>
   }
 }
 

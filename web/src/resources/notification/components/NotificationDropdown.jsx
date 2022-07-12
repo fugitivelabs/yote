@@ -81,9 +81,9 @@ const NotificationDropdown = ({classes = ''}) => {
   )
 }
 
-const Skeleton = ({ count = 5 }) => {
-  const items = new Array(count).fill('some-non-empty-value')
-  return items.map(() => <NotificationListItem.Skeleton key={Math.random()}/>)
+const Skeleton = ({ count = 10 }) => {
+  const items = new Array(count).fill('notification-list-item-skeleton');
+  return items.map((name, index) => <NotificationListItem.Skeleton key={`${name} ${index}`}/>)
 }
 
 NotificationDropdown.propTypes = {

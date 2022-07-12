@@ -4,19 +4,15 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 
 // import services
-import { useGetNotificationById } from '../notificationService'
+import { useNotificationFromMap } from '../notificationService'
 
 
-const NotificationListItem = ({ id, handleClick = () => {} }) => {
-  const { data: notification, ...notificationQuery } = useGetNotificationById(id)
-
-  if(notificationQuery.isLoading) return <Skeleton />
-  if(notificationQuery.isError) return <li>An error occurred 😬 <button onClick={notificationQuery.refetch}>Refetch</button></li>
-  if(!notification) return <li>No notification found</li>
-
+const NotificationListItem = ({ id, handleClick = () => { } }) => {
+  const notification = useNotificationFromMap(id);
+  if(!notification) return <Skeleton />;
   return (
-    <li className={`list-none p-2 block ${notificationQuery.isFetching ? "opacity-50" : ""} ${notification.unread ? "font-bold" : ""}`}>
-      { notification.link ?
+    <li className={`list-none p-2 block ${notification.unread ? "font-bold" : ""}`}>
+      {notification.link ?
         <Link onClick={handleClick} to={notification.link}>{notification.message}</Link>
         :
         <span>{notification.message}</span>
@@ -28,8 +24,8 @@ const NotificationListItem = ({ id, handleClick = () => {} }) => {
 // custom loading skeleton for this component, by defining it right here we can keep it synced with any changes we make to the actual component above
 const Skeleton = () => {
   return (
-    <li className="animate-pulse">
-      <p>...</p>
+    <li className="animate-pulse list-none p-2 block">
+      <p className='bg-gray-600 h-4 w-32 mt-1'></p>
     </li>
   )
 }

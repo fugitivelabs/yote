@@ -42,7 +42,7 @@ const ProductList = () => {
           />
         </View>
         <WaitOn query={productQuery} fallback={<Skeleton />}>
-          {products?.map(product => <ProductListItem key={product._id} id={product._id} navigation={navigation}/>)}
+          {products?.map(product => <ProductListItem key={product._id} id={product._id} onPress={() => navigation.navigate('SingleProduct', { productId: product._id })}/>)}
           {/* {ids?.map(productId => <ProductListItem key={productId} id={productId} />)} */}
         </WaitOn>
       </ScrollView>
@@ -51,7 +51,7 @@ const ProductList = () => {
 }
 
 const Skeleton = ({ count = 10 }) => {
-  const items = new Array(count).fill('list-item-skeleton');
+  const items = new Array(count).fill('product-list-item-skeleton');
   return items.map((name, index) => <ProductListItem.Skeleton key={`${name} ${index}`} />)
 }
 
