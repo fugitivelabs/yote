@@ -22,15 +22,27 @@ export default function AuthNavigator() {
   const linking = {
     prefixes: [
       /* your linking prefixes */
-      'yote://',
-      'https://yote.com'
+      'yote://', // standard deep link
+      // NOTE: needs linking listeners added in AppDelegate.m and a URL Type set up under the Info tab in Xcode
+      'https://yote.com' // universal link using url
+      // NOTE: for univesal links to work, there must be an Associated Domain File added to the website server
     ],
     config: {
       /* configuration for matching screens with paths */
       screens: {
         TabNavigator: {
           screens: {
-            Products: 'products'
+            Products: {
+              screens: {
+                ProductsList: 'products',
+                SingleProduct: 'products/:id'
+              }
+            },
+            User: {
+              screens: {
+                UserProfile: 'user/:id'
+              }
+            }
           }
         }
       }
