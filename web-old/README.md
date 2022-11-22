@@ -1,4 +1,0 @@
-Yote Client
-======
-
-> Coming soon... 
