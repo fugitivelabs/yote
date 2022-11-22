@@ -20,11 +20,11 @@ import NotificationListItem from './NotificationListItem.jsx'
 // import services
 import { useStreamingNotificationList } from '../notificationService'
 
-const NotificationDropdown = ({classes = ''}) => {
+const NotificationDropdown = ({ classes = '' }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   // init the stream and get the notification list
-  const { data, ids, sendDismissNotifications, ...notificationQuery } = useStreamingNotificationList({init: true});
+  const { data, ids, sendDismissNotifications, ...notificationQuery } = useStreamingNotificationList({ init: true });
 
   const closeAndDismiss = (id) => {
     setIsOpen(false);
@@ -52,18 +52,22 @@ const NotificationDropdown = ({classes = ''}) => {
         <BellIcon className={`h-5 w-5 align-middle `} />
       </span>
       <CloseWrapper isOpen={isOpen} closeAction={() => setIsOpen(false)} />
-      { isOpen ?
+      {isOpen ?
         <div className='relative'>
           <div className='absolute top-3 right-0 max-h-60 w-52 overflow-scroll z-50 bg-white p-2 shadow-md'>
             <ul
               className={`${notificationQuery.isFetching ? 'opacity-50' : ''}`}
             >
-              <WaitOn query={notificationQuery} fallback={<Skeleton />}>
+              <WaitOn query={notificationQuery} fallback={<Skeleton />} empty={
+                <li className={`list-none p-2 block`}>
+                  <span className="text-gray-400">No notifications</span>
+                </li>
+              }>
                 {ids?.map(id => <NotificationListItem key={id} id={id} handleClick={() => closeAndDismiss(id)} />)}
               </WaitOn>
             </ul>
           </div>
-          { unreadCount ?
+          {unreadCount ?
             <button
               className='absolute bottom-0 right-10 z-50'
               onClick={dismissAll}
@@ -83,7 +87,7 @@ const NotificationDropdown = ({classes = ''}) => {
 
 const Skeleton = ({ count = 10 }) => {
   const items = new Array(count).fill('notification-list-item-skeleton');
-  return items.map((name, index) => <NotificationListItem.Skeleton key={`${name} ${index}`}/>)
+  return items.map((name, index) => <NotificationListItem.Skeleton key={`${name} ${index}`} />)
 }
 
 NotificationDropdown.propTypes = {
