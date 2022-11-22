@@ -105,19 +105,17 @@ export const useGetResourceList = ({
 
   // handle pagination right here as part of the fetch so we don't have to call usePagination every time from each component
   // this also allows us to pre-fetch the next page(s)
-  let { page, per } = listArgs;
-  
-  let pagination = usePagination({ page, per });
+  const { page, per } = listArgs;
+
+  const pagination = {};
   if(page && per) {
-    listArgs.page = null
-    listArgs.per = null
-  } else {
-    pagination = {};
+    pagination.page = page;
+    pagination.per = per;
   }
 
   // convert the query object to a query string for the new server api
   // also makes it easy to track the lists in the reducer by query string
-  const queryString = apiUtils.queryStringFromObject({...listArgs, page: pagination.page, per: pagination.per}) || "all";
+  const queryString = apiUtils.queryStringFromObject(listArgs);
 
   useEffect(() => {
     if(readyToFetch && isFocused) {
@@ -129,7 +127,7 @@ export const useGetResourceList = ({
   }, [readyToFetch, sendFetchList, queryString, isFocused]);
 
   // get the query info from the store
-  const { status, error, totalPages, ids } = selectQuery(fromStore, queryString);
+  const { status, error, totalPages, totalCount, ids } = selectQuery(fromStore, queryString);
 
   // get current list items (if they exist)
   const resources = selectListItems(fromStore, queryString);
@@ -142,6 +140,7 @@ export const useGetResourceList = ({
 
   // add totalPages from the query to the pagination object
   pagination.totalPages = totalPages || 0;
+  pagination.totalCount = totalCount || 0;
 
   // PREFETCH
   // if we are using pagination we can fetch the next page(s) now
@@ -224,13 +223,20 @@ export const useMutateResource = ({
     e?.preventDefault && e.preventDefault();
     // set isWaiting true so the component knows we're waiting on a response
     setIsWaiting(true)
-    // dispatch the create action
+    // dispatch the create/update action
     sendMutation(newResource).then(response => {
       // set isWaiting false so the component knows we're done waiting on a response
       setIsWaiting(false)
+      // set the returned resource to state so any changes are reflected in the form without a refresh
+      setFormState(response.payload)
       // send the response to the callback function
       onResponse(response.payload, response.error?.message);
     })
+  }
+
+  // used to reset the form to the initial state
+  const resetFormState = () => {
+    setFormState({ ...resourceQuery.data, ...initialState });
   }
 
   // return everything the component needs to create/update the resource
@@ -240,17 +246,19 @@ export const useMutateResource = ({
     , handleFormChange
     , handleFormSubmit
     , setFormState // only used if we want to handle this in a component, will usually use handleFormChange
+    , resetFormState // only used if we want to reset the form to the original state
     // override isFetching if we're waiting for the mutated resource to get returned from the server (for ui purposes)
     , isFetching: isWaiting || resourceQuery.isFetching
   }
 }
 
 
- // TYPES - allows jsdoc comments to give us better intellisense
+  // TYPES - allows jsdoc comments to give us better intellisense
 /**
  * the basic object returned from a standard service hook (e.g. StandardHookResponse = useGetProductById(productId))
  * @typedef {object} ServiceHookResponse
  * @property {object} data - the data returned from the store
+ * @property {array?} ids - an array of the fetched resource ids from the `data` object (list fetches)
  * @property {string?} error - the error message returned from the store
  * @property {boolean} isFetching - whether the service is fetching
  * @property {boolean} isError - whether the fetch returned an error

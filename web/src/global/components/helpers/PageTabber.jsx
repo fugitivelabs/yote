@@ -11,11 +11,11 @@ const PageTabber = ({
 }) => {
 
   const handleSetPage = (newPage) => {
-    setPage(newPage);
     onSetPage();
+    setPage(newPage);
   }
 
-
+  
   let before;
   let after;
   const currentPage = Number(pagination.page);
@@ -38,7 +38,7 @@ const PageTabber = ({
    * determine how many pages come after the current page and display (at most)
    * the next three
    */
-  if(!totalPages || currentPage === totalPages) {
+  if(!totalPages || currentPage >= totalPages) {
     after = [];
   } else if(currentPage === totalPages - 1) {
     after = [currentPage + 1];
