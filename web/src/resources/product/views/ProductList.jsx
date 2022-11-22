@@ -14,8 +14,19 @@ import ProductLayout from '../components/ProductLayout.jsx';
 // import services
 import { useGetProductList } from '../productService';
 
+// import utils
+import { usePagination } from '../../../global/utils/customHooks';
+
 const ProductList = () => {
-  const { data: products, ids, pagination, ...productQuery } = useGetProductList({ page: 1, per: 5 });
+    // if we want to use internal state to track pagination we can use the old hook at the component level
+  const pageControls = usePagination({ page: 1, per: 1 });
+  const queryArgs = {
+    page: pageControls.page
+    , per: pageControls.per
+    // add other key:value pairs here to narrow the query
+    //, name: "some specific name"
+  }
+  const { data: products, ids, pagination, ...productQuery } = useGetProductList(queryArgs);
 
   return (
     <ProductLayout title={'Product List'}>
@@ -27,7 +38,8 @@ const ProductList = () => {
           </div>
         </header>
         <PaginatedList
-          pagination={pagination}
+          {...pagination}
+          {...pageControls} // must pass controls since this component is handling pagination on its own
           className={`${productQuery.isFetching ? 'opacity-50' : ''}`}
         >
           <WaitOn query={productQuery} fallback={<Skeleton count={pagination.per} />}>
