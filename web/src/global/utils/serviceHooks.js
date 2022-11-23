@@ -236,9 +236,6 @@ export const useMutateResource = ({
   }
 
   // used to reset the form to the initial state
-  /**
-   * used to reset the form to the initial state
-   */
   const resetFormState = () => {
     setFormState({ ...resourceQuery.data, ...initialState });
   }
