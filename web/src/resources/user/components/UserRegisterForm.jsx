@@ -7,8 +7,8 @@ import { Link, useLocation } from 'react-router-dom';
 import { EmailInput, PasswordInput } from '../../../global/components/forms'
 
 const UserRegisterForm = ({
-  handleFormChange
-  , handleFormSubmit
+  handleChange
+  , handleSubmit
   , user
 }) => {
   const location = useLocation();
@@ -16,20 +16,20 @@ const UserRegisterForm = ({
 
   return (
     <div className="border border-solid bg-white shadow-sm rounded-sm mx-auto max-w-lg p-4 mt-16">
-      <form name="userForm" onSubmit={handleFormSubmit}>
+      <form name="userForm" onSubmit={handleSubmit}>
         <h1 className="px-2">Register</h1>
         <EmailInput
           name="username"
           label="Email Address"
           value={user.username}
-          change={handleFormChange}
+          change={handleChange}
           required={true}
         />
         <PasswordInput
           name="password"
           label="Password"
           value={user.password}
-          change={handleFormChange}
+          change={handleChange}
           required={true}
         />
         <div className="p-2">
@@ -53,8 +53,8 @@ const UserRegisterForm = ({
 }
 
 UserRegisterForm.propTypes = {
-  handleFormChange: PropTypes.func.isRequired
-  , handleFormSubmit: PropTypes.func.isRequired
+  handleChange: PropTypes.func.isRequired
+  , handleSubmit: PropTypes.func.isRequired
   , user: PropTypes.object.isRequired
 }
 

@@ -6,6 +6,7 @@
 
 import { useEffect, useState } from 'react';
 import { usePagination, useIsFocused } from '../../global/utils/customHooks';
+import _ from 'lodash';
 
 import apiUtils from '../../global/utils/api';
 
@@ -211,14 +212,14 @@ export const useMutateResource = ({
 
   // FORM HANDLERS
   // setFormState will replace the entire resource object with the new resource object
-  // set up a handleFormChange method to update nested state while preserving existing state(standard reducer pattern)
-  const handleFormChange = e => {
+  // set up a handleChange method to update nested state while preserving existing state(standard reducer pattern)
+  const handleChange = e => {
     setFormState(currentState => {
       return { ...currentState, [e.target.name]: e.target.value }
     });
   }
 
-  const handleFormSubmit = e => {
+  const handleSubmit = e => {
     // prevent the default form submit event if present
     e?.preventDefault && e.preventDefault();
     // set isWaiting true so the component knows we're waiting on a response
@@ -235,18 +236,25 @@ export const useMutateResource = ({
   }
 
   // used to reset the form to the initial state
+  /**
+   * used to reset the form to the initial state
+   */
   const resetFormState = () => {
     setFormState({ ...resourceQuery.data, ...initialState });
   }
+
+  // let the component know if there are pending changes that need to be saved/cancelled
+  const isChanged = Boolean(newResource && resourceQuery.data && !_.isEqual(newResource, resourceQuery.data));
 
   // return everything the component needs to create/update the resource
   return {
     ...resourceQuery
     , data: newResource
-    , handleFormChange
-    , handleFormSubmit
-    , setFormState // only used if we want to handle this in a component, will usually use handleFormChange
+    , handleChange
+    , handleSubmit
+    , setFormState // only used if we want to handle this in a component, will usually use handleChange
     , resetFormState // only used if we want to reset the form to the original state
+    , isChanged: isChanged
     // override isFetching if we're waiting for the mutated resource to get returned from the server (for ui purposes)
     , isFetching: isWaiting || resourceQuery.isFetching
   }

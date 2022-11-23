@@ -26,7 +26,7 @@ const UserRegister = () => {
   const location = useLocation();
   const [user, setUser] = useState({username: '', password: ''});
 
-  const handleFormSubmit = async e => {
+  const handleSubmit = async e => {
     e.preventDefault();
     const { payload: loggedInUser, error } = await dispatch(sendRegister(user));
     // adapted from: https://reactrouter.com/web/example/auth-workflow
@@ -42,8 +42,8 @@ const UserRegister = () => {
     <UserLayout title="Register">
       <UserRegisterForm
         user={user}
-        handleFormChange={e => setUser({...user, [e.target.name]: e.target.value})}
-        handleFormSubmit={handleFormSubmit}
+        handleChange={e => setUser({...user, [e.target.name]: e.target.value})}
+        handleSubmit={handleSubmit}
       />
     </UserLayout>
   )
