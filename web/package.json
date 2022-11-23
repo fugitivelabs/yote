@@ -1,12 +1,11 @@
 {
-  "name": "redux-template",
-  "version": "0.1.0",
+  "name": "yote-web",
+  "version": "3.0.0",
   "private": true,
   "dependencies": {
-    "@craco/craco": "^6.1.2",
-    "@headlessui/react": "^1.3.0",
-    "@heroicons/react": "^1.0.1",
-    "@reduxjs/toolkit": "^1.5.1",
+    "@headlessui/react": "^1.7.2",
+    "@heroicons/react": "^1.0.6",
+    "@reduxjs/toolkit": "^1.7.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -15,7 +14,6 @@
     "react-helmet": "^6.1.0",
     "react-redux": "^7.2.3",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "4.0.3",
     "redux-logger": "^3.0.6"
   },
   "scripts": {
@@ -39,10 +37,14 @@
       "last 1 safari version"
     ]
   },
+  "proxy": "http://localhost:3030",
   "devDependencies": {
-    "autoprefixer": "^9.8.6",
-    "postcss": "^7.0.36",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.1.4"
-  },
-  "proxy": "http://localhost:3030"
+    "autoprefixer": "^10.4.12",
+    "@craco/craco": "^7.0.0-alpha.3",
+    "postcss": "^8.4.17",
+    "postcss-preset-env": "^7.8.2",
+    "postcss-flexbugs-fixes": "^5.0.2",
+    "react-scripts": "^5.0.1",
+    "tailwindcss": "^3.1.8"
+  }
 }

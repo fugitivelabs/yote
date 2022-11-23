@@ -13,10 +13,10 @@ if(window.location.origin === 'http://localhost:3000') alert("Wrong port. Go to 
 // Grab the loggedInUser from the window as injected on the server-generated HTML
 let loggedInUser;
 try {
-  loggedInUser = JSON.parse(window.currentUser);
+  loggedInUser = window.currentUser;
 } catch(error) {
   // console.log('error', error);
-  // window.currentUser is not a valid stringified JSON object (it was probably 'undefined')
+  // this will probably never happen (loggedInUser can be undefined) but just in case
   loggedInUser = null
 }
 
