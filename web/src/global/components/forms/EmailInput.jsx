@@ -17,6 +17,7 @@ const EmailInput = ({
   , placeholder
   , required
   , value
+  , ...inputProps
 }) => {
 
   const [email, setEmail] = useState(value);
@@ -48,8 +49,18 @@ const EmailInput = ({
   }
 
   return (
-    <div className="p-2">
-      <label htmlFor={name} className="text-sm"> {label} {required ? <sup className="text-red-500">*</sup> : null}</label>
+    <div className="relative z-0 w-full mb-4 lg:w-auto">
+      {label ? (
+        <label
+          htmlFor={name}
+          className="px-2 text-xs absolute top-0 -z-1 origin-0 text-gray-500 bg-transparent z-10"
+        >
+          {label} <sup className="text-red-500">{required ? '*' : null}</sup>
+        </label>
+        )
+        :
+        null
+      }
       <input
         disabled={disabled}
         name={name}
@@ -58,10 +69,11 @@ const EmailInput = ({
         required={required}
         type="email"
         value={email}
-        className="text-base border border-solid w-full p-2 block rounded-sm"
+        className={`px-2 text-base ${label ? 'pt-4 pb-1' : 'pt-2 pb-3'} block w-full mt-0 border-2 rounded appearance-none focus:outline-none focus:ring-0 focus:border-indigo-600 border-transparent disabled:opacity-70`}
+        {...inputProps}
       />
-      { error && <div className="">{error}</div> }
-      <small className=""><em>{helpText}</em></small>
+      {error && <div className="text-xs text-red-800">{error}</div>}
+      {helpText && <small className="text-xs text-gray-500"><em>{helpText}</em></small>}
     </div>
   )
 }

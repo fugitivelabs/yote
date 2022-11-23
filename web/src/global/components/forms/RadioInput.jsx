@@ -21,28 +21,37 @@ import PropTypes from 'prop-types';
 const RadioInput = ({
   change
   , helpText
+  , inline
   , label
   , name
   , options
   , value
 }) => {
 
-  return(
-    <div className="">
+  return (
+    <div className="mb-4">
       <label htmlFor={name}>{label}</label>
+      <div className={`flex ${inline ? 'flex-row' : 'flex-col'}`}>
       {options.map((option, i) => (
-        <div key={i} className="">
+        <div key={`${name}_radio_${i}`}className={`p-2 flex items-center w-min hover:${option.disabled ? '' : 'bg-gray-50'} ${option.disabled ? 'opacity-50' : ''}`}>
           <input
+            className="h-5 w-5 rounded accent-indigo-600"
             type="radio"
             name={name}
             value={option.val}
             onChange={change}
             checked={option.val === value}
           />
-          <span htmlFor={name} className="">{option.display}</span>
+          <label
+            htmlFor={name}
+            className={`ml-1 text-xs inline-block whitespace-nowrap`}
+          >
+            {option.display}
+          </label>
         </div>
       ))}
-      {helpText && <small className=""><em>{helpText}</em></small>}
+      </div>
+      {helpText && <small className="text-xs text-gray-500"><em>{helpText}</em></small>}
     </div>
   )
 }
@@ -55,9 +64,10 @@ RadioInput.propTypes = {
   , options: PropTypes.arrayOf(
     PropTypes.shape({
       val: PropTypes.oneOfType([
-          PropTypes.string
-          , PropTypes.number
-        ]).isRequired
+        PropTypes.string
+        , PropTypes.number
+        , PropTypes.bool
+      ]).isRequired
       , display: PropTypes.string.isRequired
     })).isRequired
   , value: PropTypes.any.isRequired

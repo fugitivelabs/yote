@@ -1,5 +1,6 @@
 
 import React from 'react'
+import PropTypes from 'prop-types'
 import Spinner from './Spinner';
 
 // deals with fetch info supplied by query hooks and displays loading and error states if applicable.
@@ -8,6 +9,7 @@ const WaitOn = ({
   fallback = (<Spinner />)
   , query
   , children
+  , empty
 }) => {
 
   const {
@@ -22,11 +24,11 @@ const WaitOn = ({
   try {
     if(!query) return null;
     // there was an error fetching data
-    if(fetchError) return <div className="p-8">{error || "Oops, there was an error. "} {refetch && <button onClick={refetch}>Try again</button>}</div>
+    if(fetchError) return <div className="p-8 whitespace-nowrap">{error || "Oops, there was an error. "} {refetch && <button onClick={refetch}>Try again</button>}</div>
     // still waiting for data
     if(isLoading) return fallback;
     // fetch returned empty
-    if(isEmpty) return <div className="p-8"><p className="text-gray-500 italic text-center">No data found</p></div>
+    if(isEmpty) return empty || <div className="p-8 whitespace-nowrap"><p className="text-gray-500 italic text-center block">No data found</p></div>
     // fetch is done. render children to display the fetched data
     return children || null;
   } catch(childError) {
@@ -38,5 +40,11 @@ const WaitOn = ({
   }
 }
 
+WaitOn.propTypes = {
+  fallback: PropTypes.node
+  , query: PropTypes.object.isRequired
+  , children: PropTypes.node
+  , empty: PropTypes.node
+}
 
 export default WaitOn;
