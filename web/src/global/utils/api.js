@@ -6,28 +6,25 @@ import _ from 'lodash'
 // TODO: break this into separate exports so we aren't forced to import the entire set to use one method.
 
 const apiUtils = {
-  callAPI(route, method = 'GET', body, headers = {
-    'Accept': 'application/json', 'Content-Type': 'application/json'
+  async callAPI(route, method = 'GET', body, headers = {
+    'Accept': 'application/json', 'Content-Type': 'application/json',
   }) {
-    return fetch(route, {
-      headers
-      , method
-      , credentials: 'same-origin'
-      , body: JSON.stringify(body)
-    })
-      // .then(response => response.json())
-      .then(response => {
-        // response.ok info: https://developer.mozilla.org/en-US/docs/Web/API/Response/ok
-        if(response.ok) {
-          return response.json();
-        } else {
-          // server returned an error
-          return response.json().then(error => {
-            // need to throw the error so redux thunk knows to trigger the 'rejected' action.
-            throw error
-          })
-        }
+    const response = await fetch(route, {
+      headers,
+      method,
+      credentials: 'same-origin',
+      body: JSON.stringify(body)
+    });
+    // response.ok info: https://developer.mozilla.org/en-US/docs/Web/API/Response/ok
+    if(response.ok) {
+      return response.json();
+    } else {
+      // server returned an error
+      return response.json().then(error => {
+        // need to throw the error so redux thunk knows to trigger the 'rejected' action.
+        throw error;
       });
+    }
   }
 
   // DEPRECATED: As of v3.0 this is no longer supported by our api. Remove before release.
@@ -70,7 +67,7 @@ const apiUtils = {
         return item;
       })
       // if value is array, convert to string, otherwise just add the string
-      .map(entry => Array.isArray(entry[1]) ? [entry[0], entry[1].join(",")]: entry)
+      .map(entry => Array.isArray(entry[1]) ? [entry[0], entry[1].join(",")] : entry)
       // map to string
       .map(entry => entry.join("="))
       .join("&")
@@ -78,7 +75,7 @@ const apiUtils = {
   , objectFromQueryString(queryString) {
     // convert search string into object notation
     // ex: ?page=1&per=20 to { page: '1', per: '20' }
-    return queryString.replace("?","").split("&")
+    return queryString.replace("?", "").split("&")
       .map(item => item.split("="))
       .map(item => [_.camelCase(item[0]), item[1]]) // convert kebab case to camel case, ie. "end-date" => "endDate"
       // .map(item => {
@@ -90,6 +87,10 @@ const apiUtils = {
       .reduce((returnObj, item) => { return item[0].length > 0 ? { ...returnObj, [item[0]]: item[1] } : returnObj }, {})
   }
   , checkListArgsReady(listArgs) {
+    if(!listArgs) return false;
+    if(typeof listArgs === "string") return true;
+    if(Object.keys(listArgs).length === 0) return false;
+
     let listArgsReady = true;
     // if ANY list args are undefined, return false
     Object.keys(listArgs).forEach(key => {

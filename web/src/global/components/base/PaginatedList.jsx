@@ -5,20 +5,18 @@ import PropTypes from 'prop-types'
 import PageTabber from '../helpers/PageTabber'
 
 const PaginatedList = ({
-  children
+  as: Wrapper = 'ul' // the wrapper element for the list ('div', 'table', etc..), 'ul' by default
+  , children
   , className
-  , pagination: {
-    page
-    , per
-    , setPage
-    , setPer
-    , totalPages
-  }
+  , page
+  , per
+  , setPage
+  , totalPages
 }) => {
   // TODO: Add UI to use setPer
   const listRef = React.useRef(null);
   return (
-    <ul className={`p-2 ${className}`} ref={listRef}>
+    <Wrapper className={`${className}`} ref={listRef}>
       {children}
       {page && per && setPage ?
         <PageTabber
@@ -30,19 +28,16 @@ const PaginatedList = ({
         :
         null
       }
-    </ul>
+    </Wrapper>
   )
 }
 
 PaginatedList.propTypes = {
   className: PropTypes.string
-  , pagination: PropTypes.shape({
-    page: PropTypes.number
-    , per: PropTypes.number
-    , setPage: PropTypes.func
-    , setPer: PropTypes.func
-    , totalPages: PropTypes.number
-  })
+  , page: PropTypes.number
+  , per: PropTypes.number
+  , setPage: PropTypes.func
+  , totalPages: PropTypes.number
 }
 
 PaginatedList.defaultProps = {
