@@ -23,7 +23,7 @@ const UpdateProduct = () => {
   const history = useHistory();
   const location = useLocation();
   const { productId } = useParams() // replaces match.params.productId
-  const { data: product, handleFormChange, handleFormSubmit, ...productQuery } = useGetUpdatableProduct(productId, {
+  const { data: product, handleChange, handleSubmit, ...productQuery } = useGetUpdatableProduct(productId, {
     // optional, callback function to run after the request is complete
     onResponse: (updatedProduct, error) => {
       if(error || !updatedProduct) {
@@ -46,7 +46,7 @@ const UpdateProduct = () => {
     //       disabled={productQuery.isFetching}
     //       formTitle="Update Product"
     //       formType="update"
-    //       handleFormSubmit={handleFormSubmit}
+    //       handleSubmit={handleSubmit}
     //     />
     //   }
     // </ProductLayout>
@@ -59,8 +59,8 @@ const UpdateProduct = () => {
           cancelLink={`/products/${productId}`}
           disabled={productQuery.isFetching}
           formType='update'
-          handleFormChange={handleFormChange}
-          handleFormSubmit={handleFormSubmit}
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
         />
       </WaitOn>
     </ProductLayout>

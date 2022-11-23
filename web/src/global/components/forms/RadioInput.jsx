@@ -10,7 +10,7 @@
  *   ]}
  *   name="sortOrder"
  *   value={item.sortOrder}
- *   change={handleFormChange}
+ *   change={handleChange}
  * />
  */
 

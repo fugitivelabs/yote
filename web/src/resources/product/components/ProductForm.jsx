@@ -11,15 +11,15 @@ import PropTypes from 'prop-types';
 
 
 // import form components
-import { TextInput } from '../../../global/components/forms'
+import { CheckboxInput, TextInput } from '../../../global/components/forms'
 
 const ProductForm = ({
   cancelLink
   , disabled
   , formTitle
   , formType
-  , handleFormChange
-  , handleFormSubmit
+  , handleChange
+  , handleSubmit
   , product
 }) => {
 
@@ -28,17 +28,16 @@ const ProductForm = ({
 
   // set the form header
   const header = formTitle ? <div className="formHeader"><h2> {formTitle} </h2><hr /></div> : <div />;
-  
 
   return (
     <div className="form-container">
-      <form name="productForm" className="product-form" onSubmit={handleFormSubmit}>
+      <form name="productForm" className="product-form" onSubmit={handleSubmit}>
         {header}
         <TextInput
           name="title"
           label="Title"
           value={product.title || ""}
-          change={handleFormChange}
+          change={handleChange}
           disabled={disabled}
           required={true}
         />
@@ -46,9 +45,16 @@ const ProductForm = ({
           name="description"
           label="Description"
           value={product.description || ""}
-          change={handleFormChange}
+          change={handleChange}
           disabled={disabled}
           required={true}
+        />
+        <CheckboxInput
+          name="featured"
+          label="Featured"
+          value={product.featured || false}
+          change={handleChange}
+          disabled={disabled}
         />
         <div className="input-group">
           <div className="yt-row space-between">
@@ -75,8 +81,8 @@ ProductForm.propTypes = {
   , disabled: PropTypes.bool
   , formTitle: PropTypes.string
   , formType: PropTypes.string.isRequired
-  , handleFormChange: PropTypes.func.isRequired
-  , handleFormSubmit: PropTypes.func.isRequired
+  , handleChange: PropTypes.func.isRequired
+  , handleSubmit: PropTypes.func.isRequired
   , product: PropTypes.object.isRequired
 }
 

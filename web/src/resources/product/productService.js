@@ -39,12 +39,12 @@ import {
  * 
  * @returns an object containing fetch info and the following:
  * - `newProduct` as `data`: the new product object as it currently exists in state, initially the default product
- * - `handleFormChange`: standard form change handler to be used in the form
- * - `handleFormSubmit`: standard form submit handler to be used in the form
- * - `setFormState`: a way to handle form state changes in the component instead of `handleFormChange`, rarely needed but sometimes necessary
+ * - `handleChange`: standard form change handler to be used in the form
+ * - `handleSubmit`: standard form submit handler to be used in the form
+ * - `setFormState`: a way to handle form state changes in the component instead of `handleChange`, rarely needed but sometimes necessary
  * @example // to use in a component
  * // access the create action and fetch the default product
- * const { data: newProduct, handleFormChange, handleFormSubmit, ...productQuery } = useCreateProduct({
+ * const { data: newProduct, handleChange, handleSubmit, ...productQuery } = useCreateProduct({
  *   // optional, anything we want to add to the default object
  *   initialState: {
  *     someKey: 'someValue'
@@ -62,8 +62,8 @@ import {
  *   <WaitOn query={productQuery}>
  *     <ProductForm
  *       product={product}
- *       handleFormSubmit={handleFormSubmit}
- *       handleFormChange={handleFormChange}
+ *       handleSubmit={handleSubmit}
+ *       handleChange={handleChange}
  *     />
  *   </WaitOn>
  * )
@@ -166,12 +166,12 @@ export const useUpdateProduct = () => {
  * 
  * @returns an object containing fetch info and the following:
  * - `product` as `data`: the product object as it currently exists in state
- * - `handleFormChange`: standard form change handler to be used in the form
- * - `handleFormSubmit`: standard form submit handler to be used in the form
- * - `setFormState`: a way to handle form state changes in the component instead of `handleFormChange`, rarely needed but sometimes necessary
+ * - `handleChange`: standard form change handler to be used in the form
+ * - `handleSubmit`: standard form submit handler to be used in the form
+ * - `setFormState`: a way to handle form state changes in the component instead of `handleChange`, rarely needed but sometimes necessary
  * @example // to use in a component
  * // fetch the product and access everything needed to handle updating it
- * const { data: product, handleFormChange, handleFormSubmit, ...productQuery } = useGetUpdatableProduct(productId, {
+ * const { data: product, handleChange, handleSubmit, ...productQuery } = useGetUpdatableProduct(productId, {
  *   // optional, callback function to run after the request is complete
  *   onResponse: (updatedProduct, error) => {
  *     if(error || !updatedProduct) {
@@ -185,8 +185,8 @@ export const useUpdateProduct = () => {
  *   <WaitOn query={productQuery}>
  *     <ProductForm
  *       product={product}
- *       handleFormSubmit={handleFormSubmit}
- *       handleFormChange={handleFormChange}
+ *       handleSubmit={handleSubmit}
+ *       handleChange={handleChange}
  *     />
  *   </WaitOn>
  * )

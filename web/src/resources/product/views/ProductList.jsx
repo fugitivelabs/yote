@@ -19,7 +19,7 @@ import { usePagination } from '../../../global/utils/customHooks';
 
 const ProductList = () => {
     // if we want to use internal state to track pagination we can use the old hook at the component level
-  const pageControls = usePagination({ page: 1, per: 1 });
+  const pageControls = usePagination({ page: 1, per: 25 });
   const queryArgs = {
     page: pageControls.page
     , per: pageControls.per

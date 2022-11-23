@@ -22,7 +22,7 @@ const CreateProduct = () => {
   const history = useHistory();
   const location = useLocation();
 
-  const { data: product, handleFormChange, handleFormSubmit, ...productQuery } = useCreateProduct({
+  const { data: product, handleChange, handleSubmit, ...productQuery } = useCreateProduct({
     // optional, anything we want to add to the default object
     initialState: {
       // someKey: someValue
@@ -47,8 +47,8 @@ const CreateProduct = () => {
           cancelLink='/products'
           disabled={productQuery.isFetching}
           formType='create'
-          handleFormChange={handleFormChange}
-          handleFormSubmit={handleFormSubmit}
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
         />
       </WaitOn>
     </ProductLayout>
