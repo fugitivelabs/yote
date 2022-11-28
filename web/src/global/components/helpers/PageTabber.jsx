@@ -114,10 +114,10 @@ const PageTabber = ({
 
 PageTabber.propTypes = {
   pagination: PropTypes.shape({
-    page: PropTypes.number.isRequired
-    , per: PropTypes.number.isRequired
+    page: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired
+    , per: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired
   }).isRequired
-  , totalPages: PropTypes.number.isRequired
+  , totalPages: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired
   , setPage: PropTypes.func.isRequired
 }
 

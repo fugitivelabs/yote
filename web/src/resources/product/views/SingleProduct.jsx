@@ -54,7 +54,7 @@ const SingleProduct = () => {
           <CheckboxInput // clicking the checkbox will change the product in the store using the handleChange function
             label='Featured'
             name='featured'
-            value={product?.featured}
+            value={product?.featured || false}
             disabled={!product}
             change={handleChange}
           />
