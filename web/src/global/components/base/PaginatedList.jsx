@@ -34,10 +34,10 @@ const PaginatedList = ({
 
 PaginatedList.propTypes = {
   className: PropTypes.string
-  , page: PropTypes.number
-  , per: PropTypes.number
+  , page: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+  , per: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
   , setPage: PropTypes.func
-  , totalPages: PropTypes.number
+  , totalPages: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
 }
 
 PaginatedList.defaultProps = {
