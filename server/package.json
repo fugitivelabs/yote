@@ -52,7 +52,7 @@
     "cookie-parser": "^1.4.4",
     "errorhandler": "^1.4.2",
     "es5-shim": "^4.5.9",
-    "express": "^4.14.0",
+    "express": "^4.17.3",
     "express-session": "^1.8.2",
     "isomorphic-fetch": "^2.2.1",
     "jwt-simple": "^0.5.0",
