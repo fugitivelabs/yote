@@ -168,6 +168,7 @@ export const useUpdateProduct = () => {
  * - `product` as `data`: the product object as it currently exists in state
  * - `handleChange`: standard form change handler to be used in the form
  * - `handleSubmit`: standard form submit handler to be used in the form
+ * - `isChanged`: a boolean that is true if the product has pending changes that have not yet been saved via handleSubmit
  * - `setFormState`: a way to handle form state changes in the component instead of `handleChange`, rarely needed but sometimes necessary
  * @example // to use in a component
  * // fetch the product and access everything needed to handle updating it

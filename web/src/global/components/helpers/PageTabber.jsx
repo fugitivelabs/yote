@@ -111,7 +111,6 @@ const PageTabber = ({
   )
 }
 
-
 PageTabber.propTypes = {
   pagination: PropTypes.shape({
     page: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired
@@ -120,6 +119,5 @@ PageTabber.propTypes = {
   , totalPages: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired
   , setPage: PropTypes.func.isRequired
 }
-
 
 export default PageTabber;

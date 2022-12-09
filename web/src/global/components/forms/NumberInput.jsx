@@ -64,6 +64,10 @@ NumberInput.propTypes = {
   , percent: PropTypes.bool
   , required: PropTypes.bool
   , step: PropTypes.string
+  , value: PropTypes.oneOfType([
+    PropTypes.string
+    , PropTypes.number
+  ])
   , value: PropTypes.number.isRequired
 }
 
