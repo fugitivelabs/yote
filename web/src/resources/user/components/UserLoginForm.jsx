@@ -13,7 +13,6 @@ const UserLoginForm = ({
 }) => {
   const location = useLocation();
 
-
   return (
     <div className="border border-solid bg-white shadow-sm rounded-sm mx-auto max-w-lg p-4 mt-16">
       <form name="userForm" onSubmit={handleSubmit}>
@@ -33,19 +32,19 @@ const UserLoginForm = ({
           required={true}
         />
         <div className="p-2">
-          <button className="text-sm p-2 px-8 rounded-full border border-solid bg-white text-gray-800 border border-gray-800 cursor-pointer no-underline font-semibold" type="submit" >Sign in</button>
+          <button className="text-sm p-2 px-8 rounded-full border border-solid bg-white text-gray-800 border-gray-800 cursor-pointer no-underline font-semibold" type="submit" >Sign in</button>
         </div>
       </form>
 
-      <p className="p-2 text-sm">
+      {/* <p className="p-2 text-sm">
         Forgot your password?
         <Link 
-          to="/user/forgot-password" 
+          to="/user/forgot-password" // this doesn't exist yet
           className="mx-2"
         >
           Reset it here
         </Link>
-      </p>
+      </p> */}
       <p className="p-2 text-sm">
         Need an account?
         <Link

@@ -38,9 +38,10 @@ app.use(compression());
 
 // connect to database
 mongoose.connect(config.get('database.uri') + config.get('database.name'), {
-    // mongoose has a lot of depreciation warnings
+    // mongoose has a lot of depreciation warnings: https://stackoverflow.com/questions/51916630/mongodb-mongoose-deprecation-warning
     useNewUrlParser: true
     , useUnifiedTopology: true
+    , useCreateIndex: true
   }).catch(err => console.log("OUCHIE OOOO MY DB", err))
 
 app.use(
