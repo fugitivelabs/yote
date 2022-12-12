@@ -26,7 +26,7 @@ const SearchInput = ({
   const [debouncedValue, setDebouncedValue] = useState(value);
   const handleChange = useCallback((newValue) => {
     change({ target: { name, value: newValue } });
-  }, [change, name])    
+  }, [change, name]);
 
   useEffect(() => {
     // Fire change event after delay
