@@ -26,6 +26,7 @@ const RadioInput = ({
   , name
   , options
   , value
+  , ...inputProps
 }) => {
 
   return (
@@ -41,6 +42,7 @@ const RadioInput = ({
             value={option.val}
             onChange={change}
             checked={option.val === value}
+            {...inputProps}
           />
           <label
             htmlFor={name}

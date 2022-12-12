@@ -18,6 +18,7 @@ const TextAreaInput = ({
   , required
   , rows
   , value
+  , ...inputProps
 }) => {
 
   return (
@@ -44,6 +45,7 @@ const TextAreaInput = ({
         required={required}
         rows={rows}
         value={value}
+        {...inputProps}
       />
       {helpText && <small className="text-xs text-gray-500"><em>{helpText}</em></small>}
     </div>

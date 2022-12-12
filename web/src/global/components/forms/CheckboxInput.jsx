@@ -17,6 +17,7 @@ const CheckboxInput = ({
   , placeholder
   , required
   , value
+  , ...inputProps
 }) => {
 
   return (
@@ -39,6 +40,7 @@ const CheckboxInput = ({
           required={required}
           type="checkbox"
           value={value}
+          {...inputProps}
         />
         {label ? (
            <label
