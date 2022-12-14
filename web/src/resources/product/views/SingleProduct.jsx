@@ -13,7 +13,6 @@ import { useGetUpdatableProduct } from '../productService';
 // import resource components
 import ProductLayout from '../components/ProductLayout.jsx'
 import { CheckboxInput } from '../../../global/components/forms';
-import { useEffect } from 'react';
 
 const SingleProduct = () => {
   // get location. Below is equivalent to const location = this.props.location;

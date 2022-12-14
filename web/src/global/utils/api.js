@@ -87,14 +87,17 @@ const apiUtils = {
       .reduce((returnObj, item) => { return item[0].length > 0 ? { ...returnObj, [item[0]]: item[1] } : returnObj }, {})
   }
   , checkListArgsReady(listArgs) {
+    // can't fetch if no list args are provided
     if(!listArgs) return false;
+    // if listArgs is a string, return true
     if(typeof listArgs === "string") return true;
+    // if listArgs is an empty object, return false
     if(Object.keys(listArgs).length === 0) return false;
-
+    
     let listArgsReady = true;
-    // if ANY list args are undefined, return false
+    // if ANY list args are undefined or an array with 0 length, flip the boolean false
     Object.keys(listArgs).forEach(key => {
-      if(listArgs[key] === undefined) {
+      if((listArgs[key] === undefined) || (Array.isArray(listArgs[key]) && listArgs[key].length === 0)) {
         listArgsReady = false;
       }
     });
