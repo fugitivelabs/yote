@@ -340,6 +340,15 @@ export const selectListItems = (resourceStore, queryKey) => {
 export const selectSingleById = (resourceStore, id) => {
   return resourceStore.byId[id];
 }
+// like selectSingleById but uses the queryKey instead of the id for single fetches with a query
+export const selectSingleByQueryKey = (resourceStore, queryKey) => {
+  const query = selectQuery(resourceStore, queryKey);
+  if(query) {
+    return selectSingleById(resourceStore, query.id);
+  } else {
+    return null;
+  }
+}
 
 /**
  * 
