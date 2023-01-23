@@ -153,6 +153,24 @@ export const handleFetchSingleFulfilled = (state, action, cb) => {
   cb && cb(state, action);
 }
 
+// this is the same as handleFetchSingleFulfilled but it's used for the case where we fetch a single resource from a list
+export const handleFetchSingleFromListFulfilled = (state, action, listKey, cb) => {
+  const { [listKey]: resourceList } = action.payload;
+  if(resourceList.length > 1) console.error('More than one resource returned from list fetch. This should not happen. (handleFetchSingleFromListFulfilled)');
+  const resource = resourceList[0];
+  // add the resource object to the byId map
+  if(resource) {
+    state.byId[resource._id || action.meta.arg] = resource;
+  }
+  // find the query object for this fetch in the singleQueries map and update query info
+  const singleQuery = state.singleQueries[action.meta.arg];
+  singleQuery.id = resource?._id || action.meta.arg; // in case `action.meta.arg` was a query string
+  singleQuery.status = 'fulfilled';
+  singleQuery.receivedAt = Date.now();
+  singleQuery.expirationDate = utilNewExpirationDate();
+  cb && cb(state, action);
+}
+
 export const handleFetchSingleRejected = (state, action, cb) => {
   // find the query object for this fetch in the singleQueries map and update query info
   const singleQuery = state.singleQueries[action.meta.arg];
@@ -229,6 +247,10 @@ export const handleMutationFulfilled = (state, action, cb) => {
   singleQuery.status = 'fulfilled';
   singleQuery.receivedAt = Date.now();
   singleQuery.expirationDate = utilNewExpirationDate();
+  // A resource was just updated. Rather than dealing with adding it to a list or invalidating specific lists from the component we'll just invalidate the listQueries here.
+  Object.keys(state.listQueries).forEach(queryKey => {
+    state.listQueries[queryKey].didInvalidate = true;
+  });
   cb && cb(state, action);
 }
 
