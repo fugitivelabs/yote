@@ -6,6 +6,7 @@ import {
   handleCreateFulfilled
   , handleFetchSinglePending
   , handleFetchSingleFulfilled
+  , handleFetchSingleFromListFulfilled
   , handleFetchSingleRejected
   , handleFetchListPending
   , handleFetchListFulfilled
@@ -25,6 +26,11 @@ import {
 
 
 // First define all API calls for product
+
+// define and export the strings for the different specific product endpoints once here because the idea of using strings in the component gives me hives.
+// we'll catch for these strings on the server side and apply the correct permissions to the query.
+// these are passed in to the productService hooks at the component level as the endpoint argument.
+// export const myExampleEndpoint = 'example-endpoint';
 /**
  * The functions below, called thunks, allow us to perform async logic. They
  * can be dispatched like a regular action: `dispatch(incrementAsync(10))`. This
@@ -59,7 +65,27 @@ export const fetchSingleProduct = createAsyncThunk(
 export const fetchProductList = createAsyncThunk(
   'product/fetchList' // this is the action name that will show up in the console logger.
   , async (listArgs) => {
-    const endpoint = `/api/products?${listArgs}`;
+    const endpoint = `/api/products${listArgs}`;
+    const response = await apiUtils.callAPI(endpoint);
+    // The value we return becomes the `fulfilled` action payload
+    return response;
+  }
+);
+
+// for each resource we can add as many endpoints as we want in this format and we only need two actions to handle them.
+export const fetchSingleProductAtEndpoint = createAsyncThunk(
+  'product/fetchSingleWithFilter' // this is the action name that will show up in the console logger.
+  , async (query) => {
+    const endpoint = `/api/products${query}` // example: `/api/products/logged-in?${queryString}`
+    const response = await apiUtils.callAPI(endpoint);
+    // The value we return becomes the `fulfilled` action payload
+    return response;
+  }
+);
+export const fetchProductListAtEndpoint = createAsyncThunk(
+  'product/fetchListWithFilter' // this is the action name that will show up in the console logger.
+  , async (query) => {
+    const endpoint = `/api/products${query}`; // example: `/api/products/logged-in?${queryString}`
     const response = await apiUtils.callAPI(endpoint);
     // The value we return becomes the `fulfilled` action payload
     return response;
@@ -129,6 +155,16 @@ export const productSlice = createSlice({
       // because lists are returned from the server named for their resource, we need to pass a `listKey` so the util can properly handle the response
       .addCase(fetchProductList.fulfilled, (state, action) => handleFetchListFulfilled(state, action, 'products'))
       .addCase(fetchProductList.rejected, handleFetchListRejected)
+      // permission protected single fetches
+      .addCase(fetchSingleProductAtEndpoint.pending, handleFetchSinglePending)
+      // these endpoints return named lists, we need to pass a `listKey` so the util can properly handle the response
+      .addCase(fetchSingleProductAtEndpoint.fulfilled, (state, action) => handleFetchSingleFromListFulfilled(state, action, 'products'))
+      .addCase(fetchSingleProductAtEndpoint.rejected, handleFetchSingleRejected)
+      // permission protected list fetches
+      .addCase(fetchProductListAtEndpoint.pending, handleFetchListPending)
+      .addCase(fetchProductListAtEndpoint.fulfilled, (state, action) => handleFetchListFulfilled(state, action, 'products'))
+      .addCase(fetchProductListAtEndpoint.rejected, handleFetchListRejected)
+
 
       // UPDATE
       .addCase(sendUpdateProduct.pending, handleMutationPending)
@@ -151,21 +187,21 @@ export const { invalidateQuery, invalidateQueries, addProductToList } = productS
 
 // We can also write thunks by hand, which may contain both sync and async logic.
 // Here's an example of conditionally dispatching actions based on current state.
-
-export const fetchListIfNeeded = (queryKey) => (dispatch, getState) => {
+// updated to accept a listFetch function so we can use it for other list fetches
+export const fetchListIfNeeded = (queryKey, listFetch = fetchProductList) => (dispatch, getState) => {
   const productQuery = getState().product.listQueries[queryKey];
   if(shouldFetch(productQuery)) {
     // console.log('Fetching product list', queryKey);
-    dispatch(fetchProductList(queryKey));
+    dispatch(listFetch(queryKey));
   } else {
     // console.log('No need to fetch, fresh query in cache');
   }
 };
 
-export const fetchSingleIfNeeded = (id) => (dispatch, getState) => {
+export const fetchSingleIfNeeded = (id, singleFetch = fetchSingleProduct) => (dispatch, getState) => {
   const productQuery = getState().product.singleQueries[id];
   if(shouldFetch(productQuery)) {
-    dispatch(fetchSingleProduct(id));
+    dispatch(singleFetch(id));
   } else {
     // console.log('No need to fetch, fresh query in cache');
   }

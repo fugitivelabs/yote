@@ -13,6 +13,7 @@ import apiUtils from '../../global/utils/api';
 import {
   selectListItems
   , selectSingleById
+  , selectSingleByQueryKey
   , selectQuery
 } from '../../global/utils/storeUtils';
 
@@ -32,6 +33,7 @@ export const useGetResourceById = ({
   , sendFetchById
   , sendInvalidateSingle
 }) => {
+  if(!id) throw new Error('useGetResourceById requires an id');
   const isFocused = useIsFocused();
 
   useEffect(() => {
@@ -72,6 +74,79 @@ export const useGetResourceById = ({
     , refetch
   }
 }
+/**
+ * This hook will perform the provided fetch action and return the fetch status and resource from the store.
+ * It's designed to return a single resource from the list endpoints using a query.
+ * 
+ * @param {object} listArgs - an object containing the query args to be used for the fetch (e.g. { _user: userId, featured: true })
+ * @param {object} fromStore - the resource specific store that we're getting the resource from (e.g. store.products, store.users, etc)
+ * @param {function} sendFetchBySingle - the dispatched action to fetch the resource (e.g. (id) => dispatch(fetchSingleWithPermission(queryString)))
+ * @param {function} sendInvalidateSingle - the dispatched action to invalidate the resource (e.g. (id) => dispatch(invalidateQuery(queryString)))
+ * @param {string?} endpoint - the endpoint to be used for the query (e.g. `logged-in`)
+ * @returns an object containing fetch info and eventually the resource (as `data`)
+ * @returns an invalidate and refetch function for convenience
+ */
+export const useGetResource = ({
+  listArgs
+  , fromStore
+  , sendFetchSingle
+  , sendInvalidateSingle
+  , endpoint
+}) => {
+  if(!listArgs) throw new Error('useGetResource requires listArgs');
+  const readyToFetch = apiUtils.checkListArgsReady(listArgs);
+  const isFocused = useIsFocused();
+
+  // convert the query object to a query string for the new server api
+  // also makes it easy to track the lists in the reducer by query string
+  let queryString = apiUtils.queryStringFromObject(listArgs);
+
+  // add the endpoint to the front of the query string if it exists ex: `logged-in?isActive=true`, otherwise just `?isActive=true`
+  queryString = endpoint ? `/${endpoint}?${queryString || ''}` : `?${queryString || ''}`;
+
+  useEffect(() => {
+    if(readyToFetch && isFocused) {
+      sendFetchSingle(queryString);
+    } else {
+      // listArgs aren't ready yet, don't attempt fetch
+      // console.log("still waiting for listArgs");
+    }
+  }, [readyToFetch, sendFetchSingle, queryString, isFocused]);
+
+  // get the query info from the store
+  const { status, error } = selectQuery(fromStore, queryString);
+
+  // get current resource from the store (if it exists)
+  const resource = selectSingleByQueryKey(fromStore, queryString);
+
+  const isFetching = status === 'pending' || status === undefined;
+  const isLoading = isFetching && !resource;
+  const isError = status === 'rejected';
+  const isSuccess = status === 'fulfilled';
+  const isEmpty = isSuccess && !resource;
+
+  const invalidate = () => {
+    sendInvalidateSingle(queryString);
+  }
+
+  const refetch = () => {
+    sendInvalidateSingle(queryString);
+    sendFetchSingle(queryString);
+  }
+
+  // return the info for the caller of the hook to use
+  return {
+    data: resource
+    , error
+    , isFetching
+    , isLoading
+    , isError
+    , isSuccess
+    , isEmpty
+    , invalidate
+    , refetch
+  }
+}
 
 /**
  * This hook will perform the provided fetch action and return the fetch status and resource list from the store.
@@ -88,6 +163,7 @@ export const useGetResourceList = ({
   , fromStore
   , sendFetchList
   , sendInvalidateList
+  , endpoint
 }) => {
   // isFocused is used to make sure we rerender when this screen comes into focus. This way invalidated lists will be refetched without having to interact with the page.
   const isFocused = useIsFocused();
@@ -116,7 +192,10 @@ export const useGetResourceList = ({
 
   // convert the query object to a query string for the new server api
   // also makes it easy to track the lists in the reducer by query string
-  const queryString = apiUtils.queryStringFromObject(listArgs);
+  let queryString = apiUtils.queryStringFromObject(listArgs);
+
+  // add the endpoint to the front of the query string if it exists ex: `logged-in?isActive=true`
+  queryString = endpoint ? `/${endpoint}?${queryString || ''}` : `?${queryString || ''}`;
 
   useEffect(() => {
     if(readyToFetch && isFocused) {
@@ -145,7 +224,9 @@ export const useGetResourceList = ({
 
   // PREFETCH
   // if we are using pagination we can fetch the next page(s) now
-  const nextQueryString = readyToFetch && pagination.page && pagination.page < totalPages ? apiUtils.queryStringFromObject({ ...listArgs, page: Number(pagination.page) + 1, per: pagination.per }) : null;
+  let nextQueryString = readyToFetch && pagination.page && pagination.page < totalPages ? apiUtils.queryStringFromObject({ ...listArgs, page: Number(pagination.page) + 1, per: pagination.per }) : null;
+  // add the endpoint to the front of the query string if it exists ex: `logged-in?isActive=true`
+  nextQueryString = endpoint ? `${endpoint}?${nextQueryString || ''}` : nextQueryString ? `?${nextQueryString || ''}` : null;
 
   useEffect(() => {
     if(nextQueryString) {
@@ -214,9 +295,11 @@ export const useMutateResource = ({
   // setFormState will replace the entire resource object with the new resource object
   // set up a handleChange method to update nested state while preserving existing state(standard reducer pattern)
   const handleChange = e => {
+    const { name, value } = e.target;
+    // use a recursive function to set arbitrailly nested values of any depth (eg. name="key" or name="resource.key" or name="resource.nestedObject.key" etc...)
     setFormState(currentState => {
-      return { ...currentState, [e.target.name]: e.target.value }
-    });
+      return utilSetNestedValue(currentState, name, value);
+    })
   }
 
   const handleSubmit = e => {
@@ -257,8 +340,29 @@ export const useMutateResource = ({
   }
 }
 
+// UTILS
+// used to set arbitrarily nested values in an object, works for any depth
+const utilSetNestedValue = (obj, path, value) => {
+  // split the path at the first dot so parent is the first part and child is the rest
+  const [parent, ...child] = path.split('.');
+  if(child?.length > 0) {
+    // rejoin the child parts with a dot so we can recursively call utilSetNestedValue
+    const childString = child.join('.');
+    // recursively call utilSetNestedValue until we get to the last child
+    return {
+      ...obj
+      , [parent]: utilSetNestedValue(obj[parent], childString, value)
+    }
+  }
+  // if there is no child, we're at the last level, so just set the value
+  return {
+    ...obj
+    , [parent]: value
+  }
+}
 
-  // TYPES - allows jsdoc comments to give us better intellisense
+
+// TYPES - allows jsdoc comments to give us better intellisense
 /**
  * the basic object returned from a standard service hook (e.g. StandardHookResponse = useGetProductById(productId))
  * @typedef {object} ServiceHookResponse

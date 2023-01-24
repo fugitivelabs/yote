@@ -153,6 +153,24 @@ export const handleFetchSingleFulfilled = (state, action, cb) => {
   cb && cb(state, action);
 }
 
+// this is the same as handleFetchSingleFulfilled but it's used for the case where we fetch a single resource from a list
+export const handleFetchSingleFromListFulfilled = (state, action, listKey, cb) => {
+  const { [listKey]: resourceList } = action.payload;
+  if(resourceList.length > 1) console.error('More than one resource returned from list fetch. This should not happen. (handleFetchSingleFromListFulfilled)');
+  const resource = resourceList[0];
+  // add the resource object to the byId map
+  if(resource) {
+    state.byId[resource._id || action.meta.arg] = resource;
+  }
+  // find the query object for this fetch in the singleQueries map and update query info
+  const singleQuery = state.singleQueries[action.meta.arg];
+  singleQuery.id = resource?._id || action.meta.arg; // in case `action.meta.arg` was a query string
+  singleQuery.status = 'fulfilled';
+  singleQuery.receivedAt = Date.now();
+  singleQuery.expirationDate = utilNewExpirationDate();
+  cb && cb(state, action);
+}
+
 export const handleFetchSingleRejected = (state, action, cb) => {
   // find the query object for this fetch in the singleQueries map and update query info
   const singleQuery = state.singleQueries[action.meta.arg];
@@ -229,6 +247,10 @@ export const handleMutationFulfilled = (state, action, cb) => {
   singleQuery.status = 'fulfilled';
   singleQuery.receivedAt = Date.now();
   singleQuery.expirationDate = utilNewExpirationDate();
+  // A resource was just updated. Rather than dealing with adding it to a list or invalidating specific lists from the component we'll just invalidate the listQueries here.
+  Object.keys(state.listQueries).forEach(queryKey => {
+    state.listQueries[queryKey].didInvalidate = true;
+  });
   cb && cb(state, action);
 }
 
@@ -318,6 +340,15 @@ export const selectListItems = (resourceStore, queryKey) => {
 export const selectSingleById = (resourceStore, id) => {
   return resourceStore.byId[id];
 }
+// like selectSingleById but uses the queryKey instead of the id for single fetches with a query
+export const selectSingleByQueryKey = (resourceStore, queryKey) => {
+  const query = selectQuery(resourceStore, queryKey);
+  if(query) {
+    return selectSingleById(resourceStore, query.id);
+  } else {
+    return null;
+  }
+}
 
 /**
  * 
@@ -334,4 +365,29 @@ export const selectQuery = (resourceStore, queryKey) => {
 
 const utilNewExpirationDate = () => {
   return Date.now() + (1000 * 60 * 5); // 5 minutes from now
+}
+
+/**
+ * Parse listArgs and endpoint from the arguments passed into the query functions
+ * 
+ * @param {...string | object | null} args - accepts two optional arguments: a string (endpoint) or an object (listArgs) or both as (endpoint, listArgs)
+ * @returns {{endpoint: string | null, listArgs: object | string}}
+ */
+ export const parseQueryArgs = (...args) => {
+  // set up defaults
+  let endpoint = null;
+  let listArgs = 'all';
+  // loop through the args to determine what was passed in
+  args.forEach(arg => {
+    if(typeof arg === 'string') {
+      // string means endpoint
+      endpoint = arg;
+    } else if(typeof arg === 'object') {
+      // object means listArgs
+      listArgs = arg;
+    } else {
+      console.error('parseQueryArgs: invalid argument passed in, must be a string or an object', arg);
+    }
+  });
+  return { endpoint, listArgs };
 }
