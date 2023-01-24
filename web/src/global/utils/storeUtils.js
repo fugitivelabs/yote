@@ -366,3 +366,28 @@ export const selectQuery = (resourceStore, queryKey) => {
 const utilNewExpirationDate = () => {
   return Date.now() + (1000 * 60 * 5); // 5 minutes from now
 }
+
+/**
+ * Parse listArgs and endpoint from the arguments passed into the query functions
+ * 
+ * @param {...string | object | null} args - accepts two optional arguments: a string (endpoint) or an object (listArgs) or both as (endpoint, listArgs)
+ * @returns {{endpoint: string | null, listArgs: object | string}}
+ */
+ export const parseQueryArgs = (...args) => {
+  // set up defaults
+  let endpoint = null;
+  let listArgs = 'all';
+  // loop through the args to determine what was passed in
+  args.forEach(arg => {
+    if(typeof arg === 'string') {
+      // string means endpoint
+      endpoint = arg;
+    } else if(typeof arg === 'object') {
+      // object means listArgs
+      listArgs = arg;
+    } else {
+      console.error('parseQueryArgs: invalid argument passed in, must be a string or an object', arg);
+    }
+  });
+  return { endpoint, listArgs };
+}
