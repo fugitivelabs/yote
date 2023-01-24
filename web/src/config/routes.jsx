@@ -9,7 +9,7 @@
  */
 
 // import primary libraries
-import React from 'react';
+import React, { lazy } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 // import YTRoute from '../global/components/routing/YTRoute.jsx';
@@ -22,9 +22,10 @@ import _ from 'lodash';
 import * as resourceRoutes from './resourceRoutes.js';
 
 // // import custom components
-import Forbidden from '../global/components/navigation/Forbidden.jsx';
 import Landing from '../global/components/landing/Landing.jsx';
-import NotFound from '../global/components/navigation/NotFound.jsx';
+// lazy load the rest to reduce initial bundle size, most users will never need them
+const Forbidden = lazy(() => import('../global/components/navigation/Forbidden.jsx'));
+const NotFound = lazy(() => import('../global/components/navigation/NotFound.jsx'));
 
 // import AdminRouter from '../global/admin/AdminRouter.jsx';
 
@@ -32,10 +33,10 @@ const routes =
   <Switch>
     <Route exact path="/" component={Landing} />
     <Route path="/unauthorized" component={Forbidden} />
-    { Object.keys(resourceRoutes).map((resourceName, i) =>
+    {Object.keys(resourceRoutes).map((resourceName, i) =>
       <Route
         component={resourceRoutes[resourceName]}
-        key={Math.floor(Math.random()*100000)}
+        key={Math.floor(Math.random() * 100000)}
         path={`/${_.kebabCase(resourceName)}`}
       />
     )}

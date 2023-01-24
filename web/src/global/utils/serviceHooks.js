@@ -5,7 +5,7 @@
 
 
 import { useEffect, useState } from 'react';
-import { usePagination, useIsFocused } from '../../global/utils/customHooks';
+import { useIsFocused } from '../../global/utils/customHooks';
 import _ from 'lodash';
 
 import apiUtils from '../../global/utils/api';

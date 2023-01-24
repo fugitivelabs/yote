@@ -19,6 +19,7 @@ const NumberInput = ({
   , required
   , step
   , value
+  , ...inputProps
 }) => {
   return (
     <div className="relative z-0 w-full mb-4 lg:w-auto">
@@ -45,6 +46,7 @@ const NumberInput = ({
         onChange={change}
         disabled={disabled}
         required={required}
+        {...inputProps}
       />
       {/* {percent && <span className="">%</span>} */}
       {helpText && <small className="text-xs text-gray-500"><em>{helpText}</em></small>}
@@ -68,7 +70,6 @@ NumberInput.propTypes = {
     PropTypes.string
     , PropTypes.number
   ])
-  , value: PropTypes.number.isRequired
 }
 
 NumberInput.defaultProps = {

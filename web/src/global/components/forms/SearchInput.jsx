@@ -26,7 +26,7 @@ const SearchInput = ({
   const [debouncedValue, setDebouncedValue] = useState(value);
   const handleChange = useCallback((newValue) => {
     change({ target: { name, value: newValue } });
-  }, [change, name])
+  }, [change, name]);
 
   useEffect(() => {
     // Fire change event after delay
@@ -39,11 +39,14 @@ const SearchInput = ({
     };
   }, [handleChange, debouncedValue, debounceTime]);
 
+  // Update debounced value if value changes (typically from outside)
   useEffect(() => {
     if(value !== debouncedValue) {
       setDebouncedValue(value);
     }
-  }, [value]);
+    // react complains that we should include debounceValue in the deps array, but that would cause an infinite loop
+    // this is only here to update the debounced value if the value prop changes outside of this component, which is rare
+  }, [value]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div

@@ -11,6 +11,8 @@
  * This will give it a top-level route path called 'user-workouts'
  */
 
+import { lazy } from 'react';
 
-export { default as user } from '../resources/user/UserRouter.jsx';
-export { default as products } from '../resources/product/ProductRouter.jsx';
+// lazy load the routes so they aren't included in the intial bundle and don't load until they are needed or until we decide to preload them (on App.jsx)
+export const user = lazy(() => import('../resources/user/UserRouter.jsx'));
+export const products = lazy(() => import('../resources/product/ProductRouter.jsx'));
