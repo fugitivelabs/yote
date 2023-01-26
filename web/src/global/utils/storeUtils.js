@@ -147,16 +147,16 @@ export const handleFetchSingleFulfilled = (state, action, cb) => {
   state.byId[resource._id || action.meta.arg] = resource;
   // find the query object for this fetch in the singleQueries map and update query info
   const singleQuery = state.singleQueries[action.meta.arg];
+  singleQuery.id = resource._id || action.meta.arg; // in case `action.meta.arg` was a query string
   singleQuery.status = 'fulfilled';
   singleQuery.receivedAt = Date.now();
   singleQuery.expirationDate = utilNewExpirationDate();
   cb && cb(state, action);
 }
-
 // this is the same as handleFetchSingleFulfilled but it's used for the case where we fetch a single resource from a list
 export const handleFetchSingleFromListFulfilled = (state, action, listKey, cb) => {
   const { [listKey]: resourceList } = action.payload;
-  if(resourceList.length > 1) console.error('More than one resource returned from list fetch. This should not happen. (handleFetchSingleFromListFulfilled)');
+  if(resourceList.length > 1) console.error(`More than one resource returned from list fetch. This should not happen. (handleFetchSingleFromListFulfilled for ${listKey} with args ${action.meta.arg})`);
   const resource = resourceList[0];
   // add the resource object to the byId map
   if(resource) {
@@ -223,6 +223,8 @@ export const handleFetchListRejected = (state, action, cb) => {
   listQuery.status = 'rejected';
   listQuery.error = action.error.message;
   listQuery.receivedAt = Date.now();
+  listQuery.totalPages = 0;
+  listQuery.totalCount = 0;
   cb && cb(state, action);
 }
 
@@ -373,19 +375,19 @@ const utilNewExpirationDate = () => {
  * @param {...string | object | null} args - accepts two optional arguments: a string (endpoint) or an object (listArgs) or both as (endpoint, listArgs)
  * @returns {{endpoint: string | null, listArgs: object | string}}
  */
- export const parseQueryArgs = (...args) => {
+export const parseQueryArgs = (...args) => {
   // set up defaults
   let endpoint = null;
   let listArgs = 'all';
   // loop through the args to determine what was passed in
-  args.forEach(arg => {
+  args?.forEach(arg => {
     if(typeof arg === 'string') {
       // string means endpoint
       endpoint = arg;
     } else if(typeof arg === 'object') {
       // object means listArgs
       listArgs = arg;
-    } else {
+    } else if(!!arg) {
       console.error('parseQueryArgs: invalid argument passed in, must be a string or an object', arg);
     }
   });
