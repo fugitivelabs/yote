@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* ↓↓↓ Applys Tailwind utility classes to establish some baseline global styles. */
+  * { @apply box-border; }
+  
+  body, p, ol, ul, td { @apply font-sans leading-5 m-0 text-gray-800; }
+  
+  a { @apply text-gray-800; }
+  
+  a:hover { @apply bg-green-400; }
+  
+  label { @apply block; }
+  
+  button { @apply m-0; }
+  
+  ul { @apply m-0 p-0; }
+  /* ꜛꜛꜛ End baseline global styles */
+}
+
+
+@layer components {
+  /* Add any necessary component level semantic classes here... for exmaple: */
+  /* .btn {
+    @apply text-sm p-2 px-8 rounded-full border border-solid bg-white text-gray-800 border border-gray-800 cursor-pointer hover:bg-green-400 no-underline font-semibold;
+  } */
+}
+
+
+@layer utilities {
+  /* Add new utility classes here,,, for example: */
+  /* .h-half-screen {
+    height: 50vh;
+  } */
+}

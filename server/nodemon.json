@@ -1,9 +1,0 @@
-{
-  "verbose": false
-  , "ext": "js jade json scss"
-  , "ignore": [
-    "web"
-    , "static"
-    , "node_modules"
-  ]
-}

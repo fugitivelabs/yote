@@ -2,92 +2,57 @@
 
 // import react things
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 
 // import react-native components
 import {
-  Dimensions
-  , Image
-  , FlatList
-  , Platform
-  , RefreshControl
-  , ScrollView
-  , StyleSheet
-  , Text
-  , TouchableHighlight
+  ScrollView
   , View
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
-// import actions
-import * as productActions from '../productActions';
+// import global  components
+import WaitOn from '../../../global/components/helpers/WaitOn';
+import YTButton from '../../../global/buttons/YTButton';
+import YTHeader from '../../../global/headers/YTHeader'; 
 
-// import global components
-import Binder from '../../../global/Binder';
-
-// import module components
+// import resource components
 import ProductListItem from './ProductListItem';
 
-// import styles
-import YTStyles from '../../../global/styles/YTStyles';
+// Import tailwind with config
+import tw from '../../../global/styles/tailwind/twrnc'; 
 
-class ProductList extends Binder {
-  constructor(props) {
-    super(props);
-    this.state = {
-      refreshing: false
-    }
-    this._bind(
-      '_handleRefresh'
-      , '_openProduct'
-      , '_renderSeparator'
-    )
-  }
+// import services
+import { useGetProductList } from '../productService';
 
-  _handleRefresh() {
-    this.props.dispatch(productActions.fetchList()).then(() => {
-    });
-  }
+const ProductList = () => {
+  const { data: products, ids, ...productQuery } = useGetProductList({});
+  const navigation = useNavigation(); 
 
-  _openProduct(product) {
-    this.props.navigation.navigate('SingleProduct', {product: product});
-  }
-
-  _renderSeparator() {
-    return (
-      <View style={YTStyles.separator}/>
-    )
-  }
-
-  render() {
-    const { products } = this.props;
-    const isEmpty = !products || products.length < 1;
-
-   return (
-     <View style={YTStyles.container}>
-        <FlatList
-          data={products}
-          keyExtractor={(product, index) => index.toString()}
-          ItemSeparatorComponent={() => this._renderSeparator()}
-          onRefresh={this._handleRefresh}
-          refreshing={this.state.refreshing}
-          renderItem={(product) => 
-            <ProductListItem
-              product={product.item}
-              onPress={() => this._openProduct(product.item)}
-            />
-          }
-        />
-     </View>
-   )
-  }
+  return (
+    <View style={{flex: 1}}>
+      <YTHeader
+        title="Products"
+        // rightItem={rightItem}
+      />
+      <ScrollView style={tw`p-2`}>
+        <View style={tw`p-2`}>
+          <YTButton
+            caption={"New Product"}
+            onPress={() => navigation.navigate('CreateProduct')}
+          />
+        </View>
+        <WaitOn query={productQuery} fallback={<Skeleton />}>
+          {products?.map(product => <ProductListItem key={product._id} id={product._id} onPress={() => navigation.navigate('SingleProduct', { productId: product._id })}/>)}
+          {/* {ids?.map(productId => <ProductListItem key={productId} id={productId} />)} */}
+        </WaitOn>
+      </ScrollView>
+    </View>
+  )
 }
 
-const mapStoreToProps = (store) => {
-  return {
-    user: store.user.loggedIn.user
-    , productMap: store.product.byId
-  }
+const Skeleton = ({ count = 10 }) => {
+  const items = new Array(count).fill('product-list-item-skeleton');
+  return items.map((name, index) => <ProductListItem.Skeleton key={`${name} ${index}`} />)
 }
 
-export default connect(mapStoreToProps)(ProductList);
+export default ProductList;

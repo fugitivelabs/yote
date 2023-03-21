@@ -15,77 +15,15 @@ import {
   , View
 } from 'react-native'; 
 
+import env from '../../env'; 
+
 // import global components
 import Binder from '../Binder';
 
-// import Styles
-import YTStyles from '../styles/YTStyles'; 
-
-const STATUS_BAR_HEIGHT = (Platform.OS === 'ios' && Dimensions.get('window').height === 812) ? 30 : Platform.OS === 'android' ? 10 : 20;
-const HEADER_HEIGHT = 80;
-const IMAGE_SIZE = 25;
-const FONT = Platform.OS === 'android' ? 'sans-serif-condensed' : 'AvenirNextCondensed-DemiBold';
-
-var styles = StyleSheet.create({
-  centerItem: {
-    flex: 2
-    , alignItems: 'center'
-  }
-  , header: {
-      alignItems: 'center'
-      , backgroundColor: YTStyles.colors.header
-      , borderBottomWidth: 1
-      , borderColor: YTStyles.colors.separator
-      , flexDirection: 'row'
-      , height: HEADER_HEIGHT
-      , justifyContent: 'space-between'
-      , paddingTop: Platform.OS == 'ios' ? STATUS_BAR_HEIGHT : 0
-    }
-  , iconStyle: {
-      height: IMAGE_SIZE
-      , width: IMAGE_SIZE
-      , tintColor: YTStyles.colors.headerText
-    }
-  , imageStyle: {
-      height: IMAGE_SIZE
-      , width: IMAGE_SIZE
-      , borderRadius: IMAGE_SIZE * 0.5
-    }
-  , itemText: {
-      color: 'white'
-      , fontSize: 12
-      , letterSpacing: 1
-    }
-  , itemWrapper: {
-      padding: 8
-    }
-  , leftItem: {
-      alignItems: 'flex-start'
-      , flex: 1
-    }
-  , rightItem: {
-      alignItems: 'flex-end'
-      , flex: 1
-    }
-  , titleText: {
-      color: YTStyles.colors.headerText
-      , fontFamily: FONT
-      , fontSize: 20
-      , fontWeight: '600'
-    }
-  , toolbar: {
-      height: HEADER_HEIGHT - STATUS_BAR_HEIGHT
-    }
-  , toolbarContainer: {
-      paddingTop: STATUS_BAR_HEIGHT
-    }
-});
+// Import tailwind with config
+import tw from '../styles/tailwind/twrnc'; 
 
 class ItemWrapperIOS extends React.Component {
-  props: {
-    color: string;
-    item: Item;
-  };
 
   render() {
     const {item, color} = this.props;
@@ -94,21 +32,25 @@ class ItemWrapperIOS extends React.Component {
     }
 
     let content;
-    const {title, icon, layout, onPress, image} = item;
+    const {title, icon, layout, onPress, image, subText} = item;
     if ((layout !== 'icon' || layout !== 'image')  && title) {
       content = (
-        <Text style={[styles.itemText, {color}]}>
-          {title.toUpperCase()}
-        </Text>
+        <View style={tw`flex-1 justify-center`}>
+          <Text style={[tw`text-white font-base`, {color}]}>{title.charAt(0).toUpperCase() + title.slice(1)}</Text>
+          {subText ?
+            <Text style={[tw`text-white font-base`, {color: color}]}>{subText}</Text>
+          : null
+          }
+        </View>
       );
     } else if (layout === 'image' && image) {
       content = <Image
         source={image}
         resizeMode={"cover"}
-        style={styles.imageStyle}
+        style={tw`w-4 h-4`}
         />;
     } else if (icon) {
-      content = <Image source={icon} resizeMode="contain" style={styles.iconStyle}/>;
+      content = <Image source={icon} resizeMode="contain" style={tw`w-4 h-4`}/>;
     }
 
     return (
@@ -116,7 +58,7 @@ class ItemWrapperIOS extends React.Component {
         accessibilityLabel={title}
         accessibilityTraits="button"
         onPress={onPress}
-        style={styles.itemWrapper}>
+        style={tw`px-2`}>
         {content}
       </TouchableOpacity>
     );
@@ -146,7 +88,6 @@ class YTHeader extends Binder {
 
     const titleColor = 'white';
 
-    let itemsColor = YTStyles.colors.headerText;
     let headerBackground;
     let titleStyle;
     if(headerStyle) {
@@ -156,26 +97,29 @@ class YTHeader extends Binder {
     }
 
     return(
-      <View style={[styles.header, headerBackground]}>
-        <View style={styles.leftItem}>
-          <ItemWrapperIOS
-            item={leftItem}
-            color={itemsColor}
-          />
-        </View>
-        <View
-          accessible={true}
-          accessibilityLabel={title}
-          accessibilityTraits="header"
-          style={[styles.centerItem]}
-        >
-          <Text style={[styles.titleText, titleStyle]}> {title} </Text>
-        </View>
-        <View style={styles.rightItem}>
-          <ItemWrapperIOS
-            item={rightItem}
-            color={itemsColor}
-          />
+      <View>
+        <View style={tw.style('bg-red-500', { 'iosStatusBarHeight': Platform.OS != 'android' }, { 'androidStatusBarHeight': Platform.OS == 'android'})}></View>
+        <View style={tw.style(`flex-row items-center justify-between bg-red-500 w-full relative`, { 'iosHeaderHeight': Platform.OS != 'android' }, { 'androidHeaderHeight': Platform.OS == 'android'}, headerBackground)}>
+          <View style={tw`flex-row items-start w-1/4`}>
+            <ItemWrapperIOS
+              item={leftItem}
+              color={titleColor}
+            />
+          </View>
+          <View
+            accessible={true}
+            accessibilityLabel={title}
+            accessibilityTraits="header"
+            style={tw`w-1/2`}
+          >
+            <Text numberOfLines={1} style={[tw`text-xl text-white font-bold text-center`, titleStyle]}> {title} </Text>
+          </View>
+          <View style={tw`flex-row items-end w-1/4`}>
+            <ItemWrapperIOS
+              item={rightItem}
+              color={titleColor}
+            />
+          </View>
         </View>
       </View>
     )
