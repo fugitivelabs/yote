@@ -33,7 +33,6 @@ export const useGetResourceById = ({
   , sendFetchById
   , sendInvalidateSingle
 }) => {
-  if(!id) throw new Error('useGetResourceById requires an id');
   const isFocused = useIsFocused();
 
   useEffect(() => {
@@ -226,7 +225,7 @@ export const useGetResourceList = ({
   // if we are using pagination we can fetch the next page(s) now
   let nextQueryString = readyToFetch && pagination.page && pagination.page < totalPages ? apiUtils.queryStringFromObject({ ...listArgs, page: Number(pagination.page) + 1, per: pagination.per }) : null;
   // add the endpoint to the front of the query string if it exists ex: `logged-in?isActive=true`
-  nextQueryString = endpoint ? `${endpoint}?${nextQueryString || ''}` : nextQueryString ? `?${nextQueryString || ''}` : null;
+  nextQueryString = endpoint ? `/${endpoint}?${nextQueryString || ''}` : nextQueryString ? `?${nextQueryString || ''}` : null;
 
   useEffect(() => {
     if(nextQueryString) {
